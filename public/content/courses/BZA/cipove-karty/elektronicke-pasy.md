@@ -88,6 +88,9 @@ Slabiny:
 
 **Lekce:** BAC chrání jen proti *naivnímu* skimming, ne proti *aktivnímu útoku*. Stále povinné pro všechny e-pasy (legacy compatibility).
 
+::: viz bac-entropy "Vyber schema (USA sekvencni / EU random / slaby system) a sleduj efektivni entropii MRZ + ocekavany brute-force cas na ruzne mnozství GPU. Sekvencni pasporty padaji za hodiny."
+:::
+
 ## AA — Active Authentication
 
 **Cíl:** dokázat, že pas je *originál*, nikoli klon.

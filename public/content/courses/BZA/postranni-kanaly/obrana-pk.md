@@ -87,6 +87,9 @@ kde $s_1, \ldots, s_d$ jsou *čerstvé* random shares, $s_0 = s \oplus s_1 \oplu
 * **Lineární operace** (XOR, AddRoundKey v AES) jsou triviální: $s \oplus k = (s_0 \oplus k_0) \oplus (s_1 \oplus k_1) \oplus \cdots$ — XOR shares po dvou.
 * **Nelineární operace** (S-box) jsou *obtížné*: $S(s)$ nelze rozdělit triviálně. Vyžaduje **masked S-box** — předpočítané tabulky nebo bitsliced implementace.
 
+::: viz boolean-masking "Tajny byte rozdeleny na d+1 sdilenych shares. Sleduj, ze kazdy share alone je uniform (utocnik s 1 probe nic neziska); rekonstrukce vyzaduje vsechny shares."
+:::
+
 ### d-th order security
 
 * **First-order masking** ($d=1$) — chrání proti *first-order* DPA, kde útočník měří *jedno* statistické moment (mean correlation).

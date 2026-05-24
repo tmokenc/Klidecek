@@ -74,6 +74,9 @@ BLE bezpečnost se vyvíjela přes 4 hlavní verze:
 * **Passkey Entry** — 6-digit PIN (1 milión kombinací). Pairing protokol odhaluje PIN přes 5 výzev — *brute-forceable za ~5 sekund*.
 * **Out of Band (OOB)** — vyžaduje secondary channel (NFC) pro key exchange. Bezpečný, ale málo používaný.
 
+::: viz ble-crackle "Zachyt pairing handshake, spust Crackle brute force 10^6 PIN. LE Secure Connections (BLE 4.2+) s ECDH P-256 utok znemozni."
+:::
+
 **Útok č. 1 — Crackle**
 
 [Mike Ryan 2013](https://lacklustre.net/projects/crackle/):

@@ -66,6 +66,9 @@ V každém kroku:
 2. **Posune se ten registr, jehož $C_i$ rovná se $m$.** Tj. 2 nebo 3 ze 3 registrů se v každém kroku posunou; každý registr se posune *průměrně v 75 %* kroků.
 3. **Výstupní bit** keystreamu = XOR posledních bitů (MSB) všech tří registrů.
 
+::: viz a51-clocking "A5/1 majority clocking — krokuj a sleduj, ktery registr se v dane iteraci posune. Po N tikani by se kazdy registr mel posunout v ≈ 75 % kroku."
+:::
+
 ### Inicializace
 
 Klíčový materiál:

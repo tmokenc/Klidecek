@@ -90,6 +90,9 @@ end:
 
 Alternativně: glitch na instrukci (4) — `a = a - 1` přeskočena. Smyčka *nekonečná*, vysílá data z paměti dokud něco nezpůsobí externí přerušení.
 
+::: viz glitch-pin "Vyber scenar (vystupni cyklus / PIN check), klikni na instrukci, kterou glitchnes. Sleduj, jak se zmeni vystup — od dumpu pameti az po PIN bypass."
+:::
+
 ## Cíle glitch útoku
 
 1. **Výstupní cyklus** — viz výše, dump paměti.

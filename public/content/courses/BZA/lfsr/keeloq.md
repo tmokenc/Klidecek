@@ -47,6 +47,9 @@ Rolling code řeší klasický problém *replay attack* u dálkového ovládače
 
 **Bezpečnostní vlastnost:** každý vyslaný kód je *jiný*. Odposlech kódu nepomůže, protože další stisk vyžaduje *vyšší* čítač.
 
+::: viz keeloq-window "Stiskni tlacitko, zachyt paket, zkus replay. Vyzkousej obe varianty okna (short vs. wide) a co se stane pri stisku mimo dosah."
+:::
+
 ## Šifra KeeLoq — struktura
 
 KeeLoq je 64-bit *block cipher* postavená na **nonlinear feedback shift register** (NLFSR):

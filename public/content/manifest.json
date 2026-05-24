@@ -1,265 +1,113 @@
 {
   "$schema": "Edit this file to add specializations, courses, topics, subtopics, and exam-topic sets. See FRAMEWORK.md for details.",
   "specializations": [
-    {
-      "id": "NVIZ",
-      "name": "Computer Graphics & Visualization",
-      "short": "Graphics",
-      "hue": 264,
-      "blurb": "Rendering, geometry processing, real-time and offline graphics."
-    },
-    {
-      "id": "NMAL",
-      "name": "Machine Learning",
-      "short": "ML",
-      "hue": 22,
-      "blurb": "Statistical learning, deep nets, optimization, applied ML."
-    },
-    {
-      "id": "NSEN",
-      "name": "Software Engineering",
-      "short": "SW Eng",
-      "hue": 142,
-      "blurb": "Architecture, testing, modelling, large-scale software."
-    },
-    {
-      "id": "NSEC",
-      "name": "Cybersecurity",
-      "short": "Security",
-      "hue": 340,
-      "blurb": "Cryptography, network security, secure code, forensics."
-    },
-    {
-      "id": "NISD",
-      "name": "Information Systems & Databases",
-      "short": "Info Systems",
-      "hue": 200,
-      "blurb": "Database internals, data engineering, distributed storage."
-    },
-    {
-      "id": "NISY",
-      "name": "Intelligent Systems",
-      "short": "AI",
-      "hue": 80,
-      "blurb": "Knowledge representation, planning, agents, soft computing."
-    }
+    { "id": "NVIZ", "name": "Computer Graphics & Visualization", "short": "Graphics",     "hue": 264, "blurb": "Rendering, geometry processing, real-time and offline graphics." },
+    { "id": "NMAL", "name": "Machine Learning",                  "short": "ML",           "hue": 22,  "blurb": "Statistical learning, deep nets, optimization, applied ML." },
+    { "id": "NSEN", "name": "Software Engineering",              "short": "SW Eng",       "hue": 142, "blurb": "Architecture, testing, modelling, large-scale software." },
+    { "id": "NSEC", "name": "Cybersecurity",                     "short": "Security",     "hue": 340, "blurb": "Cryptography, network security, secure code, forensics." },
+    { "id": "NISD", "name": "Information Systems & Databases",   "short": "Info Systems", "hue": 200, "blurb": "Database internals, data engineering, distributed storage." },
+    { "id": "NISY", "name": "Intelligent Systems",               "short": "AI",           "hue": 80,  "blurb": "Knowledge representation, planning, agents, soft computing." }
   ],
+
   "courses": [
     {
       "id": "PRL",
       "name": "Paralelní a distribuované algoritmy",
       "credits": 5,
       "semester": "Winter",
-      "specializations": [
-        "NSEN",
-        "NISY"
-      ],
+      "specializations": ["NSEN", "NISY"],
       "blurb": "Paralelní architektury (Flynn, dataflow, redukční), PRAM model, paralelní algoritmy, distribuované systémy a konsensus. VUT FIT — Zbořil ml., Hanáček.",
       "topics": [
         {
           "id": "zaklady",
           "title": "Úvod, paralelizace a zrychlení",
           "subtopics": [
-            {
-              "id": "paralelizace-uvod",
-              "src": "content/courses/PRL/zaklady/paralelizace-uvod.md"
-            },
-            {
-              "id": "amdahl-gustafson",
-              "src": "content/courses/PRL/zaklady/amdahl-gustafson.md"
-            },
-            {
-              "id": "flynn-klasifikace",
-              "src": "content/courses/PRL/zaklady/flynn-klasifikace.md"
-            },
-            {
-              "id": "ne-vn-architektury",
-              "src": "content/courses/PRL/zaklady/ne-vn-architektury.md"
-            }
+            { "id": "paralelizace-uvod",   "src": "content/courses/PRL/zaklady/paralelizace-uvod.md" },
+            { "id": "amdahl-gustafson",    "src": "content/courses/PRL/zaklady/amdahl-gustafson.md" },
+            { "id": "flynn-klasifikace",   "src": "content/courses/PRL/zaklady/flynn-klasifikace.md" },
+            { "id": "ne-vn-architektury",  "src": "content/courses/PRL/zaklady/ne-vn-architektury.md" }
           ]
         },
         {
           "id": "pram",
           "title": "PRAM model (EREW / CREW / CRCW)",
           "subtopics": [
-            {
-              "id": "pram-uvod",
-              "src": "content/courses/PRL/pram/pram-uvod.md"
-            },
-            {
-              "id": "pram-varianty",
-              "src": "content/courses/PRL/pram/pram-varianty.md"
-            },
-            {
-              "id": "pram-simulace",
-              "src": "content/courses/PRL/pram/pram-simulace.md"
-            },
-            {
-              "id": "pram-algoritmy",
-              "src": "content/courses/PRL/pram/pram-algoritmy.md"
-            }
+            { "id": "pram-uvod",       "src": "content/courses/PRL/pram/pram-uvod.md" },
+            { "id": "pram-varianty",   "src": "content/courses/PRL/pram/pram-varianty.md" },
+            { "id": "pram-simulace",   "src": "content/courses/PRL/pram/pram-simulace.md" },
+            { "id": "pram-algoritmy",  "src": "content/courses/PRL/pram/pram-algoritmy.md" }
           ]
         },
         {
           "id": "komunikace",
           "title": "Komunikační operace (broadcast, scatter, gather, prefix sum)",
           "subtopics": [
-            {
-              "id": "topologie",
-              "src": "content/courses/PRL/komunikace/topologie.md"
-            },
-            {
-              "id": "broadcast-redukce",
-              "src": "content/courses/PRL/komunikace/broadcast-redukce.md"
-            },
-            {
-              "id": "scatter-gather",
-              "src": "content/courses/PRL/komunikace/scatter-gather.md"
-            },
-            {
-              "id": "prefix-sum-uvod",
-              "src": "content/courses/PRL/komunikace/prefix-sum-uvod.md"
-            },
-            {
-              "id": "prefix-sum-algoritmus",
-              "src": "content/courses/PRL/komunikace/prefix-sum-algoritmus.md"
-            }
+            { "id": "topologie",                "src": "content/courses/PRL/komunikace/topologie.md" },
+            { "id": "broadcast-redukce",        "src": "content/courses/PRL/komunikace/broadcast-redukce.md" },
+            { "id": "scatter-gather",           "src": "content/courses/PRL/komunikace/scatter-gather.md" },
+            { "id": "prefix-sum-uvod",          "src": "content/courses/PRL/komunikace/prefix-sum-uvod.md" },
+            { "id": "prefix-sum-algoritmus",    "src": "content/courses/PRL/komunikace/prefix-sum-algoritmus.md" }
           ]
         },
         {
           "id": "vyhledavani-trideni",
           "title": "Paralelní vyhledávání a třídění",
           "subtopics": [
-            {
-              "id": "vyhledavani",
-              "src": "content/courses/PRL/vyhledavani-trideni/vyhledavani.md"
-            },
-            {
-              "id": "splitting-select",
-              "src": "content/courses/PRL/vyhledavani-trideni/splitting-select.md"
-            },
-            {
-              "id": "transposition-enumeration",
-              "src": "content/courses/PRL/vyhledavani-trideni/transposition-enumeration.md"
-            },
-            {
-              "id": "merge-radici",
-              "src": "content/courses/PRL/vyhledavani-trideni/merge-radici.md"
-            },
-            {
-              "id": "radici-vyber",
-              "src": "content/courses/PRL/vyhledavani-trideni/radici-vyber.md"
-            }
+            { "id": "vyhledavani",                 "src": "content/courses/PRL/vyhledavani-trideni/vyhledavani.md" },
+            { "id": "splitting-select",            "src": "content/courses/PRL/vyhledavani-trideni/splitting-select.md" },
+            { "id": "transposition-enumeration",   "src": "content/courses/PRL/vyhledavani-trideni/transposition-enumeration.md" },
+            { "id": "merge-radici",                "src": "content/courses/PRL/vyhledavani-trideni/merge-radici.md" },
+            { "id": "radici-vyber",                "src": "content/courses/PRL/vyhledavani-trideni/radici-vyber.md" }
           ]
         },
         {
           "id": "matice",
           "title": "Paralelní maticové operace",
           "subtopics": [
-            {
-              "id": "transpozice",
-              "src": "content/courses/PRL/matice/transpozice.md"
-            },
-            {
-              "id": "nasobeni-matic-mesh",
-              "src": "content/courses/PRL/matice/nasobeni-matic-mesh.md"
-            },
-            {
-              "id": "nasobeni-matic-cube",
-              "src": "content/courses/PRL/matice/nasobeni-matic-cube.md"
-            },
-            {
-              "id": "nasobeni-matice-vektor",
-              "src": "content/courses/PRL/matice/nasobeni-matice-vektor.md"
-            }
+            { "id": "transpozice",              "src": "content/courses/PRL/matice/transpozice.md" },
+            { "id": "nasobeni-matic-mesh",      "src": "content/courses/PRL/matice/nasobeni-matic-mesh.md" },
+            { "id": "nasobeni-matic-cube",      "src": "content/courses/PRL/matice/nasobeni-matic-cube.md" },
+            { "id": "nasobeni-matice-vektor",   "src": "content/courses/PRL/matice/nasobeni-matice-vektor.md" }
           ]
         },
         {
           "id": "stromy",
           "title": "Kontrakce stromu — Rake + Compress, expression eval",
           "subtopics": [
-            {
-              "id": "euler-tour",
-              "src": "content/courses/PRL/stromy/euler-tour.md"
-            },
-            {
-              "id": "euler-aplikace",
-              "src": "content/courses/PRL/stromy/euler-aplikace.md"
-            },
-            {
-              "id": "kontrakce-uvod",
-              "src": "content/courses/PRL/stromy/kontrakce-uvod.md"
-            },
-            {
-              "id": "expression-eval",
-              "src": "content/courses/PRL/stromy/expression-eval.md"
-            }
+            { "id": "euler-tour",       "src": "content/courses/PRL/stromy/euler-tour.md" },
+            { "id": "euler-aplikace",   "src": "content/courses/PRL/stromy/euler-aplikace.md" },
+            { "id": "kontrakce-uvod",   "src": "content/courses/PRL/stromy/kontrakce-uvod.md" },
+            { "id": "expression-eval",  "src": "content/courses/PRL/stromy/expression-eval.md" }
           ]
         },
         {
           "id": "process-algebra",
           "title": "Distribuované systémy — π-calculus, process algebra",
           "subtopics": [
-            {
-              "id": "komunikace-modely",
-              "src": "content/courses/PRL/process-algebra/komunikace-modely.md"
-            },
-            {
-              "id": "csp-occam",
-              "src": "content/courses/PRL/process-algebra/csp-occam.md"
-            },
-            {
-              "id": "pi-calculus",
-              "src": "content/courses/PRL/process-algebra/pi-calculus.md"
-            },
-            {
-              "id": "simulace-bisimulace",
-              "src": "content/courses/PRL/process-algebra/simulace-bisimulace.md"
-            }
+            { "id": "komunikace-modely",   "src": "content/courses/PRL/process-algebra/komunikace-modely.md" },
+            { "id": "csp-occam",           "src": "content/courses/PRL/process-algebra/csp-occam.md" },
+            { "id": "pi-calculus",         "src": "content/courses/PRL/process-algebra/pi-calculus.md" },
+            { "id": "simulace-bisimulace", "src": "content/courses/PRL/process-algebra/simulace-bisimulace.md" }
           ]
         },
         {
           "id": "synchronizace",
           "title": "Synchronizace — NTP, Berkley, Lamport hodiny",
           "subtopics": [
-            {
-              "id": "fyzicky-cas",
-              "src": "content/courses/PRL/synchronizace/fyzicky-cas.md"
-            },
-            {
-              "id": "logicky-cas",
-              "src": "content/courses/PRL/synchronizace/logicky-cas.md"
-            },
-            {
-              "id": "volba-master",
-              "src": "content/courses/PRL/synchronizace/volba-master.md"
-            },
-            {
-              "id": "vzajemne-vylouceni",
-              "src": "content/courses/PRL/synchronizace/vzajemne-vylouceni.md"
-            }
+            { "id": "fyzicky-cas",        "src": "content/courses/PRL/synchronizace/fyzicky-cas.md" },
+            { "id": "logicky-cas",        "src": "content/courses/PRL/synchronizace/logicky-cas.md" },
+            { "id": "volba-master",       "src": "content/courses/PRL/synchronizace/volba-master.md" },
+            { "id": "vzajemne-vylouceni", "src": "content/courses/PRL/synchronizace/vzajemne-vylouceni.md" }
           ]
         },
         {
           "id": "konsensus",
           "title": "Konsensus v distribuovaných systémech",
           "subtopics": [
-            {
-              "id": "failure-modely",
-              "src": "content/courses/PRL/konsensus/failure-modely.md"
-            },
-            {
-              "id": "paxos",
-              "src": "content/courses/PRL/konsensus/paxos.md"
-            },
-            {
-              "id": "byzantium",
-              "src": "content/courses/PRL/konsensus/byzantium.md"
-            },
-            {
-              "id": "raft-praxe",
-              "src": "content/courses/PRL/konsensus/raft-praxe.md"
-            }
+            { "id": "failure-modely",  "src": "content/courses/PRL/konsensus/failure-modely.md" },
+            { "id": "paxos",           "src": "content/courses/PRL/konsensus/paxos.md" },
+            { "id": "byzantium",       "src": "content/courses/PRL/konsensus/byzantium.md" },
+            { "id": "raft-praxe",      "src": "content/courses/PRL/konsensus/raft-praxe.md" }
           ]
         }
       ]
@@ -269,329 +117,136 @@
       "name": "Přenos dat, počítačové sítě a protokoly",
       "credits": 5,
       "semester": "Summer",
-      "specializations": [
-        "NSEN",
-        "NISD",
-        "NSEC"
-      ],
+      "specializations": ["NSEN", "NISD", "NSEC"],
       "blurb": "Pokročilé počítačové sítě — transport, směrování, přepínání, architektura směrovačů, klasifikace paketů, P2P, IDS, SDN. VUT FIT — Veselý.",
       "topics": [
         {
           "id": "rekapitulace",
           "title": "Rekapitulace — Networker's Handbook",
           "subtopics": [
-            {
-              "id": "komunikace",
-              "src": "content/courses/PDS/rekapitulace/komunikace.md"
-            },
-            {
-              "id": "vrstvene-modely",
-              "src": "content/courses/PDS/rekapitulace/vrstvene-modely.md"
-            },
-            {
-              "id": "sitove-zarizeni",
-              "src": "content/courses/PDS/rekapitulace/sitove-zarizeni.md"
-            },
-            {
-              "id": "adresovani-l2",
-              "src": "content/courses/PDS/rekapitulace/adresovani-l2.md"
-            },
-            {
-              "id": "adresovani-l3",
-              "src": "content/courses/PDS/rekapitulace/adresovani-l3.md"
-            },
-            {
-              "id": "paketovy-prenos",
-              "src": "content/courses/PDS/rekapitulace/paketovy-prenos.md"
-            }
+            { "id": "komunikace",        "src": "content/courses/PDS/rekapitulace/komunikace.md" },
+            { "id": "vrstvene-modely",   "src": "content/courses/PDS/rekapitulace/vrstvene-modely.md" },
+            { "id": "sitove-zarizeni",   "src": "content/courses/PDS/rekapitulace/sitove-zarizeni.md" },
+            { "id": "adresovani-l2",     "src": "content/courses/PDS/rekapitulace/adresovani-l2.md" },
+            { "id": "adresovani-l3",     "src": "content/courses/PDS/rekapitulace/adresovani-l3.md" },
+            { "id": "paketovy-prenos",   "src": "content/courses/PDS/rekapitulace/paketovy-prenos.md" }
           ]
         },
         {
           "id": "transport",
           "title": "Transportní vrstva — základy",
           "subtopics": [
-            {
-              "id": "transport-uvod",
-              "src": "content/courses/PDS/transport/transport-uvod.md"
-            },
-            {
-              "id": "chyby-paketu",
-              "src": "content/courses/PDS/transport/chyby-paketu.md"
-            },
-            {
-              "id": "sekvencni-cisla-detekce",
-              "src": "content/courses/PDS/transport/sekvencni-cisla-detekce.md"
-            },
-            {
-              "id": "timeouty-rtt",
-              "src": "content/courses/PDS/transport/timeouty-rtt.md"
-            },
-            {
-              "id": "arq-okno",
-              "src": "content/courses/PDS/transport/arq-okno.md"
-            },
-            {
-              "id": "rizeni-toku-zahlceni",
-              "src": "content/courses/PDS/transport/rizeni-toku-zahlceni.md"
-            }
+            { "id": "transport-uvod",          "src": "content/courses/PDS/transport/transport-uvod.md" },
+            { "id": "chyby-paketu",            "src": "content/courses/PDS/transport/chyby-paketu.md" },
+            { "id": "sekvencni-cisla-detekce", "src": "content/courses/PDS/transport/sekvencni-cisla-detekce.md" },
+            { "id": "timeouty-rtt",            "src": "content/courses/PDS/transport/timeouty-rtt.md" },
+            { "id": "arq-okno",                "src": "content/courses/PDS/transport/arq-okno.md" },
+            { "id": "rizeni-toku-zahlceni",    "src": "content/courses/PDS/transport/rizeni-toku-zahlceni.md" }
           ]
         },
         {
           "id": "transport-protokoly",
           "title": "Transportní protokoly (TCP/UDP/SCTP/QUIC)",
           "subtopics": [
-            {
-              "id": "tcp-spojeni-hlavicka",
-              "src": "content/courses/PDS/transport-protokoly/tcp-spojeni-hlavicka.md"
-            },
-            {
-              "id": "tcp-options",
-              "src": "content/courses/PDS/transport-protokoly/tcp-options.md"
-            },
-            {
-              "id": "tcp-congestion-variants",
-              "src": "content/courses/PDS/transport-protokoly/tcp-congestion-variants.md"
-            },
-            {
-              "id": "udp-dccp",
-              "src": "content/courses/PDS/transport-protokoly/udp-dccp.md"
-            },
-            {
-              "id": "sctp",
-              "src": "content/courses/PDS/transport-protokoly/sctp.md"
-            },
-            {
-              "id": "mptcp",
-              "src": "content/courses/PDS/transport-protokoly/mptcp.md"
-            },
-            {
-              "id": "quic",
-              "src": "content/courses/PDS/transport-protokoly/quic.md"
-            }
+            { "id": "tcp-spojeni-hlavicka",   "src": "content/courses/PDS/transport-protokoly/tcp-spojeni-hlavicka.md" },
+            { "id": "tcp-options",            "src": "content/courses/PDS/transport-protokoly/tcp-options.md" },
+            { "id": "tcp-congestion-variants","src": "content/courses/PDS/transport-protokoly/tcp-congestion-variants.md" },
+            { "id": "udp-dccp",               "src": "content/courses/PDS/transport-protokoly/udp-dccp.md" },
+            { "id": "sctp",                   "src": "content/courses/PDS/transport-protokoly/sctp.md" },
+            { "id": "mptcp",                  "src": "content/courses/PDS/transport-protokoly/mptcp.md" },
+            { "id": "quic",                   "src": "content/courses/PDS/transport-protokoly/quic.md" }
           ]
         },
         {
           "id": "smerovani",
           "title": "Směrování",
           "subtopics": [
-            {
-              "id": "smerovani-uvod",
-              "src": "content/courses/PDS/smerovani/smerovani-uvod.md"
-            },
-            {
-              "id": "smerovaci-tabulky",
-              "src": "content/courses/PDS/smerovani/smerovaci-tabulky.md"
-            },
-            {
-              "id": "distance-vector",
-              "src": "content/courses/PDS/smerovani/distance-vector.md"
-            },
-            {
-              "id": "dv-protokoly",
-              "src": "content/courses/PDS/smerovani/dv-protokoly.md"
-            },
-            {
-              "id": "link-state",
-              "src": "content/courses/PDS/smerovani/link-state.md"
-            },
-            {
-              "id": "bgp-zaklady",
-              "src": "content/courses/PDS/smerovani/bgp-zaklady.md"
-            },
-            {
-              "id": "bgp-policy-te",
-              "src": "content/courses/PDS/smerovani/bgp-policy-te.md"
-            },
-            {
-              "id": "mpls",
-              "src": "content/courses/PDS/smerovani/mpls.md"
-            },
-            {
-              "id": "konvergence-smycky",
-              "src": "content/courses/PDS/smerovani/konvergence-smycky.md"
-            }
+            { "id": "smerovani-uvod",      "src": "content/courses/PDS/smerovani/smerovani-uvod.md" },
+            { "id": "smerovaci-tabulky",   "src": "content/courses/PDS/smerovani/smerovaci-tabulky.md" },
+            { "id": "distance-vector",     "src": "content/courses/PDS/smerovani/distance-vector.md" },
+            { "id": "dv-protokoly",        "src": "content/courses/PDS/smerovani/dv-protokoly.md" },
+            { "id": "link-state",          "src": "content/courses/PDS/smerovani/link-state.md" },
+            { "id": "bgp-zaklady",         "src": "content/courses/PDS/smerovani/bgp-zaklady.md" },
+            { "id": "bgp-policy-te",       "src": "content/courses/PDS/smerovani/bgp-policy-te.md" },
+            { "id": "mpls",                "src": "content/courses/PDS/smerovani/mpls.md" },
+            { "id": "konvergence-smycky",  "src": "content/courses/PDS/smerovani/konvergence-smycky.md" }
           ]
         },
         {
           "id": "prepinace",
           "title": "Architektura přepínačů",
           "subtopics": [
-            {
-              "id": "prepinac-uvod",
-              "src": "content/courses/PDS/prepinace/prepinac-uvod.md"
-            },
-            {
-              "id": "architektury",
-              "src": "content/courses/PDS/prepinace/architektury.md"
-            },
-            {
-              "id": "hol-voq",
-              "src": "content/courses/PDS/prepinace/hol-voq.md"
-            },
-            {
-              "id": "planovani-pim",
-              "src": "content/courses/PDS/prepinace/planovani-pim.md"
-            },
-            {
-              "id": "planovani-islip",
-              "src": "content/courses/PDS/prepinace/planovani-islip.md"
-            },
-            {
-              "id": "multistage-clos-benes",
-              "src": "content/courses/PDS/prepinace/multistage-clos-benes.md"
-            }
+            { "id": "prepinac-uvod",        "src": "content/courses/PDS/prepinace/prepinac-uvod.md" },
+            { "id": "architektury",         "src": "content/courses/PDS/prepinace/architektury.md" },
+            { "id": "hol-voq",              "src": "content/courses/PDS/prepinace/hol-voq.md" },
+            { "id": "planovani-pim",        "src": "content/courses/PDS/prepinace/planovani-pim.md" },
+            { "id": "planovani-islip",      "src": "content/courses/PDS/prepinace/planovani-islip.md" },
+            { "id": "multistage-clos-benes","src": "content/courses/PDS/prepinace/multistage-clos-benes.md" }
           ]
         },
         {
           "id": "routery",
           "title": "Architektura směrovačů",
           "subtopics": [
-            {
-              "id": "router-funkce",
-              "src": "content/courses/PDS/routery/router-funkce.md"
-            },
-            {
-              "id": "router-kategorie",
-              "src": "content/courses/PDS/routery/router-kategorie.md"
-            },
-            {
-              "id": "router-architektura",
-              "src": "content/courses/PDS/routery/router-architektura.md"
-            },
-            {
-              "id": "prepinani-paketu",
-              "src": "content/courses/PDS/routery/prepinani-paketu.md"
-            },
-            {
-              "id": "architektury-prehled",
-              "src": "content/courses/PDS/routery/architektury-prehled.md"
-            }
+            { "id": "router-funkce",        "src": "content/courses/PDS/routery/router-funkce.md" },
+            { "id": "router-kategorie",     "src": "content/courses/PDS/routery/router-kategorie.md" },
+            { "id": "router-architektura", "src": "content/courses/PDS/routery/router-architektura.md" },
+            { "id": "prepinani-paketu",     "src": "content/courses/PDS/routery/prepinani-paketu.md" },
+            { "id": "architektury-prehled", "src": "content/courses/PDS/routery/architektury-prehled.md" }
           ]
         },
         {
           "id": "klasifikace",
           "title": "Klasifikace paketů",
           "subtopics": [
-            {
-              "id": "klasifikace-uvod",
-              "src": "content/courses/PDS/klasifikace/klasifikace-uvod.md"
-            },
-            {
-              "id": "stromy-trie",
-              "src": "content/courses/PDS/klasifikace/stromy-trie.md"
-            },
-            {
-              "id": "2d-klasifikace",
-              "src": "content/courses/PDS/klasifikace/2d-klasifikace.md"
-            },
-            {
-              "id": "bit-vector-cartesian",
-              "src": "content/courses/PDS/klasifikace/bit-vector-cartesian.md"
-            },
-            {
-              "id": "hicuts-tcam",
-              "src": "content/courses/PDS/klasifikace/hicuts-tcam.md"
-            }
+            { "id": "klasifikace-uvod",     "src": "content/courses/PDS/klasifikace/klasifikace-uvod.md" },
+            { "id": "stromy-trie",          "src": "content/courses/PDS/klasifikace/stromy-trie.md" },
+            { "id": "2d-klasifikace",       "src": "content/courses/PDS/klasifikace/2d-klasifikace.md" },
+            { "id": "bit-vector-cartesian", "src": "content/courses/PDS/klasifikace/bit-vector-cartesian.md" },
+            { "id": "hicuts-tcam",          "src": "content/courses/PDS/klasifikace/hicuts-tcam.md" }
           ]
         },
         {
           "id": "p2p",
           "title": "Sítě peer-to-peer",
           "subtopics": [
-            {
-              "id": "maly-svet",
-              "src": "content/courses/PDS/p2p/maly-svet.md"
-            },
-            {
-              "id": "p2p-uvod",
-              "src": "content/courses/PDS/p2p/p2p-uvod.md"
-            },
-            {
-              "id": "referencni-model",
-              "src": "content/courses/PDS/p2p/referencni-model.md"
-            },
-            {
-              "id": "nestrukturovane-site",
-              "src": "content/courses/PDS/p2p/nestrukturovane-site.md"
-            },
-            {
-              "id": "strukturovane-site",
-              "src": "content/courses/PDS/p2p/strukturovane-site.md"
-            }
+            { "id": "maly-svet",            "src": "content/courses/PDS/p2p/maly-svet.md" },
+            { "id": "p2p-uvod",             "src": "content/courses/PDS/p2p/p2p-uvod.md" },
+            { "id": "referencni-model",     "src": "content/courses/PDS/p2p/referencni-model.md" },
+            { "id": "nestrukturovane-site", "src": "content/courses/PDS/p2p/nestrukturovane-site.md" },
+            { "id": "strukturovane-site",   "src": "content/courses/PDS/p2p/strukturovane-site.md" }
           ]
         },
         {
           "id": "ids",
           "title": "Detekce průniku (IDS)",
           "subtopics": [
-            {
-              "id": "ids-uvod",
-              "src": "content/courses/PDS/ids/ids-uvod.md"
-            },
-            {
-              "id": "port-header-identifikace",
-              "src": "content/courses/PDS/ids/port-header-identifikace.md"
-            },
-            {
-              "id": "signatury-snort",
-              "src": "content/courses/PDS/ids/signatury-snort.md"
-            },
-            {
-              "id": "netflow-ipfix",
-              "src": "content/courses/PDS/ids/netflow-ipfix.md"
-            },
-            {
-              "id": "detekce-anomalii",
-              "src": "content/courses/PDS/ids/detekce-anomalii.md"
-            }
+            { "id": "ids-uvod",                  "src": "content/courses/PDS/ids/ids-uvod.md" },
+            { "id": "port-header-identifikace",  "src": "content/courses/PDS/ids/port-header-identifikace.md" },
+            { "id": "signatury-snort",           "src": "content/courses/PDS/ids/signatury-snort.md" },
+            { "id": "netflow-ipfix",             "src": "content/courses/PDS/ids/netflow-ipfix.md" },
+            { "id": "detekce-anomalii",          "src": "content/courses/PDS/ids/detekce-anomalii.md" }
           ]
         },
         {
           "id": "zpracovani-paketu",
           "title": "Zpracování paketů",
           "subtopics": [
-            {
-              "id": "zpracovani-uvod",
-              "src": "content/courses/PDS/zpracovani-paketu/zpracovani-uvod.md"
-            },
-            {
-              "id": "linux-kernel-stack",
-              "src": "content/courses/PDS/zpracovani-paketu/linux-kernel-stack.md"
-            },
-            {
-              "id": "napi-rss-offload",
-              "src": "content/courses/PDS/zpracovani-paketu/napi-rss-offload.md"
-            },
-            {
-              "id": "dpdk-pfring",
-              "src": "content/courses/PDS/zpracovani-paketu/dpdk-pfring.md"
-            },
-            {
-              "id": "ebpf-xdp",
-              "src": "content/courses/PDS/zpracovani-paketu/ebpf-xdp.md"
-            }
+            { "id": "zpracovani-uvod",     "src": "content/courses/PDS/zpracovani-paketu/zpracovani-uvod.md" },
+            { "id": "linux-kernel-stack",  "src": "content/courses/PDS/zpracovani-paketu/linux-kernel-stack.md" },
+            { "id": "napi-rss-offload",    "src": "content/courses/PDS/zpracovani-paketu/napi-rss-offload.md" },
+            { "id": "dpdk-pfring",         "src": "content/courses/PDS/zpracovani-paketu/dpdk-pfring.md" },
+            { "id": "ebpf-xdp",            "src": "content/courses/PDS/zpracovani-paketu/ebpf-xdp.md" }
           ]
         },
         {
           "id": "sdn",
           "title": "SDN a programmability",
           "subtopics": [
-            {
-              "id": "roviny-routera",
-              "src": "content/courses/PDS/sdn/roviny-routera.md"
-            },
-            {
-              "id": "dcn-topologie",
-              "src": "content/courses/PDS/sdn/dcn-topologie.md"
-            },
-            {
-              "id": "sdn-uvod",
-              "src": "content/courses/PDS/sdn/sdn-uvod.md"
-            },
-            {
-              "id": "openflow-nfv-p4",
-              "src": "content/courses/PDS/sdn/openflow-nfv-p4.md"
-            }
+            { "id": "roviny-routera",   "src": "content/courses/PDS/sdn/roviny-routera.md" },
+            { "id": "dcn-topologie",    "src": "content/courses/PDS/sdn/dcn-topologie.md" },
+            { "id": "sdn-uvod",         "src": "content/courses/PDS/sdn/sdn-uvod.md" },
+            { "id": "openflow-nfv-p4",  "src": "content/courses/PDS/sdn/openflow-nfv-p4.md" }
           ]
         }
       ]
@@ -601,221 +256,100 @@
       "name": "Teoretická informatika",
       "credits": 5,
       "semester": "Winter",
-      "specializations": [
-        "NSEN",
-        "NMAL",
-        "NISY"
-      ],
+      "specializations": ["NSEN", "NMAL", "NISY"],
       "blurb": "Formální jazyky a Chomského hierarchie, konečné a zásobníkové automaty, Turingovy stroje, rozhodnutelnost, P/NP a NP-úplnost, amortizovaná analýza, výroková a predikátová logika, Gödelovy věty.",
       "topics": [
         {
           "id": "jazyky-hierarchie",
           "title": "Formální jazyky a Chomského hierarchie",
           "subtopics": [
-            {
-              "id": "jazyky-operace",
-              "src": "content/courses/TIN/jazyky-hierarchie/jazyky-operace.md"
-            },
-            {
-              "id": "gramatiky",
-              "src": "content/courses/TIN/jazyky-hierarchie/gramatiky.md"
-            },
-            {
-              "id": "chomsky-hierarchie",
-              "src": "content/courses/TIN/jazyky-hierarchie/chomsky-hierarchie.md"
-            },
-            {
-              "id": "jazyky-automaty",
-              "src": "content/courses/TIN/jazyky-hierarchie/jazyky-automaty.md"
-            }
+            { "id": "jazyky-operace",     "src": "content/courses/TIN/jazyky-hierarchie/jazyky-operace.md" },
+            { "id": "gramatiky",          "src": "content/courses/TIN/jazyky-hierarchie/gramatiky.md" },
+            { "id": "chomsky-hierarchie", "src": "content/courses/TIN/jazyky-hierarchie/chomsky-hierarchie.md" },
+            { "id": "jazyky-automaty",    "src": "content/courses/TIN/jazyky-hierarchie/jazyky-automaty.md" }
           ]
         },
         {
           "id": "regularni",
           "title": "Regulární jazyky a konečné automaty",
           "subtopics": [
-            {
-              "id": "konecne-automaty",
-              "src": "content/courses/TIN/regularni/konecne-automaty.md"
-            },
-            {
-              "id": "determinizace",
-              "src": "content/courses/TIN/regularni/determinizace.md"
-            },
-            {
-              "id": "regularni-vyrazy",
-              "src": "content/courses/TIN/regularni/regularni-vyrazy.md"
-            },
-            {
-              "id": "minimalizace",
-              "src": "content/courses/TIN/regularni/minimalizace.md"
-            },
-            {
-              "id": "pumping-uzaver",
-              "src": "content/courses/TIN/regularni/pumping-uzaver.md"
-            }
+            { "id": "konecne-automaty",   "src": "content/courses/TIN/regularni/konecne-automaty.md" },
+            { "id": "determinizace",      "src": "content/courses/TIN/regularni/determinizace.md" },
+            { "id": "regularni-vyrazy",   "src": "content/courses/TIN/regularni/regularni-vyrazy.md" },
+            { "id": "minimalizace",       "src": "content/courses/TIN/regularni/minimalizace.md" },
+            { "id": "pumping-uzaver",     "src": "content/courses/TIN/regularni/pumping-uzaver.md" }
           ]
         },
         {
           "id": "bezkontextove",
           "title": "Bezkontextové jazyky a zásobníkové automaty",
           "subtopics": [
-            {
-              "id": "cfg-derivace",
-              "src": "content/courses/TIN/bezkontextove/cfg-derivace.md"
-            },
-            {
-              "id": "normalni-formy",
-              "src": "content/courses/TIN/bezkontextove/normalni-formy.md"
-            },
-            {
-              "id": "zasobnikove-automaty",
-              "src": "content/courses/TIN/bezkontextove/zasobnikove-automaty.md"
-            },
-            {
-              "id": "ekvivalence-pda-cfg",
-              "src": "content/courses/TIN/bezkontextove/ekvivalence-pda-cfg.md"
-            },
-            {
-              "id": "vlastnosti-bkj",
-              "src": "content/courses/TIN/bezkontextove/vlastnosti-bkj.md"
-            }
+            { "id": "cfg-derivace",       "src": "content/courses/TIN/bezkontextove/cfg-derivace.md" },
+            { "id": "normalni-formy",     "src": "content/courses/TIN/bezkontextove/normalni-formy.md" },
+            { "id": "zasobnikove-automaty","src": "content/courses/TIN/bezkontextove/zasobnikove-automaty.md" },
+            { "id": "ekvivalence-pda-cfg","src": "content/courses/TIN/bezkontextove/ekvivalence-pda-cfg.md" },
+            { "id": "vlastnosti-bkj",     "src": "content/courses/TIN/bezkontextove/vlastnosti-bkj.md" }
           ]
         },
         {
           "id": "turing",
           "title": "Turingovy stroje a vyčíslitelnost",
           "subtopics": [
-            {
-              "id": "ts-definice",
-              "src": "content/courses/TIN/turing/ts-definice.md"
-            },
-            {
-              "id": "ts-modifikace",
-              "src": "content/courses/TIN/turing/ts-modifikace.md"
-            },
-            {
-              "id": "rekurzivni-jazyky",
-              "src": "content/courses/TIN/turing/rekurzivni-jazyky.md"
-            },
-            {
-              "id": "univerzalni-ts",
-              "src": "content/courses/TIN/turing/univerzalni-ts.md"
-            }
+            { "id": "ts-definice",        "src": "content/courses/TIN/turing/ts-definice.md" },
+            { "id": "ts-modifikace",      "src": "content/courses/TIN/turing/ts-modifikace.md" },
+            { "id": "rekurzivni-jazyky",  "src": "content/courses/TIN/turing/rekurzivni-jazyky.md" },
+            { "id": "univerzalni-ts",     "src": "content/courses/TIN/turing/univerzalni-ts.md" }
           ]
         },
         {
           "id": "rozhodnutelnost",
           "title": "Rozhodnutelnost a redukce",
           "subtopics": [
-            {
-              "id": "problem-zastaveni",
-              "src": "content/courses/TIN/rozhodnutelnost/problem-zastaveni.md"
-            },
-            {
-              "id": "redukce",
-              "src": "content/courses/TIN/rozhodnutelnost/redukce.md"
-            },
-            {
-              "id": "riceova-veta",
-              "src": "content/courses/TIN/rozhodnutelnost/riceova-veta.md"
-            },
-            {
-              "id": "pcp-jazyky",
-              "src": "content/courses/TIN/rozhodnutelnost/pcp-jazyky.md"
-            }
+            { "id": "problem-zastaveni",  "src": "content/courses/TIN/rozhodnutelnost/problem-zastaveni.md" },
+            { "id": "redukce",            "src": "content/courses/TIN/rozhodnutelnost/redukce.md" },
+            { "id": "riceova-veta",       "src": "content/courses/TIN/rozhodnutelnost/riceova-veta.md" },
+            { "id": "pcp-jazyky",         "src": "content/courses/TIN/rozhodnutelnost/pcp-jazyky.md" }
           ]
         },
         {
           "id": "slozitost",
           "title": "Časová a prostorová složitost",
           "subtopics": [
-            {
-              "id": "slozitost-ts",
-              "src": "content/courses/TIN/slozitost/slozitost-ts.md"
-            },
-            {
-              "id": "tridy-p-np",
-              "src": "content/courses/TIN/slozitost/tridy-p-np.md"
-            },
-            {
-              "id": "savitch-prostor",
-              "src": "content/courses/TIN/slozitost/savitch-prostor.md"
-            },
-            {
-              "id": "cook-levin",
-              "src": "content/courses/TIN/slozitost/cook-levin.md"
-            },
-            {
-              "id": "np-uplne-problemy",
-              "src": "content/courses/TIN/slozitost/np-uplne-problemy.md"
-            }
+            { "id": "slozitost-ts",       "src": "content/courses/TIN/slozitost/slozitost-ts.md" },
+            { "id": "tridy-p-np",         "src": "content/courses/TIN/slozitost/tridy-p-np.md" },
+            { "id": "savitch-prostor",    "src": "content/courses/TIN/slozitost/savitch-prostor.md" },
+            { "id": "cook-levin",         "src": "content/courses/TIN/slozitost/cook-levin.md" },
+            { "id": "np-uplne-problemy",  "src": "content/courses/TIN/slozitost/np-uplne-problemy.md" }
           ]
         },
         {
           "id": "analyza",
           "title": "Analýza algoritmů a amortizace",
           "subtopics": [
-            {
-              "id": "asymptotika-rekurence",
-              "src": "content/courses/TIN/analyza/asymptotika-rekurence.md"
-            },
-            {
-              "id": "grafy-prochazeni",
-              "src": "content/courses/TIN/analyza/grafy-prochazeni.md"
-            },
-            {
-              "id": "cyk-parsing",
-              "src": "content/courses/TIN/analyza/cyk-parsing.md"
-            },
-            {
-              "id": "amortizovana",
-              "src": "content/courses/TIN/analyza/amortizovana.md"
-            }
+            { "id": "asymptotika-rekurence","src": "content/courses/TIN/analyza/asymptotika-rekurence.md" },
+            { "id": "grafy-prochazeni",   "src": "content/courses/TIN/analyza/grafy-prochazeni.md" },
+            { "id": "cyk-parsing",        "src": "content/courses/TIN/analyza/cyk-parsing.md" },
+            { "id": "amortizovana",       "src": "content/courses/TIN/analyza/amortizovana.md" }
           ]
         },
         {
           "id": "logika",
           "title": "Výroková a predikátová logika",
           "subtopics": [
-            {
-              "id": "vyrokova-logika",
-              "src": "content/courses/TIN/logika/vyrokova-logika.md"
-            },
-            {
-              "id": "dukazove-systemy",
-              "src": "content/courses/TIN/logika/dukazove-systemy.md"
-            },
-            {
-              "id": "prvoradova-logika",
-              "src": "content/courses/TIN/logika/prvoradova-logika.md"
-            },
-            {
-              "id": "vlastnosti-pl",
-              "src": "content/courses/TIN/logika/vlastnosti-pl.md"
-            }
+            { "id": "vyrokova-logika",    "src": "content/courses/TIN/logika/vyrokova-logika.md" },
+            { "id": "dukazove-systemy",   "src": "content/courses/TIN/logika/dukazove-systemy.md" },
+            { "id": "prvoradova-logika",  "src": "content/courses/TIN/logika/prvoradova-logika.md" },
+            { "id": "vlastnosti-pl",      "src": "content/courses/TIN/logika/vlastnosti-pl.md" }
           ]
         },
         {
           "id": "godel",
           "title": "Gödelovy věty a meze formálních systémů",
           "subtopics": [
-            {
-              "id": "godelovo-cislovani",
-              "src": "content/courses/TIN/godel/godelovo-cislovani.md"
-            },
-            {
-              "id": "godel-neuplnost",
-              "src": "content/courses/TIN/godel/godel-neuplnost.md"
-            },
-            {
-              "id": "rozhodnutelne-teorie",
-              "src": "content/courses/TIN/godel/rozhodnutelne-teorie.md"
-            },
-            {
-              "id": "pa-nerozhodnutelnost",
-              "src": "content/courses/TIN/godel/pa-nerozhodnutelnost.md"
-            }
+            { "id": "godelovo-cislovani", "src": "content/courses/TIN/godel/godelovo-cislovani.md" },
+            { "id": "godel-neuplnost",    "src": "content/courses/TIN/godel/godel-neuplnost.md" },
+            { "id": "rozhodnutelne-teorie","src": "content/courses/TIN/godel/rozhodnutelne-teorie.md" },
+            { "id": "pa-nerozhodnutelnost","src": "content/courses/TIN/godel/pa-nerozhodnutelnost.md" }
           ]
         }
       ]
@@ -825,242 +359,110 @@
       "name": "Kryptografie",
       "credits": 5,
       "semester": "Winter",
-      "specializations": [
-        "NSEC",
-        "NISD"
-      ],
+      "specializations": ["NSEC", "NISD"],
       "blurb": "Klasická i moderní kryptografie — symetrické a asymetrické algoritmy, hašovací funkce, elektronický podpis, správa klíčů, PKI a X.509.",
       "topics": [
         {
           "id": "zaklady",
           "title": "Úvod do kryptografie",
           "subtopics": [
-            {
-              "id": "terminologie",
-              "src": "content/courses/KRY/zaklady/terminologie.md"
-            },
-            {
-              "id": "utoky-modely",
-              "src": "content/courses/KRY/zaklady/utoky-modely.md"
-            },
-            {
-              "id": "klasifikace",
-              "src": "content/courses/KRY/zaklady/klasifikace.md"
-            },
-            {
-              "id": "kerckhoff",
-              "src": "content/courses/KRY/zaklady/kerckhoff.md"
-            }
+            { "id": "terminologie",   "src": "content/courses/KRY/zaklady/terminologie.md" },
+            { "id": "utoky-modely",   "src": "content/courses/KRY/zaklady/utoky-modely.md" },
+            { "id": "klasifikace",    "src": "content/courses/KRY/zaklady/klasifikace.md" },
+            { "id": "kerckhoff",      "src": "content/courses/KRY/zaklady/kerckhoff.md" }
           ]
         },
         {
           "id": "klasicke",
           "title": "Klasické šifry",
           "subtopics": [
-            {
-              "id": "steganografie",
-              "src": "content/courses/KRY/klasicke/steganografie.md"
-            },
-            {
-              "id": "mono-substituce",
-              "src": "content/courses/KRY/klasicke/mono-substituce.md"
-            },
-            {
-              "id": "poly-substituce",
-              "src": "content/courses/KRY/klasicke/poly-substituce.md"
-            },
-            {
-              "id": "transpozice",
-              "src": "content/courses/KRY/klasicke/transpozice.md"
-            },
-            {
-              "id": "polygramove",
-              "src": "content/courses/KRY/klasicke/polygramove.md"
-            },
-            {
-              "id": "one-time-pad",
-              "src": "content/courses/KRY/klasicke/one-time-pad.md"
-            }
+            { "id": "steganografie",     "src": "content/courses/KRY/klasicke/steganografie.md" },
+            { "id": "mono-substituce",   "src": "content/courses/KRY/klasicke/mono-substituce.md" },
+            { "id": "poly-substituce",   "src": "content/courses/KRY/klasicke/poly-substituce.md" },
+            { "id": "transpozice",       "src": "content/courses/KRY/klasicke/transpozice.md" },
+            { "id": "polygramove",       "src": "content/courses/KRY/klasicke/polygramove.md" },
+            { "id": "one-time-pad",      "src": "content/courses/KRY/klasicke/one-time-pad.md" }
           ]
         },
         {
           "id": "rotorove",
           "title": "Rotorové stroje a Enigma",
           "subtopics": [
-            {
-              "id": "rotor-princip",
-              "src": "content/courses/KRY/rotorove/rotor-princip.md"
-            },
-            {
-              "id": "enigma",
-              "src": "content/courses/KRY/rotorove/enigma.md"
-            },
-            {
-              "id": "enigma-utok",
-              "src": "content/courses/KRY/rotorove/enigma-utok.md"
-            }
+            { "id": "rotor-princip",  "src": "content/courses/KRY/rotorove/rotor-princip.md" },
+            { "id": "enigma",         "src": "content/courses/KRY/rotorove/enigma.md" },
+            { "id": "enigma-utok",    "src": "content/courses/KRY/rotorove/enigma-utok.md" }
           ]
         },
         {
           "id": "symetricka-zaklady",
           "title": "Moderní symetrická kryptografie — základy",
           "subtopics": [
-            {
-              "id": "blok-vs-proud",
-              "src": "content/courses/KRY/symetricka-zaklady/blok-vs-proud.md"
-            },
-            {
-              "id": "feistel-spn",
-              "src": "content/courses/KRY/symetricka-zaklady/feistel-spn.md"
-            },
-            {
-              "id": "delka-klice",
-              "src": "content/courses/KRY/symetricka-zaklady/delka-klice.md"
-            },
-            {
-              "id": "rezimy",
-              "src": "content/courses/KRY/symetricka-zaklady/rezimy.md"
-            },
-            {
-              "id": "padding-aead",
-              "src": "content/courses/KRY/symetricka-zaklady/padding-aead.md"
-            }
+            { "id": "blok-vs-proud",  "src": "content/courses/KRY/symetricka-zaklady/blok-vs-proud.md" },
+            { "id": "feistel-spn",    "src": "content/courses/KRY/symetricka-zaklady/feistel-spn.md" },
+            { "id": "delka-klice",    "src": "content/courses/KRY/symetricka-zaklady/delka-klice.md" },
+            { "id": "rezimy",         "src": "content/courses/KRY/symetricka-zaklady/rezimy.md" },
+            { "id": "padding-aead",   "src": "content/courses/KRY/symetricka-zaklady/padding-aead.md" }
           ]
         },
         {
           "id": "symetricka-algoritmy",
           "title": "Symetrické algoritmy",
           "subtopics": [
-            {
-              "id": "des",
-              "src": "content/courses/KRY/symetricka-algoritmy/des.md"
-            },
-            {
-              "id": "3des-aes",
-              "src": "content/courses/KRY/symetricka-algoritmy/3des-aes.md"
-            },
-            {
-              "id": "utoky-blokove",
-              "src": "content/courses/KRY/symetricka-algoritmy/utoky-blokove.md"
-            },
-            {
-              "id": "proudove-sifry",
-              "src": "content/courses/KRY/symetricka-algoritmy/proudove-sifry.md"
-            }
+            { "id": "des",             "src": "content/courses/KRY/symetricka-algoritmy/des.md" },
+            { "id": "3des-aes",        "src": "content/courses/KRY/symetricka-algoritmy/3des-aes.md" },
+            { "id": "utoky-blokove",   "src": "content/courses/KRY/symetricka-algoritmy/utoky-blokove.md" },
+            { "id": "proudove-sifry",  "src": "content/courses/KRY/symetricka-algoritmy/proudove-sifry.md" }
           ]
         },
         {
           "id": "asymetricka-zaklady",
           "title": "Asymetrická kryptografie — základy",
           "subtopics": [
-            {
-              "id": "principy",
-              "src": "content/courses/KRY/asymetricka-zaklady/principy.md"
-            },
-            {
-              "id": "matematika",
-              "src": "content/courses/KRY/asymetricka-zaklady/matematika.md"
-            },
-            {
-              "id": "problemy",
-              "src": "content/courses/KRY/asymetricka-zaklady/problemy.md"
-            },
-            {
-              "id": "hybridni",
-              "src": "content/courses/KRY/asymetricka-zaklady/hybridni.md"
-            }
+            { "id": "principy",     "src": "content/courses/KRY/asymetricka-zaklady/principy.md" },
+            { "id": "matematika",   "src": "content/courses/KRY/asymetricka-zaklady/matematika.md" },
+            { "id": "problemy",     "src": "content/courses/KRY/asymetricka-zaklady/problemy.md" },
+            { "id": "hybridni",     "src": "content/courses/KRY/asymetricka-zaklady/hybridni.md" }
           ]
         },
         {
           "id": "asymetricka-algoritmy",
           "title": "Asymetrické algoritmy",
           "subtopics": [
-            {
-              "id": "rsa",
-              "src": "content/courses/KRY/asymetricka-algoritmy/rsa.md"
-            },
-            {
-              "id": "rsa-utoky",
-              "src": "content/courses/KRY/asymetricka-algoritmy/rsa-utoky.md"
-            },
-            {
-              "id": "dh-elgamal",
-              "src": "content/courses/KRY/asymetricka-algoritmy/dh-elgamal.md"
-            },
-            {
-              "id": "elipticke",
-              "src": "content/courses/KRY/asymetricka-algoritmy/elipticke.md"
-            },
-            {
-              "id": "postkvantova",
-              "src": "content/courses/KRY/asymetricka-algoritmy/postkvantova.md"
-            }
+            { "id": "rsa",          "src": "content/courses/KRY/asymetricka-algoritmy/rsa.md" },
+            { "id": "rsa-utoky",    "src": "content/courses/KRY/asymetricka-algoritmy/rsa-utoky.md" },
+            { "id": "dh-elgamal",   "src": "content/courses/KRY/asymetricka-algoritmy/dh-elgamal.md" },
+            { "id": "elipticke",    "src": "content/courses/KRY/asymetricka-algoritmy/elipticke.md" },
+            { "id": "postkvantova", "src": "content/courses/KRY/asymetricka-algoritmy/postkvantova.md" }
           ]
         },
         {
           "id": "hashe-podpisy",
           "title": "Hashe, MAC a elektronický podpis",
           "subtopics": [
-            {
-              "id": "hash-funkce",
-              "src": "content/courses/KRY/hashe-podpisy/hash-funkce.md"
-            },
-            {
-              "id": "hash-utoky",
-              "src": "content/courses/KRY/hashe-podpisy/hash-utoky.md"
-            },
-            {
-              "id": "mac-hmac",
-              "src": "content/courses/KRY/hashe-podpisy/mac-hmac.md"
-            },
-            {
-              "id": "el-podpis",
-              "src": "content/courses/KRY/hashe-podpisy/el-podpis.md"
-            }
+            { "id": "hash-funkce",  "src": "content/courses/KRY/hashe-podpisy/hash-funkce.md" },
+            { "id": "hash-utoky",   "src": "content/courses/KRY/hashe-podpisy/hash-utoky.md" },
+            { "id": "mac-hmac",     "src": "content/courses/KRY/hashe-podpisy/mac-hmac.md" },
+            { "id": "el-podpis",    "src": "content/courses/KRY/hashe-podpisy/el-podpis.md" }
           ]
         },
         {
           "id": "klice-symetricka",
           "title": "Správa klíčů v symetrické kryptografii",
           "subtopics": [
-            {
-              "id": "klic-relace",
-              "src": "content/courses/KRY/klice-symetricka/klic-relace.md"
-            },
-            {
-              "id": "kdc-needham",
-              "src": "content/courses/KRY/klice-symetricka/kdc-needham.md"
-            },
-            {
-              "id": "kerberos",
-              "src": "content/courses/KRY/klice-symetricka/kerberos.md"
-            },
-            {
-              "id": "kdf",
-              "src": "content/courses/KRY/klice-symetricka/kdf.md"
-            }
+            { "id": "klic-relace",  "src": "content/courses/KRY/klice-symetricka/klic-relace.md" },
+            { "id": "kdc-needham",  "src": "content/courses/KRY/klice-symetricka/kdc-needham.md" },
+            { "id": "kerberos",     "src": "content/courses/KRY/klice-symetricka/kerberos.md" },
+            { "id": "kdf",          "src": "content/courses/KRY/klice-symetricka/kdf.md" }
           ]
         },
         {
           "id": "klice-asymetricka",
           "title": "Správa klíčů a PKI",
           "subtopics": [
-            {
-              "id": "pki-uvod",
-              "src": "content/courses/KRY/klice-asymetricka/pki-uvod.md"
-            },
-            {
-              "id": "x509",
-              "src": "content/courses/KRY/klice-asymetricka/x509.md"
-            },
-            {
-              "id": "revokace",
-              "src": "content/courses/KRY/klice-asymetricka/revokace.md"
-            },
-            {
-              "id": "tls-aplikace",
-              "src": "content/courses/KRY/klice-asymetricka/tls-aplikace.md"
-            }
+            { "id": "pki-uvod",       "src": "content/courses/KRY/klice-asymetricka/pki-uvod.md" },
+            { "id": "x509",           "src": "content/courses/KRY/klice-asymetricka/x509.md" },
+            { "id": "revokace",       "src": "content/courses/KRY/klice-asymetricka/revokace.md" },
+            { "id": "tls-aplikace",   "src": "content/courses/KRY/klice-asymetricka/tls-aplikace.md" }
           ]
         }
       ]
@@ -1070,298 +472,115 @@
       "name": "Pokročilé informační systémy",
       "credits": 5,
       "semester": "Winter",
-      "specializations": [
-        "NSEN",
-        "NISD"
-      ],
+      "specializations": ["NSEN", "NISD"],
       "blurb": "Principy a architektury informačních systémů, datové modelování, Jakarta EE, mikroslužby, workflow a OLAP. VUT FIT — Hruška, Burget.",
       "topics": [
         {
           "id": "principy",
           "title": "Principy a architektury IS",
           "subtopics": [
-            {
-              "id": "data-informace-znalosti",
-              "src": "content/courses/PIS/principy/data-informace-znalosti.md"
-            },
-            {
-              "id": "informacni-system",
-              "src": "content/courses/PIS/principy/informacni-system.md"
-            },
-            {
-              "id": "model-abstrakce",
-              "src": "content/courses/PIS/principy/model-abstrakce.md"
-            },
-            {
-              "id": "struktury-kolekce",
-              "src": "content/courses/PIS/principy/struktury-kolekce.md"
-            },
-            {
-              "id": "databazove-modely",
-              "src": "content/courses/PIS/principy/databazove-modely.md"
-            },
-            {
-              "id": "architektury-vrstvy",
-              "src": "content/courses/PIS/principy/architektury-vrstvy.md"
-            },
-            {
-              "id": "mikrosluzby",
-              "src": "content/courses/PIS/principy/mikrosluzby.md"
-            }
+            { "id": "data-informace-znalosti", "src": "content/courses/PIS/principy/data-informace-znalosti.md" },
+            { "id": "informacni-system",       "src": "content/courses/PIS/principy/informacni-system.md" },
+            { "id": "model-abstrakce",         "src": "content/courses/PIS/principy/model-abstrakce.md" },
+            { "id": "struktury-kolekce",       "src": "content/courses/PIS/principy/struktury-kolekce.md" },
+            { "id": "databazove-modely",       "src": "content/courses/PIS/principy/databazove-modely.md" },
+            { "id": "architektury-vrstvy",     "src": "content/courses/PIS/principy/architektury-vrstvy.md" },
+            { "id": "mikrosluzby",             "src": "content/courses/PIS/principy/mikrosluzby.md" }
           ]
         },
         {
           "id": "jakarta-ee",
           "title": "Jakarta EE platforma",
           "subtopics": [
-            {
-              "id": "webovy-is",
-              "src": "content/courses/PIS/jakarta-ee/webovy-is.md"
-            },
-            {
-              "id": "jakarta-ee-platforma",
-              "src": "content/courses/PIS/jakarta-ee/jakarta-ee-platforma.md"
-            },
-            {
-              "id": "nasazeni",
-              "src": "content/courses/PIS/jakarta-ee/nasazeni.md"
-            },
-            {
-              "id": "maven-project",
-              "src": "content/courses/PIS/jakarta-ee/maven-project.md"
-            },
-            {
-              "id": "servlet-jax-rs",
-              "src": "content/courses/PIS/jakarta-ee/servlet-jax-rs.md"
-            },
-            {
-              "id": "jpa-persistence",
-              "src": "content/courses/PIS/jakarta-ee/jpa-persistence.md"
-            },
-            {
-              "id": "ejb-cdi",
-              "src": "content/courses/PIS/jakarta-ee/ejb-cdi.md"
-            }
+            { "id": "webovy-is",             "src": "content/courses/PIS/jakarta-ee/webovy-is.md" },
+            { "id": "jakarta-ee-platforma",  "src": "content/courses/PIS/jakarta-ee/jakarta-ee-platforma.md" },
+            { "id": "nasazeni",              "src": "content/courses/PIS/jakarta-ee/nasazeni.md" },
+            { "id": "maven-project",         "src": "content/courses/PIS/jakarta-ee/maven-project.md" },
+            { "id": "servlet-jax-rs",        "src": "content/courses/PIS/jakarta-ee/servlet-jax-rs.md" },
+            { "id": "jpa-persistence",       "src": "content/courses/PIS/jakarta-ee/jpa-persistence.md" },
+            { "id": "ejb-cdi",               "src": "content/courses/PIS/jakarta-ee/ejb-cdi.md" }
           ]
         },
         {
           "id": "objektovy-model",
           "title": "Objektový model dat",
           "subtopics": [
-            {
-              "id": "objektovy-model-prehled",
-              "src": "content/courses/PIS/objektovy-model/objektovy-model-prehled.md"
-            },
-            {
-              "id": "vztahy-objekty",
-              "src": "content/courses/PIS/objektovy-model/vztahy-objekty.md"
-            },
-            {
-              "id": "dedicnost-modelovani",
-              "src": "content/courses/PIS/objektovy-model/dedicnost-modelovani.md"
-            },
-            {
-              "id": "jpa-entity",
-              "src": "content/courses/PIS/objektovy-model/jpa-entity.md"
-            },
-            {
-              "id": "jpa-dotazy",
-              "src": "content/courses/PIS/objektovy-model/jpa-dotazy.md"
-            },
-            {
-              "id": "jpa-vztahy",
-              "src": "content/courses/PIS/objektovy-model/jpa-vztahy.md"
-            },
-            {
-              "id": "jpa-dedicnost",
-              "src": "content/courses/PIS/objektovy-model/jpa-dedicnost.md"
-            }
+            { "id": "objektovy-model-prehled", "src": "content/courses/PIS/objektovy-model/objektovy-model-prehled.md" },
+            { "id": "vztahy-objekty",          "src": "content/courses/PIS/objektovy-model/vztahy-objekty.md" },
+            { "id": "dedicnost-modelovani",    "src": "content/courses/PIS/objektovy-model/dedicnost-modelovani.md" },
+            { "id": "jpa-entity",              "src": "content/courses/PIS/objektovy-model/jpa-entity.md" },
+            { "id": "jpa-dotazy",              "src": "content/courses/PIS/objektovy-model/jpa-dotazy.md" },
+            { "id": "jpa-vztahy",              "src": "content/courses/PIS/objektovy-model/jpa-vztahy.md" },
+            { "id": "jpa-dedicnost",           "src": "content/courses/PIS/objektovy-model/jpa-dedicnost.md" }
           ]
         },
         {
           "id": "business-api",
           "title": "Business vrstva a aplikační rozhraní",
           "subtopics": [
-            {
-              "id": "business-implementace",
-              "src": "content/courses/PIS/business-api/business-implementace.md"
-            },
-            {
-              "id": "rest-design",
-              "src": "content/courses/PIS/business-api/rest-design.md"
-            },
-            {
-              "id": "rest-autentizace",
-              "src": "content/courses/PIS/business-api/rest-autentizace.md"
-            },
-            {
-              "id": "graphql",
-              "src": "content/courses/PIS/business-api/graphql.md"
-            },
-            {
-              "id": "identita-oauth2",
-              "src": "content/courses/PIS/business-api/identita-oauth2.md"
-            },
-            {
-              "id": "oidc-saml",
-              "src": "content/courses/PIS/business-api/oidc-saml.md"
-            },
-            {
-              "id": "identity-java",
-              "src": "content/courses/PIS/business-api/identity-java.md"
-            }
+            { "id": "business-implementace", "src": "content/courses/PIS/business-api/business-implementace.md" },
+            { "id": "rest-design",           "src": "content/courses/PIS/business-api/rest-design.md" },
+            { "id": "rest-autentizace",      "src": "content/courses/PIS/business-api/rest-autentizace.md" },
+            { "id": "graphql",               "src": "content/courses/PIS/business-api/graphql.md" },
+            { "id": "identita-oauth2",       "src": "content/courses/PIS/business-api/identita-oauth2.md" },
+            { "id": "oidc-saml",             "src": "content/courses/PIS/business-api/oidc-saml.md" },
+            { "id": "identity-java",         "src": "content/courses/PIS/business-api/identity-java.md" }
           ]
         },
         {
           "id": "alt-technologie",
           "title": "Alternativní technologie a architektury",
           "subtopics": [
-            {
-              "id": "prezentacni-vrstva",
-              "src": "content/courses/PIS/alt-technologie/prezentacni-vrstva.md"
-            },
-            {
-              "id": "alt-platformy",
-              "src": "content/courses/PIS/alt-technologie/alt-platformy.md"
-            },
-            {
-              "id": "soap-webove-sluzby",
-              "src": "content/courses/PIS/alt-technologie/soap-webove-sluzby.md"
-            },
-            {
-              "id": "json-rpc-grpc",
-              "src": "content/courses/PIS/alt-technologie/json-rpc-grpc.md"
-            },
-            {
-              "id": "mcp-protocol",
-              "src": "content/courses/PIS/alt-technologie/mcp-protocol.md"
-            },
-            {
-              "id": "microprofile",
-              "src": "content/courses/PIS/alt-technologie/microprofile.md"
-            },
-            {
-              "id": "observabilita",
-              "src": "content/courses/PIS/alt-technologie/observabilita.md"
-            },
-            {
-              "id": "messaging-fault-tolerance",
-              "src": "content/courses/PIS/alt-technologie/messaging-fault-tolerance.md"
-            }
+            { "id": "prezentacni-vrstva",      "src": "content/courses/PIS/alt-technologie/prezentacni-vrstva.md" },
+            { "id": "alt-platformy",           "src": "content/courses/PIS/alt-technologie/alt-platformy.md" },
+            { "id": "soap-webove-sluzby",      "src": "content/courses/PIS/alt-technologie/soap-webove-sluzby.md" },
+            { "id": "json-rpc-grpc",           "src": "content/courses/PIS/alt-technologie/json-rpc-grpc.md" },
+            { "id": "mcp-protocol",            "src": "content/courses/PIS/alt-technologie/mcp-protocol.md" },
+            { "id": "microprofile",            "src": "content/courses/PIS/alt-technologie/microprofile.md" },
+            { "id": "observabilita",           "src": "content/courses/PIS/alt-technologie/observabilita.md" },
+            { "id": "messaging-fault-tolerance","src": "content/courses/PIS/alt-technologie/messaging-fault-tolerance.md" }
           ]
         },
         {
           "id": "procesy",
           "title": "Procesy, pokročilé modely procesů, cesta k workflow",
           "subtopics": [
-            {
-              "id": "procesy-uml",
-              "src": "content/courses/PIS/procesy/procesy-uml.md"
-            },
-            {
-              "id": "transakce-acid",
-              "src": "content/courses/PIS/procesy/transakce-acid.md"
-            },
-            {
-              "id": "modely-transakci",
-              "src": "content/courses/PIS/procesy/modely-transakci.md"
-            },
-            {
-              "id": "transakce-jakarta",
-              "src": "content/courses/PIS/procesy/transakce-jakarta.md"
-            },
-            {
-              "id": "zretezene-transakce",
-              "src": "content/courses/PIS/procesy/zretezene-transakce.md"
-            },
-            {
-              "id": "distribuovane-transakce",
-              "src": "content/courses/PIS/procesy/distribuovane-transakce.md"
-            },
-            {
-              "id": "zotavitelne-fronty",
-              "src": "content/courses/PIS/procesy/zotavitelne-fronty.md"
-            },
-            {
-              "id": "jakarta-messaging",
-              "src": "content/courses/PIS/procesy/jakarta-messaging.md"
-            }
+            { "id": "procesy-uml",             "src": "content/courses/PIS/procesy/procesy-uml.md" },
+            { "id": "transakce-acid",          "src": "content/courses/PIS/procesy/transakce-acid.md" },
+            { "id": "modely-transakci",        "src": "content/courses/PIS/procesy/modely-transakci.md" },
+            { "id": "transakce-jakarta",       "src": "content/courses/PIS/procesy/transakce-jakarta.md" },
+            { "id": "zretezene-transakce",     "src": "content/courses/PIS/procesy/zretezene-transakce.md" },
+            { "id": "distribuovane-transakce", "src": "content/courses/PIS/procesy/distribuovane-transakce.md" },
+            { "id": "zotavitelne-fronty",      "src": "content/courses/PIS/procesy/zotavitelne-fronty.md" },
+            { "id": "jakarta-messaging",       "src": "content/courses/PIS/procesy/jakarta-messaging.md" }
           ]
         },
         {
           "id": "workflow",
           "title": "Workflow systémy",
           "subtopics": [
-            {
-              "id": "business-procesy",
-              "src": "content/courses/PIS/workflow/business-procesy.md"
-            },
-            {
-              "id": "od-front-k-workflow",
-              "src": "content/courses/PIS/workflow/od-front-k-workflow.md"
-            },
-            {
-              "id": "wfmc-architektura",
-              "src": "content/courses/PIS/workflow/wfmc-architektura.md"
-            },
-            {
-              "id": "bpmn-notace",
-              "src": "content/courses/PIS/workflow/bpmn-notace.md"
-            },
-            {
-              "id": "workflow-patterns",
-              "src": "content/courses/PIS/workflow/workflow-patterns.md"
-            },
-            {
-              "id": "flexibilita-workflow",
-              "src": "content/courses/PIS/workflow/flexibilita-workflow.md"
-            },
-            {
-              "id": "bpmn-enginy",
-              "src": "content/courses/PIS/workflow/bpmn-enginy.md"
-            },
-            {
-              "id": "process-mining",
-              "src": "content/courses/PIS/workflow/process-mining.md"
-            }
+            { "id": "business-procesy",        "src": "content/courses/PIS/workflow/business-procesy.md" },
+            { "id": "od-front-k-workflow",     "src": "content/courses/PIS/workflow/od-front-k-workflow.md" },
+            { "id": "wfmc-architektura",       "src": "content/courses/PIS/workflow/wfmc-architektura.md" },
+            { "id": "bpmn-notace",             "src": "content/courses/PIS/workflow/bpmn-notace.md" },
+            { "id": "workflow-patterns",       "src": "content/courses/PIS/workflow/workflow-patterns.md" },
+            { "id": "flexibilita-workflow",    "src": "content/courses/PIS/workflow/flexibilita-workflow.md" },
+            { "id": "bpmn-enginy",             "src": "content/courses/PIS/workflow/bpmn-enginy.md" },
+            { "id": "process-mining",          "src": "content/courses/PIS/workflow/process-mining.md" }
           ]
         },
         {
           "id": "bi-olap",
           "title": "Business Intelligence a OLAP",
           "subtopics": [
-            {
-              "id": "bi-uvod",
-              "src": "content/courses/PIS/bi-olap/bi-uvod.md"
-            },
-            {
-              "id": "datovy-sklad",
-              "src": "content/courses/PIS/bi-olap/datovy-sklad.md"
-            },
-            {
-              "id": "multidimenzionalni-kostka",
-              "src": "content/courses/PIS/bi-olap/multidimenzionalni-kostka.md"
-            },
-            {
-              "id": "podkostky-svaz",
-              "src": "content/courses/PIS/bi-olap/podkostky-svaz.md"
-            },
-            {
-              "id": "agregace",
-              "src": "content/courses/PIS/bi-olap/agregace.md"
-            },
-            {
-              "id": "olap-architektury",
-              "src": "content/courses/PIS/bi-olap/olap-architektury.md"
-            },
-            {
-              "id": "schemata-skladu",
-              "src": "content/courses/PIS/bi-olap/schemata-skladu.md"
-            },
-            {
-              "id": "olap-operace",
-              "src": "content/courses/PIS/bi-olap/olap-operace.md"
-            }
+            { "id": "bi-uvod",                  "src": "content/courses/PIS/bi-olap/bi-uvod.md" },
+            { "id": "datovy-sklad",             "src": "content/courses/PIS/bi-olap/datovy-sklad.md" },
+            { "id": "multidimenzionalni-kostka","src": "content/courses/PIS/bi-olap/multidimenzionalni-kostka.md" },
+            { "id": "podkostky-svaz",           "src": "content/courses/PIS/bi-olap/podkostky-svaz.md" },
+            { "id": "agregace",                 "src": "content/courses/PIS/bi-olap/agregace.md" },
+            { "id": "olap-architektury",        "src": "content/courses/PIS/bi-olap/olap-architektury.md" },
+            { "id": "schemata-skladu",          "src": "content/courses/PIS/bi-olap/schemata-skladu.md" },
+            { "id": "olap-operace",             "src": "content/courses/PIS/bi-olap/olap-operace.md" }
           ]
         }
       ]
@@ -1371,240 +590,839 @@
       "name": "Bezpečná zařízení",
       "credits": 5,
       "semester": "Summer",
-      "specializations": [
-        "NSEC"
-      ],
+      "specializations": ["NSEC"],
       "blurb": "Bezpečný hardware, čipové karty, generátory náhodných čísel, postranní kanály, chybová analýza, HSM, bezpečnost IoT a reverzní inženýrství.",
       "topics": [
         {
           "id": "uvod",
           "title": "Úvod a bezpečný hardware",
           "subtopics": [
-            {
-              "id": "motivace-bh",
-              "src": "content/courses/BZA/uvod/motivace-bh.md"
-            },
-            {
-              "id": "kerckhoff-sto",
-              "src": "content/courses/BZA/uvod/kerckhoff-sto.md"
-            },
-            {
-              "id": "realizace-bh",
-              "src": "content/courses/BZA/uvod/realizace-bh.md"
-            },
-            {
-              "id": "klasifikace-utoku",
-              "src": "content/courses/BZA/uvod/klasifikace-utoku.md"
-            }
+            { "id": "motivace-bh",       "src": "content/courses/BZA/uvod/motivace-bh.md" },
+            { "id": "kerckhoff-sto",     "src": "content/courses/BZA/uvod/kerckhoff-sto.md" },
+            { "id": "realizace-bh",      "src": "content/courses/BZA/uvod/realizace-bh.md" },
+            { "id": "klasifikace-utoku", "src": "content/courses/BZA/uvod/klasifikace-utoku.md" }
           ]
         },
         {
           "id": "rng",
           "title": "Generátory náhodných čísel",
           "subtopics": [
-            {
-              "id": "drng-trng-hybrid",
-              "src": "content/courses/BZA/rng/drng-trng-hybrid.md"
-            },
-            {
-              "id": "ais31-tridy",
-              "src": "content/courses/BZA/rng/ais31-tridy.md"
-            },
-            {
-              "id": "nist-testy",
-              "src": "content/courses/BZA/rng/nist-testy.md"
-            },
-            {
-              "id": "linux-rng",
-              "src": "content/courses/BZA/rng/linux-rng.md"
-            },
-            {
-              "id": "puf",
-              "src": "content/courses/BZA/rng/puf.md"
-            }
+            { "id": "drng-trng-hybrid", "src": "content/courses/BZA/rng/drng-trng-hybrid.md" },
+            { "id": "ais31-tridy",      "src": "content/courses/BZA/rng/ais31-tridy.md" },
+            { "id": "nist-testy",       "src": "content/courses/BZA/rng/nist-testy.md" },
+            { "id": "linux-rng",        "src": "content/courses/BZA/rng/linux-rng.md" },
+            { "id": "puf",              "src": "content/courses/BZA/rng/puf.md" }
           ]
         },
         {
           "id": "lfsr",
           "title": "LFSR a proudové šifry v zařízeních",
           "subtopics": [
-            {
-              "id": "lfsr-princip",
-              "src": "content/courses/BZA/lfsr/lfsr-princip.md"
-            },
-            {
-              "id": "a51-gsm",
-              "src": "content/courses/BZA/lfsr/a51-gsm.md"
-            },
-            {
-              "id": "keeloq",
-              "src": "content/courses/BZA/lfsr/keeloq.md"
-            },
-            {
-              "id": "mifare-crypto1",
-              "src": "content/courses/BZA/lfsr/mifare-crypto1.md"
-            }
+            { "id": "lfsr-princip",  "src": "content/courses/BZA/lfsr/lfsr-princip.md" },
+            { "id": "a51-gsm",       "src": "content/courses/BZA/lfsr/a51-gsm.md" },
+            { "id": "keeloq",        "src": "content/courses/BZA/lfsr/keeloq.md" },
+            { "id": "mifare-crypto1","src": "content/courses/BZA/lfsr/mifare-crypto1.md" }
           ]
         },
         {
           "id": "cipove-karty",
           "title": "Čipové karty",
           "subtopics": [
-            {
-              "id": "architektura-typy",
-              "src": "content/courses/BZA/cipove-karty/architektura-typy.md"
-            },
-            {
-              "id": "iso7816-komunikace",
-              "src": "content/courses/BZA/cipove-karty/iso7816-komunikace.md"
-            },
-            {
-              "id": "fyzicke-utoky",
-              "src": "content/courses/BZA/cipove-karty/fyzicke-utoky.md"
-            },
-            {
-              "id": "logicke-utoky",
-              "src": "content/courses/BZA/cipove-karty/logicke-utoky.md"
-            },
-            {
-              "id": "bezkontaktni-nfc",
-              "src": "content/courses/BZA/cipove-karty/bezkontaktni-nfc.md"
-            },
-            {
-              "id": "elektronicke-pasy",
-              "src": "content/courses/BZA/cipove-karty/elektronicke-pasy.md"
-            }
+            { "id": "architektura-typy", "src": "content/courses/BZA/cipove-karty/architektura-typy.md" },
+            { "id": "iso7816-komunikace","src": "content/courses/BZA/cipove-karty/iso7816-komunikace.md" },
+            { "id": "fyzicke-utoky",     "src": "content/courses/BZA/cipove-karty/fyzicke-utoky.md" },
+            { "id": "logicke-utoky",     "src": "content/courses/BZA/cipove-karty/logicke-utoky.md" },
+            { "id": "bezkontaktni-nfc",  "src": "content/courses/BZA/cipove-karty/bezkontaktni-nfc.md" },
+            { "id": "elektronicke-pasy", "src": "content/courses/BZA/cipove-karty/elektronicke-pasy.md" }
           ]
         },
         {
           "id": "postranni-kanaly",
           "title": "Útoky na postranní kanály",
           "subtopics": [
-            {
-              "id": "uvod-pk",
-              "src": "content/courses/BZA/postranni-kanaly/uvod-pk.md"
-            },
-            {
-              "id": "casova-analyza",
-              "src": "content/courses/BZA/postranni-kanaly/casova-analyza.md"
-            },
-            {
-              "id": "spa-dpa",
-              "src": "content/courses/BZA/postranni-kanaly/spa-dpa.md"
-            },
-            {
-              "id": "em-kanal",
-              "src": "content/courses/BZA/postranni-kanaly/em-kanal.md"
-            },
-            {
-              "id": "padding-oracle",
-              "src": "content/courses/BZA/postranni-kanaly/padding-oracle.md"
-            },
-            {
-              "id": "obrana-pk",
-              "src": "content/courses/BZA/postranni-kanaly/obrana-pk.md"
-            }
+            { "id": "uvod-pk",         "src": "content/courses/BZA/postranni-kanaly/uvod-pk.md" },
+            { "id": "casova-analyza",  "src": "content/courses/BZA/postranni-kanaly/casova-analyza.md" },
+            { "id": "spa-dpa",         "src": "content/courses/BZA/postranni-kanaly/spa-dpa.md" },
+            { "id": "em-kanal",        "src": "content/courses/BZA/postranni-kanaly/em-kanal.md" },
+            { "id": "padding-oracle",  "src": "content/courses/BZA/postranni-kanaly/padding-oracle.md" },
+            { "id": "obrana-pk",       "src": "content/courses/BZA/postranni-kanaly/obrana-pk.md" }
           ]
         },
         {
           "id": "chybova-analyza",
           "title": "Chybová analýza",
           "subtopics": [
-            {
-              "id": "glitch-utoky",
-              "src": "content/courses/BZA/chybova-analyza/glitch-utoky.md"
-            },
-            {
-              "id": "environmentalni",
-              "src": "content/courses/BZA/chybova-analyza/environmentalni.md"
-            },
-            {
-              "id": "dfa-princip",
-              "src": "content/courses/BZA/chybova-analyza/dfa-princip.md"
-            },
-            {
-              "id": "bellcore-rsa",
-              "src": "content/courses/BZA/chybova-analyza/bellcore-rsa.md"
-            }
+            { "id": "glitch-utoky",     "src": "content/courses/BZA/chybova-analyza/glitch-utoky.md" },
+            { "id": "environmentalni",  "src": "content/courses/BZA/chybova-analyza/environmentalni.md" },
+            { "id": "dfa-princip",      "src": "content/courses/BZA/chybova-analyza/dfa-princip.md" },
+            { "id": "bellcore-rsa",     "src": "content/courses/BZA/chybova-analyza/bellcore-rsa.md" }
           ]
         },
         {
           "id": "iot",
           "title": "Bezpečnost IoT",
           "subtopics": [
-            {
-              "id": "iot-kategorizace",
-              "src": "content/courses/BZA/iot/iot-kategorizace.md"
-            },
-            {
-              "id": "topologicke-utoky",
-              "src": "content/courses/BZA/iot/topologicke-utoky.md"
-            },
-            {
-              "id": "lorawan",
-              "src": "content/courses/BZA/iot/lorawan.md"
-            },
-            {
-              "id": "zigbee-802154",
-              "src": "content/courses/BZA/iot/zigbee-802154.md"
-            },
-            {
-              "id": "ble-bluetooth",
-              "src": "content/courses/BZA/iot/ble-bluetooth.md"
-            },
-            {
-              "id": "iot-realne-utoky",
-              "src": "content/courses/BZA/iot/iot-realne-utoky.md"
-            }
+            { "id": "iot-kategorizace",  "src": "content/courses/BZA/iot/iot-kategorizace.md" },
+            { "id": "topologicke-utoky", "src": "content/courses/BZA/iot/topologicke-utoky.md" },
+            { "id": "lorawan",           "src": "content/courses/BZA/iot/lorawan.md" },
+            { "id": "zigbee-802154",     "src": "content/courses/BZA/iot/zigbee-802154.md" },
+            { "id": "ble-bluetooth",     "src": "content/courses/BZA/iot/ble-bluetooth.md" },
+            { "id": "iot-realne-utoky",  "src": "content/courses/BZA/iot/iot-realne-utoky.md" }
           ]
         },
         {
           "id": "hsm",
           "title": "Hardware Security Modules",
           "subtopics": [
-            {
-              "id": "hsm-definice",
-              "src": "content/courses/BZA/hsm/hsm-definice.md"
-            },
-            {
-              "id": "pkcs11-api",
-              "src": "content/courses/BZA/hsm/pkcs11-api.md"
-            },
-            {
-              "id": "fips-cc",
-              "src": "content/courses/BZA/hsm/fips-cc.md"
-            },
-            {
-              "id": "utoky-na-api",
-              "src": "content/courses/BZA/hsm/utoky-na-api.md"
-            }
+            { "id": "hsm-definice",    "src": "content/courses/BZA/hsm/hsm-definice.md" },
+            { "id": "pkcs11-api",      "src": "content/courses/BZA/hsm/pkcs11-api.md" },
+            { "id": "fips-cc",         "src": "content/courses/BZA/hsm/fips-cc.md" },
+            { "id": "utoky-na-api",    "src": "content/courses/BZA/hsm/utoky-na-api.md" }
           ]
         },
         {
           "id": "reverzni-inzenyrstvi",
           "title": "Reverzní inženýrství",
           "subtopics": [
-            {
-              "id": "ri-uvod-motivace",
-              "src": "content/courses/BZA/reverzni-inzenyrstvi/ri-uvod-motivace.md"
-            },
-            {
-              "id": "staticka-analyza",
-              "src": "content/courses/BZA/reverzni-inzenyrstvi/staticka-analyza.md"
-            },
-            {
-              "id": "dynamicka-analyza",
-              "src": "content/courses/BZA/reverzni-inzenyrstvi/dynamicka-analyza.md"
-            },
-            {
-              "id": "anti-ri-techniky",
-              "src": "content/courses/BZA/reverzni-inzenyrstvi/anti-ri-techniky.md"
-            }
+            { "id": "ri-uvod-motivace", "src": "content/courses/BZA/reverzni-inzenyrstvi/ri-uvod-motivace.md" },
+            { "id": "staticka-analyza", "src": "content/courses/BZA/reverzni-inzenyrstvi/staticka-analyza.md" },
+            { "id": "dynamicka-analyza","src": "content/courses/BZA/reverzni-inzenyrstvi/dynamicka-analyza.md" },
+            { "id": "anti-ri-techniky", "src": "content/courses/BZA/reverzni-inzenyrstvi/anti-ri-techniky.md" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "BIO",
+      "name": "Biometrické systémy",
+      "credits": 5,
+      "semester": "Winter",
+      "specializations": ["NSEC"],
+      "blurb": "Biometrické metody pro identifikaci a verifikaci osob: otisky prstů, obličej, duhovka, sítnice, DNA, hlas, podpis, chůze. Hodnocení chybovosti, biometrické pasy, anti-spoofing a etika.",
+      "topics": [
+        {
+          "id": "uvod",
+          "title": "Úvod do biometrie",
+          "subtopics": [
+            { "id": "biometrie-pojem",   "src": "content/courses/BIO/uvod/biometrie-pojem.md" },
+            { "id": "historie",          "src": "content/courses/BIO/uvod/historie.md" },
+            { "id": "identita-overeni",  "src": "content/courses/BIO/uvod/identita-overeni.md" },
+            { "id": "biometricky-system","src": "content/courses/BIO/uvod/biometricky-system.md" }
+          ]
+        },
+        {
+          "id": "hodnoceni",
+          "title": "Hodnocení biometrických systémů",
+          "subtopics": [
+            { "id": "variabilita",     "src": "content/courses/BIO/hodnoceni/variabilita.md" },
+            { "id": "far-frr",         "src": "content/courses/BIO/hodnoceni/far-frr.md" },
+            { "id": "fmr-fnmr-eer",    "src": "content/courses/BIO/hodnoceni/fmr-fnmr-eer.md" },
+            { "id": "roc-det",         "src": "content/courses/BIO/hodnoceni/roc-det.md" },
+            { "id": "testovani-eval",  "src": "content/courses/BIO/hodnoceni/testovani-eval.md" }
+          ]
+        },
+        {
+          "id": "otisky",
+          "title": "Otisky prstů",
+          "subtopics": [
+            { "id": "papilarni-linie", "src": "content/courses/BIO/otisky/papilarni-linie.md" },
+            { "id": "snimani-otisku",  "src": "content/courses/BIO/otisky/snimani-otisku.md" },
+            { "id": "klasifikace-otisku","src": "content/courses/BIO/otisky/klasifikace-otisku.md" },
+            { "id": "markanty",        "src": "content/courses/BIO/otisky/markanty.md" },
+            { "id": "zpracovani-afis", "src": "content/courses/BIO/otisky/zpracovani-afis.md" }
+          ]
+        },
+        {
+          "id": "oblicej",
+          "title": "Rozpoznávání obličeje",
+          "subtopics": [
+            { "id": "snimani-oblicej", "src": "content/courses/BIO/oblicej/snimani-oblicej.md" },
+            { "id": "eigenfaces-pca",  "src": "content/courses/BIO/oblicej/eigenfaces-pca.md" },
+            { "id": "deep-learning-face","src": "content/courses/BIO/oblicej/deep-learning-face.md" },
+            { "id": "antispoofing-face","src": "content/courses/BIO/oblicej/antispoofing-face.md" }
+          ]
+        },
+        {
+          "id": "duhovka-sitnice",
+          "title": "Duhovka a sítnice",
+          "subtopics": [
+            { "id": "anatomie-oka",    "src": "content/courses/BIO/duhovka-sitnice/anatomie-oka.md" },
+            { "id": "daugman",         "src": "content/courses/BIO/duhovka-sitnice/daugman.md" },
+            { "id": "sitnice-cevy",    "src": "content/courses/BIO/duhovka-sitnice/sitnice-cevy.md" },
+            { "id": "snimaci-systemy", "src": "content/courses/BIO/duhovka-sitnice/snimaci-systemy.md" }
+          ]
+        },
+        {
+          "id": "ruka",
+          "title": "Identifikátory ruky",
+          "subtopics": [
+            { "id": "geometrie-ruky",  "src": "content/courses/BIO/ruka/geometrie-ruky.md" },
+            { "id": "nehty",           "src": "content/courses/BIO/ruka/nehty.md" },
+            { "id": "krevni-recisko", "src": "content/courses/BIO/ruka/krevni-recisko.md" },
+            { "id": "kosti-ruky",      "src": "content/courses/BIO/ruka/kosti-ruky.md" }
+          ]
+        },
+        {
+          "id": "dynamicke",
+          "title": "Dynamické biometriky",
+          "subtopics": [
+            { "id": "hlas-rec",        "src": "content/courses/BIO/dynamicke/hlas-rec.md" },
+            { "id": "podpis-dynamika", "src": "content/courses/BIO/dynamicke/podpis-dynamika.md" },
+            { "id": "chuze",           "src": "content/courses/BIO/dynamicke/chuze.md" },
+            { "id": "keystroke",       "src": "content/courses/BIO/dynamicke/keystroke.md" }
+          ]
+        },
+        {
+          "id": "dna",
+          "title": "DNA v biometrii",
+          "subtopics": [
+            { "id": "dna-struktura",   "src": "content/courses/BIO/dna/dna-struktura.md" },
+            { "id": "str-profil",      "src": "content/courses/BIO/dna/str-profil.md" },
+            { "id": "forenzni-dna",    "src": "content/courses/BIO/dna/forenzni-dna.md" },
+            { "id": "etika-dna",       "src": "content/courses/BIO/dna/etika-dna.md" }
+          ]
+        },
+        {
+          "id": "pasy",
+          "title": "Biometrické pasy a dokumenty",
+          "subtopics": [
+            { "id": "icao-9303",       "src": "content/courses/BIO/pasy/icao-9303.md" },
+            { "id": "biometricka-data","src": "content/courses/BIO/pasy/biometricka-data.md" },
+            { "id": "bezpecnost-pasu", "src": "content/courses/BIO/pasy/bezpecnost-pasu.md" }
+          ]
+        },
+        {
+          "id": "utoky",
+          "title": "Útoky a anti-spoofing",
+          "subtopics": [
+            { "id": "typy-utoku",     "src": "content/courses/BIO/utoky/typy-utoku.md" },
+            { "id": "liveness",       "src": "content/courses/BIO/utoky/liveness.md" },
+            { "id": "deepfakes",      "src": "content/courses/BIO/utoky/deepfakes.md" },
+            { "id": "etika-gdpr",     "src": "content/courses/BIO/utoky/etika-gdpr.md" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FLP",
+      "name": "Funkcionální a logické programování",
+      "credits": 5,
+      "semester": "Summer",
+      "specializations": ["NSEN"],
+      "blurb": "Lambda kalkul, funkcionální programování (Haskell), moderní paradigm (Rust od 2026/27) a logické programování (Prolog, legacy do 2025/26). Vyučující: Dušan Kolář.",
+      "topics": [
+        {
+          "id": "lambda",
+          "title": "Lambda kalkul a teoretické základy",
+          "subtopics": [
+            { "id": "lambda-syntax", "src": "content/courses/FLP/lambda/lambda-syntax.md" },
+            { "id": "lambda-redukce","src": "content/courses/FLP/lambda/lambda-redukce.md" },
+            { "id": "church-enc",    "src": "content/courses/FLP/lambda/church-enc.md" }
+          ]
+        },
+        {
+          "id": "haskell-zaklady",
+          "title": "Haskell — základy",
+          "subtopics": [
+            { "id": "haskell-syntax-typy",  "src": "content/courses/FLP/haskell-zaklady/haskell-syntax-typy.md" },
+            { "id": "lazy-evaluation",      "src": "content/courses/FLP/haskell-zaklady/lazy-evaluation.md" },
+            { "id": "pattern-matching-adt", "src": "content/courses/FLP/haskell-zaklady/pattern-matching-adt.md" },
+            { "id": "type-classes",         "src": "content/courses/FLP/haskell-zaklady/type-classes.md" }
+          ]
+        },
+        {
+          "id": "haskell-pokrocile",
+          "title": "Haskell — pokročilé techniky",
+          "subtopics": [
+            { "id": "higher-order",  "src": "content/courses/FLP/haskell-pokrocile/higher-order.md" },
+            { "id": "monady-io",     "src": "content/courses/FLP/haskell-pokrocile/monady-io.md" },
+            { "id": "exceptions",    "src": "content/courses/FLP/haskell-pokrocile/exceptions.md" }
+          ]
+        },
+        {
+          "id": "rust",
+          "title": "Rust — nové paradigma od 2026/27",
+          "subtopics": [
+            { "id": "rust-ownership",  "src": "content/courses/FLP/rust/rust-ownership.md" },
+            { "id": "rust-lifetimes",  "src": "content/courses/FLP/rust/rust-lifetimes.md" },
+            { "id": "rust-traits",     "src": "content/courses/FLP/rust/rust-traits.md" },
+            { "id": "rust-error",      "src": "content/courses/FLP/rust/rust-error.md" }
+          ]
+        },
+        {
+          "id": "prolog",
+          "title": "Logické programování (Prolog) — legacy do 2025/26",
+          "subtopics": [
+            { "id": "prolog-zaklady",     "src": "content/courses/FLP/prolog/prolog-zaklady.md" },
+            { "id": "unifikace-backtrack","src": "content/courses/FLP/prolog/unifikace-backtrack.md" },
+            { "id": "prolog-seznamy",     "src": "content/courses/FLP/prolog/prolog-seznamy.md" },
+            { "id": "prolog-pokrocile",   "src": "content/courses/FLP/prolog/prolog-pokrocile.md" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SUI",
+      "name": "Strojové učení a umělá inteligence",
+      "credits": 5,
+      "semester": "Winter",
+      "specializations": ["NMAL", "NISY"],
+      "blurb": "Základy strojového učení a umělé inteligence: pravděpodobnostní modely, regrese, klasifikace, inteligentní agenti, prohledávání, hry, CSP, neuronové sítě, CNN, RNN, transformery, LLM a posilované učení.",
+      "topics": [
+        {
+          "id": "zaklady-ml",
+          "title": "Základy strojového učení",
+          "subtopics": [
+            { "id": "typy-uceni",            "src": "content/courses/SUI/zaklady-ml/typy-uceni.md" },
+            { "id": "pravdepodobnost-bayes", "src": "content/courses/SUI/zaklady-ml/pravdepodobnost-bayes.md" },
+            { "id": "gaussovsky-klasifikator","src": "content/courses/SUI/zaklady-ml/gaussovsky-klasifikator.md" },
+            { "id": "linearni-regrese",      "src": "content/courses/SUI/zaklady-ml/linearni-regrese.md" },
+            { "id": "logisticka-regrese",    "src": "content/courses/SUI/zaklady-ml/logisticka-regrese.md" }
+          ]
+        },
+        {
+          "id": "agenti",
+          "title": "Inteligentní agenti a prostředí",
+          "subtopics": [
+            { "id": "agent-prostredi",  "src": "content/courses/SUI/agenti/agent-prostredi.md" },
+            { "id": "typy-agentu",      "src": "content/courses/SUI/agenti/typy-agentu.md" },
+            { "id": "reprezentace-stavu","src": "content/courses/SUI/agenti/reprezentace-stavu.md" }
+          ]
+        },
+        {
+          "id": "prohledavani",
+          "title": "Prohledávání stavového prostoru",
+          "subtopics": [
+            { "id": "formulace-problemu", "src": "content/courses/SUI/prohledavani/formulace-problemu.md" },
+            { "id": "neinformovane",      "src": "content/courses/SUI/prohledavani/neinformovane.md" },
+            { "id": "informovane",        "src": "content/courses/SUI/prohledavani/informovane.md" },
+            { "id": "lokalni",            "src": "content/courses/SUI/prohledavani/lokalni.md" }
+          ]
+        },
+        {
+          "id": "nejistota-hry",
+          "title": "Nejistota a adversariální prohledávání",
+          "subtopics": [
+            { "id": "and-or-stromy",         "src": "content/courses/SUI/nejistota-hry/and-or-stromy.md" },
+            { "id": "castecna-pozorovatelnost","src": "content/courses/SUI/nejistota-hry/castecna-pozorovatelnost.md" },
+            { "id": "adversarial",           "src": "content/courses/SUI/nejistota-hry/adversarial.md" },
+            { "id": "mcts-stochastic",       "src": "content/courses/SUI/nejistota-hry/mcts-stochastic.md" }
+          ]
+        },
+        {
+          "id": "csp",
+          "title": "Úlohy s omezujícími podmínkami (CSP)",
+          "subtopics": [
+            { "id": "csp-definice",     "src": "content/courses/SUI/csp/csp-definice.md" },
+            { "id": "csp-inference",    "src": "content/courses/SUI/csp/csp-inference.md" },
+            { "id": "csp-prohledavani", "src": "content/courses/SUI/csp/csp-prohledavani.md" }
+          ]
+        },
+        {
+          "id": "ai-uvod",
+          "title": "Úvod do umělé inteligence",
+          "subtopics": [
+            { "id": "co-je-ai",          "src": "content/courses/SUI/ai-uvod/co-je-ai.md" },
+            { "id": "ai-historie",       "src": "content/courses/SUI/ai-uvod/ai-historie.md" },
+            { "id": "ai-aplikace-rizika","src": "content/courses/SUI/ai-uvod/ai-aplikace-rizika.md" }
+          ]
+        },
+        {
+          "id": "nn-zaklady",
+          "title": "Neuronové sítě — základy",
+          "subtopics": [
+            { "id": "neuron-vrstvy",     "src": "content/courses/SUI/nn-zaklady/neuron-vrstvy.md" },
+            { "id": "aktivace-loss",     "src": "content/courses/SUI/nn-zaklady/aktivace-loss.md" },
+            { "id": "gradient-descent",  "src": "content/courses/SUI/nn-zaklady/gradient-descent.md" },
+            { "id": "nn-generalizace",   "src": "content/courses/SUI/nn-zaklady/nn-generalizace.md" }
+          ]
+        },
+        {
+          "id": "cnn",
+          "title": "Konvoluční neuronové sítě",
+          "subtopics": [
+            { "id": "konvoluce",        "src": "content/courses/SUI/cnn/konvoluce.md" },
+            { "id": "cnn-architektury", "src": "content/courses/SUI/cnn/cnn-architektury.md" },
+            { "id": "cnn-aplikace",     "src": "content/courses/SUI/cnn/cnn-aplikace.md" },
+            { "id": "transfer-learning","src": "content/courses/SUI/cnn/transfer-learning.md" }
+          ]
+        },
+        {
+          "id": "sekvence-jazyk",
+          "title": "Sekvence a jazykové modely",
+          "subtopics": [
+            { "id": "rnn-lstm",        "src": "content/courses/SUI/sekvence-jazyk/rnn-lstm.md" },
+            { "id": "embeddings",      "src": "content/courses/SUI/sekvence-jazyk/embeddings.md" },
+            { "id": "attention",       "src": "content/courses/SUI/sekvence-jazyk/attention.md" },
+            { "id": "transformer-bert","src": "content/courses/SUI/sekvence-jazyk/transformer-bert.md" },
+            { "id": "llm",             "src": "content/courses/SUI/sekvence-jazyk/llm.md" }
+          ]
+        },
+        {
+          "id": "rl",
+          "title": "Posilované učení (Reinforcement learning)",
+          "subtopics": [
+            { "id": "rl-framework",    "src": "content/courses/SUI/rl/rl-framework.md" },
+            { "id": "value-q-learning","src": "content/courses/SUI/rl/value-q-learning.md" },
+            { "id": "policy-gradient", "src": "content/courses/SUI/rl/policy-gradient.md" },
+            { "id": "rl-llm-rlhf",     "src": "content/courses/SUI/rl/rl-llm-rlhf.md" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "MSP",
+      "name": "Statistika a pravděpodobnost",
+      "credits": 6,
+      "semester": "Winter",
+      "specializations": ["NVIZ", "NMAL", "NSEN", "NSEC", "NISD", "NISY"],
+      "blurb": "Pravděpodobnostní modely v informatice (DTMC, MDP), randomizované algoritmy, bodový a intervalový odhad parametrů, Fisherova informace, testování hypotéz, lineární model + ANOVA, lineární regrese, kategoriální data, neparametrické testy, GLM.",
+      "topics": [
+        {
+          "id": "pravdepodobnost-zaklady",
+          "title": "Pravděpodobnost — opakování",
+          "subtopics": [
+            { "id": "pravdepodobnostni-prostor", "src": "content/courses/MSP/pravdepodobnost-zaklady/pravdepodobnostni-prostor.md" },
+            { "id": "nahodne-veliciny",          "src": "content/courses/MSP/pravdepodobnost-zaklady/nahodne-veliciny.md" },
+            { "id": "charakteristiky",           "src": "content/courses/MSP/pravdepodobnost-zaklady/charakteristiky.md" },
+            { "id": "dulezita-rozdeleni",        "src": "content/courses/MSP/pravdepodobnost-zaklady/dulezita-rozdeleni.md" }
+          ]
+        },
+        {
+          "id": "markovske-retezce",
+          "title": "Markovské řetězce",
+          "subtopics": [
+            { "id": "dtmc-definice",     "src": "content/courses/MSP/markovske-retezce/dtmc-definice.md" },
+            { "id": "klasifikace-stavu", "src": "content/courses/MSP/markovske-retezce/klasifikace-stavu.md" },
+            { "id": "transient-analyza", "src": "content/courses/MSP/markovske-retezce/transient-analyza.md" },
+            { "id": "reachability",      "src": "content/courses/MSP/markovske-retezce/reachability.md" },
+            { "id": "steady-state",      "src": "content/courses/MSP/markovske-retezce/steady-state.md" }
+          ]
+        },
+        {
+          "id": "mdp",
+          "title": "Markovské rozhodovací procesy",
+          "subtopics": [
+            { "id": "mdp-definice",        "src": "content/courses/MSP/mdp/mdp-definice.md" },
+            { "id": "politiky-value",      "src": "content/courses/MSP/mdp/politiky-value.md" },
+            { "id": "value-iteration",     "src": "content/courses/MSP/mdp/value-iteration.md" },
+            { "id": "prism-model-checking","src": "content/courses/MSP/mdp/prism-model-checking.md" }
+          ]
+        },
+        {
+          "id": "randomizovane",
+          "title": "Randomizované algoritmy",
+          "subtopics": [
+            { "id": "las-vegas-monte-carlo","src": "content/courses/MSP/randomizovane/las-vegas-monte-carlo.md" },
+            { "id": "indikatorove-veliciny","src": "content/courses/MSP/randomizovane/indikatorove-veliciny.md" },
+            { "id": "quicksort-analyza",    "src": "content/courses/MSP/randomizovane/quicksort-analyza.md" },
+            { "id": "karger-min-cut",       "src": "content/courses/MSP/randomizovane/karger-min-cut.md" }
+          ]
+        },
+        {
+          "id": "bodovy-odhad",
+          "title": "Bodový odhad parametrů",
+          "subtopics": [
+            { "id": "statisticka-inference","src": "content/courses/MSP/bodovy-odhad/statisticka-inference.md" },
+            { "id": "mle",                  "src": "content/courses/MSP/bodovy-odhad/mle.md" },
+            { "id": "metoda-momentu",       "src": "content/courses/MSP/bodovy-odhad/metoda-momentu.md" },
+            { "id": "vlastnosti-odhadu",    "src": "content/courses/MSP/bodovy-odhad/vlastnosti-odhadu.md" },
+            { "id": "bayesovsky-odhad",     "src": "content/courses/MSP/bodovy-odhad/bayesovsky-odhad.md" }
+          ]
+        },
+        {
+          "id": "mle-vlastnosti",
+          "title": "Vlastnosti MLE a postačující statistiky",
+          "subtopics": [
+            { "id": "regularni-podminky",    "src": "content/courses/MSP/mle-vlastnosti/regularni-podminky.md" },
+            { "id": "postacujici-statistika","src": "content/courses/MSP/mle-vlastnosti/postacujici-statistika.md" },
+            { "id": "exponencialni-rodina",  "src": "content/courses/MSP/mle-vlastnosti/exponencialni-rodina.md" },
+            { "id": "fisherova-informace",   "src": "content/courses/MSP/mle-vlastnosti/fisherova-informace.md" }
+          ]
+        },
+        {
+          "id": "intervaly-hypotezy",
+          "title": "Intervalové odhady a testování hypotéz",
+          "subtopics": [
+            { "id": "intervaly-spolehlivosti","src": "content/courses/MSP/intervaly-hypotezy/intervaly-spolehlivosti.md" },
+            { "id": "dulezita-rozdeleni-testy","src": "content/courses/MSP/intervaly-hypotezy/dulezita-rozdeleni-testy.md" },
+            { "id": "testovani-princip",      "src": "content/courses/MSP/intervaly-hypotezy/testovani-princip.md" },
+            { "id": "t-test",                 "src": "content/courses/MSP/intervaly-hypotezy/t-test.md" },
+            { "id": "likelihood-ratio",       "src": "content/courses/MSP/intervaly-hypotezy/likelihood-ratio.md" }
+          ]
+        },
+        {
+          "id": "linearni-model-anova",
+          "title": "Lineární model a ANOVA",
+          "subtopics": [
+            { "id": "linearni-model",   "src": "content/courses/MSP/linearni-model-anova/linearni-model.md" },
+            { "id": "gauss-markov",     "src": "content/courses/MSP/linearni-model-anova/gauss-markov.md" },
+            { "id": "f-test-submodel",  "src": "content/courses/MSP/linearni-model-anova/f-test-submodel.md" },
+            { "id": "one-way-anova",    "src": "content/courses/MSP/linearni-model-anova/one-way-anova.md" },
+            { "id": "two-way-posthoc",  "src": "content/courses/MSP/linearni-model-anova/two-way-posthoc.md" }
+          ]
+        },
+        {
+          "id": "linearni-regrese-msp",
+          "title": "Lineární regrese",
+          "subtopics": [
+            { "id": "regrese-intro",        "src": "content/courses/MSP/linearni-regrese-msp/regrese-intro.md" },
+            { "id": "kvalita-modelu",       "src": "content/courses/MSP/linearni-regrese-msp/kvalita-modelu.md" },
+            { "id": "hat-matrix-leverage",  "src": "content/courses/MSP/linearni-regrese-msp/hat-matrix-leverage.md" },
+            { "id": "diagnostika-rezidui",  "src": "content/courses/MSP/linearni-regrese-msp/diagnostika-rezidui.md" },
+            { "id": "predikce-vyber-modelu","src": "content/courses/MSP/linearni-regrese-msp/predikce-vyber-modelu.md" }
+          ]
+        },
+        {
+          "id": "kategorialni-glm",
+          "title": "Kategoriální data, neparametrika a GLM",
+          "subtopics": [
+            { "id": "kategorialni-data",      "src": "content/courses/MSP/kategorialni-glm/kategorialni-data.md" },
+            { "id": "goodness-of-fit",        "src": "content/courses/MSP/kategorialni-glm/goodness-of-fit.md" },
+            { "id": "rank-testy",             "src": "content/courses/MSP/kategorialni-glm/rank-testy.md" },
+            { "id": "logisticka-regrese-msp", "src": "content/courses/MSP/kategorialni-glm/logisticka-regrese-msp.md" },
+            { "id": "glm-intro",              "src": "content/courses/MSP/kategorialni-glm/glm-intro.md" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UPA",
+      "name": "Ukládání a příprava dat",
+      "credits": 5,
+      "semester": "Winter",
+      "specializations": ["NISD", "NMAL"],
+      "blurb": "Objektově-relační databáze, NoSQL (CAP, BASE, MongoDB/Cassandra/Neo4j/InfluxDB), NewSQL, XML/JSON v DB, sémantický web (RDF, OWL, SPARQL), web scraping, CRISP-DM, čištění a transformace dat, in-memory sloupcové DB (SAP HANA), prostorové databáze (R-tree, k-D tree).",
+      "topics": [
+        {
+          "id": "objektove-db",
+          "title": "Objektově-orientované databáze",
+          "subtopics": [
+            { "id": "relacni-vs-objektovy",   "src": "content/courses/UPA/objektove-db/relacni-vs-objektovy.md" },
+            { "id": "oodbms",                  "src": "content/courses/UPA/objektove-db/oodbms.md" },
+            { "id": "sql-objekt-features",     "src": "content/courses/UPA/objektove-db/sql-objekt-features.md" },
+            { "id": "orm-odm",                 "src": "content/courses/UPA/objektove-db/orm-odm.md" }
+          ]
+        },
+        {
+          "id": "nosql-uvod",
+          "title": "NoSQL databáze — úvod a CAP",
+          "subtopics": [
+            { "id": "relacni-omezeni",   "src": "content/courses/UPA/nosql-uvod/relacni-omezeni.md" },
+            { "id": "acid-base",         "src": "content/courses/UPA/nosql-uvod/acid-base.md" },
+            { "id": "cap-teorem",        "src": "content/courses/UPA/nosql-uvod/cap-teorem.md" },
+            { "id": "typy-nosql",        "src": "content/courses/UPA/nosql-uvod/typy-nosql.md" },
+            { "id": "nosql-priklady",    "src": "content/courses/UPA/nosql-uvod/nosql-priklady.md" }
+          ]
+        },
+        {
+          "id": "nosql-dotazovani",
+          "title": "NoSQL — dotazování, agregace, NewSQL",
+          "subtopics": [
+            { "id": "sharding-partitioning", "src": "content/courses/UPA/nosql-dotazovani/sharding-partitioning.md" },
+            { "id": "dotazovani-nosql",      "src": "content/courses/UPA/nosql-dotazovani/dotazovani-nosql.md" },
+            { "id": "mapreduce",             "src": "content/courses/UPA/nosql-dotazovani/mapreduce.md" },
+            { "id": "newsql",                "src": "content/courses/UPA/nosql-dotazovani/newsql.md" }
+          ]
+        },
+        {
+          "id": "xml-json",
+          "title": "XML a JSON v databázích",
+          "subtopics": [
+            { "id": "xml-zaklady", "src": "content/courses/UPA/xml-json/xml-zaklady.md" },
+            { "id": "xml-v-db",    "src": "content/courses/UPA/xml-json/xml-v-db.md" },
+            { "id": "json-zaklady","src": "content/courses/UPA/xml-json/json-zaklady.md" },
+            { "id": "json-v-db",   "src": "content/courses/UPA/xml-json/json-v-db.md" }
+          ]
+        },
+        {
+          "id": "semanticky-web",
+          "title": "Sémantický web a ontologie",
+          "subtopics": [
+            { "id": "semanticky-web",    "src": "content/courses/UPA/semanticky-web/semanticky-web.md" },
+            { "id": "rdf",               "src": "content/courses/UPA/semanticky-web/rdf.md" },
+            { "id": "rdf-serializace",   "src": "content/courses/UPA/semanticky-web/rdf-serializace.md" },
+            { "id": "ontologie-owl",     "src": "content/courses/UPA/semanticky-web/ontologie-owl.md" },
+            { "id": "sparql",            "src": "content/courses/UPA/semanticky-web/sparql.md" }
+          ]
+        },
+        {
+          "id": "webscraping",
+          "title": "Extrakce dat z webu (Web scraping)",
+          "subtopics": [
+            { "id": "webscraping-motivace",    "src": "content/courses/UPA/webscraping/webscraping-motivace.md" },
+            { "id": "dom-parsery",              "src": "content/courses/UPA/webscraping/dom-parsery.md" },
+            { "id": "knihovny-scraping",        "src": "content/courses/UPA/webscraping/knihovny-scraping.md" },
+            { "id": "browser-automation",       "src": "content/courses/UPA/webscraping/browser-automation.md" },
+            { "id": "inteligentni-extrakce",    "src": "content/courses/UPA/webscraping/inteligentni-extrakce.md" }
+          ]
+        },
+        {
+          "id": "crisp-dm",
+          "title": "CRISP-DM a porozumění datům",
+          "subtopics": [
+            { "id": "crisp-dm",                "src": "content/courses/UPA/crisp-dm/crisp-dm.md" },
+            { "id": "datova-sada",             "src": "content/courses/UPA/crisp-dm/datova-sada.md" },
+            { "id": "popisne-charakteristiky", "src": "content/courses/UPA/crisp-dm/popisne-charakteristiky.md" },
+            { "id": "vizualizace-korelace",    "src": "content/courses/UPA/crisp-dm/vizualizace-korelace.md" }
+          ]
+        },
+        {
+          "id": "priprava-dat",
+          "title": "Příprava dat — čištění, integrace, transformace",
+          "subtopics": [
+            { "id": "cisteni-dat",                 "src": "content/courses/UPA/priprava-dat/cisteni-dat.md" },
+            { "id": "integrace-etl",               "src": "content/courses/UPA/priprava-dat/integrace-etl.md" },
+            { "id": "redukce-dat",                 "src": "content/courses/UPA/priprava-dat/redukce-dat.md" },
+            { "id": "nevyvazenost",                "src": "content/courses/UPA/priprava-dat/nevyvazenost.md" },
+            { "id": "normalizace-diskretizace",    "src": "content/courses/UPA/priprava-dat/normalizace-diskretizace.md" }
+          ]
+        },
+        {
+          "id": "sloupcove-db",
+          "title": "In-memory sloupcové databáze (SAP HANA)",
+          "subtopics": [
+            { "id": "row-vs-column",       "src": "content/courses/UPA/sloupcove-db/row-vs-column.md" },
+            { "id": "dictionary-encoding", "src": "content/courses/UPA/sloupcove-db/dictionary-encoding.md" },
+            { "id": "komprese",            "src": "content/courses/UPA/sloupcove-db/komprese.md" },
+            { "id": "operace-imdb",        "src": "content/courses/UPA/sloupcove-db/operace-imdb.md" },
+            { "id": "scan-performance",    "src": "content/courses/UPA/sloupcove-db/scan-performance.md" }
+          ]
+        },
+        {
+          "id": "prostorove-db",
+          "title": "Prostorové databáze",
+          "subtopics": [
+            { "id": "prostorova-db-uvod",  "src": "content/courses/UPA/prostorove-db/prostorova-db-uvod.md" },
+            { "id": "prostorove-typy",     "src": "content/courses/UPA/prostorove-db/prostorove-typy.md" },
+            { "id": "prostorove-operace",  "src": "content/courses/UPA/prostorove-db/prostorove-operace.md" },
+            { "id": "indexovani-bodu",     "src": "content/courses/UPA/prostorove-db/indexovani-bodu.md" },
+            { "id": "rtree",               "src": "content/courses/UPA/prostorove-db/rtree.md" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "AVS",
+      "name": "Architektury výpočetních systémů",
+      "credits": 5,
+      "semester": "Winter",
+      "specializations": ["NSEN", "NMAL"],
+      "blurb": "Pipelining, superskalární CPU (Scoreboard, Tomasulo, ROB), cache hierarchie + virtuální paměť, predikce skoků a prefetch, datový paralelismus (SIMD/AVX), SMT/Hyper-Threading, OpenMP, koherence cache (MESI/MOESI), NUMA, řízení spotřeby a GPGPU (CUDA, SIMT).",
+      "topics": [
+        {
+          "id": "pipelining",
+          "title": "Skalární procesory a pipelining",
+          "subtopics": [
+            { "id": "moorov-zakon-amdahl",       "src": "content/courses/AVS/pipelining/moorov-zakon-amdahl.md" },
+            { "id": "pipelining-faze",            "src": "content/courses/AVS/pipelining/pipelining-faze.md" },
+            { "id": "datove-konflikty-forwarding","src": "content/courses/AVS/pipelining/datove-konflikty-forwarding.md" },
+            { "id": "ridici-konflikty-skoky",     "src": "content/courses/AVS/pipelining/ridici-konflikty-skoky.md" },
+            { "id": "superpipelining-vykon",      "src": "content/courses/AVS/pipelining/superpipelining-vykon.md" }
+          ]
+        },
+        {
+          "id": "superskalar",
+          "title": "Superskalární CPU a dynamické plánování",
+          "subtopics": [
+            { "id": "ilp-superskalar",   "src": "content/courses/AVS/superskalar/ilp-superskalar.md" },
+            { "id": "scoreboard",         "src": "content/courses/AVS/superskalar/scoreboard.md" },
+            { "id": "tomasulo",           "src": "content/courses/AVS/superskalar/tomasulo.md" },
+            { "id": "renaming-rob",       "src": "content/courses/AVS/superskalar/renaming-rob.md" },
+            { "id": "spekulace-vyjimky",  "src": "content/courses/AVS/superskalar/spekulace-vyjimky.md" }
+          ]
+        },
+        {
+          "id": "cache",
+          "title": "Cache hierarchie a L/S jednotky",
+          "subtopics": [
+            { "id": "pamet-hierarchie", "src": "content/courses/AVS/cache/pamet-hierarchie.md" },
+            { "id": "cache-mapovani",    "src": "content/courses/AVS/cache/cache-mapovani.md" },
+            { "id": "cache-politiky",    "src": "content/courses/AVS/cache/cache-politiky.md" },
+            { "id": "amat-vykon-cache",  "src": "content/courses/AVS/cache/amat-vykon-cache.md" },
+            { "id": "ls-jednotka-mshr",  "src": "content/courses/AVS/cache/ls-jednotka-mshr.md" }
+          ]
+        },
+        {
+          "id": "predikce-skoku",
+          "title": "Predikce skoků a prefetching",
+          "subtopics": [
+            { "id": "staticka-predikce",    "src": "content/courses/AVS/predikce-skoku/staticka-predikce.md" },
+            { "id": "bht-2bit",              "src": "content/courses/AVS/predikce-skoku/bht-2bit.md" },
+            { "id": "pokrocile-prediktory",  "src": "content/courses/AVS/predikce-skoku/pokrocile-prediktory.md" },
+            { "id": "prefetching",           "src": "content/courses/AVS/predikce-skoku/prefetching.md" }
+          ]
+        },
+        {
+          "id": "simd",
+          "title": "Datový paralelismus a SIMD",
+          "subtopics": [
+            { "id": "dlp-vs-ilp-tlp",         "src": "content/courses/AVS/simd/dlp-vs-ilp-tlp.md" },
+            { "id": "vektorove-cpu",          "src": "content/courses/AVS/simd/vektorove-cpu.md" },
+            { "id": "sse-avx",                "src": "content/courses/AVS/simd/sse-avx.md" },
+            { "id": "vektorizace-prakticka",  "src": "content/courses/AVS/simd/vektorizace-prakticka.md" },
+            { "id": "gather-scatter",         "src": "content/courses/AVS/simd/gather-scatter.md" }
+          ]
+        },
+        {
+          "id": "smt",
+          "title": "Vláknový paralelismus a SMT",
+          "subtopics": [
+            { "id": "tlp-uvod",         "src": "content/courses/AVS/smt/tlp-uvod.md" },
+            { "id": "tmt-cmt-smt",       "src": "content/courses/AVS/smt/tmt-cmt-smt.md" },
+            { "id": "hyperthreading",    "src": "content/courses/AVS/smt/hyperthreading.md" },
+            { "id": "ht-vykon-omezeni",  "src": "content/courses/AVS/smt/ht-vykon-omezeni.md" }
+          ]
+        },
+        {
+          "id": "openmp-zaklady",
+          "title": "OpenMP — direktivy a smyčky",
+          "subtopics": [
+            { "id": "paralelni-modely",       "src": "content/courses/AVS/openmp-zaklady/paralelni-modely.md" },
+            { "id": "openmp-uvod",             "src": "content/courses/AVS/openmp-zaklady/openmp-uvod.md" },
+            { "id": "parallel-for-scheduling", "src": "content/courses/AVS/openmp-zaklady/parallel-for-scheduling.md" },
+            { "id": "datova-prostredi",        "src": "content/courses/AVS/openmp-zaklady/datova-prostredi.md" }
+          ]
+        },
+        {
+          "id": "openmp-sync",
+          "title": "OpenMP — sekce, tasky a synchronizace",
+          "subtopics": [
+            { "id": "sections-single-master",  "src": "content/courses/AVS/openmp-sync/sections-single-master.md" },
+            { "id": "tasks-openmp",             "src": "content/courses/AVS/openmp-sync/tasks-openmp.md" },
+            { "id": "synchronizace-bariery",    "src": "content/courses/AVS/openmp-sync/synchronizace-bariery.md" },
+            { "id": "locks-openmp",             "src": "content/courses/AVS/openmp-sync/locks-openmp.md" },
+            { "id": "false-sharing-races",      "src": "content/courses/AVS/openmp-sync/false-sharing-races.md" }
+          ]
+        },
+        {
+          "id": "koherence-numa",
+          "title": "Koherence cache a NUMA",
+          "subtopics": [
+            { "id": "koherence-uvod",     "src": "content/courses/AVS/koherence-numa/koherence-uvod.md" },
+            { "id": "msi-mesi-moesi",      "src": "content/courses/AVS/koherence-numa/msi-mesi-moesi.md" },
+            { "id": "snooping-directory",  "src": "content/courses/AVS/koherence-numa/snooping-directory.md" },
+            { "id": "uma-numa",            "src": "content/courses/AVS/koherence-numa/uma-numa.md" },
+            { "id": "intel-amd-fabric",    "src": "content/courses/AVS/koherence-numa/intel-amd-fabric.md" }
+          ]
+        },
+        {
+          "id": "spotreba-gpgpu",
+          "title": "Spotřeba CPU a GPGPU",
+          "subtopics": [
+            { "id": "spotreba-pcv2f",            "src": "content/courses/AVS/spotreba-gpgpu/spotreba-pcv2f.md" },
+            { "id": "dvfs-power-mgmt",            "src": "content/courses/AVS/spotreba-gpgpu/dvfs-power-mgmt.md" },
+            { "id": "nizkoprikon-arch",           "src": "content/courses/AVS/spotreba-gpgpu/nizkoprikon-arch.md" },
+            { "id": "gpu-architektura",           "src": "content/courses/AVS/spotreba-gpgpu/gpu-architektura.md" },
+            { "id": "cuda-divergence-occupancy",  "src": "content/courses/AVS/spotreba-gpgpu/cuda-divergence-occupancy.md" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "BIS",
+      "name": "Bezpečnost informačních systémů",
+      "credits": 5,
+      "semester": "Winter",
+      "specializations": ["NSEC", "NISD"],
+      "blurb": "Bezpečnostní politiky a standardy (ISO 27000, NIST CSF, Common Criteria), modely řízení přístupu (BLP, Biba, RBAC), softwarové zranitelnosti (buffer overflow, injection), síťová a WiFi bezpečnost, security operations, audit a forensics. Kryptografická základna je v KRY.",
+      "topics": [
+        {
+          "id": "uvod-bis",
+          "title": "Úvod do bezpečnosti IS",
+          "subtopics": [
+            { "id": "terminologie-cia",    "src": "content/courses/BIS/uvod-bis/terminologie-cia.md" },
+            { "id": "hrozby-zranitelnosti","src": "content/courses/BIS/uvod-bis/hrozby-zranitelnosti.md" },
+            { "id": "model-incidentu",     "src": "content/courses/BIS/uvod-bis/model-incidentu.md" },
+            { "id": "cile-zabezpeceni",    "src": "content/courses/BIS/uvod-bis/cile-zabezpeceni.md" }
+          ]
+        },
+        {
+          "id": "hodnoceni-bis",
+          "title": "Bezpečnostní hodnocení",
+          "subtopics": [
+            { "id": "tcsec-itsec",         "src": "content/courses/BIS/hodnoceni-bis/tcsec-itsec.md" },
+            { "id": "common-criteria",     "src": "content/courses/BIS/hodnoceni-bis/common-criteria.md" },
+            { "id": "bezpecnostni-funkce", "src": "content/courses/BIS/hodnoceni-bis/bezpecnostni-funkce.md" },
+            { "id": "fips-evaluation",     "src": "content/courses/BIS/hodnoceni-bis/fips-evaluation.md" }
+          ]
+        },
+        {
+          "id": "kryptografie-bis",
+          "title": "Kryptografie v IS (přehled, viz KRY)",
+          "subtopics": [
+            { "id": "kryptografie-role",   "src": "content/courses/BIS/kryptografie-bis/kryptografie-role.md" },
+            { "id": "symetrika-v-is",      "src": "content/courses/BIS/kryptografie-bis/symetrika-v-is.md" },
+            { "id": "asymetrika-v-is",     "src": "content/courses/BIS/kryptografie-bis/asymetrika-v-is.md" },
+            { "id": "hash-podpis-v-is",    "src": "content/courses/BIS/kryptografie-bis/hash-podpis-v-is.md" }
+          ]
+        },
+        {
+          "id": "politiky-bis",
+          "title": "Bezpečnostní politiky a standardy",
+          "subtopics": [
+            { "id": "controls",          "src": "content/courses/BIS/politiky-bis/controls.md" },
+            { "id": "risk-analyza",      "src": "content/courses/BIS/politiky-bis/risk-analyza.md" },
+            { "id": "iso-27000",         "src": "content/courses/BIS/politiky-bis/iso-27000.md" },
+            { "id": "nist-csf",          "src": "content/courses/BIS/politiky-bis/nist-csf.md" },
+            { "id": "psani-politiky",    "src": "content/courses/BIS/politiky-bis/psani-politiky.md" }
+          ]
+        },
+        {
+          "id": "access-control",
+          "title": "Modely řízení přístupu",
+          "subtopics": [
+            { "id": "dac-mac",           "src": "content/courses/BIS/access-control/dac-mac.md" },
+            { "id": "bell-lapadula",     "src": "content/courses/BIS/access-control/bell-lapadula.md" },
+            { "id": "biba-clark-wilson", "src": "content/courses/BIS/access-control/biba-clark-wilson.md" },
+            { "id": "rbac-abac",         "src": "content/courses/BIS/access-control/rbac-abac.md" }
+          ]
+        },
+        {
+          "id": "sw-zranitelnosti",
+          "title": "Softwarové zranitelnosti",
+          "subtopics": [
+            { "id": "buffer-overflow",      "src": "content/courses/BIS/sw-zranitelnosti/buffer-overflow.md" },
+            { "id": "injekce-utoky",        "src": "content/courses/BIS/sw-zranitelnosti/injekce-utoky.md" },
+            { "id": "hw-zranitelnosti",     "src": "content/courses/BIS/sw-zranitelnosti/hw-zranitelnosti.md" },
+            { "id": "race-conditions",      "src": "content/courses/BIS/sw-zranitelnosti/race-conditions.md" },
+            { "id": "social-engineering",   "src": "content/courses/BIS/sw-zranitelnosti/social-engineering.md" }
+          ]
+        },
+        {
+          "id": "sitova-bezpecnost",
+          "title": "Síťová bezpečnost",
+          "subtopics": [
+            { "id": "sitove-utoky",  "src": "content/courses/BIS/sitova-bezpecnost/sitove-utoky.md" },
+            { "id": "firewall",      "src": "content/courses/BIS/sitova-bezpecnost/firewall.md" },
+            { "id": "ids-ips",       "src": "content/courses/BIS/sitova-bezpecnost/ids-ips.md" },
+            { "id": "vpn-ipsec",     "src": "content/courses/BIS/sitova-bezpecnost/vpn-ipsec.md" }
+          ]
+        },
+        {
+          "id": "wifi-bezpecnost",
+          "title": "Bezpečnost bezdrátových sítí",
+          "subtopics": [
+            { "id": "wep",          "src": "content/courses/BIS/wifi-bezpecnost/wep.md" },
+            { "id": "wpa-wpa2",     "src": "content/courses/BIS/wifi-bezpecnost/wpa-wpa2.md" },
+            { "id": "wpa3",         "src": "content/courses/BIS/wifi-bezpecnost/wpa3.md" },
+            { "id": "wifi-utoky",   "src": "content/courses/BIS/wifi-bezpecnost/wifi-utoky.md" }
+          ]
+        },
+        {
+          "id": "sec-ops",
+          "title": "Security operations, audit a forensics",
+          "subtopics": [
+            { "id": "soc-incident-response", "src": "content/courses/BIS/sec-ops/soc-incident-response.md" },
+            { "id": "siem-monitoring",       "src": "content/courses/BIS/sec-ops/siem-monitoring.md" },
+            { "id": "audit-forensics",       "src": "content/courses/BIS/sec-ops/audit-forensics.md" },
+            { "id": "gdpr-nukib",            "src": "content/courses/BIS/sec-ops/gdpr-nukib.md" }
           ]
         }
       ]
     }
   ],
+
   "exam": {
     "NVIZ": [],
     "NMAL": [],

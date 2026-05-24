@@ -63,6 +63,9 @@ V offline PIN módu karta vrátí terminálu jednu z:
 
 **Banka tento mismatch nedetekovala** v r. 2010 — autorizace transakce byla úspěšná. Demonstrované v BBC Newsnight, otevřená diskuze v UK Parliament.
 
+::: viz emv-shim "Krokuj transakci s shim mezi kartou a terminalem. Sleduj, jak terminal hlasi 'PIN OK' v TVR, ale karta v IAD vraci 'no CVM' — mismatch, ktery banky pred 2013 neoverovaly."
+:::
+
 Mitigace (EMV od 2013): **iCVV** + *Combined DDA / AC generation* (CDA) — karta podepisuje hash CVM výsledku spolu s AC; banka může mismatch detekovat.
 
 ## Útok č. 3 — Padding oracle (Vaudenay 2002)

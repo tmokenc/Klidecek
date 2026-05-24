@@ -115,6 +115,9 @@ Výhody oproti `read("/dev/urandom")`:
 * Chroot/sandbox safe (žádný `/dev/urandom` v chroot není problém).
 * Kernel implicitně zajistí seeding *před* prvním voláním.
 
+::: viz linux-rng-boot "Vyber scenar (desktop / headless server / IoT VM) a sleduj akumulaci entropie behem boot. Sleduj, zda sshd / dropbear keygen probehne pred dosazenim seeding threshold."
+:::
+
 ## Boot-time entropy starvation
 
 Klíčový problém: *během prvních sekund po bootu* je entropie chudá:

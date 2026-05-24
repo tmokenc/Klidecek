@@ -92,6 +92,9 @@ Ochrany BH lze rozdělit na *pasivní* (znesnadňují útok, ale o útoku nevěd
 
 Klíčový rozdíl: *pasivní ochrana zpomaluje útočníka, aktivní ochrana ho zastavuje*. FIPS 140-3 explicitně vyžaduje aktivní ochranu pro Level 3 (tamper response) a Level 4 (tamper response s detekcí všech identifikovaných útoků, [[fips-cc]]).
 
+::: viz tamper-response "Spust alarm pres ktery senzor: teplota / napeti / mesh / svetlo. Sleduj prechod NORMAL → ALARM → ZEROIZATION → LOCKED a co se smaze. Toggle FIPS Level 3/4."
+:::
+
 ## Zeroization
 
 *Zeroization* je řízené mazání tajných dat (klíčů) při detekci útoku. Implementace má dva aspekty:

@@ -95,6 +95,9 @@ Power trace operace ukazuje *střídání* square a multiply operations:
 * **Dlouhý peak** (square + multiply) → bit `1`.
 * Z **jednoho** traces extrahujte celý 1024-bit klíč.
 
+::: viz rsa-spa-trace "Precti bity klice ze square-and-multiply power trace. Kratky peak = jen square (bit 0); dlouhy = square+multiply (bit 1)."
+:::
+
 ### Obrana
 
 * **Square-and-multiply-always** — vždy provést multiply, jen ignorovat výsledek pro bit 0. *Eliminuje* timing rozdíl, ale stále zranitelné DPA.
@@ -130,6 +133,9 @@ v = S(\text{plaintext}[i] \oplus k[i])
 5. Pro **správný klíč** $k_g = k_{\text{real}}$ existuje čas $t^*$, kde $\rho(k_g, t^*)$ je **maximální** (typicky |ρ| > 0.1 pro N=10000). Pro **nesprávné** klíče zůstávají korelace blízko 0.
 
 6. Pro každý byte klíče zvlášť — celý 16-byte AES klíč v 16 × 256 = **4096** hypotézách, ne $2^{128}$.
+
+::: viz dpa-aes-sbox "DPA na prvni S-box AES. Posun N traces — pro spravny k* vzroste |rho| nad sum. Sleduj, jak se zvyseni sumu zhorsi detekce a zvysuje pozadovany N."
+:::
 
 ### Vlastnosti DPA
 

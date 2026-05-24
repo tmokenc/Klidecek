@@ -108,6 +108,9 @@ Bezdrátové prostředí má jednu vlastnost, která klasické IT nepostihuje: *
 
 **Možná obrana:** ověřování hlášených hodnot — pingování legitimní gateway, měření skutečného RTT. Obejít: útočník má *opravdu* dobrý link (silnější antenna), zprávy doopravdy doručí, jen *po cestě* je čte.
 
+::: viz sinkhole-mesh "Kompromituj uzel E, zapni selective forwarding, posli alarm packet — uvidis, jak alarm spadne (gray hole), zatímco normal pakety projdou."
+:::
+
 **Mitigace:** kryptograficky autentizované routing protocols (např. ZigBee NWK s NWK key encryption, RPL with cryptographic mode).
 
 ## Útok č. 3 — Sybil útok
@@ -126,6 +129,9 @@ Pojmenovaný podle [knihy Sybil (1973)](https://en.wikipedia.org/wiki/Sybil_(Sch
 **V roce 2012** [prokázána použitelnost na P2P síť BitTorrent](http://homes.cerias.purdue.edu/~spaf/cerias-staff/spafford-publications.html) — Sybil útoky monitorovaly trackery.
 
 **U IoT zařízení:** v sítích často **obtížné prokázání identity**. U ZigBee s defaultní konfigurací — uzel se *prohlásí* za router v sítí, ostatní akceptují → ovládnutí sítě.
+
+::: viz sybil-quorum "Posun pocet honest a sybil uzlu, vyber obranu (PoW, PoS, central authority). Sleduj, kdy se prekroci 1/3 (PBFT) a 1/2 (Nakamoto) prah."
+:::
 
 **Mitigace:** *cryptographic identity proofs* (každý uzel má per-device private key), *resource testing* (proof-of-work, proof-of-space), *trusted central authority* (gateway přiděluje IDs).
 
@@ -186,6 +192,9 @@ Pojmenovaný podle [knihy Sybil (1973)](https://en.wikipedia.org/wiki/Sybil_(Sch
 * **Routing race condition** — zpráva může být *před* svou dalším pokračováním (paradoxní causality).
 * **Změna pořadí přijímaných zpráv**.
 * **Porušení kauzality** zpráv (reakce na zprávu před jejím doručením v normální cestě).
+
+::: viz wormhole-tunnel "Zapni tunel mezi M1 a M2 a sleduj, jak vzdalene podsite (A, B, C) ↔ (D, E, F) prepojeny pres out-of-band link vidi vzdalene uzly jako sousedy."
+:::
 
 **Speciální případ — Relay útok:**
 

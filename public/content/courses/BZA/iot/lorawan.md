@@ -108,6 +108,9 @@ Nominálně **end-to-end** mezi ED a AS, *bezpečné* pokud klíče zůstanou ta
 
 ## Zranitelnosti
 
+::: viz lorawan-counter "Posli uplinky, zachyt paket, replay. Vyzkousej ABP reset (vyjmout baterii) — ED zacne od 0 ale NS ma stary last_accepted → DoS nebo replay po rejoinu."
+:::
+
 ### Útok na čítač
 
 LoRaWAN používá **frame counter** (FCnt) pro deduplikaci a anti-replay:

@@ -72,6 +72,9 @@ P' = D_K(C_i) \oplus r
 
 * Server zkontroluje, zda $P'$ má **validní padding**.
 
+::: viz padding-oracle "Padding oracle byte-by-byte recovery. Sleduj, jak postupne ladis posledni bajt, pak predposledni, atd. — 256 dotazu na byte, plnou zpravu za sekundy."
+:::
+
 ### Recovery posledního bajtu
 
 Útočník postupně mění **poslední bajt** $r_b$ z `0x00` do `0xFF` a posílá $b \cdot y$ kde $b$ = $b-1$ random bajtů + $r_b$. Pro daný $r_b$:

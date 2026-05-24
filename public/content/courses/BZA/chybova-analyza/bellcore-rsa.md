@@ -77,6 +77,9 @@ Standardní v OpenSSL, mbedTLS, Java JCE, smart cards, HSMs. **Téměř** všech
 </svg>
 :::
 
+::: viz bellcore-rsa-crt "Vyber maly preset (p=251, q=257) a sleduj, jak chybny S_p vede pres gcd(S − S', n) = q k plne faktorizaci n a obnove d. Jediny chybny podpis."
+:::
+
 ### Detailní postup
 
 1. Útočník má veřejný klíč $(n, e)$.

@@ -84,6 +84,9 @@ Detailně viz [[bellcore-rsa]].
 * Korektní výstup $C$ vs. chybný $C'$ se *liší* v některých výstupních bitech.
 * Z *struktury rozdílu* odvodit, *kterým* S-boxem chyba prošla a *jaká* je hodnota klíče na vstupu posledního round.
 
+::: viz dfa-aes-round "Klikni byte ve stavu AES kola 9, sleduj propagaci pres SubBytes/ShiftRows/MixColumns/round 10. Z 1 bytu se stane 4 byty rozprostrenne pres 4 sloupce ciphertextu."
+:::
+
 ### Konkrétně pro AES
 
 * **Single-byte fault model** — fault flipne *jeden* byte v state na začátku 9. roundu (před poslední MixColumns).

@@ -74,6 +74,9 @@ while (true) {
 
 Disassembler ukazuje *spaghetti* — control flow graph je *plochý* a *zamotán*.
 
+::: viz cfg-flatten "Klikni na blok v originalu — odpovidajici case ve flatten verzi se zvyrazni. Vsechny prechody jdou pres switch dispatcher, struktura originalu je 'spaghetti'."
+:::
+
 ### Opaque predicates
 
 Predikáty, které jsou *vždy true* (nebo false), ale obtížně to dokázat:

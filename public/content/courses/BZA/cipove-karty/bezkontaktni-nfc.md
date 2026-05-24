@@ -71,6 +71,9 @@ UID:
 
 UID dnes nesplňuje "anti-cloning" požadavek — *magic Mifare* karty mají *přepisovatelné* UID.
 
+::: viz nfc-anticollision "Reader vysila REQA, vsechny karty odpovi ATQA. Pri kolizi reader vybere bit (0 nebo 1) a karty s opacnym bitem prejdou do HALT. Klikni v narrows."
+:::
+
 ## Specifické hrozby bezkontaktního prostředí
 
 ### Odposlech (eavesdropping)

@@ -35,6 +35,9 @@ Fyzicky bezpečný HSM ([[realizace-bh]], [[fips-cc]]) lze stále kompromitovat 
 
 **Mitigace:** *strict policy* — kontrola, jaké klíče lze wrap kterým klíčem. PKCS#11 v2.40 přidalo `CKA_WRAP_TEMPLATE` a `CKA_UNWRAP_TEMPLATE`, které omezují wrapping.
 
+::: viz pkcs11-wrap "Toggle CKA_EXTRACTABLE / CKA_SENSITIVE / wrap key type / mechanism. Sleduj, kdy utok prosel a kdy ho strict mode (PKCS#11 v2.40) zablokoval. Wrap key < target → DES brute force."
+:::
+
 ### Útok č. 2 — Double-length DES key vázání
 
 Klasický [Bond 2001 útok](https://www.cl.cam.ac.uk/~mkb23/research/Survey.pdf):
@@ -174,6 +177,9 @@ HSM funkce má parametry:
 4. Útočník identifikuje *pozici* každého digitu PIN.
 
 **Komplexita:** *6 volání HSM* pro recover 4-digit PIN s různými digity.
+
+::: viz decimalization-attack "Editj DT (16 hex → digit) nebo klikni 'standardni' / 'nulova' / 'D_i' presety. Sleduj jak nulova DT vraci '0000' pro libovolny hex (wildcard) a D_i tabulky odhalí, ktere digity PIN obsahuje."
+:::
 
 ### Praktický scenário
 

@@ -877,7 +877,8 @@ button { font: inherit; color: inherit; }
   justify-content: center;
 }
 .block-svg > div > svg {
-  max-width: min(100%, 580px);
+  width: 100%;
+  max-width: 100%;
   height: auto;
 }
 .block-image figcaption, .block-svg figcaption {
@@ -911,6 +912,17 @@ button { font: inherit; color: inherit; }
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: stretch;
+}
+/* Many viz components ship with an inline `style={{maxWidth: 400}}` that was
+ * sized for the old narrow column. Let them grow to the container instead.
+ * Inline styles win on specificity so the override has to be !important. */
+.block-viz-body svg,
+.block-viz-body canvas {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto;
+  display: block;
 }
 .block-viz-cap {
   font-size: 12.5px;

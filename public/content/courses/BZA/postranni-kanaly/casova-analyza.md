@@ -52,6 +52,9 @@ Celkem **8 × 128 = 1024** pokusů místo $128^8 = 2^{56}$. Čas-akcelerace: $10
 
 > **Klíčové:** algoritmus *není* matematicky chybný — vrací správné true/false. Selhává jen ve své *fyzické realizaci*.
 
+::: viz timing-password "Naivni vs. constant-time porovnani. Klikni 'zjisti znak N' a sleduj, jak utocnik za N×|charset| dotazu obnovi heslo (linearne ve velikosti hesla, ne exponencialne)."
+:::
+
 ### Obrany
 
 * **Naivní:** přidat random delay. Útočník **prokáže prostředováním** ($N$-krát měření) → potřebuje $N$× tolik pokusů, ale stále lineární. Náhodné zpoždění nepomáhá u dostatečně trpělivého útočníka.

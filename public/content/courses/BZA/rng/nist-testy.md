@@ -91,6 +91,9 @@ Pro hodnocení RNG se testuje **mnoho** nezávislých sekvencí (typicky 1000 se
 * **Approximate Entropy Test** — Shannon entropie nad $m$-bit a $(m+1)$-bit okny; porovnává.
 * **Random Excursions / Variant** — modeluje sekvenci jako random walk a počítá návštěvy konkrétních stavů. Detekuje strukturu *trajektorií*.
 
+::: viz nist-test-playground "Vyber generator (uniform / vychyleny / LCG / periodicky / AES-like) a sleduj, ktere testy projdou. LCG selze na strukturalnich testech; vychyleny generator na monobit; periodicky na runs/longest-run."
+:::
+
 ## Praktické použití
 
 Reálný workflow při hodnocení RNG:

@@ -111,6 +111,9 @@ Nejznámější design (Lim, Devadas, MIT 2004):
 
 Variace $\Delta_1, \Delta_2, \Delta_3, \Delta_4$ jsou pikosekundové rozdíly; výsledný total delay je *kumulativní součet* — pro každou kombinaci switchů jiný. Pro $c$-bit challenge máme $2^c$ kombinací; pokud útočník měří CRPs (Challenge-Response Pairs), může se pokusit fitovat lineární model.
 
+::: viz arbiter-puf "Klikni na challenge biti, sleduj jak edge prochazi switchi a kdo dorazi drive. Pak posun N CRPs slider — linearni model utoku dosahne 95+% presnosti pro stovky CRPs."
+:::
+
 ### Slabost: lineární model
 
 Arbiter PUF má **slabost — celkový delay je lineární funkcí challenges** (kromě signu — arbiter aplikuje sign function). Útočník s ~10 000 CRPs umí přes **support vector machine** nebo **logistic regression** rekonstruovat model s 95+% přesností (Rührmair et al. 2013). Proto vznikly nelineární varianty.

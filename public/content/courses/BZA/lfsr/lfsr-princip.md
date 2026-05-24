@@ -62,6 +62,9 @@ r_n^{new} = \bigoplus_{i=1}^{n} t_i \cdot r_i = t_1 r_1 \oplus t_2 r_2 \oplus \c
 
 LFSR je *deterministický* — z počátečního stavu (seed) generuje pevnou sekvenci. Po nejvýše $2^n - 1$ tikání se musí stav zopakovat (stavový prostor je $2^n - 1$, protože nulový stav je *absorbující* — generuje pouze nuly).
 
+::: viz lfsr-explorer "Interaktivní LFSR — měň délku $n$, vyber primitivní vs. neprimitivní polynom, nastav seed a krokuj. Sleduj detekci periody — primitivní polynom dává $2^n-1$ (m-sequence), neprimitivní podstatně méně."
+:::
+
 ## Charakteristický polynom
 
 Tap sequence se zapisuje jako **charakteristický polynom** nad GF(2):

@@ -169,6 +169,9 @@ Pozorování: **SW1 SW2 nese leak informaci** — `63 C2` (zbývají 2 pokusy) o
 < 63 C2                                          (FAILED, 2 tries left)
 ```
 
+::: viz apdu-builder "Vyber prikaz a sleduj, jak karta odpovi. Try VERIFY PIN s nespravnym PINem (3×) → uvidis '63 C2 → 63 C1 → 63 C0' leak; READ BINARY bez VERIFY vraci '69 82'."
+:::
+
 ## File system
 
 Klasický smart card OS spravuje hierarchický file system (ISO 7816-4):
