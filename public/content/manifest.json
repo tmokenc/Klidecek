@@ -28,6 +28,14 @@
       "semester": "Winter",
       "specializations": ["NSEN", "NISY"],
       "blurb": "Paralelní architektury (Flynn, dataflow, redukční), PRAM model, paralelní algoritmy, distribuované systémy a konsensus. VUT FIT — Zbořil ml., Hanáček.",
+      "resources": [
+        { "title": "JáJá — An Introduction to Parallel Algorithms", "url": "https://www.pearson.com/en-us/subject-catalog/p/an-introduction-to-parallel-algorithms/P200000005887", "kind": "book", "note": "Standard PRAM reference: prefix sum, list ranking, tree contraction." },
+        { "title": "Lamport — Time, Clocks, and the Ordering of Events (CACM 1978)", "url": "https://lamport.azurewebsites.net/pubs/time-clocks.pdf", "kind": "paper", "note": "The foundational paper on logical clocks." },
+        { "title": "Lamport — Paxos Made Simple (2001)", "url": "https://lamport.azurewebsites.net/pubs/paxos-simple.pdf", "kind": "paper", "note": "The friendliest Paxos exposition by its inventor." },
+        { "title": "Ongaro & Ousterhout — In Search of an Understandable Consensus Algorithm (Raft)", "url": "https://raft.github.io/raft.pdf", "kind": "paper", "note": "Original Raft paper." },
+        { "title": "MPI Forum — MPI 4.1 specification", "url": "https://www.mpi-forum.org/docs/mpi-4.1/mpi41-report.pdf", "kind": "spec", "note": "Official MPI specification." },
+        { "title": "VUT FIT — PRL course", "url": "https://www.fit.vut.cz/study/course/PRL/", "kind": "course", "note": "Official course page." }
+      ],
       "topics": [
         {
           "id": "zaklady",
@@ -130,6 +138,14 @@
       "semester": "Summer",
       "specializations": ["NSEN", "NISD", "NSEC"],
       "blurb": "Pokročilé počítačové sítě — transport, směrování, přepínání, architektura směrovačů, klasifikace paketů, P2P, IDS, SDN. VUT FIT — Veselý.",
+      "resources": [
+        { "title": "Peterson & Davie — Computer Networks: A Systems Approach (free online)", "url": "https://book.systemsapproach.org/", "kind": "book", "note": "Modern computer-networks textbook, free." },
+        { "title": "Tanenbaum & Wetherall — Computer Networks (6th ed.)", "url": "https://www.pearson.com/en-us/subject-catalog/p/computer-networks/P200000003255", "kind": "book", "note": "Classic networks textbook with deep coverage." },
+        { "title": "RFC 9293 — Transmission Control Protocol (TCP)", "url": "https://datatracker.ietf.org/doc/html/rfc9293", "kind": "RFC", "note": "Updated 2022 TCP specification." },
+        { "title": "RFC 4271 — Border Gateway Protocol 4 (BGP-4)", "url": "https://datatracker.ietf.org/doc/html/rfc4271", "kind": "RFC", "note": "BGP specification." },
+        { "title": "RFC 9000 — QUIC: A UDP-Based Multiplexed and Secure Transport", "url": "https://datatracker.ietf.org/doc/html/rfc9000", "kind": "RFC", "note": "QUIC specification." },
+        { "title": "VUT FIT — PDS course", "url": "https://www.fit.vut.cz/study/course/PDS/", "kind": "course", "note": "Official course page." }
+      ],
       "topics": [
         {
           "id": "rekapitulace",
@@ -269,6 +285,14 @@
       "semester": "Winter",
       "specializations": ["NSEN", "NMAL", "NISY"],
       "blurb": "Formální jazyky a Chomského hierarchie, konečné a zásobníkové automaty, Turingovy stroje, rozhodnutelnost, P/NP a NP-úplnost, amortizovaná analýza, výroková a predikátová logika, Gödelovy věty.",
+      "resources": [
+        { "title": "Sipser — Introduction to the Theory of Computation (3rd ed.)", "url": "https://www.cengage.com/c/introduction-to-the-theory-of-computation-3e-sipser/9781133187790/", "kind": "book", "note": "Standard textbook for automata, computability, complexity." },
+        { "title": "Hopcroft, Motwani & Ullman — Introduction to Automata Theory (3rd ed.)", "url": "https://www.pearson.com/en-us/subject-catalog/p/introduction-to-automata-theory-languages-and-computation/P200000003575", "kind": "book", "note": "Classic, more theoretical alternative to Sipser." },
+        { "title": "Arora & Barak — Computational Complexity: A Modern Approach (free draft)", "url": "https://theory.cs.princeton.edu/complexity/book.pdf", "kind": "book", "note": "Modern graduate complexity textbook." },
+        { "title": "Cormen et al. — Introduction to Algorithms (CLRS, 4th ed.)", "url": "https://mitpress.mit.edu/9780262046305/introduction-to-algorithms/", "kind": "book", "note": "Best amortized-analysis chapter; standard algorithms reference." },
+        { "title": "Turing — On Computable Numbers (1936)", "url": "https://www.cs.virginia.edu/~robins/Turing_Paper_1936.pdf", "kind": "paper", "note": "Turing's original paper on TMs and the halting problem." },
+        { "title": "VUT FIT — TIN course", "url": "https://www.fit.vut.cz/study/course/TIN/", "kind": "course", "note": "Official course page." }
+      ],
       "topics": [
         {
           "id": "jazyky-hierarchie",
@@ -372,6 +396,14 @@
       "semester": "Winter",
       "specializations": ["NSEC", "NISD"],
       "blurb": "Klasická i moderní kryptografie — symetrické a asymetrické algoritmy, hašovací funkce, elektronický podpis, správa klíčů, PKI a X.509.",
+      "resources": [
+        { "title": "Boneh & Shoup — A Graduate Course in Applied Cryptography (free)", "url": "https://toc.cryptobook.us/", "kind": "book", "note": "Comprehensive modern crypto textbook, free online." },
+        { "title": "Stinson & Paterson — Cryptography: Theory and Practice (4th ed.)", "url": "https://www.routledge.com/Cryptography-Theory-and-Practice/Stinson-Paterson/p/book/9781138197015", "kind": "book", "note": "Rigorous textbook for symmetric + asymmetric crypto." },
+        { "title": "NIST FIPS 197 — Advanced Encryption Standard", "url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197-upd1.pdf", "kind": "spec", "note": "Official AES specification." },
+        { "title": "Rivest, Shamir & Adleman — RSA (CACM 1978)", "url": "https://people.csail.mit.edu/rivest/Rsapaper.pdf", "kind": "paper", "note": "The original RSA paper." },
+        { "title": "RFC 5280 — Internet X.509 PKI Certificate and CRL Profile", "url": "https://datatracker.ietf.org/doc/html/rfc5280", "kind": "RFC", "note": "Authoritative X.509 profile." },
+        { "title": "VUT FIT — KRY course", "url": "https://www.fit.vut.cz/study/course/KRY/", "kind": "course", "note": "Official course page." }
+      ],
       "topics": [
         {
           "id": "zaklady",
@@ -485,6 +517,14 @@
       "semester": "Winter",
       "specializations": ["NSEN", "NISD"],
       "blurb": "Principy a architektury informačních systémů, datové modelování, Jakarta EE, mikroslužby, workflow a OLAP. VUT FIT — Hruška, Burget.",
+      "resources": [
+        { "title": "Fowler — Patterns of Enterprise Application Architecture", "url": "https://martinfowler.com/books/eaa.html", "kind": "book", "note": "Classic enterprise-architecture patterns reference." },
+        { "title": "Jakarta EE 10 Tutorial", "url": "https://eclipse-ee4j.github.io/jakartaee-tutorial/", "kind": "docs", "note": "Official Jakarta EE tutorial covering Servlet, JAX-RS, JPA, EJB, CDI." },
+        { "title": "Newman — Building Microservices (2nd ed.)", "url": "https://samnewman.io/books/building_microservices_2nd_edition/", "kind": "book", "note": "Practical microservices architecture handbook." },
+        { "title": "Kleppmann — Designing Data-Intensive Applications", "url": "https://dataintensive.net/", "kind": "book", "note": "Outstanding modern reference on distributed storage, replication, partitioning." },
+        { "title": "Workflow Patterns initiative", "url": "http://www.workflowpatterns.com/", "kind": "tool", "note": "Catalogue of control-flow / data / resource workflow patterns." },
+        { "title": "VUT FIT — PIS course", "url": "https://www.fit.vut.cz/study/course/PIS/", "kind": "course", "note": "Official course page." }
+      ],
       "topics": [
         {
           "id": "principy",
@@ -603,6 +643,14 @@
       "semester": "Summer",
       "specializations": ["NSEC"],
       "blurb": "Bezpečný hardware, čipové karty, generátory náhodných čísel, postranní kanály, chybová analýza, HSM, bezpečnost IoT a reverzní inženýrství.",
+      "resources": [
+        { "title": "Mangard, Oswald & Popp — Power Analysis Attacks", "url": "https://link.springer.com/book/10.1007/978-0-387-38162-6", "kind": "book", "note": "SPA/DPA reference text." },
+        { "title": "Kocher — Timing Attacks on Implementations of DH, RSA, DSS (CRYPTO '96)", "url": "https://www.paulkocher.com/doc/TimingAttacks.pdf", "kind": "paper", "note": "The paper that started practical side-channel cryptanalysis." },
+        { "title": "NIST SP 800-90A Rev. 1 — DRBG Recommendations", "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf", "kind": "spec", "note": "Official deterministic-RBG standards." },
+        { "title": "BSI AIS 31 — Functionality classes for true RNGs", "url": "https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_true_RNGs_e.pdf", "kind": "spec", "note": "European TRNG evaluation standard." },
+        { "title": "Kocher et al. — Spectre Attacks (S&P 2019)", "url": "https://spectreattack.com/spectre.pdf", "kind": "paper", "note": "Original Spectre paper." },
+        { "title": "VUT FIT — BZA course", "url": "https://www.fit.vut.cz/study/course/BZA/", "kind": "course", "note": "Official course page." }
+      ],
       "topics": [
         {
           "id": "uvod",
@@ -710,6 +758,13 @@
       "semester": "Winter",
       "specializations": ["NSEC"],
       "blurb": "Biometrické metody pro identifikaci a verifikaci osob: otisky prstů, obličej, duhovka, sítnice, DNA, hlas, podpis, chůze. Hodnocení chybovosti, biometrické pasy, anti-spoofing a etika.",
+      "resources": [
+        { "title": "Jain, Ross & Nandakumar — Introduction to Biometrics", "url": "https://link.springer.com/book/10.1007/978-0-387-77326-1", "kind": "book", "note": "Comprehensive biometric-systems textbook." },
+        { "title": "Daugman — How Iris Recognition Works (IEEE TCSVT 2004)", "url": "https://www.cl.cam.ac.uk/~jgd1000/csvt.pdf", "kind": "paper", "note": "The canonical paper on the Daugman iris-code algorithm." },
+        { "title": "Viola & Jones — Robust Real-Time Face Detection (IJCV 2004)", "url": "https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-cvpr-01.pdf", "kind": "paper", "note": "Foundational AdaBoost + Haar face-detector paper." },
+        { "title": "ISO/IEC 30107-1 — Biometric Presentation Attack Detection", "url": "https://www.iso.org/standard/53227.html", "kind": "spec", "note": "Standard PAD terminology and framework." },
+        { "title": "VUT FIT — BIO course", "url": "https://www.fit.vut.cz/study/course/BIO/", "kind": "course", "note": "Official course page." }
+      ],
       "topics": [
         {
           "id": "uvod",
@@ -821,6 +876,14 @@
       "semester": "Summer",
       "specializations": ["NSEN"],
       "blurb": "Lambda kalkul, funkcionální programování (Haskell), moderní paradigm (Rust od 2026/27) a logické programování (Prolog, legacy do 2025/26). Vyučující: Dušan Kolář.",
+      "resources": [
+        { "title": "Hutton — Programming in Haskell (2nd ed.)", "url": "https://www.cambridge.org/core/books/programming-in-haskell/", "kind": "book", "note": "Standard introductory Haskell textbook." },
+        { "title": "Learn You a Haskell for Great Good!", "url": "http://learnyouahaskell.com/chapters", "kind": "book", "note": "Free online intro: types, type classes, lazy evaluation." },
+        { "title": "Sterling & Shapiro — The Art of Prolog (2nd ed., MIT)", "url": "https://mitpress.mit.edu/9780262691635/the-art-of-prolog/", "kind": "book", "note": "Definitive Prolog textbook." },
+        { "title": "Barendregt — The Lambda Calculus: Its Syntax and Semantics", "url": "https://www.cs.ru.nl/~henk/papers.html", "kind": "book", "note": "The standard reference for λ-calculus." },
+        { "title": "The Rust Book", "url": "https://doc.rust-lang.org/book/", "kind": "book", "note": "Official Rust book — covers ownership, lifetimes, traits." },
+        { "title": "VUT FIT — FLP course", "url": "https://www.fit.vut.cz/study/course/FLP/", "kind": "course", "note": "Official course page." }
+      ],
       "topics": [
         {
           "id": "lambda",
@@ -879,6 +942,14 @@
       "semester": "Winter",
       "specializations": ["NMAL", "NISY"],
       "blurb": "Základy strojového učení a umělé inteligence: pravděpodobnostní modely, regrese, klasifikace, inteligentní agenti, prohledávání, hry, CSP, neuronové sítě, CNN, RNN, transformery, LLM a posilované učení.",
+      "resources": [
+        { "title": "Russell & Norvig — Artificial Intelligence: A Modern Approach (4th ed.)", "url": "https://aima.cs.berkeley.edu/", "kind": "book", "note": "Canonical AI textbook: search, CSP, planning, adversarial." },
+        { "title": "Goodfellow, Bengio & Courville — Deep Learning (free online)", "url": "https://www.deeplearningbook.org/", "kind": "book", "note": "Deep-learning bible: MLPs, CNNs, RNNs, optimization." },
+        { "title": "Sutton & Barto — Reinforcement Learning: An Introduction (free 2nd ed.)", "url": "http://incompleteideas.net/book/the-book-2nd.html", "kind": "book", "note": "Canonical RL textbook." },
+        { "title": "Bishop — Pattern Recognition and Machine Learning", "url": "https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf", "kind": "book", "note": "Definitive Bayesian + statistical ML textbook." },
+        { "title": "Stanford CS231n — CNN for Visual Recognition", "url": "https://cs231n.github.io/", "kind": "course", "note": "Definitive deep-learning + CNN course notes." },
+        { "title": "VUT FIT — SUI course", "url": "https://www.fit.vut.cz/study/course/SUI/", "kind": "course", "note": "Official course page." }
+      ],
       "topics": [
         {
           "id": "zaklady-ml",
@@ -988,6 +1059,14 @@
       "semester": "Winter",
       "specializations": ["NVIZ", "NMAL", "NSEN", "NSEC", "NISD", "NISY"],
       "blurb": "Pravděpodobnostní modely v informatice (DTMC, MDP), randomizované algoritmy, bodový a intervalový odhad parametrů, Fisherova informace, testování hypotéz, lineární model + ANOVA, lineární regrese, kategoriální data, neparametrické testy, GLM.",
+      "resources": [
+        { "title": "Wasserman — All of Statistics (Springer, free PDF)", "url": "https://www.stat.cmu.edu/~larry/all-of-statistics/", "kind": "book", "note": "Compact rigorous treatment, perfect for CS students." },
+        { "title": "Casella & Berger — Statistical Inference (2nd ed.)", "url": "https://www.pearson.com/en-us/subject-catalog/p/statistical-inference/P200000004806", "kind": "book", "note": "Classic graduate-level inference textbook." },
+        { "title": "Sutton & Barto — Reinforcement Learning: An Introduction (free 2nd ed.)", "url": "http://incompleteideas.net/book/the-book-2nd.html", "kind": "book", "note": "Ch.3–4 are the standard treatment of MDPs." },
+        { "title": "Norris — Markov Chains (Cambridge)", "url": "https://www.cambridge.org/core/books/markov-chains/", "kind": "book", "note": "Standard mathematical reference for DTMCs/CTMCs." },
+        { "title": "Motwani & Raghavan — Randomized Algorithms", "url": "https://www.cambridge.org/core/books/randomized-algorithms/", "kind": "book", "note": "The definitive reference for randomised algorithms." },
+        { "title": "VUT FIT — MSP course", "url": "https://www.fit.vut.cz/study/course/MSP/", "kind": "course", "note": "Official course page." }
+      ],
       "topics": [
         {
           "id": "pravdepodobnost-zaklady",
@@ -1104,6 +1183,14 @@
       "semester": "Winter",
       "specializations": ["NISD", "NMAL"],
       "blurb": "Objektově-relační databáze, NoSQL (CAP, BASE, MongoDB/Cassandra/Neo4j/InfluxDB), NewSQL, XML/JSON v DB, sémantický web (RDF, OWL, SPARQL), web scraping, CRISP-DM, čištění a transformace dat, in-memory sloupcové DB (SAP HANA), prostorové databáze (R-tree, k-D tree).",
+      "resources": [
+        { "title": "Kleppmann — Designing Data-Intensive Applications", "url": "https://dataintensive.net/", "kind": "book", "note": "Modern definitive reference for NoSQL, replication, MapReduce." },
+        { "title": "Han, Kamber & Pei — Data Mining: Concepts and Techniques (3rd ed.)", "url": "https://www.elsevier.com/books/data-mining-concepts-and-techniques/han/978-0-12-381479-1", "kind": "book", "note": "Standard data-mining textbook (CRISP-DM, preparation, clustering)." },
+        { "title": "W3C — RDF 1.1 Primer", "url": "https://www.w3.org/TR/rdf11-primer/", "kind": "spec", "note": "Official RDF introduction from W3C." },
+        { "title": "W3C — OWL 2 Web Ontology Language Primer", "url": "https://www.w3.org/TR/owl2-primer/", "kind": "spec", "note": "Official OWL 2 specification primer." },
+        { "title": "Guttman — R-trees: A Dynamic Index Structure for Spatial Searching (SIGMOD 1984)", "url": "http://www-db.deis.unibo.it/courses/SI-LS/papers/Gut84.pdf", "kind": "paper", "note": "Original R-tree paper." },
+        { "title": "VUT FIT — UPA course", "url": "https://www.fit.vut.cz/study/course/UPA/", "kind": "course", "note": "Official course page." }
+      ],
       "topics": [
         {
           "id": "objektove-db",
@@ -1220,6 +1307,14 @@
       "semester": "Winter",
       "specializations": ["NSEN", "NMAL"],
       "blurb": "Pipelining, superskalární CPU (Scoreboard, Tomasulo, ROB), cache hierarchie + virtuální paměť, predikce skoků a prefetch, datový paralelismus (SIMD/AVX), SMT/Hyper-Threading, OpenMP, koherence cache (MESI/MOESI), NUMA, řízení spotřeby a GPGPU (CUDA, SIMT).",
+      "resources": [
+        { "title": "Hennessy & Patterson — Computer Architecture: A Quantitative Approach (6th ed.)", "url": "https://www.elsevier.com/books/computer-architecture/hennessy/978-0-12-811905-1", "kind": "book", "note": "The definitive reference for ILP, superscalar, cache, NUMA, GPUs." },
+        { "title": "Sorin, Hill & Wood — A Primer on Memory Consistency and Cache Coherence (2nd ed.)", "url": "https://link.springer.com/book/10.1007/978-3-031-01764-3", "kind": "book", "note": "Standard reference for MSI/MESI/MOESI and consistency models." },
+        { "title": "Agner Fog — The microarchitecture of Intel, AMD and VIA CPUs", "url": "https://www.agner.org/optimize/microarchitecture.pdf", "kind": "book", "note": "Encyclopedic, regularly updated microarchitecture reference for real hardware." },
+        { "title": "OpenMP 5.2 specification", "url": "https://www.openmp.org/wp-content/uploads/OpenMP-API-Specification-5-2.pdf", "kind": "spec", "note": "Authoritative spec for directives, clauses, runtime calls." },
+        { "title": "NVIDIA CUDA C Programming Guide", "url": "https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html", "kind": "docs", "note": "Definitive CUDA reference covering SIMT, warps, divergence, occupancy." },
+        { "title": "VUT FIT — AVS course", "url": "https://www.fit.vut.cz/study/course/AVS/", "kind": "course", "note": "Official course page (syllabus, lecturers, materials)." }
+      ],
       "topics": [
         {
           "id": "pipelining",
@@ -1337,6 +1432,14 @@
       "semester": "Winter",
       "specializations": ["NSEC", "NISD"],
       "blurb": "Bezpečnostní politiky a standardy (ISO 27000, NIST CSF, Common Criteria), modely řízení přístupu (BLP, Biba, RBAC), softwarové zranitelnosti (buffer overflow, injection), síťová a WiFi bezpečnost, security operations, audit a forensics. Kryptografická základna je v KRY.",
+      "resources": [
+        { "title": "Ross Anderson — Security Engineering (3rd ed., free)", "url": "https://www.cl.cam.ac.uk/~rja14/book.html", "kind": "book", "note": "The best holistic security textbook, freely available." },
+        { "title": "NIST SP 800-53 Rev. 5 — Security and Privacy Controls", "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf", "kind": "spec", "note": "Comprehensive catalogue of security controls." },
+        { "title": "OWASP Top 10", "url": "https://owasp.org/www-project-top-ten/", "kind": "tool", "note": "Canonical web-application risk list, updated periodically." },
+        { "title": "MITRE ATT&CK — Tactics, Techniques, Procedures", "url": "https://attack.mitre.org/", "kind": "tool", "note": "Live curated catalogue of real attacker behaviour." },
+        { "title": "ISO/IEC 27001 — Information Security Management Systems", "url": "https://www.iso.org/standard/27001", "kind": "spec", "note": "ISMS reference standard." },
+        { "title": "VUT FIT — BIS course", "url": "https://www.fit.vut.cz/study/course/BIS/", "kind": "course", "note": "Official course page." }
+      ],
       "topics": [
         {
           "id": "uvod-bis",

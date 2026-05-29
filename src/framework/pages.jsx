@@ -629,6 +629,34 @@ export function CourseDetailPage({ content, courseId, focusTopic, focusSub, view
               </section>
             );
           })}
+
+          {course.resources && course.resources.length > 0 && (
+            <section className="see-more">
+              <header className="see-more-head">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.72"/>
+                  <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+                </svg>
+                <h3>Further reading — external resources for {course.id}</h3>
+              </header>
+              <ul className="see-more-list">
+                {course.resources.map((r, i) => (
+                  <li key={i}>
+                    <a href={r.url} target="_blank" rel="noopener noreferrer" className="see-more-link">
+                      <div className="see-more-link-text">
+                        <span className="see-more-link-title">{r.title}</span>
+                        {r.note && <span className="see-more-link-note">{r.note}</span>}
+                      </div>
+                      {r.kind && <span className="see-more-kind">{r.kind}</span>}
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                        <path d="M7 17 17 7M7 7h10v10"/>
+                      </svg>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </>
       )}
     </>
