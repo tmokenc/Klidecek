@@ -5,6 +5,7 @@ import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { useProgress, useCollapsed, loadTweaks, saveTweaks } from "./progress.js";
 import { BlockList } from "./content-blocks.jsx";
 import { Mindmap } from "./mindmap.jsx";
+import { GlobalMindmap } from "./global-mindmap.jsx";
 
 function useTweak(key, defaultValue) {
   const [val, setVal] = useState(() => {
@@ -72,6 +73,28 @@ export function ProgressBar({ pct }) {
       <div className="progress-fill" style={{ width: `${pct * 100}%` }} />
     </div>
   );
+}
+
+/* Small "Not yet available" pill, used on dimmed exam topics + spec cards. */
+function UnavailPill({ label = "not yet available" }) {
+  return <span className="unavail-pill" title="This exam-topic content hasn't been authored yet.">{label}</span>;
+}
+
+// True iff this spec has at least one exam topic whose refs resolve to a real subtopic.
+function specHasAnyContent(content, specId) {
+  const topics = content.EXAM_TOPICS[specId] || [];
+  return topics.some((t) => (t.refs || []).some(([c, tp, s]) => {
+    const r = content.findSubtopic(c, tp, s);
+    return !!(r && r.sub);
+  }));
+}
+
+// True iff a single exam topic resolves to anything in the catalogue.
+function topicHasContent(content, topic) {
+  return (topic.refs || []).some(([c, tp, s]) => {
+    const r = content.findSubtopic(c, tp, s);
+    return !!(r && r.sub);
+  });
 }
 
 function AiNotice({ repoUrl }) {
@@ -165,11 +188,54 @@ export function HomePage({ content, navigate }) {
         </button>
       </div>
 
+      {content.GLOBAL_MINDMAP && (
+        <button
+          className="card"
+          onClick={() => navigate("/mm")}
+          style={{ marginTop: 14, padding: "16px 20px", display: "flex", alignItems: "center", gap: 14, textAlign: "left" }}
+        >
+          <span style={{ width: 38, height: 38, borderRadius: 10, background: "var(--accent-soft)", color: "var(--accent)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/>
+              <path d="m7 7 3 4M17 7l-3 4M7 17l3-4M17 17l-3-4"/>
+            </svg>
+          </span>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <h3 className="card-title" style={{ marginBottom: 2 }}>Global mindmap</h3>
+            <p style={{ margin: 0, fontSize: 13, color: "var(--text-muted)" }}>
+              See how all {content.COURSES.length} courses connect — shared concepts, prerequisites, and crossover topics.
+            </p>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: "var(--text-faint)" }}><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+      )}
+
       {tot > 0 && (
         <div style={{ marginTop: 24, padding: 14, background: "var(--bg-inset)", borderRadius: "var(--r-md)", fontSize: 13, color: "var(--text-muted)" }}>
           You've checked off <strong style={{ color: "var(--text)" }}>{tot}</strong> subtopics. Keep going.
         </div>
       )}
+    </>
+  );
+}
+
+/* ─── GLOBAL MINDMAP ───────────────────────────────────────── */
+export function GlobalMindmapPage({ content, navigate }) {
+  const { set } = useProgress(content);
+  const data = content.GLOBAL_MINDMAP;
+  if (!data) return <div className="empty">Global mindmap not available — content/mindmaps/_global.json missing.</div>;
+  return (
+    <>
+      <div className="page-head">
+        <button className="detail-back" onClick={() => navigate("/")}>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m15 6-6 6 6 6"/></svg>
+          Home
+        </button>
+        <div className="page-eyebrow">Catalog overview</div>
+        <h1 className="page-title">{data.title || "Global mindmap"}</h1>
+        {data.summary && <p className="page-blurb">{data.summary}</p>}
+      </div>
+      <GlobalMindmap data={data} content={content} completedSet={set} navigate={navigate} />
     </>
   );
 }
@@ -193,6 +259,12 @@ export function CoursesPage({ content, navigate }) {
         <div className="page-eyebrow">Browse</div>
         <h1 className="page-title">Courses</h1>
         <p className="page-blurb">Every course you can study. Drill in to see topics and subtopics, jump to specific material via deep-linkable anchors, or open the mindmap.</p>
+        {content.GLOBAL_MINDMAP && (
+          <button className="btn" style={{ marginTop: 8 }} onClick={() => navigate("/mm")}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="2.5"/><circle cx="5" cy="6" r="1.5"/><circle cx="19" cy="6" r="1.5"/><circle cx="5" cy="18" r="1.5"/><circle cx="19" cy="18" r="1.5"/><path d="m7 7 3.5 3.5M17 7l-3.5 3.5M7 17l3.5-3.5M17 17l-3.5-3.5"/></svg>
+            Global mindmap
+          </button>
+        )}
       </div>
 
       <div className="search">
@@ -462,7 +534,8 @@ export function CourseDetailPage({ content, courseId, focusTopic, focusSub, view
         <Mindmap
           course={course}
           completedSet={set}
-          onNavigate={(tid, sid) => navigate(`/c/${course.id}/${tid}${sid ? "/" + sid : ""}`)}
+          content={content}
+          onNavigate={(cid, tid, sid) => navigate(`/c/${cid}/${tid}${sid ? "/" + sid : ""}`)}
         />
       ) : (
         <>
@@ -575,21 +648,25 @@ export function SpecsPage({ content, navigate }) {
       <div className="cards">
         {content.SPECIALIZATIONS.map((s) => {
           const courseCount = content.COURSES.filter((c) => (c.specializations || []).includes(s.id)).length;
-          const examCount = (content.EXAM_TOPICS[s.id] || []).length;
+          const topics = content.EXAM_TOPICS[s.id] || [];
+          const examCount = topics.length;
+          const coveredCount = topics.filter((t) => topicHasContent(content, t)).length;
+          const blank = courseCount === 0 && coveredCount === 0;
           const st = specStats(s.id);
           return (
-            <button key={s.id} className="card" onClick={() => navigate(`/s/${s.id}`)} style={{ "--h": s.hue }}>
+            <button key={s.id} className="card" data-blank={blank} onClick={() => navigate(`/s/${s.id}`)} style={{ "--h": s.hue }}>
               <div className="card-top">
                 <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                   <div className="card-code">{s.id}{s.short ? ` · ${s.short}` : ""}</div>
                   <h3 className="card-title">{s.name}</h3>
                 </div>
-                <span style={{ width: 28, height: 28, borderRadius: "50%", background: `oklch(0.62 0.14 ${s.hue})`, flexShrink: 0 }} />
+                <span style={{ width: 28, height: 28, borderRadius: "50%", background: `oklch(0.62 0.14 ${s.hue})`, flexShrink: 0, opacity: blank ? 0.5 : 1 }} />
               </div>
               {s.blurb && <p className="card-blurb">{s.blurb}</p>}
               <div className="card-meta">
-                <span>{courseCount} courses · {examCount} exam topics</span>
+                <span>{courseCount} courses · {examCount} exam topics{examCount > 0 && coveredCount < examCount ? ` (${coveredCount} with content)` : ""}</span>
                 <span style={{ flex: 1 }} />
+                {blank && <UnavailPill />}
                 {st.total > 0 && (
                   <>
                     <span style={{ fontFamily: "var(--font-mono)", fontSize: 11 }}>{Math.round(st.pct * 100)}%</span>
@@ -611,6 +688,8 @@ export function SpecDetailPage({ content, specId, navigate }) {
   if (!spec) return <div className="empty">Specialization not found</div>;
   const courses = content.COURSES.filter((c) => (c.specializations || []).includes(specId));
   const examTopics = content.EXAM_TOPICS[specId] || [];
+  const coveredCount = examTopics.filter((t) => topicHasContent(content, t)).length;
+  const specBlank = courses.length === 0 && coveredCount === 0;
   const st = specStats(specId);
   const ex = examStats(specId);
 
@@ -628,6 +707,9 @@ export function SpecDetailPage({ content, specId, navigate }) {
         <div className="detail-meta" style={{ marginTop: 14 }}>
           <span className="chip">{courses.length} courses</span>
           <span className="chip">{examTopics.length} exam topics</span>
+          {examTopics.length > 0 && coveredCount < examTopics.length && (
+            <span className="chip">{coveredCount} with content</span>
+          )}
           <span style={{ flex: 1 }} />
           {st.total > 0 && (
             <div className="hist">
@@ -638,42 +720,59 @@ export function SpecDetailPage({ content, specId, navigate }) {
         </div>
       </div>
 
-      <h2 className="section-title">Courses in this specialization</h2>
-      <div className="cards">
-        {courses.map((c) => {
-          const cst = courseStats(c);
-          return (
-            <button key={c.id} className="card" onClick={() => navigate(`/c/${c.id}`)}>
-              <div className="card-top">
-                <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                  <div className="card-code">{c.id}{c.semester ? ` · ${c.semester}` : ""}{c.credits ? ` · ${c.credits} cr` : ""}</div>
-                  <h3 className="card-title">{c.name}</h3>
-                </div>
-                <SpecDots content={content} specs={c.specializations || []} />
-              </div>
-              {c.blurb && <p className="card-blurb">{c.blurb}</p>}
-              {cst.total > 0 && (
-                <div className="card-meta">
-                  <span style={{ fontFamily: "var(--font-mono)", fontSize: 11 }}>{cst.done}/{cst.total}</span>
-                  <ProgressBar pct={cst.pct} />
-                </div>
-              )}
-            </button>
-          );
-        })}
-      </div>
+      {specBlank && (
+        <div className="unavail-banner">
+          <strong>Coming soon.</strong> This specialization's exam topics are listed below for reference, but study material hasn't been authored yet. Shared topics that overlap with other specs may already have content — open one to find out.
+        </div>
+      )}
+
+      {courses.length > 0 && (
+        <>
+          <h2 className="section-title">Courses in this specialization</h2>
+          <div className="cards">
+            {courses.map((c) => {
+              const cst = courseStats(c);
+              return (
+                <button key={c.id} className="card" onClick={() => navigate(`/c/${c.id}`)}>
+                  <div className="card-top">
+                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                      <div className="card-code">{c.id}{c.semester ? ` · ${c.semester}` : ""}{c.credits ? ` · ${c.credits} cr` : ""}</div>
+                      <h3 className="card-title">{c.name}</h3>
+                    </div>
+                    <SpecDots content={content} specs={c.specializations || []} />
+                  </div>
+                  {c.blurb && <p className="card-blurb">{c.blurb}</p>}
+                  {cst.total > 0 && (
+                    <div className="card-meta">
+                      <span style={{ fontFamily: "var(--font-mono)", fontSize: 11 }}>{cst.done}/{cst.total}</span>
+                      <ProgressBar pct={cst.pct} />
+                    </div>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </>
+      )}
 
       <h2 className="section-title">Final exam topics</h2>
       <div className="exam-topiclist">
-        {examTopics.map((t) => (
-          <button key={t.id} className="exam-topic-card" onClick={() => navigate(`/x/${specId}/${t.id}`)}>
-            <span className="exam-topic-n">{String(t.n).padStart(2, "0")}</span>
-            <span className="exam-topic-title">{t.title}</span>
-            <span className="exam-topic-tags">
-              {t.sharedWith && t.sharedWith.length > 0 && <SpecDots content={content} specs={t.sharedWith} />}
-            </span>
-          </button>
-        ))}
+        {examTopics.map((t) => {
+          const blank = !topicHasContent(content, t);
+          const hasLinks = (t.resources && t.resources.length > 0);
+          return (
+            <button key={t.id} className="exam-topic-card" data-blank={blank} onClick={() => navigate(`/x/${specId}/${t.id}`)}>
+              <span className="exam-topic-n">{String(t.n).padStart(2, "0")}</span>
+              <span className="exam-topic-title">{t.title}</span>
+              {blank && (hasLinks
+                ? <span className="exam-links-pill" title={`${t.resources.length} external resources`}>{t.resources.length} link{t.resources.length === 1 ? "" : "s"}</span>
+                : <UnavailPill label="empty" />)}
+              <span className="exam-topic-tags">
+                {t.sharedWith && t.sharedWith.length > 0 && <SpecDots content={content} specs={t.sharedWith} />}
+              </span>
+            </button>
+          );
+        })}
       </div>
       {ex.total > 0 && (
         <div className="hist" style={{ marginTop: 12 }}>
@@ -745,20 +844,26 @@ export function ExamPage({ content, navigate }) {
         {content.SPECIALIZATIONS.map((s) => {
           const topics = content.EXAM_TOPICS[s.id] || [];
           const sharedCount = topics.filter((t) => t.sharedWith && t.sharedWith.length).length;
+          const coveredCount = topics.filter((t) => topicHasContent(content, t)).length;
+          const blank = topics.length > 0 && coveredCount === 0;
           const st = examStats(s.id);
           return (
-            <button key={s.id} className="card" onClick={() => navigate(`/x/${s.id}`)} style={{ "--h": s.hue }}>
+            <button key={s.id} className="card" data-blank={blank} onClick={() => navigate(`/x/${s.id}`)} style={{ "--h": s.hue }}>
               <div className="card-top">
                 <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                   <div className="card-code">{s.id}</div>
                   <h3 className="card-title">{s.name}</h3>
                 </div>
-                <span style={{ width: 28, height: 28, borderRadius: "50%", background: `oklch(0.62 0.14 ${s.hue})`, flexShrink: 0 }} />
+                <span style={{ width: 28, height: 28, borderRadius: "50%", background: `oklch(0.62 0.14 ${s.hue})`, flexShrink: 0, opacity: blank ? 0.5 : 1 }} />
               </div>
               <div className="card-meta">
                 <span>{topics.length} topics</span>
                 {sharedCount > 0 && <span>· {sharedCount} shared</span>}
+                {coveredCount > 0 && coveredCount < topics.length && (
+                  <span>· {coveredCount} with content</span>
+                )}
                 <span style={{ flex: 1 }} />
+                {blank && <UnavailPill />}
                 {st.total > 0 && (
                   <>
                     <span style={{ fontFamily: "var(--font-mono)", fontSize: 11 }}>{Math.round(st.pct * 100)}%</span>
@@ -801,11 +906,17 @@ export function ExamSpecPage({ content, specId, navigate }) {
         {topics.map((t) => {
           const total = t.refs.length;
           const done = t.refs.filter(([c, tp, s]) => set.has(`${c}/${tp}/${s}`)).length;
+          const blank = !topicHasContent(content, t);
+          const hasLinks = (t.resources && t.resources.length > 0);
           return (
-            <button key={t.id} className="exam-topic-card" onClick={() => navigate(`/x/${specId}/${t.id}`)}>
+            <button key={t.id} className="exam-topic-card" data-blank={blank} onClick={() => navigate(`/x/${specId}/${t.id}`)}>
               <span className="exam-topic-n">{String(t.n).padStart(2, "0")}</span>
               <span className="exam-topic-title">{t.title}</span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-faint)" }}>{done}/{total}</span>
+              {blank
+                ? (hasLinks
+                  ? <span className="exam-links-pill" title={`${t.resources.length} external resources`}>{t.resources.length} link{t.resources.length === 1 ? "" : "s"}</span>
+                  : <UnavailPill label="empty" />)
+                : <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-faint)" }}>{done}/{total}</span>}
               <span className="exam-topic-tags">
                 {t.sharedWith && t.sharedWith.length > 0 && <SpecDots content={content} specs={t.sharedWith} />}
               </span>
@@ -868,8 +979,17 @@ export function ExamTopicPage({ content, specId, topicId, navigate }) {
         </button>
       </div>
 
+      <header className="exam-topic-hero" style={{ "--h": spec.hue }}>
+        <div className="exam-topic-hero-eyebrow">
+          <span className="exam-topic-hero-spec">{spec.id}</span>
+          <span className="exam-topic-hero-sep">·</span>
+          <span>okruh č. {topic.n} / {topics.length}</span>
+        </div>
+        <h1 className="exam-topic-hero-title">{topic.title}</h1>
+      </header>
+
       {topic.sharedWith && topic.sharedWith.length > 0 && (
-        <div style={{ marginBottom: 16, display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
+        <div style={{ marginBottom: 16, display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center", justifyContent: "center" }}>
           <span style={{ fontSize: 12, color: "var(--text-muted)" }}>Also in exam for:</span>
           {topic.sharedWith.map((sid) => (
             <button key={sid} className="chip spec" style={{ "--h": (content.findSpec(sid) || {}).hue || 264, cursor: "default" }}
@@ -882,6 +1002,26 @@ export function ExamTopicPage({ content, specId, topicId, navigate }) {
           ))}
         </div>
       )}
+
+      {(() => {
+        const resolved = topic.refs.filter(([c, tp, s]) => {
+          const r = content.findSubtopic(c, tp, s);
+          return !!(r && r.sub);
+        });
+        if (resolved.length > 0) return null;
+        const hasResources = topic.resources && topic.resources.length > 0;
+        return (
+          <div className="unavail-banner">
+            <strong>{hasResources ? "No in-app study material yet" : "Content not yet available."}</strong>{" "}
+            {hasResources
+              ? <>— this exam topic is in the PDF but hasn't been authored in the app. Curated external references are listed below to get you started.</>
+              : <>This exam topic is listed in the official PDF (<em>{spec.id} — okruh č.&nbsp;{topic.n}</em>) but no study material has been authored for it in this app yet.</>}
+            {topic.sharedWith && topic.sharedWith.length > 0 && !hasResources && (
+              <> Some <strong>other specializations</strong> may already cover this material — check the related-specs badges above.</>
+            )}
+          </div>
+        );
+      })()}
 
       {topic.refs.map(([cid, tid, sid], i) => {
         const { course, topic: t, sub } = content.findSubtopic(cid, tid, sid);
@@ -915,6 +1055,34 @@ export function ExamTopicPage({ content, specId, topicId, navigate }) {
           </article>
         );
       })}
+
+      {topic.resources && topic.resources.length > 0 && (
+        <section className="see-more">
+          <header className="see-more-head">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.72"/>
+              <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+            </svg>
+            <h3>See more — external resources</h3>
+          </header>
+          <ul className="see-more-list">
+            {topic.resources.map((r, i) => (
+              <li key={i}>
+                <a href={r.url} target="_blank" rel="noopener noreferrer" className="see-more-link">
+                  <div className="see-more-link-text">
+                    <span className="see-more-link-title">{r.title}</span>
+                    {r.note && <span className="see-more-link-note">{r.note}</span>}
+                  </div>
+                  {r.kind && <span className="see-more-kind">{r.kind}</span>}
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <path d="M7 17 17 7M7 7h10v10"/>
+                  </svg>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <div style={{ display: "flex", gap: 8, justifyContent: "space-between", marginTop: 32, paddingTop: 24, borderTop: "0.5px solid var(--line)" }}>
         <button className="btn" disabled={idx === 0} onClick={() => idx > 0 && navigate(`/x/${specId}/${topics[idx - 1].id}`)}>

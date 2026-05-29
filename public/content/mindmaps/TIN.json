@@ -1,0 +1,216 @@
+{
+  "courseId": "TIN",
+  "title": "Teoretická informatika",
+  "summary": "Chomsky hierarchie, vyčíslitelnost, P/NP, logika a Gödelovy věty",
+  "branches": [
+    {
+      "id": "languages",
+      "label": "Formální jazyky",
+      "hue": 264,
+      "summary": "Co je jazyk, gramatika a kde leží na Chomského žebříku",
+      "clusters": [
+        {
+          "id": "core",
+          "label": "Jazyky a gramatiky",
+          "leaves": [
+            { "ref": "jazyky-operace" },
+            { "ref": "gramatiky" }
+          ]
+        },
+        {
+          "id": "hierarchy",
+          "label": "Chomského hierarchie",
+          "leaves": [
+            { "ref": "chomsky-hierarchie" },
+            { "ref": "jazyky-automaty" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "regular",
+      "label": "Regulární vrstva",
+      "hue": 200,
+      "summary": "Konečné automaty, regex, pumping lemma",
+      "clusters": [
+        {
+          "id": "automata",
+          "label": "Automaty",
+          "leaves": [
+            { "ref": "konecne-automaty" },
+            { "ref": "determinizace" },
+            { "ref": "minimalizace" }
+          ]
+        },
+        {
+          "id": "expressions",
+          "label": "Výrazy",
+          "leaves": [
+            { "ref": "regularni-vyrazy" }
+          ]
+        },
+        {
+          "id": "closure",
+          "label": "Uzávěr a pumping",
+          "leaves": [
+            { "ref": "pumping-uzaver" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context-free",
+      "label": "Bezkontextová vrstva",
+      "hue": 142,
+      "summary": "CFG, PDA a CYK parsing",
+      "clusters": [
+        {
+          "id": "grammars",
+          "label": "CFG",
+          "leaves": [
+            { "ref": "cfg-derivace" },
+            { "ref": "normalni-formy" },
+            { "ref": "vlastnosti-bkj" }
+          ]
+        },
+        {
+          "id": "pda",
+          "label": "Zásobníkové automaty",
+          "leaves": [
+            { "ref": "zasobnikove-automaty" },
+            { "ref": "ekvivalence-pda-cfg" }
+          ]
+        },
+        {
+          "id": "parsing",
+          "label": "Parsing",
+          "leaves": [
+            { "ref": "cyk-parsing" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "computability",
+      "label": "Vyčíslitelnost",
+      "hue": 22,
+      "summary": "Turingův stroj a hranice toho, co lze vůbec spočítat",
+      "clusters": [
+        {
+          "id": "tm",
+          "label": "Turingův stroj",
+          "leaves": [
+            { "ref": "ts-definice" },
+            { "ref": "ts-modifikace" },
+            { "ref": "univerzalni-ts" },
+            { "ref": "rekurzivni-jazyky" }
+          ]
+        },
+        {
+          "id": "undecidable",
+          "label": "Nerozhodnutelnost",
+          "leaves": [
+            { "ref": "problem-zastaveni" },
+            { "ref": "redukce" },
+            { "ref": "riceova-veta" },
+            { "ref": "pcp-jazyky" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "complexity",
+      "label": "Složitost",
+      "hue": 340,
+      "summary": "Čas, prostor, P, NP a NP-úplnost",
+      "clusters": [
+        {
+          "id": "resources",
+          "label": "Časová a prostorová",
+          "leaves": [
+            { "ref": "slozitost-ts" },
+            { "ref": "savitch-prostor" }
+          ]
+        },
+        {
+          "id": "classes",
+          "label": "Třídy P a NP",
+          "leaves": [
+            { "ref": "tridy-p-np" }
+          ]
+        },
+        {
+          "id": "completeness",
+          "label": "NP-úplnost",
+          "leaves": [
+            { "ref": "cook-levin" },
+            { "ref": "np-uplne-problemy" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "analysis",
+      "label": "Analýza algoritmů",
+      "hue": 80,
+      "summary": "Rekurence, grafové algoritmy, amortizace",
+      "clusters": [
+        {
+          "id": "asymptotic",
+          "label": "Asymptotika a rekurence",
+          "leaves": [
+            { "ref": "asymptotika-rekurence" }
+          ]
+        },
+        {
+          "id": "graphs",
+          "label": "Grafové algoritmy",
+          "leaves": [
+            { "ref": "grafy-prochazeni" }
+          ]
+        },
+        {
+          "id": "amortized",
+          "label": "Amortizace",
+          "leaves": [
+            { "ref": "amortizovana" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "logic",
+      "label": "Logika a meta-matematika",
+      "hue": 60,
+      "summary": "Výroková a predikátová logika, důkazové systémy, Gödel",
+      "clusters": [
+        {
+          "id": "propositional",
+          "label": "Výroková logika",
+          "leaves": [
+            { "ref": "vyrokova-logika" }
+          ]
+        },
+        {
+          "id": "first-order",
+          "label": "Predikátová logika",
+          "leaves": [
+            { "ref": "prvoradova-logika" },
+            { "ref": "vlastnosti-pl" },
+            { "ref": "dukazove-systemy" }
+          ]
+        },
+        {
+          "id": "godel",
+          "label": "Gödelovy věty",
+          "leaves": [
+            { "ref": "godelovo-cislovani" },
+            { "ref": "godel-neuplnost" },
+            { "ref": "rozhodnutelne-teorie" },
+            { "ref": "pa-nerozhodnutelnost" }
+          ]
+        }
+      ]
+    }
+  ]
+}

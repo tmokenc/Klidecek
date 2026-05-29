@@ -1,0 +1,243 @@
+{
+  "courseId": "PIS",
+  "title": "Pokročilé informační systémy",
+  "summary": "Architektury IS, Jakarta EE, APIs, transakce, workflow a OLAP",
+  "branches": [
+    {
+      "id": "concepts",
+      "label": "Koncepty IS",
+      "hue": 264,
+      "summary": "Co je IS, jak se modeluje a v jaké architektuře žije",
+      "clusters": [
+        {
+          "id": "data-knowledge",
+          "label": "Data → znalosti",
+          "leaves": [
+            { "ref": "data-informace-znalosti" },
+            { "ref": "informacni-system" }
+          ]
+        },
+        {
+          "id": "modeling",
+          "label": "Modelování dat",
+          "leaves": [
+            { "ref": "model-abstrakce" },
+            { "ref": "struktury-kolekce" },
+            { "ref": "databazove-modely" }
+          ]
+        },
+        {
+          "id": "architecture",
+          "label": "Architektura",
+          "leaves": [
+            { "ref": "architektury-vrstvy" },
+            { "ref": "mikrosluzby" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jakarta-platform",
+      "label": "Jakarta EE",
+      "hue": 22,
+      "summary": "Platforma, kontejner, komponenty",
+      "clusters": [
+        {
+          "id": "platform",
+          "label": "Platforma a deployment",
+          "leaves": [
+            { "ref": "webovy-is" },
+            { "ref": "jakarta-ee-platforma" },
+            { "ref": "nasazeni" },
+            { "ref": "maven-project" }
+          ]
+        },
+        {
+          "id": "components",
+          "label": "Servlety, JPA, EJB/CDI",
+          "leaves": [
+            { "ref": "servlet-jax-rs" },
+            { "ref": "jpa-persistence" },
+            { "ref": "ejb-cdi" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "object-jpa",
+      "label": "Objektový model a JPA",
+      "hue": 142,
+      "summary": "ER → třídy → JPA entity",
+      "clusters": [
+        {
+          "id": "om-concepts",
+          "label": "Objektový model",
+          "leaves": [
+            { "ref": "objektovy-model-prehled" },
+            { "ref": "vztahy-objekty" },
+            { "ref": "dedicnost-modelovani" }
+          ]
+        },
+        {
+          "id": "jpa",
+          "label": "JPA mapování",
+          "leaves": [
+            { "ref": "jpa-entity" },
+            { "ref": "jpa-dotazy" },
+            { "ref": "jpa-vztahy" },
+            { "ref": "jpa-dedicnost" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "api-identity",
+      "label": "API a identita",
+      "hue": 200,
+      "summary": "Business vrstva, REST, GraphQL, OAuth2/OIDC",
+      "clusters": [
+        {
+          "id": "business",
+          "label": "Business vrstva",
+          "leaves": [
+            { "ref": "business-implementace" }
+          ]
+        },
+        {
+          "id": "apis",
+          "label": "Rozhraní",
+          "leaves": [
+            { "ref": "rest-design" },
+            { "ref": "graphql" },
+            { "ref": "soap-webove-sluzby" },
+            { "ref": "json-rpc-grpc" },
+            { "ref": "mcp-protocol" }
+          ]
+        },
+        {
+          "id": "identity",
+          "label": "Identita a auth",
+          "leaves": [
+            { "ref": "rest-autentizace" },
+            { "ref": "identita-oauth2" },
+            { "ref": "oidc-saml" },
+            { "ref": "identity-java" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "alt-tech",
+      "label": "Alternativní stack",
+      "hue": 80,
+      "summary": "Frontend, jiné platformy, observability, messaging",
+      "clusters": [
+        {
+          "id": "presentation",
+          "label": "Prezentační vrstva",
+          "leaves": [
+            { "ref": "prezentacni-vrstva" }
+          ]
+        },
+        {
+          "id": "platforms",
+          "label": "Mimo-Jakarta platformy",
+          "leaves": [
+            { "ref": "alt-platformy" },
+            { "ref": "microprofile" }
+          ]
+        },
+        {
+          "id": "ops",
+          "label": "Observabilita a messaging",
+          "leaves": [
+            { "ref": "observabilita" },
+            { "ref": "messaging-fault-tolerance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transactions-workflow",
+      "label": "Procesy a transakce",
+      "hue": 340,
+      "summary": "ACID, distribuované transakce a workflow",
+      "clusters": [
+        {
+          "id": "uml-acid",
+          "label": "Modelování + ACID",
+          "leaves": [
+            { "ref": "procesy-uml" },
+            { "ref": "transakce-acid" },
+            { "ref": "modely-transakci" }
+          ]
+        },
+        {
+          "id": "jakarta-tx",
+          "label": "Transakce v Jakarta EE",
+          "leaves": [
+            { "ref": "transakce-jakarta" },
+            { "ref": "zretezene-transakce" },
+            { "ref": "distribuovane-transakce" }
+          ]
+        },
+        {
+          "id": "queues",
+          "label": "Fronty",
+          "leaves": [
+            { "ref": "zotavitelne-fronty" },
+            { "ref": "jakarta-messaging" }
+          ]
+        },
+        {
+          "id": "workflow",
+          "label": "Workflow + BPMN",
+          "leaves": [
+            { "ref": "business-procesy" },
+            { "ref": "od-front-k-workflow" },
+            { "ref": "wfmc-architektura" },
+            { "ref": "bpmn-notace" },
+            { "ref": "workflow-patterns" },
+            { "ref": "flexibilita-workflow" },
+            { "ref": "bpmn-enginy" },
+            { "ref": "process-mining" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bi-olap",
+      "label": "BI a OLAP",
+      "hue": 60,
+      "summary": "Datové sklady, kostky a analytické dotazy",
+      "clusters": [
+        {
+          "id": "foundation",
+          "label": "Foundation",
+          "leaves": [
+            { "ref": "bi-uvod" },
+            { "ref": "datovy-sklad" }
+          ]
+        },
+        {
+          "id": "cube",
+          "label": "Multidim. kostka",
+          "leaves": [
+            { "ref": "multidimenzionalni-kostka" },
+            { "ref": "podkostky-svaz" },
+            { "ref": "agregace" }
+          ]
+        },
+        {
+          "id": "arch",
+          "label": "Architektury skladu",
+          "leaves": [
+            { "ref": "olap-architektury" },
+            { "ref": "schemata-skladu" },
+            { "ref": "olap-operace" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "courseId": "BZA",
+  "title": "Bezpečná zařízení",
+  "summary": "Bezpečný HW: čipové karty, RNG, postranní kanály, HSM, IoT a RE",
+  "branches": [
+    {
+      "id": "foundations",
+      "label": "Bezpečný HW — základy",
+      "hue": 264,
+      "summary": "Motivace a klasifikace útoků",
+      "clusters": [
+        {
+          "id": "motivation",
+          "label": "Motivace",
+          "leaves": [
+            { "ref": "motivace-bh" },
+            { "ref": "kerckhoff-sto" },
+            { "ref": "realizace-bh" }
+          ]
+        },
+        {
+          "id": "attack-class",
+          "label": "Klasifikace útoků",
+          "leaves": [
+            { "ref": "klasifikace-utoku" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "randomness",
+      "label": "Náhodnost v HW",
+      "hue": 22,
+      "summary": "RNG/TRNG, statistické testy a PUF",
+      "clusters": [
+        {
+          "id": "rng-types",
+          "label": "DRNG/TRNG/hybrid",
+          "leaves": [
+            { "ref": "drng-trng-hybrid" }
+          ]
+        },
+        {
+          "id": "standards",
+          "label": "Standardy a testy",
+          "leaves": [
+            { "ref": "ais31-tridy" },
+            { "ref": "nist-testy" }
+          ]
+        },
+        {
+          "id": "real-rng",
+          "label": "Reálné implementace",
+          "leaves": [
+            { "ref": "linux-rng" },
+            { "ref": "puf" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lfsr-stream",
+      "label": "LFSR & proudové šifry v HW",
+      "hue": 80,
+      "summary": "GSM, RFID, Mifare — co všechno už bylo prolomeno",
+      "clusters": [
+        {
+          "id": "lfsr",
+          "label": "LFSR teorie",
+          "leaves": [
+            { "ref": "lfsr-princip" }
+          ]
+        },
+        {
+          "id": "broken",
+          "label": "Pole zlomených algoritmů",
+          "leaves": [
+            { "ref": "a51-gsm" },
+            { "ref": "keeloq" },
+            { "ref": "mifare-crypto1" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smart-cards",
+      "label": "Čipové karty",
+      "hue": 142,
+      "summary": "Architektura, ISO 7816, kontaktní vs bezkontaktní",
+      "clusters": [
+        {
+          "id": "arch",
+          "label": "Architektura a komunikace",
+          "leaves": [
+            { "ref": "architektura-typy" },
+            { "ref": "iso7816-komunikace" }
+          ]
+        },
+        {
+          "id": "attacks-on-cards",
+          "label": "Útoky na karty",
+          "leaves": [
+            { "ref": "fyzicke-utoky" },
+            { "ref": "logicke-utoky" }
+          ]
+        },
+        {
+          "id": "contactless",
+          "label": "Bezkontaktní karty",
+          "leaves": [
+            { "ref": "bezkontaktni-nfc" },
+            { "ref": "elektronicke-pasy" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "side-channels",
+      "label": "Postranní kanály",
+      "hue": 340,
+      "summary": "Časové, výkonové, EM a padding-oracle útoky",
+      "clusters": [
+        {
+          "id": "intro-sca",
+          "label": "Úvod",
+          "leaves": [
+            { "ref": "uvod-pk" }
+          ]
+        },
+        {
+          "id": "passive-sca",
+          "label": "Pasivní kanály",
+          "leaves": [
+            { "ref": "casova-analyza" },
+            { "ref": "spa-dpa" },
+            { "ref": "em-kanal" }
+          ]
+        },
+        {
+          "id": "active-sca",
+          "label": "Aktivní (oracle)",
+          "leaves": [
+            { "ref": "padding-oracle" }
+          ]
+        },
+        {
+          "id": "defense",
+          "label": "Obrana",
+          "leaves": [
+            { "ref": "obrana-pk" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fault-analysis",
+      "label": "Chybová analýza",
+      "hue": 200,
+      "summary": "Glitch útoky, DFA a Bellcore na RSA",
+      "clusters": [
+        {
+          "id": "induce",
+          "label": "Vyvolání chyby",
+          "leaves": [
+            { "ref": "glitch-utoky" },
+            { "ref": "environmentalni" }
+          ]
+        },
+        {
+          "id": "exploit",
+          "label": "Využití chyby",
+          "leaves": [
+            { "ref": "dfa-princip" },
+            { "ref": "bellcore-rsa" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iot",
+      "label": "Bezpečnost IoT",
+      "hue": 60,
+      "summary": "LoRaWAN, ZigBee, BLE a topologické útoky",
+      "clusters": [
+        {
+          "id": "iot-class",
+          "label": "Kategorizace a topologie",
+          "leaves": [
+            { "ref": "iot-kategorizace" },
+            { "ref": "topologicke-utoky" }
+          ]
+        },
+        {
+          "id": "protocols",
+          "label": "Protokoly",
+          "leaves": [
+            { "ref": "lorawan" },
+            { "ref": "zigbee-802154" },
+            { "ref": "ble-bluetooth" }
+          ]
+        },
+        {
+          "id": "iot-real",
+          "label": "Reálné útoky",
+          "leaves": [
+            { "ref": "iot-realne-utoky" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hsm-re",
+      "label": "HSM a reverzní inženýrství",
+      "hue": 264,
+      "summary": "Hardware Security Modules a postup RE",
+      "clusters": [
+        {
+          "id": "hsm",
+          "label": "HSM",
+          "leaves": [
+            { "ref": "hsm-definice" },
+            { "ref": "pkcs11-api" },
+            { "ref": "fips-cc" },
+            { "ref": "utoky-na-api" }
+          ]
+        },
+        {
+          "id": "re",
+          "label": "Reverzní inženýrství",
+          "leaves": [
+            { "ref": "ri-uvod-motivace" },
+            { "ref": "staticka-analyza" },
+            { "ref": "dynamicka-analyza" },
+            { "ref": "anti-ri-techniky" }
+          ]
+        }
+      ]
+    }
+  ]
+}

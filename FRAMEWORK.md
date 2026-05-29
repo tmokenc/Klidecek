@@ -84,24 +84,38 @@ link those too — they complement the in-page viz components.
 
 ### 0.4 Build the mindmap deliberately
 
-The mindmap (`src/framework/mindmap.jsx`) is automatic *layout*, but the
-**structure it visualises is whatever you put in the manifest**. Garbage in,
-garbage radial diagram. So:
+Per-course and global mindmaps are **curated** in `public/content/mindmaps/`
+(see §8 for the full data model). The manifest's topic/subtopic decomposition
+drives the on-page reading view and the fallback mindmap layout, while the
+curated JSON drives the radial mindmap with its conceptual three-level
+hierarchy and the global cross-course view.
 
-* The angular slice for a topic is proportional to its `subtopics.length`. If
-  one topic has 8 subtopics and another has 2, the mindmap reflects that
-  imbalance. That's fine when the imbalance is real ("Pipeline" really *is* a
-  bigger topic than "Anti-aliasing") and a warning sign when it isn't.
-* Group subtopics that share dependencies inside the same topic so the
-  mindmap's radial cluster matches the student's mental model.
-* Order topics in `topics[]` to flow naturally (foundational → derived),
-  because the mindmap walks them clockwise starting at the top.
-* Test the mindmap visually after adding content: open `/c/<id>/mm` and check
-  that the spokes look balanced and the labels don't overlap badly. If they
-  do, the underlying decomposition is uneven — revisit §0.1.
+When you author or restructure either layer:
 
-A subtopic that doesn't fit any existing topic is a signal that you need a new
-topic, not that you should jam it into the closest one.
+* **Manifest topics follow the lecture.** Group subtopics by lecture theme so
+  the reading-mode TOC and the on-page progress make sense as a study unit.
+* **Curated mindmap branches follow the concept.** The mindmap can — and
+  should — rearrange subtopics across lecture boundaries to match the
+  student's mental model ("CPU foundations · Memory hierarchy · Parallelism"
+  is a better mindmap shape than "Lecture 1 · Lecture 2 · …"). A subtopic
+  appears in *exactly one* mindmap leaf even when it could fit in two.
+* **Each course should have a mindmap JSON.** Missing files fall back to a
+  two-ring auto-layout from the manifest; that's the prototyping path, not
+  the shipping path.
+* **The global mindmap is the catalogue's storefront.** Cross-course
+  "bridges" (the Spectre/Meltdown link from AVS to BIS, MDP→RL from MSP to
+  SUI, etc.) are the highest-leverage cells of the whole site — they're how
+  students discover that two of their courses are studying the same idea
+  from different angles. Add a bridge whenever you find one of those
+  "wait, that comes back here?" moments.
+* **Test the mindmap visually after adding content** — open `#/c/<id>/mm`
+  and `#/mm`. Labels should not overlap heavily and arcs should look
+  balanced. If a branch is much bigger than its peers, that's a signal
+  either to split it or to demote some leaves to a less-emphasised cluster.
+
+A subtopic that doesn't fit any existing mindmap branch is a signal that you
+need a new branch — not that you should jam it into the closest one. The
+inverse also holds: a near-empty branch with one leaf is a signal to merge.
 
 ### 0.5 Cross-references and exam sets
 
@@ -657,18 +671,212 @@ In `manifest.json` → `exam`:
 
 ## 8. How the mindmap works
 
-The mindmap (`src/framework/mindmap.jsx`) is **automatic** — it's a radial
-layout of whatever topics and subtopics a course declares. Center = course;
-ring 1 = topics; ring 2 = subtopics.
+There are **two** mindmap views in the app:
 
-* Topic angular slice is proportional to its `subtopics.length`.
-* Subtopic completion (from `localStorage`) fills its dot in the topic's hue.
-* Topic colors come from the topic's index (hue rotates 360° / N topics).
+1. **Per-course mindmap** at `#/c/<id>/mm` — a radial map of one course.
+2. **Global mindmap** at `#/mm` — every course on one canvas, grouped by
+   conceptual domain, with cross-course "bridge" edges for shared concepts.
 
-There is nothing extra to declare. To add a mindmap, just add topics + subs.
+Both render from JSON files in `public/content/mindmaps/`. The data is
+**curated**, not derived from the manifest, because:
 
-If you want a *different* visualisation of a course (a graph, a timeline, a
-custom layout), build it as a normal viz component and wire a route to it.
+* The manifest's `topics[]` reflects **lecture order** ("Pipelining" → "OoO"
+  → "Cache"). A *good mindmap* groups by **concept** ("CPU foundations",
+  "Memory hierarchy", "Parallelism") — those don't have to match lecture
+  topics. A mindmap branch can pull subtopics from multiple lecture topics
+  if they belong to the same conceptual cluster.
+* A 3-level hierarchy (branch → cluster → leaf) is too rich for a 2-level
+  manifest. Putting it in a separate file keeps the manifest small and the
+  mindmap restructurable without disturbing URLs.
+
+If the JSON file is missing the renderer falls back to an auto-layout that
+uses the manifest's topic/subtopic structure (the old behaviour). This is the
+"good enough" path for a new course; replace it with a curated mindmap once
+the course has settled.
+
+### 8.1 Per-course mindmap — `public/content/mindmaps/<COURSE>.json`
+
+Shape:
+
+```json
+{
+  "courseId": "PDS",
+  "title": "Computer networks & protocols",
+  "summary": "From link layer through transport to SDN and P4",
+  "branches": [
+    {
+      "id": "transport",
+      "label": "Transport layer",
+      "hue": 142,
+      "summary": "End-to-end reliable delivery",
+      "clusters": [
+        {
+          "id": "connection-oriented",
+          "label": "Connection-oriented",
+          "leaves": [
+            { "ref": "tcp-spojeni-hlavicka" },
+            { "ref": "sctp", "label": "SCTP (optional override)" }
+          ]
+        },
+        {
+          "id": "connectionless",
+          "label": "Connectionless",
+          "leaves": [{ "ref": "udp-dccp" }]
+        }
+      ]
+    }
+  ]
+}
+```
+
+* **`branches[]`** — top-level conceptual groups (3–9 per course). These
+  become the inner ring of chips around the course node.
+* **`clusters[]`** inside each branch — sub-groups (1–5 per branch). They
+  become labels on the middle ring.
+* **`leaves[]`** inside each cluster — individual subtopics. `ref` must
+  match a `subtopic.id` somewhere in the manifest catalogue (any course is
+  fine; cross-references resolve through the global subtopic index). The
+  optional `label` overrides the displayed text — useful when the subtopic
+  title is long.
+* **`hue`** on a branch — OKLCH hue (0–360) used to colour that branch's
+  arcs and chips. Pick values that distinguish neighbours. If omitted, the
+  renderer auto-rotates through the palette.
+* **`summary`** strings on the course and branches — short context lines.
+  Currently only the course-level summary renders; branch summaries are
+  reserved for future tooltip/hover use.
+
+### 8.2 Global mindmap — `public/content/mindmaps/_global.json`
+
+Shows how the courses fit together. Shape:
+
+```json
+{
+  "title": "FIT MIT — common backbone",
+  "summary": "Cross-course concept map.",
+  "domains": [
+    {
+      "id": "crypto",
+      "label": "Cryptography",
+      "hue": 80,
+      "summary": "Algorithms, hash, signature, PKI",
+      "courses": [
+        {
+          "id": "KRY",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "3des-aes", "label": "AES" },
+            { "ref": "rsa", "label": "RSA" }
+          ]
+        },
+        {
+          "id": "BIS",
+          "weight": 0.35,
+          "highlights": [{ "ref": "kryptografie-role", "label": "Crypto in IS" }]
+        }
+      ]
+    }
+  ],
+  "bridges": [
+    {
+      "id": "spectre",
+      "label": "Spectre / Meltdown",
+      "from": { "domain": "architecture", "ref": "spekulace-vyjimky" },
+      "to":   { "domain": "infosec",      "ref": "hw-zranitelnosti" }
+    }
+  ]
+}
+```
+
+* **`domains[]`** — top-level conceptual clusters that span courses (e.g.
+  "Cryptography" covers KRY, BIS and BZA). Each domain becomes an inner-ring
+  chip.
+* **`courses[]`** inside a domain — courses that contribute to that
+  domain. `weight` (0–1) pulls a secondary course closer to the centre
+  (lower weight = closer to its domain chip, away from the perimeter).
+  `highlights` are the **emblematic subtopics** that justify the course's
+  membership; 4–7 each is a reasonable target. A course can appear in
+  multiple domains (e.g. AVS contributes to both "Architecture" and
+  "Parallelism").
+* **`bridges[]`** — explicit cross-domain concept links. Each bridge points
+  from one (domain, subtopic) to another and is rendered as a curved arc
+  with a hover label. Use bridges for the genuinely surprising "wait, that
+  comes back here?" cross-references: Spectre in AVS that resurfaces in
+  BIS, MDP in MSP that becomes RL in SUI, CAP in UPA that ties back to
+  Paxos in PRL.
+
+### 8.3 Authoring guidelines
+
+When you add or restructure a course mindmap:
+
+* **Group by concept, not by lecture.** "Foundations · Search · Sort ·
+  Matrix · Tree algorithms · Distributed systems" beats "Lecture 1 ·
+  Lecture 2 · …". The same lecture topic can split into multiple branches
+  if its subtopics naturally split, and two lecture topics can collapse
+  into one branch if the concepts are tightly related.
+* **Balance.** 3–9 branches, 1–5 clusters per branch, 1–7 leaves per
+  cluster. Bigger imbalances are a smell — you probably need to split a
+  branch or merge a sparse one.
+* **Verify the refs.** Every `ref` must match a real subtopic `id` in the
+  manifest. Use the validator below.
+* **Don't repeat leaves.** A subtopic belongs in one cluster of one branch.
+  If two clusters both want it, your branches overlap conceptually — fix
+  the structure.
+* **Use the `hue` field** so neighbouring branches have visually distinct
+  colours. The renderer rotates hues by default, but explicit hues let you
+  match colour to meaning (security = pink/red, theory = purple, etc.).
+
+When you edit the global mindmap:
+
+* **Domains are not the same as specializations.** Specializations are
+  administrative ("which courses count for NSEC"). Domains are conceptual
+  ("Cryptography spans KRY, BIS, BZA"). Don't confuse them.
+* **Membership signals proximity, not equivalence.** KRY is the *primary*
+  source of cryptography (weight 1.0); BIS uses crypto but isn't primarily
+  a crypto course (weight ~0.3).
+* **Reserve bridges for the most pedagogically useful cross-refs.** Bridges
+  are visually expensive — 15–30 is enough. Don't connect every shared
+  concept; let the domain memberships do that work.
+
+### 8.4 Validate before shipping
+
+```sh
+node --input-type=module -e '
+import fs from "node:fs";
+const m = JSON.parse(fs.readFileSync("public/content/manifest.json", "utf8"));
+const ids = new Set();
+for (const c of m.courses) for (const t of c.topics) for (const s of t.subtopics) ids.add(s.id);
+const mmDir = "public/content/mindmaps";
+const broken = [];
+for (const f of fs.readdirSync(mmDir)) {
+  const d = JSON.parse(fs.readFileSync(`${mmDir}/${f}`, "utf8"));
+  const refs = [];
+  if (f === "_global.json") {
+    for (const dom of d.domains || []) for (const c of dom.courses || []) for (const h of c.highlights || []) refs.push(h.ref);
+    for (const b of d.bridges || []) { refs.push(b.from?.ref, b.to?.ref); }
+  } else {
+    for (const br of d.branches || []) for (const cl of br.clusters || []) for (const lf of cl.leaves || []) refs.push(lf.ref);
+  }
+  for (const r of refs) if (r && !ids.has(r)) broken.push(`${f}: ${r}`);
+}
+console.log("broken refs:", broken.length);
+if (broken.length) console.log(broken.join("\n"));
+'
+```
+
+`broken refs: 0` is the only acceptable outcome.
+
+### 8.5 Rendering internals
+
+| File | Purpose |
+|------|---------|
+| `src/framework/mindmap.jsx`        | Per-course renderer. `StructuredMindmap` for curated JSON, `AutoMindmap` fallback for manifest-only. |
+| `src/framework/global-mindmap.jsx` | Global cross-course renderer with bridges. |
+| `src/framework/content-loader.js`  | Fetches `mindmaps/*.json`; exposes `content.findMindmap(id)` and `content.GLOBAL_MINDMAP`. |
+
+The renderers share a pan + zoom shell, theme-aware colours via `oklch(…)`
+expressions, and the same click-to-navigate contract: `onNavigate(courseId,
+topicId, subtopicId)`. Subtopic completion (from `localStorage`) fills the
+leaf dot.
 
 ---
 

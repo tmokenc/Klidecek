@@ -1,0 +1,143 @@
+{
+  "courseId": "FLP",
+  "title": "Funkcionální a logické programování",
+  "summary": "Lambda kalkul, Haskell, Rust (od 2026/27) a Prolog (legacy)",
+  "branches": [
+    {
+      "id": "theory",
+      "label": "Teoretické základy",
+      "hue": 264,
+      "summary": "Lambda kalkul jako jazyk výpočtu",
+      "clusters": [
+        {
+          "id": "lambda",
+          "label": "Lambda kalkul",
+          "leaves": [
+            { "ref": "lambda-syntax" },
+            { "ref": "lambda-redukce" }
+          ]
+        },
+        {
+          "id": "encoding",
+          "label": "Church kódování",
+          "leaves": [
+            { "ref": "church-enc" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "haskell-basics",
+      "label": "Haskell — základy",
+      "hue": 142,
+      "summary": "Statický typový systém, lenost, ADT, typové třídy",
+      "clusters": [
+        {
+          "id": "syntax-types",
+          "label": "Syntaxe a typy",
+          "leaves": [
+            { "ref": "haskell-syntax-typy" }
+          ]
+        },
+        {
+          "id": "evaluation",
+          "label": "Lenost",
+          "leaves": [
+            { "ref": "lazy-evaluation" }
+          ]
+        },
+        {
+          "id": "patterns",
+          "label": "Pattern matching a ADT",
+          "leaves": [
+            { "ref": "pattern-matching-adt" }
+          ]
+        },
+        {
+          "id": "classes",
+          "label": "Typové třídy",
+          "leaves": [
+            { "ref": "type-classes" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "haskell-advanced",
+      "label": "Haskell — pokročilé",
+      "hue": 200,
+      "summary": "Higher-order, monády, IO, výjimky",
+      "clusters": [
+        {
+          "id": "ho",
+          "label": "Higher-order funkce",
+          "leaves": [
+            { "ref": "higher-order" }
+          ]
+        },
+        {
+          "id": "monads",
+          "label": "Monády a IO",
+          "leaves": [
+            { "ref": "monady-io" }
+          ]
+        },
+        {
+          "id": "errors",
+          "label": "Výjimky",
+          "leaves": [
+            { "ref": "exceptions" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rust",
+      "label": "Rust (2026+)",
+      "hue": 22,
+      "summary": "Vlastnictví, lifetimes, traits — funkcionální + systémový",
+      "clusters": [
+        {
+          "id": "memory",
+          "label": "Paměťový model",
+          "leaves": [
+            { "ref": "rust-ownership" },
+            { "ref": "rust-lifetimes" }
+          ]
+        },
+        {
+          "id": "abstraction",
+          "label": "Abstrakce a chyby",
+          "leaves": [
+            { "ref": "rust-traits" },
+            { "ref": "rust-error" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prolog",
+      "label": "Prolog (legacy do 2025/26)",
+      "hue": 340,
+      "summary": "Deklarativní logické programování s unifikací",
+      "clusters": [
+        {
+          "id": "basics",
+          "label": "Základy",
+          "leaves": [
+            { "ref": "prolog-zaklady" },
+            { "ref": "unifikace-backtrack" }
+          ]
+        },
+        {
+          "id": "data",
+          "label": "Seznamy a pokročilé",
+          "leaves": [
+            { "ref": "prolog-seznamy" },
+            { "ref": "prolog-pokrocile" }
+          ]
+        }
+      ]
+    }
+  ]
+}

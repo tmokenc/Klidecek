@@ -1,0 +1,282 @@
+{
+  "courseId": "BIO",
+  "title": "Biometrické systémy",
+  "summary": "Modality, hodnocení FAR/FRR, anti-spoofing a etika",
+  "branches": [
+    {
+      "id": "foundations",
+      "label": "Biometrie — základy",
+      "hue": 264,
+      "summary": "Pojem, historie a struktura biometrického systému",
+      "clusters": [
+        {
+          "id": "concept",
+          "label": "Pojem a historie",
+          "leaves": [
+            { "ref": "biometrie-pojem" },
+            { "ref": "historie" }
+          ]
+        },
+        {
+          "id": "system",
+          "label": "Systém + identita",
+          "leaves": [
+            { "ref": "identita-overeni" },
+            { "ref": "biometricky-system" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "evaluation",
+      "label": "Hodnocení",
+      "hue": 22,
+      "summary": "Variabilita, FAR/FRR, ROC/DET",
+      "clusters": [
+        {
+          "id": "variability",
+          "label": "Variabilita",
+          "leaves": [
+            { "ref": "variabilita" }
+          ]
+        },
+        {
+          "id": "error-rates",
+          "label": "Chybové míry",
+          "leaves": [
+            { "ref": "far-frr" },
+            { "ref": "fmr-fnmr-eer" }
+          ]
+        },
+        {
+          "id": "curves",
+          "label": "ROC / DET a testování",
+          "leaves": [
+            { "ref": "roc-det" },
+            { "ref": "testovani-eval" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fingerprints",
+      "label": "Otisky prstů",
+      "hue": 142,
+      "summary": "Papilární linie, markanty, AFIS",
+      "clusters": [
+        {
+          "id": "anatomy",
+          "label": "Anatomie",
+          "leaves": [
+            { "ref": "papilarni-linie" }
+          ]
+        },
+        {
+          "id": "capture",
+          "label": "Snímání",
+          "leaves": [
+            { "ref": "snimani-otisku" }
+          ]
+        },
+        {
+          "id": "features",
+          "label": "Klasifikace a markanty",
+          "leaves": [
+            { "ref": "klasifikace-otisku" },
+            { "ref": "markanty" }
+          ]
+        },
+        {
+          "id": "pipeline",
+          "label": "AFIS",
+          "leaves": [
+            { "ref": "zpracovani-afis" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "face",
+      "label": "Obličej",
+      "hue": 200,
+      "summary": "Eigenfaces, deep learning, anti-spoofing",
+      "clusters": [
+        {
+          "id": "capture",
+          "label": "Snímání",
+          "leaves": [
+            { "ref": "snimani-oblicej" }
+          ]
+        },
+        {
+          "id": "classic",
+          "label": "Klasické metody",
+          "leaves": [
+            { "ref": "eigenfaces-pca" }
+          ]
+        },
+        {
+          "id": "modern",
+          "label": "Hluboké učení",
+          "leaves": [
+            { "ref": "deep-learning-face" }
+          ]
+        },
+        {
+          "id": "spoofing",
+          "label": "Anti-spoofing",
+          "leaves": [
+            { "ref": "antispoofing-face" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "eye",
+      "label": "Oko (duhovka, sítnice)",
+      "hue": 340,
+      "summary": "Daugman, sítnicové cévy",
+      "clusters": [
+        {
+          "id": "anatomy",
+          "label": "Anatomie oka",
+          "leaves": [
+            { "ref": "anatomie-oka" }
+          ]
+        },
+        {
+          "id": "iris",
+          "label": "Duhovka",
+          "leaves": [
+            { "ref": "daugman" }
+          ]
+        },
+        {
+          "id": "retina",
+          "label": "Sítnice",
+          "leaves": [
+            { "ref": "sitnice-cevy" }
+          ]
+        },
+        {
+          "id": "capture",
+          "label": "Snímací systémy",
+          "leaves": [
+            { "ref": "snimaci-systemy" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hand",
+      "label": "Ruka",
+      "hue": 80,
+      "summary": "Geometrie, nehty, cévní řečiště, kosti",
+      "clusters": [
+        {
+          "id": "geometry",
+          "label": "Geometrie",
+          "leaves": [
+            { "ref": "geometrie-ruky" }
+          ]
+        },
+        {
+          "id": "subdermal",
+          "label": "Pod kůží",
+          "leaves": [
+            { "ref": "krevni-recisko" },
+            { "ref": "kosti-ruky" }
+          ]
+        },
+        {
+          "id": "other",
+          "label": "Nehty",
+          "leaves": [
+            { "ref": "nehty" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dynamic",
+      "label": "Dynamické modality",
+      "hue": 60,
+      "summary": "Hlas, podpis, chůze, klávesnice",
+      "clusters": [
+        {
+          "id": "voice-signature",
+          "label": "Hlas a podpis",
+          "leaves": [
+            { "ref": "hlas-rec" },
+            { "ref": "podpis-dynamika" }
+          ]
+        },
+        {
+          "id": "behavior",
+          "label": "Behaviorální",
+          "leaves": [
+            { "ref": "chuze" },
+            { "ref": "keystroke" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dna",
+      "label": "DNA",
+      "hue": 110,
+      "summary": "STR profil, forenzní DNA, etika",
+      "clusters": [
+        {
+          "id": "structure",
+          "label": "Struktura a STR",
+          "leaves": [
+            { "ref": "dna-struktura" },
+            { "ref": "str-profil" }
+          ]
+        },
+        {
+          "id": "forensic",
+          "label": "Forenzní + etika",
+          "leaves": [
+            { "ref": "forenzni-dna" },
+            { "ref": "etika-dna" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "passports",
+      "label": "Pasy a útoky",
+      "hue": 264,
+      "summary": "ICAO, anti-spoofing, deepfakes, etika/GDPR",
+      "clusters": [
+        {
+          "id": "passport",
+          "label": "Biometrické pasy",
+          "leaves": [
+            { "ref": "icao-9303" },
+            { "ref": "biometricka-data" },
+            { "ref": "bezpecnost-pasu" }
+          ]
+        },
+        {
+          "id": "attacks",
+          "label": "Útoky",
+          "leaves": [
+            { "ref": "typy-utoku" },
+            { "ref": "liveness" },
+            { "ref": "deepfakes" }
+          ]
+        },
+        {
+          "id": "ethics",
+          "label": "Etika / GDPR",
+          "leaves": [
+            { "ref": "etika-gdpr" }
+          ]
+        }
+      ]
+    }
+  ]
+}

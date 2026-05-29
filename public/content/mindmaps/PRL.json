@@ -1,0 +1,149 @@
+{
+  "courseId": "PRL",
+  "title": "Paralelní a distribuované algoritmy",
+  "summary": "Architektury, modely výpočtu, paralelní algoritmy, distribuovaná synchronizace, konsensus",
+  "branches": [
+    {
+      "id": "foundations",
+      "label": "Základy a modely",
+      "hue": 264,
+      "summary": "Co je paralelizmus a v jakém modelu o něm uvažujeme",
+      "clusters": [
+        {
+          "id": "limits",
+          "label": "Limity zrychlení",
+          "leaves": [
+            { "ref": "paralelizace-uvod" },
+            { "ref": "amdahl-gustafson" }
+          ]
+        },
+        {
+          "id": "classification",
+          "label": "Klasifikace architektur",
+          "leaves": [
+            { "ref": "flynn-klasifikace" },
+            { "ref": "ne-vn-architektury" }
+          ]
+        },
+        {
+          "id": "pram-model",
+          "label": "Model PRAM",
+          "leaves": [
+            { "ref": "pram-uvod" },
+            { "ref": "pram-varianty" },
+            { "ref": "pram-simulace" },
+            { "ref": "pram-algoritmy" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "communication",
+      "label": "Komunikační primitiva",
+      "hue": 200,
+      "summary": "Jak procesy komunikují — topologie, kolektivní operace, prefix-sum",
+      "clusters": [
+        {
+          "id": "topology",
+          "label": "Topologie sítí",
+          "leaves": [
+            { "ref": "topologie" }
+          ]
+        },
+        {
+          "id": "collective",
+          "label": "Kolektivní operace",
+          "leaves": [
+            { "ref": "broadcast-redukce" },
+            { "ref": "scatter-gather" }
+          ]
+        },
+        {
+          "id": "prefix-sum",
+          "label": "Prefix sum (skenování)",
+          "leaves": [
+            { "ref": "prefix-sum-uvod" },
+            { "ref": "prefix-sum-algoritmus" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "algorithms",
+      "label": "Paralelní algoritmy",
+      "hue": 142,
+      "summary": "Kanonické paralelní algoritmy nad poli, maticemi a stromy",
+      "clusters": [
+        {
+          "id": "search-sort",
+          "label": "Vyhledávání a třídění",
+          "leaves": [
+            { "ref": "vyhledavani" },
+            { "ref": "splitting-select" },
+            { "ref": "transposition-enumeration" },
+            { "ref": "merge-radici" },
+            { "ref": "radici-vyber" }
+          ]
+        },
+        {
+          "id": "matrix",
+          "label": "Maticové výpočty",
+          "leaves": [
+            { "ref": "transpozice" },
+            { "ref": "nasobeni-matic-mesh" },
+            { "ref": "nasobeni-matic-cube" },
+            { "ref": "nasobeni-matice-vektor" }
+          ]
+        },
+        {
+          "id": "trees",
+          "label": "Stromy — Euler & kontrakce",
+          "leaves": [
+            { "ref": "euler-tour" },
+            { "ref": "euler-aplikace" },
+            { "ref": "kontrakce-uvod" },
+            { "ref": "expression-eval" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "distributed",
+      "label": "Distribuované systémy",
+      "hue": 22,
+      "summary": "Žádná globální paměť — modely, čas, vzájemné vyloučení a konsensus",
+      "clusters": [
+        {
+          "id": "process-algebra",
+          "label": "Procesní algebry",
+          "leaves": [
+            { "ref": "komunikace-modely" },
+            { "ref": "csp-occam" },
+            { "ref": "pi-calculus" },
+            { "ref": "simulace-bisimulace" }
+          ]
+        },
+        {
+          "id": "time",
+          "label": "Čas a koordinace",
+          "leaves": [
+            { "ref": "fyzicky-cas" },
+            { "ref": "logicky-cas" },
+            { "ref": "volba-master" },
+            { "ref": "vzajemne-vylouceni" }
+          ]
+        },
+        {
+          "id": "consensus",
+          "label": "Konsensus a fault-tolerance",
+          "leaves": [
+            { "ref": "failure-modely" },
+            { "ref": "paxos" },
+            { "ref": "byzantium" },
+            { "ref": "raft-praxe" }
+          ]
+        }
+      ]
+    }
+  ]
+}

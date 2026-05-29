@@ -263,6 +263,21 @@ button { font: inherit; color: inherit; }
   border-color: var(--line-strong);
   box-shadow: var(--shadow-sm);
 }
+.card[data-blank="true"] {
+  opacity: 0.55;
+  background: var(--bg-inset);
+  border-style: dashed;
+  border-color: var(--line);
+}
+.card[data-blank="true"]:hover {
+  opacity: 0.78;
+  border-color: var(--line-strong);
+  box-shadow: none;
+}
+.card[data-blank="true"] .card-title,
+.card[data-blank="true"] .card-blurb {
+  color: var(--text-muted);
+}
 .card-top {
   display: flex;
   justify-content: space-between;
@@ -1036,6 +1051,13 @@ button { font: inherit; color: inherit; }
   border-color: var(--accent);
   background: var(--accent-soft);
 }
+.exam-topic-card[data-blank="true"] {
+  background: var(--bg-inset);
+  border-style: dashed;
+  opacity: 0.7;
+}
+.exam-topic-card[data-blank="true"]:hover { opacity: 0.9; }
+.exam-topic-card[data-blank="true"] .exam-topic-title { color: var(--text-muted); }
 .exam-topic-n {
   font-family: var(--font-mono);
   font-size: 13px;
@@ -1045,6 +1067,46 @@ button { font: inherit; color: inherit; }
 }
 .exam-topic-title { flex: 1; font-weight: 500; font-size: 14px; text-wrap: balance; }
 .exam-topic-tags { display: flex; gap: 4px; flex-shrink: 0; }
+
+/* Small "N link(s)" badge on blanked topic cards that still have external resources. */
+.exam-links-pill {
+  display: inline-flex; align-items: center;
+  font-size: 10.5px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  border: 0.5px solid var(--accent-line);
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+/* "Not yet available" badge for blanked exam topics + spec cards. */
+.unavail-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10.5px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--bg-inset);
+  border: 0.5px dashed var(--line-strong);
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.unavail-banner {
+  margin: var(--pad-3) 0 var(--pad-4);
+  padding: var(--pad-3) var(--pad-4);
+  border: 0.5px dashed var(--line-strong);
+  background: var(--bg-inset);
+  border-radius: var(--r-md);
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.unavail-banner strong { color: var(--text); font-weight: 600; }
 
 .exam-nav {
   position: sticky;
@@ -1106,6 +1168,110 @@ button { font: inherit; color: inherit; }
   cursor: default;
 }
 .exam-nav-list-btn:hover { color: var(--text); background: var(--bg-inset); }
+
+/* Big centered topic header on the ExamTopicPage. */
+.exam-topic-hero {
+  text-align: center;
+  margin: var(--pad-7) 0 var(--pad-5);
+  padding: 0 var(--pad-3);
+  position: relative;
+}
+.exam-topic-hero::before {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin: 0 auto var(--pad-4);
+  border-radius: 999px;
+  background: oklch(var(--spec-l) var(--spec-c) var(--h, 264));
+  opacity: 0.85;
+}
+.exam-topic-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  margin-bottom: 12px;
+}
+.exam-topic-hero-spec {
+  font-weight: 600;
+  color: oklch(var(--spec-l) var(--spec-c) var(--h, 264));
+}
+[data-theme="dark"] .exam-topic-hero-spec {
+  color: oklch(0.85 var(--spec-c) var(--h, 264));
+}
+.exam-topic-hero-sep { color: var(--text-faint); opacity: 0.6; }
+.exam-topic-hero-title {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  line-height: 1.28;
+  max-width: 660px;
+  margin: 0 auto;
+  text-wrap: balance;
+  color: var(--text);
+}
+@media (max-width: 520px) {
+  .exam-topic-hero { margin-top: var(--pad-5); }
+  .exam-topic-hero-title { font-size: 22px; line-height: 1.3; }
+}
+
+/* "See more — external resources" block on the ExamTopicPage. */
+.see-more {
+  margin-top: var(--pad-6);
+  padding: var(--pad-4) var(--pad-4) var(--pad-3);
+  background: var(--bg-card);
+  border: 0.5px solid var(--line);
+  border-radius: var(--r-md);
+}
+.see-more-head {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: var(--pad-3);
+  color: var(--text-muted);
+}
+.see-more-head h3 {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+.see-more-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex; flex-direction: column;
+  gap: 2px;
+}
+.see-more-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 10px;
+  border-radius: 7px;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.1s ease;
+}
+.see-more-link:hover { background: var(--bg-inset); }
+.see-more-link-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.see-more-link-title { font-size: 13.5px; font-weight: 500; }
+.see-more-link-note { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+.see-more-kind {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-faint);
+  background: var(--bg-inset);
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.see-more-link svg { color: var(--text-faint); flex-shrink: 0; }
 
 .overlay {
   position: fixed;

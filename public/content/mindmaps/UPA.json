@@ -1,0 +1,269 @@
+{
+  "courseId": "UPA",
+  "title": "Ukládání a příprava dat",
+  "summary": "Od OODB a NoSQL přes sémantický web k čištění dat, sloupcovým a prostorovým DB",
+  "branches": [
+    {
+      "id": "object-db",
+      "label": "Objektově-relační DB",
+      "hue": 264,
+      "summary": "Most mezi OO modelem a relační DB",
+      "clusters": [
+        {
+          "id": "concepts",
+          "label": "Koncepty",
+          "leaves": [
+            { "ref": "relacni-vs-objektovy" },
+            { "ref": "oodbms" }
+          ]
+        },
+        {
+          "id": "impl",
+          "label": "SQL objekty + ORM",
+          "leaves": [
+            { "ref": "sql-objekt-features" },
+            { "ref": "orm-odm" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nosql",
+      "label": "NoSQL svět",
+      "hue": 22,
+      "summary": "CAP, BASE, typy NoSQL, sharding a NewSQL",
+      "clusters": [
+        {
+          "id": "theory",
+          "label": "Teorie konzistence",
+          "leaves": [
+            { "ref": "relacni-omezeni" },
+            { "ref": "acid-base" },
+            { "ref": "cap-teorem" }
+          ]
+        },
+        {
+          "id": "types",
+          "label": "Typy NoSQL",
+          "leaves": [
+            { "ref": "typy-nosql" },
+            { "ref": "nosql-priklady" }
+          ]
+        },
+        {
+          "id": "ops",
+          "label": "Operace + NewSQL",
+          "leaves": [
+            { "ref": "sharding-partitioning" },
+            { "ref": "dotazovani-nosql" },
+            { "ref": "mapreduce" },
+            { "ref": "newsql" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "semi-structured",
+      "label": "Semi-strukturovaná data",
+      "hue": 142,
+      "summary": "XML a JSON v databázích",
+      "clusters": [
+        {
+          "id": "xml",
+          "label": "XML",
+          "leaves": [
+            { "ref": "xml-zaklady" },
+            { "ref": "xml-v-db" }
+          ]
+        },
+        {
+          "id": "json",
+          "label": "JSON",
+          "leaves": [
+            { "ref": "json-zaklady" },
+            { "ref": "json-v-db" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "semantic-web",
+      "label": "Sémantický web",
+      "hue": 200,
+      "summary": "RDF, OWL, SPARQL",
+      "clusters": [
+        {
+          "id": "intro",
+          "label": "Idea",
+          "leaves": [
+            { "ref": "semanticky-web" }
+          ]
+        },
+        {
+          "id": "data",
+          "label": "RDF & serializace",
+          "leaves": [
+            { "ref": "rdf" },
+            { "ref": "rdf-serializace" }
+          ]
+        },
+        {
+          "id": "schema",
+          "label": "Ontologie + dotaz",
+          "leaves": [
+            { "ref": "ontologie-owl" },
+            { "ref": "sparql" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scraping",
+      "label": "Web scraping",
+      "hue": 340,
+      "summary": "DOM, knihovny, headless browser, inteligentní extrakce",
+      "clusters": [
+        {
+          "id": "motivation",
+          "label": "Motivace + DOM",
+          "leaves": [
+            { "ref": "webscraping-motivace" },
+            { "ref": "dom-parsery" }
+          ]
+        },
+        {
+          "id": "tools",
+          "label": "Nástroje",
+          "leaves": [
+            { "ref": "knihovny-scraping" },
+            { "ref": "browser-automation" }
+          ]
+        },
+        {
+          "id": "smart",
+          "label": "Inteligentní extrakce",
+          "leaves": [
+            { "ref": "inteligentni-extrakce" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crisp-dm",
+      "label": "CRISP-DM a data understanding",
+      "hue": 80,
+      "summary": "Metodologie + popisné charakteristiky",
+      "clusters": [
+        {
+          "id": "method",
+          "label": "Metodologie",
+          "leaves": [
+            { "ref": "crisp-dm" },
+            { "ref": "datova-sada" }
+          ]
+        },
+        {
+          "id": "describe",
+          "label": "Popis + vizualizace",
+          "leaves": [
+            { "ref": "popisne-charakteristiky" },
+            { "ref": "vizualizace-korelace" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data-prep",
+      "label": "Příprava dat",
+      "hue": 60,
+      "summary": "Čištění, integrace, redukce, normalizace",
+      "clusters": [
+        {
+          "id": "clean",
+          "label": "Čištění",
+          "leaves": [
+            { "ref": "cisteni-dat" }
+          ]
+        },
+        {
+          "id": "integrate",
+          "label": "Integrace + ETL",
+          "leaves": [
+            { "ref": "integrace-etl" }
+          ]
+        },
+        {
+          "id": "reduce",
+          "label": "Redukce + vyvážení",
+          "leaves": [
+            { "ref": "redukce-dat" },
+            { "ref": "nevyvazenost" }
+          ]
+        },
+        {
+          "id": "transform",
+          "label": "Transformace",
+          "leaves": [
+            { "ref": "normalizace-diskretizace" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "columnar",
+      "label": "Sloupcové DB (in-memory)",
+      "hue": 110,
+      "summary": "Row vs column, slovníkové kódování, komprese",
+      "clusters": [
+        {
+          "id": "layout",
+          "label": "Layout a kódování",
+          "leaves": [
+            { "ref": "row-vs-column" },
+            { "ref": "dictionary-encoding" },
+            { "ref": "komprese" }
+          ]
+        },
+        {
+          "id": "perf",
+          "label": "Operace a výkon",
+          "leaves": [
+            { "ref": "operace-imdb" },
+            { "ref": "scan-performance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spatial",
+      "label": "Prostorové DB",
+      "hue": 180,
+      "summary": "Geometrické typy, R-tree, k-D tree",
+      "clusters": [
+        {
+          "id": "intro",
+          "label": "Úvod a typy",
+          "leaves": [
+            { "ref": "prostorova-db-uvod" },
+            { "ref": "prostorove-typy" }
+          ]
+        },
+        {
+          "id": "ops",
+          "label": "Operace",
+          "leaves": [
+            { "ref": "prostorove-operace" }
+          ]
+        },
+        {
+          "id": "index",
+          "label": "Indexování",
+          "leaves": [
+            { "ref": "indexovani-bodu" },
+            { "ref": "rtree" }
+          ]
+        }
+      ]
+    }
+  ]
+}

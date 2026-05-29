@@ -1,0 +1,458 @@
+{
+  "title": "FIT MIT — společné jádro",
+  "summary": "Mapa konceptuálních domén napříč 13 kurzy magisterského studia. Šipky a mosty ukazují, kde se okruhy ve dvou kurzech opírají o stejný princip.",
+  "domains": [
+    {
+      "id": "theory",
+      "label": "Teorie výpočtu",
+      "hue": 264,
+      "summary": "Co je algoritmus, jazyk, problém, hranice rozhodnutelnosti a složitosti",
+      "courses": [
+        {
+          "id": "TIN",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "chomsky-hierarchie", "label": "Chomsky" },
+            { "ref": "tridy-p-np", "label": "P / NP" },
+            { "ref": "problem-zastaveni", "label": "Halting" },
+            { "ref": "godel-neuplnost", "label": "Gödel" }
+          ]
+        },
+        {
+          "id": "FLP",
+          "weight": 0.5,
+          "highlights": [
+            { "ref": "lambda-syntax", "label": "λ-kalkul" },
+            { "ref": "church-enc", "label": "Church kódování" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "paradigms",
+      "label": "Programovací paradigmata",
+      "hue": 22,
+      "summary": "Funkcionální, logické a systémové paradigma — od λ-kalkulu k Rustu",
+      "courses": [
+        {
+          "id": "FLP",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "type-classes", "label": "Type classes" },
+            { "ref": "monady-io", "label": "Monády" },
+            { "ref": "rust-ownership", "label": "Ownership" },
+            { "ref": "unifikace-backtrack", "label": "Unifikace" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "architecture",
+      "label": "Architektura počítačů",
+      "hue": 142,
+      "summary": "CPU pipelining, OoO, cache hierarchie a moderní vícejádrové systémy",
+      "courses": [
+        {
+          "id": "AVS",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "pipelining-faze", "label": "Pipeline" },
+            { "ref": "tomasulo", "label": "Tomasulo" },
+            { "ref": "cache-mapovani", "label": "Cache" },
+            { "ref": "msi-mesi-moesi", "label": "MESI" },
+            { "ref": "cuda-divergence-occupancy", "label": "CUDA SIMT" }
+          ]
+        },
+        {
+          "id": "PRL",
+          "weight": 0.4,
+          "highlights": [
+            { "ref": "flynn-klasifikace", "label": "Flynn" },
+            { "ref": "ne-vn-architektury", "label": "Dataflow" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "parallel",
+      "label": "Paralelní a distribuované výpočty",
+      "hue": 200,
+      "summary": "PRAM, komunikace, konsensus — od HW vláken k Paxosu",
+      "courses": [
+        {
+          "id": "PRL",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "pram-varianty", "label": "PRAM" },
+            { "ref": "prefix-sum-algoritmus", "label": "Prefix sum" },
+            { "ref": "paxos", "label": "Paxos" },
+            { "ref": "vzajemne-vylouceni", "label": "Mutex" }
+          ]
+        },
+        {
+          "id": "AVS",
+          "weight": 0.6,
+          "highlights": [
+            { "ref": "hyperthreading", "label": "SMT" },
+            { "ref": "sse-avx", "label": "SIMD" },
+            { "ref": "parallel-for-scheduling", "label": "OpenMP" },
+            { "ref": "false-sharing-races", "label": "Races" }
+          ]
+        },
+        {
+          "id": "PIS",
+          "weight": 0.4,
+          "highlights": [
+            { "ref": "distribuovane-transakce", "label": "Distrib. TX" },
+            { "ref": "mikrosluzby", "label": "Microservices" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "networks",
+      "label": "Sítě a protokoly",
+      "hue": 340,
+      "summary": "Od linkové vrstvy přes TCP/QUIC až k SDN, P4 a klasifikaci paketů",
+      "courses": [
+        {
+          "id": "PDS",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "tcp-spojeni-hlavicka", "label": "TCP" },
+            { "ref": "quic", "label": "QUIC" },
+            { "ref": "bgp-zaklady", "label": "BGP" },
+            { "ref": "hicuts-tcam", "label": "TCAM" },
+            { "ref": "sdn-uvod", "label": "SDN" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crypto",
+      "label": "Kryptografie",
+      "hue": 80,
+      "summary": "Algoritmy, hash, podpis, PKI — používá je BIS i BZA",
+      "courses": [
+        {
+          "id": "KRY",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "3des-aes", "label": "AES" },
+            { "ref": "rsa", "label": "RSA" },
+            { "ref": "elipticke", "label": "ECC" },
+            { "ref": "postkvantova", "label": "PQC" },
+            { "ref": "el-podpis", "label": "Podpis" },
+            { "ref": "tls-aplikace", "label": "TLS" }
+          ]
+        },
+        {
+          "id": "BIS",
+          "weight": 0.35,
+          "highlights": [
+            { "ref": "kryptografie-role", "label": "Kryptografie v IS" }
+          ]
+        },
+        {
+          "id": "BZA",
+          "weight": 0.35,
+          "highlights": [
+            { "ref": "lfsr-princip", "label": "LFSR" },
+            { "ref": "spa-dpa", "label": "DPA" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hw-security",
+      "label": "Bezpečnost hardwaru",
+      "hue": 60,
+      "summary": "Postranní kanály, chybová analýza, čipové karty, HSM",
+      "courses": [
+        {
+          "id": "BZA",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "klasifikace-utoku", "label": "Klasifikace útoků" },
+            { "ref": "fyzicke-utoky", "label": "Fyzické" },
+            { "ref": "dfa-princip", "label": "DFA" },
+            { "ref": "hsm-definice", "label": "HSM" },
+            { "ref": "puf", "label": "PUF" }
+          ]
+        },
+        {
+          "id": "AVS",
+          "weight": 0.3,
+          "highlights": [
+            { "ref": "spekulace-vyjimky", "label": "Spectre" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "infosec",
+      "label": "Bezpečnost IS",
+      "hue": 110,
+      "summary": "Politiky, controls, řízení přístupu, zranitelnosti, security ops",
+      "courses": [
+        {
+          "id": "BIS",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "terminologie-cia", "label": "CIA" },
+            { "ref": "bell-lapadula", "label": "BLP" },
+            { "ref": "iso-27000", "label": "ISO 27000" },
+            { "ref": "buffer-overflow", "label": "Buffer overflow" },
+            { "ref": "soc-incident-response", "label": "SOC / IR" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "info-systems",
+      "label": "Informační systémy",
+      "hue": 180,
+      "summary": "Architektury IS, Jakarta EE, REST, transakce a workflow",
+      "courses": [
+        {
+          "id": "PIS",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "architektury-vrstvy", "label": "Vrstvy" },
+            { "ref": "jpa-entity", "label": "JPA" },
+            { "ref": "rest-design", "label": "REST" },
+            { "ref": "transakce-acid", "label": "ACID" },
+            { "ref": "bpmn-notace", "label": "BPMN" },
+            { "ref": "multidimenzionalni-kostka", "label": "OLAP cube" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data",
+      "label": "Ukládání a příprava dat",
+      "hue": 240,
+      "summary": "NoSQL, sémantický web, sloupcové & prostorové DB",
+      "courses": [
+        {
+          "id": "UPA",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "cap-teorem", "label": "CAP" },
+            { "ref": "sparql", "label": "SPARQL" },
+            { "ref": "mapreduce", "label": "MapReduce" },
+            { "ref": "row-vs-column", "label": "Sloupcové DB" },
+            { "ref": "rtree", "label": "R-tree" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stats",
+      "label": "Statistika a pravděpodobnost",
+      "hue": 300,
+      "summary": "MLE, intervaly, hypotézy, lineární model, GLM, DTMC/MDP",
+      "courses": [
+        {
+          "id": "MSP",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "mle", "label": "MLE" },
+            { "ref": "fisherova-informace", "label": "Fisher" },
+            { "ref": "intervaly-spolehlivosti", "label": "CI" },
+            { "ref": "t-test", "label": "t-test" },
+            { "ref": "linearni-model", "label": "OLS" },
+            { "ref": "dtmc-definice", "label": "DTMC" },
+            { "ref": "mdp-definice", "label": "MDP" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-ml",
+      "label": "AI a strojové učení",
+      "hue": 40,
+      "summary": "Klasické ML, agenti, hluboké učení, sekvence, RL",
+      "courses": [
+        {
+          "id": "SUI",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "pravdepodobnost-bayes", "label": "Bayes" },
+            { "ref": "informovane", "label": "A*" },
+            { "ref": "gradient-descent", "label": "Gradient" },
+            { "ref": "cnn-architektury", "label": "CNN" },
+            { "ref": "transformer-bert", "label": "Transformer" },
+            { "ref": "rl-framework", "label": "RL" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "biometrics",
+      "label": "Biometrie",
+      "hue": 350,
+      "summary": "Identifikace osob — modality, FAR/FRR, anti-spoofing",
+      "courses": [
+        {
+          "id": "BIO",
+          "weight": 1.0,
+          "highlights": [
+            { "ref": "biometricky-system", "label": "Systém" },
+            { "ref": "far-frr", "label": "FAR/FRR" },
+            { "ref": "markanty", "label": "Markanty" },
+            { "ref": "daugman", "label": "Daugman" },
+            { "ref": "deep-learning-face", "label": "DL obličej" },
+            { "ref": "deepfakes", "label": "Deepfake" }
+          ]
+        }
+      ]
+    }
+  ],
+  "bridges": [
+    {
+      "id": "spectre",
+      "label": "Spekulativní spuštění (Spectre / Meltdown)",
+      "from": { "domain": "architecture", "ref": "spekulace-vyjimky" },
+      "to":   { "domain": "infosec",      "ref": "hw-zranitelnosti" }
+    },
+    {
+      "id": "dpa-side",
+      "label": "Postranní kanály v HW",
+      "from": { "domain": "hw-security", "ref": "spa-dpa" },
+      "to":   { "domain": "infosec",     "ref": "hw-zranitelnosti" }
+    },
+    {
+      "id": "tls-vpn",
+      "label": "TLS — od kryptografie k VPN",
+      "from": { "domain": "crypto",  "ref": "tls-aplikace" },
+      "to":   { "domain": "infosec", "ref": "vpn-ipsec" }
+    },
+    {
+      "id": "sym-is",
+      "label": "AES v IS",
+      "from": { "domain": "crypto",  "ref": "3des-aes" },
+      "to":   { "domain": "infosec", "ref": "symetrika-v-is" }
+    },
+    {
+      "id": "asym-is",
+      "label": "RSA + ECC v IS",
+      "from": { "domain": "crypto",  "ref": "rsa" },
+      "to":   { "domain": "infosec", "ref": "asymetrika-v-is" }
+    },
+    {
+      "id": "signature-is",
+      "label": "Elektronický podpis v IS",
+      "from": { "domain": "crypto",  "ref": "el-podpis" },
+      "to":   { "domain": "infosec", "ref": "hash-podpis-v-is" }
+    },
+    {
+      "id": "wpa-aes",
+      "label": "CCMP / AES-CCM v WPA2",
+      "from": { "domain": "crypto",  "ref": "3des-aes" },
+      "to":   { "domain": "infosec", "ref": "wpa-wpa2" }
+    },
+    {
+      "id": "mdp-rl",
+      "label": "MDP — od pravděpodobnosti k RL",
+      "from": { "domain": "stats", "ref": "mdp-definice" },
+      "to":   { "domain": "ai-ml", "ref": "rl-framework" }
+    },
+    {
+      "id": "bayes-classification",
+      "label": "Bayesovský klasifikátor",
+      "from": { "domain": "stats", "ref": "bayesovsky-odhad" },
+      "to":   { "domain": "ai-ml", "ref": "pravdepodobnost-bayes" }
+    },
+    {
+      "id": "lr-msp-sui",
+      "label": "Logistická regrese",
+      "from": { "domain": "stats", "ref": "logisticka-regrese-msp" },
+      "to":   { "domain": "ai-ml", "ref": "logisticka-regrese" }
+    },
+    {
+      "id": "deep-face",
+      "label": "CNN pro obličejovou biometrii",
+      "from": { "domain": "ai-ml",     "ref": "cnn-architektury" },
+      "to":   { "domain": "biometrics", "ref": "deep-learning-face" }
+    },
+    {
+      "id": "gdpr-bio",
+      "label": "GDPR pro biometrická data",
+      "from": { "domain": "infosec",    "ref": "gdpr-nukib" },
+      "to":   { "domain": "biometrics", "ref": "etika-gdpr" }
+    },
+    {
+      "id": "lambda-flp",
+      "label": "λ-kalkul → Haskell",
+      "from": { "domain": "theory",    "ref": "lambda-syntax" },
+      "to":   { "domain": "paradigms", "ref": "haskell-syntax-typy" }
+    },
+    {
+      "id": "cache-coherence-mutex",
+      "label": "Koherence cache ⇄ vzájemné vyloučení",
+      "from": { "domain": "architecture", "ref": "msi-mesi-moesi" },
+      "to":   { "domain": "parallel",     "ref": "vzajemne-vylouceni" }
+    },
+    {
+      "id": "consensus-tx",
+      "label": "Paxos pro distribuované transakce",
+      "from": { "domain": "parallel",     "ref": "paxos" },
+      "to":   { "domain": "info-systems", "ref": "distribuovane-transakce" }
+    },
+    {
+      "id": "cap-consensus",
+      "label": "CAP teorém a konsensus",
+      "from": { "domain": "data",     "ref": "cap-teorem" },
+      "to":   { "domain": "parallel", "ref": "failure-modely" }
+    },
+    {
+      "id": "mapreduce-prefix",
+      "label": "Map-reduce ⇄ prefix sum",
+      "from": { "domain": "data",     "ref": "mapreduce" },
+      "to":   { "domain": "parallel", "ref": "prefix-sum-uvod" }
+    },
+    {
+      "id": "olap-columnar",
+      "label": "OLAP nad sloupcovou DB",
+      "from": { "domain": "info-systems", "ref": "multidimenzionalni-kostka" },
+      "to":   { "domain": "data",         "ref": "row-vs-column" }
+    },
+    {
+      "id": "p-np-randomized",
+      "label": "NP-tvrdost ⇄ randomizace",
+      "from": { "domain": "theory", "ref": "tridy-p-np" },
+      "to":   { "domain": "stats",  "ref": "las-vegas-monte-carlo" }
+    },
+    {
+      "id": "topology-pds-prl",
+      "label": "Síťové topologie",
+      "from": { "domain": "networks", "ref": "sdn-uvod" },
+      "to":   { "domain": "parallel", "ref": "topologie" }
+    },
+    {
+      "id": "kerberos-auth",
+      "label": "Kerberos a federovaná identita",
+      "from": { "domain": "crypto",       "ref": "kerberos" },
+      "to":   { "domain": "info-systems", "ref": "identita-oauth2" }
+    },
+    {
+      "id": "cache-locality-row-vs-col",
+      "label": "Cache lokalita ⇄ row-vs-column",
+      "from": { "domain": "architecture", "ref": "cache-politiky" },
+      "to":   { "domain": "data",         "ref": "row-vs-column" }
+    },
+    {
+      "id": "siem-ids",
+      "label": "IDS v síti ⇄ SIEM v SOC",
+      "from": { "domain": "networks", "ref": "ids-uvod" },
+      "to":   { "domain": "infosec",  "ref": "siem-monitoring" }
+    },
+    {
+      "id": "regex-search",
+      "label": "Regex → DFA matcher",
+      "from": { "domain": "theory",   "ref": "regularni-vyrazy" },
+      "to":   { "domain": "networks", "ref": "signatury-snort" }
+    }
+  ]
+}

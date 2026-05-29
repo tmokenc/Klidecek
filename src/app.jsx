@@ -5,6 +5,7 @@ import {
   HomePage, CoursesPage, CourseDetailPage,
   SpecsPage, SpecDetailPage,
   ExamPage, ExamSpecPage, ExamTopicPage,
+  GlobalMindmapPage,
 } from "./framework/pages.jsx";
 import {
   useProgress, useTweaks,
@@ -38,6 +39,9 @@ function parseHash(hash) {
     if (rest.length === 0) return { mode: "exam" };
     if (rest.length === 1) return { mode: "exam-spec", specId: rest[0] };
     return { mode: "exam-topic", specId: rest[0], topicId: rest[1] };
+  }
+  if (head === "mm") {
+    return { mode: "global-mindmap" };
   }
   return { mode: "home" };
 }
@@ -487,15 +491,16 @@ export function App() {
 
   let page = null;
   switch (route.mode) {
-    case "home":       page = <HomePage content={content} navigate={navigate} />; break;
-    case "courses":    page = <CoursesPage content={content} navigate={navigate} />; break;
-    case "course":     page = <CourseDetailPage content={content} courseId={route.courseId} focusTopic={route.focusTopic} focusSub={route.focusSub} view={route.view} navigate={navigate} />; break;
-    case "specs":      page = <SpecsPage content={content} navigate={navigate} />; break;
-    case "spec":       page = <SpecDetailPage content={content} specId={route.specId} navigate={navigate} />; break;
-    case "exam":       page = <ExamPage content={content} navigate={navigate} />; break;
-    case "exam-spec":  page = <ExamSpecPage content={content} specId={route.specId} navigate={navigate} />; break;
-    case "exam-topic": page = <ExamTopicPage content={content} specId={route.specId} topicId={route.topicId} navigate={navigate} />; break;
-    default:           page = <HomePage content={content} navigate={navigate} />;
+    case "home":           page = <HomePage content={content} navigate={navigate} />; break;
+    case "courses":        page = <CoursesPage content={content} navigate={navigate} />; break;
+    case "course":         page = <CourseDetailPage content={content} courseId={route.courseId} focusTopic={route.focusTopic} focusSub={route.focusSub} view={route.view} navigate={navigate} />; break;
+    case "specs":          page = <SpecsPage content={content} navigate={navigate} />; break;
+    case "spec":           page = <SpecDetailPage content={content} specId={route.specId} navigate={navigate} />; break;
+    case "exam":           page = <ExamPage content={content} navigate={navigate} />; break;
+    case "exam-spec":      page = <ExamSpecPage content={content} specId={route.specId} navigate={navigate} />; break;
+    case "exam-topic":     page = <ExamTopicPage content={content} specId={route.specId} topicId={route.topicId} navigate={navigate} />; break;
+    case "global-mindmap": page = <GlobalMindmapPage content={content} navigate={navigate} />; break;
+    default:               page = <HomePage content={content} navigate={navigate} />;
   }
 
   return (

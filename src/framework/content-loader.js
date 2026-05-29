@@ -105,10 +105,32 @@ export async function loadContent(manifestUrl = "content/manifest.json") {
     }
   }
 
+  // Mindmaps — curated multi-level hierarchies (course → branch → cluster → leaf)
+  // are optional. Missing files are not an error; the renderer falls back to
+  // auto-layout based on the manifest topic/subtopic structure.
+  const mindmaps = {};
+  await Promise.all(
+    courses.map(async (course) => {
+      try {
+        const r = await fetch(joinBase(`content/mindmaps/${course.id}.json`), { cache: "no-cache" });
+        if (!r.ok) return;
+        mindmaps[course.id] = await r.json();
+      } catch { /* ignore — mindmap json is optional */ }
+    })
+  );
+
+  let globalMindmap = null;
+  try {
+    const r = await fetch(joinBase("content/mindmaps/_global.json"), { cache: "no-cache" });
+    if (r.ok) globalMindmap = await r.json();
+  } catch { /* ignore — global mindmap is optional */ }
+
   return {
     SPECIALIZATIONS: manifest.specializations || [],
     COURSES: courses,
     EXAM_TOPICS: manifest.exam || {},
+    MINDMAPS: mindmaps,
+    GLOBAL_MINDMAP: globalMindmap,
     REPO_URL: "https://github.com/tmokenc/Klidecek",
     hasAnyVerified: verifiedSet.size > 0,
     findSpec: (id) => (manifest.specializations || []).find((s) => s.id === id),
@@ -120,5 +142,6 @@ export async function loadContent(manifestUrl = "content/manifest.json") {
       return { course, topic, sub };
     },
     findSubtopicById: (id) => subById.get(id) || null,
+    findMindmap: (courseId) => mindmaps[courseId] || null,
   };
 }

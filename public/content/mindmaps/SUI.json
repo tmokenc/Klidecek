@@ -1,0 +1,264 @@
+{
+  "courseId": "SUI",
+  "title": "Strojové učení a umělá inteligence",
+  "summary": "Klasická AI (agenti, prohledávání, CSP, hry) + ML/DL až k LLM a RL",
+  "branches": [
+    {
+      "id": "classical-ml",
+      "label": "Klasické ML",
+      "hue": 264,
+      "summary": "Bayes, regrese, klasifikace",
+      "clusters": [
+        {
+          "id": "framework",
+          "label": "Rámec učení",
+          "leaves": [
+            { "ref": "typy-uceni" },
+            { "ref": "pravdepodobnost-bayes" }
+          ]
+        },
+        {
+          "id": "classifiers",
+          "label": "Klasifikátory",
+          "leaves": [
+            { "ref": "gaussovsky-klasifikator" },
+            { "ref": "logisticka-regrese" }
+          ]
+        },
+        {
+          "id": "regression",
+          "label": "Regrese",
+          "leaves": [
+            { "ref": "linearni-regrese" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "agents",
+      "label": "Agenti a prostředí",
+      "hue": 22,
+      "summary": "Inteligentní agent, jeho prostředí a reprezentace stavu",
+      "clusters": [
+        {
+          "id": "agent",
+          "label": "Agent a okolí",
+          "leaves": [
+            { "ref": "agent-prostredi" },
+            { "ref": "typy-agentu" },
+            { "ref": "reprezentace-stavu" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "search",
+      "label": "Prohledávání",
+      "hue": 142,
+      "summary": "Stavový prostor — neinformované, informované, lokální",
+      "clusters": [
+        {
+          "id": "problem",
+          "label": "Formulace problému",
+          "leaves": [
+            { "ref": "formulace-problemu" }
+          ]
+        },
+        {
+          "id": "uninformed",
+          "label": "Neinformované",
+          "leaves": [
+            { "ref": "neinformovane" }
+          ]
+        },
+        {
+          "id": "informed",
+          "label": "Informované (A*)",
+          "leaves": [
+            { "ref": "informovane" }
+          ]
+        },
+        {
+          "id": "local",
+          "label": "Lokální",
+          "leaves": [
+            { "ref": "lokalni" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "games-uncertainty",
+      "label": "Hry a nejistota",
+      "hue": 340,
+      "summary": "AND/OR, částečná pozorovatelnost, adversarial, MCTS",
+      "clusters": [
+        {
+          "id": "structures",
+          "label": "Strukturované stromy",
+          "leaves": [
+            { "ref": "and-or-stromy" }
+          ]
+        },
+        {
+          "id": "partial",
+          "label": "Částečná pozorovatelnost",
+          "leaves": [
+            { "ref": "castecna-pozorovatelnost" }
+          ]
+        },
+        {
+          "id": "adversarial",
+          "label": "Adversariální",
+          "leaves": [
+            { "ref": "adversarial" },
+            { "ref": "mcts-stochastic" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "csp",
+      "label": "CSP",
+      "hue": 60,
+      "summary": "Constraint Satisfaction — definice, inference, prohledávání",
+      "clusters": [
+        {
+          "id": "core",
+          "label": "Definice + algoritmy",
+          "leaves": [
+            { "ref": "csp-definice" },
+            { "ref": "csp-inference" },
+            { "ref": "csp-prohledavani" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-intro",
+      "label": "Co je AI",
+      "hue": 80,
+      "summary": "Definice, historie, aplikace, rizika",
+      "clusters": [
+        {
+          "id": "philosophy",
+          "label": "Co je AI",
+          "leaves": [
+            { "ref": "co-je-ai" },
+            { "ref": "ai-historie" },
+            { "ref": "ai-aplikace-rizika" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nn",
+      "label": "Neuronové sítě",
+      "hue": 200,
+      "summary": "MLP, aktivace, gradient descent, generalizace",
+      "clusters": [
+        {
+          "id": "topology",
+          "label": "Neurony a vrstvy",
+          "leaves": [
+            { "ref": "neuron-vrstvy" },
+            { "ref": "aktivace-loss" }
+          ]
+        },
+        {
+          "id": "training",
+          "label": "Trénování",
+          "leaves": [
+            { "ref": "gradient-descent" },
+            { "ref": "nn-generalizace" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cnn",
+      "label": "CNN — obraz",
+      "hue": 110,
+      "summary": "Konvoluce, ResNet, transfer learning",
+      "clusters": [
+        {
+          "id": "core",
+          "label": "Konvoluce + architektury",
+          "leaves": [
+            { "ref": "konvoluce" },
+            { "ref": "cnn-architektury" }
+          ]
+        },
+        {
+          "id": "apply",
+          "label": "Aplikace + transfer",
+          "leaves": [
+            { "ref": "cnn-aplikace" },
+            { "ref": "transfer-learning" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sequence",
+      "label": "Sekvence & LLM",
+      "hue": 350,
+      "summary": "RNN, embeddings, Transformer, LLM",
+      "clusters": [
+        {
+          "id": "rnn",
+          "label": "RNN/LSTM",
+          "leaves": [
+            { "ref": "rnn-lstm" }
+          ]
+        },
+        {
+          "id": "representations",
+          "label": "Embeddings + attention",
+          "leaves": [
+            { "ref": "embeddings" },
+            { "ref": "attention" }
+          ]
+        },
+        {
+          "id": "transformers",
+          "label": "Transformer & LLM",
+          "leaves": [
+            { "ref": "transformer-bert" },
+            { "ref": "llm" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rl",
+      "label": "Posilované učení",
+      "hue": 40,
+      "summary": "Value-based, policy-based, RLHF",
+      "clusters": [
+        {
+          "id": "framework",
+          "label": "Framework",
+          "leaves": [
+            { "ref": "rl-framework" }
+          ]
+        },
+        {
+          "id": "methods",
+          "label": "Metody",
+          "leaves": [
+            { "ref": "value-q-learning" },
+            { "ref": "policy-gradient" }
+          ]
+        },
+        {
+          "id": "modern",
+          "label": "RLHF pro LLM",
+          "leaves": [
+            { "ref": "rl-llm-rlhf" }
+          ]
+        }
+      ]
+    }
+  ]
+}

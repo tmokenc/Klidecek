@@ -1,0 +1,244 @@
+{
+  "courseId": "PDS",
+  "title": "Přenos dat, počítačové sítě a protokoly",
+  "summary": "Od linkové vrstvy přes transport a směrování k SDN a P4",
+  "branches": [
+    {
+      "id": "fundamentals",
+      "label": "Základy sítí",
+      "hue": 200,
+      "summary": "Vrstvené modely, adresace a paketový přenos",
+      "clusters": [
+        {
+          "id": "models",
+          "label": "Vrstvené modely",
+          "leaves": [
+            { "ref": "komunikace" },
+            { "ref": "vrstvene-modely" }
+          ]
+        },
+        {
+          "id": "addressing",
+          "label": "Adresování (L2/L3)",
+          "leaves": [
+            { "ref": "adresovani-l2" },
+            { "ref": "adresovani-l3" }
+          ]
+        },
+        {
+          "id": "devices",
+          "label": "Zařízení a paket",
+          "leaves": [
+            { "ref": "sitove-zarizeni" },
+            { "ref": "paketovy-prenos" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transport",
+      "label": "Transportní vrstva",
+      "hue": 142,
+      "summary": "Jak dostat data konec-na-konec a co se přitom může pokazit",
+      "clusters": [
+        {
+          "id": "reliability",
+          "label": "Spolehlivost (ARQ, časovače)",
+          "leaves": [
+            { "ref": "transport-uvod" },
+            { "ref": "chyby-paketu" },
+            { "ref": "sekvencni-cisla-detekce" },
+            { "ref": "timeouty-rtt" },
+            { "ref": "arq-okno" },
+            { "ref": "rizeni-toku-zahlceni" }
+          ]
+        },
+        {
+          "id": "connection-oriented",
+          "label": "Spojované protokoly",
+          "leaves": [
+            { "ref": "tcp-spojeni-hlavicka" },
+            { "ref": "tcp-options" },
+            { "ref": "tcp-congestion-variants" },
+            { "ref": "sctp" }
+          ]
+        },
+        {
+          "id": "connectionless",
+          "label": "Nespojované",
+          "leaves": [
+            { "ref": "udp-dccp" }
+          ]
+        },
+        {
+          "id": "modern",
+          "label": "Moderní transporty",
+          "leaves": [
+            { "ref": "mptcp" },
+            { "ref": "quic" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "routing",
+      "label": "Směrování",
+      "hue": 22,
+      "summary": "Jak paket najde cestu v internetu",
+      "clusters": [
+        {
+          "id": "intra-domain",
+          "label": "Intra-domain (IGP)",
+          "leaves": [
+            { "ref": "smerovani-uvod" },
+            { "ref": "smerovaci-tabulky" },
+            { "ref": "distance-vector" },
+            { "ref": "dv-protokoly" },
+            { "ref": "link-state" },
+            { "ref": "konvergence-smycky" }
+          ]
+        },
+        {
+          "id": "inter-domain",
+          "label": "Inter-domain (BGP)",
+          "leaves": [
+            { "ref": "bgp-zaklady" },
+            { "ref": "bgp-policy-te" }
+          ]
+        },
+        {
+          "id": "label-switching",
+          "label": "Label switching",
+          "leaves": [
+            { "ref": "mpls" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "switching",
+      "label": "Přepínače a směrovače",
+      "hue": 340,
+      "summary": "Hardware data-plane: jak jsou paket-na-paketové akce realizovány",
+      "clusters": [
+        {
+          "id": "switch-arch",
+          "label": "Architektury přepínačů",
+          "leaves": [
+            { "ref": "prepinac-uvod" },
+            { "ref": "architektury" },
+            { "ref": "hol-voq" }
+          ]
+        },
+        {
+          "id": "scheduling",
+          "label": "Plánování crossbaru",
+          "leaves": [
+            { "ref": "planovani-pim" },
+            { "ref": "planovani-islip" }
+          ]
+        },
+        {
+          "id": "multistage",
+          "label": "Multistage Clos/Beneš",
+          "leaves": [
+            { "ref": "multistage-clos-benes" }
+          ]
+        },
+        {
+          "id": "router-arch",
+          "label": "Architektura routerů",
+          "leaves": [
+            { "ref": "router-funkce" },
+            { "ref": "router-kategorie" },
+            { "ref": "router-architektura" },
+            { "ref": "prepinani-paketu" },
+            { "ref": "architektury-prehled" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classification",
+      "label": "Klasifikace paketů",
+      "hue": 80,
+      "summary": "Match na hlavičkové bity podle pravidel — geometrický pohled",
+      "clusters": [
+        {
+          "id": "one-dim",
+          "label": "1D — Trie a LPM",
+          "leaves": [
+            { "ref": "klasifikace-uvod" },
+            { "ref": "stromy-trie" }
+          ]
+        },
+        {
+          "id": "two-dim",
+          "label": "2D — průniky polorovin",
+          "leaves": [
+            { "ref": "2d-klasifikace" },
+            { "ref": "bit-vector-cartesian" }
+          ]
+        },
+        {
+          "id": "n-dim",
+          "label": "n-D — geometrie a TCAM",
+          "leaves": [
+            { "ref": "hicuts-tcam" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "label": "Moderní okruhy",
+      "hue": 264,
+      "summary": "P2P sítě, detekce průniku, packet processing a SDN/NFV/P4",
+      "clusters": [
+        {
+          "id": "p2p",
+          "label": "Peer-to-peer",
+          "leaves": [
+            { "ref": "maly-svet" },
+            { "ref": "p2p-uvod" },
+            { "ref": "referencni-model" },
+            { "ref": "nestrukturovane-site" },
+            { "ref": "strukturovane-site" }
+          ]
+        },
+        {
+          "id": "ids",
+          "label": "Detekce průniku",
+          "leaves": [
+            { "ref": "ids-uvod" },
+            { "ref": "port-header-identifikace" },
+            { "ref": "signatury-snort" },
+            { "ref": "netflow-ipfix" },
+            { "ref": "detekce-anomalii" }
+          ]
+        },
+        {
+          "id": "packet-processing",
+          "label": "Packet processing",
+          "leaves": [
+            { "ref": "zpracovani-uvod" },
+            { "ref": "linux-kernel-stack" },
+            { "ref": "napi-rss-offload" },
+            { "ref": "dpdk-pfring" },
+            { "ref": "ebpf-xdp" }
+          ]
+        },
+        {
+          "id": "sdn",
+          "label": "SDN / NFV / P4",
+          "leaves": [
+            { "ref": "roviny-routera" },
+            { "ref": "dcn-topologie" },
+            { "ref": "sdn-uvod" },
+            { "ref": "openflow-nfv-p4" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "courseId": "KRY",
+  "title": "Kryptografie",
+  "summary": "Od klasických šifer přes AES a RSA k PKI a post-kvantu",
+  "branches": [
+    {
+      "id": "foundations",
+      "label": "Základy",
+      "hue": 264,
+      "summary": "Terminologie, klasifikace, modely útoků",
+      "clusters": [
+        {
+          "id": "terminology",
+          "label": "Pojmy",
+          "leaves": [
+            { "ref": "terminologie" },
+            { "ref": "klasifikace" }
+          ]
+        },
+        {
+          "id": "threat-model",
+          "label": "Útoky a Kerckhoff",
+          "leaves": [
+            { "ref": "utoky-modely" },
+            { "ref": "kerckhoff" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "classical",
+      "label": "Klasické šifry",
+      "hue": 22,
+      "summary": "Substituce, transpozice, rotor",
+      "clusters": [
+        {
+          "id": "substitution",
+          "label": "Substituční",
+          "leaves": [
+            { "ref": "mono-substituce" },
+            { "ref": "poly-substituce" },
+            { "ref": "polygramove" }
+          ]
+        },
+        {
+          "id": "transposition",
+          "label": "Transpoziční a OTP",
+          "leaves": [
+            { "ref": "transpozice" },
+            { "ref": "one-time-pad" },
+            { "ref": "steganografie" }
+          ]
+        },
+        {
+          "id": "rotor",
+          "label": "Rotorové stroje",
+          "leaves": [
+            { "ref": "rotor-princip" },
+            { "ref": "enigma" },
+            { "ref": "enigma-utok" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "symmetric",
+      "label": "Symetrická kryptografie",
+      "hue": 142,
+      "summary": "Blokové a proudové šifry, módy, AEAD",
+      "clusters": [
+        {
+          "id": "concepts",
+          "label": "Koncepty",
+          "leaves": [
+            { "ref": "blok-vs-proud" },
+            { "ref": "feistel-spn" },
+            { "ref": "delka-klice" }
+          ]
+        },
+        {
+          "id": "modes",
+          "label": "Módy a padding",
+          "leaves": [
+            { "ref": "rezimy" },
+            { "ref": "padding-aead" }
+          ]
+        },
+        {
+          "id": "algorithms",
+          "label": "Algoritmy",
+          "leaves": [
+            { "ref": "des" },
+            { "ref": "3des-aes" },
+            { "ref": "proudove-sifry" }
+          ]
+        },
+        {
+          "id": "attacks",
+          "label": "Útoky na blok",
+          "leaves": [
+            { "ref": "utoky-blokove" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "asymmetric",
+      "label": "Asymetrická kryptografie",
+      "hue": 200,
+      "summary": "Veřejný klíč — RSA, ECC, post-kvantum",
+      "clusters": [
+        {
+          "id": "concepts",
+          "label": "Princip a matematika",
+          "leaves": [
+            { "ref": "principy" },
+            { "ref": "matematika" },
+            { "ref": "problemy" },
+            { "ref": "hybridni" }
+          ]
+        },
+        {
+          "id": "rsa",
+          "label": "RSA",
+          "leaves": [
+            { "ref": "rsa" },
+            { "ref": "rsa-utoky" }
+          ]
+        },
+        {
+          "id": "dlog",
+          "label": "Diskrétní logaritmus",
+          "leaves": [
+            { "ref": "dh-elgamal" },
+            { "ref": "elipticke" }
+          ]
+        },
+        {
+          "id": "post-quantum",
+          "label": "Post-kvantová",
+          "leaves": [
+            { "ref": "postkvantova" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "integrity",
+      "label": "Integrita a podpis",
+      "hue": 340,
+      "summary": "Hash, MAC, elektronický podpis",
+      "clusters": [
+        {
+          "id": "hash",
+          "label": "Hash funkce",
+          "leaves": [
+            { "ref": "hash-funkce" },
+            { "ref": "hash-utoky" }
+          ]
+        },
+        {
+          "id": "mac",
+          "label": "MAC",
+          "leaves": [
+            { "ref": "mac-hmac" }
+          ]
+        },
+        {
+          "id": "signature",
+          "label": "Elektronický podpis",
+          "leaves": [
+            { "ref": "el-podpis" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "key-management",
+      "label": "Správa klíčů a PKI",
+      "hue": 80,
+      "summary": "Distribuce, KDC, Kerberos, X.509, TLS",
+      "clusters": [
+        {
+          "id": "symmetric-keys",
+          "label": "Symetrické klíče",
+          "leaves": [
+            { "ref": "klic-relace" },
+            { "ref": "kdc-needham" },
+            { "ref": "kerberos" },
+            { "ref": "kdf" }
+          ]
+        },
+        {
+          "id": "pki",
+          "label": "PKI a X.509",
+          "leaves": [
+            { "ref": "pki-uvod" },
+            { "ref": "x509" },
+            { "ref": "revokace" }
+          ]
+        },
+        {
+          "id": "tls",
+          "label": "TLS v praxi",
+          "leaves": [
+            { "ref": "tls-aplikace" }
+          ]
+        }
+      ]
+    }
+  ]
+}

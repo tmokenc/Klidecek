@@ -1,0 +1,303 @@
+{
+  "courseId": "BIS",
+  "title": "Bezpečnost informačních systémů",
+  "summary": "Politiky, hodnocení, řízení přístupu, zranitelnosti a security ops (kryptografická jádra v KRY)",
+  "branches": [
+    {
+      "id": "foundations",
+      "label": "Základy bezpečnosti IS",
+      "hue": 264,
+      "summary": "CIA, hrozby, incident, cíle",
+      "clusters": [
+        {
+          "id": "cia",
+          "label": "CIA / AAA",
+          "leaves": [
+            { "ref": "terminologie-cia" }
+          ]
+        },
+        {
+          "id": "threats",
+          "label": "Hrozby a aktiva",
+          "leaves": [
+            { "ref": "hrozby-zranitelnosti" },
+            { "ref": "model-incidentu" }
+          ]
+        },
+        {
+          "id": "goals",
+          "label": "Cíle",
+          "leaves": [
+            { "ref": "cile-zabezpeceni" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "evaluation",
+      "label": "Bezpečnostní hodnocení",
+      "hue": 22,
+      "summary": "Od TCSEC k Common Criteria a FIPS",
+      "clusters": [
+        {
+          "id": "history",
+          "label": "Historie",
+          "leaves": [
+            { "ref": "tcsec-itsec" }
+          ]
+        },
+        {
+          "id": "modern",
+          "label": "Common Criteria + FIPS",
+          "leaves": [
+            { "ref": "common-criteria" },
+            { "ref": "bezpecnostni-funkce" },
+            { "ref": "fips-evaluation" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crypto-in-is",
+      "label": "Kryptografie v IS",
+      "hue": 142,
+      "summary": "Přehled — algoritmické detaily v KRY",
+      "clusters": [
+        {
+          "id": "role",
+          "label": "Role kryptografie",
+          "leaves": [
+            { "ref": "kryptografie-role" }
+          ]
+        },
+        {
+          "id": "sym",
+          "label": "Symetrické",
+          "leaves": [
+            { "ref": "symetrika-v-is" }
+          ]
+        },
+        {
+          "id": "asym",
+          "label": "Asymetrické",
+          "leaves": [
+            { "ref": "asymetrika-v-is" }
+          ]
+        },
+        {
+          "id": "integrity",
+          "label": "Hash / MAC / podpis",
+          "leaves": [
+            { "ref": "hash-podpis-v-is" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "policies",
+      "label": "Politiky a standardy",
+      "hue": 200,
+      "summary": "Controls, risk, ISO 27000, NIST CSF",
+      "clusters": [
+        {
+          "id": "controls",
+          "label": "Controls",
+          "leaves": [
+            { "ref": "controls" }
+          ]
+        },
+        {
+          "id": "risk",
+          "label": "Risk analýza",
+          "leaves": [
+            { "ref": "risk-analyza" }
+          ]
+        },
+        {
+          "id": "standards",
+          "label": "Standardy",
+          "leaves": [
+            { "ref": "iso-27000" },
+            { "ref": "nist-csf" }
+          ]
+        },
+        {
+          "id": "doc",
+          "label": "Psaní policy",
+          "leaves": [
+            { "ref": "psani-politiky" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "access-control",
+      "label": "Modely řízení přístupu",
+      "hue": 340,
+      "summary": "DAC/MAC, BLP, Biba, RBAC/ABAC",
+      "clusters": [
+        {
+          "id": "dac-mac",
+          "label": "DAC vs MAC",
+          "leaves": [
+            { "ref": "dac-mac" }
+          ]
+        },
+        {
+          "id": "confidentiality",
+          "label": "Důvěrnost (BLP)",
+          "leaves": [
+            { "ref": "bell-lapadula" }
+          ]
+        },
+        {
+          "id": "integrity",
+          "label": "Integrita (Biba/CW)",
+          "leaves": [
+            { "ref": "biba-clark-wilson" }
+          ]
+        },
+        {
+          "id": "modern",
+          "label": "RBAC / ABAC",
+          "leaves": [
+            { "ref": "rbac-abac" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vulnerabilities",
+      "label": "Zranitelnosti",
+      "hue": 80,
+      "summary": "Paměť, web, HW, race, sociální inženýrství",
+      "clusters": [
+        {
+          "id": "memory",
+          "label": "Paměťové",
+          "leaves": [
+            { "ref": "buffer-overflow" },
+            { "ref": "race-conditions" }
+          ]
+        },
+        {
+          "id": "web-injection",
+          "label": "Web/injekce",
+          "leaves": [
+            { "ref": "injekce-utoky" }
+          ]
+        },
+        {
+          "id": "hardware",
+          "label": "Hardware",
+          "leaves": [
+            { "ref": "hw-zranitelnosti" }
+          ]
+        },
+        {
+          "id": "human",
+          "label": "Lidská chyba",
+          "leaves": [
+            { "ref": "social-engineering" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "network",
+      "label": "Síťová bezpečnost",
+      "hue": 60,
+      "summary": "Útoky, firewall, IDS/IPS, VPN",
+      "clusters": [
+        {
+          "id": "attacks",
+          "label": "Útoky",
+          "leaves": [
+            { "ref": "sitove-utoky" }
+          ]
+        },
+        {
+          "id": "perimeter",
+          "label": "Perimetr",
+          "leaves": [
+            { "ref": "firewall" },
+            { "ref": "ids-ips" }
+          ]
+        },
+        {
+          "id": "tunnels",
+          "label": "VPN",
+          "leaves": [
+            { "ref": "vpn-ipsec" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wireless",
+      "label": "Bezdrátová bezpečnost",
+      "hue": 110,
+      "summary": "WEP → WPA2 → WPA3 + útoky",
+      "clusters": [
+        {
+          "id": "legacy",
+          "label": "Legacy",
+          "leaves": [
+            { "ref": "wep" }
+          ]
+        },
+        {
+          "id": "modern-wpa",
+          "label": "WPA / WPA2 / WPA3",
+          "leaves": [
+            { "ref": "wpa-wpa2" },
+            { "ref": "wpa3" }
+          ]
+        },
+        {
+          "id": "attacks",
+          "label": "Útoky",
+          "leaves": [
+            { "ref": "wifi-utoky" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "secops",
+      "label": "Security ops",
+      "hue": 180,
+      "summary": "SOC, SIEM, forensics, GDPR",
+      "clusters": [
+        {
+          "id": "soc",
+          "label": "SOC + IR",
+          "leaves": [
+            { "ref": "soc-incident-response" }
+          ]
+        },
+        {
+          "id": "monitoring",
+          "label": "Monitoring",
+          "leaves": [
+            { "ref": "siem-monitoring" }
+          ]
+        },
+        {
+          "id": "forensics",
+          "label": "Audit + forensics",
+          "leaves": [
+            { "ref": "audit-forensics" }
+          ]
+        },
+        {
+          "id": "regulatory",
+          "label": "GDPR + NÚKIB",
+          "leaves": [
+            { "ref": "gdpr-nukib" }
+          ]
+        }
+      ]
+    }
+  ]
+}

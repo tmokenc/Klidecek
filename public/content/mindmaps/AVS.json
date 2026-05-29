@@ -1,0 +1,294 @@
+{
+  "courseId": "AVS",
+  "title": "Architektury výpočetních systémů",
+  "summary": "Pipelining, OoO, cache, predikce, SIMD/SMT, OpenMP, koherence/NUMA, GPGPU",
+  "branches": [
+    {
+      "id": "cpu-base",
+      "label": "Skalární CPU & pipelining",
+      "hue": 264,
+      "summary": "Moore, Amdahl, pět stupňů a hazardy",
+      "clusters": [
+        {
+          "id": "limits",
+          "label": "Limity",
+          "leaves": [
+            { "ref": "moorov-zakon-amdahl" }
+          ]
+        },
+        {
+          "id": "pipeline",
+          "label": "Pipeline",
+          "leaves": [
+            { "ref": "pipelining-faze" },
+            { "ref": "superpipelining-vykon" }
+          ]
+        },
+        {
+          "id": "hazards",
+          "label": "Hazardy",
+          "leaves": [
+            { "ref": "datove-konflikty-forwarding" },
+            { "ref": "ridici-konflikty-skoky" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ooo",
+      "label": "Superskalární & OoO",
+      "hue": 22,
+      "summary": "ILP — Scoreboard, Tomasulo, ROB, spekulace",
+      "clusters": [
+        {
+          "id": "ilp",
+          "label": "ILP úvod",
+          "leaves": [
+            { "ref": "ilp-superskalar" }
+          ]
+        },
+        {
+          "id": "scheduling",
+          "label": "Dynamické plánování",
+          "leaves": [
+            { "ref": "scoreboard" },
+            { "ref": "tomasulo" }
+          ]
+        },
+        {
+          "id": "rob",
+          "label": "Renaming + ROB",
+          "leaves": [
+            { "ref": "renaming-rob" }
+          ]
+        },
+        {
+          "id": "speculation",
+          "label": "Spekulace + výjimky",
+          "leaves": [
+            { "ref": "spekulace-vyjimky" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "memory",
+      "label": "Cache & L/S",
+      "hue": 142,
+      "summary": "Hierarchie, mapování, politiky, AMAT, MSHR",
+      "clusters": [
+        {
+          "id": "hierarchy",
+          "label": "Hierarchie + TLB",
+          "leaves": [
+            { "ref": "pamet-hierarchie" }
+          ]
+        },
+        {
+          "id": "mapping",
+          "label": "Mapování a politiky",
+          "leaves": [
+            { "ref": "cache-mapovani" },
+            { "ref": "cache-politiky" }
+          ]
+        },
+        {
+          "id": "perf",
+          "label": "AMAT + L/S",
+          "leaves": [
+            { "ref": "amat-vykon-cache" },
+            { "ref": "ls-jednotka-mshr" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prediction",
+      "label": "Predikce + prefetch",
+      "hue": 200,
+      "summary": "Statické + dynamické prediktory, prefetching",
+      "clusters": [
+        {
+          "id": "branch",
+          "label": "Branch prediction",
+          "leaves": [
+            { "ref": "staticka-predikce" },
+            { "ref": "bht-2bit" },
+            { "ref": "pokrocile-prediktory" }
+          ]
+        },
+        {
+          "id": "prefetch",
+          "label": "Prefetching",
+          "leaves": [
+            { "ref": "prefetching" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "simd",
+      "label": "Datový paralelismus",
+      "hue": 340,
+      "summary": "Vektorové instrukce — SSE/AVX, vektorové CPU",
+      "clusters": [
+        {
+          "id": "concept",
+          "label": "DLP vs ILP/TLP",
+          "leaves": [
+            { "ref": "dlp-vs-ilp-tlp" }
+          ]
+        },
+        {
+          "id": "vector",
+          "label": "Vektorové CPU",
+          "leaves": [
+            { "ref": "vektorove-cpu" }
+          ]
+        },
+        {
+          "id": "intel",
+          "label": "SSE/AVX",
+          "leaves": [
+            { "ref": "sse-avx" },
+            { "ref": "vektorizace-prakticka" }
+          ]
+        },
+        {
+          "id": "advanced-simd",
+          "label": "Gather/scatter",
+          "leaves": [
+            { "ref": "gather-scatter" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smt",
+      "label": "Vláknový paralelismus (SMT)",
+      "hue": 80,
+      "summary": "TLP — Hyper-Threading a sdílení",
+      "clusters": [
+        {
+          "id": "tlp",
+          "label": "TLP úvod",
+          "leaves": [
+            { "ref": "tlp-uvod" }
+          ]
+        },
+        {
+          "id": "smt-detail",
+          "label": "TMT/CMT/SMT",
+          "leaves": [
+            { "ref": "tmt-cmt-smt" },
+            { "ref": "hyperthreading" },
+            { "ref": "ht-vykon-omezeni" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "openmp",
+      "label": "OpenMP",
+      "hue": 60,
+      "summary": "Direktivy, smyčky, tasky, synchronizace",
+      "clusters": [
+        {
+          "id": "model",
+          "label": "Modely a úvod",
+          "leaves": [
+            { "ref": "paralelni-modely" },
+            { "ref": "openmp-uvod" }
+          ]
+        },
+        {
+          "id": "loops",
+          "label": "Smyčky a data",
+          "leaves": [
+            { "ref": "parallel-for-scheduling" },
+            { "ref": "datova-prostredi" }
+          ]
+        },
+        {
+          "id": "sections-tasks",
+          "label": "Sekce + tasky",
+          "leaves": [
+            { "ref": "sections-single-master" },
+            { "ref": "tasks-openmp" }
+          ]
+        },
+        {
+          "id": "sync",
+          "label": "Synchronizace + bugs",
+          "leaves": [
+            { "ref": "synchronizace-bariery" },
+            { "ref": "locks-openmp" },
+            { "ref": "false-sharing-races" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coherence",
+      "label": "Koherence cache & NUMA",
+      "hue": 110,
+      "summary": "MESI/MOESI/MESIF, snooping/directory, NUMA",
+      "clusters": [
+        {
+          "id": "intro",
+          "label": "Úvod",
+          "leaves": [
+            { "ref": "koherence-uvod" }
+          ]
+        },
+        {
+          "id": "protocols",
+          "label": "Protokoly",
+          "leaves": [
+            { "ref": "msi-mesi-moesi" },
+            { "ref": "snooping-directory" }
+          ]
+        },
+        {
+          "id": "numa",
+          "label": "NUMA + interconnect",
+          "leaves": [
+            { "ref": "uma-numa" },
+            { "ref": "intel-amd-fabric" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "power-gpu",
+      "label": "Spotřeba a GPGPU",
+      "hue": 180,
+      "summary": "Termální budget + GPU SIMT",
+      "clusters": [
+        {
+          "id": "power",
+          "label": "Spotřeba a DVFS",
+          "leaves": [
+            { "ref": "spotreba-pcv2f" },
+            { "ref": "dvfs-power-mgmt" }
+          ]
+        },
+        {
+          "id": "low-power",
+          "label": "Low-power arch",
+          "leaves": [
+            { "ref": "nizkoprikon-arch" }
+          ]
+        },
+        {
+          "id": "gpu",
+          "label": "GPU a CUDA",
+          "leaves": [
+            { "ref": "gpu-architektura" },
+            { "ref": "cuda-divergence-occupancy" }
+          ]
+        }
+      ]
+    }
+  ]
+}

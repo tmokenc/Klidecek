@@ -1,0 +1,231 @@
+{
+  "courseId": "MSP",
+  "title": "Statistika a pravděpodobnost",
+  "summary": "Pravděpodobnostní modely, odhady, testy hypotéz, lineární model a GLM",
+  "branches": [
+    {
+      "id": "foundations",
+      "label": "Pravděpodobnost — opakování",
+      "hue": 264,
+      "summary": "Pravděpodobnostní prostor, náhodné veličiny, distribuce",
+      "clusters": [
+        {
+          "id": "space",
+          "label": "Prostor a veličiny",
+          "leaves": [
+            { "ref": "pravdepodobnostni-prostor" },
+            { "ref": "nahodne-veliciny" }
+          ]
+        },
+        {
+          "id": "summaries",
+          "label": "Charakteristiky a distribuce",
+          "leaves": [
+            { "ref": "charakteristiky" },
+            { "ref": "dulezita-rozdeleni" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "markov",
+      "label": "Markovské procesy",
+      "hue": 22,
+      "summary": "DTMC + MDP + model checking",
+      "clusters": [
+        {
+          "id": "dtmc",
+          "label": "Markovské řetězce",
+          "leaves": [
+            { "ref": "dtmc-definice" },
+            { "ref": "klasifikace-stavu" },
+            { "ref": "transient-analyza" },
+            { "ref": "reachability" },
+            { "ref": "steady-state" }
+          ]
+        },
+        {
+          "id": "mdp",
+          "label": "MDP",
+          "leaves": [
+            { "ref": "mdp-definice" },
+            { "ref": "politiky-value" },
+            { "ref": "value-iteration" },
+            { "ref": "prism-model-checking" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "randomized",
+      "label": "Randomizované algoritmy",
+      "hue": 142,
+      "summary": "Las Vegas, Monte Carlo, indikátory, klasické příklady",
+      "clusters": [
+        {
+          "id": "types",
+          "label": "Typy a indikátory",
+          "leaves": [
+            { "ref": "las-vegas-monte-carlo" },
+            { "ref": "indikatorove-veliciny" }
+          ]
+        },
+        {
+          "id": "examples",
+          "label": "Analýza příkladů",
+          "leaves": [
+            { "ref": "quicksort-analyza" },
+            { "ref": "karger-min-cut" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "estimation",
+      "label": "Odhad parametrů",
+      "hue": 200,
+      "summary": "MLE, metoda momentů, Bayes",
+      "clusters": [
+        {
+          "id": "intro",
+          "label": "Inference",
+          "leaves": [
+            { "ref": "statisticka-inference" }
+          ]
+        },
+        {
+          "id": "methods",
+          "label": "Metody odhadu",
+          "leaves": [
+            { "ref": "mle" },
+            { "ref": "metoda-momentu" },
+            { "ref": "bayesovsky-odhad" }
+          ]
+        },
+        {
+          "id": "properties",
+          "label": "Vlastnosti odhadu",
+          "leaves": [
+            { "ref": "vlastnosti-odhadu" },
+            { "ref": "regularni-podminky" },
+            { "ref": "postacujici-statistika" },
+            { "ref": "exponencialni-rodina" },
+            { "ref": "fisherova-informace" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "testing",
+      "label": "Intervaly a testování",
+      "hue": 340,
+      "summary": "Confidence intervals + testy hypotéz",
+      "clusters": [
+        {
+          "id": "intervals",
+          "label": "Intervaly spolehlivosti",
+          "leaves": [
+            { "ref": "intervaly-spolehlivosti" },
+            { "ref": "dulezita-rozdeleni-testy" }
+          ]
+        },
+        {
+          "id": "hypothesis",
+          "label": "Hypotézy",
+          "leaves": [
+            { "ref": "testovani-princip" },
+            { "ref": "t-test" },
+            { "ref": "likelihood-ratio" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "linear-model",
+      "label": "Lineární model & ANOVA",
+      "hue": 80,
+      "summary": "OLS, Gauss-Markov, F-test, one-/two-way ANOVA",
+      "clusters": [
+        {
+          "id": "core",
+          "label": "Model + Gauss-Markov",
+          "leaves": [
+            { "ref": "linearni-model" },
+            { "ref": "gauss-markov" }
+          ]
+        },
+        {
+          "id": "tests",
+          "label": "F-test a ANOVA",
+          "leaves": [
+            { "ref": "f-test-submodel" },
+            { "ref": "one-way-anova" },
+            { "ref": "two-way-posthoc" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "regression",
+      "label": "Lineární regrese",
+      "hue": 60,
+      "summary": "Praktická regrese — diagnostika a predikce",
+      "clusters": [
+        {
+          "id": "model",
+          "label": "Model a kvalita",
+          "leaves": [
+            { "ref": "regrese-intro" },
+            { "ref": "kvalita-modelu" }
+          ]
+        },
+        {
+          "id": "diagnostics",
+          "label": "Diagnostika",
+          "leaves": [
+            { "ref": "hat-matrix-leverage" },
+            { "ref": "diagnostika-rezidui" }
+          ]
+        },
+        {
+          "id": "prediction",
+          "label": "Predikce + výběr",
+          "leaves": [
+            { "ref": "predikce-vyber-modelu" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "label": "Kategoriální data a GLM",
+      "hue": 110,
+      "summary": "Goodness-of-fit, rank-testy, logistická regrese, GLM",
+      "clusters": [
+        {
+          "id": "categorical",
+          "label": "Kategoriální",
+          "leaves": [
+            { "ref": "kategorialni-data" },
+            { "ref": "goodness-of-fit" }
+          ]
+        },
+        {
+          "id": "nonparam",
+          "label": "Neparametrické",
+          "leaves": [
+            { "ref": "rank-testy" }
+          ]
+        },
+        {
+          "id": "glm",
+          "label": "GLM + logistická",
+          "leaves": [
+            { "ref": "logisticka-regrese-msp" },
+            { "ref": "glm-intro" }
+          ]
+        }
+      ]
+    }
+  ]
+}
