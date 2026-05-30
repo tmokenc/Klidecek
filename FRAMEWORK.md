@@ -8,6 +8,31 @@ Read this end-to-end before changing anything. Most tasks (add a course, add a
 subtopic, add a quiz, add a new interactive demo) require zero changes to the
 engine.
 
+> ### ⚠️ Provenance of existing content — read this before assuming anything
+>
+> Every course/topic/subtopic decomposition currently in this repo was seeded
+> from **one student's personal lecture notes** (annotated slides, captures
+> of lectures the student attended, exam-prep summaries) plus the official
+> VUT FIT exam-okruhy PDF. That has two unavoidable consequences:
+>
+> * **Coverage is uneven.** Topics the lecturer dwelled on are deeply
+>   broken-down; topics the lecturer skimmed (or that the student attended
+>   half-asleep) may be missing entire subtopics that the official syllabus
+>   covers. The exam PDF is the authoritative scope — when you find a PDF
+>   topic that has no matching subtopic, that's a real gap to fill, not a
+>   deliberate omission.
+> * **Some material is over-included or off-syllabus.** A subtopic may
+>   exist because it was on a slide the student saved, even though it's
+>   tangential to the official exam scope. Don't treat the current
+>   structure as load-bearing — splitting, merging, or removing subtopics
+>   is fine when the official syllabus disagrees.
+>
+> The AI-generated study text on top of this scaffold inherits both
+> problems and adds the usual AI failure modes. §0.2 — "Do not hallucinate.
+> Verify everything." — is non-negotiable as a result. The blue ✓ verified
+> badge in the UI marks the small subset that a human has reviewed
+> end-to-end.
+
 ---
 
 ## 0. Content quality — read this before authoring

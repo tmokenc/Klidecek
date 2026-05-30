@@ -109,7 +109,7 @@ function AiNotice({ repoUrl }) {
         </svg>
       </div>
       <div className="ai-notice-body">
-        <strong>Most of this content is AI-generated.</strong> Items marked with a blue <VerifiedBadge size={12} title="" /> have been reviewed by a human; everything else is best treated as a study aid — cross-check against the course slides, RFCs, or textbooks.{" "}
+        <strong>Most of this content is AI-generated</strong> and built on top of <strong>one student's personal lecture notes</strong>. Two consequences: some material may be <em>missing</em> (topics the lecturer skipped or the notes don't cover) and some may be <em>over-detailed or off-syllabus</em> (kept because it was on a saved slide). The official VUT FIT okruhy PDF is the authoritative scope. Items marked with a blue <VerifiedBadge size={12} title="" /> have been reviewed by a human; treat everything else as a study aid and cross-check against the course slides, RFCs, or textbooks.{" "}
         {repoUrl && (
           <>
             Spotted something wrong, have an improvement, or verified a topic yourself? <a href={repoUrl + "/issues/new/choose"} target="_blank" rel="noopener noreferrer">Open an issue</a> or <a href={repoUrl + "/pulls"} target="_blank" rel="noopener noreferrer">send a PR</a>.
