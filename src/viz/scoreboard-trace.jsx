@@ -1,172 +1,383 @@
-// scoreboard-trace — CDC 6600 scoreboard. Trace 4-phase execution
-// (Issue / Read / Execute / Write) with WAW + WAR stall highlighting.
-import { useState } from "react";
+// scoreboard-trace — CDC 6600 scoreboard with the three canonical tables.
+// Per cycle, watch the Instruction Status, Functional Unit Status, and
+// Register Result Status tables update as instructions advance through
+// Issue → Read operands → Execute → Write result.
+//
+// Same H&P example used by the Tomasulo viz so the two methods can be
+// compared cycle-for-cycle.
+import { useEffect, useState } from "react";
 
+// Latencies match H&P §3 (CDC 6600 example): LD = 2 EX, MULTD = 10, SUBD/ADDD
+// = 2, DIVD = 40 (we use 8 to keep the trace digestible).  The simulator below
+// gates each pipeline stage to its own cycle so Issue→Read, Read→Execute, and
+// Execute→Write each consume at least one tick, exactly as the textbook shows.
 const PROG = [
-  { id: 0, txt: "ld   f6, 34(r2)", dst: "f6", src: [], lat: 2, unit: "L/S" },
-  { id: 1, txt: "ld   f2, 45(r3)", dst: "f2", src: [], lat: 2, unit: "L/S" },
-  { id: 2, txt: "mulf f0, f2, f4", dst: "f0", src: ["f2","f4"], lat: 5, unit: "MUL" },
-  { id: 3, txt: "subf f8, f6, f2", dst: "f8", src: ["f6","f2"], lat: 2, unit: "ADD" },
-  { id: 4, txt: "divf f10, f0, f6", dst: "f10", src: ["f0","f6"], lat: 8, unit: "DIV" },
-  { id: 5, txt: "addf f6, f8, f2", dst: "f6", src: ["f8","f2"], lat: 2, unit: "ADD" },
+  { id: 0, op: "LD",    txt: "LD    F6, 34(R2)",  dst: "F6",  src: [],          lat: 2,  unit: "Integer" },
+  { id: 1, op: "LD",    txt: "LD    F2, 45(R3)",  dst: "F2",  src: [],          lat: 2,  unit: "Integer" },
+  { id: 2, op: "MULTD", txt: "MULTD F0, F2, F4",  dst: "F0",  src: ["F2","F4"], lat: 10, unit: "Mult1" },
+  { id: 3, op: "SUBD",  txt: "SUBD  F8, F6, F2",  dst: "F8",  src: ["F6","F2"], lat: 2,  unit: "Add"    },
+  { id: 4, op: "DIVD",  txt: "DIVD  F10,F0, F6",  dst: "F10", src: ["F0","F6"], lat: 8,  unit: "Divide" },
+  { id: 5, op: "ADDD",  txt: "ADDD  F6, F8, F2",  dst: "F6",  src: ["F8","F2"], lat: 2,  unit: "Add"    },
 ];
 
-// Simulate scoreboard: phases I (issue), R (read operands), E (execute), W (write).
-// Stalls: WAW (target busy), structural (FU busy), WAR (writeback waits).
-function simulate() {
-  const units = { "L/S": null, "MUL": null, "ADD": null, "DIV": null };
-  const regWriter = {}; // reg → instr that will write it
-  const sched = PROG.map(() => ({ I: null, R: null, E: null, W: null }));
-  const stalls = PROG.map(() => ({ waw: false, struct: false, war: false }));
-  let cycle = 0;
-  let issued = 0;
-  const order = PROG.map(p => p.id);
-  while (issued < PROG.length || Object.values(units).some(u => u !== null)) {
-    // ISSUE: in-order
-    const next = issued;
-    if (next < PROG.length) {
-      const inst = PROG[next];
-      // Structural: unit busy?
-      const unitBusy = units[inst.unit] !== null;
-      // WAW: another in-flight inst writes same dst?
-      const waw = Object.values(units).some(u => u && u.dst === inst.dst && u.id !== inst.id);
-      if (!unitBusy && !waw) {
-        sched[next].I = cycle;
-        units[inst.unit] = { ...inst, phase: "R", srcReady: false };
-        regWriter[inst.dst] = inst.id;
-        issued++;
-      } else {
-        if (unitBusy) stalls[next].struct = true;
-        if (waw) stalls[next].waw = true;
-      }
-    }
-    // READ: each unit with phase R, check if srcs available
-    for (const u of Object.values(units)) {
-      if (!u || u.phase !== "R") continue;
-      // Sources ready if no other instr is going to write them OR all writers have W'd
-      const ready = u.src.every(s => {
-        const w = regWriter[s];
-        // Source is ready unless a *prior* instr writes it and hasn't done W
-        if (w === undefined || w === u.id) return true;
-        return sched[w].W !== null;
-      });
-      if (ready) {
-        sched[u.id].R = cycle;
-        u.phase = "E";
-        u.execLeft = u.lat;
-      }
-    }
-    // EXECUTE
-    for (const u of Object.values(units)) {
-      if (!u || u.phase !== "E") continue;
-      if (sched[u.id].R === cycle) continue; // just entered
-      u.execLeft--;
-      if (u.execLeft <= 0) {
-        sched[u.id].E = cycle;
-        u.phase = "W";
-      }
-    }
-    // WRITE: check WAR — any later instr reads dst and hasn't R'd?
-    for (const [unitName, u] of Object.entries(units)) {
-      if (!u || u.phase !== "W") continue;
-      const warStall = PROG.some(other =>
-        other.id !== u.id &&
-        sched[other.id].R === null &&
-        other.src.includes(u.dst) &&
-        sched[other.id].I !== null && sched[other.id].I < sched[u.id].I
-      );
-      if (!warStall) {
-        sched[u.id].W = cycle;
-        if (regWriter[u.dst] === u.id) regWriter[u.dst] = undefined;
-        units[unitName] = null;
-      } else {
-        stalls[u.id].war = true;
-      }
-    }
-    cycle++;
-    if (cycle > 40) break; // safety
-  }
-  return { sched, stalls, cycles: cycle };
+const UNIT_NAMES = ["Integer", "Mult1", "Add", "Divide"];
+const REGS = ["F0", "F2", "F4", "F6", "F8", "F10"];
+
+function makeFu() {
+  return Object.fromEntries(UNIT_NAMES.map(name => [name, {
+    name,
+    busy: false,
+    op: null,
+    Fi: null,   // dest reg
+    Fj: null,   // src1 reg
+    Fk: null,   // src2 reg
+    Qj: null,   // FU producing Fj (or null if ready)
+    Qk: null,   // FU producing Fk
+    Rj: false,  // is Fj ready to read?
+    Rk: false,  // is Fk ready to read?
+    inst: null,
+    phase: null,        // "I" | "R" | "E" | "W"
+    execLeft: 0,
+    issuedAt: null,     // cycle when Issue happened — R cannot fire same cycle
+    readAt: null,       // cycle when Read happened — E counter starts next cycle
+    execDoneAt: null,   // cycle when execLeft reached 0 — W cannot fire same cycle
+  }]));
 }
 
-const result = simulate();
+// Simulate the full schedule up to a given cycle, returning the state and
+// schedule (entry cycle for each of the four phases per instruction).
+function simulate(uptoT) {
+  const fu = makeFu();
+  const regResult = Object.fromEntries(REGS.map(r => [r, null])); // reg → FU that will write it
+  const sched = PROG.map(() => ({ I: null, R: null, E: null, W: null }));
+  const stalls = PROG.map(() => ({ waw: 0, struct: 0, war: 0 }));
+  const events = [];   // textual cycle log
+  let issued = 0;
+  let cycle = 0;
 
+  // Stop strictly at uptoT so state reflects "after cycle uptoT" — events
+  // beyond that point (further FU transitions) must not appear yet.
+  while ((issued < PROG.length || Object.values(fu).some(u => u.busy)) && cycle <= uptoT) {
+    // ── ISSUE (in-order, one per cycle) ────────────────────────
+    if (issued < PROG.length) {
+      const inst = PROG[issued];
+      const target = fu[inst.unit];
+      const structural = target.busy;
+      const waw = Object.values(fu).some(u => u.busy && u.Fi === inst.dst);
+      if (!structural && !waw) {
+        sched[inst.id].I = cycle;
+        target.busy = true;
+        target.op = inst.op;
+        target.inst = inst;
+        target.Fi = inst.dst;
+        target.Fj = inst.src[0] || null;
+        target.Fk = inst.src[1] || null;
+        target.Qj = inst.src[0] ? regResult[inst.src[0]] : null;
+        target.Qk = inst.src[1] ? regResult[inst.src[1]] : null;
+        target.Rj = !target.Qj && !!inst.src[0];   // operand exists and is ready
+        target.Rk = !target.Qk && !!inst.src[1];
+        // Operands with no source register (e.g. loads) appear "ready" already.
+        if (!inst.src[0]) { target.Rj = true; }
+        if (!inst.src[1]) { target.Rk = true; }
+        target.phase = "R";
+        target.issuedAt = cycle;
+        regResult[inst.dst] = inst.unit;
+        events.push({ cycle, text: `Issue ${inst.txt.trim()} → ${inst.unit}` });
+        issued++;
+      } else {
+        if (structural) stalls[inst.id].struct++;
+        if (waw)        stalls[inst.id].waw++;
+      }
+    }
+
+    // ── READ — every FU in phase R checks if both sources are ready ─
+    // R cannot fire the same cycle as I (scoreboard stages take ≥1 cycle each).
+    for (const u of Object.values(fu)) {
+      if (!u.busy || u.phase !== "R") continue;
+      if (u.issuedAt === cycle) continue;
+      if (u.Rj && u.Rk) {
+        sched[u.inst.id].R = cycle;
+        u.readAt = cycle;
+        u.phase = "E";
+        u.execLeft = u.inst.lat;
+        events.push({ cycle, text: `${u.name}: read operands for ${u.inst.txt.trim()}` });
+      }
+    }
+
+    // ── EXECUTE — tick down latency (not the cycle Read happened) ──
+    for (const u of Object.values(fu)) {
+      if (!u.busy || u.phase !== "E") continue;
+      if (u.readAt === cycle) continue;   // first exec cycle is read-cycle+1
+      u.execLeft--;
+      if (u.execLeft <= 0) {
+        sched[u.inst.id].E = cycle;
+        u.execDoneAt = cycle;
+        u.phase = "W";
+        events.push({ cycle, text: `${u.name}: finished execute for ${u.inst.txt.trim()}` });
+      }
+    }
+
+    // ── WRITE — must wait one cycle after exec done; also gated by WAR ─
+    // WAR is only a hazard against *earlier-issued* readers that still need to
+    // sample the OLD value.  A later-issued reader of u.Fi (e.g. MULTD reading
+    // the F2 that LD F2 itself produces) is waiting on u via its Q tag — those
+    // are RAW dependencies, not WAR, and must not block the write.
+    for (const u of Object.values(fu)) {
+      if (!u.busy || u.phase !== "W") continue;
+      if (u.execDoneAt === cycle) continue;   // W is exec_done_cycle + 1
+      const warStall = Object.values(fu).some(o =>
+        o.busy && o !== u && o.phase === "R" &&
+        o.inst.id < u.inst.id &&
+        (o.Fj === u.Fi || o.Fk === u.Fi)
+      );
+      if (warStall) {
+        stalls[u.inst.id].war++;
+        continue;
+      }
+      sched[u.inst.id].W = cycle;
+      events.push({ cycle, text: `${u.name}: write ${u.Fi} (CDB)` });
+      // Mark every waiting reader of this register ready.
+      for (const o of Object.values(fu)) {
+        if (!o.busy) continue;
+        if (o.Qj === u.name) { o.Qj = null; o.Rj = true; }
+        if (o.Qk === u.name) { o.Qk = null; o.Rk = true; }
+      }
+      if (regResult[u.Fi] === u.name) regResult[u.Fi] = null;
+      // Free FU
+      Object.assign(u, {
+        busy: false, op: null, Fi: null, Fj: null, Fk: null, Qj: null, Qk: null,
+        Rj: false, Rk: false, inst: null, phase: null, execLeft: 0,
+        issuedAt: null, readAt: null, execDoneAt: null,
+      });
+    }
+
+    cycle++;
+  }
+
+  return { fu, regResult, sched, stalls, events, totalCycles: cycle };
+}
+
+const FULL = simulate(120);
+
+// ─── Component ────────────────────────────────────────────────
 export default function ScoreboardTrace() {
-  const [step, setStep] = useState(result.cycles);
-  const W = 580, H = 240;
-  const CELL = 28, ROW = 24, LABEL_W = 130;
-  const maxT = result.cycles + 1;
+  const [t, setT] = useState(0);
+  const [auto, setAuto] = useState(false);
+  useEffect(() => {
+    if (!auto) return;
+    const id = setInterval(() => setT(x => (x >= FULL.totalCycles ? 0 : x + 1)), 700);
+    return () => clearInterval(id);
+  }, [auto]);
+  const cur = simulate(t);
+  const recent = cur.events.filter(e => e.cycle === t - 1 || e.cycle === t);
 
   return (
-    <div style={{ width: "100%" }}>
-      <div style={{ display: "flex", gap: 8, marginBottom: 6, flexWrap: "wrap", alignItems: "center" }}>
-        <button onClick={() => setStep(Math.max(0, step - 1))} style={btn(false)}>←</button>
-        <button onClick={() => setStep(Math.min(maxT, step + 1))} style={btn(false)}>krok →</button>
-        <button onClick={() => setStep(maxT)} style={btn(false)}>do konce</button>
-        <button onClick={() => setStep(0)} style={btn(false)}>reset</button>
-        <span style={{ color: "var(--text-muted)", fontSize: 11 }}>
-          celkem cyklů: {result.cycles}, t = {step}
-        </span>
+    <div style={ctn}>
+      {/* ── Controls ─────────────────────────────────────────── */}
+      <div style={ctrlRow}>
+        <button onClick={() => setT(Math.max(0, t - 1))} style={btn(false)}>← cycle</button>
+        <button onClick={() => setT(Math.min(FULL.totalCycles, t + 1))} style={btn(false)}>cycle →</button>
+        <button onClick={() => setAuto(a => !a)} style={btn(auto)}>{auto ? "■ pause" : "▶ play"}</button>
+        <button onClick={() => { setT(0); setAuto(false); }} style={btn(false)}>reset</button>
+        <span style={tlabel}>t = <b>{t}</b> / {FULL.totalCycles}</span>
       </div>
 
-      <svg viewBox={`0 0 ${LABEL_W + maxT * CELL + 20} ${PROG.length * ROW + 60}`}
-        style={{ width: "100%", maxWidth: 720, fontFamily: "ui-sans-serif, system-ui" }}>
-        <g fontSize="9" fill="var(--text-muted)" textAnchor="middle">
-          {Array.from({ length: maxT }).map((_, c) => (
-            <text key={c} x={LABEL_W + c * CELL + CELL / 2} y={12}>{c}</text>
-          ))}
-        </g>
-        <line x1={LABEL_W + (step + 1) * CELL} y1={18} x2={LABEL_W + (step + 1) * CELL} y2={18 + PROG.length * ROW}
-          stroke="var(--accent)" strokeWidth="1.5" />
+      {/* ── Table 1: Instruction Status ──────────────────────── */}
+      <Section title="Instruction Status">
+        <table style={tbl}>
+          <thead>
+            <tr style={trHead}>
+              <th style={th}>#</th>
+              <th style={th}>instruction</th>
+              <th style={th}>Issue</th>
+              <th style={th}>Read operands</th>
+              <th style={th}>Execute</th>
+              <th style={th}>Write result</th>
+              <th style={th}>stalls</th>
+            </tr>
+          </thead>
+          <tbody>
+            {PROG.map((p) => {
+              const s = cur.sched[p.id];
+              const st = cur.stalls[p.id];
+              const stallParts = [];
+              if (st.struct) stallParts.push(`STR×${st.struct}`);
+              if (st.waw)    stallParts.push(`WAW×${st.waw}`);
+              if (st.war)    stallParts.push(`WAR×${st.war}`);
+              const phase =
+                s.W !== null && s.W <= t   ? "done" :
+                s.E !== null && s.E <= t   ? "writing" :
+                s.R !== null && s.R <= t   ? "executing" :
+                s.I !== null && s.I <= t   ? "reading" : "pending";
+              return (
+                <tr key={p.id} style={{
+                  background:
+                    phase === "done"      ? "color-mix(in oklch, var(--ok) 18%, transparent)" :
+                    phase === "writing"   ? "color-mix(in oklch, oklch(0.7 0.18 60) 24%, transparent)" :
+                    phase === "executing" ? "color-mix(in oklch, oklch(0.7 0.15 60) 18%, transparent)" :
+                    phase === "reading"   ? "var(--bg-inset)" : "transparent",
+                }}>
+                  <td style={td}>{p.id}</td>
+                  <td style={{ ...td, fontFamily: "var(--font-mono)" }}>{p.txt}</td>
+                  <td style={tdNum}>{shown(s.I, t)}</td>
+                  <td style={tdNum}>{shown(s.R, t)}</td>
+                  <td style={tdNum}>{shown(s.E, t)}</td>
+                  <td style={tdNum}>{shown(s.W, t)}</td>
+                  <td style={{ ...td, color: "oklch(0.65 0.18 22)", fontWeight: stallParts.length ? 600 : 400 }}>
+                    {stallParts.join(" ") || "—"}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <div style={caption}>
+          <b>Issue</b> blocked by WAW (target reg busy) or structural (FU busy);
+          <b> Read</b> waits until both sources are produced; <b>Write</b> waits
+          for any earlier reader still in R-phase (WAR hazard).
+        </div>
+      </Section>
 
-        {PROG.map((inst, i) => {
-          const s = result.sched[i];
-          const st = result.stalls[i];
-          return (
-            <g key={i}>
-              <text x={4} y={18 + i * ROW + ROW / 2 + 4} fontSize="10" fontFamily="ui-monospace, monospace" fill="var(--text)">
-                {inst.txt}
-              </text>
-              {/* Phase markers */}
-              {["I", "R", "E", "W"].map((ph, pi) => {
-                const c = s[ph];
-                if (c === null || c > step) return null;
-                const color = ["#5b8def", "#7c5bef", "#ef5b8d", "#ef8d5b"][pi];
-                return (
-                  <g key={ph}>
-                    <rect x={LABEL_W + c * CELL + 2} y={18 + i * ROW + 3} width={CELL - 4} height={ROW - 6}
-                      fill={color} opacity={0.8} rx="2" />
-                    <text x={LABEL_W + c * CELL + CELL / 2} y={18 + i * ROW + ROW / 2 + 4} textAnchor="middle"
-                      fontSize="9.5" fill="white" fontWeight="700">{ph}</text>
-                  </g>
-                );
-              })}
-              {/* Stall indicators */}
-              {(st.waw || st.war || st.struct) && (
-                <text x={LABEL_W - 6} y={18 + i * ROW + ROW / 2 + 4} fontSize="9" textAnchor="end" fill="oklch(0.65 0.18 22)">
-                  {[st.waw && "WAW", st.struct && "STR", st.war && "WAR"].filter(Boolean).join(" ")}
-                </text>
-              )}
-            </g>
-          );
-        })}
+      {/* ── Table 2: Functional Unit Status ──────────────────── */}
+      <Section title="Functional Unit Status">
+        <table style={tbl}>
+          <thead>
+            <tr style={trHead}>
+              <th style={th}>FU</th>
+              <th style={th}>busy</th>
+              <th style={th}>op</th>
+              <th style={th}>Fi</th>
+              <th style={th}>Fj</th>
+              <th style={th}>Fk</th>
+              <th style={th}>Qj</th>
+              <th style={th}>Qk</th>
+              <th style={th}>Rj</th>
+              <th style={th}>Rk</th>
+              <th style={th}>phase</th>
+            </tr>
+          </thead>
+          <tbody>
+            {UNIT_NAMES.map(name => {
+              const u = cur.fu[name];
+              return (
+                <tr key={name} style={{
+                  background: !u.busy ? "transparent" :
+                    u.phase === "W" ? "color-mix(in oklch, var(--ok) 14%, transparent)" :
+                    u.phase === "E" ? "color-mix(in oklch, oklch(0.7 0.15 60) 18%, transparent)" :
+                                      "var(--bg-inset)",
+                }}>
+                  <td style={{ ...td, fontWeight: 600, color: u.busy ? "var(--accent)" : "var(--text-faint)" }}>{name}</td>
+                  <td style={tdCenter}>{u.busy ? "yes" : "—"}</td>
+                  <td style={tdMono}>{u.op || "—"}</td>
+                  <td style={tdMono}>{u.Fi || "—"}</td>
+                  <td style={tdMono}>{u.Fj || "—"}</td>
+                  <td style={tdMono}>{u.Fk || "—"}</td>
+                  <td style={{ ...tdMono, color: u.Qj ? "oklch(0.65 0.18 22)" : "var(--text-muted)" }}>{u.Qj || "—"}</td>
+                  <td style={{ ...tdMono, color: u.Qk ? "oklch(0.65 0.18 22)" : "var(--text-muted)" }}>{u.Qk || "—"}</td>
+                  <td style={{ ...tdCenter, color: u.busy ? (u.Rj ? "var(--ok)" : "oklch(0.65 0.18 22)") : "var(--text-faint)" }}>
+                    {u.busy ? (u.Rj ? "✓" : "✗") : "—"}
+                  </td>
+                  <td style={{ ...tdCenter, color: u.busy ? (u.Rk ? "var(--ok)" : "oklch(0.65 0.18 22)") : "var(--text-faint)" }}>
+                    {u.busy ? (u.Rk ? "✓" : "✗") : "—"}
+                  </td>
+                  <td style={tdCenter}>{u.phase || "—"}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <div style={caption}>
+          <b>Fi</b>: dest reg · <b>Fj/Fk</b>: source regs · <b>Qj/Qk</b>: FU producing source (null = ready) ·
+          <b> Rj/Rk</b>: source ready to read · <b>phase</b>: I → R → E → W
+        </div>
+      </Section>
 
-        <g fontSize="9.5" fill="var(--text-muted)">
-          <text x={4} y={PROG.length * ROW + 40}>fáze: I = issue, R = read operands, E = execute (latence), W = writeback</text>
-          <text x={4} y={PROG.length * ROW + 54} fill="var(--text-faint)">
-            STR = strukturální stall (FU obsazena), WAW = target zápisu obsazen, WAR = writeback čeká na čtenáře
-          </text>
-        </g>
-      </svg>
+      {/* ── Table 3: Register Result Status ──────────────────── */}
+      <Section title="Register Result Status">
+        <table style={tbl}>
+          <thead>
+            <tr style={trHead}>
+              {REGS.map(r => <th key={r} style={{ ...th, textAlign: "center" }}>{r}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {REGS.map(r => (
+                <td key={r} style={{
+                  ...tdCenter,
+                  fontFamily: "var(--font-mono)",
+                  color: cur.regResult[r] ? "var(--accent)" : "var(--text-faint)",
+                  fontWeight: cur.regResult[r] ? 600 : 400,
+                  background: cur.regResult[r] ? "var(--accent-soft)" : "transparent",
+                }}>
+                  {cur.regResult[r] || "—"}
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+        <div style={caption}>
+          Single producer per register at a time — that's why WAW <i>stalls Issue</i>
+          (you can't have two FUs claiming the same destination).
+        </div>
+      </Section>
+
+      {/* ── Event log ─────────────────────────────────────────── */}
+      <Section title="Recent events">
+        {recent.length === 0 ? (
+          <div style={caption}>(no events at t = {t})</div>
+        ) : (
+          <ul style={{ margin: 0, padding: "4px 18px", fontSize: 11, fontFamily: "var(--font-mono)", color: "var(--text-muted)" }}>
+            {recent.map((e, i) => (
+              <li key={i}>t={e.cycle}: {e.text}</li>
+            ))}
+          </ul>
+        )}
+      </Section>
+
+      <div style={footer}>
+        <b>Scoreboard vs Tomasulo:</b> scoreboard <i>stalls</i> on WAW + WAR
+        and uses just one register-result entry per register. Tomasulo <i>renames</i>
+        through reservation-station tags, so WAW + WAR disappear — only true RAW
+        remains.
+      </div>
     </div>
   );
 }
 
+function shown(c, t) {
+  return c !== null && c <= t ? c : "—";
+}
+
+function Section({ title, children }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+      <div style={sectionTitle}>{title}</div>
+      {children}
+    </div>
+  );
+}
+
+// ─── Styles ────────────────────────────────────────────────────
+const ctn      = { display: "flex", flexDirection: "column", gap: 12 };
+const ctrlRow  = { display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" };
+const tlabel   = { fontSize: 11.5, fontFamily: "var(--font-mono)", color: "var(--text-muted)" };
+const tbl      = { width: "100%", borderCollapse: "collapse", fontSize: 11.5, fontFamily: "var(--font-mono)" };
+const trHead   = { background: "var(--bg-inset)" };
+const th       = { padding: "4px 6px", textAlign: "left", color: "var(--text-muted)", fontWeight: 600, borderBottom: "1px solid var(--line)" };
+const td       = { padding: "3px 6px", borderBottom: "0.5px solid var(--line)", color: "var(--text)" };
+const tdNum    = { ...td, fontFamily: "var(--font-mono)", textAlign: "right", color: "var(--text-muted)" };
+const tdMono   = { ...td, fontFamily: "var(--font-mono)" };
+const tdCenter = { ...td, textAlign: "center", color: "var(--text-muted)" };
+const sectionTitle = { fontSize: 11, fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-faint)" };
+const caption  = { fontSize: 10.5, color: "var(--text-faint)", marginTop: 2 };
+const footer   = { fontSize: 11, color: "var(--text-muted)", lineHeight: 1.55, padding: "6px 10px", background: "var(--bg-inset)", borderRadius: 4 };
+
 function btn(active) {
   return {
-    fontFamily: "var(--font-mono)", fontSize: 11, padding: "3px 9px",
+    fontFamily: "var(--font-mono)", fontSize: 11.5, padding: "4px 10px",
     background: active ? "var(--accent)" : "var(--bg-inset)",
-    color: active ? "white" : "var(--text)",
-    border: "1px solid var(--line-strong)", borderRadius: 3, cursor: "pointer",
+    color: active ? "var(--accent-text-on)" : "var(--text)",
+    border: "1px solid var(--line-strong)", borderRadius: 4, cursor: "pointer",
   };
 }
