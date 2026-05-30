@@ -34,7 +34,7 @@ $$
     <text x="410" y="65">{ε, a, ab, aab, ...}</text>
     <text x="410" y="90">{aⁿbⁿ | n ≥ 0}</text>
     <text x="410" y="115">{ww^R | w ∈ Σ⁺}</text>
-    <text x="410" y="10" fill="var(--text-muted)" font-size="11">jazyk L ⊆ Σ*</text>
+    <text x="410" y="14" fill="var(--text-muted)" font-size="11">jazyk L ⊆ Σ*</text>
   </g>
   <g stroke="var(--accent-line)" stroke-width="1.2" fill="none" marker-end="url(#aH1)">
     <line x1="100" y1="85" x2="138" y2="85"/>

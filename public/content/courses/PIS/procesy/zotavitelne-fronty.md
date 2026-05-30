@@ -59,34 +59,35 @@ Objednávková transakce vloží záznam do *obou* front najednou (expedice + fa
 
 :::svg
 <svg viewBox="0 0 540 200" xmlns="http://www.w3.org/2000/svg" style="max-width: 580px;">
+  <rect x="0" y="0" width="540" height="200" fill="#f8fafc" rx="8"/>
   <defs>
     <marker id="arrF" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--text-muted)"/>
     </marker>
   </defs>
   <rect x="20"  y="70" width="120" height="50" rx="6" fill="#bfdbfe" stroke="#2563eb"/>
-  <text x="80"  y="92" text-anchor="middle" font-family="ui-sans-serif" font-size="12" font-weight="bold">Objednávková</text>
-  <text x="80"  y="108" text-anchor="middle" font-family="ui-sans-serif" font-size="11">transakce</text>
+  <text x="80"  y="92" text-anchor="middle" font-family="ui-sans-serif" font-size="12" font-weight="bold" fill="#1e293b">Objednávková</text>
+  <text x="80"  y="108" text-anchor="middle" font-family="ui-sans-serif" font-size="11" fill="#1e293b">transakce</text>
   <rect x="180" y="20"  width="100" height="40" rx="6" fill="#fef3c7" stroke="#ca8a04"/>
-  <text x="230" y="38"  text-anchor="middle" font-family="ui-sans-serif" font-size="12" font-weight="bold">Exp. fronta</text>
-  <text x="230" y="52"  text-anchor="middle" font-family="ui-sans-serif" font-size="10">(trvanlivá)</text>
+  <text x="230" y="38"  text-anchor="middle" font-family="ui-sans-serif" font-size="12" font-weight="bold" fill="#1e293b">Exp. fronta</text>
+  <text x="230" y="52"  text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="#1e293b">(trvanlivá)</text>
   <rect x="180" y="135" width="100" height="40" rx="6" fill="#fef3c7" stroke="#ca8a04"/>
-  <text x="230" y="153" text-anchor="middle" font-family="ui-sans-serif" font-size="12" font-weight="bold">Fakt. fronta</text>
-  <text x="230" y="167" text-anchor="middle" font-family="ui-sans-serif" font-size="10">(trvanlivá)</text>
+  <text x="230" y="153" text-anchor="middle" font-family="ui-sans-serif" font-size="12" font-weight="bold" fill="#1e293b">Fakt. fronta</text>
+  <text x="230" y="167" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="#1e293b">(trvanlivá)</text>
   <rect x="320" y="20"  width="120" height="40" rx="6" fill="#bbf7d0" stroke="#16a34a"/>
-  <text x="380" y="44"  text-anchor="middle" font-family="ui-sans-serif" font-size="12" font-weight="bold">Expediční T</text>
+  <text x="380" y="44"  text-anchor="middle" font-family="ui-sans-serif" font-size="12" font-weight="bold" fill="#1e293b">Expediční T</text>
   <rect x="320" y="135" width="120" height="40" rx="6" fill="#fbcfe8" stroke="#be185d"/>
-  <text x="380" y="159" text-anchor="middle" font-family="ui-sans-serif" font-size="12" font-weight="bold">Fakturační T</text>
-  <line x1="140" y1="80"  x2="178" y2="42"  stroke="var(--ink)" stroke-width="2" marker-end="url(#arrF)"/>
+  <text x="380" y="159" text-anchor="middle" font-family="ui-sans-serif" font-size="12" font-weight="bold" fill="#1e293b">Fakturační T</text>
+  <line x1="140" y1="80"  x2="178" y2="42"  stroke="var(--text-muted)" stroke-width="2" marker-end="url(#arrF)"/>
   <text x="155" y="62" font-family="ui-sans-serif" font-size="11" fill="#16a34a">vlož</text>
-  <line x1="140" y1="108" x2="178" y2="150" stroke="var(--ink)" stroke-width="2" marker-end="url(#arrF)"/>
+  <line x1="140" y1="108" x2="178" y2="150" stroke="var(--text-muted)" stroke-width="2" marker-end="url(#arrF)"/>
   <text x="155" y="138" font-family="ui-sans-serif" font-size="11" fill="#16a34a">vlož</text>
-  <line x1="280" y1="40"  x2="318" y2="40"  stroke="var(--ink)" stroke-width="2" marker-end="url(#arrF)"/>
+  <line x1="280" y1="40"  x2="318" y2="40"  stroke="var(--text-muted)" stroke-width="2" marker-end="url(#arrF)"/>
   <text x="295" y="33" font-family="ui-sans-serif" font-size="11" fill="#be185d">vyber</text>
-  <line x1="280" y1="155" x2="318" y2="155" stroke="var(--ink)" stroke-width="2" marker-end="url(#arrF)"/>
+  <line x1="280" y1="155" x2="318" y2="155" stroke="var(--text-muted)" stroke-width="2" marker-end="url(#arrF)"/>
   <text x="295" y="148" font-family="ui-sans-serif" font-size="11" fill="#be185d">vyber</text>
-  <text x="475" y="44" font-family="ui-sans-serif" font-size="11" fill="var(--muted)">paralelně</text>
-  <text x="475" y="159" font-family="ui-sans-serif" font-size="11" fill="var(--muted)">paralelně</text>
+  <text x="475" y="44" font-family="ui-sans-serif" font-size="11" fill="var(--text-muted)">paralelně</text>
+  <text x="475" y="159" font-family="ui-sans-serif" font-size="11" fill="var(--text-muted)">paralelně</text>
 </svg>
 :::
 

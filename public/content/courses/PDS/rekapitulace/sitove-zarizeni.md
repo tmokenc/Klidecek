@@ -56,12 +56,12 @@ Praktický důsledek: switch *postupně se naučí* mapování. První rámce po
 <svg viewBox="0 0 540 200" xmlns="http://www.w3.org/2000/svg" style="max-width:580px;width:100%;height:auto;font-family:system-ui,sans-serif;">
   <defs>
     <style>
-      .sw{fill:var(--accent-soft, #c8e6f5);stroke:var(--accent, #1e5a8e);stroke-width:1.5;rx:6}
-      .pc{fill:var(--surface, #f4f4f4);stroke:var(--ink, #555);stroke-width:1;rx:3}
-      .ln{stroke:var(--ink, #555);stroke-width:1;fill:none}
-      .ttl{font-size:11px;font-weight:600;text-anchor:middle;fill:var(--ink, #222)}
-      .cell{font-size:10px;text-anchor:middle;fill:var(--ink, #333);font-family:monospace}
-      .hdr{font-size:10px;font-weight:600;text-anchor:middle;fill:var(--ink, #222);font-family:monospace}
+      .sw{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5;rx:6}
+      .pc{fill:var(--bg-inset);stroke:var(--line-strong);stroke-width:1;rx:3}
+      .ln{stroke:var(--line-strong);stroke-width:1;fill:none}
+      .ttl{font-size:11px;font-weight:600;text-anchor:middle;fill:var(--text)}
+      .cell{font-size:10px;text-anchor:middle;fill:var(--text);font-family:monospace}
+      .hdr{font-size:10px;font-weight:600;text-anchor:middle;fill:var(--text-muted);font-family:monospace}
     </style>
   </defs>
   <!-- switch -->

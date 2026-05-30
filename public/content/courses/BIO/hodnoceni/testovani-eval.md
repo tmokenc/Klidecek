@@ -96,7 +96,7 @@ Test database: **TwinsDB** (NIST), **ND-Twins** (Notre Dame) — speciální dat
 
 Pro $N$ enrolled subjects v test set:
 
-* **Genuine comparisons** (FNMR): $N \cdot (T - 1) / 2$, kde $T$ je počet samples per subject.
+* **Genuine comparisons** (FNMR): $N \cdot \binom{T}{2} = N \cdot T(T - 1) / 2$, kde $T$ je počet samples per subject.
 * **Impostor comparisons** (FMR): $\binom{N}{2} \cdot T \cdot T$ (každý pair × samples).
 
 Pro $N = 1000$ subjects, $T = 10$ samples:

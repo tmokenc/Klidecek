@@ -57,7 +57,7 @@ Vedle klasických MOLAP/ROLAP/HOLAP vznikla *čtvrtá* generace — **specializo
 - *Vektorizované zpracování* — operace se aplikují na celé vektory (SIMD).
 - *Komprese* — díky podobnosti hodnot v jednom sloupci dosahují 10×–100× komprese.
 
-Příklady: **Apache Druid**, **DuckDB**, **ClickHouse**, **Apache Kylin**.
+Příklady: **Apache Druid**, **DuckDB**, **ClickHouse**.
 
 Nejsou to klasické OLAP servery v Coddově smyslu (nemají vlastní multidimenzionální API), ale **funkčně** plní stejnou roli — rychlá agregace nad miliardami řádků pomocí SQL.
 
@@ -66,10 +66,11 @@ Nejsou to klasické OLAP servery v Coddově smyslu (nemají vlastní multidimenz
 | Architektura | Produkty |
 | :--- | :--- |
 | **MOLAP** | Oracle Essbase, IBM Planning Analytics (TM1), Jedox |
-| **ROLAP** | Mondrian / Pentaho (open-source), Apache Kylin, ClickHouse |
+| **ROLAP** | Mondrian / Pentaho (open-source) |
+| **MOLAP — předpočítané kostky na Hadoopu** | Apache Kylin |
 | **ROLAP — cloud** | Snowflake, Google BigQuery, Amazon Redshift |
 | **HOLAP** | Microsoft SSAS, SAP BW (SAP Business Warehouse) |
-| **Specializovaný SQL** | Apache Druid, DuckDB |
+| **Specializovaný SQL** | Apache Druid, DuckDB, ClickHouse |
 
 ## Které zvolit?
 

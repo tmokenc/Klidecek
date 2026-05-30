@@ -28,28 +28,28 @@ Klasický příklad ukazující limity ploché transakce: zákazník chce rezerv
 <svg viewBox="0 0 540 200" xmlns="http://www.w3.org/2000/svg" style="max-width: 580px;">
   <defs>
     <marker id="arrC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--text)"/>
     </marker>
     <marker id="arrCRed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/>
     </marker>
   </defs>
-  <circle cx="60"  cy="100" r="22" fill="var(--surface)" stroke="var(--ink)"/>
-  <circle cx="180" cy="100" r="22" fill="var(--surface)" stroke="var(--ink)"/>
-  <circle cx="300" cy="50"  r="22" fill="var(--surface)" stroke="var(--ink)"/>
-  <circle cx="300" cy="150" r="22" fill="var(--surface)" stroke="var(--ink)"/>
-  <circle cx="430" cy="100" r="22" fill="var(--surface)" stroke="var(--ink)" stroke-width="3"/>
-  <text x="60"  y="105" text-anchor="middle" font-family="ui-sans-serif" font-size="14" font-weight="bold">A</text>
-  <text x="180" y="105" text-anchor="middle" font-family="ui-sans-serif" font-size="14" font-weight="bold">B</text>
-  <text x="300" y="55"  text-anchor="middle" font-family="ui-sans-serif" font-size="14" font-weight="bold">C</text>
-  <text x="300" y="155" text-anchor="middle" font-family="ui-sans-serif" font-size="14" font-weight="bold">D</text>
-  <text x="430" y="105" text-anchor="middle" font-family="ui-sans-serif" font-size="14" font-weight="bold">E</text>
-  <line x1="82"  y1="100" x2="158" y2="100" stroke="var(--ink)" stroke-width="2" marker-end="url(#arrC)"/>
-  <line x1="198" y1="88"  x2="282" y2="60"  stroke="var(--ink)" stroke-width="2" marker-end="url(#arrC)"/>
-  <line x1="198" y1="112" x2="282" y2="140" stroke="var(--ink)" stroke-width="2" marker-end="url(#arrC)"/>
-  <line x1="322" y1="60"  x2="408" y2="92"  stroke="#b91c1c" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrCRed)"/>
-  <text x="370" y="62"  text-anchor="middle" font-family="ui-sans-serif" font-size="11" fill="#b91c1c">obsazený</text>
-  <line x1="322" y1="140" x2="408" y2="108" stroke="var(--ink)" stroke-width="2" marker-end="url(#arrC)"/>
+  <circle cx="60"  cy="100" r="22" fill="var(--bg-inset)" stroke="var(--text)"/>
+  <circle cx="180" cy="100" r="22" fill="var(--bg-inset)" stroke="var(--text)"/>
+  <circle cx="300" cy="50"  r="22" fill="var(--bg-inset)" stroke="var(--text)"/>
+  <circle cx="300" cy="150" r="22" fill="var(--bg-inset)" stroke="var(--text)"/>
+  <circle cx="430" cy="100" r="22" fill="var(--bg-inset)" stroke="var(--text)" stroke-width="3"/>
+  <text x="60"  y="105" text-anchor="middle" font-family="ui-sans-serif" font-size="14" font-weight="bold" fill="var(--text)">A</text>
+  <text x="180" y="105" text-anchor="middle" font-family="ui-sans-serif" font-size="14" font-weight="bold" fill="var(--text)">B</text>
+  <text x="300" y="55"  text-anchor="middle" font-family="ui-sans-serif" font-size="14" font-weight="bold" fill="var(--text)">C</text>
+  <text x="300" y="155" text-anchor="middle" font-family="ui-sans-serif" font-size="14" font-weight="bold" fill="var(--text)">D</text>
+  <text x="430" y="105" text-anchor="middle" font-family="ui-sans-serif" font-size="14" font-weight="bold" fill="var(--text)">E</text>
+  <line x1="82"  y1="100" x2="158" y2="100" stroke="var(--text)" stroke-width="2" marker-end="url(#arrC)"/>
+  <line x1="198" y1="88"  x2="282" y2="60"  stroke="var(--text)" stroke-width="2" marker-end="url(#arrC)"/>
+  <line x1="198" y1="112" x2="282" y2="140" stroke="var(--text)" stroke-width="2" marker-end="url(#arrC)"/>
+  <line x1="322" y1="60"  x2="408" y2="92"  stroke="#ef4444" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrCRed)"/>
+  <text x="370" y="62"  text-anchor="middle" font-family="ui-sans-serif" font-size="11" fill="#ef4444">obsazený</text>
+  <line x1="322" y1="140" x2="408" y2="108" stroke="var(--text)" stroke-width="2" marker-end="url(#arrC)"/>
 </svg>
 :::
 
@@ -93,8 +93,8 @@ Příklad běhu (letový scénář z obrázku výše):
 ```
 A → B            sp1
 B → C            sp2
-C → E ✗          obsazeno → rollback(sp2)
-B → D            sp3
+C → E ✗          obsazeno → rollback(sp1)
+B → D            sp2
 D → E ✓          commit
 ```
 

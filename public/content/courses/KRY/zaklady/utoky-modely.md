@@ -45,7 +45,7 @@ Kryptografie se nehodnotí v abstraktu, ale **vůči konkrétnímu modelu útoč
     <path d="M488,30 L488,200"/>
   </g>
   <g fill="var(--text-muted)" font-size="10.5">
-    <text x="496" y="106" text-anchor="start">síla útočníka</text>
+    <text x="508" y="114" text-anchor="middle" transform="rotate(90 508 114)">síla útočníka</text>
   </g>
 </svg>
 :::
@@ -78,10 +78,10 @@ kde $v$ je rychlost útočníka v testech za sekundu. Průměr je $|\mathcal{K}|
 | :-: | :-: | :-: | :-: |
 | 40 b | $1{,}1 \cdot 10^{12}$ | 9,5 minut | 0,55 ms |
 | 56 b (DES) | $7{,}2 \cdot 10^{16}$ | 416 dní | 36 s |
-| 80 b | $1{,}2 \cdot 10^{24}$ | 19 000 let | 19 let |
-| 112 b (3DES) | $5{,}2 \cdot 10^{33}$ | $8{,}2 \cdot 10^{13}$ let | $8{,}2 \cdot 10^{7}$ let |
-| 128 b (AES-128) | $3{,}4 \cdot 10^{38}$ | $5{,}4 \cdot 10^{18}$ let | $5{,}4 \cdot 10^{12}$ let |
-| 256 b (AES-256) | $1{,}2 \cdot 10^{77}$ | $1{,}8 \cdot 10^{57}$ let | $1{,}8 \cdot 10^{51}$ let |
+| 80 b | $1{,}2 \cdot 10^{24}$ | $1{,}9 \cdot 10^{7}$ let | 19 let |
+| 112 b (3DES) | $5{,}2 \cdot 10^{33}$ | $8{,}2 \cdot 10^{16}$ let | $8{,}2 \cdot 10^{10}$ let |
+| 128 b (AES-128) | $3{,}4 \cdot 10^{38}$ | $5{,}4 \cdot 10^{21}$ let | $5{,}4 \cdot 10^{15}$ let |
+| 256 b (AES-256) | $1{,}2 \cdot 10^{77}$ | $1{,}8 \cdot 10^{60}$ let | $1{,}8 \cdot 10^{54}$ let |
 
 Brute force tedy definuje *spodní hranici* obtížnosti — žádný útok proti symetrické šifře nemůže být lehčí. **Užitečná šifra** se chová tak, jako by *jen* brute force fungoval (žádný strukturální útok není znám).
 

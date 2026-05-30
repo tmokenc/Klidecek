@@ -67,7 +67,7 @@ Pro 64 kB L1, 64 B line, 4-way set-assoc:
     <rect x="60" y="120" width="80" height="20"/>
     <rect x="140" y="120" width="320" height="20"/>
   </g>
-  <text x="475" y="134" fill="var(--accent)" font-size="9" font-weight="600">← jediná pozice pro index 2</text>
+  <text x="520" y="134" fill="var(--accent)" text-anchor="end" font-size="9" font-weight="600">← jediná pozice pro index 2</text>
   <text x="20" y="170" fill="var(--text-faint)" font-size="9">Lookup: index → vyber řádek → srovnat tag → hit/miss</text>
   <text x="20" y="185" fill="var(--text-faint)" font-size="9">Konflikt: 2 bloky s různými tagy ale stejným indexem se střídají</text>
 </svg>

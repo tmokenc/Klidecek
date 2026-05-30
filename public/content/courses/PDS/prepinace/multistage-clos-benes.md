@@ -8,7 +8,7 @@ Vlastnosti jednostupňového crossbaru:
 
 - Převážně používán pro malé až střední switchi.
 - *Problémy s kvadratickým nárůstem* $\mathcal{O}(N^2)$.
-- *Vnitřní blokování*, HOL.
+- *HOL blokování*.
 - Plánování = matching.
 
 Otázka: *Lze rozšířit počet portů, aniž by se dramaticky rozšířilo pole?*
@@ -47,7 +47,7 @@ Vstupní stage: 2 přepínače 4×7 (8 vstupů → 14 vnitřních linek).
 Středová stage: 7 přepínačů 2×2.
 Výstupní stage: 2 přepínače 7×4.
 
-Celkem přepínačů: $2 \cdot 8 + 7 \cdot 2 = 30$ crossbar buněk versus $8^2 = 64$ v jednostupňovém crossbaru.
+Celkem 11 přepínacích bloků (2 vstupní + 7 středových + 2 výstupní) s $2 \cdot (4 \cdot 7) + 7 \cdot (2 \cdot 2) + 2 \cdot (7 \cdot 4) = 140$ crosspointy, což je pro tak malé $N$ *více* než $8^2 = 64$ crosspointů jednostupňového crossbaru — úspora Clos sítě se projeví až pro velká $N$.
 
 ### Vlastnosti sítě Clos($m$, $n$, $r$)
 
@@ -127,7 +127,7 @@ Algoritmus pro nalezení propojení v $BN_n$ — **smyčkový (looping) algoritm
 
 ### Použití v praxi
 
-- **Cisco CSR-1** — $BN_3$ (N = 8) pro vnitřní propojení v rámci čipu.
+- **Cisco CRS-1** — $BN_3$ (N = 8) pro vnitřní propojení v rámci čipu.
 - **HP/Mellanox InfiniBand** switchi — používají Beneš topologii pro nízkou cenu.
 - **Optické přepínače (MEMS)** — Beneš je oblíbená topologie kvůli minimu prvků.
 
@@ -149,4 +149,4 @@ Klíčové trade-offy:
 
 ---
 
-*Zdroj: PDS přednáška 4, doc. Ing. Petr Matoušek, Ph.D., M.A., FIT VUT v Brně. Externí reference: Clos, C.: „A Study of Non-Blocking Switching Networks" (Bell System Technical Journal, 32:406–424, 1952, [DOI 10.1002/j.1538-7305.1953.tb01433.x](https://doi.org/10.1002/j.1538-7305.1953.tb01433.x)); Liu, B., Chao, H.J.: *High Performance Switches and Routers* (Wiley-IEEE Press 2007).*
+*Zdroj: PDS přednáška 4, doc. Ing. Petr Matoušek, Ph.D., M.A., FIT VUT v Brně. Externí reference: Clos, C.: „A Study of Non-Blocking Switching Networks" (Bell System Technical Journal, 32:406–424, 1953, [DOI 10.1002/j.1538-7305.1953.tb01433.x](https://doi.org/10.1002/j.1538-7305.1953.tb01433.x)); Liu, B., Chao, H.J.: *High Performance Switches and Routers* (Wiley-IEEE Press 2007).*

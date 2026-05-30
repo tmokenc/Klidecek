@@ -39,7 +39,7 @@ Vlastnost TS *není* vlastnost jazyka, pokud existují dva TS $M_1, M_2$ s $L(M_
 
 Tj. $P$ není vždy pravdivá ani vždy nepravdivá.
 
-> Triviální vlastnosti — "*$L$ je v RE*" (vždy $\top$) nebo "*$L$ je v R$\setminus$RE*" (vždy $\bot$) — jsou *konstantami*, tedy *rozhodnutelné* (vrátit konstantu). Riceova věta jen vylučuje *konstantnost*.
+> Triviální vlastnosti — "*$L$ je v RE*" (vždy $\top$) nebo "*$L$ není v RE*" (vždy $\bot$) — jsou *konstantami*, tedy *rozhodnutelné* (vrátit konstantu). Riceova věta jen vylučuje *konstantnost*.
 
 ## Hlavní věta
 

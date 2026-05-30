@@ -93,42 +93,14 @@ Aplikace deleguje výpočty na DB:
 
 ## Operace nad prostorovými daty
 
-Typické operace, které spatial DB podporuje:
+Spatial DB nabízí několik kategorií operací, namátkou:
 
-### Konstanty / charakteristiky
+* **Konstanty / charakteristiky** (cached pro performance) — `ST_Length(line)`, `ST_Area(polygon)`.
+* **Metriky** (pár-závislé, *nelze* pre-vypočítat) — `ST_Distance(g1, g2)`.
+* **Predikáty** (booleovské) — `ST_Contains(g1, g2)`, `ST_Intersects(g1, g2)`.
+* **Operace produkující nový tvar** — `ST_Intersection(g1, g2)`, `ST_Buffer(geom, dist)`.
 
-Vypočtené *během uložení* (cached pro performance):
-* `ST_Length(line)` — délka.
-* `ST_Area(polygon)` — obsah.
-* `ST_Perimeter(polygon)` — obvod.
-* `ST_Centroid(geom)` — těžiště.
-* `ST_NumPoints(geom)` — počet vrcholů.
-
-### Metriky
-
-Číselné výsledky, *nelze* pre-vypočítat (pár-závislé):
-* `ST_Distance(g1, g2)` — vzdálenost.
-* `ST_HausdorffDistance(g1, g2)` — Hausdorffova vzdálenost (geometrie).
-* `ST_Frechet(g1, g2)` — Fréchetova (trajektorie).
-
-### Predikáty (booleovské)
-
-* `ST_Equals(g1, g2)` — geometricky shodné.
-* `ST_Contains(g1, g2)` — g1 obsahuje g2.
-* `ST_Within(g1, g2)` — opak Contains.
-* `ST_Intersects(g1, g2)` — mají společný bod.
-* `ST_Disjoint(g1, g2)` — nesdílí žádný bod.
-* `ST_Touches(g1, g2)` — sdílí hranici, ne interier.
-* `ST_Crosses(g1, g2)` — pro křížení čar přes polygony.
-
-### Operace produkující nový tvar
-
-* `ST_Intersection(g1, g2)` — průnik.
-* `ST_Union(g1, g2)` — sjednocení.
-* `ST_Difference(g1, g2)` — rozdíl.
-* `ST_ConvexHull(geom)` — konvexní obal.
-* `ST_Buffer(geom, dist)` — body do vzdálenosti dist.
-* `ST_Voronoi(points)` — Voronoiovy buňky.
+Úplný katalog operací, predikátů a metrik viz [[prostorove-operace]].
 
 ## Příklad — tiling Země
 
@@ -170,7 +142,7 @@ DB *spočítá* sousedství z geometrie — informace, která v `tabulka_obcí` 
 
 Reálný prostor je *spojitý* (real numbers). Počítačová reprezentace je *diskrétní* (finite precision floating point) — což přináší problémy s přesností.
 
-* `2 × 0.1 = 0.2` v reálných číslech, ale `0.30000000000000004` v IEEE 754 double.
+* `0.1 + 0.2 = 0.3` v reálných číslech, ale `0.30000000000000004` v IEEE 754 double.
 * Tři kolineární body v plovoucí čárce se mohou ukázat jako *trochu mimo* — predikát "leží na čáře" vrátí false.
 
 Řešení: **fine-grained grid** (snap to grid), *exact arithmetic* (rational numbers), *interval arithmetic* (matematicky náročné, ale přesné). Detail v dalších sekcích.

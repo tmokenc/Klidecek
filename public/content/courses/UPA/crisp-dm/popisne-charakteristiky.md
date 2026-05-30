@@ -150,7 +150,7 @@ $$ \sigma = \sqrt{\sigma^2} \quad s = \sqrt{s^2} $$
 
 ```
          ┌──┬──┐
-   ──────┤  │  ├──────       ← výška (interval mediánu, IQR)
+   ──────┤  │  ├──────       ← box = IQR (Q₁–Q₃), svislá čára uvnitř = medián
          └──┴──┘
    min     Q₁ M Q₃     max
 ```
@@ -225,8 +225,8 @@ platy = [25, 30, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100, 250]  -- tis. Kč
 * `median = 52.5`
 * `mode = 30`
 * `range = 250 - 25 = 225`
-* `Q₁ = 35`, `Q₃ = 85`, `IQR = 50`
-* `std = 56.6`
+* `Q₁ = 35`, `Q₃ = 80`, `IQR = 45` (Tukeyho kvartily)
+* `std ≈ 55.1` (populační) / `≈ 57.2` (výběrová, `n-1`)
 * Distribuce pravostranně šikmá — `mean > median > mode`.
 
 Bez popisných statistik bychom slepě modelovali jako kdyby data byla "rozumně rozložená". Outlier 250 by mohl být chyba zadání nebo skutečný high-paid expert — *rozhodnutí* (vyhodit, ponechat, oddělit) musí udělat doménový expert.

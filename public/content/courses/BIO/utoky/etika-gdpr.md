@@ -141,7 +141,7 @@ Most biometric systems require DPIA.
 
 #### Notable fines
 
-* **Clearview AI:** €20M each from France, Italy, Greece, UK ICO.
+* **Clearview AI:** €20M each from France (CNIL), Italy (Garante) and Greece (HDPA); £7.5M from the UK ICO.
 * **Facebook (Meta):** €1.2B for transatlantic data transfers.
 * **Several face recognition** vendors fined.
 

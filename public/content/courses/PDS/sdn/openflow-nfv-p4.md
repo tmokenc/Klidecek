@@ -71,7 +71,7 @@ EtherType:   0x0800 (IPv4)
 VLAN:        vlan1
 IP Src:      1.2.3.4
 IP Dst:      5.6.7.8
-IP Prot:     4 (= TCP)
+IP Prot:     6 (= TCP)
 TCP sport:   17264
 TCP dport:   80
 Action:      port 6

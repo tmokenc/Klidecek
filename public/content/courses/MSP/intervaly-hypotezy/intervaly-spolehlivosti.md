@@ -14,7 +14,7 @@ title: Intervaly spolehlivosti
 P_\theta(L(X) \le \theta \le U(X)) \ge 1 - \alpha \quad \forall \theta \in \Theta.
 :::
 
-Levá strana se nazývá **konfidenční koeficient** (confidence level) a obvykle se značí `1 − α ∈ {0,90, 0,95, 0,99}` (`α = 0,10, 0,05, 0,01`).
+Levá strana je **pravděpodobnost pokrytí** (coverage probability); její dolní mez `1 − α` se nazývá **konfidenční koeficient** (confidence level) a je to infimum pravděpodobnosti pokrytí přes `θ`. Obvykle `1 − α ∈ {0,90, 0,95, 0,99}` (`α = 0,10, 0,05, 0,01`).
 
 ### Důležitá distinkce
 

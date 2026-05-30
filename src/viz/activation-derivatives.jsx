@@ -47,7 +47,9 @@ const PLOT_W = W - PAD_L - PAD_R;
 const PLOT_H = H - PAD_T - PAD_B;
 
 const zToPx = (z) => PAD_L + ((z - ZMIN) / (ZMAX - ZMIN)) * PLOT_W;
-const yToPx = (y) => PAD_T + (1 - (y - YMIN) / (YMAX - YMIN)) * PLOT_H;
+// Clamp plotted value to the visible axis range so curves that exceed it
+// (e.g. ReLU f(z)=z reaching 5 at z=5) don't spike past the plot frame.
+const yToPx = (y) => PAD_T + (1 - (Math.max(YMIN, Math.min(YMAX, y)) - YMIN) / (YMAX - YMIN)) * PLOT_H;
 const pxToZ = (px) => ZMIN + ((px - PAD_L) / PLOT_W) * (ZMAX - ZMIN);
 
 export default function ActivationDerivatives() {
@@ -98,6 +100,11 @@ export default function ActivationDerivatives() {
       <svg viewBox={`0 0 ${W} ${H}`} onMouseMove={onMove} onMouseLeave={() => setHoverZ(null)}
         style={{ width: "100%", display: "block", maxWidth: 620 }}>
         <rect width={W} height={H} fill="var(--bg-inset)" />
+        <defs>
+          <clipPath id="ad-plot-clip">
+            <rect x={PAD_L} y={PAD_T} width={PLOT_W} height={PLOT_H} />
+          </clipPath>
+        </defs>
         {/* axes */}
         <g stroke="var(--line)" strokeWidth="0.6" fill="none">
           <line x1={PAD_L} y1={yToPx(0)} x2={W - PAD_R} y2={yToPx(0)}/>
@@ -117,6 +124,7 @@ export default function ActivationDerivatives() {
           <line x1={zToPx(hoverZ)} y1={PAD_T} x2={zToPx(hoverZ)} y2={H - PAD_B} stroke="oklch(0.7 0.18 60)" strokeWidth="1" strokeDasharray="3 2"/>
         )}
         {/* activation curves */}
+        <g clipPath="url(#ad-plot-clip)">
         {Object.entries(ACTS).map(([k, a]) => active[k] && (
           <g key={k}>
             <path d={curveFor(a)} stroke={a.color} strokeWidth="2" fill="none"/>
@@ -131,6 +139,7 @@ export default function ActivationDerivatives() {
             )}
           </g>
         ))}
+        </g>
       </svg>
 
       {hoverZ !== null && (

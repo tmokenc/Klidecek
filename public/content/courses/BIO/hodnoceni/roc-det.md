@@ -150,7 +150,7 @@ Příklad ze [NIST FRVT 2024](https://pages.nist.gov/frvt/):
 | NTECH Lab | 0.0010 |
 | Cloudwalk | 0.0024 |
 | SenseTime | 0.0035 |
-| 100. percentil | 0.05 |
+| Spodní percentil (slabší vendoři) | 0.05 |
 | Worst (older systems) | > 0.5 |
 
 ## Interpretace pro deployment

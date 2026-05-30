@@ -163,7 +163,7 @@ Pro cyklickou grupu $G$ s generátorem $g$ řádu $q$ je problém **diskrétníh
 
 **Sub-exponenciální algoritmy** pro $\mathbb{Z}_p^*$:
 
-* **Index calculus**: $\exp(O(\sqrt{\log p \log \log p}))$ pro velkou klasifikační skupinu.
+* **Index calculus** (klasická varianta): $\exp(O(\sqrt{\log p \cdot \log\log p}))$, tj. složitost $L_p[1/2]$ — historicky horší než dnešní GNFS-DLP s $L_p[1/3]$ níže.
 * **GNFS-DLP**: $\exp(O((\log p)^{1/3} (\log \log p)^{2/3}))$ — analogie GNFS.
 
 Pro **eliptické křivky** (ECC, [[elipticke]]) **index calculus nefunguje** — neexistuje vhodná "factor base" pro EC body. Pouze generické $O(\sqrt{q})$ algoritmy → ECC potřebuje *kratší klíče* pro stejnou bezpečnost než DH-Z_p.

@@ -8,7 +8,7 @@ title: Krevní řečiště — vein biometrics
 
 ## Princip
 
-Žíly obsahují **deoxidizovanou hemoglobin** (deoxy-Hb). Tato složka *absorbuje* near-infrared (NIR) světlo (peak absorption ~760 nm).
+Žíly obsahují **deoxygenovaný hemoglobin** (deoxyhemoglobin, deoxy-Hb). Tato složka *absorbuje* near-infrared (NIR) světlo (peak absorption ~760 nm).
 
 ::: svg "Princip vein imaging: NIR LED osvětluje ruku, deoxy-Hb v žilách absorbuje světlo (tmavé linky), kosti + okolní tkáň reflektují (světlé), kamera zachytí kontrastní obraz vein pattern."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -199,7 +199,7 @@ Some advanced systems combine vein + fingerprint + palmprint.
 ## Trends 2025
 
 * **Mass smartphone adoption** uncertain — NIR sensors not standard in phones.
-* **Apple Watch** uses similar NIR for medical (heart rate, SpO2) but not biometric ID yet.
+* **Apple Watch** uses red+infrared light for blood-oxygen (SpO2) measurement (heart rate itself uses green-LED PPG, not NIR) but not for biometric ID yet.
 * **Multimodal palm biometrics** — vein + palmprint + geometry.
 * **DL-based** algorithms improving accuracy.
 * **EU healthcare** showing increased interest post-COVID.

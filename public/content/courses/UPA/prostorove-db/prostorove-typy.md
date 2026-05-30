@@ -99,7 +99,7 @@ Atributy:
 
 ### Konvexní vs. konkávní
 
-Polygon je **konvexní**, pokud pro libovolné dva body uvnitř leží celá úsečka mezi nimi také uvnitř. **Konkávní** ne (má "díry" nebo "zářezy" v okraji, ale ne *uvnitř*).
+Polygon je **konvexní**, pokud pro libovolné dva body uvnitř leží celá úsečka mezi nimi také uvnitř. **Konkávní** ne (má "zářezy" či výběžky v okraji — reflexní úhly > 180° — ne však *díry uvnitř*).
 
 Hranice kraje je obvykle *konkávní* (nepravidelná). Sídelní bloky bývají konvexní (čtverce, šestiúhelníky).
 
@@ -270,10 +270,11 @@ PostGIS používá *GiST* (Generalized Search Tree) framework s R-tree algoritme
 Standard definuje:
 * **Geometry hierarchii** — Point → LineString → Polygon → MultiPolygon ...
 * **Funkce** — ST_* prefix (ST = Spatial Type).
-* **Predikáty** — devět dimensions DE-9IM (Dimensionally Extended 9-Intersection Model).
+* **Predikáty** — odvozené z modelu DE-9IM (Dimensionally Extended 9-Intersection Model).
 
-Devět predikátů z DE-9IM:
-* Equals, Disjoint, Intersects, Touches, Crosses, Within, Contains, Overlaps, Relate.
+DE-9IM je matice 3×3 = 9 průniků interior/boundary/exterior dvou geometrií (ne devět predikátů). Osm pojmenovaných topologických predikátů:
+* Equals, Disjoint, Intersects, Touches, Crosses, Within, Contains, Overlaps.
+* `Relate(matice)` je obecná funkce, která testuje libovolný vzor DE-9IM.
 
 Více v [[prostorove-operace]].
 

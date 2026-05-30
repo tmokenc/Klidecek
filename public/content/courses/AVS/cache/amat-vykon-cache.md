@@ -109,12 +109,12 @@ Dva ortogonální parametry:
 - **Latence** — *jak dlouho* trvá jedna operace (200 cyklů).
 - **Bandwidth** — *kolik* operací za sekundu (50 GB/s).
 
-DRAM controller umí *paralelně* obsluhovat víc requestů. Jakmile MSHR ([[ls-jednotka-mshr]]) drží 10 outstanding misses, *bandwidth* určuje výkon, ne latence.
+DRAM controller umí *paralelně* obsluhovat víc requestů. Jakmile MSHR ([[ls-jednotka-mshr]]) drží dostatek outstanding misses, *bandwidth* určuje výkon, ne latence.
 
 ```
-Little's law:  outstanding_misses = bandwidth × latence
-                10 = 50 GB/s × 200 ns / 64 B per line
-                10 ≈ 10 / 64 ns = ~150 outstanding loads
+Little's law:  outstanding_misses = bandwidth × latence / line_size
+                50 GB/s × 200 ns = 10 000 B in flight
+                10 000 B / 64 B = ~156 outstanding loads
 ```
 
 ⇒ Pro plné využití bandwidth musíme držet 100+ misses in flight. Apple M1 = 192 MSHR — víc než Intel.

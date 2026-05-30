@@ -21,12 +21,12 @@ V *lazy* jazyce (Haskell):
 
 ```haskell
 f :: Int -> Int
-f x = x + 1
+f _ = 42
 
 f (expensiveComputation)  -- expensiveComputation runs ONLY if x is needed
 ```
 
-Konkrétně: `f` se *nepodívá* na `x` až dokud nepotřebuje jeho hodnotu. Pokud `f = const 42`, pak `f (expensiveComputation) = 42` *bez* spuštění computation.
+Konkrétně: `f` se *nepodívá* na `x` až dokud nepotřebuje jeho hodnotu. Protože zde `f _ = 42` (tj. `f = const 42`), platí `f (expensiveComputation) = 42` *bez* spuštění computation.
 
 ## Tři strategie evaluace
 

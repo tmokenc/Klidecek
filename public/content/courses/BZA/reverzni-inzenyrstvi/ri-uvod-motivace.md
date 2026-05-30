@@ -11,7 +11,7 @@ title: Reverzní inženýrství — úvod a motivace
 ## Forward vs. Reverse engineering
 
 ::: svg "Forward engineering: požadavky → návrh → kód → chování. Reverse engineering: ze běžícího systému zpětně rekonstruovat strukturu, návrh, požadavky."
-<svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
+<svg viewBox="0 0 540 232" font-family="ui-sans-serif, system-ui" font-size="11">
   <defs>
     <marker id="aRE1" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
       <path d="M0 0 L8 4 L0 8 z" fill="var(--accent)"/>

@@ -154,13 +154,13 @@ Nevýhoda: stupeň uzlu $\log p$ *roste* s $p$ — uzel ve velké kostce potřeb
 
 ### Mřížka a torus
 
-**$k$-ární $n$-rozměrná kostka** = kartézský součin $n$ lineárních polí s $k$ uzly. Pro $n=2$, $k=\sqrt p$ získáme **2D mřížku**, populární topologii (Connection Machine CM-5, Tilera Tile64, AMD Threadripper).
+**$k$-ární $n$-rozměrná kostka** = kartézský součin $n$ lineárních polí s $k$ uzly. Pro $n=2$, $k=\sqrt p$ získáme **2D mřížku**, populární topologii (Intel Paragon, Tilera Tile64, MIT Raw).
 
 **Torus** = mřížka s *cyklickým* zacelením hran (uzly na okraji jsou propojeny s protilehlými). Snižuje průměr, zvyšuje konektivitu.
 
 | | Mřížka 2D | Torus 2D |
 | :--- | :---: | :---: |
-| Diametr | $2(\sqrt p - 1)$ | $\lfloor \sqrt p \rfloor$ |
+| Diametr | $2(\sqrt p - 1)$ | $2 \lfloor\sqrt p/2\rfloor$ |
 | Bisekce | $\sqrt p$ | $2\sqrt p$ |
 
 Reálná použití: CRAY T3E (3D torus), IBM Blue Gene (5D torus), Fujitsu K Computer (6D torus).
@@ -169,7 +169,7 @@ Reálná použití: CRAY T3E (3D torus), IBM Blue Gene (5D torus), Fujitsu K Com
 
 **Binární strom** ($p$ listů + $p-1$ vnitřních uzlů): logaritmický průměr ($2\log_2 p$), ale *šířka bisekce = 1* — *kořen je bottleneck*. Pro algoritmy s hodně komunikace mezi polovinami strom selhává.
 
-**Fat tree** (Leiserson, 1985) řeší bottleneck — hrany blíže ke kořenu jsou *„tlustší"* (multiplikované). Šířka bisekce roste s počtem listů. Používán v moderních HPC sítích (InfiniBand fat-tree, klasický topologie v datacenter networks).
+**Fat tree** (Leiserson, 1985) řeší bottleneck — hrany blíže ke kořenu jsou *„tlustší"* (multiplikované). Šířka bisekce roste s počtem listů. Používán v moderních HPC sítích (Connection Machine CM-5, InfiniBand fat-tree, klasický topologie v datacenter networks).
 
 ::: svg "Binární strom vs fat tree — bottleneck u kořene"
 <svg viewBox="0 0 540 170" font-family="ui-sans-serif, system-ui" font-size="11">

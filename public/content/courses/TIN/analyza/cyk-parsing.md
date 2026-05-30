@@ -113,11 +113,11 @@ CYK tabulku obvykle kreslíme jako *trojúhelník*:
     <text x="210" y="44">S,A</text>
     <text x="270" y="44">S,A</text>
     <text x="90" y="84">S,B</text>
-    <text x="150" y="84">S,C,A</text>
-    <text x="210" y="84">S,C,A</text>
-    <text x="90" y="124">S,C,A</text>
-    <text x="150" y="124">S,C,A</text>
-    <text x="90" y="164" font-weight="bold" fill="var(--accent)">S,C,A</text>
+    <text x="150" y="84">∅</text>
+    <text x="210" y="84">S,A,C</text>
+    <text x="90" y="124">S,C</text>
+    <text x="150" y="124">A</text>
+    <text x="90" y="164" font-weight="bold" fill="var(--accent)">S,A,C</text>
   </g>
   <text x="270" y="50" fill="var(--text-muted)" font-size="10">  ← řádek j=1: vlož X pro každé pravidlo X → wᵢ</text>
   <text x="270" y="90" fill="var(--text-muted)" font-size="10">  ← řádek j=2: pro podslova délky 2</text>
@@ -180,12 +180,27 @@ $T_{1, 2}$ pro slovo $w_1 w_2 = ab$, dělení $k = 1$:
 $T_{2, 2}$ pro $w_2 w_3 = ba$, dělení $k = 1$:
 * $T_{2, 1} = \{B, C\}$, $T_{3, 1} = \{S, A\}$.
 * Hledáme $X \to YZ$, $Y \in \{B, C\}$, $Z \in \{S, A\}$:
-  * $A \to BC$: $C \notin Z$. ✗
+  * $A \to BC$: $C \notin \{S, A\}$. ✗
   * $C \to SA$: $S \notin \{B, C\}$. ✗
-  * Žádná shoda mezi $B$/$C$ a $S$/$A$ ve dvojicích, kromě tří kombinací:
-    * $S, C, A$... přidám si.
+* Žádné pravidlo nemá pravou stranu $YZ$ s $Y \in \{B, C\}$ a $Z \in \{S, A\}$, takže $T_{2, 2} = \emptyset$.
 
-Pro úsporu místa zde naznačím — výsledné hodnoty z přehledového obrázku výše.
+$T_{3, 2}$ pro $w_3 w_4 = aa$, dělení $k = 1$:
+* $T_{3, 1} = \{S, A\}$, $T_{4, 1} = \{S, A\}$.
+* Hledáme $X \to YZ$, $Y \in \{S, A\}$, $Z \in \{S, A\}$:
+  * $S \to SS$: $S \in T_{3,1}, S \in T_{4,1}$. ✓
+  * $A \to AA$: $A \in T_{3,1}, A \in T_{4,1}$. ✓
+  * $C \to SA$: $S \in T_{3,1}, A \in T_{4,1}$. ✓
+* $T_{3, 2} = \{S, A, C\}$.
+
+**Řádek $j = 3$:**
+
+$T_{1, 3}$ pro $w_1 w_2 w_3 = aba$: dělení $k = 1$ ($T_{1,1} \times T_{2,2} = \emptyset$) nepřispěje; pro $k = 2$ ($T_{1,2} = \{S, B\}$, $T_{3,1} = \{S, A\}$) přidá $S$ ($S \to SS$) a $C$ ($C \to SA$). Tedy $T_{1, 3} = \{S, C\}$.
+
+$T_{2, 3}$ pro $w_2 w_3 w_4 = baa$: pro $k = 1$ ($T_{2,1} = \{B, C\}$, $T_{3,2} = \{S, A, C\}$) přidá $A$ ($A \to BC$); $k = 2$ ($T_{2,2} = \emptyset$) nepřispěje. Tedy $T_{2, 3} = \{A\}$.
+
+**Řádek $j = 4$:**
+
+$T_{1, 4}$ pro $w_1 w_2 w_3 w_4 = abaa$ kombinuje dělení $k = 1, 2, 3$ a vyjde $T_{1, 4} = \{S, A, C\}$.
 
 **Závěr**: $S \in T_{1, 4}$, slovo $abaa$ je v $L(G)$.
 

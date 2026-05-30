@@ -132,7 +132,7 @@ V `Request`/`Response` se domluví **service code** (jako port + protokol popis)
 
 ### Praktická situace
 
-DCCP **nikdy se rozšířilo**. Linux kernel ho má (`CONFIG_IP_DCCP`), ale aplikace nebyla. Důvody:
+DCCP se **nikdy nerozšířilo**. Linux kernel ho má (`CONFIG_IP_DCCP`), ale aplikace nebyla. Důvody:
 
 - **NAT a firewall** — DCCP má vlastní L4 protokol number (33), který middleboxy nepropouštějí. Aplikace přepnula na UDP.
 - **Aplikační CC** — RTP nad UDP řeší CC samo (TFRC v knihovnách).

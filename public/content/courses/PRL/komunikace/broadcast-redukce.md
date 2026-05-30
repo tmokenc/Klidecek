@@ -316,7 +316,7 @@ Tabulka časů na různých topologiích:
 
 Často potřebujeme, aby *všechny* uzly měly *výsledek redukce* (např. global gradient v distributed ML training). Naivně: redukce $O(\log N)$ + broadcast $O(\log N)$ = $O(\log N)$.
 
-**Optimalizovaný all-reduce na hyperkrychli** (Bruck, Ho 1993): $\log N$ kroků, v každém kroku každý uzel vymění s aktuálním partnerem hodnotu a oba aplikují $\oplus$. Po $\log N$ krocích mají *všichni* tutéž redukci.
+**Optimalizovaný all-reduce na hyperkrychli** (Bruck, Ho 1997): $\log N$ kroků, v každém kroku každý uzel vymění s aktuálním partnerem hodnotu a oba aplikují $\oplus$. Po $\log N$ krocích mají *všichni* tutéž redukci.
 
 ```
 procedure ALL_REDUCE_HC(my_val)
@@ -328,13 +328,13 @@ procedure ALL_REDUCE_HC(my_val)
   return my_val
 ```
 
-**Čas**: $\log N$ — stejně jako jednoduchý broadcast. **MPI standardní operace `MPI_Allreduce`** ji implementuje *přesně* takto pro mocniny dvou, jinak rekurzivním půlením + ručním shoulderingem.
+**Čas**: $\log N$ — stejně jako jednoduchý broadcast. **MPI standardní operace `MPI_Allreduce`** ji implementuje *přesně* takto pro mocniny dvou, jinak rekurzivním půlením (recursive halving) s předzpracováním přebývajících procesů do nejbližší mocniny dvou (Rabenseifnerův algoritmus).
 
 ## Praktické důsledky
 
 1. **Broadcast je „zdarma" v CRCW** — pro algoritmy nad sdílenou cache (multi-core) lze považovat za $O(1)$.
 2. **Na clusteru je broadcast** $O(\log N)$ — *dominantní* fáze mnoha distribuovaných výpočtů. Optimalizace = pipelining (rozdělit zprávu na bloky a začít posílat dále *předtím*, než přijde celá).
-3. **Redukce a all-reduce dominantní v distributed ML** — synchronizace gradientů. NVIDIA NCCL implementuje ring-allreduce v $\Theta(p)$ tokenech ale $\Theta(\log p)$ času pro malé zprávy.
+3. **Redukce a all-reduce dominantní v distributed ML** — synchronizace gradientů. NVIDIA NCCL implementuje ring-allreduce s $\Theta(p)$ kroky (tedy $\Theta(p)$ latencí pro malé zprávy), ale bandwidth-optimálně $\Theta(m)$; pro malé zprávy se proto používá rekurzivní zdvojení / stromový allreduce s $\Theta(\log p)$ latencí.
 4. **Mřížka je nejhorší** pro velký počet uzlů — broadcast $O(\sqrt N)$ vs $O(\log N)$ na hyperkrychli.
 
 ## Co dál

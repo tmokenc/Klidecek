@@ -169,7 +169,7 @@ Získání parametrů modelu z dat. Strojové učení.
 
 Centrální nárok ML: model se *naučí* na trénovacích datech a má *zobecnit* na *neviděná* data. Bez generalizace je ML jen *zapamatováním* trénovacího setu — bez praktického využití.
 
-**Bias-variance trade-off**, **regularizace**, **distribuovaný shift**, **out-of-distribution** generalization — všechno řeší tento problém.
+**Bias-variance trade-off**, **regularizace**, **distribution shift**, **out-of-distribution** generalization — všechno řeší tento problém.
 
 ## Sub-fields AI
 

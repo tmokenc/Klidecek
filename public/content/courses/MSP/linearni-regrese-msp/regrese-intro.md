@@ -163,11 +163,11 @@ x  (venkovní teplota °C):  -5, 0, 5, 10, 15, 20
 Y  (denní spotřeba kWh):   45, 38, 30, 22, 16, 10
 ```
 
-Spočítáme: `x̄ = 7,5, Ȳ = 26,83, S_xx = 437,5, S_xY = −787,5`.
+Spočítáme: `x̄ = 7,5, Ȳ = 26,83, S_xx = 437,5, S_xY = −622,5`.
 
-`β̂₁ = −787,5/437,5 = −1,80`. `β̂₀ = 26,83 − (−1,80) · 7,5 = 40,33`.
+`β̂₁ = −622,5/437,5 = −1,42`. `β̂₀ = 26,83 − (−1,42) · 7,5 = 37,50`.
 
-Model: `Ŷ = 40,33 − 1,80 · x`. Interpretace: každý 1 °C nárůst teploty snižuje spotřebu o `1,80 kWh`. Při `0 °C` je spotřeba `40,33 kWh`.
+Model: `Ŷ = 37,50 − 1,42 · x`. Interpretace: každý 1 °C nárůst teploty snižuje spotřebu o `1,42 kWh`. Při `0 °C` je spotřeba `37,50 kWh`.
 
 ## Vícenásobná regrese — interpretace v matici
 
@@ -188,12 +188,12 @@ To je *Frisch-Waugh-Lovell teorém* — proč u korelovaných prediktorů koefic
 ```
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)
-(Intercept) 40.3286     0.6213   64.91  < 2e-16 ***
-x           -1.8000     0.0532  -33.85  < 2e-16 ***
+(Intercept) 37.5048     0.4787   78.35  < 2e-16 ***
+x           -1.4229     0.0421  -33.78  < 2e-16 ***
 
-Residual standard error: 0.913 on 4 degrees of freedom
-Multiple R-squared:  0.9966
-F-statistic: 1146 on 1 and 4 DF,  p-value: < 2.2e-16
+Residual standard error: 0.881 on 4 degrees of freedom
+Multiple R-squared:  0.9965
+F-statistic: 1141 on 1 and 4 DF,  p-value: < 2.2e-16
 ```
 
 Klíčové komponenty:

@@ -186,7 +186,7 @@ return S;
 * **Demonstrace v r. 2010** na akademických kartách bez kontroly — *jediný* fault stačil pro recovery klíče za $1M USD CA cert.
 * **Smart cards EAL4** v r. 2002 zranitelné; po Bellcore publikaci certifikace EAL5+ explicitně testuje resistance.
 * **Java Card 3.0.5** od r. 2017 obsahuje *povinný* verify check pro `RSA.signWithCRT()`.
-* **OpenSSL** od r. 1999 (verze 0.9.7) implementuje verify check.
+* **OpenSSL** od r. 2002 (verze 0.9.7) implementuje verify check.
 
 ## Klíčová ponaučení
 

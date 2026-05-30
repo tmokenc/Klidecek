@@ -51,7 +51,7 @@ $$\text{součet}_m(d_1, \ldots, d_m) = \sum_{d_i \in D_i, i > m} g_n(d_1, \ldots
 
 Krokově:
 
-$$\text{součet}_m(d_1, \ldots, d_m) = \sum_{d_i \in D_i} \text{součet}_{m+1}(d_1, \ldots, d_i, \ldots, d_m)$$
+$$\text{součet}_m(d_1, \ldots, d_m) = \sum_{d_{m+1} \in D_{m+1}} \text{součet}_{m+1}(d_1, \ldots, d_m, d_{m+1})$$
 
 — čteno: *agregát na $m$-úrovni je součet agregátů na $(m+1)$-úrovni přes vyřazenou dimenzi*.
 

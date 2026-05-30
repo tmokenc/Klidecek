@@ -4,13 +4,13 @@ title: Paxos — kanonický algoritmus konsensu
 
 # Paxos — algoritmus distribuovaného konsensu
 
-**Paxos** (Leslie Lamport, 1989, publikován 1998) je *kanonický* algoritmus pro distribuovaný konsensus v prostředí s **crash-stop** chybami a **částečně asynchronním** systémem. Je *teoreticky elegantní*, ale *prakticky* notoricky obtížný na pochopení. Tato kapitola probírá *základní jednorázový* Paxos (single-decree): jeho dvoufázový protokol, problém **livelocku**, a *leader-based* variantu, která je *de facto* nasazena v produkčních systémech (ZooKeeper, etcd, Spanner).
+**Paxos** (Leslie Lamport, 1990, publikován 1998) je *kanonický* algoritmus pro distribuovaný konsensus v prostředí s **crash-stop** chybami a **částečně asynchronním** systémem. Je *teoreticky elegantní*, ale *prakticky* notoricky obtížný na pochopení. Tato kapitola probírá *základní jednorázový* Paxos (single-decree): jeho dvoufázový protokol, problém **livelocku**, a *leader-based* variantu, která je *de facto* nasazena v produkčních systémech (ZooKeeper, etcd, Spanner).
 
 ## Idea
 
 Klíčové intuice za Paxosem:
 
-- **Kvórum** (majority) = libovolných $\lceil n/2 \rceil + 1$ procesů. Dvě libovolná kvóra mají *neprázdný průnik*.
+- **Kvórum** (majority) = libovolných $\lfloor n/2 \rfloor + 1$ procesů. Dvě libovolná kvóra mají *neprázdný průnik*.
 - **Unikátní čísla návrhů** (proposal numbers, $\text{tspr}$) — *monotónně rostou*, žádné dvě nejsou stejné.
 - Pokud *kvórum* akceptovalo nějakou hodnotu, *žádný budoucí kvórum* nemůže akceptovat *jinou*.
 
@@ -138,7 +138,7 @@ Nikdy nedosáhne konsensu — *liveness* selhává. (FLP impossibility v praxi.)
 
 V praxi se používá *leader-based* varianta:
 
-- Detector $\Omega$ ($[[failure-modely]]$) označí jediného **leadera**.
+- Detector $\Omega$ (viz [[failure-modely]]) označí jediného **leadera**.
 - Pouze leader navrhuje hodnoty.
 - Konflikty (mezi více proposery) se *vytrácí*.
 - Pokud leader selže, *Omega* nominuje nového.
@@ -168,7 +168,7 @@ upon receive REQUEST(v) from client (jen pokud leader):
 
 - **Safety zachována** i když mám 2 leadry (split-brain) — kvórum vždy vyhraje.
 - **Liveness** obnovena, jakmile $\Omega$ stabilizuje na *jednom* leaderovi.
-- *Optimalizace*: leader může *přeskočit* fázi 1 pro další návrhy (Multi-Paxos = $\log n$ instances Paxosu se sdíleným leaderem).
+- *Optimalizace*: leader může *přeskočit* fázi 1 pro další návrhy (Multi-Paxos = posloupnost instancí Basic Paxosu — jedna instance na každou položku logu — se sdíleným leaderem).
 
 ## Real-world implementace
 

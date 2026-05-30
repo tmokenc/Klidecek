@@ -91,7 +91,7 @@ Column 'city':     "Brno", "Praha", ..., 8B values
 
 8 miliard × 1 bit (po dictionary encoding) = **1 GB**. Při 4 MB/ms/jádro = **0.25 s** s 1 jádrem.
 
-**400× rychlejší** než stride access v row store, **1600× rychlejší** než full row scan.
+**≈512× (cca 500×) rychlejší** než stride access v row store, **1600× rychlejší** než full row scan.
 
 ::: svg "Row vs Column layout: row store ukládá tuple za tuplem (rychlé pro OLTP), column store ukládá sloupec za sloupcem (rychlé pro analytic queries scanning few columns)."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">

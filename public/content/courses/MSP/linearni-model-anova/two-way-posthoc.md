@@ -101,7 +101,7 @@ Plus *vyvážený* design (rovné velikosti buněk) zjednodušuje analýzu. Pro 
 
 ## Post-hoc testy
 
-Pokud ANOVA odmítla `H₀`, *které* skupiny se liší? Naivně provést `(k 2)` t-testů — ale *multiplicita* (viz [[testovani-princip]]) ⇒ FWER roste lineárně s počtem testů. Post-hoc testy kontrolují FWER.
+Pokud ANOVA odmítla `H₀`, *které* skupiny se liší? Naivně provést `(k 2)` t-testů — ale *multiplicita* (viz [[testovani-princip]]) ⇒ FWER roste s počtem testů (přibližně `1 − (1 − α)^m` při nezávislosti), přičemž Bonferroniho mez `m · α` je její lineární horní odhad. Post-hoc testy kontrolují FWER.
 
 ### Tukey HSD (Honestly Significant Difference)
 

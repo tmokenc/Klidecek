@@ -74,9 +74,12 @@ export default function RocDetExplorer() {
   const W = 280, H = 200;
   // log scale FAR from 1e-8 to 1
   const logMin = -8, logMax = 0;
-  const xlog = (far) => 30 + (Math.log10(Math.max(far, 1e-10)) - logMin) / (logMax - logMin) * (W - 50);
+  // clamp to the axis floor (10^logMin) so curves/markers never extrapolate
+  // past the left/top axes (which would clip against the SVG viewBox).
+  const axisFloor = Math.pow(10, logMin);
+  const xlog = (far) => 30 + (Math.log10(Math.max(far, axisFloor)) - logMin) / (logMax - logMin) * (W - 50);
   const yROC = (gar) => H - 25 - gar * (H - 45);
-  const yDET = (frr) => 20 + (Math.log10(Math.max(frr, 1e-10)) - logMin) / (logMax - logMin) * (H - 45);
+  const yDET = (frr) => 20 + (Math.log10(Math.max(frr, axisFloor)) - logMin) / (logMax - logMin) * (H - 45);
 
   function rocPath(pts) {
     let d = "";

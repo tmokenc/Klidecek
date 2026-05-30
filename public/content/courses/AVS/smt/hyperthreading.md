@@ -53,7 +53,7 @@ V *back-endu* dispatch *jakoukoli* ready instrukci z RS, bez ohledu na thread. A
 
 Intel rozhodla *jak rozdělit* sdílené struktury:
 
-- **ROB**: half-and-half (96 / 96 ze 192). Zaručuje *jistou* progress per thread, ale nelze přerozdělit.
+- **ROB**: half-and-half (63 / 63 ze 126 na Pentiu 4). Zaručuje *jistou* progress per thread, ale nelze přerozdělit.
 - **RS**: dynamicky — first-come-first-served.
 - **Cache**: open — kdo dřív, ten *má*.
 
@@ -71,7 +71,7 @@ Empirický fact: SPECCPU rate (multiple threads) má HT speedup ~20-30 %. Single
 
 ## Memory-level parallelism
 
-SMT exceluje při *memory-level parallelism*. Jeden thread čeká na L3 miss (50 cyklů), druhý mezitím vykonává compute-bound část.
+SMT exceluje při *memory-level parallelism*. Jeden thread čeká na L3 miss (~200 cyklů na DRAM), druhý mezitím vykonává compute-bound část.
 
 Zátěž benefitující z HT:
 

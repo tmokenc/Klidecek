@@ -4,7 +4,7 @@ title: Jakarta EE — platforma, vrstvy, profily a aplikační servery
 
 **Jakarta EE** (dříve *Java EE* / *J2EE*) je sada specifikací postavená nad Java SE pro tvorbu **podnikových aplikací a informačních systémů**. Nabízí standardní API pro nejčastější úlohy serverové strany (persistence, transakce, REST, messaging, web UI) a definuje *běhové prostředí*, ve kterém aplikace běží.
 
-V roce 2017 přešla správa platformy z Oraclu pod nadaci Eclipse a v rámci přejmenování se z balíčku `javax.*` stalo `jakarta.*`. V současnosti je aktuální **Jakarta EE 11**.
+V roce 2017 Oracle oznámil převod Java EE pod nadaci Eclipse (platforma byla v roce 2018 přejmenována na Jakarta EE). Změna balíčku z `javax.*` na `jakarta.*` však přišla až s vydáním Jakarta EE 9 v prosinci 2020. V současnosti je aktuální **Jakarta EE 11**.
 
 ## Java SE jako základ
 
@@ -19,33 +19,33 @@ Specifikace pokrývají tři vrstvy aplikace — datovou, business a webovou:
   <rect x="20" y="20" width="500" height="55" rx="6" fill="oklch(0.65 0.16 220 / 0.10)" stroke="oklch(0.65 0.16 220)"/>
   <text x="35" y="40" font-size="11" font-weight="600" fill="oklch(0.35 0.16 220)">Webová vrstva</text>
   <rect x="35" y="48" width="100" height="22" rx="3" fill="oklch(0.65 0.16 220 / 0.30)"/>
-  <text x="85" y="63" text-anchor="middle" font-size="10" font-weight="500">Jakarta Servlet</text>
+  <text x="85" y="63" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">Jakarta Servlet</text>
   <rect x="143" y="48" width="100" height="22" rx="3" fill="oklch(0.65 0.16 220 / 0.30)"/>
-  <text x="193" y="63" text-anchor="middle" font-size="10" font-weight="500">JAX-RS (REST)</text>
+  <text x="193" y="63" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">JAX-RS (REST)</text>
   <rect x="251" y="48" width="100" height="22" rx="3" fill="oklch(0.65 0.16 220 / 0.30)"/>
-  <text x="301" y="63" text-anchor="middle" font-size="10" font-weight="500">JSF (Server Faces)</text>
+  <text x="301" y="63" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">JSF (Server Faces)</text>
   <rect x="359" y="48" width="100" height="22" rx="3" fill="oklch(0.65 0.16 220 / 0.30)"/>
-  <text x="409" y="63" text-anchor="middle" font-size="10" font-weight="500">WebSocket</text>
+  <text x="409" y="63" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">WebSocket</text>
   <rect x="20" y="85" width="500" height="80" rx="6" fill="oklch(0.62 0.14 22 / 0.10)" stroke="oklch(0.62 0.14 22)"/>
   <text x="35" y="105" font-size="11" font-weight="600" fill="oklch(0.40 0.14 22)">Business vrstva</text>
   <rect x="35" y="113" width="100" height="22" rx="3" fill="oklch(0.62 0.14 22 / 0.30)"/>
-  <text x="85" y="128" text-anchor="middle" font-size="10" font-weight="500">EJB</text>
+  <text x="85" y="128" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">EJB</text>
   <rect x="143" y="113" width="100" height="22" rx="3" fill="oklch(0.62 0.14 22 / 0.30)"/>
-  <text x="193" y="128" text-anchor="middle" font-size="10" font-weight="500">CDI</text>
+  <text x="193" y="128" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">CDI</text>
   <rect x="251" y="113" width="100" height="22" rx="3" fill="oklch(0.62 0.14 22 / 0.30)"/>
-  <text x="301" y="128" text-anchor="middle" font-size="10" font-weight="500">JTA (transakce)</text>
+  <text x="301" y="128" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">JTA (transakce)</text>
   <rect x="359" y="113" width="100" height="22" rx="3" fill="oklch(0.62 0.14 22 / 0.30)"/>
-  <text x="409" y="128" text-anchor="middle" font-size="10" font-weight="500">JMS (messaging)</text>
+  <text x="409" y="128" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">JMS (messaging)</text>
   <rect x="35" y="138" width="208" height="22" rx="3" fill="oklch(0.62 0.14 22 / 0.30)"/>
-  <text x="139" y="153" text-anchor="middle" font-size="10" font-weight="500">Bean Validation</text>
+  <text x="139" y="153" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">Bean Validation</text>
   <rect x="251" y="138" width="208" height="22" rx="3" fill="oklch(0.62 0.14 22 / 0.30)"/>
-  <text x="355" y="153" text-anchor="middle" font-size="10" font-weight="500">Security, Mail, JSON-B/P</text>
+  <text x="355" y="153" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">Security, Mail, JSON-B/P</text>
   <rect x="20" y="175" width="500" height="50" rx="6" fill="oklch(0.62 0.14 142 / 0.10)" stroke="oklch(0.62 0.14 142)"/>
   <text x="35" y="195" font-size="11" font-weight="600" fill="oklch(0.40 0.14 142)">Datová vrstva</text>
   <rect x="35" y="203" width="200" height="22" rx="3" fill="oklch(0.62 0.14 142 / 0.30)"/>
-  <text x="135" y="218" text-anchor="middle" font-size="10" font-weight="500">JPA (Persistence API)</text>
+  <text x="135" y="218" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">JPA (Persistence API)</text>
   <rect x="243" y="203" width="216" height="22" rx="3" fill="oklch(0.62 0.14 142 / 0.30)"/>
-  <text x="351" y="218" text-anchor="middle" font-size="10" font-weight="500">JDBC (přímý přístup k SQL)</text>
+  <text x="351" y="218" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">JDBC (přímý přístup k SQL)</text>
 </svg>
 :::
 

@@ -82,16 +82,16 @@ V Eclipse stačí projekt importovat jako *Existing Maven Project*; po případn
   <rect x="20" y="20" width="500" height="180" rx="8" fill="oklch(0.62 0.14 22 / 0.08)" stroke="oklch(0.62 0.14 22)"/>
   <text x="35" y="40" font-size="11" font-weight="600" fill="oklch(0.40 0.14 22)" font-family="var(--font-mono)">demo.war  (= kořenový adresář /webu)</text>
   <rect x="40" y="55" width="460" height="32" rx="4" fill="var(--bg-card)" stroke="var(--line-strong)"/>
-  <text x="55" y="73" font-size="11" font-weight="500" font-family="var(--font-mono)">/index.html, /pages/*, /css/*, /js/*</text>
+  <text x="55" y="73" font-size="11" font-weight="500" fill="var(--text)" font-family="var(--font-mono)">/index.html, /pages/*, /css/*, /js/*</text>
   <text x="490" y="73" text-anchor="end" font-size="9.5" fill="var(--text-muted)" font-style="italic">veřejně přístupné</text>
   <rect x="40" y="92" width="460" height="32" rx="4" fill="var(--bg-card)" stroke="var(--line-strong)"/>
-  <text x="55" y="110" font-size="11" font-weight="500" font-family="var(--font-mono)">META-INF/</text>
+  <text x="55" y="110" font-size="11" font-weight="500" fill="var(--text)" font-family="var(--font-mono)">META-INF/</text>
   <text x="490" y="110" text-anchor="end" font-size="9.5" fill="var(--text-muted)" font-style="italic">manifest, info o archivu</text>
   <rect x="40" y="129" width="460" height="32" rx="4" fill="var(--bg-card)" stroke="var(--line-strong)"/>
-  <text x="55" y="147" font-size="11" font-weight="500" font-family="var(--font-mono)">WEB-INF/lib/*.jar</text>
+  <text x="55" y="147" font-size="11" font-weight="500" fill="var(--text)" font-family="var(--font-mono)">WEB-INF/lib/*.jar</text>
   <text x="490" y="147" text-anchor="end" font-size="9.5" fill="var(--text-muted)" font-style="italic">přibalené knihovny</text>
   <rect x="40" y="166" width="460" height="28" rx="4" fill="var(--bg-card)" stroke="var(--line-strong)"/>
-  <text x="55" y="183" font-size="11" font-weight="500" font-family="var(--font-mono)">WEB-INF/classes/**/*.class</text>
+  <text x="55" y="183" font-size="11" font-weight="500" fill="var(--text)" font-family="var(--font-mono)">WEB-INF/classes/**/*.class</text>
   <text x="490" y="183" text-anchor="end" font-size="9.5" fill="var(--text-muted)" font-style="italic">přeložený kód aplikace</text>
 </svg>
 :::

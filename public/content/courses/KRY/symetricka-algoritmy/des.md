@@ -34,7 +34,7 @@ DES je dnes **zastaralý** (56bitový klíč je prolomitelný za hodiny — viz 
   </g>
   <g fill="var(--text-muted)" font-size="10.5">
     <text x="40"  y="115" text-anchor="end">Feistel</text>
-    <text x="500" y="115" text-anchor="start">subkey K_i</text>
+    <text x="535" y="115" text-anchor="end">subkey K_i</text>
   </g>
 </svg>
 :::
@@ -119,7 +119,7 @@ Slabé klíče (před aplikací PC-1):
   0xE0E0E0E0F1F1F1F1
 ```
 
-Slabé klíče způsobí, že DES je *involutivní* — $E_K(E_K(M)) = M$. To samozřejmě prozrazení nebezpečnější útok. V praxi má pravděpodobnost $\approx 2^{-54}$ — zanedbatelná, ale generátor klíčů by je měl filtrovat.
+Slabé klíče způsobí, že DES je *involutivní* — $E_K(E_K(M)) = M$ (tj. $E_K = D_K$). Tato vlastnost je nežádoucí a útočník by ji mohl zneužít. V praxi má pravděpodobnost $\approx 2^{-54}$ — zanedbatelná, ale generátor klíčů by je měl filtrovat.
 
 ## Útoky na DES
 

@@ -156,7 +156,7 @@ IBM POWER9 = **SMT8** (8 vláken / core). Velikost ROB ~256 → 32 per thread. S
 
 Use case: server workloads s extreme latency (databáze running indexed queries, banking transactions). Throughput per chip extreme.
 
-Intel Xeon Phi Knights Landing (2016) = SMT4. Důvod: 1.4 GHz, in-order pipeline → SMT skryje latency.
+Intel Xeon Phi Knights Landing (2016) = SMT4. Důvod: 1.4 GHz, narrow 2-wide out-of-order pipeline (Silvermont-derived) → SMT skryje latency.
 
 Mainstream desktop: SMT2 (HT) je sweet spot. Vyšší SMT levels zhoršují single-thread bez kompenzace.
 

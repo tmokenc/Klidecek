@@ -395,7 +395,7 @@ function Toast({ msg }) {
 }
 
 const TWEAK_DEFAULTS = {
-  dark: false,
+  dark: true,
   accentHue: 264,
   density: "regular",
 };

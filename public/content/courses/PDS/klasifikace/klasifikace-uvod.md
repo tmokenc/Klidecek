@@ -45,7 +45,7 @@ Tři pravidla shodují se s adresou 192.168.32.1. *Vybere se /26* (nejdelší pr
 60  deny    IP   from any          to any
 ```
 
-Pravidlo 50 *nikdy nevykoná* — pravidlo 40 ho *shadowuje*. To je *typická chyba* při ručním psaní ACL — auditovací nástroje (Cisco AAA Analyzer) ji detekují.
+Pravidlo 50 *nikdy nevykoná* — pravidlo 40 ho *shadowuje*. To je *typická chyba* při ručním psaní ACL — auditovací nástroje pro analýzu ACL/firewall politik (např. AlgoSec, Tufin) ji detekují.
 
 ## Kdy se vyhodnocují filtrovací pravidla
 
@@ -145,7 +145,7 @@ Rozdělení podle **techniky**:
 | Lineární vyhledávání | $\mathcal{O}(N)$ | malé ACL |
 | Trie (1D, binary) | $\mathcal{O}(W)$ kde W = délka prefixu | LPM |
 | Multibit trie | $\mathcal{O}(W/k)$ | CEF (k=8) |
-| Bitový vektor (Lucent) | $\mathcal{O}(N/W)$ paměť | malé–střední ACL |
+| Bitový vektor (Lucent) | $\mathcal{O}(N^2)$ paměť | malé–střední ACL |
 | Kartézský součin | $\mathcal{O}(N^K)$ memory | typicky 2–3 dimenze |
 | HiCuts decision tree | $\mathcal{O}(\log N)$ | full ACL |
 | TCAM | $\mathcal{O}(1)$ — jeden cyklus! | high-end ASIC |

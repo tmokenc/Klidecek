@@ -122,7 +122,7 @@ Kvalita biometriky se měří **odlišností** těchto distribucí:
 d' = \frac{|\mu_G - \mu_I|}{\sqrt{(\sigma_G^2 + \sigma_I^2)/2}}
 :::
 
-**d'** (d-prime) — *Bhattacharyya distance*, $\ge 5$ = výborné, $\ge 3$ = dobré, $\le 1$ = špatné.
+**d'** (d-prime) — normalizovaná vzdálenost (*sensitivity index*) mezi středy distribucí genuine a impostor skóre, $\ge 5$ = výborné, $\ge 3$ = dobré, $\le 1$ = špatné.
 
 ## Faktory variability
 

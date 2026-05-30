@@ -314,31 +314,7 @@ fn process_file(path: &str) -> Result<String> {
 
 ### Pattern 1: From conversion + `?`
 
-```rust
-#[derive(Debug)]
-enum MyError {
-    IoError(std::io::Error),
-    ParseError(std::num::ParseIntError),
-}
-
-impl From<std::io::Error> for MyError {
-    fn from(e: std::io::Error) -> Self {
-        MyError::IoError(e)
-    }
-}
-
-impl From<std::num::ParseIntError> for MyError {
-    fn from(e: std::num::ParseIntError) -> Self {
-        MyError::ParseError(e)
-    }
-}
-
-fn process() -> Result<i32, MyError> {
-    let content = std::fs::read_to_string("data.txt")?;
-    let n: i32 = content.trim().parse()?;
-    Ok(n * 2)
-}
-```
+Define a custom error enum with a `From` impl per source error, then let `?` convert each error automatically — see the `AppError` example above under [`?` requires compatible error types](#-requires-compatible-error-types) (`enum { Io, Parse }` + two `From` impls + a read-file/parse function).
 
 ### Pattern 2: Combinators
 

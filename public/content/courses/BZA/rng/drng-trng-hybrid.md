@@ -109,7 +109,7 @@ LCG je *triviálně* predikovatelný — ze 2 výstupů jde rekonstruovat stav a
 
 ## Útok č. 3 — opakovaný IV: WEP
 
-WEP RC4 ([[a51-gsm|proudová šifra]]) používá 24-bit IV, generovaný jen prefixovaným čítačem. Po $2^{24}$ paketech (zlomek hodiny na rychlém Wi-Fi) se IV opakuje — keystream XOR keystream poskytne `plain XOR plain`, z čehož se s českým textem nebo známým hlavičkou WEP rekonstruuje klíč (FMS útok, KoreK útok, PTW útok).
+WEP RC4 ([[a51-gsm|proudová šifra]]) používá 24-bit IV, generovaný jen prefixovaným čítačem. Po $2^{24}$ paketech (zlomek hodiny na rychlém Wi-Fi) se IV opakuje — keystream XOR keystream poskytne `plain XOR plain`, z čehož se se známým otevřeným textem nebo známou hlavičkou WEP rekonstruuje klíč (FMS útok, KoreK útok, PTW útok).
 
 Lekce: i správný DRNG s krátkým výstupem (24 bitů) selže narozeninovou pravděpodobností — pro IV bývá třeba alespoň 96 bitů (AES-GCM) nebo 192 bitů (XChaCha20).
 

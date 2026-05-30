@@ -40,7 +40,7 @@ export default function CfgFlatten() {
     <div style={ctn}>
       <div style={lbl}>klikni na blok v originalu → odpovidajici case ve flatten verzi se zvyrazni.</div>
 
-      <svg viewBox="0 0 580 300" style={{ width: "100%", maxWidth: 600, background: "var(--bg-inset)", borderRadius: 6 }}>
+      <svg viewBox="-20 0 600 300" style={{ width: "100%", maxWidth: 600, background: "var(--bg-inset)", borderRadius: 6 }}>
         <text x={100} y={14} fontSize="11" textAnchor="middle" fill="var(--text-muted)">original CFG</text>
         <text x={300} y={14} fontSize="11" textAnchor="middle" fill="var(--text-muted)">flattened CFG</text>
 

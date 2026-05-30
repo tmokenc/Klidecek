@@ -241,13 +241,7 @@ Detailně [[antispoofing-face]]. Stručně:
 
 ## Dataset standardy
 
-* **LFW** (Labeled Faces in the Wild) — 13K images, 5K people. Classical benchmark.
-* **MS-Celeb-1M** — 10M images, 100K celebrities (withdrawn due to privacy).
-* **CASIA-WebFace** — 500K images, 10K people.
-* **MegaFace** — 4.7M images, 670K people.
-* **WebFace260M** — 4M identit, 260M obličejů (largest).
-
-NIST **FRVT** ongoing benchmark for vendor algorithms.
+Benchmarks (LFW, MegaFace, IJB, NIST **FRVT**) a tréninkové datasety (CASIA-WebFace, MS-Celeb-1M, WebFace260M) jsou detailně popsány v [[deep-learning-face]].
 
 ---
 

@@ -50,7 +50,7 @@ Univerzální TS lze realizovat jako 3-páskový TS:
 3. Prohledá kód $M$ na pásce 1, najde *odpovídající přechod* $\delta(q, x)$.
 4. Aplikuje přechod: zapíše nový stav na pásku 3, modifikuje pásku 2.
 
-Tato simulace prodlužuje běh konstantním faktorem ($O(|M| \cdot |\text{krok}|)$ za jeden krok původního $M$). Tj. univerzální TS běží *jen polynomiálně pomaleji* než simulovaný stroj.
+Tato simulace prodlužuje běh konstantním faktorem ($O(|M| \cdot |\text{krok}|)$ za jeden krok původního $M$). Tj. pro pevně daný $M$ je zpomalení konstantním faktorem (závislým na $|M|$); běh univerzálního TS je *lineární* vzhledem k počtu kroků simulovaného stroje.
 
 > **Důsledek**: jediná abstraktní mašinerie $U$ stačí na *přehrání* libovolného algoritmu. Toto je *teoretická základna programovatelného počítače* — moderní CPU s instrukční sadou je v podstatě konkrétní implementace univerzálního stroje, kde "kód $M$" je program v paměti.
 
@@ -116,7 +116,7 @@ V Chomského hierarchii leží *třída kontextových jazyků* $\mathcal{L}_1$ m
 
 **Věta.** Každý kontextový jazyk je rekurzivní.
 
-*Důkaz* (idea). LBA má jen *konečně mnoho různých konfigurací* na pásce délky $|w|$ — zhruba $c^{|w|}$ pro nějaké $c$ (konstantní symboly × stavy × pozice). Stroj může cyklit, ale jen *konečně dlouho* — počítáme kroky, a pokud dojde k překročení $c^{|w|}$ kroků, je jistota, že konfigurace se opakuje a tedy stroj nezastaví. Můžeme to detekovat.
+*Důkaz* (idea). LBA má jen *konečně mnoho různých konfigurací* na pásce délky $|w|$ — zhruba $c^{|w|}$ pro nějaké $c$ (konstantní symboly × stavy × pozice). Protože konfigurací je jen konečně mnoho ($\approx c^{|w|}$), počítáme kroky; pokud jejich počet překročí $c^{|w|}$, musí se nějaká konfigurace zopakovat — stroj tedy cyklí donekonečna a vstup zamítneme. Jinak se zastaví do $c^{|w|}$ kroků. Membership je proto rozhodnutelné.
 
 **Otevřený problém** (cca 60 let): je deterministický LBA stejně silný jako nedeterministický? Stále *otevřená otázka* — *LBA-problem*.
 

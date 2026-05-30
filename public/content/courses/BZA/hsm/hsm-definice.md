@@ -101,11 +101,11 @@ Pro context: *single* modern CPU dělá ~50 000 AES-256 GCM MB/s (s AES-NI). HSM
 ## Historie
 
 * **1972** — IBM 3624 — první commercial *cryptographic facility* pro banking ATM. Specializovaný hardware pro DES PIN translation.
-* **1986** — IBM **4753** Network Security Processor — programmable HSM, common ancestor moderních zařízení.
-* **1989** — IBM **4755** — first FIPS 140-1 certified HSM.
+* **1989** — IBM **4753** Network Security Processor — programmable HSM, common ancestor moderních zařízení.
+* **1989** — IBM **4755** Cryptographic Adapter — kryptografický adaptér rané éry HSM.
 * **1996** — nCipher (UK, později Thales) — *commercial PKI HSMs*.
 * **2003** — *Atalla AT1000* (HP) — payment HSM platform standard.
-* **2008** — Amazon launched **CloudHSM** — first cloud-based HSM.
+* **2013** — Amazon launched **CloudHSM** — first major cloud-based HSM service.
 * **2018** — *Azure Dedicated HSM*, *Google Cloud HSM* launched.
 * **2024+** — *Post-Quantum HSMs* (Kyber, Dilithium support).
 

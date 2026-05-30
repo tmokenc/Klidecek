@@ -111,7 +111,7 @@ public class ItemServlet extends HttpServlet {
 
 * **Plus**: závislosti jsou *viditelné v signatuře* konstruktoru — třída je *self-documenting*. V testu lze instanci snadno vytvořit s mockem.
 * **Plus**: pole může být `final`, což zaručí, že nikdy nebude `null` ani změněno.
-* **Mínus**: u tříd dědících z frameworkového základu (`HttpServlet`, …) je nutné mít *aspoň* bezparametrový konstruktor — CDI musí mít *jak* vytvořit instanci, pokud žádný bean nebyl injektován jako parametr (řeší se kombinací default + @Inject ctor).
+* **Mínus**: CDI bean musí mít *buď* bezparametrový konstruktor, *nebo* právě jeden konstruktor anotovaný `@Inject`. To naráží u servletů — třídy dědící z `HttpServlet` instancuje servlet kontejner, který vyžaduje veřejný bezparametrový konstruktor. Proto je konstruktorová injekce na servletech nešikovná a u nich se častěji volí field/setter injekce (příklad výše tedy není typický servletový vzor).
 
 #### 3. Setter injection (přes settery)
 

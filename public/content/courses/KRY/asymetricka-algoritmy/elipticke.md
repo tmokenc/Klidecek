@@ -122,7 +122,7 @@ scalar_mult(k, P):
 * Navržená pro:
   * **Constant-time** Montgomery ladder bez podmínek.
   * **Žádné slabé inputs** — všechny vstupy bezpečné.
-  * **Žádné NSA-influenced konstanty** — všechny $b = 486662$ z explicitní matematické úvahy.
+  * **Žádné NSA-influenced konstanty** — Montgomeryho koeficient $A = 486662$ pochází z explicitní matematické úvahy.
 * **X25519** je ECDH na Curve25519. Standard v Signal, TLS 1.3, OpenSSH, WireGuard, age.
 
 ### Ed25519 (Bernstein, Lange a kol. 2011)

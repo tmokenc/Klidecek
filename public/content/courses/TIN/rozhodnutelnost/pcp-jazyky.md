@@ -59,9 +59,9 @@ splňující rovnost konkatenací:
     <text x="340" y="92">i=4</text>
   </g>
   <text x="60" y="120" fill="var(--text-muted)" font-size="11">Řešení I = ⟨2, 1, 1, 3⟩:</text>
-  <text x="60" y="140" font-family="ui-monospace, monospace" font-size="11.5">α: babbb·b·b·ba</text>
-  <text x="60" y="158" font-family="ui-monospace, monospace" font-size="11.5">β: ba·bbb·bbb·a</text>
-  <text x="60" y="180" fill="var(--accent)" font-size="11">Po sloučení: bababbbba = bababbbba ✓</text>
+  <text x="60" y="140" fill="var(--text)" font-family="ui-monospace, monospace" font-size="11.5">α: babbb·b·b·ba</text>
+  <text x="60" y="158" fill="var(--text)" font-family="ui-monospace, monospace" font-size="11.5">β: ba·bbb·bbb·a</text>
+  <text x="60" y="180" fill="var(--accent)" font-size="11">Po sloučení: babbbbbba = babbbbbba ✓</text>
 </svg>
 :::
 

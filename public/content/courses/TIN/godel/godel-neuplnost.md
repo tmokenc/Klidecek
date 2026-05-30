@@ -166,7 +166,7 @@ Stejnou strukturu jako Gödel mají i další paradoxy:
 
 * **Lžovský paradox** ("Toto je lež") — *Eubulides*, 4. stol. př. n. l.
 * **Russellův paradox** — množina všech množin, které nejsou prvkem sama sebe.
-* **Berryho paradox** — "nejmenší přirozené číslo, které nelze popsat méně než dvaceti slovy" (popsáno 17 slovy).
+* **Berryho paradox** — "nejmenší přirozené číslo, které nelze popsat méně než dvaceti slovy" (popsáno 10 slovy).
 * **Cantorova diagonalizace** — neexistuje bijekce $\mathbb{N} \to 2^\mathbb{N}$.
 * **Problém zastavení** ([[problem-zastaveni]]) — TS, který přijme přesně ty TS, které nepřijmou sebe samé.
 

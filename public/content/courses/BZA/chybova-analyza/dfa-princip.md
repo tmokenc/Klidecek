@@ -110,7 +110,7 @@ kde $k$ je *nonce*, $r = g^k$, $d$ je soukromý klíč.
 
 * **Útok na nonce $k$**: pokud útočník indukuje fault v generování $k$, výsledný $k$ může mít *bias* (např. menší než $n/2$).
 * Z více podpisů s biased nonces *lattice attack* recovery $d$.
-* Klasický Sony PS3 incident (2010, Hotz, fail0verflow) — *konstantní* $k$ → triviální recovery (sezení skupiny *bias = 0*).
+* Klasický Sony PS3 incident (2010, fail0verflow na 27C3) — opakovaně použitý *konstantní* nonce $k$ ve všech podpisech → ze dvou podpisů triviálně dopočítán $k$ a soukromý klíč $d$.
 
 ## Útok na MAC / digital signature
 

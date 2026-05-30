@@ -149,14 +149,14 @@ Collector je samostatný proces mezi aplikací a backendy. Funguje jako *router/
   <text x="80" y="68" text-anchor="middle" font-size="9" fill="var(--text)">OTLP, Prometheus</text>
   <text x="80" y="82" text-anchor="middle" font-size="9" fill="var(--text)">Jaeger, Zipkin, Kafka</text>
 
-  <path d="M 145 60 L 175 60" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aP)"/>
+  <path d="M 145 60 L 175 60" fill="none" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aP)"/>
 
   <rect x="180" y="30" width="180" height="60" rx="5" fill="oklch(0.62 0.14 142 / 0.10)" stroke="oklch(0.62 0.14 142)"/>
   <text x="270" y="52" text-anchor="middle" font-size="11" font-weight="600" fill="oklch(0.40 0.18 142)">Processors</text>
   <text x="270" y="68" text-anchor="middle" font-size="9" fill="var(--text)" font-family="var(--font-mono)">batch · filter · attributes</text>
   <text x="270" y="82" text-anchor="middle" font-size="9" fill="var(--text)" font-family="var(--font-mono)">tail_sampling · transform</text>
 
-  <path d="M 365 60 L 395 60" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aP)"/>
+  <path d="M 365 60 L 395 60" fill="none" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aP)"/>
 
   <rect x="400" y="30" width="120" height="60" rx="5" fill="oklch(0.62 0.14 264 / 0.10)" stroke="oklch(0.62 0.14 264)"/>
   <text x="460" y="52" text-anchor="middle" font-size="11" font-weight="600" fill="oklch(0.40 0.18 264)">Exporters</text>
@@ -240,9 +240,9 @@ Open Liberty: feature **`mpTelemetry-2.0`**.
   <text x="75" y="135" text-anchor="middle" font-size="9" fill="var(--text-muted)">Open Liberty</text>
   <text x="75" y="148" text-anchor="middle" font-size="9" fill="var(--text-muted)">mpTelemetry</text>
 
-  <path d="M 145 50 L 195 50" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aQ)"/>
+  <path d="M 145 50 L 195 50" fill="none" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aQ)"/>
   <text x="170" y="42" text-anchor="middle" font-size="9" fill="var(--text-muted)">OTLP</text>
-  <path d="M 145 130 L 195 130" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aQ)"/>
+  <path d="M 145 130 L 195 130" fill="none" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aQ)"/>
   <text x="170" y="122" text-anchor="middle" font-size="9" fill="var(--text-muted)">OTLP</text>
 
   <rect x="200" y="60" width="160" height="70" rx="5" fill="oklch(0.62 0.14 22 / 0.10)" stroke="oklch(0.55 0.18 22)"/>
@@ -251,9 +251,9 @@ Open Liberty: feature **`mpTelemetry-2.0`**.
   <text x="280" y="106" text-anchor="middle" font-size="9" fill="var(--text)" font-family="var(--font-mono)">processors: batch</text>
   <text x="280" y="119" text-anchor="middle" font-size="9" fill="var(--text)" font-family="var(--font-mono)">exporters: → →</text>
 
-  <path d="M 365 80 L 405 50" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aQ)"/>
-  <path d="M 365 95 L 405 95" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aQ)"/>
-  <path d="M 365 110 L 405 145" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aQ)"/>
+  <path d="M 365 80 L 405 50" fill="none" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aQ)"/>
+  <path d="M 365 95 L 405 95" fill="none" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aQ)"/>
+  <path d="M 365 110 L 405 145" fill="none" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aQ)"/>
 
   <rect x="410" y="30" width="80" height="40" rx="4" fill="var(--bg-card)" stroke="oklch(0.55 0.18 264)"/>
   <text x="450" y="55" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Prometheus</text>
@@ -262,7 +262,7 @@ Open Liberty: feature **`mpTelemetry-2.0`**.
   <rect x="410" y="130" width="80" height="40" rx="4" fill="var(--bg-card)" stroke="oklch(0.55 0.18 264)"/>
   <text x="450" y="155" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Loki</text>
 
-  <path d="M 410 200 L 480 200" stroke="oklch(0.55 0.18 22)" stroke-width="0.5" stroke-dasharray="2 2"/>
+  <path d="M 410 200 L 480 200" fill="none" stroke="oklch(0.55 0.18 22)" stroke-width="0.5" stroke-dasharray="2 2"/>
   <rect x="380" y="180" width="120" height="30" rx="4" fill="oklch(0.62 0.14 340 / 0.18)" stroke="oklch(0.55 0.18 340)"/>
   <text x="440" y="200" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Grafana</text>
 

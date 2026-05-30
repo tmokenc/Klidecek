@@ -28,6 +28,9 @@ export default function DdosAmplification() {
   const reflectedGbps = reflectedMbps / 1000;
 
   const W = 580, H = 250;
+  // Bars max out at BAR_MAX so the label drawn after each bar (longest:
+  // "GitHub memcached 2018: 1.35 Tbps" ~160px) still fits inside W.
+  const BAR_MAX = 300;
 
   // Famous attacks for context
   const REFS = [
@@ -86,12 +89,12 @@ export default function DdosAmplification() {
           <marker id="dd-ar" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L5,3 L0,6 z" fill="oklch(0.65 0.18 22)" /></marker>
         </defs>
 
-        {/* Comparison bar chart */}
+        {/* Comparison bar chart — bars scale to BAR_MAX so the labels that
+            follow each bar stay inside the viewBox right edge (W) */}
         <text x={20} y={140} fontSize="10" fontWeight="600" fill="var(--text)">historical comparison:</text>
         {REFS.map((r, i) => {
           const maxGbps = Math.max(reflectedGbps, ...REFS.map(x => x.gbps));
-          const ourW = Math.min(540, reflectedGbps / maxGbps * 540);
-          const refW = Math.min(540, r.gbps / maxGbps * 540);
+          const refW = Math.min(BAR_MAX, r.gbps / maxGbps * BAR_MAX);
           return (
             <g key={r.name}>
               <rect x={20} y={150 + i * 20} width={refW} height="14" fill="oklch(0.7 0.15 145 / 0.4)" stroke="oklch(0.7 0.15 145)" strokeWidth="0.5" />
@@ -99,9 +102,9 @@ export default function DdosAmplification() {
             </g>
           );
         })}
-        <rect x={20} y={150 + REFS.length * 20} width={Math.min(540, reflectedGbps / Math.max(reflectedGbps, ...REFS.map(x => x.gbps)) * 540)} height="16"
+        <rect x={20} y={150 + REFS.length * 20} width={Math.min(BAR_MAX, reflectedGbps / Math.max(reflectedGbps, ...REFS.map(x => x.gbps)) * BAR_MAX)} height="16"
           fill="oklch(0.65 0.18 22 / 0.6)" stroke="oklch(0.65 0.18 22)" strokeWidth="1" />
-        <text x={25 + Math.min(540, reflectedGbps / Math.max(reflectedGbps, ...REFS.map(x => x.gbps)) * 540) + 5}
+        <text x={25 + Math.min(BAR_MAX, reflectedGbps / Math.max(reflectedGbps, ...REFS.map(x => x.gbps)) * BAR_MAX) + 5}
           y={163 + REFS.length * 20} fontSize="9.5" fill="oklch(0.65 0.18 22)" fontWeight="700">
           tvoje sim: {fmt(reflectedGbps)}
         </text>

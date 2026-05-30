@@ -121,15 +121,15 @@ V 2026 high-end NIC mají 64+ queue. Kernel může mappovat na 64 CPU cores → 
 Klasický TX:
 
 1. Aplikace volá `send(socket, buf, 64 KB)`.
-2. Kernel TCP layer rozseká na 43 paketů (po 1448 B = MSS).
+2. Kernel TCP layer rozseká na ~45 paketů (po 1448 B = MSS).
 3. Pro každý paket: IP header, checksum, L2 header.
-4. 43× driver TX call.
+4. ~45× driver TX call.
 
-Cena 43× per-paket processing.
+Cena ~45× per-paket processing.
 
 **TSO** (TCP Segmentation Offload) / **GSO** (Generic Segmentation Offload): kernel *předá NIC* **jeden** big-buffer (až 64 KB) + TCP "template". **NIC sama** segmentuje na 1448 B kusy, aplikuje TCP/IP/checksum.
 
-Důsledek: 43 paketů = *jeden* kernel call. CPU spotřeba klesá *řádově*. Latence stejná (NIC dělá rychleji).
+Důsledek: ~45 paketů = *jeden* kernel call. CPU spotřeba klesá *řádově*. Latence stejná (NIC dělá rychleji).
 
 ### GSO vs TSO
 

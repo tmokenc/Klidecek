@@ -41,8 +41,8 @@ Update po výsledku skoku:
 
 ### Global vs local history
 
-- **Global history (gshare, Yeh-Patt 1991)** — jeden shift register pro *všechny* branches. Vidí *globální* korelaci.
-- **Local history (Bimode, McFarling 1993)** — *per-PC* shift register. Vidí *patterny* konkrétního branchu (např. "tato smyčka má cyklicky 9× T, 1× N").
+- **Global history** — jeden shift register pro *všechny* branches. Vidí *globální* korelaci (gshare = McFarling 1993, XOR PC ⊕ GHR).
+- **Local history (Yeh-Patt 1991, PAg/PAp)** — *per-PC* shift register. Vidí *patterny* konkrétního branchu (např. "tato smyčka má cyklicky 9× T, 1× N").
 - **Tournament (Alpha 21264)** — *kombinuje* global + local. Meta-predictor rozhoduje, který lepší pro daný PC.
 
 Alpha 21264 (1998) byl první tournament — accuracy ~95 %.
@@ -94,7 +94,7 @@ Limit: perceptron *nezvládne* XOR-like patterns. Vyšší modely (Piecewise-Lin
 
 **TAGE = TAgged GEometric history length** — state-of-the-art prediktor.
 
-Použije *více* tabulek s *různě dlouhými* historiemi: $T_0$ (no history), $T_1$ (5 bits), $T_2$ (10), $T_3$ (20), $T_4$ (50), ... geometrická řada.
+Použije *více* tabulek s *různě dlouhými* historiemi: $T_0$ (no history), $T_1$ (5 bits), $T_2$ (15), $T_3$ (50), ... geometrická řada.
 
 Pro každý lookup:
 

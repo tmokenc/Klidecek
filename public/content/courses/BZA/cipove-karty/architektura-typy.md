@@ -80,7 +80,7 @@ Paměťové karty jsou *jednoúčelové* a *levné* (USD ~0,10), ale kryptografi
 * **Krypto koprocesory** — AES, 3DES, RSA-2048, ECC P-256, SHA-2/3 hardware engine. *Klíčové*: implementace odolná proti SPA/DPA ([[spa-dpa]]).
 * **RNG** — hardware TRNG (AIS-31 PTG.3, viz [[ais31-tridy]]).
 * **Senzory** — teplota, napětí, frekvence, světlo; alarm spustí zeroization.
-* **OS** — JCOP (Java Card OS, NXP), Multos, MULTOS, native (Infineon SLE/SECORA, ST33).
+* **OS** — JCOP (Java Card, NXP), MULTOS, nativní OS (Infineon SLE/SECORA, ST33).
 
 Cena: USD 0,50 – 5 podle generace a certifikace.
 
@@ -107,8 +107,8 @@ Standardy podle ISO/IEC 7810 definují fyzické rozměry:
 ### Funkční
 
 * **ISO/IEC 7810** — fyzická charakteristika (rozměry, ohyb, teplota).
-* **ISO/IEC 7816-1/2/3** — fyzická charakteristika čipových karet, kontakty (Vcc, GND, RST, CLK, IO), elektrické vlastnosti.
-* **ISO/IEC 7816-4** — komunikační protokoly (T=0 bytově orientovaný, T=1 blokově orientovaný), file system, APDU command structure ([[iso7816-komunikace]]).
+* **ISO/IEC 7816-1/2/3** — fyzická charakteristika čipových karet, kontakty (Vcc, GND, RST, CLK, IO), elektrické rozhraní a přenosové protokoly (T=0 bytově orientovaný, T=1 blokově orientovaný).
+* **ISO/IEC 7816-4** — APDU command structure, file system, příkazy a bezpečnost ([[iso7816-komunikace]]).
 * **ISO/IEC 7816-5/6/7/8/9/15** — různé pokročilé features (PIN management, biometric verification, USB integration, atd.).
 * **ISO/IEC 14443-A/B** — bezkontaktní karty proximity (do 10 cm).
 * **ISO/IEC 15693** — bezkontaktní *vicinity cards* (do 1 m).

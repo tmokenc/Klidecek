@@ -4,7 +4,7 @@ title: JPA persistence — Java Bean, entity, persistence.xml
 
 Pro datovou vrstvu Jakarta EE aplikace poskytuje **Jakarta Persistence API (JPA)** — standardní rozhraní pro objektově-relační mapování (ORM). Místo psaní SQL pracujete s Java objekty; JPA implementace (typicky Hibernate, EclipseLink) zařídí mapování na tabulky a generování dotazů.
 
-Plné téma JPA (vztahy, dědičnost, dotazy) je detailně rozebráno v subtopicu [[struktury-kolekce]] z hlediska principů a v navazující přednášce o objektovém modelu dat; zde se zaměříme na **základy a integraci s Jakarta EE**.
+Plné téma JPA (vztahy, dědičnost, dotazy) je detailně rozebráno v navazujících přednáškách o objektovém modelu dat — v subtopicech [[jpa-vztahy]] a [[jpa-dedicnost]]; zde se zaměříme na **základy a integraci s Jakarta EE**.
 
 ## Java Bean
 

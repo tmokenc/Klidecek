@@ -118,7 +118,7 @@ wrapper = (h, t, l₁, r₁, l₂, r₂, …, lₙ, rₙ)
 
 Pro stránku `<table><tr><td>Anna</td><td>31</td></tr>…</table>`:
 * `h = "<table>"`, `t = "</table>"`,
-* `l₁ = "<td>"`, `r₁ = "</td><td>"`, `l₂ = "", `r₂ = "</td></tr>"`.
+* `l₁ = "<td>"`, `r₁ = "</td><td>"`, `l₂ = ""`, `r₂ = "</td></tr>"`.
 
 Tento přístup je dnes nahrazen DOM-based extrakcí, ale je *koncepčním základem* automatické indukce wrapperů (machine learning přístup, viz [[inteligentni-extrakce]]).
 
@@ -164,7 +164,7 @@ CSS pseudo-classes: `:hover`, `:first-child`, `:last-child`, `:nth-child(n)`, `:
 
 ## XPath
 
-**XPath** (W3C 1999, 1.0 a 2.0) je jazyk pro adresování uzlů v XML stromě. Funguje i nad HTML (přes lxml, jsoup). Bohatší než CSS — umí navigovat *více směry* a má bohatší výrazy.
+**XPath** (W3C; 1.0 z 1999, 2.0 z 2007) je jazyk pro adresování uzlů v XML stromě. Funguje i nad HTML (přes lxml, jsoup). Bohatší než CSS — umí navigovat *více směry* a má bohatší výrazy.
 
 Syntax:
 

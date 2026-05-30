@@ -147,7 +147,8 @@ export default function PdaStack() {
           <text x={55} y={128} textAnchor="middle" fill="var(--text)">{config.state}{isAccepting && " ✓"}</text>
         </g>
         {/* stack */}
-        <text x={440} y={28} fill="var(--text-muted)" fontSize="11">zásobník (vrchol nahoře):</text>
+        <text x={516} y={20} textAnchor="end" fill="var(--text-muted)" fontSize="11">zásobník</text>
+        <text x={516} y={32} textAnchor="end" fill="var(--text-muted)" fontSize="11">(vrchol nahoře):</text>
         {config.stack.slice().reverse().map((ch, i) => (
           <g key={"st" + i}>
             <rect x={460} y={36 + i * 28} width={56} height={28} fill={i === 0 ? "color-mix(in oklch, var(--accent) 25%, var(--bg-card))" : "var(--bg-inset)"} stroke="var(--line)" />

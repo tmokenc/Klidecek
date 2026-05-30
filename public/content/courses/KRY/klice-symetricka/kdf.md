@@ -6,7 +6,7 @@ title: KDF — odvozování klíčů
 
 **Key Derivation Function** je funkce, která transformuje *zdroj entropie* (heslo, sdílené tajemství z DH, master key) na *jeden nebo více* kryptografických klíčů. Slouží dvěma účelům:
 
-1. **Růst entropie** — vstup nemusí mít plnou bezpečnostní úroveň výstupu. KDF "expanduje" entropii.
+1. **Roztažení délky / key stretching** — výstup se "expanduje" na požadovanou délku a (u heslových KDF) se zvyšuje cena útoku na jeden pokus. Výstupní entropie je ale shora omezená entropií vstupu — KDF ji nikdy nezvýší.
 2. **Doménové oddělení** — z jednoho hlavního klíče odvodit *více* kontextově oddělených klíčů (např. encryption key + MAC key).
 
 Typy KDF:
@@ -54,9 +54,9 @@ F(P, S, c, i) = U_1 \oplus U_2 \oplus \dots \oplus U_c,
 
 ### bcrypt
 
-Provos, Mazières (1999) na základě Blowfish. **Memory-hard:**
+Provos, Mazières (1999) na základě Blowfish. **Adaptivní / CPU-cost-hard (není memory-hard):**
 
-* Konstantní paměť 4 KB na hash výpočet.
+* Konstantní paměť 4 KB na hash výpočet — malá fixní pracovní sada dává jen omezenou odolnost proti GPU, mnohem slabší než memory-hard scrypt/Argon2. Právě proto vznikly scrypt a Argon2.
 * `cost` parameter = $2^\mathrm{cost}$ iterací (typicky 10–12 pro běžné weby, 14 pro vysokou bezpečnost).
 * Implicitní salt 128 b.
 
@@ -65,7 +65,7 @@ $ python -c "import bcrypt; print(bcrypt.hashpw(b'password', bcrypt.gensalt(roun
 $2b$12$VXl.b/yyqi8aMq.rO5XvFOKQpKv0V8gZJlj/nDr0Re/wG8u6mQbV2
 ```
 
-Útočník na GPU má **mnohem méně paměti** — ~25 M hashes/s/GPU pro PBKDF2 vs ~10 K/s/GPU pro bcrypt-12. Faktor 2500× zlepšení.
+Útočník na GPU má **mnohem méně paměti** — ~10 M hashes/s/GPU pro PBKDF2-SHA-256 (`c = 100 000`) vs ~10 K/s/GPU pro bcrypt-12. Faktor 1000× zlepšení.
 
 ### scrypt
 
@@ -231,7 +231,7 @@ Záznam plaintextového hesla v databázi je *vždy* chyba. Použijte `argon2id`
 ## Klíčová poučení
 
 * **Pomalu* = vlastnost, ne chyba.* Pro hesla, KDF musí být *pomalá* — to je obrana.
-* **Memory-hard funkce** (Argon2, bcrypt, scrypt) jsou zásadní proti GPU/ASIC útokům.
+* **Memory-hard funkce** (Argon2, scrypt) jsou zásadní proti GPU/ASIC útokům; bcrypt je adaptivní/CPU-cost-hard, nikoli memory-hard.
 * **Salt vždy unikátní per password.**
 * **Doménové oddělení** — z master key odvodit více klíčů s odlišnými labels.
 * **HKDF** pro random-source, **Argon2id** pro hesla.

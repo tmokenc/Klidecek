@@ -220,7 +220,7 @@ Interface ID se generuje typicky pomocí **EUI-64** z MAC adresy:
 2. Vloží se `FF:FE` mezi OUI a NIC-specific část → 64 bit.
 3. Invertuje se bit *Universal/Local* v prvním oktetu.
 
-Příklad: MAC `00:08:c:a0:c2:71` → Interface ID `02:08:c:a0:ff:fe:c2:71`.
+Příklad: MAC `00:08:0c:a0:c2:71` → OUI `00:08:0c` + NIC `a0:c2:71`, vložení `ff:fe` → `00:08:0c:ff:fe:a0:c2:71`, inverze U/L bitu (`00`→`02`) → Interface ID `02:08:0c:ff:fe:a0:c2:71`.
 
 Alternativy generování Interface ID:
 

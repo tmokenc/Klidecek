@@ -73,7 +73,7 @@ Cesta proudu probíhá *tam* (skrz $R_1, R_2, R_3, \rho$), pak *zpět* ($R_3^{-1
 
 | Stroj | Země | Doba | Rotorů | Použití |
 | :--- | :--- | :--- | :-: | :--- |
-| Hebernova Mark II | USA | 1917 | 5 | první rotorový stroj — US Navy |
+| Hebernův rotorový stroj | USA | 1917 | 1 | první rotorový stroj — prototyp |
 | Scherbiusova **Enigma** | Německo | 1923 | 3–4 | civilní, pak Wehrmacht |
 | **SIGABA / ECM Mark II** | USA | 1940 | 5+5 | strategická US, nikdy nerozluštěná |
 | Lorenz SZ40/42 | Německo | 1942 | 12 | telegram Hitler↔generálové (Tunny) |

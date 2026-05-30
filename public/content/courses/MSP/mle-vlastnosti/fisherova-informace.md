@@ -54,7 +54,7 @@ Toto je *Hessian* log-likelihood, vzato v očekávání.
 * **Malé `J(θ)`** ⇔ likelihood je *plochá* — data nerozlišují různá `θ` dobře. Odhad nepřesný.
 
 ::: svg "Vlevo: vysoká Fisherova informace (ostré maximum). Vpravo: nízká informace (ploché maximum). Odhad θ̂ je v prvním případě přesnější."
-<svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
+<svg viewBox="0 0 540 206" font-family="ui-sans-serif, system-ui" font-size="11">
   <g transform="translate(20, 20)">
     <text x="120" y="-5" text-anchor="middle" fill="var(--accent)">vysoká J(θ)</text>
     <line x1="20" y1="160" x2="240" y2="160" stroke="var(--line-strong)"/>

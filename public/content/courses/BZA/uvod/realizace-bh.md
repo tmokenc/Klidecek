@@ -99,7 +99,7 @@ Klíčový rozdíl: *pasivní ochrana zpomaluje útočníka, aktivní ochrana ho
 
 *Zeroization* je řízené mazání tajných dat (klíčů) při detekci útoku. Implementace má dva aspekty:
 
-* **Co smazat:** nejen klíče v ROM/Flash, ale i v RAM (zejména SRAM má *retention* — data přežívají několik sekund po vypnutí napájení, při nízkých teplotách i déle, viz [Boneh-Lipton "Cold Boot Attack" 2008](https://citp.princeton.edu/our-work/memory/)). Proto se SRAM aktivně přepíše nulami, ne jen odpojuje napájení.
+* **Co smazat:** nejen klíče v ROM/Flash, ale i v RAM (zejména SRAM má *retention* — data přežívají několik sekund po vypnutí napájení, při nízkých teplotách i déle, viz [Halderman et al., "Lest We Remember: Cold Boot Attacks on Encryption Keys", USENIX Security 2008](https://citp.princeton.edu/our-work/memory/)). Proto se SRAM aktivně přepíše nulami, ne jen odpojuje napájení.
 * **Čím napájet:** zeroization musí proběhnout i bez externího napájení (útočník odpojí). Vyžaduje záložní baterii nebo kondenzátor. FIPS 140-3 Level 4 požaduje, aby zeroization fungovala i pod kapku tekutého dusíku (potenciální cold-boot scénář).
 
 > Návrhový princip: *secret data should leave the device only as the result of an explicit cryptographic operation, never as raw memory content* — z toho plyne, že tajemství v RAM jsou krátkodobá a smazatelná.

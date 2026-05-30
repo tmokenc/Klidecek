@@ -52,7 +52,7 @@ Software se brání debugging:
 
 ### Detection mechanisms
 
-* **`IsDebuggerPresent()`** (Windows) — kernel-level flag PEB[BeingDebugged].
+* **`IsDebuggerPresent()`** (Windows) — čte user-mode flag `PEB->BeingDebugged` v Process Environment Block samotného procesu (bez kernel call), proto je triviálně obejitelný vynulováním tohoto bytu.
 * **`CheckRemoteDebuggerPresent()`** — pro debugger v jiném procesu.
 * **`NtQueryInformationProcess(ProcessDebugPort)`** — undocumented call.
 * **Timing checks** — měří dobu mezi dvěma instrukcemi; debugger zpomaluje. `RDTSC` instructions reading TSC.
@@ -92,9 +92,10 @@ Interceptor.attach(Module.findExportByName(null, 'AES_encrypt'), {
     onEnter: function(args) {
         console.log("AES key:", args[2].readByteArray(16));
         console.log("plaintext:", args[0].readByteArray(16));
+        this.out = args[1];  // output buffer (RSI on x64 System V)
     },
     onLeave: function(retval) {
-        console.log("ciphertext:", this.context.rdi.readByteArray(16));
+        console.log("ciphertext:", this.out.readByteArray(16));
     }
 });
 ```

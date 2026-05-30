@@ -18,8 +18,7 @@ B-tree (a B+-tree, B*-tree) indexují *1D data* — čísla, řetězce. Pro mult
 V 1D mají body *přirozené uspořádání*:
 
 ```
-..001 < ..010 < ..011 < ..100 < ..101 < ..110 < ..111 < ..000
-   ↑ (cyklicky)
+000 < 001 < 010 < 011 < 100 < 101 < 110 < 111
 ```
 
 V 2D *neexistuje uspořádání*, které by zachovalo lokalitu. Sousední body v 2D mohou mapovat na vzdálené 1D pozice. Proto je třeba *specializovaná* multi-dim struktura.

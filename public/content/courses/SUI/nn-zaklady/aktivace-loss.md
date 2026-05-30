@@ -212,7 +212,7 @@ Pro různé úlohy je *kanonická* dvojice:
 
 ## Numerická stabilita
 
-V praxi je *jednoletecká rada*: použij **log-softmax + NLL loss** místo separátního `softmax → log → NLL`. PyTorch má pro to `nn.CrossEntropyLoss()`, který *spojí* obojí:
+V praxi je *jednoduchá rada*: použij **log-softmax + NLL loss** místo separátního `softmax → log → NLL`. PyTorch má pro to `nn.CrossEntropyLoss()`, který *spojí* obojí:
 
 ```python
 # ❌ Méně stabilní:

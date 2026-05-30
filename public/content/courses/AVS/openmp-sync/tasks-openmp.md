@@ -107,7 +107,7 @@ Klíčový pattern:
 </svg>
 :::
 
-Task scheduler je *work-stealing*: pokud worker dokončí svou queue, *ukradne* task od jiného workera. Klasický pattern (Cilk 1995, ABRAMS et al.).
+Task scheduler je *work-stealing*: pokud worker dokončí svou queue, *ukradne* task od jiného workera. Klasický pattern (Cilk 1995, Blumofe et al.).
 
 ## task clauses
 

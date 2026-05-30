@@ -67,7 +67,7 @@ Heap exploitation:
 - Corrupt heap metadata → controlled writes via unlink (older glibc).
 - Overwrite vtable pointer (C++).
 
-Modern glibc has hardening (DEFENDER, mprotect headers).
+Modern glibc adds heap hardening — safe unlinking checks, pointer mangling (PTR_MANGLE), tcache double-free detection, and chunk-size sanity checks.
 
 ### Integer overflow
 
@@ -185,7 +185,6 @@ Modern exploits bypass these:
 | Heartbleed | OpenSSL | 2014 | read 64KB server memory |
 | Stagefright | Android | 2015 | MMS-based exploit |
 | EternalBlue | Windows SMB | 2017 | WannaCry, NotPetya |
-| Log4Shell | Apache Log4j | 2021 | massive enterprise impact |
 
 ## ROP — Return-Oriented Programming
 

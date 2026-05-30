@@ -15,7 +15,7 @@ Fyzicky bezpečný HSM ([[realizace-bh]], [[fips-cc]]) lze stále kompromitovat 
 
 ## Útoky proti PKCS#11
 
-[*An Attack on a Recursive Authentication Protocol*](https://link.springer.com/content/pdf/10.1007%2F978-3-540-45238-6_32.pdf) (Clulow 2003) je seminální paper s katalogem útoků.
+[*On the Security of PKCS #11*](https://link.springer.com/content/pdf/10.1007%2F978-3-540-45238-6_32.pdf) (Clulow 2003) je seminální paper s katalogem útoků.
 
 ### Klíčové slabiny
 
@@ -49,7 +49,7 @@ Klasický [Bond 2001 útok](https://www.cl.cam.ac.uk/~mkb23/research/Survey.pdf)
 5. **Brute force** každou half nezávisle — $2^{56}$ pro DES, *triviální* na moderním HW.
 6. Recovery obou halves → kompletní 3DES klíč.
 
-**Mitigace:** Nepoužívat ECB pro wrapping. Použít **CBC s IV** nebo dedicated **CKM_NIST_AES_WRAP** (AES Key Wrap, RFC 3394).
+**Mitigace:** Nepoužívat ECB pro wrapping. Použít **CBC s IV** nebo dedicated **CKM_AES_KEY_WRAP** (AES Key Wrap, RFC 3394).
 
 ### Útok č. 3 — Chybějící ověření zabaleného klíče
 
@@ -122,9 +122,9 @@ Banking HSM má **PIN management funkce** — generování PINů pro karty, ově
 
 Klasický postup PIN generace:
 
-1. Z **validation data** (typicky Personal Account Number, PAN) se vytvoří 16-byte input.
+1. Z **validation data** (typicky Personal Account Number, PAN) se vytvoří input o 16 hex digitech (8 bytes).
 2. Input je šifrován **PIN Derivation Key** (PDK) v HSM. Pomocí DES.
-3. Výstupní 16-byte se *zkracuje* na první 4 nibbles (4 hex digity).
+3. 8-byte DES výstup (16 hex digitů) se *zkracuje* na první 4 hex digity.
 4. **Decimalizace** — pomocí **decimalisation table** (DT) se hex digity převedou na decimal (`0123456789ABCDEF` → typicky `0123456789012345`).
 5. Výsledek: 4-digit PIN.
 

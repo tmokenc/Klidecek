@@ -135,7 +135,7 @@ Lidský typing je *behavioral motor pattern*. Při psaní *stejné* věty se *st
 
 ### Banking
 
-* **CoronetSecure** (Israeli company) — keystroke biometrics for online banking.
+* **BioCatch** (Israeli company) — behavioral biometrics incl. keystroke for online banking.
 * **BehavioSec** — behavioral biometric platform.
 * **TypingDNA** — typing-based authentication API.
 

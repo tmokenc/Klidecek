@@ -196,9 +196,10 @@ procedure Tarjan-visit(v):
     <line x1="100" y1="78" x2="100" y2="142"/>
     <line x1="220" y1="78" x2="220" y2="142"/>
     <line x1="118" y1="160" x2="202" y2="160"/>
-    <line x1="220" y1="142" x2="220" y2="78"/>
+    <line x1="238" y1="160" x2="322" y2="160"/>
     <line x1="356" y1="74" x2="448" y2="92"/>
-    <line x1="448" y1="108" x2="356" y2="148"/>
+    <line x1="356" y1="152" x2="444" y2="108"/>
+    <line x1="442" y1="103" x2="118" y2="157"/>
   </g>
   <g stroke="var(--text-muted)" stroke-width="0.8" stroke-dasharray="3 3" fill="none" marker-end="url(#aTar)">
     <line x1="320" y1="60" x2="120" y2="60"/>

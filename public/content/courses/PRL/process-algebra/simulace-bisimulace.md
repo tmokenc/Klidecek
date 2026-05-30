@@ -212,7 +212,7 @@ Nástroje:
 
 Pokud máme model státu (např. miliony stavů), často chceme **redukovat** ho na *bisimilární* menší model. Algoritmy:
 
-- **Paige-Tarjan**: $O(n \log n)$ pro výpočet partition refinement = bisimulace.
+- **Paige-Tarjan**: $O(m \log n)$ (m = počet přechodů/hran, n = počet stavů) pro výpočet partition refinement = bisimulace.
 - **Hopcroft**: $O(n \log n)$ pro DFA minimalizaci (speciální případ bisimulace).
 
 ### Security

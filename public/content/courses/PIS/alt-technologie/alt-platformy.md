@@ -5,7 +5,7 @@ title: Alternativní platformy — Spring, .NET, PHP, Node.js
 Předchozí podkapitola ([[prezentacni-vrstva]]) ukázala serverovou prezentační vrstvu v *Jakartě EE* — Servlet, JSP, Facelets, JSF. Jakarta EE ale není jediný způsob, jak postavit IS. Klíčové pozorování přednášky: **architektonické vzory (DI, ORM, MVC, REST) jsou portovatelné** napříč platformami. Co se mění je *jazyk* a *konkrétní knihovny*, ne *role* jednotlivých komponent.
 
 ::: svg "Mapování architektonických vrstev mezi platformami — stejné role, jiné nástroje"
-<svg viewBox="0 0 540 220" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 570 220" xmlns="http://www.w3.org/2000/svg">
   <text x="60" y="22" font-size="11" font-weight="600" fill="var(--text-muted)">Vrstva</text>
   <text x="180" y="22" font-size="11" font-weight="600" fill="oklch(0.40 0.18 22)">Java/JEE</text>
   <text x="270" y="22" font-size="11" font-weight="600" fill="oklch(0.40 0.18 142)">Spring</text>
@@ -13,7 +13,7 @@ Předchozí podkapitola ([[prezentacni-vrstva]]) ukázala serverovou prezentačn
   <text x="430" y="22" font-size="11" font-weight="600" fill="oklch(0.40 0.18 80)">PHP</text>
   <text x="500" y="22" font-size="11" font-weight="600" fill="oklch(0.40 0.18 340)">Node.js</text>
 
-  <line x1="20" y1="32" x2="540" y2="32" stroke="var(--line)" stroke-width="0.5"/>
+  <line x1="20" y1="32" x2="562" y2="32" stroke="var(--line)" stroke-width="0.5"/>
 
   <text x="20" y="55" font-size="11" fill="var(--text)">DB / ORM</text>
   <text x="180" y="55" font-size="10" fill="var(--text)" font-family="var(--font-mono)">JPA/Hibernate</text>

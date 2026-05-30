@@ -57,10 +57,6 @@ data Expr = Num Int
 ```haskell
 data Pair a b = Pair a b
 data Triple a b c = Triple a b c
-
--- Functor pattern
-data Maybe a = Nothing | Just a
-data List a = Nil | Cons a (List a)
 ```
 
 ## Pattern matching

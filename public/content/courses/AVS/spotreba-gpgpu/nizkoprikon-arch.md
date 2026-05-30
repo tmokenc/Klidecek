@@ -50,7 +50,7 @@ Itanium failure killed VLIW as mainstream. DSP and accelerators still use it.
 
 RISC-V (Berkeley, 2010) — open-source ISA. Modular: base + extensions.
 
-Base ISA (RV64I): 47 instructions. Minimal.
+Base ISA (RV32I): ~47 instructions. Minimal. (RV64I rozšiřuje o *W word instrukce + LD/LWU/SD.)
 
 Extensions:
 
@@ -90,7 +90,7 @@ ARM dominantní v mobile/embedded/server (cloud servers s Graviton/Ampere).
 
 Klíčové vlastnosti:
 
-- **Variable cycle execution** — 16-bit Thumb + 32-bit ARM + 64-bit ARMv8 ISAs.
+- **Multiple instruction encodings** — 16-bit Thumb + 32-bit ARM (A32) + 64-bit ARMv8 (A64) ISAs (variable-length encoding for code density).
 - **Conditional execution** — every instruction can be conditional (saves branches).
 - **Powerful addressing modes** — load/store offset, pre/post-increment.
 

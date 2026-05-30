@@ -35,7 +35,7 @@ Interpretace: „při opakování experimentu by ve `(1 − α)·100 %` případ
 ### Vlastnosti
 
 * CI je *nejužší* v centru dat (`x₀ ≈ x̄`).
-* CI se *rozšiřuje* lineárně se vzdáleností `x₀` od `x̄` (Frenchova „motýl" tvar).
+* CI se *rozšiřuje* hyperbolicky se vzdáleností `x₀` od `x̄` (half-width `∝ √(1/n + (x₀−x̄)²/S_xx)`, tvar přesýpacích hodin / bowtie).
 * Pro `n → ∞`: `d(x₀) → 0`, CI se zužuje (vyšší jistota).
 
 ## Predikční interval pro individuální `Y(x₀)`
@@ -72,7 +72,7 @@ Vzorec pro CI/PI platí pro `x₀ ∈` *range pozorovaných* prediktorů. *Extra
 
 * Lineární model nemusí platit mimo pozorované hodnoty.
 * `d(x₀)` nemusí spočítat *fyzikální* nejistotu — jen *statistickou*.
-* Pravidlo: extrapolation = `× 10 × více nejistoty` než interpolation.
+* Nejistota i riziko model-misspecification rostou rychle mimo pozorovaný rozsah; nespoléhejte na statistický interval — ten zachycuje jen rozptyl, ne porušení linearity.
 
 ## Výběr modelu — Why & How
 

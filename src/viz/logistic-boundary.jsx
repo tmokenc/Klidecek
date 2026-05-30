@@ -88,11 +88,27 @@ export default function LogisticBoundary() {
   const cellH = PLOT_H / GRID;
 
   // Decision boundary: w0 + w1 x + w2 y = 0 → y = -(w0 + w1 x) / w2
+  // Clip the line to the data box so endpoints never leave the plot/viewBox.
   let boundaryPath = "";
   if (Math.abs(w2) > 1e-6) {
-    const yL = -(w0 + w1 * XMIN) / w2;
-    const yR = -(w0 + w1 * XMAX) / w2;
-    boundaryPath = `M${xToPx(XMIN)} ${yToPx(yL)} L${xToPx(XMAX)} ${yToPx(yR)}`;
+    const yAt = (x) => -(w0 + w1 * x) / w2;
+    const pts = [];
+    // Left/right edges (x = XMIN/XMAX) if their y is in range.
+    for (const x of [XMIN, XMAX]) {
+      const y = yAt(x);
+      if (y >= YMIN && y <= YMAX) pts.push([x, y]);
+    }
+    // Top/bottom edges (y = YMIN/YMAX) if their x is in range.
+    if (Math.abs(w1) > 1e-6) {
+      for (const y of [YMIN, YMAX]) {
+        const x = -(w0 + w2 * y) / w1;
+        if (x >= XMIN && x <= XMAX) pts.push([x, y]);
+      }
+    }
+    if (pts.length >= 2) {
+      const [a, b] = pts;
+      boundaryPath = `M${xToPx(a[0])} ${yToPx(a[1])} L${xToPx(b[0])} ${yToPx(b[1])}`;
+    }
   } else if (Math.abs(w1) > 1e-6) {
     const xB = -w0 / w1;
     boundaryPath = `M${xToPx(xB)} ${yToPx(YMIN)} L${xToPx(xB)} ${yToPx(YMAX)}`;

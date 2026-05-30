@@ -84,7 +84,7 @@ MLE standardní chyby průměru `s.e. = σ/√n`:
 
 Nemusíme znovu řešit likelihood pro `s.e.` — stačí transformovat MLE pro `σ`.
 
-### Bias se zachová *jen pro lineární* `g`
+### Nestrannost se zachová *jen pro lineární* `g`
 
 **Upozornění**: MLE invariance se týká *bodového odhadu*, ne nestrannosti. Pokud `θ̂` je nestranný (`E[θ̂] = θ`), pak `g(θ̂)` *není* obecně nestranný odhad `g(θ)`. Důvod: Jensen nerovnost — pro konvexní `g`:
 

@@ -16,41 +16,42 @@ Referenční model definuje **5 rozhraní** mezi centrálním enginem (Workflow 
 
 :::svg
 <svg viewBox="0 0 540 320" xmlns="http://www.w3.org/2000/svg" style="max-width: 580px;">
+  <rect x="0" y="0" width="540" height="320" fill="#f8fafc" rx="8"/>
   <defs>
     <marker id="arrG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--text-muted)"/>
     </marker>
   </defs>
   <rect x="200" y="10" width="140" height="40" rx="6" fill="#e9d5ff" stroke="#9333ea"/>
-  <text x="270" y="28" text-anchor="middle" font-family="ui-sans-serif" font-size="11" font-weight="bold">Nástroje pro</text>
-  <text x="270" y="42" text-anchor="middle" font-family="ui-sans-serif" font-size="11">definici procesů</text>
-  <line x1="270" y1="50" x2="270" y2="115" stroke="var(--ink)" marker-end="url(#arrG)"/>
-  <text x="280" y="85" font-family="ui-sans-serif" font-size="10" fill="var(--muted)">Rozhraní 1</text>
+  <text x="270" y="28" text-anchor="middle" font-family="ui-sans-serif" font-size="11" font-weight="bold" fill="#1f2937">Nástroje pro</text>
+  <text x="270" y="42" text-anchor="middle" font-family="ui-sans-serif" font-size="11" fill="#1f2937">definici procesů</text>
+  <line x1="270" y1="50" x2="270" y2="115" stroke="var(--text-muted)" marker-end="url(#arrG)"/>
+  <text x="280" y="85" font-family="ui-sans-serif" font-size="10" fill="var(--text-muted)">Rozhraní 1</text>
   <rect x="120" y="120" width="300" height="100" rx="10" fill="#bfdbfe" stroke="#2563eb" stroke-width="2"/>
   <text x="270" y="142" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold" fill="#1e40af">WES</text>
-  <text x="270" y="156" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="var(--muted)">(Workflow Enactment Service)</text>
+  <text x="270" y="156" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="#1e3a8a">(Workflow Enactment Service)</text>
   <rect x="200" y="172" width="140" height="36" rx="6" fill="#dbeafe" stroke="#3b82f6"/>
-  <text x="270" y="194" text-anchor="middle" font-family="ui-sans-serif" font-size="12" font-weight="bold">Workflow engine</text>
+  <text x="270" y="194" text-anchor="middle" font-family="ui-sans-serif" font-size="12" font-weight="bold" fill="#1f2937">Workflow engine</text>
   <rect x="10"  y="135" width="100" height="60" rx="6" fill="#bbf7d0" stroke="#16a34a"/>
-  <text x="60" y="158" text-anchor="middle" font-family="ui-sans-serif" font-size="10" font-weight="bold">Administrativní</text>
-  <text x="60" y="172" text-anchor="middle" font-family="ui-sans-serif" font-size="10">a monitorovací</text>
-  <text x="60" y="186" text-anchor="middle" font-family="ui-sans-serif" font-size="10">nástroje</text>
-  <line x1="110" y1="170" x2="118" y2="170" stroke="var(--ink)" marker-end="url(#arrG)"/>
-  <text x="6"   y="210" font-family="ui-sans-serif" font-size="10" fill="var(--muted)">Rozhraní 5</text>
+  <text x="60" y="158" text-anchor="middle" font-family="ui-sans-serif" font-size="10" font-weight="bold" fill="#1f2937">Administrativní</text>
+  <text x="60" y="172" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="#1f2937">a monitorovací</text>
+  <text x="60" y="186" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="#1f2937">nástroje</text>
+  <line x1="110" y1="170" x2="118" y2="170" stroke="var(--text-muted)" marker-end="url(#arrG)"/>
+  <text x="6"   y="210" font-family="ui-sans-serif" font-size="10" fill="var(--text-muted)">Rozhraní 5</text>
   <rect x="430" y="135" width="100" height="60" rx="6" fill="#fef3c7" stroke="#ca8a04"/>
-  <text x="480" y="170" text-anchor="middle" font-family="ui-sans-serif" font-size="11" font-weight="bold">Další WES</text>
-  <line x1="420" y1="170" x2="428" y2="170" stroke="var(--ink)" marker-end="url(#arrG)"/>
-  <text x="450" y="210" font-family="ui-sans-serif" font-size="10" fill="var(--muted)">Rozhraní 4</text>
+  <text x="480" y="170" text-anchor="middle" font-family="ui-sans-serif" font-size="11" font-weight="bold" fill="#1f2937">Další WES</text>
+  <line x1="420" y1="170" x2="428" y2="170" stroke="var(--text-muted)" marker-end="url(#arrG)"/>
+  <text x="450" y="210" font-family="ui-sans-serif" font-size="10" fill="var(--text-muted)">Rozhraní 4</text>
   <rect x="80"  y="240" width="140" height="50" rx="6" fill="#fecaca" stroke="#dc2626"/>
-  <text x="150" y="262" text-anchor="middle" font-family="ui-sans-serif" font-size="11" font-weight="bold">Klientská aplikace</text>
-  <text x="150" y="278" text-anchor="middle" font-family="ui-sans-serif" font-size="10">workflow</text>
-  <line x1="150" y1="240" x2="200" y2="222" stroke="var(--ink)" marker-end="url(#arrG)"/>
-  <text x="100" y="232" font-family="ui-sans-serif" font-size="10" fill="var(--muted)">Rozhraní 2</text>
+  <text x="150" y="262" text-anchor="middle" font-family="ui-sans-serif" font-size="11" font-weight="bold" fill="#1f2937">Klientská aplikace</text>
+  <text x="150" y="278" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="#1f2937">workflow</text>
+  <line x1="150" y1="240" x2="200" y2="222" stroke="var(--text-muted)" marker-end="url(#arrG)"/>
+  <text x="100" y="232" font-family="ui-sans-serif" font-size="10" fill="var(--text-muted)">Rozhraní 2</text>
   <rect x="320" y="240" width="140" height="50" rx="6" fill="#fbcfe8" stroke="#be185d"/>
-  <text x="390" y="262" text-anchor="middle" font-family="ui-sans-serif" font-size="11" font-weight="bold">Vyvolaná</text>
-  <text x="390" y="278" text-anchor="middle" font-family="ui-sans-serif" font-size="10">aplikace</text>
-  <line x1="390" y1="240" x2="340" y2="222" stroke="var(--ink)" marker-end="url(#arrG)"/>
-  <text x="395" y="232" font-family="ui-sans-serif" font-size="10" fill="var(--muted)">Rozhraní 3</text>
+  <text x="390" y="262" text-anchor="middle" font-family="ui-sans-serif" font-size="11" font-weight="bold" fill="#1f2937">Vyvolaná</text>
+  <text x="390" y="278" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="#1f2937">aplikace</text>
+  <line x1="390" y1="240" x2="340" y2="222" stroke="var(--text-muted)" marker-end="url(#arrG)"/>
+  <text x="395" y="232" font-family="ui-sans-serif" font-size="10" fill="var(--text-muted)">Rozhraní 3</text>
 </svg>
 :::
 

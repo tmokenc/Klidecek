@@ -79,7 +79,7 @@ Princip: vyžadovat **2 misses za sebou** než změnit predikci. State machine:
     <path d="M518,75 A20 15 0 0 0 518,135" marker-end="url(#tbt-ar1)"/>
   </g>
   <text x="35" y="105" fill="var(--text)" font-size="9">T</text>
-  <text x="540" y="105" fill="var(--text)" font-size="9">N</text>
+  <text x="533" y="105" fill="var(--text)" font-size="9">N</text>
   <defs>
     <marker id="tbt-ar1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
       <path d="M0,0 L5,3 L0,6 z" fill="var(--text)"/>

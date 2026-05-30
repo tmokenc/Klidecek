@@ -40,7 +40,7 @@ Strukturované datové typy (struktury, kolekce, objekty) tvoří *abstraktní* 
 * **Jednoduché modely (NoSQL).** Vznikly jako odpověď na omezení relačních databází ve scénářích vysoké škálovatelnosti a webových aplikací. Patří sem:
   * **Key-value** úložiště (Redis, dříve MUMPS) — adresují hodnotu (libovolný objekt) jediným klíčem; ideální pro cache a session storage.
   * **Dokumentová** úložiště (MongoDB, CouchDB) — hodnota je strukturovaný dokument (typicky JSON/BSON); schéma je flexibilní.
-  * **Sloupcová** úložiště (Apache HBase, Cassandra) — fyzická organizace po sloupcích pro efektivní agregace nad obrovskými tabulkami.
+  * **Wide-column / sloupcová** úložiště (Apache HBase, Cassandra) — řádky sdružené do skupin sloupců (column families), adresované řádkovým klíčem; optimalizováno pro masivní zápisy a horizontální škálování nad obrovskými tabulkami, nikoli primárně pro analytické agregace.
 * **Relační datový model** (Codd, 1970). Dosud nejrozšířenější model produkčních databází. Existuje řada implementací (PostgreSQL, Oracle, MySQL/MariaDB, MS SQL Server, SQLite, …).
 * **Objektový datový model.** Reprezentuje data přímo jako objekty s OID, vlastnostmi, dědičností a referencemi. V čisté podobě (ObjectStore, db4o, ObjectDB) je méně rozšířený; v hybridní podobě prochází přes **objektově-relační mapování (ORM)** — JPA/Hibernate, Entity Framework, …
 * **Grafový model.** Data jsou uzly a hrany libovolného typu. Vhodné pro silně propojené domény (sociální sítě, doporučovací systémy, znalostní grafy). Implementace: Neo4j, OrientDB; pro sémantický web pak RDF úložiště (Apache Jena, Virtuoso).

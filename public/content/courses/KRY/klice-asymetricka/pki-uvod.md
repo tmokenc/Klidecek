@@ -131,7 +131,7 @@ Když Alice připojí k `https://example.com`:
    c. Ověří, že hostname v certifikátu odpovídá `example.com`.
    d. Ověří, že validity period zahrnuje aktuální čas.
    e. Ověří, že certifikát *nebyl revokován* (CRL / OCSP, [[revokace]]).
-3. Pokud OK, použije $VK$ z certifikátu pro DH-MAC nebo TLS handshake.
+3. Pokud OK, použije $VK$ z certifikátu k ověření autenticity serveru v TLS handshake — v TLS 1.3 klient ověří podpis serveru (CertificateVerify) nad transcriptem, čímž je svázán efemérní ECDH klíč s důvěryhodným certifikátem.
 
 ## Bezpečnostní vlastnosti PKI
 

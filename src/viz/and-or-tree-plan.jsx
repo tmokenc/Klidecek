@@ -49,7 +49,7 @@ export default function AndOrTreePlan() {
   const [showPlan, setShowPlan] = useState(false);
   const [expanded, setExpanded] = useState({ "S1-Suck": true, "S5-R": true, "S6-Suck": true });
 
-  const W = 540, H = 380;
+  const W = 540, H = 390;
   // Layout: BFS-like
   // OR (state) nodes are circles; AND (action) nodes are bars.
   const positions = {

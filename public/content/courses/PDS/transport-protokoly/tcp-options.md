@@ -32,7 +32,7 @@ $$\text{MSS} = \text{MTU} - 20\ (\text{IPv4}) - 20\ (\text{TCP}) = 1500 - 40 = 1
 
 S IPv6 a/nebo IPSec headers se MSS snižuje. Příliš velké MSS vede k IP fragmentaci po cestě — což je *katastrofa* pro výkon (každý fragment musí dorazit), a navíc pro PMTU-blackhole, kde router fragment zahodí.
 
-Moderní stacky používají **PMTUD** ([RFC 4821 — Packetization Layer Path MTU Discovery](https://www.rfc-editor.org/rfc/rfc4821)) — dynamicky probují větší/menší MSS podle ICMP zpětné vazby (a fallback).
+Moderní stacky používají **PMTUD** — klasická varianta ([RFC 1191](https://www.rfc-editor.org/rfc/rfc1191)) dynamicky probuje větší/menší MSS podle ICMP zpětné vazby; pro cesty s ICMP-blackhole slouží jako fallback **PLPMTUD** ([RFC 4821 — Packetization Layer Path MTU Discovery](https://www.rfc-editor.org/rfc/rfc4821)), která MTU zjišťuje pomocí probe paketů a ACK na úrovni packetization layer, *bez závislosti na ICMP*.
 
 ## Window Scaling — pro rychlé linky
 
@@ -116,7 +116,7 @@ Stručně, kvůli úplnosti:
 | 29 | TCP-AO | náhrada MD5 (RFC 5925) |
 | 30 | Multipath TCP | viz [[mptcp]] |
 | 34 | TCP Fast Open | data v `SYN` |
-| 76 | EXP_FastOpen | dříve experimentální TFO |
+| 254 | EXP_FastOpen | dříve experimentální TFO (sdílená exp. option, ExID 0xF989) |
 
 ## Praktické zachycení
 

@@ -73,7 +73,7 @@ export default function IdsRocTuner() {
           const lo = i * 5, hi = lo + 5;
           const normalCount = SAMPLE.filter(e => !e.attack && e.score >= lo && e.score < hi).length;
           const attackCount = SAMPLE.filter(e => e.attack && e.score >= lo && e.score < hi).length;
-          const nH = normalCount / 80 * 80;
+          const nH = normalCount / 200 * 90;
           const aH = attackCount / 12 * 60;
           return (
             <g key={i}>
@@ -104,7 +104,7 @@ export default function IdsRocTuner() {
         <text x={335} y={90} fontSize="9" fill="var(--text-muted)" textAnchor="end">TPR ↑</text>
 
         {/* confusion matrix + alert rate */}
-        <g fontSize="10" fontFamily="ui-monospace, monospace">
+        <g fontSize="10" fontFamily="ui-monospace, monospace" fill="var(--text)">
           <text x={20} y={180} fontWeight="700" fill="var(--text)" fontFamily="ui-sans-serif, system-ui">confusion matrix</text>
           <rect x={20} y={188} width={80} height={30} fill="oklch(0.7 0.15 145 / 0.3)" stroke="var(--line)" />
           <rect x={105} y={188} width={80} height={30} fill="oklch(0.65 0.18 22 / 0.3)" stroke="var(--line)" />

@@ -69,7 +69,7 @@ Vzdálenost mezi uzly:
 - $d(10, 2) = 10 \oplus 2 = 8$
 - $d(30, 2) = 30 \oplus 2 = 28$
 
-V síti je *7 uzlů*: 2, 3, 10, 18, 22, 30, 32 (jako příklad).
+V síti je *7 uzlů*: 2, 3, 6, 10, 18, 22, 30 (jako příklad).
 
 Směrovací tabulka uzlu 2:
 
@@ -77,7 +77,7 @@ Směrovací tabulka uzlu 2:
 | :---: | :---: | :--- |
 | 0 | [1, 2) | 3 |
 | 1 | [2, 4) | 1 |
-| 2 | [4, 8) | — |
+| 2 | [4, 8) | 6 |
 | 3 | [8, 16) | 10 |
 | 4 | [16, 32) | 18, 22, 30 |
 
@@ -109,7 +109,7 @@ Tato strategie *odolnosti vůči odchodům* je důležitá — *staří, ověře
 
 Uzel 2 hledá obsah s `fileID = 26`, $k = 3$, $\alpha = 2$ (parallelism):
 
-1. Uzel 2 vyhledá k-bucket pro $i = 5$ (interval [16, 32)) — $d(2, 26) = 24$.
+1. Uzel 2 vyhledá k-bucket pro $i = 4$ (interval [16, 32)) — $d(2, 26) = 24$.
 2. Pošle dotaz na *dva nejbližší uzly* ($\alpha = 2$) z {18, 22, 30}.
 3. Každý oslovený uzel *prohledá svou směrovací tabulku*.
 4. Uzel 30 vrátí *odkaz na nejbližší uzel* k nodeID 26.

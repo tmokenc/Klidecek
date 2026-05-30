@@ -59,7 +59,7 @@ Tréninková loss neměří *to*, co nám záleží. Záleží na **generalizaci
 Pro regresi s MSE loss:
 
 ::: math
-\mathbb{E}\bigl[(t - \hat{f}(x))^2\bigr] = \underbrace{(\text{Bias}[\hat{f}])^2}_{\text{model error}} + \underbrace{\text{Var}[\hat{f}]}_{\text{noise in fit}} + \underbrace{\sigma^2}_{\text{irreducible}}
+\mathbb{E}\bigl[(t - \hat{f}(x))^2\bigr] = \underbrace{(\text{Bias}[\hat{f}])^2}_{\text{model error}} + \underbrace{\text{Var}[\hat{f}]}_{\text{citlivost na tr. sadu}} + \underbrace{\sigma^2}_{\text{irreducible}}
 :::
 
 * **Bias** — chyba způsobená *nesprávnou strukturou* modelu (např. lineární model pro nelineární funkci).

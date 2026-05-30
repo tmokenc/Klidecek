@@ -23,8 +23,8 @@ Tedy `π` je řádkový *levý vlastní vektor* matice `P` přiřazený vlastní
 * **Konečný DTMC** vždy má alespoň jeden vlastní vektor pro `λ = 1` (důsledek toho, že řádky `P` se sčítají na 1 a `1` je vlastní hodnotou).
 * **Ireducibilní** konečný DTMC má *právě jednu* stacionární distribuci.
 * **Ergodický** (ireducibilní + aperiodický) DTMC navíc splňuje `t⁽ᵏ⁾ → π` pro `k → ∞` *nezávisle na `ι₀`*.
-* **Reducibilní** DTMC má více stacionárních distribucí — jednu pro každou rekurentní třídu, a libovolnou *konvexní kombinaci*.
-* **Periodický** ireducibilní DTMC má jedinou `π`, ale `t⁽ᵏ⁾` *neoscililuje* k ní — konverguje jen *Cesàro-průměr*.
+* DTMC s **více rekurentními třídami** má více stacionárních distribucí — jednu pro každou rekurentní třídu, plus libovolné jejich *konvexní kombinace*. (Reducibilní řetězec s jedinou rekurentní třídou má `π` jednoznačnou.)
+* **Periodický** ireducibilní DTMC má jedinou `π`, ale `t⁽ᵏ⁾` k ní *nekonverguje* — *osciluje*; konverguje jen *Cesàrův průměr* `(1/n) Σ_{k<n} t⁽ᵏ⁾`.
 
 ## Výpočet — soustava lineárních rovnic
 

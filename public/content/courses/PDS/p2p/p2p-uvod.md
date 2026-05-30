@@ -26,7 +26,7 @@ P2P tedy *neruší* IP — *vrství se na ní*. Mluvíme o **logické síti (ove
 | Sdílení objektů | Napster, Gnutella, KaZaA, eDonkey, BitTorrent |
 | Komunikace mezi uživateli | Skype (do 2017), IM, IRC |
 | Sdílení výpočetního prostředí | seti@home, Folding@home, PlanetLab |
-| Kryptoměny | **Bitcoin**, Ethereum, IPFS |
+| Kryptoměny a decentralizované úložiště | **Bitcoin**, Ethereum, IPFS |
 
 Z těch nejzajímavějších: *Bitcoin* je *P2P síť* — bez centrální banky, bez centrálního serveru. Jen 10 000 *fully validating nodes* po celém světě udržuje *konsensus* o stavu blockchain.
 

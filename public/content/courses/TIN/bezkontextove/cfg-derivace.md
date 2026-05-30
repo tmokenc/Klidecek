@@ -132,7 +132,7 @@ $$
 **Pravá derivace.** V každém kroku přepisujeme *nejpravější* neterminál:
 
 $$
-S \Rightarrow_R AB \Rightarrow_R AbBc \Rightarrow_R Abbcc \Rightarrow_R aAbbcc \Rightarrow_R aabbbbcc.
+S \Rightarrow_R AB \Rightarrow_R AbBc \Rightarrow_R Abbcc \Rightarrow_R aAbbbcc \Rightarrow_R aabbbbcc.
 $$
 
 > Obě dávají stejné slovo a *stejný derivační strom* — liší se jen *pořadím*, ve kterém jsme strom *prokresleli*. Pro syntaktickou analýzu (parsing) je rozdíl podstatný: LL parsery konstruují levou derivaci shora dolů, LR parsery pravou zdola nahoru.

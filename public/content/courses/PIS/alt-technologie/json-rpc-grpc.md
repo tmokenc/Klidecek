@@ -65,7 +65,7 @@ Content-Type: application/json
 }
 ```
 
-Předdefinované chybové kódy (`-32700` parse error, `-32600` invalid request, `-32601` method not found, `-32602` invalid params, `-32603` internal error) + uživatelské kódy `-32000` až `-32099`.
+Předdefinované chybové kódy (`-32700` parse error, `-32600` invalid request, `-32601` method not found, `-32602` invalid params, `-32603` internal error) + rozsah `-32099` až `-32000` je vyhrazen pro implementačně definované serverové chyby. Vlastní (aplikační) kódy musí ležet mimo vyhrazený rozsah `-32768` až `-32000`.
 
 ### Dávkové volání
 
@@ -204,7 +204,7 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 
 ManagedChannel channel = ManagedChannelBuilder
-    .forAddress("localhost", 9444)
+    .forAddress("localhost", 9080)
     .usePlaintext()
     .build();
 

@@ -18,7 +18,7 @@ První Intel point-to-point inter-socket od Nehalem (2008). Nahradila FSB (Front
 
 Specifications:
 
-- 6.4 GT/s (gigatransfers/s), 20 lanes → 25 GB/s per direction.
+- 6.4 GT/s (gigatransfers/s), 20 lanes → ~25.6 GB/s bidirectional (~12.8 GB/s per direction).
 - Latence ~50 ns přes 1 hop.
 - Coherence protocol: MESIF na linku.
 
@@ -30,7 +30,7 @@ Replaced QPI s Skylake-SP. Vyšší frequency, lower power, better protocol.
 
 Specifications:
 
-- 10.4 GT/s → 41.6 GB/s per direction (link width 20).
+- 10.4 GT/s → ~41.6 GB/s bidirectional (~20.8 GB/s per direction, link width 20).
 - Latence ~60-80 ns.
 - Up to 3 UPI links per socket (Platinum), 2 (Gold), 1 (Silver).
 
@@ -159,7 +159,7 @@ Each layer 10-1000× *slower*. Algoritmy adaptují podle topologie.
 
 Cross-socket attacks — *spekulativní side-channel* může leak across socket via cache coherence.
 
-Zlatozraje (Foreshadow-NG 2018) ukazuje, že enclaves SGX mohou být compromised přes coherence traffic.
+Foreshadow-NG (2018) ukazuje, že SGX enclaves mohou být kompromitovány přes coherence traffic.
 
 Mitigation: HW patches + microcode + careful workload partitioning.
 

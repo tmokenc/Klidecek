@@ -4,7 +4,7 @@ title: Zásobníkové automaty (PDA)
 
 # Zásobníkové automaty
 
-Konečný automat ([[konecne-automaty]]) si pamatuje pouze *konečné* množství informace — proto neumí přijmout $\{a^n b^n\}$, který vyžaduje "spočítat dvojí $n$". **Zásobníkový automat** (push-down automaton, PDA) přidá k řízení *zásobník* (LIFO frontu symbolů), do něhož může libovolně ukládat a z něhož libovolně odebírat. PDA jsou *akceptační dvojníci* bezkontextových gramatik ([[cfg-derivace]]) — přijímají právě bezkontextové jazyky ($\mathcal{L}_2$).
+Konečný automat ([[konecne-automaty]]) si pamatuje pouze *konečné* množství informace — proto neumí přijmout $\{a^n b^n\}$, který vyžaduje "spočítat dvojí $n$". **Zásobníkový automat** (push-down automaton, PDA) přidá k řízení *zásobník* (LIFO úložiště symbolů), do něhož může libovolně ukládat a z něhož libovolně odebírat. PDA jsou *akceptační dvojníci* bezkontextových gramatik ([[cfg-derivace]]) — přijímají právě bezkontextové jazyky ($\mathcal{L}_2$).
 
 ## Architektura
 

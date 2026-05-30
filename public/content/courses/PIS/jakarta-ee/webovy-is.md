@@ -11,16 +11,16 @@ V tradičním pojetí prohlížeč funguje jako (téměř) tenký klient — pou
 ::: svg "Klasický webový IS: server generuje HTML, klient ho zobrazuje"
 <svg viewBox="0 0 540 230" xmlns="http://www.w3.org/2000/svg">
   <rect x="20" y="20" width="180" height="190" rx="8" fill="oklch(0.65 0.18 65 / 0.10)" stroke="oklch(0.65 0.18 65)" stroke-width="1"/>
-  <text x="110" y="42" text-anchor="middle" font-size="11" font-weight="600">Klientská část (frontend)</text>
+  <text x="110" y="42" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Klientská část (frontend)</text>
   <rect x="50" y="100" width="120" height="40" rx="6" fill="oklch(0.65 0.18 65 / 0.25)" stroke="oklch(0.65 0.18 65)"/>
-  <text x="110" y="123" text-anchor="middle" font-size="11" font-weight="600">Webový prohlížeč</text>
+  <text x="110" y="123" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Webový prohlížeč</text>
   <text x="110" y="170" text-anchor="middle" font-size="9.5" fill="var(--text-muted)" font-family="var(--font-mono)">jen renderuje HTML</text>
   <line x1="200" y1="120" x2="340" y2="120" stroke="var(--text-muted)" stroke-width="1.2" marker-end="url(#wa)"/>
   <line x1="340" y1="135" x2="200" y2="135" stroke="var(--text-muted)" stroke-width="1.2" marker-end="url(#wa)"/>
   <text x="270" y="103" text-anchor="middle" font-size="11" font-weight="600" fill="var(--accent)">HTTP</text>
   <text x="270" y="155" text-anchor="middle" font-size="9.5" fill="var(--text-muted)" font-family="var(--font-mono)">HTML, formuláře</text>
   <rect x="340" y="20" width="180" height="190" rx="8" fill="oklch(0.62 0.14 264 / 0.10)" stroke="oklch(0.62 0.14 264)" stroke-width="1"/>
-  <text x="430" y="42" text-anchor="middle" font-size="11" font-weight="600">Serverová část (backend)</text>
+  <text x="430" y="42" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Serverová část (backend)</text>
   <rect x="355" y="55" width="150" height="22" rx="3" fill="oklch(0.40 0.14 264)" stroke="none"/>
   <text x="430" y="70" text-anchor="middle" font-size="10" fill="white" font-weight="600">HTTP server</text>
   <rect x="355" y="82" width="150" height="28" rx="3" fill="oklch(0.65 0.16 220 / 0.40)"/>
@@ -52,7 +52,7 @@ Modernější varianta posunula prezentační logiku **na klienta**. Server mís
 ::: svg "Webový IS s aplikačním rozhraním (API): server vrací data, klient renderuje"
 <svg viewBox="0 0 540 230" xmlns="http://www.w3.org/2000/svg">
   <rect x="20" y="20" width="180" height="190" rx="8" fill="oklch(0.65 0.18 65 / 0.10)" stroke="oklch(0.65 0.18 65)" stroke-width="1"/>
-  <text x="110" y="42" text-anchor="middle" font-size="11" font-weight="600">Klientská část (frontend)</text>
+  <text x="110" y="42" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Klientská část (frontend)</text>
   <rect x="50" y="65" width="120" height="120" rx="6" fill="oklch(0.65 0.18 65 / 0.25)" stroke="oklch(0.65 0.18 65)"/>
   <rect x="58" y="73" width="104" height="32" rx="3" fill="oklch(0.65 0.16 220 / 0.55)"/>
   <text x="110" y="93" text-anchor="middle" font-size="10" fill="var(--text)" font-weight="600">Prezentační logika</text>
@@ -63,7 +63,7 @@ Modernější varianta posunula prezentační logiku **na klienta**. Server mís
   <text x="270" y="103" text-anchor="middle" font-size="11" font-weight="600" fill="var(--accent)">HTTP</text>
   <text x="270" y="155" text-anchor="middle" font-size="9.5" fill="var(--text-muted)" font-family="var(--font-mono)">JSON / XML</text>
   <rect x="340" y="20" width="180" height="190" rx="8" fill="oklch(0.62 0.14 264 / 0.10)" stroke="oklch(0.62 0.14 264)" stroke-width="1"/>
-  <text x="430" y="42" text-anchor="middle" font-size="11" font-weight="600">Serverová část (backend)</text>
+  <text x="430" y="42" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Serverová část (backend)</text>
   <rect x="355" y="55" width="150" height="22" rx="3" fill="oklch(0.40 0.14 264)" stroke="none"/>
   <text x="430" y="70" text-anchor="middle" font-size="10" fill="white" font-weight="600">HTTP server</text>
   <rect x="355" y="82" width="150" height="24" rx="3" fill="oklch(0.62 0.14 340 / 0.45)"/>

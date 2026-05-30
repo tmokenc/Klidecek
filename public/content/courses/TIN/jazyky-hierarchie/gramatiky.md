@@ -187,7 +187,9 @@ Pohled na gramatiku jako "generativní popis":
 </svg>
 :::
 
-Posloupnost větných forem na levé straně obrázku odpovídá jednotlivým úrovním derivačního stromu. **Derivační strom** je grafická reprezentace derivace — vrcholy jsou symboly, hrany propojují přepisovaný neterminál s pravou stranou pravidla. Pro bezkontextové gramatiky je strom jednoznačně určen *pořadím* aplikovaných pravidel a tvoří hlavní nástroj v [[cfg-derivace]].
+Derivační stromy jsou definovány jen pro *bezkontextové* gramatiky, proto strom výše ilustruje ekvivalentní bezkontextovou gramatiku $G_3 = (\{S, A\}, \{0, 1\}, \{S \to 0A1,\ A \to 0A1 \mid \varepsilon\}, S)$ generující týž jazyk $\{0^n 1^n\}$, nikoli kontextovou $G_1$ s pravidlem $0A \to 00A1$.
+
+Posloupnost větných forem na levé straně obrázku odpovídá jednotlivým úrovním derivačního stromu. **Derivační strom** je grafická reprezentace derivace — vrcholy jsou symboly, hrany propojují přepisovaný neterminál s pravou stranou pravidla. Pro bezkontextové gramatiky abstrahuje strom od pořadí aplikace pravidel — různé derivace lišící se jen pořadím (např. levá vs. pravá derivace) odpovídají témuž stromu; strom je dán tím, *která* pravidla se aplikují na *které* neterminály. Tvoří hlavní nástroj v [[cfg-derivace]].
 
 ## Co určuje gramatika
 

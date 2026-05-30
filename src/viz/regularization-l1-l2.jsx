@@ -128,6 +128,11 @@ export default function RegularizationL1L2() {
       </div>
 
       <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", display: "block", maxWidth: 620 }}>
+        <defs>
+          <clipPath id="rl1l2-plot">
+            <rect x={PAD_L} y={PAD_T} width={PLOT_W} height={PLOT_H} />
+          </clipPath>
+        </defs>
         <rect width={W} height={H} fill="var(--bg-inset)" />
         {/* axes */}
         <g stroke="var(--line)" strokeWidth="0.6" fill="none">
@@ -145,10 +150,12 @@ export default function RegularizationL1L2() {
           <text x={W - PAD_R} y={H - PAD_B + 26} textAnchor="end">w₁</text>
           <text x={PAD_L - 30} y={PAD_T + 8}>w₂</text>
         </g>
-        {/* Loss contours */}
-        {LEVELS.map((lv) => (
-          <path key={lv} d={contourPath(lv)} stroke="var(--accent)" strokeWidth="1.2" fill="none" opacity="0.5"/>
-        ))}
+        {/* Loss contours (clipped to plot area so outer ellipses don't overflow the viewBox) */}
+        <g clipPath="url(#rl1l2-plot)">
+          {LEVELS.map((lv) => (
+            <path key={lv} d={contourPath(lv)} stroke="var(--accent)" strokeWidth="1.2" fill="none" opacity="0.5"/>
+          ))}
+        </g>
         {/* Unconstrained minimum */}
         <circle cx={wToPx(W_STAR[0])} cy={wToPxY(W_STAR[1])} r="5" fill="oklch(0.75 0.18 145)" stroke="white" strokeWidth="1.5"/>
         <text x={wToPx(W_STAR[0]) + 8} y={wToPxY(W_STAR[1]) - 6} fontSize="9" fontFamily="var(--font-mono)" fill="oklch(0.78 0.18 145)">w* (no reg)</text>

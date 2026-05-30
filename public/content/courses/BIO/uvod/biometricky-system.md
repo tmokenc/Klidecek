@@ -57,7 +57,7 @@ title: Biometrický systém
 
 * **Otisky prstů:** capacitive (smartphone), optical (police), ultrasonic (under-display), thermal.
 * **Obličej:** kamera RGB, IR (Face ID), depth (TrueDepth, ToF), 3D scanner.
-* **Duhovka:** NIR kamera (700–900 nm), specifická pro pigment iridocyklický.
+* **Duhovka:** NIR kamera (700–900 nm), kde je melanin duhovky téměř průhledný, takže vzor je čitelný i u tmavých očí.
 * **Hlas:** mikrofon (vyšší kvalita = lepší výsledky).
 * **Podpis:** digitizer tablet (Wacom, capacitive screens).
 * **DNA:** chemická analýza ([[dna-struktura]]).
@@ -184,7 +184,7 @@ Standardní operace:
 ## Možnosti útoků na biometrický systém
 
 ::: svg "Útočné body: 1 senzor (spoof), 2 přenos (replay), 3 feature extraction (substitute), 4 template DB (steal), 5 matcher (override), 6 decision (modify), 7 channel blocking (jam)."
-<svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
+<svg viewBox="0 0 540 228" font-family="ui-sans-serif, system-ui" font-size="11">
   <defs>
     <marker id="aBSA" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
       <path d="M0 0 L8 4 L0 8 z" fill="var(--danger, #d33)"/>

@@ -147,7 +147,7 @@ Pro `m = 20`, `α = 0,05`: `FWER ≈ 64 %`. To je vysoká pravděpodobnost nesmy
 
 ### Korekce na multiplicitu
 
-* **Bonferroni**: každý test na `α/m`. Konzervativní (víc je nezávislých). FWER ≤ `α`.
+* **Bonferroni**: každý test na `α/m`. Konzervativní (zejména při kladně korelovaných testech; sjednocovací mez je volná). FWER ≤ `α`.
 * **Holm-Bonferroni**: sekvenční verze Bonferroniho, méně konzervativní.
 * **FDR (Benjamini-Hochberg)**: kontroluje *expected proportion of false discoveries* místo FWER. Vhodné pro `m` velké (genomika, neuroimaging).
 

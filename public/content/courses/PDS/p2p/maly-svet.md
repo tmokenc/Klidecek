@@ -97,7 +97,7 @@ Moderní sociální sítě potvrzují *small-world* hypotézu:
 - **Twitter, 2010:** 5,2 miliardy vztahů, *průměrný stupeň propojení 4,67* (Alex Cheng).
 - **Facebook, 2016:** 1,59 miliardy uživatelů (~22 % světové populace), *průměrný stupeň propojení 3,57* (BBC).
 
-Sociologický experiment z roku 1967 tedy dostal *digitální potvrzení* — milkmen by ti dnes potřebovali jen *4 lidi*, aby tě propojili s libovolným cílem.
+Sociologický experiment z roku 1967 tedy dostal *digitální potvrzení* — dnes by tě s libovolným cílem propojily v průměru jen *~4 osoby*.
 
 ## Co to znamená pro P2P
 

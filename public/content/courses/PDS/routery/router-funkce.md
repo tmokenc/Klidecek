@@ -84,7 +84,7 @@ Detailní algoritmus zpracování IP paketu ve směrovači (RFC 1812, RFC 7084):
 3. **Přepočítání kontrolního součtu** — TTL se změnil, checksum se musí změnit.
 4. **Zpracování rozšířených voleb IP** — `timestamp`, `record route`, `strict source route` (zřídka).
 5. **Vyhledání cesty (next-hop)** podle adresy — lokální doručení / unicast / multicast.
-6. **Fragmentace a defragmentace IP datagramů** — pokud `MTU_in > MTU_out` a paket nemá `DF` bit.
+6. **Fragmentace IP datagramů** — pokud délka paketu > `MTU_out` (velikost výstupního rozhraní) a paket nemá nastaven `DF` bit; jinak (`DF`=1) se paket zahodí a router pošle ICMP `Destination Unreachable / Fragmentation Needed` (code 4). Reassembly (defragmentaci) provádí *cílový host*, nikoli tranzitní router (ten skládá jen datagramy adresované sám sobě).
 7. **Zpracování zpráv ICMP a IGMP** — error reporting, multicast management.
 
 ### Pokročilé operace

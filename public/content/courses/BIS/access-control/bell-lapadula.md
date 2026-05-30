@@ -39,7 +39,7 @@ User clearance / Object label = `(Level, Categories)`.
 Formally: `L1 dom L2 ↔ L1 ≽ L2` in lattice.
 
 ::: svg "BLP lattice — levels × categories"
-<svg viewBox="0 0 540 240" font-family="ui-sans-serif, system-ui" font-size="10">
+<svg viewBox="0 0 540 246" font-family="ui-sans-serif, system-ui" font-size="10">
   <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.5">
     <circle cx="270" cy="40" r="22"/>
     <circle cx="170" cy="100" r="22"/>

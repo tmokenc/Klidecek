@@ -72,7 +72,7 @@ Probabilistic model checking se opírá o algoritmy, které už známe:
 * **Steady-state** — pro `S_{⋈p}[φ]` v ergodickém DTMC.
 * **Expected reward** — modifikace VI s odměnami.
 
-### Numerická tržiště: VI vs. exaktní řešení
+### Numerická úskalí: VI vs. exaktní řešení
 
 Pro DTMC s `|S|` stavy lze reachability spočítat *přesně* řešením systému `(I − P) x = b` v `O(|S|³)`. Pro `|S| > 10⁴` se ale používá *iterativní* VI.
 

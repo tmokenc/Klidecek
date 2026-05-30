@@ -11,7 +11,7 @@ title: MDP — definice a nedeterminismus
 DTMC modeluje *pasivní* pravděpodobnostní vývoj. Spousta systémů ale obsahuje *aktivní* volbu, kterou nelze (nebo nechceme) modelovat pravděpodobnostně:
 
 * **Konkurentní procesy** — plánovač operačního systému střídá vlákna; pořadí je *nedeterministické*, ne náhodné.
-* **Neznámé parametry** — robot nezná přesný koeficient tření, ne vrtácí mince.
+* **Neznámé parametry** — robot nezná přesný koeficient tření; prostředí nehází kostkou, jen nám parametr chybí.
 * **Adverzářské prostředí** — bezpečnostní analýza předpokládá *nejhorší případ*, ne typický.
 * **Řiditelné systémy** — design „chytrých" algoritmů: chceme zvolit akci, která maximalizuje úspěch.
 
@@ -30,7 +30,7 @@ Když oddělíme náhodu (prostředí) a volbu (agent), získáme expresivnějš
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
   <g>
     <circle cx="80" cy="110" r="26" fill="var(--bg-inset)" stroke="var(--accent)" stroke-width="2"/>
-    <text x="80" y="114" text-anchor="middle">s</text>
+    <text x="80" y="114" text-anchor="middle" fill="var(--text)">s</text>
 
     <circle cx="200" cy="60" r="8" fill="var(--accent-line)" stroke="var(--text)"/>
     <text x="200" y="42" text-anchor="middle" fill="var(--text-muted)" font-size="10">action α</text>
@@ -51,13 +51,13 @@ Když oddělíme náhodu (prostředí) a volbu (agent), získáme expresivnějš
     <text x="270" y="183" text-anchor="middle" fill="var(--text-muted)">0.5</text>
 
     <circle cx="380" cy="30" r="22" fill="var(--bg-inset)" stroke="var(--text)"/>
-    <text x="380" y="34" text-anchor="middle">s₁</text>
+    <text x="380" y="34" text-anchor="middle" fill="var(--text)">s₁</text>
     <circle cx="380" cy="95" r="22" fill="var(--bg-inset)" stroke="var(--text)"/>
-    <text x="380" y="99" text-anchor="middle">s₂</text>
+    <text x="380" y="99" text-anchor="middle" fill="var(--text)">s₂</text>
     <circle cx="380" cy="135" r="22" fill="var(--bg-inset)" stroke="var(--text)"/>
-    <text x="380" y="139" text-anchor="middle">s₃</text>
+    <text x="380" y="139" text-anchor="middle" fill="var(--text)">s₃</text>
     <circle cx="380" cy="195" r="22" fill="var(--bg-inset)" stroke="var(--text)"/>
-    <text x="380" y="199" text-anchor="middle">s₄</text>
+    <text x="380" y="199" text-anchor="middle" fill="var(--text)">s₄</text>
   </g>
   <defs><marker id="arrM" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--text-muted)"/></marker></defs>
 </svg>

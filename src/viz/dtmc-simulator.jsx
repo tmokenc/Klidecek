@@ -103,7 +103,7 @@ export default function DtmcSimulator() {
   const barX = 50;
   const barY0 = 30;
   const barH = 28;
-  const barMaxW = 240;
+  const barMaxW = 200;
   // graph area = left half
   const graphArea = { x: 20, y: 20, w: 200, h: 280 };
 
@@ -180,7 +180,7 @@ export default function DtmcSimulator() {
               <text x="0" y={i * (barH + 6) + 14} fontSize="10" fill="var(--text-muted)" fontFamily="var(--font-mono)">{cur.states[i]}</text>
               <rect x="46" y={i * (barH + 6)} width={barMaxW} height={barH} fill="var(--bg-inset)" stroke="var(--line)" />
               <rect x="46" y={i * (barH + 6)} width={Math.max(0, v * barMaxW)} height={barH} fill="var(--accent)" opacity="0.6" />
-              <text x={46 + Math.min(barMaxW - 4, v * barMaxW + 4)} y={i * (barH + 6) + 18} fontSize="10" fill="var(--text)" fontFamily="var(--font-mono)">{v.toFixed(3)}</text>
+              <text x={46 + barMaxW - 4} y={i * (barH + 6) + 18} textAnchor="end" fontSize="10" fill="var(--text)" fontFamily="var(--font-mono)">{v.toFixed(3)}</text>
             </g>
           ))}
         </g>

@@ -41,7 +41,7 @@ Výraz může mít **více** redexů; **strategie evaluace** určuje, který se 
 
 Funkce, která jen aplikuje $E$ na svůj argument, *je* funkce $E$.
 
-Praktický význam: **point-free style** — eliminace zbytečných argumentů. V Haskellu: `map f xs = map f xs` ⇒ `map f = map f` ⇒ jen `map` (kdyby f bylo unární).
+Praktický význam: **point-free style** — eliminace zbytečných argumentů. V Haskellu: `g x = f x` (kde `x` se na pravé straně už jinak nevyskytuje) lze zapsat bez argumentu jako `g = f` — to je právě $\lambda x.\ f\ x \equiv_\eta f$.
 
 ## Normální forma
 
@@ -159,24 +159,7 @@ Redukce:
 
 ### Numerals (Church encoding)
 
-```
-ZERO = λ f x. x
-ONE  = λ f x. f x
-TWO  = λ f x. f (f x)
-THREE = λ f x. f (f (f x))
-```
-
-Successor:
-```
-SUCC = λ n f x. f (n f x)
-SUCC TWO = (λ n f x. f (n f x)) TWO
-        = λ f x. f (TWO f x)
-        = λ f x. f ((λ f x. f (f x)) f x)
-        = λ f x. f (f (f x))
-        = THREE
-```
-
-Detailně [[church-enc]].
+Čísla jako $n \equiv \lambda f\ x.\ f^n(x)$ a successor `SUCC = λ n f x. f (n f x)` (vč. derivace `SUCC TWO = THREE`) viz [[church-enc]].
 
 ## Computational power
 

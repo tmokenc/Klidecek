@@ -116,8 +116,9 @@ export default function RowVsColumnScan() {
                 </g>
               );
             })}
-            {/* cache line guides — every 64B = every (64/ROW_BYTES * rowW) px from start */}
-            {!q.single && Array.from({ length: Math.ceil(ROW_BYTES / CACHE_LINE) + 1 }, (_, i) => (
+            {/* cache line guides — every 64B; only boundaries that fall within the
+                drawn tuple (0, 64, 128 … ≤ ROW_BYTES) so they never run past the row/viewBox */}
+            {!q.single && Array.from({ length: Math.floor(ROW_BYTES / CACHE_LINE) + 1 }, (_, i) => (
               <line key={i} x1={rowX + i * (CACHE_LINE / ROW_BYTES) * rowW}
                 y1={ROW_TOP - 2} x2={rowX + i * (CACHE_LINE / ROW_BYTES) * rowW} y2={ROW_TOP + ROW_H + 2}
                 stroke="oklch(0.6 0.18 22)" strokeWidth="0.4" strokeDasharray="2 2" opacity={0.5} />
@@ -131,12 +132,19 @@ export default function RowVsColumnScan() {
         {/* Column store stripes */}
         <text x={PAD} y={COL_TOP - 10} fontSize="11" fontFamily="var(--font-mono)" fill="var(--text)">Column store — each column packed contiguously</text>
 
-        {COLS.map((c, ci) => {
+        {(() => {
+          // reserve room on the right for the longest "{bits} bits/row" label so it
+          // never runs past the viewBox; the stripe origin sits at PAD + 60.
+          const STRIPE_X = PAD + 60;
+          const LABEL_GUTTER = 90; // worst case "512 bits/row" at fontSize 9
+          const STRIPE_MAX = W - STRIPE_X - LABEL_GUTTER - PAD;
+          const maxBits = Math.max(...COLS.map(cc => cc.dictBits || cc.w * 8));
+          return COLS.map((c, ci) => {
           const used = q.uses.includes(c.name);
           const bits = c.dictBits || c.w * 8;
-          const len = (bits / Math.max(...COLS.map(cc => cc.dictBits || cc.w * 8))) * (PW - 100);
+          const len = (bits / maxBits) * STRIPE_MAX;
           return (
-            <g key={ci} transform={`translate(${PAD + 60}, ${colY(ci)})`}>
+            <g key={ci} transform={`translate(${STRIPE_X}, ${colY(ci)})`}>
               <text x={-58} y={12} fontSize="9.5" fontFamily="var(--font-mono)" fill={used ? "var(--text)" : "var(--text-faint)"}>{c.name}</text>
               <rect x={0} y={0} width={len} height={stripeH}
                 fill={used ? "oklch(0.65 0.16 264 / 0.7)" : "var(--bg-inset)"} stroke="var(--line)" />
@@ -147,7 +155,8 @@ export default function RowVsColumnScan() {
               <text x={len + 4} y={12} fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-faint)">{bits} bits/row</text>
             </g>
           );
-        })}
+          });
+        })()}
       </svg>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>

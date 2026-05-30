@@ -18,7 +18,7 @@ DNA analysis revolucionalizoval forenzní vědu. Od první-ever DNA-based convic
   * Buckland *není* the perpetrator (released!).
   * The same male committed both murders.
 * **Mass screening:** 5000+ men in 3 villages provided DNA.
-* Buckland zmínil, že jeden muž — **Colin Pitchfork** — measured someone else give the sample for him.
+* Náhodou bylo vyslechnuto, že jeden muž (**Ian Kelly**) poskytl vzorek místo **Colina Pitchforka** — tato informace byla nahlášena policii.
 * Pitchfork's DNA matched. **Confessed.** Sentenced to life.
 
 This was:

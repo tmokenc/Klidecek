@@ -90,9 +90,12 @@ export default function DvfsPstateCstateTimeline() {
         <path d={samples.map((x, i) => `${i === 0 ? "M" : "L"} ${xOf(x.t)} ${300 - (x.p / maxP) * 50}`).join(" ")}
           fill="oklch(0.65 0.18 22 / 0.2)" stroke="oklch(0.65 0.18 22)" strokeWidth="1.5" />
 
-        <text x={padX + chartW + 4} y={H - 16} fontSize="9" fill="var(--text-faint)">∫P·dt = {energy.toFixed(0)} J</text>
-        <text x={20} y={H - 5} fontSize="9.5" fill="var(--text-faint)">
-          Race-to-idle: vysoké P krátce, pak C6 (0.3 W). Vyplatí se pro CMOS s nízkým leakage. Run-slow: nižší V², ale delší.
+        <text x={padX + chartW} y={H - 32} fontSize="9" fill="var(--text-faint)" textAnchor="end">∫P·dt = {energy.toFixed(0)} J</text>
+        <text x={20} y={H - 16} fontSize="9.5" fill="var(--text-faint)">
+          Race-to-idle: vysoké P krátce, pak C6 (0.3 W). Vyplatí se pro CMOS s nízkým leakage.
+        </text>
+        <text x={20} y={H - 4} fontSize="9.5" fill="var(--text-faint)">
+          Run-slow: nižší V², ale delší doba běhu.
         </text>
       </svg>
     </div>

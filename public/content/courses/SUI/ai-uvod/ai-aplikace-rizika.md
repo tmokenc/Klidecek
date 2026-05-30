@@ -114,7 +114,7 @@ Detail v [[typy-agentu]] (učící se agent).
 
 * **Automatizace ztráta pracovních míst** — kreativní (writers, designers), znalostní (analysts, paralegals), fyzické (driving, manufacturing).
 * **Privacy** — masové rozpoznávání obličejů, sledování chování, behavioural fingerprinting.
-* **Důvěryhodnost** — *deepfakes* (Lambros, Sora), automated bots, AI-generated propaganda.
+* **Důvěryhodnost** — *deepfakes* (DeepFaceLab, FaceSwap, Sora), automated bots, AI-generated propaganda.
 * **Sociální bubliny** — algoritmus optimalizující *engagement* přirozeně tlačí na *polarizační* obsah.
 * **Algoritmický bias** — modely *replikují* a *zesilují* zaujatosti z trénovacích dat (COMPAS, hiring algorithms, facial recognition s nízkou přesností pro tmavé pleti).
 * **Socio-ekonomická nerovnost** — benefit AI se *koncentruje* u korporací (OpenAI, Google) a malého počtu vysokoškoláků.

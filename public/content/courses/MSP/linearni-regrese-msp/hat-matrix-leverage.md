@@ -33,9 +33,9 @@ kde `xᵢ` je `i`-tý řádek `X` (vektor prediktorů pro `i`-té pozorování).
 
 Vlastnosti:
 
-* `0 ≤ h_{ii} ≤ 1`.
+* `1/n ≤ h_{ii} ≤ 1` (pro model s interceptem; bez interceptu pouze `0 ≤ h_{ii} ≤ 1`).
 * `Σ_i h_{ii} = p + 1`. Průměrný leverage je `(p + 1)/n`.
-* `h_{ii} = 0` ⇒ pozorování *nemá vliv* na nic.
+* `h_{ii} → 0` (teoretická hranice, dosažitelná jen bez interceptu) ⇒ pozorování *nemá vliv* na nic.
 * `h_{ii} = 1` ⇒ predikce je *přesně* rovna pozorování (`Ŷᵢ = Yᵢ`), žádné reziduum.
 
 ### Geometrická interpretace

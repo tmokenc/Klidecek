@@ -58,7 +58,7 @@ AI má kořeny ve **dvou paralelních tradicích**, které se po desetiletí *st
 
 ### Dartmouth Conference (1956)
 
-Léto 1956, Dartmouth College, organizováno *Johnem McCarthym* (Stanford), *Marvinem Minskym* (MIT), *Claudem Shannonem* (Bell Labs), *Nathanielm Rochesterem* (IBM):
+Léto 1956, Dartmouth College, organizováno *Johnem McCarthym* (Dartmouth), *Marvinem Minskym* (MIT), *Claudem Shannonem* (Bell Labs), *Nathanielm Rochesterem* (IBM):
 
 > *Návrh: každý aspekt učení nebo jakékoli jiné rysy inteligence lze tak přesně popsat, že stroj může být zkonstruován tak, aby ho simuloval.*
 
@@ -66,7 +66,7 @@ Léto 1956, Dartmouth College, organizováno *Johnem McCarthym* (Stanford), *Mar
 
 ### Optimistická éra (1950s-1960s)
 
-* **1957** — Frank Rosenblatt: *Perceptron* — první lineární klasifikátor s gradientovým učením.
+* **1957** — Frank Rosenblatt: *Perceptron* — první trénovatelný lineární klasifikátor s perceptronovým pravidlem učení (error-driven update).
 * **1958** — McCarthy: LISP — programovací jazyk pro AI.
 * **1959** — Newell & Simon: *General Problem Solver* (GPS).
 * **1966** — Joseph Weizenbaum: *ELIZA* — chatbot (psychoterapeut), zmátl uživatele.

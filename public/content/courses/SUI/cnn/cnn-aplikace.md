@@ -76,12 +76,12 @@ Použití: face recognition (alignment), animace, AR filtry. Datasety: 300-W, AF
 
 * **Region proposals** — selektivní search najde ~2000 kandidátních boxů.
 * Pro každý box: CNN extrahuje features → SVM klasifikátor + regrese bbox.
-* **Pomalý** — CNN forward pass pro každý z 2000 regionů (=>žasné).
+* **Pomalý** — CNN forward pass pro každý z 2000 regionů (=> velmi pomalé, ~2000 forward passů na obrázek).
 
 #### Fast R-CNN (Girshick, 2015)
 
 * Vstupní obrázek → **jeden** forward pass CNN → feature map.
-* **RoI pooling** — pro každou region proposal vezme krayet z feature mapu.
+* **RoI pooling** — pro každou region proposal vyřízne odpovídající oblast z feature map a převede ji na fixní velikost.
 * Multi-task loss (classification + bbox regression).
 
 #### Faster R-CNN (Ren et al., 2015)
@@ -209,7 +209,7 @@ Vstup *i* výstup jsou *obrázky*. Příklady:
 * **Super-resolution** — `64 × 64` → `256 × 256`.
 * **Style transfer** — Gatys et al. (2015). Aplikace stylu jednoho obrázku na obsah druhého.
 * **Image-to-image translation** — pix2pix (Isola et al., 2017). Conditional GAN.
-* **CycleGAN** (Zhu et al., 2017) — neunpárovaná translation (foto → Monet).
+* **CycleGAN** (Zhu et al., 2017) — nepárová (unpaired) translation (foto → Monet).
 
 ## Generativní modely
 

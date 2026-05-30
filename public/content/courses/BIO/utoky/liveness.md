@@ -45,7 +45,7 @@ Examples:
 
 * **Skin elasticity** — gummy bear is more rigid than skin.
 * **Sweat pores** — natural skin has pores, fakes often don't.
-* **Pulse oximetry** — blood oxygenation in capillaries (Apple Touch ID, in some variants).
+* **Pulse oximetry** — blood oxygenation in capillaries (some dedicated optical fingerprint scanners).
 * **Sub-dermal patterns** — ultrasonic sensors detect deeper layers.
 * **Temperature** — natural skin ~33°C.
 * **Conductivity** — galvanic skin response.

@@ -45,7 +45,7 @@ Pravděpodobně nejdůležitější rys workflow systémů je toto:
 
 V tradiční aplikaci byste workflow zakódovali v Javě (nebo SQL procedurách, či shellech). Změna procesu by znamenala přeprogramování, redeploy, testování — týdny práce. Workflow systém umožňuje **business analytikovi** (ne programátorovi) změnit BPMN diagram, nasadit nový diagram do enginu a změna je *okamžitě v provozu*. To není akademický detail — pro velké organizace s desítkami změn měsíčně je to *celá hodnota* workflow přístupu.
 
-Z toho také plyne, že workflow systém je *aplikační vrstva nad* zotavitelnými frontami, ne *náhrada* za ně. Většina BPMN enginů uvnitř zotavitelné fronty (nebo message broker) skutečně používá pro trvanlivé čekání mezi úlohami a pro async aktivity — viz [[bpmn-enginy]].
+Z toho také plyne, že workflow systém je *aplikační vrstva nad* zotavitelnými frontami, ne *náhrada* za ně. Většina BPMN enginů uvnitř skutečně používá zotavitelné fronty (nebo message broker) pro trvanlivé čekání mezi úlohami a pro asynchronní aktivity — viz [[bpmn-enginy]].
 
 ---
 

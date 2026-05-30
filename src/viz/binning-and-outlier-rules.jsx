@@ -118,7 +118,7 @@ export default function BinningAndOutlierRules() {
 
   const xMin = Math.min(0, Math.min(...(xs.length ? xs : [0]))) - 5;
   const xMax = Math.max(...(xs.length ? xs : [10])) + 5;
-  const PAD_L = 36, PAD_R = 16, PAD_T = 20, PAD_B = 80;
+  const PAD_L = 40, PAD_R = 16, PAD_T = 20, PAD_B = 80;
   const PW = W - PAD_L - PAD_R;
   const toX = (v) => PAD_L + ((v - xMin) / (xMax - xMin + 1e-9)) * PW;
 

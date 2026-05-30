@@ -27,13 +27,13 @@ SELECT * FROM users WHERE username='admin'--' AND password='anything'
 
 Authentication bypassed.
 
-Or: `username = "' OR '1'='1"`:
+Or: `username = "' OR '1'='1' -- "`:
 
 ```sql
-SELECT * FROM users WHERE username='' OR '1'='1' AND password='...'
+SELECT * FROM users WHERE username='' OR '1'='1' --' AND password='...'
 ```
 
-Always true → return *all* users.
+Komentář odstraní `AND password=...` → WHERE je triviálně pravdivá → return *all* users.
 
 ### SQLi varianty
 

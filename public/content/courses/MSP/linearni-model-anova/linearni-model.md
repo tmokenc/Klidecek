@@ -20,7 +20,7 @@ Lineární vztah:
 \mathbf{Y} = \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\varepsilon},
 :::
 
-kde `ε = (ε₁, …, εₙ)ᵀ` je vektor reziduí s:
+kde `ε = (ε₁, …, εₙ)ᵀ` je vektor náhodných chyb (errors) s:
 
 * `E[ε] = 0` (zero mean),
 * `Var(ε) = σ² I` (homoskedasticita + nekorelovanost).

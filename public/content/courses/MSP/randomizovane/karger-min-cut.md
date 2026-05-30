@@ -29,16 +29,16 @@ Po `n − 2` kontrakcích zbývají *2 superuzly*; všechny *neodstraněné* hra
   <g>
     <text x="120" y="20" text-anchor="middle" fill="var(--text-muted)">před kontrakcí</text>
     <circle cx="60" cy="80" r="16" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="60" y="84" text-anchor="middle">u</text>
+    <text x="60" y="84" text-anchor="middle" fill="var(--text)">u</text>
     <circle cx="180" cy="80" r="16" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="180" y="84" text-anchor="middle">v</text>
+    <text x="180" y="84" text-anchor="middle" fill="var(--text)">v</text>
     <line x1="76" y1="80" x2="164" y2="80" stroke="var(--line-strong)" stroke-width="2"/>
     <text x="120" y="68" text-anchor="middle" fill="var(--text-muted)">(u,v)</text>
 
     <circle cx="40" cy="140" r="14" fill="var(--bg-inset)" stroke="var(--text-muted)"/>
-    <text x="40" y="144" text-anchor="middle" font-size="10">x</text>
+    <text x="40" y="144" text-anchor="middle" font-size="10" fill="var(--text)">x</text>
     <circle cx="200" cy="140" r="14" fill="var(--bg-inset)" stroke="var(--text-muted)"/>
-    <text x="200" y="144" text-anchor="middle" font-size="10">y</text>
+    <text x="200" y="144" text-anchor="middle" font-size="10" fill="var(--text)">y</text>
     <line x1="50" y1="130" x2="50" y2="92" stroke="var(--line-strong)"/>
     <line x1="190" y1="130" x2="190" y2="92" stroke="var(--line-strong)"/>
     <line x1="50" y1="135" x2="170" y2="80" stroke="var(--line-strong)"/>
@@ -48,11 +48,11 @@ Po `n − 2` kontrakcích zbývají *2 superuzly*; všechny *neodstraněné* hra
 
     <text x="430" y="20" text-anchor="middle" fill="var(--text-muted)">po kontrakci</text>
     <ellipse cx="430" cy="80" rx="34" ry="20" fill="var(--bg-inset)" stroke="var(--accent-line)" stroke-width="2"/>
-    <text x="430" y="84" text-anchor="middle">uv</text>
+    <text x="430" y="84" text-anchor="middle" fill="var(--text)">uv</text>
     <circle cx="350" cy="140" r="14" fill="var(--bg-inset)" stroke="var(--text-muted)"/>
-    <text x="350" y="144" text-anchor="middle" font-size="10">x</text>
+    <text x="350" y="144" text-anchor="middle" font-size="10" fill="var(--text)">x</text>
     <circle cx="510" cy="140" r="14" fill="var(--bg-inset)" stroke="var(--text-muted)"/>
-    <text x="510" y="144" text-anchor="middle" font-size="10">y</text>
+    <text x="510" y="144" text-anchor="middle" font-size="10" fill="var(--text)">y</text>
     <path d="M 360 130 Q 380 105 405 90" stroke="var(--line-strong)" fill="none"/>
     <path d="M 360 138 Q 390 110 405 95" stroke="var(--line-strong)" fill="none"/>
     <line x1="500" y1="130" x2="450" y2="95" stroke="var(--line-strong)"/>
@@ -71,7 +71,7 @@ KARGER(G = (V, E)):
     vrať počet zbývajících hran
 ```
 
-Implementace: union-find struktura, `O(m)` na výběr a kontrakci. Celkem `O(m · n) = O(n³)` worst-case (graf s `m = O(n²)`).
+Implementace: s reprezentací maticí sousednosti stojí jedna kontrakce `O(n)`, takže jeden běh lze implementovat v `O(n²)` worst-case (po `n − 2` kontrakcích).
 
 ## Analýza pravděpodobnosti úspěchu
 

@@ -45,7 +45,7 @@ V *reálném* trafficu nejsou všechny pakety 64 B. Statistika z **AMS-IX** (Ams
 | 1024–1499 B | ~5 % |
 | **1500 B (MTU)** | ~45 % |
 
-Bimodální distribuce — malé pakety (TCP ACKs) + velké (data). Average ~700 B → packet rate při 100 Gbps reálně ~18 Mpps. *Stále* hodně, ale 10× méně než worst-case.
+Bimodální distribuce — malé pakety (TCP ACKs) + velké (data). Average ~850 B → packet rate při 100 Gbps reálně ~14 Mpps. *Stále* hodně, ale 10× méně než worst-case.
 
 ## Architektonický pohled — vrstvy zpracování
 

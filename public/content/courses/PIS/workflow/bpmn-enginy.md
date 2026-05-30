@@ -81,7 +81,7 @@ Vedle klasických BPMN enginů vznikla *druhá generace* nástrojů, která rezi
 - **Workflow jako kód** v Javě, Pythonu, Go nebo TypeScriptu.
 - **Centrální engine** napsaný v Go.
 - Proces popsaný *programovacím jazykem* — větvení, smyčky, výjimky jsou *jazykové* konstrukce.
-- **Automatický retry, timeouty, zotavení bez ztráty stavu** — Temporal periodicky persistuje *snapshot* běhu, takže po havárii pokračuje přesně tam, kde skončil.
+- **Automatický retry, timeouty, zotavení bez ztráty stavu** — Temporal trvanlivě ukládá kompletní *event history* každého kroku workflow a po havárii deterministicky přehraje (replay) tuto historii, čímž obnoví přesný stav běhu — proto pokračuje přesně tam, kde skončil.
 - **Vhodné pro:** orchestraci mikroslužeb, dlouhotrvající procesy (dny–týdny), procesy s mnoha vnějšími voláními.
 
 Tento přístup je oblíbený mezi vývojáři, kteří nemají rádi grafické modelování — *„kód je dokumentace"*.

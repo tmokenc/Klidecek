@@ -166,7 +166,7 @@ Tedy **CRCW může OR v $O(1)$, EREW vyžaduje $\Omega(\log n)$** — *exponenci
 
 **Úloha**: rozhodnout, zda v poli $A[1..n]$ jsou dva stejné prvky.
 
-- **CRCW PRIORITY**: vyžaduje $\Omega(\log\log n)$ s $n$ procesory. Není $O(1)$ — známá *netriviální dolní mez*.
+- **CRCW PRIORITY**: vyžaduje $\Omega(\sqrt{\log n})$ s $n$ procesory. Není $O(1)$ — známá *netriviální dolní mez*.
 - **EREW**: $\Omega(\log n)$, ve skutečnosti $\Theta(\log n)$ se sortováním a porovnáním sousedů.
 
 Element distinctness je *kanonický* příklad úlohy, která rozlišuje modely uvnitř CRCW hierarchie.
@@ -176,7 +176,7 @@ Element distinctness je *kanonický* příklad úlohy, která rozlišuje modely 
 - **Cluster s message-passing** (MPI) — odpovídá *EREW* (či zhruba CROW), neboť čistě paralelní čtení sdílené buňky neexistuje.
 - **Multi-core CPU se sdílenou cache** — *CREW*, neboť čtení je téměř zdarma (skrz cache), ale zápis vyžaduje koherenční protokoly.
 - **CRCW** s COMMON resolution — některé *vector* a *SIMD* architektury (Cray T3E, IBM SP2 s fetch-and-or operacemi).
-- **PRIORITY CRCW** — teoretický model, *neexistuje* žádný komerční stroj. Slouží primárně k odvozování *horních mezí*.
+- **PRIORITY CRCW** — teoretický model, *neexistuje* žádný komerční stroj. Slouží primárně k odvozování *dolních mezí*.
 
 ## Programovací konvence
 

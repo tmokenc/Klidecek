@@ -50,7 +50,7 @@ Důkaz je technický — buduje *kanonický model* z konzistentní teorie přes 
 **Důkaz** (Henkin 1949, alternativní k Gödelovu) má tři kroky:
 1. *Lindenbaumovo lemma*: každá konzistentní teorie má maximální konzistentní rozšíření.
 2. *Henkinova konstrukce*: z maximální konzistentní teorie sestrojíme model.
-3. Tedy: bezesporná teorie *má* model. *Sporná teorie* odpovídá nedokazatelným tvrzením.
+3. Tedy: bezesporná teorie *má* model. Naopak teorie bez modelu je sporná (dokáže $0$) — proto sémantický důsledek $T \models \varphi$ implikuje dokazatelnost $T \vdash \varphi$.
 
 **Důsledek.** $\vdash \varphi \iff \models \varphi$. Pro PL je *dokazatelnost = platnost*.
 

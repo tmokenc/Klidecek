@@ -37,7 +37,8 @@ Bellmanův operátor není striktně kontrahující, ale konverguje *monotónně
 
 ```
 V⁰(s) = 0 pro s ∉ T,  V⁰(s) = 1 pro s ∈ T
-Vᵏ⁺¹(s) = maxₐ Σ P(s, a, s') · Vᵏ(s')
+pro s ∈ T:   Vᵏ⁺¹(s) = 1                              # absorpční, pevný okraj
+pro s ∉ T:   Vᵏ⁺¹(s) = maxₐ Σ P(s, a, s') · Vᵏ(s')
 ```
 
 Konvergence není garantovaně v konstantním počtu kroků; v praxi se používá *stopping criterion* na *přesnost* (`Vᵏ⁺¹ − Vᵏ < ε`) nebo *upper-lower bounding* (interval iteration).
@@ -68,7 +69,7 @@ Kompromis: policy evaluation se *nevyřeší přesně*, ale aproximuje pomocí `
 
 ## Lineární programování (LP) formulace
 
-Optimální hodnotová funkce je řešením následujícího LP (varianta Dual):
+Optimální hodnotová funkce je řešením následujícího LP (primární / primal LP; duál pracuje nad occupation measures `x(s, a)` a maximalizuje `Σ_{s,a} r(s, a) x(s, a)`):
 
 ::: math
 \begin{aligned}

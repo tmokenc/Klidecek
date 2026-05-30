@@ -177,7 +177,7 @@ CMAC je *deterministický*, *nevyžaduje* další primitive vedle AES (vhodné p
 Aumasson, Bernstein 2012. **MAC navržený pro krátké zprávy** (do ~100 bajtů). Cíl: ochrana proti **hash flooding** útokům na hash tables (CVE-2011-4815 a další).
 
 * **Klíč:** 128 bitů.
-* **Output:** 64 bitů (SipHash-2-4) nebo 128 bitů (SipHash-4-8).
+* **Output:** 64 bitů (default), volitelně 128 bitů. Varianty SipHash-2-4 (default) a SipHash-4-8 (konzervativní) se liší počtem rund (komprese-finalizace), ne délkou výstupu.
 * **Rychlost:** ~5× rychlejší než HMAC-SHA-256 pro krátké zprávy.
 
 **Použití:** Rust, Python, Perl, Ruby — standardní hashování v interních hash tables (klíč je vygenerován při startu programu). Útočník nemůže prediktivně vytvořit kolize.

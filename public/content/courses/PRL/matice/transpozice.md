@@ -98,8 +98,8 @@ Diagonální prvky ($a_{ii}$) zůstávají na místě. Prvky *pod* diagonálou s
 
 ```
 procedure MESH_TRANSPOSE(A)
-  Step 1: každý procesor pod diagonálou pošle (a_ij, j, i) levému sousedovi
-          každý procesor nad diagonálou pošle pravému/hornímu sousedovi
+  Step 1: každý procesor pod diagonálou pošle (a_ij, j, i) hornímu sousedovi
+          každý procesor nad diagonálou pošle levému sousedovi
   Step 2: souběžně:
     (2.1) zprávy směřující do horního trojúhelníku jdou po sloupci nahoru
     (2.2) diagonální procesory přesměrují příchozí zprávu (zprava → dolů, zdola → vpravo)
@@ -118,7 +118,7 @@ procedure MESH_TRANSPOSE(A)
 
 ### Idea
 
-Perfect Shuffle propojení dovoluje *přerozdistribuce* indexů procesorů cyklickým posunem bitů. Klíčové pozorování: pokud index $k = 2^q(i - 1) + (j - 1)$ procesoru obsahuje $a_{ij}$, pak po $q$ shufflech (kde $n = 2^q$) bude tentýž prvek v procesoru s indexem $2^q(j - 1) + (i - 1)$ — což odpovídá $a_{ji}$.
+Perfect Shuffle propojení dovoluje *přerozdělení* indexů procesorů cyklickým posunem bitů. Klíčové pozorování: pokud index $k = 2^q(i - 1) + (j - 1)$ procesoru obsahuje $a_{ij}$, pak po $q$ shufflech (kde $n = 2^q$) bude tentýž prvek v procesoru s indexem $2^q(j - 1) + (i - 1)$ — což odpovídá $a_{ji}$.
 
 ### Algoritmus
 

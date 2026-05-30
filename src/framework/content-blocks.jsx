@@ -94,8 +94,16 @@ function inline(s, content) {
     return `<a href="${safeHref}" target="_blank" rel="noopener noreferrer">${label}</a>`;
   });
 
-  // 6) Bold: **text**
-  out = out.replace(/\*\*([^*\n]+?)\*\*/g, "<strong>$1</strong>");
+  // 5b) Backslash-escaped asterisk `\*` → literal `*`, protected from the
+  //     emphasis passes below (e.g. algorithm names like `A\*`, `D\* Lite`).
+  out = out.replace(/\\\*/g, () => keep("*"));
+
+  // 6) Bold: **text** — content may contain single-`*` italics, including a
+  //    trailing one (`**uzel hledá *medián***`). The `(?!\*)` on the close picks
+  //    the last two of a `***` run as the bold delimiter, so consecutive bolds
+  //    (`**B**asically **A**vailable`) and nested italics both parse. Step 7
+  //    then turns the inner `*…*` into <em>.
+  out = out.replace(/\*\*(.+?)\*\*(?!\*)/g, "<strong>$1</strong>");
 
   // 7) Italic: *text*  (avoid eating ** by requiring a non-* boundary)
   out = out.replace(/(^|[^*])\*([^*\n]+?)\*(?!\*)/g, "$1<em>$2</em>");
@@ -193,7 +201,7 @@ function TableBlock({ block }) {
 
 // Lists may include nested items via `depth` (0 = top level). Group consecutive
 // items with depth > parent into a sublist so the DOM reflects the hierarchy.
-function renderListItems(items, ordered, content, startIdx = 0, depth = 0) {
+function renderListItems(items, ordered, content, startIdx = 0, depth = 0, start = 1) {
   const out = [];
   let i = startIdx;
   while (i < items.length && items[i].depth >= depth) {
@@ -213,7 +221,7 @@ function renderListItems(items, ordered, content, startIdx = 0, depth = 0) {
   }
   const Tag = ordered ? "ol" : "ul";
   return (
-    <Tag className="block-list">
+    <Tag className="block-list" {...(ordered && start > 1 ? { start } : {})}>
       {out.map(({ cur, children }, idx) => (
         <li key={idx}>
           <span dangerouslySetInnerHTML={{ __html: inline(cur.text, content) }} />
@@ -228,7 +236,7 @@ function ListBlock({ block }) {
   const content = useContent();
   const items = block.items || [];
   if (items.length === 0) return null;
-  return renderListItems(items, !!block.ordered, content, 0, items[0].depth);
+  return renderListItems(items, !!block.ordered, content, 0, items[0].depth, block.start || 1);
 }
 
 function highlightCode(code, lang) {

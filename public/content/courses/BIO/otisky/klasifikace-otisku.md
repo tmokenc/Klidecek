@@ -41,7 +41,7 @@ Tři základní (a jejich kombinace) — **Galton class** (1892):
     <text x="105" y="65">Arch (oblouk)</text>
     <text x="270" y="65">Loop (smyčka)</text>
     <text x="435" y="65">Whorl (závit)</text>
-    <text x="105" y="190" fill="var(--text-muted)" font-size="10">0 delta, jeden core</text>
+    <text x="105" y="190" fill="var(--text-muted)" font-size="10">0 delta, 0 core</text>
     <text x="270" y="190" fill="var(--text-muted)" font-size="10">1 delta, jeden core</text>
     <text x="435" y="190" fill="var(--text-muted)" font-size="10">2 delta, plný / spirální závit</text>
   </g>
@@ -101,10 +101,7 @@ Pro každý z 10 prstů:
 * **Whorl** = 1.
 * **Loop / Arch** = 0.
 
-Pak váhováný součet (podle pozice):
-
-* Liché prsty (1, 3, 5, 7, 9): koeficient $V$ (váha).
-* Sudé prsty (2, 4, 6, 8, 10): koeficient $V$ (váha).
+Pak váhováný součet (podle pozice). Poziční váhy: prsty 1–2 = 16, 3–4 = 8, 5–6 = 4, 7–8 = 2, 9–10 = 1.
 
 Schéma:
 
@@ -112,7 +109,7 @@ Schéma:
 \text{Henry primary} = \frac{(P_2 + P_4 + P_6 + P_8 + P_{10}) + 1}{(P_1 + P_3 + P_5 + P_7 + P_9) + 1}
 :::
 
-* $P_i = 0$ pro arch/loop, $= 2^{(10-i)/2 \text{ rounded}}$ pro whorl.
+* $P_i = 0$ pro arch/loop, $= 2^{\lfloor (10-i)/2 \rfloor}$ pro whorl.
 * Result: zlomek mezi 1/32 a 32/1.
 
 * 1 024 *primary classes* — significant reduction search space.
@@ -145,7 +142,7 @@ Automatic Fingerprint Identification System (AFIS) provádí:
 4. **Search v databázi** v *přibližně 1/3 - 1/10* records (díky classification).
 5. **Detailní matching** přes minutiae.
 
-Pro databázi $10^9$ otisků (FBI NGI), classification redukuje search z $10^9$ na ~$10^7$ candidates.
+Pro databázi $10^9$ otisků (FBI NGI), classification redukuje search z $10^9$ na ~$10^8$ candidates.
 
 ## Limity klasifikace
 

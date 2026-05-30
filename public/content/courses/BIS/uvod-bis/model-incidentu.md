@@ -203,7 +203,7 @@ Incident má dopad na *availability*. SLA definuje akceptovatelné metriky:
 - **RPO** (Recovery Point Objective) — kolik dat můžeme ztratit (last backup).
 - **RTO** (Recovery Time Objective) — za kolik musí být služba zpět.
 
-Příklad: webová služba s 99.9 % uptime SLA = 8.76 h downtime/rok. Tickle = 99.99 % = 52 min/rok.
+Příklad: webová služba s 99.9 % uptime SLA = 8.76 h downtime/rok. Přísnější SLA 99.99 % = jen ~52 min downtime/rok.
 
 ---
 

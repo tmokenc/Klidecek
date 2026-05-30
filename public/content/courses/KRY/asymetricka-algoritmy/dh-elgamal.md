@@ -74,9 +74,9 @@ Klíčové: $K = B^a = (g^b)^a = g^{ab} = (g^a)^b = A^b$. Obě strany dostanou *
 Útočník vidí veřejné parametry $(p, g)$ a přenesené $A, B$. Pro získání $K$ by potřeboval **CDH problém**: dáno $(g^a, g^b)$ spočítej $g^{ab}$.
 
 * **CDH** je *věřeně* obtížné — žádný známý polynomiální algoritmus.
-* **DDH** (rozlišit $g^{ab}$ od náhodného $g^z$) je *slabší* a v $\mathbb{Z}_p^*$ stejně obtížné.
+* **DDH** (rozlišit $g^{ab}$ od náhodného $g^z$) je v *celé* grupě $\mathbb{Z}_p^*$ snadný (Legendreův symbol odhalí paritu $a$, $b$, $ab$ → rozlišení $g^{ab}$ od náhodného). DDH se proto předpokládá obtížné jen v prvočíselné podgrupě řádu $q$ (kvadratické zbytky) — odtud nutnost safe prime a generátoru řádu $q$.
 
-> CDH je *neslyšně* slabší než DLP — pokud umíme DLP, umíme CDH (zjistíme $a$ z $A$ a spočítáme $B^a$). Opak neznáme, ale ve většině parametrů jsou stejně obtížné.
+> CDH je *nanejvýš tak obtížné jako* DLP — pokud umíme DLP, umíme CDH (zjistíme $a$ z $A$ a spočítáme $B^a$). Opak neznáme, ale ve většině parametrů jsou stejně obtížné.
 
 ## Man-in-the-Middle útok
 

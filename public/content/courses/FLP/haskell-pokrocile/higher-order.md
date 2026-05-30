@@ -323,7 +323,7 @@ fmap :: Functor f => (a -> b) -> f a -> f b
 ```haskell
 fmap (*2) [1,2,3]            -- [2,4,6]  (works on list, same as map)
 fmap (*2) (Just 5)           -- Just 10  (works on Maybe)
-fmap (*2) (Right 5)          -- Right 10 (works on Either Left a)
+fmap (*2) (Right 5)          -- Right 10 (maps over Right; Left is left unchanged)
 ```
 
 ## Performance considerations

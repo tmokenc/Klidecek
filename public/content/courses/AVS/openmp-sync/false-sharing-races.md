@@ -128,7 +128,7 @@ int total_counts[8] = {0};
 }
 ```
 
-Per-thread `local` (stack) → žádná shared. Merge once na konci.
+Per-thread `local` (stack) → žádná shared. Merge once na konci — `total_counts[]` má sice stejný layout jako původní `counts[]`, ale dotýká se ho každé vlákno *jen jednou* mimo hot loop, takže ping-pong je zanedbatelný.
 
 ### 3. Reduction
 

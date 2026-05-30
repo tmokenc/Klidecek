@@ -101,7 +101,7 @@ export default function FreqAnalysis() {
       <div style={{ fontSize: 11, color: "var(--text-muted)" }}>
         <b>Frekvence v ciphertextu</b> vs. <span style={{ color: "#81b29a" }}>angličtina</span>:
       </div>
-      <svg viewBox={`0 0 ${W} ${BAR_H + 30}`} style={{ width: "100%", maxWidth: 620 }}>
+      <svg viewBox={`0 -4 ${W} ${BAR_H + 34}`} style={{ width: "100%", maxWidth: 620 }}>
         {ALPHA.split("").map((c, i) => {
           const x = 8 + i * ((BAR_W - 16) / 26);
           const ph = (cipherFreq.percent[i] / maxFreqValue) * BAR_H;

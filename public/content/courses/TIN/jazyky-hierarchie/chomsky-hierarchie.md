@@ -39,8 +39,8 @@ Třídy se rozlišují *podle tvaru pravidel*. Předpokládejme $G = (N, \Sigma,
     <text x="200" y="128">L₃</text>
     <text x="200" y="146">regulární</text>
     <text x="200" y="174" fill="var(--text-muted)" font-size="10">{aⁿ}</text>
-    <text x="280" y="174" fill="var(--text-muted)" font-size="10">{aⁿbⁿ}</text>
-    <text x="155" y="194" fill="var(--text-muted)" font-size="10">{aⁿbⁿcⁿ}</text>
+    <text x="140" y="150" fill="var(--text-muted)" font-size="10">{aⁿbⁿ}</text>
+    <text x="95" y="150" fill="var(--text-muted)" font-size="10">{aⁿbⁿcⁿ}</text>
     <text x="60" y="210" fill="var(--text-muted)" font-size="10">L(M_HP)</text>
   </g>
 </svg>

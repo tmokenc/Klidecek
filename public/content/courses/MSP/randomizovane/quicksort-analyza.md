@@ -64,7 +64,7 @@ P(z_i \text{ porovnán se } z_j) = \frac{2}{j - i + 1}.
 
 ### Suma
 
-Označme `k = j − i`. Pro každé `k = 1, …, n−1` existuje `n − k` dvojic `(i, j)` s `j − i = k`. Tedy:
+Označme `k = j − i + 1`. Pro každé `k = 2, …, n` existuje `n − (k − 1)` dvojic `(i, j)` s `j − i + 1 = k`. Tedy:
 
 ::: math
 E[X] = \sum_{i=1}^{n-1} \sum_{j=i+1}^{n} \frac{2}{j - i + 1} = \sum_{i=1}^{n-1} \sum_{k=2}^{n - i + 1} \frac{2}{k}.
@@ -82,24 +82,24 @@ A přesněji `E[X] = 2n \ln n - O(n)`. Tedy *očekávaný počet porovnání je 
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="10.5">
   <g>
     <rect x="200" y="20" width="140" height="22" rx="3" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="270" y="35" text-anchor="middle">n prvků</text>
+    <text x="270" y="35" text-anchor="middle" fill="var(--text)">n prvků</text>
 
     <rect x="110" y="60" width="80" height="22" rx="3" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="150" y="75" text-anchor="middle">≈ n/3</text>
+    <text x="150" y="75" text-anchor="middle" fill="var(--text)">≈ n/3</text>
     <rect x="350" y="60" width="80" height="22" rx="3" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="390" y="75" text-anchor="middle">≈ 2n/3</text>
+    <text x="390" y="75" text-anchor="middle" fill="var(--text)">≈ 2n/3</text>
 
     <line x1="240" y1="42" x2="170" y2="60" stroke="var(--line)"/>
     <line x1="300" y1="42" x2="370" y2="60" stroke="var(--line)"/>
 
     <rect x="40" y="100" width="60" height="22" rx="3" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="70" y="115" text-anchor="middle">~n/9</text>
+    <text x="70" y="115" text-anchor="middle" fill="var(--text)">~n/9</text>
     <rect x="120" y="100" width="60" height="22" rx="3" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="150" y="115" text-anchor="middle">~2n/9</text>
+    <text x="150" y="115" text-anchor="middle" fill="var(--text)">~2n/9</text>
     <rect x="290" y="100" width="60" height="22" rx="3" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="320" y="115" text-anchor="middle">~2n/9</text>
+    <text x="320" y="115" text-anchor="middle" fill="var(--text)">~2n/9</text>
     <rect x="370" y="100" width="60" height="22" rx="3" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="400" y="115" text-anchor="middle">~4n/9</text>
+    <text x="400" y="115" text-anchor="middle" fill="var(--text)">~4n/9</text>
 
     <line x1="130" y1="82" x2="70" y2="100" stroke="var(--line)"/>
     <line x1="170" y1="82" x2="150" y2="100" stroke="var(--line)"/>
@@ -120,10 +120,10 @@ A přesněji `E[X] = 2n \ln n - O(n)`. Tedy *očekávaný počet porovnání je 
 Očekávaná složitost je `O(n log n)`, ale jak často se *skutečně* odchýlí daleko? Důkaz pomocí *Chernoffových* nerovností nebo *Markovovy* dává:
 
 ::: math
-P[T \ge c \cdot n \log n] \le \frac{1}{c^{\Omega(1)}}.
+P[T \ge c \cdot n \ln n] \le n^{-\Omega(c)}.
 :::
 
-V praxi: pravděpodobnost, že QuickSort poběží *více než dvakrát* pomaleji než očekávaně, je *exponenciálně malá* v `n`. Implementace v knihovnách (GNU std::sort, .NET, Java) používají variantu *introsort* — QuickSort + přepnutí na HeapSort při hloubce > `c log n` — což garantuje *worst-case* `O(n log n)`.
+V praxi: pravděpodobnost, že QuickSort poběží *více než dvakrát* pomaleji než očekávaně, je *polynomiálně malá* v `n` (high probability). Implementace v knihovnách (GNU std::sort, .NET, Java) používají variantu *introsort* — QuickSort + přepnutí na HeapSort při hloubce > `c log n` — což garantuje *worst-case* `O(n log n)`.
 
 ## QuickSelect — nalezení k-tého nejmenšího
 

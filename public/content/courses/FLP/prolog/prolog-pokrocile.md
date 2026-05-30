@@ -74,11 +74,13 @@ false.
 ### Issues
 
 ```prolog
-% Logical negation: "exists X, not P(X)"
-?- \+ member(X, [1,2,3]).  % UNSOUND
-% Returns false because Prolog tries member(X, ...) and succeeds
-% but logically, there ARE elements not in the list (e.g., 4)
+?- \+ member(X, [1,2,3]).  % "neexistuje žádné X v [1,2,3]"
+% Returns false (member succeeds with X=1), což je správně.
+% Problém: NAF na non-ground goalu je UNSOUND — neumí navázat
+% X na hodnotu mimo seznam (např. 4), ani vyjádřit "∃X. X∉L".
 ```
+
+Order matters (floundering): `\+ p(X), X = 1` může selhat, zatímco `X = 1, \+ p(X)` uspěje, protože `\+` nad nenavázaným `X` se vyhodnotí dřív, než se `X` instancuje.
 
 **Pravidlo:** Use `\+` only with *ground* (fully instantiated) goals.
 
@@ -276,7 +278,7 @@ proof(and(A, B)) :- proof(A), proof(B).
 proof(or(A, _)) :- proof(A).
 proof(or(_, B)) :- proof(B).
 proof(not(false)).
-proof(implies(A, B)) :- proof(A), proof(B).
+proof(implies(A, B)) :- (proof(A) -> proof(B) ; true).  % A→B: pokud A platí, musí platit B
 
 ?- proof(and(true, or(false, not(false)))).
 true.

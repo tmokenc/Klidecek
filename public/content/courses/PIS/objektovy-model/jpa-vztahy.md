@@ -334,7 +334,7 @@ Jeden SQL s `LEFT JOIN`, vše naráz. EAGER tento problém **neřeší** — jen
 :::
 
 ::: quiz "Default `FetchType` pro `@ManyToOne` je `EAGER`. Proč to v produkci skoro vždy chcete přepnout na `LAZY`?"
-- [x] Protože EAGER táhne celý graf rodičovských entit při každém načtení, i když je třeba vůbec nepotřebujete. To roste exponenciálně do hloubky vztahů.
+- [x] Protože EAGER táhne celý graf rodičovských entit při každém načtení, i když je třeba vůbec nepotřebujete. To narůstá s hloubkou řetězce vztahů (a při větvení do kolekcí se násobí).
   > Ano. Klasický scénář: 1 dotaz na 100 `Car` najednou udělá 100 dalších SELECTů na `Owner` (N+1 problém). LAZY by je vyžádal jen na vyžádání — ideálně přes `JOIN FETCH` při původním dotazu, pokud je opravdu potřebujete.
 - [ ] EAGER je deprecated.
   > Není — je to platná možnost. Jen výchozí hodnota není v produkci obvykle vhodná.

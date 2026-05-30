@@ -69,18 +69,18 @@ opakuj:
     pokud V(vstup, výsledek): return výsledek
 ```
 
-Očekávaný počet iterací je `1/(1 − p_err)`. Pro Karger Min-Cut máme ověřovač (cut value se ověří v `O(m)`), proto Karger lze konvertovat na LV.
+Očekávaný počet iterací je `1/(1 − p_err)`. Konverze funguje jen tehdy, když `V` skutečně **potvrdí korektnost** výsledku. Příklad: u *polynomial identity testing* je nalezený nenulový bod *sebe-certifikující* (stačí dosadit a ověřit, že polynom je nenulový). Naopak Karger Min-Cut takový ověřovač **nemá** — spočítáme sice velikost daného řezu v `O(m)`, ale to neověří jeho *minimalitu* (k tomu bychom museli znát ground-truth min-cut, tj. úlohu už vyřešit). Viz [[karger-min-cut]], „Las Vegas verze".
 
 ## Amplifikace pravděpodobnosti
 
 Pro MC algoritmus s pravděpodobností úspěchu `q > 0` (chyby `1 − q < 1`):
 
-* Spusť algoritmus `k`-krát nezávisle, vrať většinový výsledek (pro algoritmy s rozhodovacím výstupem).
-* Pravděpodobnost chyby klesá *exponenciálně*: `(1 − q)ᵏ → 0`.
+* **One-sided error**: spusť algoritmus `k`-krát nezávisle, vrať `OR` (resp. `AND`) výsledků. Chyba nastane, jen když selžou *všechna* opakování: `(1 − q)ᵏ → 0`.
+* **Two-sided error**: vrať *většinový* výsledek (pro algoritmy s rozhodovacím výstupem); pravděpodobnost chyby klesá *exponenciálně* podle Hoeffdingovy meze níže.
 
 **Příklad — Miller-Rabin**: jedno opakování má `P[chyba] ≤ 1/4`. Po `k` opakováních: `P[chyba] ≤ 4⁻ᵏ`. Pro `k = 40`: `P[chyba] ≤ 10⁻²⁴`.
 
-### Boole-Chernoffova mez
+### Hoeffdingova nerovnost
 
 Pro `k` nezávislých Bernoulliho pokusů s pravděpodobností úspěchu `q`:
 

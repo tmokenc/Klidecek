@@ -61,7 +61,7 @@ export default function EventualConsistencyTimeline() {
         ))}
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", background: "var(--bg-card)", borderRadius: 4 }}>
+      <svg viewBox={`-24 0 ${W + 24} ${H}`} style={{ width: "100%", background: "var(--bg-card)", borderRadius: 4 }}>
         {/* Time axis */}
         <line x1={PAD} y1={H - 50} x2={W - PAD} y2={H - 50} stroke="var(--line-strong)" />
         {Array.from({ length: Tmax + 1 }, (_, i) => i).map(t => (

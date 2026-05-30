@@ -176,7 +176,7 @@ example = bracket
 finally :: IO a -> IO b -> IO a
 
 example2 :: IO Int
-example2 = (1 `div` 0) `finally` putStrLn "cleanup"
+example2 = evaluate (1 `div` 0) `finally` putStrLn "cleanup"
 ```
 
 ## IOException

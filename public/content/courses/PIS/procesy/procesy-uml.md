@@ -26,20 +26,20 @@ Mezi stavy se kreslí **přechody** s případnou **strážní podmínkou** `[po
 <svg viewBox="0 0 540 200" xmlns="http://www.w3.org/2000/svg" style="max-width: 580px;">
   <defs>
     <marker id="arrA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--text)"/>
     </marker>
   </defs>
-  <circle cx="40" cy="100" r="9" fill="var(--ink)"/>
-  <rect x="120" y="60" width="200" height="80" rx="14" fill="var(--accent-bg)" stroke="var(--accent)" stroke-width="2"/>
+  <circle cx="40" cy="100" r="9" fill="var(--text)"/>
+  <rect x="120" y="60" width="200" height="80" rx="14" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
   <line x1="120" y1="92" x2="320" y2="92" stroke="var(--accent)"/>
   <line x1="120" y1="118" x2="320" y2="118" stroke="var(--accent)"/>
-  <text x="220" y="83" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold" fill="var(--ink)">stav</text>
-  <text x="220" y="108" text-anchor="middle" font-family="ui-sans-serif" font-size="11" fill="var(--ink)">proměnné</text>
-  <text x="220" y="133" text-anchor="middle" font-family="ui-sans-serif" font-size="11" fill="var(--ink)">entry/do/exit</text>
-  <circle cx="480" cy="100" r="12" fill="none" stroke="var(--ink)" stroke-width="2"/>
-  <circle cx="480" cy="100" r="6" fill="var(--ink)"/>
-  <line x1="49" y1="100" x2="115" y2="100" stroke="var(--ink)" stroke-width="2" marker-end="url(#arrA)"/>
-  <line x1="320" y1="100" x2="464" y2="100" stroke="var(--ink)" stroke-width="2" marker-end="url(#arrA)"/>
+  <text x="220" y="83" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold" fill="var(--text)">stav</text>
+  <text x="220" y="108" text-anchor="middle" font-family="ui-sans-serif" font-size="11" fill="var(--text)">proměnné</text>
+  <text x="220" y="133" text-anchor="middle" font-family="ui-sans-serif" font-size="11" fill="var(--text)">entry/do/exit</text>
+  <circle cx="480" cy="100" r="12" fill="none" stroke="var(--text)" stroke-width="2"/>
+  <circle cx="480" cy="100" r="6" fill="var(--text)"/>
+  <line x1="49" y1="100" x2="115" y2="100" stroke="var(--text)" stroke-width="2" marker-end="url(#arrA)"/>
+  <line x1="320" y1="100" x2="464" y2="100" stroke="var(--text)" stroke-width="2" marker-end="url(#arrA)"/>
   <text x="400" y="92" text-anchor="middle" font-family="ui-monospace" font-size="11" fill="var(--accent)">[podmínka]</text>
 </svg>
 :::
@@ -85,17 +85,17 @@ Tato dekompozice je zásadní motivace pro celou přednášku: ve **vrstvě ří
 <svg viewBox="0 0 540 220" xmlns="http://www.w3.org/2000/svg" style="max-width: 580px;">
   <defs>
     <marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--text)"/>
     </marker>
   </defs>
   <ellipse cx="180" cy="50" rx="140" ry="35" fill="none" stroke="var(--accent)" stroke-width="2"/>
-  <text x="180" y="55" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold" fill="var(--ink)">Vrstva řízení (stavový diagram)</text>
-  <line x1="180" y1="92" x2="180" y2="118" stroke="var(--ink)" stroke-width="2" marker-end="url(#arrB)"/>
+  <text x="180" y="55" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold" fill="var(--text)">Vrstva řízení (stavový diagram)</text>
+  <line x1="180" y1="92" x2="180" y2="118" stroke="var(--text)" stroke-width="2" marker-end="url(#arrB)"/>
   <ellipse cx="180" cy="160" rx="180" ry="40" fill="none" stroke="var(--danger, #b91c1c)" stroke-width="2"/>
-  <text x="180" y="155" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold" fill="var(--ink)">Vrstva stavů — obecné procesy</text>
-  <text x="180" y="178" text-anchor="middle" font-family="ui-sans-serif" font-size="12" fill="var(--ink)">(transakce nad databází)</text>
-  <text x="430" y="50" font-family="ui-sans-serif" font-size="11" fill="var(--muted)">sekvence/hierarchie</text>
-  <text x="430" y="170" font-family="ui-sans-serif" font-size="11" fill="var(--muted)">obsah jednotlivých kroků</text>
+  <text x="180" y="155" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold" fill="var(--text)">Vrstva stavů — obecné procesy</text>
+  <text x="180" y="178" text-anchor="middle" font-family="ui-sans-serif" font-size="12" fill="var(--text)">(transakce nad databází)</text>
+  <text x="538" y="50" text-anchor="end" font-family="ui-sans-serif" font-size="11" fill="var(--text-muted)">sekvence/hierarchie</text>
+  <text x="538" y="170" text-anchor="end" font-family="ui-sans-serif" font-size="11" fill="var(--text-muted)">obsah jednotlivých kroků</text>
 </svg>
 :::
 

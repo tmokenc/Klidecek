@@ -11,7 +11,7 @@ title: Neinformované prohledávání
 | Algoritmus | Frontier | Optimální? | Úplný? | Časová | Prostorová |
 | :-- | :--: | :--: | :--: | :--: | :--: |
 | BFS | FIFO | Ano (jen pro `cost=1`) | Ano | `O(b^d)` | `O(b^d)` |
-| DFS | LIFO | Ne | Ne (∞) / Ano (graph) | `O(b^m)` | `O(b·m)` |
+| DFS | LIFO | Ne | Ne (∞) / Ano (graph, konečný prostor) | `O(b^m)` | `O(b·m)` |
 | DLS | LIFO + limit | Ne | Pouze pokud řešení v limitu | `O(b^ℓ)` | `O(b·ℓ)` |
 | IDS | LIFO + iter. limit | Ano (jen pro `cost=1`) | Ano | `O(b^d)` | `O(b·d)` |
 | UCS | Prio. fronta (g) | **Ano** (i obecná cena) | Ano | `O(b^(1+⌊C*/ε⌋))` | tož samé |
@@ -48,7 +48,7 @@ Při tree-search v *nekonečném* prostoru se DFS nesmí použít přímo — po
 
 * DFS s **horním limitem hloubky** `ℓ`. Uzly v hloubce `ℓ` se *neexpandují*.
 * Úplná, pokud řešení leží *v* hloubce `≤ ℓ`. Jinak neúplná.
-* Užitečné, když známe *dolní mez* na hloubku řešení (např. ze struktury úlohy).
+* Užitečné, když známe *horní mez* na hloubku řešení (např. průměr/diameter grafu nebo jiné omezení ze struktury úlohy), takže máme jistotu, že řešení leží v hloubce `≤ ℓ`.
 
 ## IDS — Iterative Deepening Search
 

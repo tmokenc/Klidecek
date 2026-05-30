@@ -16,7 +16,7 @@ title: Nehty jako biometrika
   <g fill="rgba(255,240,230,0.8)" stroke="var(--accent)" stroke-width="1.2">
     <path d="M200,80 Q210,60 270,60 Q330,60 340,80 L340,170 Q330,185 270,185 Q210,185 200,170 Z"/>
   </g>
-  <g fill="rgba(255,255,255,0.7)" stroke="var(--accent)" stroke-width="0.8">
+  <g fill="var(--bg-inset)" stroke="var(--accent)" stroke-width="0.8">
     <ellipse cx="270" cy="80" rx="40" ry="8"/>
   </g>
   <g fill="rgba(180,120,100,0.4)" stroke="var(--accent)" stroke-width="0.8">

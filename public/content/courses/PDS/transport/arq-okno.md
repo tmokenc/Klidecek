@@ -22,7 +22,7 @@ Tradeoff:
 - *Příliš malé* → vysoká režie protokolu, špatné využití linky (small bandwidth-delay product).
 - *Příliš velké* → riziko zahlcení mezilehlých uzlů, paměťová náročnost.
 
-**Optimum:** $w \approx $ bandwidth × RTT (*bandwidth-delay product*). Pro 100 Mbps linku a 100 ms RTT je BDP = 12,5 MB — okno by mělo být alespoň takové.
+**Optimum:** $w \approx $ bandwidth × RTT (*bandwidth-delay product*). Pro 100 Mbps linku a 100 ms RTT je BDP = 1,25 MB — okno by mělo být alespoň takové.
 
 V TCP se okno *adaptuje* podle congestion control (viz [[rizeni-toku-zahlceni]]).
 

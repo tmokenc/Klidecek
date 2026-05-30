@@ -103,7 +103,7 @@ export default function VeinNirSpectrum() {
             <text x={x2px(l)} y={H - 11} fontSize="9" textAnchor="middle" fill="var(--text-muted)">{l}</text>
           </g>
         ))}
-        <text x={(W) / 2} y={H - 1} fontSize="10" textAnchor="middle" fill="var(--text-muted)">vlnová délka [nm]</text>
+        <text x={(W) / 2} y={H - 4} fontSize="10" textAnchor="middle" fill="var(--text-muted)">vlnová délka [nm]</text>
 
         {/* current lambda marker */}
         <line x1={x2px(lam)} y1={20} x2={x2px(lam)} y2={H - 25} stroke={lambdaColor(lam)} strokeWidth="2" strokeDasharray="3 2" />

@@ -3,7 +3,7 @@
 // total compression ratio.
 import { useMemo, useState } from "react";
 
-const W = 540, H = 320;
+const W = 552, H = 320;
 
 const INIT = "CZE USA CZE DEU CZE USA GBR CZE FRA CZE USA DEU CZE USA CZE";
 
@@ -112,7 +112,7 @@ export default function DictionaryEncodingBuilder() {
         <text x={avX} y={avY + 50} fontSize="10" fontFamily="var(--font-mono)" fill="var(--text-muted)">packed bitstream ({allBits.length} bits ≈ {Math.ceil(allBits.length / 8)} bytes):</text>
         <text x={avX} y={avY + 66} fontSize="9" fontFamily="var(--font-mono)" fill="var(--text)">{allBits.match(new RegExp(`.{1,${Math.max(8, bitsPerId * 4)}}`, "g"))?.slice(0, 8).join(" ")}{allBits.length > 64 ? "…" : ""}</text>
 
-        <text x={avX} y={avY + 86} fontSize="9.5" fontFamily="var(--font-mono)" fill={sorted ? "var(--text-muted)" : "oklch(0.7 0.15 22)"}>
+        <text x={avX} y={avY + 86} fontSize="9" fontFamily="var(--font-mono)" fill={sorted ? "var(--text-muted)" : "oklch(0.7 0.15 22)"}>
           {sorted
             ? "sorted → O(log n) lookup, range queries possible, but INSERT of new value may resort all IDs."
             : "append-only → fast INSERT (just append), but lookup is O(n) and no range queries on IDs."}

@@ -122,9 +122,9 @@ Root pole velikosti 8:
 
 Lookup: vezmi prvních $k$ bitů adresy, *zaindexuj* do pole → buď prefix (list) nebo ukazatel na podstrom (interní uzel). Rekurze.
 
-## Lulea Compressed Tries (LC-tries)
+## Lulea (bitová komprese trie)
 
-**Lulea LC-tries** (Degermark et al., SIGCOMM 1997) jsou *kompresí* multibit trie — místo pevného pole $2^k$ použijte *bitovou mapu*, která říká, *které pozice mají hodnotu*.
+**Lulea** (Degermark et al., SIGCOMM 1997) je *kompresí* multibit trie — místo pevného pole $2^k$ použijte *bitovou mapu*, která říká, *které pozice mají hodnotu*.
 
 ### Fáze 1 — Úprava hodnot
 
@@ -148,11 +148,16 @@ Komprese:
 
 ### Použití
 
-LC-tries se používají v:
+Bitově komprimovaná trie (Lulea) se používá v:
 
-- **Linux kernel FIB** (od kernelu 2.6.32).
 - **DPDK** (Data Plane Development Kit).
 - Některé open-source softwarové routery.
+
+## LC-trie (level-compressed trie)
+
+**LC-trie** (level-compressed trie, Nilsson & Karlsson) je *odlišná* technika — kombinuje *path compression* (vynechání uzlů s jediným potomkem) a *level compression* (nahrazení horních úplných podstromů jedním multibit uzlem). Nezaměňovat s Lulea schématem výše.
+
+- **Linux kernel FIB** (`fib_trie.c`, od kernelu 2.6.13) implementuje LC-trie.
 
 ## Co dále
 

@@ -43,7 +43,7 @@ NIST vyhlásil veřejnou soutěž v 2016. **Tři kola**:
 
 | Standard | Identita | Účel | Bezpečnost | Velikost |
 | :--- | :--- | :--- | :-: | :-: |
-| **FIPS 203 (ML-KEM)** | Kyber | KEM | mřížky | PK 800 B, CT 768 B |
+| **FIPS 203 (ML-KEM)** | Kyber | KEM | mřížky | PK 1184 B, CT 1088 B (ML-KEM-768) |
 | **FIPS 204 (ML-DSA)** | Dilithium | Podpis | mřížky | PK 1.3 kB, sig 2.4 kB |
 | **FIPS 205 (SLH-DSA)** | SPHINCS+ | Podpis (hash-based) | hashe | sig 7–50 kB |
 | Future | Falcon | Podpis | mřížky (NTRU) | sig 700 B |

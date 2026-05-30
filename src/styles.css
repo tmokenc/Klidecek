@@ -3,6 +3,7 @@
  * Adapted from the school-helper handoff design. */
 
 :root {
+  color-scheme: light;
   --bg:           oklch(0.985 0.003 80);
   --bg-soft:      oklch(0.97 0.005 80);
   --bg-card:     #ffffff;
@@ -48,6 +49,7 @@
 }
 
 [data-theme="dark"] {
+  color-scheme: dark;
   --bg:           oklch(0.16 0.008 260);
   --bg-soft:      oklch(0.19 0.010 260);
   --bg-card:      oklch(0.21 0.012 260);

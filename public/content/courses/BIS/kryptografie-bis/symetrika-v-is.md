@@ -96,7 +96,7 @@ Hybrid je *standard* (TLS, SSH, IPsec). Detail v [[hybridni]].
 
 Pro modern threat:
 
-- **AES-128** — minimum for new deployment. ~$10^9 years to brute force.
+- **AES-128** — minimum for new deployment. $2^{128}$ keys → brute force computationally infeasible ($>10^{13}$ years even with an extreme global cracking effort).
 - **AES-192** — extra margin.
 - **AES-256** — for crypto-agility (post-quantum, paranoia). NIST SP 800-131 recommends 256 by 2030.
 
@@ -114,7 +114,7 @@ Detaily v [[delka-klice]], [[postkvantova]].
 | CBC | legacy, paired with HMAC | not AEAD, careful with padding |
 | CTR | streaming | needs unique IV |
 | GCM | **modern default** | authenticated encryption |
-| GCM-SIV | nonce-reuse misuse-resistant | new, no AES-NI for GHASH |
+| GCM-SIV | nonce-reuse misuse-resistant | RFC 8452, uses POLYVAL (not GHASH); AES still AES-NI accelerated, MAC via PCLMULQDQ |
 | XTS | disk encryption | tweak from sector |
 
 Default: **AES-256-GCM** pro most use cases. **ChaCha20-Poly1305** for software / mobile.

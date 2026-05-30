@@ -8,7 +8,7 @@ Architektury výpočetních systémů se desítky let snaží proměnit přibýv
 
 ## Moorův zákon a jeho omezení
 
-[Gordon Moore](https://newsroom.intel.com/wp-content/uploads/sites/11/2018/05/moores-law-electronics.pdf) (Intel, 1965): počet tranzistorů na čipu se zdvojnásobuje *každé dva roky* při zachování stejné ceny. Empirické pravidlo, ne fyzikální zákon — a přesto platí dosud, byť za stále vyšší cenu (EUV litografie, 3D stacking).
+[Gordon Moore](https://newsroom.intel.com/wp-content/uploads/sites/11/2018/05/moores-law-electronics.pdf) (Fairchild Semiconductor, 1965; revidováno na ~dva roky v roce 1975): počet tranzistorů na čipu se zdvojnásobuje *každé dva roky* při zachování stejné ceny. Empirické pravidlo, ne fyzikální zákon — a přesto platí dosud, byť za stále vyšší cenu (EUV litografie, 3D stacking).
 
 Co Moorův zákon **nezaručuje**:
 

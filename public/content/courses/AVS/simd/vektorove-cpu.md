@@ -97,7 +97,7 @@ Vektorová CPU jsou typicky **bandwidth-bound**, ne compute-bound. NEC SX-Aurora
 - 1.2 TB/s HBM2 memory bandwidth.
 - Aritmetická intenzita potřebná pro plné využití: 6.4 / 1.2 = 5.3 flop/byte.
 
-Pro AXPY (2 flop / 16 byte = 0.125 flop/byte) → CPU jen 12 % využité.
+Pro AXPY (2 flop / 12 byte = 0.17 flop/byte) → CPU jen 3 % využité.
 
 Kompenzace: **mnoho registrů**, *velký* L2-like buffer. Aurora má 16 MB LLC.
 

@@ -37,7 +37,7 @@ CDF *jednoznačně* určuje rozdělení NV. Vlastnosti:
 * `P(X = x) = F(x) − lim_{t↑x} F(t)` (skoková výška),
 * `P(a < X ≤ b) = F(b) − F(a)`.
 
-::: svg "CDF diskrétní (vlevo, schodová) vs. spojité NV (vpravo, hladká nerostoucí funkce)."
+::: svg "CDF diskrétní (vlevo, schodová) vs. spojité NV (vpravo, hladká neklesající funkce)."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
   <g transform="translate(30,20)">
     <text x="110" y="-2" text-anchor="middle" fill="var(--text-muted)">diskrétní NV</text>

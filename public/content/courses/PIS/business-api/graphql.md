@@ -72,7 +72,10 @@ V přednášce se v `concept` notaci ujasní, jak se to liší od OO modelu: `Qu
 
 ```graphql
 type Person {
+    id: ID!
     name: String!
+    surname: String
+    born: String
     age: Int!
     posts: [Post!]!
 }
@@ -83,6 +86,13 @@ type Car {
     owner: Person!
 }
 
+input PersonInput {
+    id: ID
+    name: String
+    surname: String
+    born: String
+}
+
 type Query {
     allPersons: [Person!]!
     findPerson(name: String!): Person!
@@ -90,12 +100,14 @@ type Query {
 
 type Mutation {
     createPerson(name: String!, age: Int!): Person!
+    updatePerson(p: PersonInput): Person!
 }
 ```
 
 * `Person` má povinné `name` a `age`, pole `posts` (povinné, neprázdné).
 * `Car` má vztah na `Person` přes `owner`.
-* Root `Query` vystavuje dvě operace; `Mutation` jednu.
+* `PersonInput` je vstupní (`input`) typ pro předání dat do mutace.
+* Root `Query` vystavuje dvě operace; `Mutation` dvě.
 
 ## Dotazy
 
@@ -111,11 +123,13 @@ Odpověď:
 
 ```json
 {
-  "allPersons": [
-    { "name": "Jan" },
-    { "name": "Karolína" },
-    { "name": "Alice" }
-  ]
+  "data": {
+    "allPersons": [
+      { "name": "Jan" },
+      { "name": "Karolína" },
+      { "name": "Alice" }
+    ]
+  }
 }
 ```
 
@@ -135,13 +149,15 @@ Odpověď:
 
 ```json
 {
-  "findPerson": {
-    "name": "James",
-    "age": 28,
-    "cars": [
-      { "type": "Fiat" },
-      { "type": "Tesla" }
-    ]
+  "data": {
+    "findPerson": {
+      "name": "James",
+      "age": 28,
+      "cars": [
+        { "type": "Fiat" },
+        { "type": "Tesla" }
+      ]
+    }
   }
 }
 ```
@@ -168,7 +184,7 @@ s variables:
     "born": "1991-06-03T22:00:00Z[UTC]",
     "id": 1154731299,
     "name": "Sylvester",
-    "surname": "Stalone"
+    "surname": "Stallone"
   }
 }
 ```

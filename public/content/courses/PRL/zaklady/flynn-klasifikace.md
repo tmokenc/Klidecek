@@ -188,7 +188,7 @@ Klasický moderní HPC: tisíce *uzlů*, každý je *multi-core SMP*. Programuje
 | Flexibilita | nízká (stejná op) | vysoká (různé op) |
 | Programování | jednoduché (vektor smyčka) | složitější (synchronizace) |
 | Efektivita | vysoká pro stejná data | univerzální |
-| Memory | tighty coupled | shared/distributed |
+| Memory | tightly coupled | shared/distributed |
 | Aplikace | dat-paralelní | task-paralelní |
 
 Moderní systémy *kombinují* obě: CPU s SIMD instrukcemi + multi-core MIMD; GPU s tisíci SIMD core organizovaných do MIMD bloků.
@@ -216,7 +216,7 @@ Moderní systémy *kombinují* obě: CPU s SIMD instrukcemi + multi-core MIMD; G
     <text x="250" y="90">MISD</text>
     <text x="380" y="90">MIMD</text>
     <text x="490" y="90">SIMD</text>
-    <text x="140" y="150">VLIW</text>
+    <text x="140" y="150">skalární CPU</text>
     <text x="240" y="150">pipeline</text>
     <text x="370" y="150">SMP</text>
     <text x="470" y="150">cluster</text>
@@ -228,6 +228,8 @@ Moderní systémy *kombinují* obě: CPU s SIMD instrukcemi + multi-core MIMD; G
     <line x1="270" y1="50" x2="250" y2="70"/>
     <line x1="270" y1="50" x2="380" y2="70"/>
     <line x1="270" y1="50" x2="490" y2="70"/>
+    <line x1="120" y1="100" x2="140" y2="130"/>
+    <line x1="250" y1="100" x2="240" y2="130"/>
     <line x1="380" y1="100" x2="370" y2="130"/>
     <line x1="380" y1="100" x2="470" y2="130"/>
     <line x1="490" y1="100" x2="180" y2="180"/>

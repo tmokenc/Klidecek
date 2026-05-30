@@ -4,13 +4,13 @@ title: CRISP-DM — životní cyklus analytického projektu
 
 # CRISP-DM — životní cyklus analytického projektu
 
-**CRISP-DM** (Cross-Industry Standard Process for Data Mining, 1996) je referenční metodika pro analytické projekty. Vznikla iniciativou DaimlerChrysler, SPSS a NCR a stala se *de facto* standardem v dolování dat a data science. CRISP-DM strukturuje projekty do **šesti fází** s explicitními zpětnými vazbami — projekt zpravidla není sekvenční, mezi fázemi se vracíme. Pochopení CRISP-DM je klíčové pro koordinaci analytických týmů a komunikaci se *stakeholdery*. I když novější metodiky (TDSP od Microsoftu, Domino's lifecycle) přidávají detaily, jádro CRISP-DM zůstává relevantní.
+**CRISP-DM** (Cross-Industry Standard Process for Data Mining, 1996) je referenční metodika pro analytické projekty. Vznikla iniciativou Daimler-Benz (později DaimlerChrysler), SPSS, NCR a OHRA a stala se *de facto* standardem v dolování dat a data science. CRISP-DM strukturuje projekty do **šesti fází** s explicitními zpětnými vazbami — projekt zpravidla není sekvenční, mezi fázemi se vracíme. Pochopení CRISP-DM je klíčové pro koordinaci analytických týmů a komunikaci se *stakeholdery*. I když novější metodiky (TDSP od Microsoftu, Domino Data Lab — Data Science Lifecycle) přidávají detaily, jádro CRISP-DM zůstává relevantní.
 
 ## Šest fází CRISP-DM
 
 ::: svg "CRISP-DM životní cyklus: 6 fází (Pochopení kontextu → Pochopení dat → Příprava dat → Modelování → Zhodnocení → Použití). Šipky ukazují hlavní postup, zpětné vazby mezi fázemi naznačují iterativní povahu."
-<svg viewBox="0 0 540 300" font-family="ui-sans-serif, system-ui" font-size="11">
-  <g transform="translate(270, 150)">
+<svg viewBox="0 0 540 324" font-family="ui-sans-serif, system-ui" font-size="11">
+  <g transform="translate(270, 162)">
     <circle cx="0" cy="-110" r="50" fill="var(--bg-card)" stroke="var(--accent)" stroke-width="2"/>
     <text x="0" y="-115" text-anchor="middle" fill="var(--text)" font-weight="600" font-size="10">1. Pochopení</text>
     <text x="0" y="-100" text-anchor="middle" fill="var(--text)" font-weight="600" font-size="10">kontextu</text>
@@ -137,7 +137,7 @@ Centrum diagramu zobrazuje *data* — všechny fáze se kolem nich točí, opako
 
 * **SEMMA** (SAS Institute) — Sample, Explore, Modify, Model, Assess. Užší, jen technický pohled.
 * **TDSP** (Microsoft Team Data Science Process) — moderní (2018), zaměřená na týmovou kolaboraci, Git, CI/CD.
-* **Domino's Lifecycle** — komerční s důrazem na MLOps.
+* **Domino Data Lab — Data Science Lifecycle** — komerční s důrazem na MLOps.
 * **OSEMN** — Obtain, Scrub, Explore, Model, iNterpret. Akademický.
 
 CRISP-DM je *nejstarší* (1996) a *nejrozšířenější* — kompromis mezi byznysem a technologií.

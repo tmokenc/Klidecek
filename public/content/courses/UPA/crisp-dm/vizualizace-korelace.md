@@ -234,7 +234,7 @@ Závěr: **Vždy si data vizualizujte.** Popisné statistiky bez vizualizace moh
 
 ## Pravidla pro dobrou vizualizaci
 
-* **Klamat barvami** — používejte konzistentní paletu. Pro divergentní data (kladné/záporné) divergent palette (RdBu); pro sekvenční jednu hue (Blues).
+* **Neklamte barvami** — používejte konzistentní paletu. Pro divergentní data (kladné/záporné) divergent palette (RdBu); pro sekvenční jednu hue (Blues).
 * **Vyhněte se 3D grafům** — méně čitelné, perspektiva klame.
 * **Použít vhodný typ** — distribuce → histogram/density plot; vztah → scatter; porovnání → bar chart; složení → stacked bar nebo pie (sparingly).
 * **Štítky a popisky** — vždy s jednotkami, jasným titulkem.

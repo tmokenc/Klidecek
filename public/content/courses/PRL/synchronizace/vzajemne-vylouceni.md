@@ -121,11 +121,11 @@ Místo požádat *všechny* $n - 1$ procesů Maekawa žádá jen **podmnožinu**
 3. Všechna kvóra mají stejnou *velikost* $K$.
 4. Každý proces je obsažen v $K$ kvórech.
 
-Pro splnění těchto podmínek $K = O(\sqrt n)$ — řekněme $K = \sqrt{2N + 1}$.
+Pro splnění těchto podmínek $K = O(\sqrt n)$ — řekněme $K = 2\sqrt{N} - 1$.
 
 ### Konstrukce kvór — biliardová metoda
 
-Procesy uspořádáme do *trojúhelníkové* mřížky. Kvórum procesu $i$ = procesy *na řádce a sloupci* z bodu $i$.
+Procesy uspořádáme do *čtvercové* mřížky ($\sqrt N \times \sqrt N$). Kvórum procesu $i$ = procesy *na řádce a sloupci* z bodu $i$.
 
 ::: svg "Biliardová konstrukce kvór — řádek + sloupec dává kvórum"
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">

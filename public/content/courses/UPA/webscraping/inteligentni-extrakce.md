@@ -185,7 +185,7 @@ Moderní LLM (Claude 3+, GPT-4+) přímo *podporují JSON Schema* mode — výst
 
 LLM použití je *finančně drahé*:
 
-* **Per-token billing** — Claude 4.7 ~$3/M input tokens, $15/M output. Pro stránku 5K tokenů × 1M stránek = $15 000.
+* **Per-token billing** — např. modely třídy Sonnet řádově ~$3/M vstupních a ~$15/M výstupních tokenů (ceny se liší podle modelu a v čase klesají). Pro stránku 5K tokenů × 1M stránek = $15 000.
 * **Latency** — typicky 1–10 sekund per request. Pro real-time scraping pomalé.
 * **Rate limits** — API limity (tokens/min, requests/min).
 * **Local deployment** — open-source modely (Llama 3, Mistral) lze provozovat lokálně, ale potřebují GPU.

@@ -43,8 +43,8 @@ C_i = E_K(M_i).
     <text x="80" y="105">↓ E_K</text>
     <text x="180" y="105">↓ E_K</text>
     <text x="280" y="105">↓ E_K</text>
-    <text x="470" y="118">M_1 = M_3 ⇒ C_1 = C_3</text>
-    <text x="470" y="134">⚠ Únik struktury!</text>
+    <text x="535" y="118" text-anchor="end">M_1 = M_3 ⇒ C_1 = C_3</text>
+    <text x="535" y="134" text-anchor="end">⚠ Únik struktury!</text>
   </g>
 </svg>
 :::
@@ -121,7 +121,7 @@ C_0 = \mathrm{IV}, \qquad C_i = E_K(M_i \oplus C_{i-1}).
 
 ### Slavné útoky na CBC
 
-* **Padding oracle** (Vaudenay 2002) — pokud server vrací informaci o tom, zda padding po dešifrování je platný, útočník po `cca 128 * délka_zprávy / 256` dotazech dešifruje. Bezpečnostně katastrofa — POODLE (2014) proti SSL 3.0, Lucky 13 (2013) proti TLS-CBC.
+* **Padding oracle** (Vaudenay 2002) — pokud server vrací informaci o tom, zda padding po dešifrování je platný, útočník po cca 128 dotazech na každý bajt (worst case 256), tj. ~128·|M| dotazech, dešifruje. Bezpečnostně katastrofa — POODLE (2014) proti SSL 3.0, Lucky 13 (2013) proti TLS-CBC.
 * **BEAST** (2011) — útok na CBC s predikovatelným IV v TLS 1.0.
 * **Bit-flipping** — pokud útočník zná plaintext bloku $i-1$, může cíleně přepsat bity v $C_{i-1}$ tak, aby $M_i$ vyšlo dle libosti.
 
@@ -139,10 +139,10 @@ z_i = E_K(\mathrm{nonce} \| i), \qquad C_i = M_i \oplus z_i.
 
 * **Plně paralelní** — každý blok ciphertextu lze generovat nezávisle. Ideální pro multicore, SIMD.
 * **Bez paddingu** — pracuje na bitové úrovni (XOR), žádný "blokový padding" není třeba. (Implementačně se zaokrouhlí na blok; přebytek XORu je jednoduše odhozen.)
-* **Náhodný přístup** — pro disk-encryption: dešifrování bloku $i$ vyžaduje pouze $E_K(\mathrm{nonce} \| i)$. AES-XTS je varianta CTR.
+* **Náhodný přístup** — pro disk-encryption: dešifrování bloku $i$ vyžaduje pouze $E_K(\mathrm{nonce} \| i)$. Pro disk encryption se nicméně používá AES-XTS (XEX-based tweaked codebook), nikoli čistý CTR.
 * **Nonce reuse je katastrofa** — pokud se použije stejný nonce s stejným klíčem dvakrát, dostáváme [[one-time-pad|two-time pad]] situaci.
 
-> **Pravidlo CTR:** nonce *nikdy* znovu nepoužívat se stejným klíčem. Pokud má nonce 96 bitů, lze poslat $2^{96}$ zpráv předtím, než se začneme bát kolize *při náhodném výběru* — pro praxi víc než dost. Pokud nonce má 64 bitů, hranice je $\approx 2^{32}$ zpráv (paradox narozenin) — opatrnost.
+> **Pravidlo CTR:** nonce *nikdy* znovu nepoužívat se stejným klíčem. Pokud má nonce 96 bitů, lze poslat $\approx 2^{48}$ (paradox narozenin) zpráv předtím, než se začneme bát kolize *při náhodném výběru* — pro praxi víc než dost. Pokud nonce má 64 bitů, hranice je $\approx 2^{32}$ zpráv (paradox narozenin) — opatrnost.
 
 ## OFB a CFB
 
@@ -156,7 +156,7 @@ OFB a CFB jsou historické režimy (před CTR). V moderní praxi vytlačeny CTR 
 Kombinace CTR (důvěrnost) + GHASH (autenticita) — **AEAD** režim. Standard pro TLS, IPsec, SSH.
 
 * **Šifrování:** $C_i = M_i \oplus E_K(\mathrm{nonce} \| i)$ (jako CTR).
-* **Autentizace:** spočítá se *autentizační tag* $T = \mathrm{GHASH}_H(A, C) \oplus E_K(\mathrm{nonce} \| 0)$, kde $H = E_K(0^{128})$ a $A$ je *additional data* (asociovaná data, šifrovaná).
+* **Autentizace:** spočítá se *autentizační tag* $T = \mathrm{GHASH}_H(A, C) \oplus E_K(\mathrm{nonce} \| 0)$, kde $H = E_K(0^{128})$ a $A$ je *additional data* (asociovaná data) — autentizovaná, ale **nešifrovaná**.
 * **Verifikace:** příjemce spočítá $T'$ a porovná. Pokud $T' \neq T$, *odmítne* zprávu.
 
 ### Vlastnosti GCM

@@ -145,15 +145,15 @@ Klíčový teoretický předěl mezi *trakovatelnými* (= prakticky řešitelný
 
 | $n$ | $n^2$ ($\mu$s) | $2^n$ ($\mu$s) |
 | :-: | :-: | :-: |
-| 10 | 0.0001 s | 0.0001 s |
-| 20 | 0.0004 s | 0.1 s |
-| 30 | 0.0009 s | 1.75 min |
-| 40 | 0.0016 s | 1.24 dne |
-| 50 | 0.0025 s | 3.48 roku |
-| 60 | 0.0036 s | 36 století |
-| 70 | 0.0049 s | 3.6 mil. roků |
+| 10 | 0.0001 s | 0.001 s |
+| 20 | 0.0004 s | ~1 s |
+| 30 | 0.0009 s | ~18 min |
+| 40 | 0.0016 s | ~13 dní |
+| 50 | 0.0025 s | ~36 roků |
+| 60 | 0.0036 s | ~365 století |
+| 70 | 0.0049 s | ~37 mil. roků |
 
-> Polynomiální algoritmus zvládá $n = 70$ za milisekundu, exponenciální za 3,6 milionu let. Tato dramatika ospravedlňuje *teoretickou* hranici mezi $P$ a problémy mimo $P$.
+> Polynomiální algoritmus zvládá $n = 70$ za milisekundu, exponenciální za ~37 milionů let. Tato dramatika ospravedlňuje *teoretickou* hranici mezi $P$ a problémy mimo $P$.
 
 ## Tři typy analýzy
 

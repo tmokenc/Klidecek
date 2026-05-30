@@ -182,7 +182,7 @@ V praxi se používají **SAT solvery**:
 
 **Velikost**: lineární v délce původní formule. *Není* ekvivalentní (přidává nové proměnné), ale je *ekvi-splnitelná* — původní $\psi$ je splnitelná ⟺ tseitinova forma je splnitelná.
 
-## Lambda otázka
+## Otázka: efektivní převod do DNF
 
 > *Co by znamenala existence efektivního polynomiálního překladu do DNF?*
 
@@ -191,7 +191,7 @@ V praxi se používají **SAT solvery**:
 * SAT je NP-úplný (Cookova věta).
 * Tedy: efektivní VL → DNF by *dokázal* $\mathrm{P} = \mathrm{NP}$.
 
-Neexistence takové transformace je tedy ekvivalentní (pravděpodobnostnímu) $\mathrm{P} \neq \mathrm{NP}$.
+Neexistence takové transformace tedy plyne z (pravděpodobné) hypotézy $\mathrm{P} \neq \mathrm{NP}$.
 
 ## Hilbertovský systém — předmluva
 

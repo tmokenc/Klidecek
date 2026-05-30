@@ -100,9 +100,9 @@ Neuronka trénovaná na `(stav, vzdálenost k cíli)` páry. *Riziko*: ztrátu a
 ## A* varianty
 
 * **IDA*** (Iterative Deepening A*) — IDS s `f(n)` limitem místo limit hloubky. Lineární paměť.
-* **SMA*** (Simplified Memory-bounded A*) — A* s omezenou pamětí; když plno, *zapomene* nejhorší uzly.
-* **Weighted A*** — `f(n) = g(n) + W · h(n)` pro `W > 1`. Rychlejší, ale **suboptimální** (max `W`-násobek optima).
-* **D*** a **D* Lite** — *dynamický* A* pro prostředí, kde se *přechody mění* (robotika, online plánování).
+* **SMA\*** (Simplified Memory-bounded A\*) — A\* s omezenou pamětí; když plno, *zapomene* nejhorší uzly.
+* **Weighted A\*** — `f(n) = g(n) + W · h(n)` pro `W > 1`. Rychlejší, ale **suboptimální** (max `W`-násobek optima).
+* **D\*** a **D\* Lite** — *dynamický* A\* pro prostředí, kde se *přechody mění* (robotika, online plánování).
 
 ## Limity heuristického prohledávání
 

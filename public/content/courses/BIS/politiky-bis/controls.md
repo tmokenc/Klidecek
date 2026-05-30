@@ -55,7 +55,7 @@ Management-oriented. Souvisí s *politikou*, *procesy*, *lidmi*.
 - **Mandatory vacation** — detekuje long-running fraud.
 - **Code of conduct** — etical guidelines.
 
-### Technical (logical / "login") controls
+### Technical (logical / "logic") controls
 
 Software + hardware components. Implementují policy *technicky*.
 

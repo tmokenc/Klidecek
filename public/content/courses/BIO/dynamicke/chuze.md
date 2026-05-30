@@ -73,7 +73,7 @@ Lidská chůze je *komplexní* pohyb — pozice nohou, paží, trupu se *koordin
 
 * **Stance phase** (~60 %) — noha v kontaktu s podlahou.
 * **Swing phase** (~40 %) — noha ve vzduchu.
-* **Double support** (~10 %) — obě nohy na zemi (přechody).
+* **Double support** (~20 % celkem — 2× ~10 %, na začátku a konci stance fáze) — obě nohy na zemi (přechody).
 
 Phases:
 1. **Heel strike** — pata dotkne podlahu.

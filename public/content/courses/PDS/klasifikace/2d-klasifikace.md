@@ -121,7 +121,7 @@ Lookup (Dst=001, Src=001):
 1. Začni v root Destination Trie. Jdi po 0 (bit 0).
 2. Uzel 0 obsahuje R1, R2, R3 → vstup do Source Trie 1.
 3. Lookup 001 v Source Trie 1:
-   - R2 (01*): bit 0 → 0, dál bit 1 → 1, R2 *match* (01 je prefix 001? Ano — 01 → první dva bity 00 ne. Ne).
+   - R2 (Src=01*): paket Src=001 začíná 00, ne 01 → R2 *nematchuje*.
    - Backtrack nebo switch pointer.
 4. Switch pointer vede k Source Trie 4 (kratší Dst prefix nebo *).
 5. Lookup 001 v Source Trie 4 → match R7 (00*).

@@ -99,7 +99,7 @@ Pak $S \stackrel{*}{\Rightarrow_G} w$ právě když $M$ přijímá $w$.
 | Konkatenace $L_1 \cdot L_2$ | ✓ | ✓ |
 | Kleeneho iterace $L^*$ | ✓ | ✓ |
 | Reverz $L^R$ | ✓ | ✓ |
-| Homomorfismus $h(L)$ | ✓ | ? |
+| Homomorfismus $h(L)$ | ✓ | NE |
 | **Doplněk** $\overline{L}$ | **NE** | ✓ |
 | **Rozdíl** $L_1 \setminus L_2$ | NE (obecně) | ✓ |
 
@@ -150,7 +150,7 @@ Striktnost každé inkluze je dokazována *separačními jazyky*:
 | :--- | :--- | :--- |
 | $\mathcal{L}_3 \subsetneq \mathcal{L}_2$ | $\{a^n b^n\}$ | pumping pro RV |
 | $\mathcal{L}_2 \subsetneq \mathcal{L}_1$ | $\{a^n b^n c^n\}$ | pumping pro CFG |
-| $\mathcal{L}_1 \subsetneq \mathrm{R}$ | např. $\{0^{2^n}\}$ | diagonalizace nad LBA |
+| $\mathcal{L}_1 \subsetneq \mathrm{R}$ | $L_\mathrm{diag} = \{\langle M_i\rangle : M_i$ je LBA $\wedge \langle M_i\rangle \notin L(M_i)\}$ | diagonalizace nad LBA |
 | $\mathrm{R} \subsetneq \mathrm{RE}$ | $L_\mathrm{HP}$ | [[problem-zastaveni]] |
 | $\mathrm{RE} \subsetneq \text{všechny}$ | $\overline{L_\mathrm{HP}}$ | doplněk RE jazyka, který není R |
 

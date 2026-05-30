@@ -10,7 +10,7 @@ Wi-Fi Alliance (2018) odpověděl na **WPA2 weaknesses** (KRACK, offline PSK bru
 
 ### SAE — Simultaneous Authentication of Equals
 
-Nahrazuje **PSK 4-way handshake** WPA2. **Dragonfly** key exchange (RFC 7664 + 9382).
+Nahrazuje **PSK 4-way handshake** WPA2. **Dragonfly** key exchange (RFC 7664).
 
 ### Forward secrecy
 
@@ -129,9 +129,9 @@ Mathy Vanhoef + Eyal Ronen. Multiple attacks on early SAE implementations.
 
 Patches deployed. Modern implementations fixed.
 
-### TimeshiftWiFi (2021)
+### FragAttacks (2021)
 
-Vanhoef again. Eavesdropping attacks on WPA3 4-way handshake.
+Vanhoef again. Fragmentation and aggregation attacks — design flaws in 802.11 frame fragmentation/aggregation affecting Wi-Fi devices (including WPA3).
 
 Specific vulnerabilities in specific implementations.
 
@@ -197,4 +197,4 @@ Coffee shop, airport, hotel:
 
 ---
 
-*Zdroj: BIS přednášky 2025/26, Ing. Matej Kačic, FIT VUT v Brně. Externí reference: Wi-Fi Alliance: WPA3™ Specification ([wi-fi.org](https://www.wi-fi.org/discover-wi-fi/security)); RFC 7664 — Dragonfly Key Exchange; Harkins, D., Kumari, W.: „Dragonfly" (IETF 2019); Vanhoef, M., Ronen, E.: „Dragonblood: Analyzing the Dragonfly Handshake of WPA3 and EAP-pwd" (S&P 2020, [dragonblood.org](https://wpa3.mathyvanhoef.com/)); IEEE 802.11-2020.*
+*Zdroj: BIS přednášky 2025/26, Ing. Matej Kačic, FIT VUT v Brně. Externí reference: Wi-Fi Alliance: WPA3™ Specification ([wi-fi.org](https://www.wi-fi.org/discover-wi-fi/security)); Harkins, D.: „Dragonfly Key Exchange" (RFC 7664, IETF 2015); Vanhoef, M., Ronen, E.: „Dragonblood: Analyzing the Dragonfly Handshake of WPA3 and EAP-pwd" (S&P 2020, [dragonblood.org](https://wpa3.mathyvanhoef.com/)); IEEE 802.11-2020.*

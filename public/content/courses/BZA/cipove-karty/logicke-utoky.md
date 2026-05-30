@@ -50,7 +50,7 @@ Lekce: **off-line elektronická peněženka je zranitelná** — jakýkoli repla
 
 V offline PIN módu karta vrátí terminálu jednu z:
 
-* `00 9000` — PIN OK.
+* `90 00` — PIN OK.
 * `63 CX` — PIN špatně, X pokusů zbývá.
 
 Útočník vloží mezi kartu a terminál **MITM zařízení** (modifikovaná čtečka, "shim"):
@@ -103,11 +103,11 @@ Postup pro recover PIN:
 
 1. Volá funkci s `EPB`, `DT = 1000000000000000` (jen `1` → digit 1). Pokud zacelí výsledek, PIN obsahuje 1.
 2. Postupně pro všech 10 digits + offsets — odhalí *které* digits obsahuje PIN i kolikrát.
-3. **Recover full 4-digit PIN za ~ 6 volání** HSM funkce (worst case).
+3. **Recover full 4-digit PIN v průměru za ~ 15 volání** HSM funkce (oproti ~5000 u naivního brute-force), s ohraničeným worst case.
 
 Toto byl jeden z prvních útoků, kdy *legitimní API HSM* dovolilo recover PIN bez znalosti klíče. Banky po publikaci útoku přidaly *políčko v request*, který kontroluje DT proti standardní hodnotě; pokud se liší, request je odmítnut.
 
-## Útok č. 5 — Wedge attack (Murdoch-Anderson 2011)
+## Útok č. 5 — 3D-Secure (Verified by Visa / SecureCode), Murdoch-Anderson 2010
 
 [*Verified by Visa and MasterCard SecureCode: Or, How Not to Design Authentication*](https://www.cl.cam.ac.uk/~rja14/Papers/fc10vbvsecurecode.pdf):
 

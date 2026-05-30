@@ -39,7 +39,7 @@ t &\to f(t, t, \dots, t) \mid x \quad \text{kde } x \in \mathcal{X},\ f/m \in F
 
 ## Volné a vázané proměnné
 
-V $(\exists x\, \varphi)$ je $x$ **vázaná** v $\varphi$. Pokud $x$ v podformuli ne je vázané a *vyskytuje* se v ní, je **volné**.
+V $(\exists x\, \varphi)$ je $x$ **vázaná** v $\varphi$. Pokud $x$ v podformuli není vázané a *vyskytuje* se v ní, je **volné**.
 
 * **Věta** (uzavřená formule, *closed formula*, *sentence*) = formule bez volných proměnných.
 * **Otevřená formule** má aspoň jednu volnou proměnnou.
@@ -169,10 +169,10 @@ kde $Q_i \in \{\forall, \exists\}$ a $\psi$ je *otevřená* formule (bez kvantif
 * $(\forall x\, \varphi) \land \psi \equiv \forall x\, (\varphi \land \psi)$ (pokud $x$ není volné v $\psi$),
 * analogicky pro $\lor, \to$.
 
-**Příklad**: $\neg \forall x \exists y\, p(x, y) \to \exists z\, q(z)$ převedeme na
+**Příklad**: $\forall x \exists y\, p(x, y) \to \exists z\, q(z)$ převedeme na
 
 ::: math
-\exists x \forall y\, (p(x, y) \to \exists z\, q(z)) \;\;\rightsquigarrow\;\; \exists x \forall y \exists z\, (\neg p(x, y) \lor q(z)) \;\;\rightsquigarrow\;\; \exists x \forall y \exists z\, (\neg p(x, y) \lor q(z)).
+\exists x \forall y\, (p(x, y) \to \exists z\, q(z)) \;\;\rightsquigarrow\;\; \exists x \forall y \exists z\, (\neg p(x, y) \lor q(z)).
 :::
 
 ## Decidabilita PL

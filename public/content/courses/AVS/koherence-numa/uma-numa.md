@@ -169,13 +169,13 @@ Pro typical HPC: SNC zapnutý → 5-15 % gain.
 
 AMD EPYC (Zen+ → Zen 4) má **chiplet design**:
 
-- 1 CPU socket = 4-8 *chiplets* (CCDs — Core Complex Die).
+- 1 CPU socket = až 12 *chiplets* (CCDs — Core Complex Die).
 - Každý chiplet = 8 cores + L3.
 - Chiplets propojeny *přes IO die* (Infinity Fabric).
 
-Z OS pohledu: 8-chiplet 96-core EPYC = 8 NUMA nodes (každý chiplet = 1 NUMA), nebo 1 NUMA (UMA mode), nebo 4 NUMA (NPS4 mode).
+Z OS pohledu: 96-core EPYC 9654 = 12 CCDs (8 cores each); přes BIOS lze socket nastavit jako 1 NUMA (NPS1, UMA mode), 2 NUMA (NPS2), nebo 4 NUMA (NPS4 mode).
 
-Trade-off: NPS8 (8 NUMA) má best per-chiplet bandwidth, NPS1 (1 NUMA) má best multi-chiplet sharing.
+Trade-off: NPS4 (4 NUMA) má nejlepší per-chiplet/per-quadrant bandwidth, NPS1 (1 NUMA) nejlepší sdílení napříč chiplety.
 
 ## NUMA awareness v aplikacích
 

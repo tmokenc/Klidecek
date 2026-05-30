@@ -35,11 +35,11 @@ Charakteristika:
 <svg viewBox="0 0 540 240" xmlns="http://www.w3.org/2000/svg" style="max-width:580px;width:100%;height:auto;font-family:system-ui,sans-serif;">
   <defs>
     <style>
-      .fact{fill:var(--accent-soft, #fde0c8);stroke:var(--accent, #d97706);stroke-width:1.5;rx:6}
-      .dim{fill:var(--surface-soft, #e8f0f7);stroke:var(--accent, #1e5a8e);stroke-width:1.5;rx:6}
-      .ln{stroke:var(--ink, #555);stroke-width:1;fill:none}
-      .ttl{font-size:12px;font-weight:600;text-anchor:middle;fill:var(--ink, #333)}
-      .col{font-size:10px;text-anchor:middle;fill:var(--ink-soft, #666);font-family:monospace}
+      .fact{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5;rx:6}
+      .dim{fill:var(--bg-inset);stroke:var(--line-strong);stroke-width:1.5;rx:6}
+      .ln{stroke:var(--line-strong);stroke-width:1;fill:none}
+      .ttl{font-size:12px;font-weight:600;text-anchor:middle;fill:var(--text)}
+      .col{font-size:10px;text-anchor:middle;fill:var(--text-muted);font-family:monospace}
     </style>
   </defs>
   <!-- center: fact table -->

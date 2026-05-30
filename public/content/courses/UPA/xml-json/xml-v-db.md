@@ -153,7 +153,7 @@ Reprezentanti:
 
 * **eXist-db** (open source, Java) — populární jako application server pro XML aplikace (REST, RESTXQ, OAuth).
 * **BaseX** (open source, Java) — vysoký výkon, plná SQL/XML kompatibilita.
-* **Sedna** (open source, C++) — DBaaS schopnost.
+* **Sedna** (open source, C/C++) — nativní pointerové uložení XML uzlů, descriptive schema odvozené z dat.
 * **MarkLogic** (komerční) — enterprise XML/JSON multi-model DB.
 
 ```xquery

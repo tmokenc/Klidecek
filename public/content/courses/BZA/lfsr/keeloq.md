@@ -4,7 +4,7 @@ title: KeeLoq — autoklíče a rolling code
 
 # KeeLoq — autoklíče a rolling code
 
-**KeeLoq** je 64-bit bloková šifra od firmy Microchip (původně Nanoteq, JIH 1985). Dlouhá léta byla utajovaná a používá se v *miliardách* zařízení — *rolling-code* dálkové ovládače pro auta (Chrysler, Daewoo, Fiat, GM, Honda, Toyota, Volkswagen v letech ~1995–2010), garážová vrata, brány. Po úniku specifikace v r. 2006 a sérii útoků 2007–2008 je dnes **prolomena**.
+**KeeLoq** je bloková šifra s 32-bit blokem a 64-bit klíčem od firmy Microchip (původně Nanoteq, JIH 1985). Dlouhá léta byla utajovaná a používá se v *miliardách* zařízení — *rolling-code* dálkové ovládače pro auta (Chrysler, Daewoo, Fiat, GM, Honda, Toyota, Volkswagen v letech ~1995–2010), garážová vrata, brány. Po úniku specifikace v r. 2006 a sérii útoků 2007–2008 je dnes **prolomena**.
 
 ## Princip rolling code
 
@@ -25,7 +25,7 @@ title: KeeLoq — autoklíče a rolling code
     <text x="105" y="92" font-size="10.5" fill="var(--text-muted)">counter C (16b)</text>
     <text x="105" y="110" font-size="10.5" fill="var(--text-muted)">serial S (28b)</text>
     <text x="105" y="128" font-size="10.5" fill="var(--text-muted)">device key K (64b)</text>
-    <text x="105" y="155" font-size="11" fill="var(--accent)">M = KeeLoq_K(C||S)</text>
+    <text x="105" y="155" font-size="11" fill="var(--accent)">M = KeeLoq_K(C||disc||F), S v plaintextu</text>
     <text x="435" y="92" font-size="10.5" fill="var(--text-muted)">manufacturer key</text>
     <text x="435" y="110" font-size="10.5" fill="var(--text-muted)">K = derive(MK, S)</text>
     <text x="435" y="128" font-size="10.5" fill="var(--text-muted)">last_C, window [C+1, C+w]</text>
@@ -41,7 +41,7 @@ title: KeeLoq — autoklíče a rolling code
 Rolling code řeší klasický problém *replay attack* u dálkového ovládače:
 
 1. **Ovládač** ukládá tajný **device key** $K$ (64 bitů, individuální), čítač $C$ (16 bitů), sériové číslo $S$ (28 bitů).
-2. Při stisku tlačítka inkrementuje $C \leftarrow C + 1$ a vysílá $M = \text{KeeLoq}_K(C \mathbin\Vert S \mathbin\Vert F)$, kde $F$ jsou kontrolní bity (funkce tlačítka).
+2. Při stisku tlačítka inkrementuje $C \leftarrow C + 1$ a vysílá 32-bit šifrovaný blok $M = \text{KeeLoq}_K(C \mathbin\Vert \text{disc} \mathbin\Vert F)$, kde $F$ jsou kontrolní bity (funkce tlačítka) a $\text{disc}$ diskriminační bity; sériové číslo $S$ se vysílá v *plaintextu* vedle $M$ (přijímač jej potřebuje k odvození $K$).
 3. **Přijímač** zná **master key** $MK$ a *odvodí* device key $K = f_{MK}(S)$. Dešifruje $M$, ověří $S$, porovná $C$ s naposledy přijatým.
 4. **Akceptační okno** — pokud $C$ je mezi `last_C + 1` a `last_C + 16` (krátké okno) nebo `last_C + 1` a `last_C + 32 768` (široké okno, pro případ ztracených stisknutí mimo dosah), přijímač akceptuje, aktualizuje `last_C ← C`.
 

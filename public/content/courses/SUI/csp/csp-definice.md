@@ -80,7 +80,7 @@ Klasický příklad. Mapa Austrálie:
 * **Domény**: `Dᵢ = {red, green, blue}` pro každou.
 * **Omezení**: `{(SA, WA, ≠), (SA, NT, ≠), ..., (NSW, V, ≠)}` — sousední státy *různě barevné*.
 
-Constraint graph je *plánek*. Tato úloha má `3³ · 2 · 2 · 2 = 216` možných přiřazení, ale jen *několik* splňuje všechna omezení.
+Constraint graph je *plánek*. Tato úloha má `3⁷ = 2187` možných přiřazení, ale jen *několik* splňuje všechna omezení.
 
 ## Příklad — Sudoku
 
@@ -145,7 +145,7 @@ Mnohé CSP mají *symetrické* řešení — např. v *barvení mapy* získáme 
 
 **SAT** (boolean satisfiability) je *speciální* případ CSP s `Dᵢ = {True, False}` a omezeními ve formě klauzulí (disjunkce literálů). Známý *NP-úplný* problém.
 
-Každý CSP s konečnými doménami lze *redukovat* na SAT (zakódování domény bitovou reprezentací). Naopak SAT je *triviální* CSP. **Konkrétní solvers** (Gurobi, MiniSAT) využívají rozšířenou inferenci.
+Každý CSP s konečnými doménami lze *redukovat* na SAT (zakódování domény bitovou reprezentací). Naopak SAT je *triviální* CSP. **Konkrétní SAT solvers** (MiniSAT, Glucose, CaDiCaL) využívají rozšířenou inferenci.
 
 ## Globální omezení — Alldiff
 

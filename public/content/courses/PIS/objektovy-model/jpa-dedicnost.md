@@ -226,7 +226,7 @@ Schéma:
 * **Hluboká hierarchie** (3+ úrovně) zvyšuje cenu *jakékoliv* strategie. `SINGLE_TABLE` má hodně sloupců, `JOINED` má hodně JOINů, `TABLE_PER_CLASS` má hodně UNIONů. Pokud to lze, snižte hloubku.
 * **Multiple inheritance**: Java ji nepodporuje, JPA tedy taky ne. Hierarchie tříd musí být *strom*. (Můžete simulovat `interface` s default methods, ale data tečou jen v jedné linii.)
 * **Mezi-strategie** v rámci jedné hierarchie (`@Inheritance(strategy=…)` pouze u kořene): JPA *jako standard* nepovoluje míchání. Některé implementace (Hibernate) ano, ale je to spíše past než feature.
-* **`@DiscriminatorValue("…")`** je u `SINGLE_TABLE` *povinná* pro každou konkrétní podtřídu — jinak JPA vyrobí defaultní hodnotu (často plně kvalifikovaný název třídy), což zaplevelí DB.
+* **`@DiscriminatorValue("…")`** je u `SINGLE_TABLE` *volitelná*. Pokud ji neuvedete, provider doplní defaultní hodnotu — typicky *jednoduchý (nekvalifikovaný) název entity*. JPA spec toto chování negarantuje napříč implementacemi, proto se doporučuje hodnotu uvádět explicitně kvůli přenositelnosti.
 
 ## Co si odnést
 

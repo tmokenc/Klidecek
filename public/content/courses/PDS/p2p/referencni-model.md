@@ -45,7 +45,7 @@ Pro $\forall x, y, z \in \mathcal{I}$:
 4. $d(x, y) = d(y, x)$ — symetrická
 5. $d(x, z) \leq d(x, y) + d(y, z)$ — trojúhelníková nerovnost
 
-Pokud splňuje *všech 5* podmínek → **metrický prostor**. Pokud jen *(1)–(3)* → **pseudo-metrický**.
+Pokud splňuje *všech 5* podmínek → **metrický prostor**. Pokud splňuje *(1), (2), (4) a (5)*, ale relaxuje *(3)* (různé body mohou mít vzdálenost 0) → **pseudo-metrický**.
 
 ### Význam metriky
 

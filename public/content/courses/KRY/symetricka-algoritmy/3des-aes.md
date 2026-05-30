@@ -140,7 +140,7 @@ Pro AES-128: $4 \cdot 11 = 44$ slov (kolové klíče po 4 slovech).
 
 ## AES — vlastnosti
 
-* **Bezpečnostní úroveň:** AES-128 nemá známý útok lepší než brute force ($2^{128}$); AES-256 padá *teoreticky* na $\approx 2^{254}$ (Biryukov-Khovratovich 2009 related-key, neprakticky).
+* **Bezpečnostní úroveň:** AES-128 nejlepší známý útok je biclique $\approx 2^{126.1}$ (prakticky bez relevance); AES-256 nejlepší známý útok je biclique $2^{254.4}$ (Bogdanov-Khovratovich-Rechberger 2011, jediný klíč), related-key Biryukov-Khovratovich 2009 dává $2^{99}$ (neprakticky).
 * **Velmi rychlé v hardwaru:** Intel AES-NI od 2010, AMD AES od 2011 — typicky 5–10 GB/s/jádro. ARMv8 ma AES instrukce od 2011.
 * **Software bez AES-NI:** Bitsliced AES (Käsper, Schwabe 2009) dosahuje ~1–2 GB/s; lookup-table AES je rychlejší (~500 MB/s), ale **trpí cache timing útoky** — useri AES bez AES-NI by měli použít bitsliced nebo ChaCha20-Poly1305.
 

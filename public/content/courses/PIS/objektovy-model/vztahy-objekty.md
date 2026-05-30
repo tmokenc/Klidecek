@@ -111,7 +111,7 @@ Sémantika:
 
 ### Tři typové kombinace inverze
 
-::: svg "Tři možnosti inverzních vztahů — 1:1↔1:1, 1:N↔1:1, 1:N↔1:N"
+::: svg "Tři možnosti inverzních vztahů — 1:1↔1:1, 1:N↔1:1, M:N (= 1:N↔1:N)"
 <svg viewBox="0 0 520 170" xmlns="http://www.w3.org/2000/svg">
   <text x="87" y="18" text-anchor="middle" font-size="13" font-weight="600" fill="var(--text)">1:1 ↔ 1:1</text>
   <rect x="30" y="35" width="55" height="60" rx="5" fill="oklch(0.62 0.14 264 / 0.18)" stroke="oklch(0.62 0.14 264)"/>

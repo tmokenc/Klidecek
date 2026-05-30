@@ -18,23 +18,23 @@ Stavy `s, s'` **komunikují** (`s ↔ s'`), pokud `s → s'` a `s' → s`. Komun
     <rect x="40" y="30" width="140" height="140" rx="6" fill="none" stroke="var(--line)" stroke-dasharray="4 3"/>
     <text x="110" y="22" text-anchor="middle" fill="var(--text-muted)">tranzientní</text>
     <circle cx="80" cy="80" r="20" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="80" y="83" text-anchor="middle">s₀</text>
+    <text x="80" y="83" text-anchor="middle" fill="var(--text)">s₀</text>
     <circle cx="140" cy="120" r="20" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="140" y="123" text-anchor="middle">s₁</text>
+    <text x="140" y="123" text-anchor="middle" fill="var(--text)">s₁</text>
     <path d="M 96 91 L 126 113" stroke="var(--line-strong)" fill="none" marker-end="url(#arrA2)"/>
 
     <rect x="220" y="40" width="100" height="100" rx="6" fill="none" stroke="var(--line)" stroke-dasharray="4 3"/>
     <text x="270" y="32" text-anchor="middle" fill="var(--text-muted)">rekurentní</text>
     <circle cx="270" cy="90" r="20" fill="var(--bg-inset)" stroke="var(--accent-line)"/>
-    <text x="270" y="93" text-anchor="middle">s₂</text>
+    <text x="270" y="93" text-anchor="middle" fill="var(--text)">s₂</text>
     <path d="M 290 90 C 320 90, 320 70, 290 78" stroke="var(--line-strong)" fill="none" marker-end="url(#arrA2)"/>
 
     <rect x="360" y="30" width="160" height="140" rx="6" fill="none" stroke="var(--line)" stroke-dasharray="4 3"/>
     <text x="440" y="22" text-anchor="middle" fill="var(--text-muted)">rekurentní</text>
     <circle cx="400" cy="80" r="20" fill="var(--bg-inset)" stroke="var(--accent-line)"/>
-    <text x="400" y="83" text-anchor="middle">s₃</text>
+    <text x="400" y="83" text-anchor="middle" fill="var(--text)">s₃</text>
     <circle cx="480" cy="120" r="20" fill="var(--bg-inset)" stroke="var(--accent-line)"/>
-    <text x="480" y="123" text-anchor="middle">s₄</text>
+    <text x="480" y="123" text-anchor="middle" fill="var(--text)">s₄</text>
     <path d="M 416 91 L 464 113" stroke="var(--line-strong)" fill="none" marker-end="url(#arrA2)"/>
     <path d="M 464 109 L 416 87" stroke="var(--line-strong)" fill="none" marker-end="url(#arrA2)"/>
 
@@ -85,11 +85,11 @@ Stav je **aperiodický**, pokud `d(s) = 1`. Stavy ve stejné komunikační tří
   <g transform="translate(20, 30)">
     <text x="100" y="-10" text-anchor="middle" fill="var(--text-muted)">perioda d=3</text>
     <circle cx="40" cy="80" r="20" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="40" y="84" text-anchor="middle">s₀</text>
+    <text x="40" y="84" text-anchor="middle" fill="var(--text)">s₀</text>
     <circle cx="160" cy="40" r="20" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="160" y="44" text-anchor="middle">s₁</text>
+    <text x="160" y="44" text-anchor="middle" fill="var(--text)">s₁</text>
     <circle cx="160" cy="120" r="20" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="160" y="124" text-anchor="middle">s₂</text>
+    <text x="160" y="124" text-anchor="middle" fill="var(--text)">s₂</text>
     <path d="M 56 70 Q 100 30 140 40" stroke="var(--line-strong)" fill="none" marker-end="url(#arrA3)"/>
     <path d="M 158 60 L 158 100" stroke="var(--line-strong)" fill="none" marker-end="url(#arrA3)"/>
     <path d="M 140 122 Q 100 130 56 92" stroke="var(--line-strong)" fill="none" marker-end="url(#arrA3)"/>
@@ -97,11 +97,11 @@ Stav je **aperiodický**, pokud `d(s) = 1`. Stavy ve stejné komunikační tří
   <g transform="translate(310, 30)">
     <text x="100" y="-10" text-anchor="middle" fill="var(--text-muted)">aperiodický (d=1)</text>
     <circle cx="40" cy="80" r="20" fill="var(--bg-inset)" stroke="var(--accent-line)"/>
-    <text x="40" y="84" text-anchor="middle">s₀</text>
+    <text x="40" y="84" text-anchor="middle" fill="var(--text)">s₀</text>
     <circle cx="160" cy="40" r="20" fill="var(--bg-inset)" stroke="var(--accent-line)"/>
-    <text x="160" y="44" text-anchor="middle">s₁</text>
+    <text x="160" y="44" text-anchor="middle" fill="var(--text)">s₁</text>
     <circle cx="160" cy="120" r="20" fill="var(--bg-inset)" stroke="var(--accent-line)"/>
-    <text x="160" y="124" text-anchor="middle">s₂</text>
+    <text x="160" y="124" text-anchor="middle" fill="var(--text)">s₂</text>
     <path d="M 56 70 Q 100 30 140 40" stroke="var(--line-strong)" fill="none" marker-end="url(#arrA3)"/>
     <path d="M 158 60 L 158 100" stroke="var(--line-strong)" fill="none" marker-end="url(#arrA3)"/>
     <path d="M 140 122 Q 100 130 56 92" stroke="var(--line-strong)" fill="none" marker-end="url(#arrA3)"/>

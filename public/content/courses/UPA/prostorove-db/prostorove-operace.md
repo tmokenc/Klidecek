@@ -63,7 +63,7 @@ Vrátí *novou* geometrii:
 
 ## DE-9IM — formální klasifikace prostorových vztahů
 
-**Dimensionally Extended 9-Intersection Model** (Egenhofer, Herring 1991) je *teoretický framework* pro popis vzájemné polohy dvou geometrií. Každá geometrie má tři části:
+**Dimensionally Extended 9-Intersection Model** (Egenhofer, Herring 1990) je *teoretický framework* pro popis vzájemné polohy dvou geometrií. Každá geometrie má tři části:
 
 * **Interior** (I) — vnitřek.
 * **Boundary** (B) — hranice.

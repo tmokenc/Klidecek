@@ -92,7 +92,7 @@ Původní transport **HTTP + SSE** (spec 2024-11-05) vyžadoval dva oddělené e
 3. **Host se dozví, jaké nástroje server nabízí** (`tools/list`).
 4. **Model požádá o volání nástroje** → host předá serveru (`tools/call`).
 5. **Výsledek** se vrátí modelu jako součást *kontextu*.
-6. **Ukončení spojení** (`shutdown`).
+6. **Ukončení spojení** — bez speciální zprávy; termination signalizuje transport (u stdio uzavření stdin a ukončení podprocesu, u HTTP uzavření spojení).
 
 ## Protokol staví na JSON-RPC 2.0
 

@@ -236,4 +236,4 @@ Optimalizace programu = identifikace bottlenecku + nasazení odpovídající pá
 
 ---
 
-*Zdroj: AVS přednášky 2025/26, doc. Ing. Jiří Jaroš, Ph.D., FIT VUT v Brně. Externí reference: NVIDIA: „CUDA Best Practices Guide" ([docs.nvidia.com/cuda](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/)); Kirk, D.B., Hwu, W.W.: „Programming Massively Parallel Processors" (4th ed., Morgan Kaufmann 2022); [OpenMP 5.2 Target Offload](https://www.openmp.org/spec-html/5.0/openmpse23.html); [Nsight Compute Documentation](https://docs.nvidia.com/nsight-compute/).*
+*Zdroj: AVS přednášky 2025/26, doc. Ing. Jiří Jaroš, Ph.D., FIT VUT v Brně. Externí reference: NVIDIA: „CUDA Best Practices Guide" ([docs.nvidia.com/cuda](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/)); Kirk, D.B., Hwu, W.W.: „Programming Massively Parallel Processors" (4th ed., Morgan Kaufmann 2022); [OpenMP 5.0 Target Offload](https://www.openmp.org/spec-html/5.0/openmpse23.html); [Nsight Compute Documentation](https://docs.nvidia.com/nsight-compute/).*

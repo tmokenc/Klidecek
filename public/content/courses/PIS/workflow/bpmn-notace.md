@@ -22,24 +22,25 @@ BPMN 2.0 model existuje ve třech vrstvách:
 
 :::svg
 <svg viewBox="0 0 540 240" xmlns="http://www.w3.org/2000/svg" style="max-width: 580px;">
+  <rect x="0" y="0" width="540" height="240" fill="#f8fafc" rx="8"/>
   <defs>
     <marker id="arrH" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/>
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--text-muted)"/>
     </marker>
   </defs>
   <rect x="120" y="10" width="300" height="50" rx="8" fill="#bfdbfe" stroke="#2563eb"/>
-  <text x="270" y="32" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold">Vrstva 1 — BPMN notace</text>
-  <text x="270" y="48" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="var(--muted)">grafické modelování (Camunda Modeler, draw.io)</text>
-  <line x1="270" y1="60" x2="270" y2="95" stroke="var(--ink)" marker-end="url(#arrH)"/>
-  <text x="280" y="80" font-family="ui-sans-serif" font-size="10" fill="var(--muted)">BPMN 2.0 XML serializace</text>
+  <text x="270" y="32" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold" fill="#1f2937">Vrstva 1 — BPMN notace</text>
+  <text x="270" y="48" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="#374151">grafické modelování (Camunda Modeler, draw.io)</text>
+  <line x1="270" y1="60" x2="270" y2="95" stroke="var(--text-muted)" marker-end="url(#arrH)"/>
+  <text x="280" y="80" font-family="ui-sans-serif" font-size="10" fill="var(--text-muted)">BPMN 2.0 XML serializace</text>
   <rect x="120" y="100" width="300" height="50" rx="8" fill="#bbf7d0" stroke="#16a34a"/>
-  <text x="270" y="122" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold">Vrstva 2 — BPMN 2.0 XML</text>
-  <text x="270" y="138" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="var(--muted)">přenositelná strojová reprezentace</text>
-  <line x1="270" y1="150" x2="270" y2="185" stroke="var(--ink)" marker-end="url(#arrH)"/>
-  <text x="290" y="170" font-family="ui-sans-serif" font-size="10" fill="var(--muted)">deploy / nasazení</text>
+  <text x="270" y="122" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold" fill="#1f2937">Vrstva 2 — BPMN 2.0 XML</text>
+  <text x="270" y="138" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="#374151">přenositelná strojová reprezentace</text>
+  <line x1="270" y1="150" x2="270" y2="185" stroke="var(--text-muted)" marker-end="url(#arrH)"/>
+  <text x="290" y="170" font-family="ui-sans-serif" font-size="10" fill="var(--text-muted)">deploy / nasazení</text>
   <rect x="120" y="190" width="300" height="50" rx="8" fill="#fef3c7" stroke="#ca8a04"/>
-  <text x="270" y="212" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold">Vrstva 3 — BPMN engine</text>
-  <text x="270" y="228" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="var(--muted)">Camunda 7/8, Flowable, Kogito</text>
+  <text x="270" y="212" text-anchor="middle" font-family="ui-sans-serif" font-size="13" font-weight="bold" fill="#1f2937">Vrstva 3 — BPMN engine</text>
+  <text x="270" y="228" text-anchor="middle" font-family="ui-sans-serif" font-size="10" fill="#374151">Camunda 7/8, Flowable, Kogito</text>
 </svg>
 :::
 

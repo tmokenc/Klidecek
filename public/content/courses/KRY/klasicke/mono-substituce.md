@@ -30,16 +30,14 @@ Plaintext:  ABCDEFGHIJKLMNOPQRSTUVWXYZ
 Klíč:       PDUIRMFOHSBNCGVKTJWEYAQXZL
 
 Plaintext:  monoalphabeticsubstitution
-Ciphertext: CVGVBNKOPDREHUWYDWEHEYEHVG
+Ciphertext: CVGVPNKOPDREHUWYDWEHEYEHVG
 ```
 
 V praxi se klíč zvolí podle **hesla** (keyphrase): zapíše se klíčové slovo bez opakování písmen, doplní se zbylými písmeny abecedy:
 
 ```
-Klíč: "STARWARS BCDEFGHIJKLMNOPQRSTUVWXYZ"
-              ↓ vyřazení opakování
-       STARWBCDEFGHIJKLMNOPQRSTUVWXYZ
-              ↓ použít prvních 26 unikátních
+Klíč: "STARWARS" + ABCDEFGHIJKLMNOPQRSTUVWXYZ
+              ↓ vyřazení opakování (zleva doprava)
        STARWBCDEFGHIJKLMNOPQUVXYZ
 ```
 
@@ -61,7 +59,7 @@ r  6.03    w 2.03    z 0.09
 h  5.14    y 1.88
 ```
 
-Skupiny dle praktického algoritmu Frenda Kahn (CodeBook):
+Skupiny dle praktické heuristiky ze Singhovy knihy The Code Book:
 
 * **E, T** (vysoké, > 9 %)
 * **A, O, I, N, S, H, R** (4–8 %)
@@ -73,10 +71,10 @@ Skupiny dle praktického algoritmu Frenda Kahn (CodeBook):
 
 | Znak | % | Znak | % | Znak | % |
 | :-: | :-: | :-: | :-: | :-: | :-: |
-| o | 9,06 | í | 4,15 | r | 3,79 |
-| e | 8,67 | n | 6,16 | u | 3,12 |
-| a | 6,79 | t | 5,21 | y | 1,76 |
-| i | 6,21 | s | 4,57 | č | 1,30 |
+| o | 9,06 | n | 6,16 | r | 3,79 |
+| e | 8,67 | t | 5,21 | u | 3,12 |
+| a | 6,79 | s | 4,57 | y | 1,76 |
+| i | 6,21 | í | 4,15 | č | 1,30 |
 
 V češtině mají vysokou frekvenci samohlásky (o, e, a, i) a souhláska *n*. Diakritická písmena rozkládají frekvence šířeji než angličtina — k odlišení češtiny od angličtiny stačí podívat se na frekvenci „o“ a „i“.
 

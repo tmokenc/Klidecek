@@ -36,7 +36,7 @@ V praxi *nevyplníme všechny* $2^Q$ stavů — postupujeme **dosažitelně**: z
 
 ## Příklad
 
-Vezměme NKA z [[konecne-automaty]]:
+Vezměme NKA nad abecedou $\{a, b\}$ pro jazyk slov *obsahujících `ab`* (stavy $q_0, q_1, q_2, q_3$, počáteční $q_0$, koncový $q_3$):
 
 $$
 \delta(q_0, a) = \{q_0, q_1\},\ \delta(q_0, b) = \{q_0\},\ \delta(q_1, b) = \{q_2\},\ \delta(q_2, a) = \{q_3\}, \dots
@@ -123,8 +123,7 @@ V kurzu se obvykle používá Warshallova maticová formulace; v praxi (přepsan
 | Parametr | NKA | DKA |
 | :--- | :-: | :-: |
 | Počet stavů | $|Q|$ | až $2^{|Q|}$ |
-| Test příslušnosti $w \in L(M)$, off-line | $O(|w| \cdot |Q|^2)$ | $O(|w|)$ |
-| Test příslušnosti $w \in L(M)$, on-line (současné stavy) | $O(|w| \cdot |Q|^2)$ | $O(|w|)$ |
+| Test příslušnosti $w \in L(M)$ (on-line simulace množiny stavů) | $O(|w| \cdot |Q|^2)$ | $O(|w|)$ |
 
 Tj. DKA je *rychlejší pro vyhodnocení*, ale potenciálně *exponenciálně větší*. V praxi (lexery, jednoduché regex) se používají oba přístupy: pro malé jednoduché vzory DKA, pro velké regex enginy (PCRE) varianty NKA simulace.
 

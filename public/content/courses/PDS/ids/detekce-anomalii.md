@@ -173,7 +173,7 @@ To z IEC 104 dělá **ideální** scénář pro anomálie:
 - Model = *konečný automat* legitimních sekvencí.
 - Anomalie = příkaz, který v baseline neexistuje.
 
-Pak v 2015/2016 — útok na **ukrajinskou energetiku** (BlackEnergy, Industroyer malware): útočníci se dostali do řídícího počítače phishingem, malware začal posílat *legitimně vypadající* IEC 104 příkazy → výpadek dodávky elektřiny. **Měřená IEC anomalie** by to detekovala — *kombinace příkazů* (vypnutí breakeru bez předchozího warning) v baseline *neexistovala*.
+Pak v 2015/2016 — útok na **ukrajinskou energetiku**: útočníci se dostali do řídícího počítače phishingem. V roce 2015 (BlackEnergy 3) ovládli breakery *ručně* přes unesené operátorské stanice / HMI, ne přes vlastní IEC 104 provoz. V roce 2016 už malware **Industroyer** (CrashOverride) nativně mluvil IEC 60870-5-104 a *automaticky* posílal *legitimně vypadající* příkazy → výpadek dodávky elektřiny. **Měřená IEC anomalie** by to detekovala — *kombinace příkazů* (vypnutí breakeru bez předchozího warning) v baseline *neexistovala*.
 
 Otázka cvičení: jak modelovat *množinu povolených sekvencí*? Odpověď: **konečný automat / regulární gramatika** — formální popis povolených string of commands. Skok do TIN (teorie automatů) tady okamžitý — to, čemu se učíte ve formálních jazycích, se přímo aplikuje na network anomaly detection.
 

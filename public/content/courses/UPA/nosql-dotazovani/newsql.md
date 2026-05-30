@@ -56,24 +56,18 @@ NewSQL replikuje data *synchronně* — zápis je *potvrzen klientovi* až po re
     <text x="230" y="100" text-anchor="middle" fill="white" font-weight="600">Leader</text>
     <text x="230" y="115" text-anchor="middle" fill="white" font-size="9">propaguje na qrm</text>
   </g>
-  <line x1="290" y1="90" x2="370" y2="40" stroke="var(--accent)" stroke-dasharray="2 2" marker-end="url(#ns-arr)"/>
-  <line x1="290" y1="100" x2="370" y2="100" stroke="var(--accent)" stroke-dasharray="2 2" marker-end="url(#ns-arr)"/>
-  <line x1="290" y1="110" x2="370" y2="160" stroke="var(--accent)" stroke-dasharray="2 2" marker-end="url(#ns-arr)"/>
-  <text x="330" y="60" text-anchor="middle" fill="var(--text-muted)" font-size="9">2. replicate</text>
+  <line x1="290" y1="95" x2="370" y2="50" stroke="var(--accent)" stroke-dasharray="2 2" marker-end="url(#ns-arr)"/>
+  <line x1="290" y1="105" x2="370" y2="150" stroke="var(--accent)" stroke-dasharray="2 2" marker-end="url(#ns-arr)"/>
+  <text x="330" y="65" text-anchor="middle" fill="var(--text-muted)" font-size="9">2. replicate</text>
   <g>
-    <rect x="370" y="20" width="100" height="40" fill="var(--bg-card)" stroke="var(--accent-line)" rx="6"/>
-    <text x="420" y="40" text-anchor="middle" fill="var(--text)">Follower 1</text>
-    <text x="420" y="54" text-anchor="middle" fill="var(--accent)" font-size="9">ACK ✓</text>
+    <rect x="370" y="30" width="100" height="40" fill="var(--bg-card)" stroke="var(--accent-line)" rx="6"/>
+    <text x="420" y="50" text-anchor="middle" fill="var(--text)">Follower 1</text>
+    <text x="420" y="64" text-anchor="middle" fill="var(--accent)" font-size="9">ACK ✓</text>
   </g>
   <g>
-    <rect x="370" y="80" width="100" height="40" fill="var(--bg-card)" stroke="var(--accent-line)" rx="6"/>
-    <text x="420" y="100" text-anchor="middle" fill="var(--text)">Follower 2</text>
-    <text x="420" y="114" text-anchor="middle" fill="var(--accent)" font-size="9">ACK ✓</text>
-  </g>
-  <g>
-    <rect x="370" y="140" width="100" height="40" fill="var(--bg-card)" stroke="var(--accent-line)" rx="6"/>
-    <text x="420" y="160" text-anchor="middle" fill="var(--text)">Follower 3</text>
-    <text x="420" y="174" text-anchor="middle" fill="var(--text-muted)" font-size="9">ACK pending</text>
+    <rect x="370" y="130" width="100" height="40" fill="var(--bg-card)" stroke="var(--accent-line)" rx="6"/>
+    <text x="420" y="150" text-anchor="middle" fill="var(--text)">Follower 2</text>
+    <text x="420" y="164" text-anchor="middle" fill="var(--accent)" font-size="9">ACK ✓</text>
   </g>
   <line x1="170" y1="120" x2="100" y2="120" stroke="var(--accent)" marker-end="url(#ns-arr)"/>
   <text x="135" y="138" text-anchor="middle" fill="var(--text-muted)" font-size="9">3. commit (quorum 2/3)</text>

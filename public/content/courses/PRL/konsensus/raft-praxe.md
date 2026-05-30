@@ -181,7 +181,7 @@ V praxi Raft *prudce vytlačil* Paxos — moderní systémy (etcd, Consul, Cockr
 ### Distribuované databáze
 
 - **Google Spanner** — Multi-Paxos pro replikaci tabletů.
-- **CockroachDB** — Raft pro každý "range" (32 MB shard).
+- **CockroachDB** — Raft pro každý "range" (default ~512 MiB range; historicky 64 MiB).
 - **TiDB** — Raft (TiKV storage layer).
 - **MongoDB replica sets** — Raft-inspirovaný protokol pro election.
 

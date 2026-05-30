@@ -197,8 +197,8 @@ EAL definuje, *jak důkladně* je TOE hodnocen, ne *jak bezpečný* je. Vyšší
     <text x="124" y="142">apps, kernels</text>
     <text x="268" y="130">commercial best</text>
     <text x="268" y="142">(most OS, DB)</text>
-    <text x="380" y="130">smartcards,</text>
-    <text x="380" y="142">HSM, eID</text>
+    <text x="340" y="130">smartcards,</text>
+    <text x="340" y="142">HSM, eID</text>
     <text x="484" y="130">military,</text>
     <text x="484" y="142">crypto cores</text>
   </g>

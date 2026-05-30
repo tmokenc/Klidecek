@@ -6,7 +6,7 @@ title: Klíč relace a hierarchie klíčů
 
 Hlavní praktický problém symetrické kryptografie je *distribuce klíčů* — jak se dvě strany dohodnou na sdíleném tajemství. Pro $n$ uživatelů $\binom{n}{2}$ klíčů = $O(n^2)$ neuškálovatelné.
 
-Standardní praxe rozlišuje **dlouhodobé klíče** (Key Encrypting Key, KEK — pro šifrování *jiných* klíčů) a **klíče relace** (session key — pro šifrování *dat*). Hierarchie klíčů řeší distribuci, omezuje dopad kompromitace a umožňuje *forward secrecy*.
+Standardní praxe rozlišuje **dlouhodobé klíče** (Key Encrypting Key, KEK — pro šifrování *jiných* klíčů) a **klíče relace** (session key — pro šifrování *dat*). Hierarchie klíčů řeší distribuci a omezuje dopad kompromitace; *forward secrecy* ovšem hierarchie sama o sobě nezajišťuje — tu poskytuje až efemérní Diffie-Hellman výměna (ne statický KEK).
 
 ## Proč klíč relace?
 

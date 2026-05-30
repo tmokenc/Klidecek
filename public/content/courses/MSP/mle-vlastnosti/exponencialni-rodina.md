@@ -83,7 +83,7 @@ Dvourozměrná postačující statistika `(Σ Xᵢ, Σ Xᵢ²)` — odpovídá t
 f(x; k, \theta) = \frac{1}{\Gamma(k)\theta^k} x^{k-1} e^{-x/\theta}.
 :::
 
-Po reparametrizaci `(k, θ) ↦ (η₁, η₂) = (k − 1, 1/θ)`:
+Po reparametrizaci `(k, θ) ↦ (η₁, η₂) = (k − 1, −1/θ)`:
 
 * `T(x) = (log x, x)`
 * `η = (k − 1, −1/θ)`

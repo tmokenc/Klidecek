@@ -56,14 +56,14 @@ Test, zda nový algoritmus je rychlejší než starý (rozdíly `D = T_new − T
 ```
 D = (-3, +1, -5, +2, -4, -1, -6, +3, -2, -7)
 |D| = (3, 1, 5, 2, 4, 1, 6, 3, 2, 7)
-ranks = (6, 1.5, 8, 3.5, 7, 1.5, 9, 6, 3.5, 10)
-signed ranks = (-6, +1.5, -8, +3.5, -7, -1.5, -9, +6, -3.5, -10)
+ranks = (5.5, 1.5, 8, 3.5, 7, 1.5, 9, 5.5, 3.5, 10)
+signed ranks = (-5.5, +1.5, -8, +3.5, -7, -1.5, -9, +5.5, -3.5, -10)
 W = -34
-W+ = 11, W− = 44
+W+ = 10,5, W− = 44,5
 n' = 10
 ```
 
-`E[W₊] = 27,5`. `Var(W₊) = 96,25`. `Z = (11 − 27,5)/9,81 ≈ −1,68`. p ≈ 0,093 (oboustranné). Nezamítáme na 5 %, ale na 10 %.
+`E[W₊] = 27,5`. `Var(W₊) = 96,25`. `Z = (10,5 − 27,5)/9,81 ≈ −1,73`. p ≈ 0,084 (oboustranné). Nezamítáme na 5 %, ale na 10 %.
 
 ## Mann-Whitneyho U test (Wilcoxonův rank-sum)
 
@@ -124,14 +124,14 @@ Test, zda 3 metody měření dávají stejné výsledky (`n₁ = n₂ = n₃ = 5
 * Metoda 2: 15, 17, 19, 23, 25
 * Metoda 3: 24, 26, 28, 30, 32
 
-Pořadí v sloučeném vzorku: (1, 2, 5, 7, 8) (M1); (3, 4, 6, 9, 10) (M2); (11, 12, 13, 14, 15) (M3).
+Pořadí v sloučeném vzorku: (1, 2, 5, 7, 8) (M1); (3, 4, 6, 9, 11) (M2); (10, 12, 13, 14, 15) (M3).
 
-`R₁ = 23, R₂ = 32, R₃ = 65`. `n = 15`.
+`R₁ = 23, R₂ = 33, R₃ = 64`. `n = 15`.
 
-`H = 12/(15·16) · (529/5 + 1024/5 + 4225/5) − 48`
-   `= 0,05 · 1155,6 − 48 ≈ 9,78`.
+`H = 12/(15·16) · (529/5 + 1089/5 + 4096/5) − 48`
+   `= 0,05 · 1142,8 − 48 ≈ 9,14`.
 
-`χ²_{0,05, 2} ≈ 5,99`. `9,78 > 5,99` ⇒ zamítáme. Skupiny se signifikantně liší.
+`χ²_{0,05, 2} ≈ 5,99`. `9,14 > 5,99` ⇒ zamítáme. Skupiny se signifikantně liší.
 
 Post-hoc: Dunn-Bonferroni nebo Conover-Iman pro pairwise srovnání.
 

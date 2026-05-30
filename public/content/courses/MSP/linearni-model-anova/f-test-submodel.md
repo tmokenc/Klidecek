@@ -61,7 +61,7 @@ F \sim F(k - k_1, n - k).
   <g>
     <text x="40" y="30" fill="var(--text-muted)">Y</text>
     <rect x="60" y="40" width="420" height="30" fill="var(--bg-inset)" stroke="var(--line)"/>
-    <text x="270" y="60" text-anchor="middle">SST = Σ(Yᵢ − Ȳ)²</text>
+    <text x="270" y="60" text-anchor="middle" fill="var(--text)">SST = Σ(Yᵢ − Ȳ)²</text>
 
     <rect x="60" y="90" width="200" height="30" fill="var(--bg-inset)" stroke="var(--accent)" stroke-width="2"/>
     <text x="160" y="110" text-anchor="middle" fill="var(--accent)" font-size="10.5">Ŷ_M1 (submodel)</text>
@@ -121,7 +121,7 @@ F-test je *exaktní* verze [[likelihood-ratio]] testu pro normální lineární 
 -2 \log \Lambda = n \log\!\left( \frac{S_e^*}{S_e} \right).
 :::
 
-Pro velké `n`: `−2 log Λ ≈ (n − k) · log(1 + (k − k₁)·F/(n − k))` ≈ asymptoticky `χ²(k − k₁)`. F-test je *exaktní*, LR je *asymptotický*.
+Pro velké `n`: `−2 log Λ = n · log(1 + (k − k₁)·F/(n − k))` → asymptoticky `χ²(k − k₁)`. F-test je *exaktní*, LR je *asymptotický*.
 
 ## Sequential F-tests (Type I, II, III SS)
 
@@ -141,7 +141,7 @@ R `anova()` defaultně dává Type I, `Anova()` z `car` package dává Type II/I
 
 Output: `F`, `df1`, `df2`, p-hodnota.
 
-## Aplikace
+## Další oblasti použití
 
 * **Variable selection** — stepwise regression, ANOVA tables.
 * **GLM** — analogie pro logistickou/Poissonovu regresi přes deviance.

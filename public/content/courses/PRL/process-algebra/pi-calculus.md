@@ -188,7 +188,7 @@ Klient: $\bar{f}(5, \text{result}).\text{result}(v). \dots$ — pošle 5 + kaná
 
 ## Reálné aplikace π-kalkulu
 
-- **Spi-calculus** (Abadi, Gordon 1999) — extension pro kryptografické protokoly. Modeluje symbolické šifrování, nonces, atd.
+- **Spi-calculus** (Abadi, Gordon 1997) — extension pro kryptografické protokoly. Modeluje symbolické šifrování, nonces, atd.
 - **Applied π-calculus** — pro protokoly typu TLS, Signal, Kerberos.
 - **ProVerif** — verifikátor pro applied π-calculus, používaný pro analýzu autentizace, secrecy, replay attacks.
 - **JoCaml** — implementace π-kalkulu jako rozšíření OCaml.

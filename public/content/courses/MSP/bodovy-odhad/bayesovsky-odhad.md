@@ -64,7 +64,7 @@ To je opět *Beta* rozdělení! Konkrétně `θ | x ∼ Beta(α + k, β + n − 
 * **MLE**: `θ̂_MLE = k/n` (kryje se s posterior mean pro neinformativní prior `Beta(1, 1) = U(0, 1)`).
 
 ::: svg "Bayesovský update — prior Beta(2, 2) + data n=10, k=8 → posterior Beta(10, 4). Posterior je užší a posunutý vůči pravým hodnotám."
-<svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
+<svg viewBox="0 0 540 206" font-family="ui-sans-serif, system-ui" font-size="11">
   <g>
     <line x1="40" y1="170" x2="500" y2="170" stroke="var(--line-strong)"/>
     <line x1="40" y1="20" x2="40" y2="170" stroke="var(--line-strong)"/>
@@ -99,7 +99,8 @@ Klasické konjugované páry:
 | `Exp(λ)` | `Gamma(α, β)` | `Gamma(α + n, β + Σx)` |
 | `N(μ, σ²)` (σ známé) | `N(μ₀, σ₀²)` | `N(...,...)` |
 | `Multinomial` | `Dirichlet(α)` | `Dirichlet(α + counts)` |
-| Všechny [[exponencialni-rodina|exponenciální rodiny]] | mají konjugovaný prior |  |
+
+> Obecně: každá [[exponencialni-rodina|exponenciální rodina]] má konjugovaný prior (a posterior ve stejné rodině).
 
 Pro nenstandardní modely *neexistuje* uzavřená forma — používá se *MCMC* nebo *variational inference*.
 

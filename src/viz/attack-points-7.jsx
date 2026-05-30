@@ -119,7 +119,7 @@ export default function AttackPoints7() {
 
   return (
     <div style={ctn}>
-      <svg viewBox="0 0 520 240" style={{ width: "100%", maxWidth: 720, background: "var(--bg-inset)", borderRadius: 6 }}>
+      <svg viewBox="0 -4 520 244" style={{ width: "100%", maxWidth: 720, background: "var(--bg-inset)", borderRadius: 6 }}>
         {/* boxes */}
         <g fill="var(--bg-card)" stroke="var(--accent)" strokeWidth="1.2">
           <rect x="20"  y="90"  width="80" height="40" rx="4" />

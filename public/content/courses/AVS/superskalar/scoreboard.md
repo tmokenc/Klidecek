@@ -16,7 +16,7 @@ Thornton: udělat tabulku, která sleduje "kdo dělá co" a vydávat instrukce *
 
 CDC 6600 měla:
 
-- **10 funkčních jednotek** (4 FP add, 2 FP multiply, 1 divide, 2 fixed, 1 boolean) — paralelní.
+- **10 funkčních jednotek** (1 branch, 1 boolean, 1 shift, 1 fixed/long add, 1 FP add, 1 FP divide, 2 FP multiply, 2 increment) — paralelní.
 - **24 registrů** (8 address + 8 index + 8 floating-point).
 - **Scoreboard** — centrální tabulka, která rozhoduje o vydávání.
 
@@ -108,11 +108,11 @@ Průběh:
 - **Takt 4**: i3 Read operands (f10, f14 ready). 
 - **Takt 5**: i3 Execute. i3 *dokončí*, ale **nemůže Write** — i2 ještě nečetla f8 → WAR. i3 čeká před WB.
 - **Takt 42**: i1 Write result (f0 hotová). 
-- **Takt 43**: i2 Read operands (f0, f8 ready). 
-- **Takt 44+**: i2 Execute.
-- **Takt 50**: i2 Write result. i3 *pak* dostane povolení Write result.
+- **Takt 43**: i2 Read operands (f0, f8 ready) → WAR na f8 zmizí.
+- **Takt 44**: i3 Write result (*povoleno*, i2 už přečetla f8). i2 Execute.
+- **Takt 50**: i2 Write result.
 
-Pokud by i3 prvním činila WAR jako i2 (WAR na f8), pak vlastně **i3 stagnuje 45 taktů** kvůli WAR konfliktu.
+i3 dokončí výpočet už v taktu 5, ale kvůli WAR na f8 musí čekat ve frontě před Write result, dokud i2 nepřečte f8 (takt 43) — tedy **~38 taktů promarněných stagnací**.
 
 ::: viz scoreboard-trace "Krokuj 6-instrukční FP program přes Issue / Read / Execute / Write fáze. Stalls (STR / WAW / WAR) se zvýrazní u dotčené instrukce."
 :::

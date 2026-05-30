@@ -133,7 +133,7 @@ export default function MinutiaeMatching() {
         <button style={btn} onClick={() => { setTx(0); setTy(0); setRot(0); }}>0/0/0</button>
       </div>
 
-      <svg viewBox="0 0 280 230" style={{ width: "100%", maxWidth: 600, background: "var(--bg-inset)", borderRadius: 6 }}>
+      <svg viewBox="0 0 320 245" style={{ width: "100%", maxWidth: 600, background: "var(--bg-inset)", borderRadius: 6 }}>
         {/* template minutiae */}
         {TEMPLATE.map((p, i) => (
           <g key={`t${i}`}>

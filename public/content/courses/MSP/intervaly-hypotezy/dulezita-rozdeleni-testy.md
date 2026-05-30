@@ -67,7 +67,7 @@ T = \frac{Z}{\sqrt{V / n}} \sim t(n).
 
 ### Proč Studentovo „t"
 
-V `t`-testu (viz [[t-test]]) statistika `T = (X̄ − μ)/(S/√n)` má rozdělení `t(n − 1)`. Důvod: `(X̄ − μ)/(σ/√n) ∼ N(0, 1)`, a `(n − 1)S²/σ² ∼ χ²(n − 1)`, *nezávislé* na sobě (důsledek Basu-Cochranovy věty). Dělením dostaneme:
+V `t`-testu (viz [[t-test]]) statistika `T = (X̄ − μ)/(S/√n)` má rozdělení `t(n − 1)`. Důvod: `(X̄ − μ)/(σ/√n) ∼ N(0, 1)`, a `(n − 1)S²/σ² ∼ χ²(n − 1)`, *nezávislé* na sobě (důsledek Cochranovy věty). Dělením dostaneme:
 
 ::: math
 T = \frac{(X̄ − μ)/(σ/√n)}{\sqrt{[(n-1)S²/σ²] / (n - 1)}} = \frac{X̄ − μ}{S/\sqrt{n}} \sim t(n-1).

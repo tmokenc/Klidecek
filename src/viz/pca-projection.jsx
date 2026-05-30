@@ -2,7 +2,7 @@
 // 1D projection on PC1; reconstruction error shown as residual segments.
 import { useState } from "react";
 
-const W = 540, H = 320;
+const W = 540, H = 336;
 
 const INIT = [
   [1.5, 2.4], [2.5, 3.1], [3.5, 4.0], [4.5, 4.7], [5.5, 5.6], [6.5, 6.2],
@@ -66,7 +66,7 @@ export default function PcaProjection() {
   const f = pca(data);
 
   const xMin = 0, xMax = 10, yMin = 0, yMax = 10;
-  const PAD_L = 36, PAD_R = 16, PAD_T = 24, PAD_B = 50;
+  const PAD_L = 36, PAD_R = 16, PAD_T = 40, PAD_B = 50;
   const PW = W - PAD_L - PAD_R;
   const PH = H - PAD_T - PAD_B;
   const toX = (x) => PAD_L + ((x - xMin) / (xMax - xMin)) * PW;

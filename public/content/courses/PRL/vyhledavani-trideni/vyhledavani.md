@@ -81,7 +81,7 @@ g = \left\lceil \frac{\log(n+1)}{\log(N+1)} \right\rceil \quad\text{kroků.}
 - **Čas**: $t(n) = O\!\left(\log_{N+1} n\right) = O\!\left(\dfrac{\log n}{\log N}\right)$.
 - **Cena**: $c(n) = N \cdot t(n) = O\!\left(N \log_{N+1} n\right) = O\!\left(\dfrac{N \log n}{\log N}\right)$.
 
-Pro $N = 2$ ($g$-ary = ternární): $t = O(\log_3 n)$ — *jen mírně* lepší než binární $O(\log_2 n)$.
+Pro $N = 2$ ($(N+1)$-ární = ternární): $t = O(\log_3 n)$ — *jen mírně* lepší než binární $O(\log_2 n)$.
 
 Pro $N = n^{1/2}$: $t = O(\log_{\sqrt n} n) = O(2)$ — *konstantní* počet kroků, ale s $\sqrt n$ procesory.
 

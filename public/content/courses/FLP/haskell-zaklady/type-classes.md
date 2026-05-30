@@ -114,10 +114,7 @@ class Bounded a where
 
 ### Functor — mappable
 
-```haskell
-class Functor f where
-    fmap :: (a -> b) -> f a -> f b
-```
+Definice viz [Functor a Monad — preview](#functor-a-monad--preview) níže.
 
 ### Monad — monadic
 

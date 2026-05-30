@@ -63,7 +63,7 @@ Pro tyto pokročilé konstrukty existuje **OWL**.
 
 ## OWL — Web Ontology Language
 
-**OWL** (W3C 2004, OWL 2 z 2012) je *expresivní* ontologický jazyk založený na **deskripční logice** (DL). Definuje bohatou škálu konstruktů pro modelování:
+**OWL** (W3C 2004, OWL 2 z 2009, 2. edice 2012) je *expresivní* ontologický jazyk založený na **deskripční logice** (DL). Definuje bohatou škálu konstruktů pro modelování:
 
 * **Class expressions** — pojmenované třídy + operátory `intersectionOf`, `unionOf`, `complementOf`.
 * **Property characteristics** — `FunctionalProperty`, `InverseFunctionalProperty`, `TransitiveProperty`, `SymmetricProperty`, `AsymmetricProperty`, `ReflexiveProperty`, `IrreflexiveProperty`.
@@ -92,10 +92,9 @@ ex:hasSalary  a owl:DatatypeProperty ;
               rdfs:range  xsd:decimal ;
               a owl:FunctionalProperty .          -- každý Employee má jen 1 plat
 
-[ a owl:Restriction ;                              -- anonymní omezení
+ex:Employee rdfs:subClassOf [ a owl:Restriction ;  -- anonymní omezení
   owl:onProperty ex:hasManager ;
-  owl:cardinality "1"^^xsd:nonNegativeInteger ;
-  rdfs:subClassOf ex:Employee ] .                  -- každý Employee má právě 1 vedoucího
+  owl:cardinality "1"^^xsd:nonNegativeInteger ] .  -- každý Employee má právě 1 vedoucího
 ```
 
 ### Profily OWL
@@ -105,6 +104,9 @@ OWL 2 má tři **profily** pro vyvážení expresivity a výpočetní složitost
 * **OWL 2 EL** (Existential Logic) — polynomiální dotazování, vhodný pro velké taxonomie (SNOMED CT v medicíně).
 * **OWL 2 QL** (Query Language) — efektivní dotazování přes SPARQL, mapování na relační DB.
 * **OWL 2 RL** (Rule Language) — implementovatelný přes pravidlové enginy (Datalog).
+
+Vedle profilů existují dvě varianty (species) OWL:
+
 * **OWL 2 DL** — plné OWL, *decidable* ale exponentiální.
 * **OWL Full** — bez omezení, *undecidable* — málo používaný.
 

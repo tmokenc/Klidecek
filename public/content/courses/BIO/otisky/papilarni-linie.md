@@ -26,10 +26,10 @@ title: Papilární linie a anatomie otisku
   <g fill="rgba(180, 150, 120, 0.6)" stroke="var(--text)" stroke-width="0.8">
     <rect x="40" y="140" width="460" height="60"/>
   </g>
-  <g fill="var(--text)" font-size="10.5" text-anchor="end">
-    <text x="36" y="55">epidermis (hřebeny)</text>
-    <text x="36" y="110">papilární vrstva</text>
-    <text x="36" y="170">dermis</text>
+  <g fill="var(--text)" font-size="10.5" text-anchor="start">
+    <text x="46" y="55">epidermis (hřebeny)</text>
+    <text x="46" y="110">papilární vrstva</text>
+    <text x="46" y="170">dermis</text>
   </g>
   <g fill="var(--accent)" font-size="9" text-anchor="middle">
     <text x="100" y="73">hřeben</text>
@@ -65,7 +65,7 @@ title: Papilární linie a anatomie otisku
 Tři fundamental principles forenzní daktyloskopie:
 
 1. **Princip individuality** — *žádné dva* otisky (od různých osob) nejsou totožné. Empirický fakt, podporovaný miliardami srovnání v AFIS databázích.
-2. **Princip neměnnosti** — papilární vzor zůstává *stabilní* po celý život jedince (od formování v 7. fetálním měsíci do dekompozice po smrti).
+2. **Princip neměnnosti** — papilární vzor zůstává *stabilní* po celý život jedince (od formování přibližně v 6. fetálním měsíci, do 24. týdne, až do dekompozice po smrti).
 3. **Princip klasifikovatelnosti** — papilární vzory lze *systematicky* klasifikovat ([[klasifikace-otisku|Henry classification]]).
 
 ## Typy snímání otisků
@@ -98,32 +98,7 @@ V daktyloskopii existují **3 druhy** otisků prstů podle způsobu pořízení:
 
 ## Senzory pro píchané otisky
 
-### Optical sensors
-
-* CCD/CMOS kamera s LED osvětlením.
-* Princip: total internal reflection — hřebeny absorbují, dna odráží.
-* **Pro:** vysoké rozlišení, dlouhá životnost.
-* **Proti:** velikost (5–10 mm), citlivost na špínu.
-
-### Capacitive sensors
-
-* Pole malých kapacitorů na čipu.
-* Princip: kůže (hřebeny) má vyšší kapacitu než vzduch (dna).
-* **Pro:** small (vhodný do mobilů), nelze obejít fotografií.
-* **Proti:** výrazně sensitive k vlhkosti, zranění.
-* **Apple Touch ID** používal capacitive.
-
-### Ultrasonic sensors
-
-* Ultrazvukové vlny pronikají do *dermis*, ne jen epidermis.
-* **Pro:** functions s mokrou nebo špinavou rukou; *under-display* (Samsung Galaxy S10+).
-* **Proti:** slower than capacitive; degradace s tlakovými obrazovkami.
-
-### Thermal sensors
-
-* Senzor měří *teplotu* hřebenů vs. dna.
-* **Pro:** odolnost proti spoofing (vyžaduje *živou* kůži).
-* **Proti:** *velmi* malá plocha, *sweeping motion* required.
+Píchané otisky se snímají senzorem; existují **4 hlavní technologie** — optical, capacitive, ultrasonic, thermal — s vlastními kompromisy mezi přesností, robustností, cenou a anti-spoofing odolností. Detailní popis jednotlivých senzorů (FTIR, kapacitní pole, ultrazvuk pod displejem, termální sweep) viz [[snimani-otisku]].
 
 ## Kvalita otisku
 

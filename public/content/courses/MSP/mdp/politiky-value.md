@@ -84,7 +84,7 @@ Jednoduchá *intuice*: optimální hodnota `s` je nejlepší (max přes akce) ok
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
   <g>
     <circle cx="80" cy="100" r="26" fill="var(--bg-inset)" stroke="var(--accent)" stroke-width="2"/>
-    <text x="80" y="104" text-anchor="middle">s</text>
+    <text x="80" y="104" text-anchor="middle" fill="var(--text)">s</text>
     <text x="80" y="58" text-anchor="middle" fill="var(--accent)" font-size="10.5">V*(s)</text>
 
     <text x="160" y="60" fill="var(--text-muted)">max</text>
@@ -100,12 +100,12 @@ Jednoduchá *intuice*: optimální hodnota `s` je nejlepší (max přes akce) ok
 
     <path d="M 228 60 L 350 35" stroke="var(--text-muted)" fill="none" marker-end="url(#arrV)"/>
     <circle cx="380" cy="35" r="20" fill="var(--bg-inset)" stroke="var(--text)"/>
-    <text x="380" y="39" text-anchor="middle">s'</text>
+    <text x="380" y="39" text-anchor="middle" fill="var(--text)">s'</text>
     <text x="445" y="32" fill="var(--accent)" font-size="10">V*(s')</text>
 
     <path d="M 228 140 L 350 165" stroke="var(--text-muted)" fill="none" marker-end="url(#arrV)"/>
     <circle cx="380" cy="170" r="20" fill="var(--bg-inset)" stroke="var(--text)"/>
-    <text x="380" y="174" text-anchor="middle">s''</text>
+    <text x="380" y="174" text-anchor="middle" fill="var(--text)">s''</text>
     <text x="445" y="167" fill="var(--accent)" font-size="10">V*(s'')</text>
 
     <text x="40" y="190" fill="var(--text-muted)" font-size="10.5">V*(s) = max[r(s, α₁) + γΣP(s, α₁, s')V*(s'),  r(s, α₂) + γΣP(s, α₂, s')V*(s')]</text>
@@ -145,7 +145,7 @@ Pro čistou reachability `T` (bez odměn) můžeme nastavit:
 * `T` jsou absorpční stavy s `r(t, _) = 1` přiřazeným *jen jednou*,
 * `γ = 1`.
 
-Pak `V*(s) = max_σ P^σ(s → T)`. Bellmanův operátor zde *není kontrahující*, ale stále má jediný pevný bod (díky `P · 1 ≤ 1` na stavech mimo `T ∪ S₀`).
+Pak `V*(s) = max_σ P^σ(s → T)`. Bellmanův operátor zde *není kontrahující* a může mít *více pevných bodů*. Maximální reachability hodnota `V* = max_σ P^σ(s → T)` je *nejmenší* pevný bod tohoto operátoru (počítaný value iteration zdola od `V⁰ = 0`). Proto je prosté stopping criterion `||Vᵏ⁺¹ − Vᵏ||_∞ < ε` *nespolehlivé* a je potřeba sáhnout po technikách jako interval iteration (viz [[prism-model-checking]]).
 
 ## Vztah k DTMC
 

@@ -30,11 +30,13 @@ Tunnel:      [new IP header][ESP][orig IP header][TCP][data + ESP trailer]
 
 ### IKE handshake
 
-IKEv2 has two phases:
+IKEv2 uses named *exchanges* (not phases like IKEv1):
 
-**Phase 1 (IKE_SA_INIT)**: negotiate IKE parameters, establish IKE SA.
+**IKE_SA_INIT**: negotiate IKE parameters, establish IKE SA.
 
-**Phase 2 (IKE_AUTH + CHILD_SA)**: authenticate, derive child SAs for ESP.
+**IKE_AUTH**: authenticate, establish the first Child SA for ESP.
+
+**CREATE_CHILD_SA**: separate exchange for additional / rekeyed Child SAs.
 
 Authentication options:
 

@@ -171,7 +171,7 @@ Trvání: 6-18 měsíců po submission. Cena: $100k-$500k.
 | OS validation | trusted OS levels | aligned with CC |
 | Cert validity | indefinite + transition periods | similar |
 
-140-2 transition deadline: April 2026. Until then, both 140-2 and 140-3 modules valid.
+140-2 transition deadline: 21 September 2026 — on that date all FIPS 140-2 validations move to the CMVP Historical List. Until then, both 140-2 and 140-3 modules remain valid. (New FIPS 140-2 submissions were already cut off on 1 April 2022.)
 
 ## Vztah ke Common Criteria
 

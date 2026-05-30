@@ -183,7 +183,7 @@ Bernstein, Lange a kol. (2011). Podpis na *Edwards-curve* (matematicky ekvivalen
 
 * **Deterministické** přirozeně — $k$ se odvozuje z $H(\mathrm{secret} \| M)$.
 * **Constant-time** implementace bez podmínek (jednoduché v softwaru).
-* **Rychlé:** ~50k podpisů/s na CPU, ~150k ověření/s.
+* **Rychlé:** ~50k podpisů/s, ~20k ověření/s na CPU (batch verifikace výrazně rychlejší).
 * **Kompaktní:** veřejný klíč 32 B, podpis 64 B.
 
 ### Sign(M):

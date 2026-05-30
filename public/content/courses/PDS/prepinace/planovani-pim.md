@@ -81,7 +81,7 @@ V jedné iteraci se *nemusí* podařit vyřešit všechny páry. Pokud zůstanou
 | 2 | Jen ty, co nebyly v iteraci 1 |
 | 3 | Jen ty, co nebyly v iteraci 1 a 2 |
 
-Konvergence: PIM dokáže najít maximální matching v $\mathcal{O}(\log N)$ iteracích *v průměru*.
+Konvergence: PIM v průměru konverguje k maximal matching v $\mathcal{O}(\log N)$ iterací.
 
 ### Propustnost
 

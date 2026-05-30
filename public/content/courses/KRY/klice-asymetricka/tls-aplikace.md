@@ -99,7 +99,7 @@ TLS 1.3 *významně zkrátil* seznam povolených cipher suites:
 * `TLS_AES_128_CCM_SHA256`
 * `TLS_AES_128_CCM_8_SHA256`
 
-Všechny AEAD, všechny moderní. **Žádné CBC, žádné RC4, žádné DH-mod-p**.
+Všechny AEAD, všechny moderní. **Žádné CBC, žádné RC4, žádný statický RSA key transport**. Výměna klíčů je vždy efemérní — ECDHE (typicky) nebo FFDHE (RFC 7919 ffdhe\* skupiny), což zajišťuje forward secrecy.
 
 TLS 1.2 měl ~37 cipher suites — historický balast. TLS 1.3 vyhodil staré.
 
@@ -159,7 +159,7 @@ Padding oracle proti TLS 1.0 CBC s predikovatelným IV. Vyřešeno v TLS 1.1 (ex
 
 ### Lucky 13 (2013)
 
-Timing variant POODLE proti TLS-CBC. Vyřešeno: konstantní-čas MAC ověření, nebo přechod na AEAD.
+Časovací (timing) padding-oracle útok na MAC-then-encrypt v CBC režimu TLS. Vyřešeno: konstantní-čas MAC ověření, nebo přechod na AEAD.
 
 ### Logjam (2015), FREAK (2015)
 

@@ -10,7 +10,7 @@ Od r. 2004 vydává Mezinárodní organizace civilního letectví (ICAO) standar
 
 [ICAO Doc 9303](https://www.icao.int/publications/pages/publication.aspx?docnum=9303) (Machine Readable Travel Documents) definuje:
 
-* **Fyzika** — pas má bezkontaktní čip dle ISO 14443 (typicky typ B), antén v jedné stránce nebo obálce.
+* **Fyzika** — pas má bezkontaktní čip dle ISO 14443 (Type A nebo Type B; v praxi většina pasů používá Type A), antén v jedné stránce nebo obálce.
 * **Logical Data Structure (LDS)** — strukturovaný file system s `DG1`–`DG16` datovými soubory:
   * **DG1** — MRZ data (jméno, datum narození, číslo pasu, expiry, …).
   * **DG2** — fotografie (JPEG 2000).
@@ -60,7 +60,7 @@ Od r. 2004 vydává Mezinárodní organizace civilního letectví (ICAO) standar
 :::
 
 * Každý stát má svou **CSCA** (Country Signing Certificate Authority) — důvěryhodný kořen.
-* CSCA podepisuje **DSC** (Document Signing Certificate) — krátkodobý cert (~3 měsíce platnosti), kterým se podepisují konkrétní pasy.
+* CSCA podepisuje **DSC** (Document Signing Certificate), kterým se podepisují konkrétní pasy. DSC se k podpisu nových pasů používá jen krátce (ICAO doporučuje *private-key usage period* ~3 měsíce), ale jeho *platnost* (validity) musí pokrývat celou životnost podepsaných pasů (až ~10 let).
 * DSC se uloží *v pasu* (jako součást SOD).
 * **SOD** (Security Object Document) obsahuje hash *všech* DG souborů, podepsaný DSC.
 
@@ -130,18 +130,18 @@ EAC je *povinné* pro EU pasy s biometrií (od r. 2009 — Schengen 2nd generati
 
 ## Konkrétně — český eOP (občanský průkaz)
 
-Od r. 2018 jsou v ČR vydávány nové občanské průkazy s **kontaktním čipem** (oddělené od bezkontaktního):
+Od 1. 7. 2018 jsou v ČR vydávány nové občanské průkazy s **jedním kontaktním čipem** (bezkontaktní rozhraní není z bezpečnostních důvodů použito):
 
-* **Kontaktní čip** — pro PKI (autentizace, podpis, IZIP, datové schránky, Bank ID).
-* **Bezkontaktní** — biometrika + ICAO 9303 funkce (pro EU/ESTA cesty).
+* **Kontaktní čip** — pro PKI/eID (autentizace, podpis, BankID, datové schránky).
+* **Žádné bezkontaktní rozhraní** a **žádná biometrika** na čipu eOP — biometrické a ICAO 9303 funkce (pro EU/cesty) implementuje český **cestovní pas**, ne občanský průkaz.
 * Aplikace **eDokladovka** poskytuje rozhraní pro autorizovaná čtení.
 
 Bezpečnostní mechanismy:
 
 * **PIN/PUK** pro kontaktní operace.
-* **PACE** pro bezkontaktní.
-* **AA** + **CA** + **TA** pro EAC.
 * Klíče generovány na čipu, soukromý *nikdy* neopustí.
+
+(PACE / EAC / AA + CA + TA jsou mechanismy *bezkontaktního* cestovního pasu, viz výše — nikoli eOP.)
 
 ## Útoky na e-pasy
 

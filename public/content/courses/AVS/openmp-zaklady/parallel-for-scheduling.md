@@ -30,7 +30,7 @@ Aby OpenMP mohl paralelizovat:
 3. **Žádné loop-carried dependence** — `a[i]` nesmí záviset na `a[i-1]`.
 4. **Žádné early exit** — `break`, `return`, `goto`. *Continue* OK.
 
-Pokud nesplněno, GCC odmítne s warning. Programátor musí *přepsat*.
+Canonical form a zákaz early-exit kompilátor vynutí (chyba při překladu). Loop-carried dependence ale kompilátor NEdetekuje — `#pragma omp parallel for` ji tiše paralelizuje a vznikne race / nesprávný výsledek; odpovědnost za nezávislost iterací nese programátor.
 
 ## Schedule clauses
 
@@ -137,7 +137,7 @@ Použij `OMP_SCHEDULE` env var. Praktické pro tuning bez recompile.
     <rect x="270" y="30" width="50" height="22"/>
     <rect x="395" y="30" width="80" height="22"/>
   </g>
-  <text x="270" y="68" text-anchor="middle" fill="var(--text-muted)" font-size="9">work time: T1 = full, T0 = ¼, T2 = ¼, T3 = ⅔ → wasted parallelism</text>
+  <text x="270" y="68" text-anchor="middle" fill="var(--text-muted)" font-size="9">work time: T1 = full, T0 = ⅓, T2 ≈ ½, T3 = ⅔ → wasted parallelism</text>
   <text x="20" y="100" fill="var(--text)" font-weight="600">dynamic, chunk=8 — load balanced</text>
   <g fill="var(--bg-inset)" stroke="var(--line)">
     <rect x="20" y="110" width="120" height="22" rx="2"/>
@@ -244,7 +244,7 @@ for (int i = 0; i < N; i++)
     a[i] = b[i] * c[i];
 ```
 
-Kombinace: paralelizace mezi vlákna **+** vektorizace uvnitř. Pro AXPY na 8 jader + AVX2: speedup ~64×.
+Kombinace: paralelizace mezi vlákna **+** vektorizace uvnitř. Pro AXPY na 8 jader + AVX2 je teoretický strop 8 jader × 8 lanes = 64×; reálná AXPY je ale memory-bound, takže skutečné zrychlení je výrazně nižší (limit propustnost paměti).
 
 GCC s `-O3 -fopenmp -march=native` zahrnuje SIMD pragma efektivně.
 

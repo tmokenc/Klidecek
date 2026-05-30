@@ -4,8 +4,8 @@ title: Informační systém — schéma a úrovně řízení
 
 Informační systém (IS) je obvyklé chápat jako specializovanou variantu obecného **systému**: prvky systému zpracovávají *vstupy* na *výstupy* a přitom udržují *vnitřní stav*. U informačního systému je tento stav reprezentován **hodnotami dat** a vnitřní zpracování má často formu *transakcí*.
 
-::: svg "Schéma informačního systému: stav, procesy, vstup, výstup"
-<svg viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+::: svg "Schéma informačního systému: stav je čten i zapisován procesy během transformace vstupů na výstupy"
+<svg viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg">
   <rect x="40" y="90" width="70" height="40" rx="6" fill="var(--bg-inset)" stroke="var(--line-strong)"/>
   <text x="75" y="115" text-anchor="middle" font-size="13" font-weight="600" fill="var(--text)">vstup</text>
   <rect x="140" y="20" width="80" height="34" rx="6" fill="var(--bg-inset)" stroke="var(--line-strong)"/>
@@ -23,7 +23,6 @@ Informační systém (IS) je obvyklé chápat jako specializovanou variantu obec
       <path d="M0,0 L8,4 L0,8 z" fill="var(--text-muted)"/>
     </marker>
   </defs>
-  <text x="180" y="180" text-anchor="middle" font-size="10.5" fill="var(--text-faint)" font-family="var(--font-mono)">stav je čteni i zapisován procesy během transformace vstupů na výstupy</text>
 </svg>
 :::
 
@@ -36,7 +35,7 @@ Informační systém (IS) je obvyklé chápat jako specializovanou variantu obec
 V organizaci se IS obvykle hierarchicky člení podle toho, kterou úroveň rozhodování podporují. Klasický pohled je tzv. **pyramidové schéma**:
 
 ::: svg "Pyramidové schéma — úrovně řízení a typy IS"
-<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 450 220" xmlns="http://www.w3.org/2000/svg">
   <polygon points="200,15 360,200 40,200" fill="oklch(0.55 0.18 264 / 0.05)" stroke="var(--line-strong)" stroke-width="0.5"/>
   <line x1="80" y1="155" x2="320" y2="155" stroke="var(--line-strong)" stroke-width="0.5"/>
   <line x1="115" y1="115" x2="285" y2="115" stroke="var(--line-strong)" stroke-width="0.5"/>

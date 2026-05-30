@@ -86,7 +86,7 @@ Hybridní přístupy — inference *během* prohledávání:
 
 ### Forward checking
 
-Po přiřazení `X = v` *propaguj* do sousedů: redukuj jejich domény odebráním hodnot, které nepokoří `X = v`.
+Po přiřazení `X = v` *propaguj* do sousedů: redukuj jejich domény odebráním hodnot, které jsou nekonzistentní s `X = v` (tj. porušují omezení mezi X a Y).
 
 ```python
 def forward_check(csp, X, v):

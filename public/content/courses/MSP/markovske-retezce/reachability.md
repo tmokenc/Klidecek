@@ -32,13 +32,13 @@ Spolu s okrajovou podmínkou `x(s) = 1` pro `s ∈ T` máme systém `|S|` lineá
 <svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="11">
   <g>
     <circle cx="80" cy="95" r="22" fill="var(--bg-inset)" stroke="var(--accent)" stroke-width="2"/>
-    <text x="80" y="99" text-anchor="middle">s</text>
+    <text x="80" y="99" text-anchor="middle" fill="var(--text)">s</text>
     <text x="80" y="68" text-anchor="middle" fill="var(--accent)" font-size="10.5">x(s) = ?</text>
     <circle cx="280" cy="50" r="22" fill="var(--bg-inset)" stroke="var(--text-muted)"/>
-    <text x="280" y="54" text-anchor="middle">a</text>
+    <text x="280" y="54" text-anchor="middle" fill="var(--text)">a</text>
     <text x="280" y="25" text-anchor="middle" fill="var(--text-muted)" font-size="10">x(a)</text>
     <circle cx="280" cy="140" r="22" fill="var(--bg-inset)" stroke="var(--text-muted)"/>
-    <text x="280" y="144" text-anchor="middle">b</text>
+    <text x="280" y="144" text-anchor="middle" fill="var(--text)">b</text>
     <text x="280" y="170" text-anchor="middle" fill="var(--text-muted)" font-size="10">x(b)</text>
     <path d="M 100 85 L 258 55" stroke="var(--line-strong)" fill="none" marker-end="url(#arrR)"/>
     <text x="170" y="60" text-anchor="middle" fill="var(--text-muted)">P(s, a)</text>
@@ -78,7 +78,7 @@ Definujeme:
 S_0 = \{ s \in S \mid T \text{ není dosažitelný z } s \}.
 :::
 
-Tedy stavy, *ze kterých se `T` *vůbec* nedá dosáhnout*. Z těchto stavů triviálně `x(s) = 0`. `S₀` lze najít backward reachability v grafu: počáteček = `T`, jdi proti hranám, najdi vše dosažitelné. Doplněk je `S₀ ∪ T`.
+Tedy stavy, *ze kterých se `T` *vůbec* nedá dosáhnout*. Z těchto stavů triviálně `x(s) = 0`. `S₀` lze najít backward reachability v grafu: počáteček = `T`, jdi proti hranám, najdi vše dosažitelné. Doplněk (mimo nalezenou množinu) je `S₀`.
 
 Systém je pak:
 
@@ -94,9 +94,9 @@ S touto úpravou má systém **jednoznačné** řešení (Banachova věta o pevn
 
 ## Algoritmus
 
-1. **Forward reachability** od `T`: označ stavy, ze kterých lze `T` dosáhnout. Komplement = `S₀`.
+1. **Backward reachability** od `T` (procházej hrany pozpátku z `T`): označ stavy, ze kterých lze `T` dosáhnout. Komplement = `S₀`.
 2. Vyřeš lineární systém na `S∖(T ∪ S₀)`. Maticová forma: `(I − P̃) x̃ = b`, kde `P̃` je restrikce `P` na zbylé stavy a `b(s) = Σ_{s' ∈ T} P(s, s')`.
-3. Pro velké stavové prostory: *value iteration* — opakuj `x ← P · x` (s zachováním okrajů) až do konvergence. Zaručeně konverguje v `O((log ε)/(1 − γ))` iteracích, kde `γ < 1` je *spektrální poloměr* substochastické části.
+3. Pro velké stavové prostory: *value iteration* — opakuj `x ← P · x` (s zachováním okrajů) až do konvergence. Zaručeně konverguje v `O(log(1/ε) / (1 − γ))` iteracích, kde `γ < 1` je *spektrální poloměr* substochastické části.
 
 ### Numerický příklad
 

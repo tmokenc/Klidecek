@@ -98,7 +98,7 @@ Toto je klíčový předpoklad — drasticky zjednodušuje rozhodování. Pokud 
 
 Pokud reálné prostředí *není* markovské, musíme to *zkompenzovat* designem stavu:
 
-* **Šachy** — pozice na šachovnici + bere a hraje + carry rošády je markovský.
+* **Šachy** — markovský stav = pozice figur na šachovnici + kdo je na tahu + práva na rošádu + možnost braní mimochodem (en passant) + počítadlo tahů (pravidlo 50 tahů / opakování pozice).
 * **Atari** — *jeden* frame *není* markovský (rychlost objektů nezjistím). 4 po sobě jdoucí frames *jsou* markovské.
 
 ## Partial observability (POMDP)

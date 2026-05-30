@@ -21,7 +21,7 @@ Třívrstvá architektura odpovídá *monolitické* aplikaci: celá aplikační 
 ::: svg "Schéma aplikace s několika mikroslužbami (příklad: doménová dekompozice e-commerce)"
 <svg viewBox="0 0 500 240" xmlns="http://www.w3.org/2000/svg">
   <rect x="20" y="100" width="55" height="40" rx="4" fill="var(--bg-card)" stroke="var(--line-strong)"/>
-  <text x="47" y="125" text-anchor="middle" font-size="10" font-weight="600">Klient</text>
+  <text x="47" y="125" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)">Klient</text>
   <line x1="75" y1="120" x2="115" y2="120" stroke="var(--text-muted)" stroke-width="1" marker-end="url(#m)"/>
   <rect x="115" y="100" width="80" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
   <text x="155" y="120" text-anchor="middle" font-size="10" font-weight="600" fill="var(--accent)">API Gateway</text>
@@ -43,7 +43,7 @@ Třívrstvá architektura odpovídá *monolitické* aplikaci: celá aplikační 
   <text x="300" y="202" text-anchor="middle" font-size="8" fill="oklch(0.42 0.14 142)" font-family="var(--font-mono)">Redis</text>
   <line x1="350" y1="120" x2="395" y2="120" stroke="var(--text-faint)" stroke-width="0.8" stroke-dasharray="3 3" marker-end="url(#m)"/>
   <rect x="395" y="100" width="80" height="40" rx="4" fill="var(--bg-card)" stroke="var(--line)"/>
-  <text x="435" y="120" text-anchor="middle" font-size="10" font-weight="600">Notifikace</text>
+  <text x="435" y="120" text-anchor="middle" font-size="10" font-weight="600" fill="var(--text)">Notifikace</text>
   <text x="435" y="133" text-anchor="middle" font-size="9" fill="var(--text-muted)">externí adapter</text>
   <defs>
     <marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">

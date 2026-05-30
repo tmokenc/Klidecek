@@ -129,7 +129,7 @@ Dva přístupy ke klasifikaci `c | x` (třída při daném pozorování):
 * **Generativní** — modelujeme `p(x | c)` pro každou třídu zvlášť a `p(c)` (apriorní pravděpodobnost). Třídu pak určíme z Bayesova pravidla: `p(c | x) ∝ p(x | c) p(c)`. Příklad: gaussovský klasifikátor v [[gaussovsky-klasifikator]].
 * **Diskriminativní** — modelujeme přímo `p(c | x)` (nebo deterministickou funkci `f(x) → c`). Příklad: logistická regrese ([[logisticka-regrese]]), neuronové sítě.
 
-Generativní modely umí navíc **generovat** nové vzorky (sampling z `p(x | c)`) a fungují i s chybějícími featury. Diskriminativní jsou obvykle *přesnější* pro samotnou klasifikaci, ale ne dělají to navíc.
+Generativní modely umí navíc **generovat** nové vzorky (sampling z `p(x | c)`) a fungují i s chybějícími featury. Diskriminativní jsou obvykle *přesnější* pro samotnou klasifikaci, ale neumějí to navíc (negenerují vzorky, hůře zvládají chybějící featury).
 
 ## Klíčové výzvy
 

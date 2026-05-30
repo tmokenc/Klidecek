@@ -32,7 +32,7 @@ Pro 1000 serverů na 10 Gbps to znamená core 10 Tbps — *strašně drahé*. Pr
 
 ## Fat tree
 
-**Fat tree** (Charles Clos, *Fat-Trees: Universal Networks for Hardware-Efficient Supercomputing*, Leiserson 1985) řeší core oversubscription **přidáním vícero linek blíže k root**.
+**Fat tree** (Charles E. Leiserson, *Fat-Trees: Universal Networks for Hardware-Efficient Supercomputing*, 1985) řeší core oversubscription **přidáním vícero linek blíže k root**.
 
 Princip: *vyšší úroveň má širší linky*.
 

@@ -127,8 +127,11 @@ export default function SmtPipelineMixing() {
         <rect x={100} y={246} width={420 * (smt.utilized / smt.total)} height={14} fill="oklch(0.65 0.16 145 / 0.8)" />
         <text x={310} y={257} textAnchor="middle" fontSize="9" fill="white">SMT {(smt.utilized / smt.total * 100).toFixed(0)} %</text>
 
-        <text x={20} y={H - 8} fontSize="9.5" fill="var(--text-faint)">
-          CPU + Mem mix = mem-thread plní bubliny vznikající z compute thread → big win. CPU + CPU = wallový boj o stejné FU → degrade.
+        <text x={6} y={H - 18} fontSize="9.5" fill="var(--text-faint)">
+          CPU + Mem mix = mem-thread plní bubliny z compute thread → big win.
+        </text>
+        <text x={6} y={H - 6} fontSize="9.5" fill="var(--text-faint)">
+          CPU + CPU = wallový boj o stejné FU → degrade.
         </text>
       </svg>
     </div>

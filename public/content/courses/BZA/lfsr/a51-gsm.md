@@ -11,7 +11,7 @@ title: A5/1 a šifrování GSM
 A5/1 používá **3 LFSRs** s irregulárním hodinováním (*majority clocking*):
 
 ::: svg "A5/1: tři LFSRs (R1=19b, R2=22b, R3=23b) s majority clocking. Synchronizovaná pozice je u každého registru znázorněna 'C' bitem; majority decide řídí, který registr posune."
-<svg viewBox="0 0 540 260" font-family="ui-sans-serif, system-ui" font-size="11">
+<svg viewBox="0 0 560 260" font-family="ui-sans-serif, system-ui" font-size="11">
   <defs>
     <marker id="aA51" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
       <path d="M0 0 L8 4 L0 8 z" fill="var(--accent)"/>

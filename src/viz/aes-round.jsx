@@ -161,8 +161,8 @@ export default function AesRound() {
               odlišných bytů: <b style={{ color: "var(--accent)" }}>{avalanche[step].bytesChanged}</b> / 16
             </div>
           </div>
-          <svg viewBox="0 0 220 100" style={{ width: "100%" }}>
-            <text x={110} y={12} fontSize="10" fill="var(--text-muted)" textAnchor="middle">
+          <svg viewBox="0 0 260 100" style={{ width: "100%" }}>
+            <text x={130} y={12} fontSize="10" fill="var(--text-muted)" textAnchor="middle">
               šíření odlišných bitů přes kolo
             </text>
             {avalanche.map((a, i) => {

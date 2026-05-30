@@ -168,7 +168,7 @@ Vstup: $A = [3, 1, 7, 0, 4, 1, 6, 3]$.
 ```
 Init:      [3, 4, 7,11, 4, 5, 6, 0]              (kořen ← 0)
 d=2:       [3, 4, 7, 0, 4, 5, 6,11]              (L=0, R=0+11=11)
-d=1:       [3, 0, 7, 4, 4,11, 6,15]              (vnitřní)
+d=1:       [3, 0, 7, 4, 4,11, 6,16]              (vnitřní)
 d=0:       [0, 3, 4,11,11,15,16,22]              (listy = prescan)
 ```
 
@@ -244,13 +244,12 @@ $n = 2^d$ uzlů, každý drží $a_i$. Velmi podobně jako *all-reduce* na hyper
 ```
 procedure SCAN_HC(my_val)
   total ← my_val
+  my_prefix ← I                   // prescan: neutrální prvek (pro inclusive scan: my_val)
   for i = 0 to d - 1 do
     partner ← me XOR 2^i
     send total to partner; receive their_total
-    if partner > me then        // soused je „za" mnou
-      total ← total ⊕ their_total
-    else                          // soused je „přede mnou"
-      total ← total ⊕ their_total
+    total ← total ⊕ their_total   // reduce roste vždy
+    if partner < me then          // soused je „přede mnou"
       my_prefix ← my_prefix ⊕ their_total   // přidává k mému prescan
 ```
 
@@ -274,7 +273,7 @@ Hardware podpora: instrukce **VPERMD**, **VCOMPRESSPS**. Scan 8 elementů ve 3 k
 2. Posun o 2, sečíst.
 3. Posun o 4, sečíst.
 
-V x86 AVX-512 explicitně `_mm512_scan_*` nepatří mezi přímé instrukce, ale GCC `__builtin_ia32_*` shuffles to umožňují. NVIDIA CUB knihovna implementuje warp-scan v 1 cyklu pomocí `__shfl_up_sync()`.
+V x86 AVX-512 explicitně `_mm512_scan_*` nepatří mezi přímé instrukce, ale GCC `__builtin_ia32_*` shuffles to umožňují. NVIDIA CUB knihovna implementuje warp-scan v $\log_2(32) = 5$ krocích `__shfl_up_sync()`.
 
 ## Segmentovaný scan — modifikace algoritmu
 

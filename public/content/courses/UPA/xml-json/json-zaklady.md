@@ -73,10 +73,10 @@ Pro stejná data uvedme JSON a XML reprezentaci:
 
 ```
 XML:  <food><name>Pilsner</name><price>50</price></food>
-      = 56 bytů
+      = 50 bytů
 
 JSON: {"name":"Pilsner","price":50}
-      = 28 bytů (50% kratší!)
+      = 29 bytů (≈42 % kratší)
 ```
 
 Pro velké datasety je úspora významná — zejména v RESTful API, kde se přenášejí *miliony* zpráv denně.

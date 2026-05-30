@@ -74,7 +74,7 @@ Nevýhody:
 
 Výhody:
 * **XML toolchain** — XSD validace, XSLT transformace, XQuery.
-* **Legacy podpora** — starší knihovny (Apache Jena) ho rodí v praxi.
+* **Legacy podpora** — starší knihovny (Apache Jena) ho stále podporují a běžně s ním v praxi pracují.
 
 ## N-Triples / N-Quads — řádek-orientované
 

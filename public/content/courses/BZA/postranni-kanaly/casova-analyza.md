@@ -57,7 +57,7 @@ Celkem **8 × 128 = 1024** pokusů místo $128^8 = 2^{56}$. Čas-akcelerace: $10
 
 ### Obrany
 
-* **Naivní:** přidat random delay. Útočník **prokáže prostředováním** ($N$-krát měření) → potřebuje $N$× tolik pokusů, ale stále lineární. Náhodné zpoždění nepomáhá u dostatečně trpělivého útočníka.
+* **Naivní:** přidat random delay. Útočník random delay **překoná průměrováním** ($N$ měření na pokus) → potřebuje $N$× tolik měření, ale složitost zůstává lineární. Náhodné zpoždění nepomáhá u dostatečně trpělivého útočníka.
 * **Správně:** **constant-time comparison**:
 
 ```c

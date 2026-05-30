@@ -4,7 +4,7 @@ title: Kerckhoffův princip a Security through obscurity
 
 # Kerckhoffův princip a Security through obscurity
 
-V roce 1883 publikoval nizozemský lingvista Auguste Kerckhoff šest zásad pro vojenské šifry. Šestá zásada — *"systém nesmí vyžadovat utajení a nesmí trpět, dostane-li se do rukou protivníka"* — je dnes známá jako **Kerckhoffův princip** a stojí v jádru moderní kryptografie. Shannonova ekvivalentní formulace zní: *"the enemy knows the system"* (nepřítel zná systém).
+V roce 1883 publikoval nizozemský lingvista Auguste Kerckhoffs šest zásad pro vojenské šifry. Druhá zásada — *"systém nesmí vyžadovat utajení a nesmí trpět, dostane-li se do rukou protivníka"* — je dnes známá jako **Kerckhoffův princip** a stojí v jádru moderní kryptografie. Shannonova ekvivalentní formulace zní: *"the enemy knows the system"* (nepřítel zná systém).
 
 ## Zásada
 
@@ -63,7 +63,7 @@ Bezpečné zařízení je *fyzická* implementace kryptografického algoritmu. K
     <text x="270" y="64" font-size="11" fill="var(--text-muted)">algoritmus (AES, RSA, ECDSA…)</text>
     <text x="270" y="96" font-size="12">Klíče (K, d)</text>
     <text x="270" y="114" font-size="11" fill="var(--accent)">jediné tajemství</text>
-    <text x="270" y="132" font-size="10.5" fill="var(--text-muted)">nikdy neopustí čip; zaplave SRAM při útoku</text>
+    <text x="270" y="132" font-size="10.5" fill="var(--text-muted)">nikdy neopustí čip; při útoku se přepíše (zeroization)</text>
   </g>
 </svg>
 :::

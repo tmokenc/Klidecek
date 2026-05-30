@@ -57,14 +57,14 @@ Pořadí:    6 3 2 4 1 5         (Z=6, E=3, B=2, R=4, A=1, S=5)
        E *
 
 Vyčtení po sloupcích v pořadí 1, 2, 3, 4, 5, 6:
-  sl. 1 (A):  E L N
+  sl. 1 (A):  E V L N
   sl. 2 (B):  A C D T
   sl. 3 (E):  E S E A
   sl. 4 (R):  R O F O
   sl. 5 (S):  D E E C
   sl. 6 (Z):  W I R E E
 
-Ciphertext: ELN ACDT ESEA ROFO DEEC WIREE
+Ciphertext: EVLN ACDT ESEA ROFO DEEC WIREE
 ```
 
 ::: viz columnar-transposition "Zadejte plaintext a klíč; sledujte plnění tabulky po řádcích a vyčítání po sloupcích v abecedním pořadí klíče."
@@ -80,7 +80,7 @@ Mechanická pomůcka: čtvercová deska s vyříznutými okénky. Při šifrová
 * **Hill-climbing / simulated annealing** — moderní automatizovaný přístup: začneme s náhodnou permutací, opakovaně provádíme malé úpravy (swap dvojice sloupců), přijímáme pokud zlepší skóre.
 * **Slovníkový útok** — pokud klíč pochází ze slovníku, projedeme slovník.
 
-> Sloupcová transpozice byla *masově nasazovaná v 1. světové válce* (německá ADFGX šifra, **britská VIC šifra** — používaná i KGB). Statistická kryptoanalýza ji dokáže prolomit, ale s podstatně větším úsilím než monoalfabetickou substituci.
+> Sloupcová transpozice byla *masově nasazovaná v 1. světové válce* (německá ADFGX šifra, **sovětská VIC šifra** — používaná KGB, agent Reino Häyhänen). Statistická kryptoanalýza ji dokáže prolomit, ale s podstatně větším úsilím než monoalfabetickou substituci.
 
 ## Dvojitá transpozice
 
@@ -112,11 +112,11 @@ V praxi je trasa část klíče (klíč říká "spirála zvenku po řádcích, 
 ```
 Plaintext: WEAREDISCOVERED  (k = 3)
 
-W . . . E . . . C . . . D
+W . . . E . . . C . . . R
 . E . R . D . S . O . E . E
-. . A . . . I . . . V . . .
+. . A . . . I . . . V . . . D
 
-Vyčtení po řádcích: WECD ERDSOEE AIV
+Vyčtení po řádcích: WECR ERDSOEE AIVD
 ```
 
 * **Cardanova mřížka** — viz Fleißnerova mřížka výše; vznikla už v 16. stol. (Cardano).

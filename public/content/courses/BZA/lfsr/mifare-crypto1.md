@@ -60,16 +60,16 @@ title: Mifare Classic a Crypto-1
 
 * **Stav:** 48-bit LFSR.
 * **Feedback polynomial:** $x^{48} + x^{43} + x^{39} + x^{38} + x^{36} + x^{34} + x^{33} + x^{31} + x^{29} + x^{24} + x^{23} + x^{21} + x^{19} + x^{13} + x^9 + x^7 + x^6 + x^5$.
-* **Filter function $f$:** bere 20 bitů ze 48 (pozice 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47) — *jen liché pozice* od 9 výše. Tyto bity prochází 4 funkcemi $f_a$, $f_b$, $f_c$, $f_d$ (každá 5 bitů → 1 bit), a finálně $f_c$ (4 bity → 1 bit). Výsledek je keystream bit.
+* **Filter function $f$:** bere 20 bitů ze 48 (pozice 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47) — *jen liché pozice* od 9 výše. Těchto 20 bitů se rozdělí do pěti 4-bitových bloků; každý blok projde 4-vstupní funkcí první vrstvy (střídavě $f_a$ a $f_b$). Pět výsledných bitů poté vstupuje do jediné 5-vstupní finální funkce $f_c$, jejíž výstup je keystream bit (tj. pět 4-vstupních funkcí → jedna 5-vstupní funkce).
 * **Klíč:** 48 bitů (přímo počáteční stav LFSR).
 
 ## Autentizační protokol
 
 Trojfázový challenge-response (před přístupem do každého sektoru):
 
-1. **Card:** vyšle UID a *Nt* (32-bit nonce).
-2. **Reader:** spočte $K$ od UID + master key + sector číslo, inicializuje Crypto-1, generuje keystream $ks_1$, vyšle $\text{Nt}' \oplus ks_1$ + $a_R = f(\text{Nt}') \oplus ks_2$, kde $\text{Nt}'$ je reader nonce, $a_R$ je reader response.
-3. **Card:** ověří, že $\text{Nt}'$ + $a_R$ odpovídá. Pokud ano, odpoví $a_T = f(\text{Nt}) \oplus ks_3$.
+1. **Card:** vyšle UID a *card nonce* $n_T$ (32-bit nonce).
+2. **Reader:** inicializuje Crypto-1 ze stavu $K \oplus \text{UID}$ (klíč daný od UID + master key + sector číslo) a nakrmí jej $n_T$. Zvolí reader nonce $n_R$ a generuje po sobě jdoucí segmenty keystreamu $ks_1$, $ks_2$, $ks_3$. Vyšle $\{n_R\} = n_R \oplus ks_1$ a $a_R = \mathrm{suc}^2(n_T) \oplus ks_2$, kde $\mathrm{suc}()$ je nástupnická funkce Crypto-1.
+3. **Card:** ověří, že $a_R$ odpovídá očekávanému $\mathrm{suc}^2(n_T)$. Pokud ano, odpoví $a_T = \mathrm{suc}^3(n_T) \oplus ks_3$.
 
 Po autentizaci karta i čtečka mají *stejný* keystream a šifrují/dešifrují všechny příkazy a data.
 

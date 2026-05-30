@@ -133,7 +133,7 @@ C_i \leftarrow \max(C_i + 1,\ t_p + 1)
     <text x="120" y="158">1</text>
     <text x="220" y="158">2</text>
     <text x="320" y="158">3</text>
-    <text x="400" y="158">7</text>
+    <text x="400" y="158">5</text>
   </g>
   <g stroke="var(--accent)" stroke-width="0.9" fill="none" marker-end="url(#lcarr)">
     <line x1="340" y1="66" x2="400" y2="134"/>
@@ -144,11 +144,11 @@ C_i \leftarrow \max(C_i + 1,\ t_p + 1)
     </marker>
   </defs>
   <text x="370" y="100" fill="var(--accent)" text-anchor="middle" font-size="10">send(m, t=4)</text>
-  <text x="400" y="180" fill="var(--accent)" text-anchor="middle" font-size="10">max(4, 4) + 1 = 7</text>
+  <text x="400" y="180" fill="var(--accent)" text-anchor="middle" font-size="10">max(3, 4) + 1 = 5</text>
 </svg>
 :::
 
-Vidíme, že p2 při příjmu zprávy nastavil svůj čítač na 7 — což odráží *kauzální* návaznost.
+Vidíme, že p2 při příjmu zprávy nastavil svůj čítač na 5 — což odráží *kauzální* návaznost.
 
 ### Vlastnosti
 

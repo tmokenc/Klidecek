@@ -201,7 +201,7 @@ alice's capabilities:
    - report.pdf: r
 ```
 
-Used in Linux capabilities, Plan 9, KeyKOS.
+Used in KeyKOS, EROS/CapROS, seL4, Plan 9.
 
 Capability advantage: explicit transfer; finer control over what subject has.
 

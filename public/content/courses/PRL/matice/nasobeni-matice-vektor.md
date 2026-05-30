@@ -35,8 +35,8 @@ for i = 1 to m do
 
 Vstup:
 
-- Matice $A$ vstupuje *po sloupcích* — sloupec $s$ vstupuje do $P_m$.
-- Vektor $u$ vstupuje stejně — $u_s$ jde s sloupcem $s$.
+- Matice $A$ vstupuje *po řádcích* — řádek $i$ (prvky $a_{i1}, \dots, a_{in}$) je přiváděn do procesoru $P_i$.
+- Vektor $u$ jako jediný *protéká* polem — $u_s$ vstupuje do $P_m$ a teče doleva; do $P_i$ dorazí ve stejném kroku jako $a_{is}$.
 
 ### Princip
 
@@ -92,7 +92,7 @@ procedure LINEAR_MV_MULT
     </marker>
   </defs>
   <text x="180" y="40" fill="var(--accent)" font-size="10">řádky A → každému P_i</text>
-  <text x="180" y="200" fill="var(--accent-line)" font-size="10">vektor u teče zprava doleva</text>
+  <text x="180" y="194" fill="var(--accent-line)" font-size="10">vektor u teče zprava doleva</text>
 </svg>
 :::
 

@@ -49,7 +49,7 @@ Z úplnosti teorie *jedna z variant* musí v konečném čase vyrobit důkaz. Tj
 * Hustota: $\forall x \forall y\, (x < y \to \exists z\, (x < z \land z < y))$.
 * Neomezenost: $\forall x \exists y\, (x < y)$ a $\forall x \exists y\, (y < x)$.
 
-**Věta (Cantor).** Všechny modely DLO se stejnou mohutností jsou izomorfní. Konkrétně $(\mathbb{Q}, <)$ je *kanonický spočetný model*.
+**Věta (Cantor).** Každé dva *spočetné* modely DLO jsou izomorfní (DLO je $\aleph_0$-kategorická, důkaz metodou *back-and-forth*). Pro nespočetné mohutnosti to neplatí. Konkrétně $(\mathbb{Q}, <)$ je *kanonický spočetný model*.
 
 **Důsledek.** DLO je **úplná** a **rozhodnutelná**.
 
@@ -70,7 +70,7 @@ Důkaz: **Fourier-Motzkinova eliminace** (viz dále).
 
 > Pozor — *reálná čísla s násobením* jsou rozhodnutelná! Klíčový rozdíl od PA: *kvantifikujeme přes reálná čísla*, ne přes přirozená. Reálná čísla jsou "měkčí" — můžeme dělit, brát odmocniny, atd.
 
-Toto je překvapivý výsledek: zatímco $(\mathbb{N}, +, \cdot)$ je nerozhodnutelná, $(\mathbb{R}, +, \cdot)$ je rozhodnutelná. Důvod: v $\mathbb{R}$ nelze odlišit *konečně mnoha* prvky (každý interval má spojité spektrum), zatímco v $\mathbb{N}$ ano.
+Toto je překvapivý výsledek: zatímco $(\mathbb{N}, +, \cdot)$ je nerozhodnutelná, $(\mathbb{R}, +, \cdot)$ je rozhodnutelná. Důvod: v teorii reálně uzavřených těles nelze definovat podmnožinu $\mathbb{N}$ (celá čísla nejsou definovatelná), takže nelze aritmetizovat výpočty TS / dokazatelnost; v $(\mathbb{N}, +, \cdot)$ to lze, a právě to dává Gödelovu konstrukci.
 
 ## Eliminace kvantifikátorů (QE)
 
@@ -113,7 +113,7 @@ Po průchodu touto procedurou je formule **bez proměnných**. Pak rozhodneme je
 
 ### Hlavní krok: Fourier-Motzkinův teorém
 
-Pro každý zbývající disjunkt $D = \bigwedge_i (a_i x \leq c_i) \land \bigwedge_j (b_j x \leq d_j)$ (kde $a_i$ jsou *dolní omezení*, $b_j$ *horní*):
+Pro každý zbývající disjunkt $D = \bigwedge_i (c_i \leq a_i x) \land \bigwedge_j (b_j x \leq d_j)$ (kde první konjunkce jsou *dolní omezení*, druhá *horní*):
 
 ::: math
 \exists x\, \Big[\bigwedge_{i=1}^m c_i \leq a_i x \;\land\; \bigwedge_{j=1}^k b_j x \leq d_j\Big] \iff \bigwedge_{i=1}^m \bigwedge_{j=1}^k b_j c_i \leq a_i d_j.
@@ -184,12 +184,12 @@ Klíčový krok: **eliminace existenčního kvantifikátoru** $\exists x\, \varp
 ## Co rozhodnutelnost neznamená
 
 * Rozhodnutelná ne ⇒ *efektivní*. Presburger je rozhodnutelný, ale 2-EXPTIME.
-* Rozhodnutelná teorie ⇒ *úplná*. Naopak ne — viz výše.
+* Rozhodnutelná teorie ⇏ *úplná* (rozhodnutelná teorie nemusí být úplná). Platí jen opačně: *bezesporná + efektivní + úplná ⇒ rozhodnutelná*.
 * *Většina zajímavé matematiky* je *nerozhodnutelná* (PA, ZFC, teorie algebraických struktur s parametrem).
 
 ## Žádná teorie zahrnující PA není rozhodnutelná
 
-**Důsledek Gödela**: žádná teorie, která zahrnuje Peanovu aritmetiku, *nemůže být rozhodnutelná* — protože by byla i úplná, což odporuje 1. větě.
+**Důsledek (Church)**: žádná bezesporná teorie, která zahrnuje Peanovu aritmetiku, *nemůže být rozhodnutelná* — PA je *esenciálně nerozhodnutelná* (nerozhodnutelná je každé její bezesporné rozšíření).
 
 Tedy: *jakmile se v teorii dá vyjádřit dostatečně silná aritmetika*, ztrácíme rozhodnutelnost.
 

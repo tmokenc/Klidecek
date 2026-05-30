@@ -120,7 +120,7 @@ Klíčová idea: **Inception module** — kombinace různých kernel sizes paral
 </svg>
 :::
 
-* **1×1 konvoluce** — *dimension reduction* + nelinearita. Stejný počet operací jako *plnoceská* 1×1, ale můžeš snížit počet kanálů. (Lin, Chen & Yan, *Network in Network*, 2013.)
+* **1×1 konvoluce** — *dimension reduction* + nelinearita. Snížením počtu kanálů před drahou 3×3/5×5 konvolucí výrazně zlevní výpočet (bottleneck). (Lin, Chen & Yan, *Network in Network*, 2013.)
 * **Multi-scale features** — vstup vidíme různými „brýlemi".
 * **22 vrstev**, ale **jen 7M parametrů** (vs. 138M VGG).
 * **Auxiliary classifiers** — meziklasifikátory v hloubce sítě pomáhají gradientu.
@@ -220,7 +220,7 @@ Pro velké datasety (*JFT-300M*, *LAION-5B*) **překonává** CNN. Pro malé dat
 | GoogLeNet | 2014 | 22 | 7M | 6.7 % |
 | ResNet-152 | 2015 | 152 | 60M | 3.6 % |
 | DenseNet-201 | 2017 | 201 | 20M | 6.3 % |
-| EfficientNet-B7 | 2019 | 813 | 66M | 2.3 % |
+| EfficientNet-B7 | 2019 | 813 | 66M | 2.9 % |
 | ViT-L/16 | 2020 | 24 | 304M | 1.9 % (JFT pretrain) |
 
 ## Trénovací pipeline pro CNN

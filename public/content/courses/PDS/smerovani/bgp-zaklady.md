@@ -4,7 +4,7 @@ title: BGP — path vector mezi AS
 
 # BGP — protokol, který drží internet pohromadě
 
-OSPF a IS-IS ([[link-state]]) řeší routing *uvnitř* jednoho administrativního systému. Když paket cestuje *mezi* ISP — z VUT do Stanfordu — žádný OSPF nestačí, protože VUT a Stanford nemají sdílený router ani sdíleného administrátora. Tady přichází **BGP** (*Border Gateway Protocol*), **jediný** EGP používaný v dnešním internetu. Bez BGP by nebyl internet — všech ~110 000 *Autonomous Systems* by neumělo komunikovat.
+OSPF a IS-IS ([[link-state]]) řeší routing *uvnitř* jednoho administrativního systému. Když paket cestuje *mezi* ISP — z VUT do Stanfordu — žádný OSPF nestačí, protože VUT a Stanford nemají sdílený router ani sdíleného administrátora. Tady přichází **BGP** (*Border Gateway Protocol*), **jediný** EGP používaný v dnešním internetu. Bez BGP by nebyl internet — všech ~80 000 *Autonomous Systems* by neumělo komunikovat.
 
 ## AS — Autonomous System
 
@@ -23,7 +23,7 @@ AS dostane *číslo* od RIR. Původně 16-bit (max 65 536). Od 2007 32-bit (4 ml
 - `0–65535` — legacy 16-bit (většina nasazení).
 - `65536–4294967295` — 32-bit, "asplain" notation (`AS 200000`) nebo "asdot" (`AS 3.5`).
 
-V 2026 je v BGP routovacím systému zhruba **75 000** unikátních AS. Cesnet, Vodafone CZ, O2 CZ, GTS, AT&T, Verizon, Google… každý má své číslo.
+V 2026 je v BGP routovacím systému zhruba **80 000** unikátních AS. Cesnet, Vodafone CZ, O2 CZ, GTS, AT&T, Verizon, Google… každý má své číslo.
 
 ## IGP vs EGP
 
@@ -41,11 +41,11 @@ BGP **není o nejkratší cestě**. Je o tom, *kdo s kým chce mluvit a za jaký
 
 BGP je **path vector protokol**. Místo distance (RIP) nebo cost (OSPF), nese **AS_PATH** — seznam AS, kterými trasa prochází.
 
-Příklad: prefix `185.10.0.0/16` (VUT FIT). BGP record má:
+Příklad: prefix `147.229.0.0/17` (VUT FIT). BGP record má:
 
 ```
-Prefix:    185.10.0.0/16
-AS_PATH:   2852 (CESNET) → 12350 (GTS) → 8551 (Bezeq Israel) → ...
+Prefix:    147.229.0.0/17
+AS_PATH:   ... → 12350 (GTS) → 2852 (CESNET) → 197451 (VUT FIT)
 NEXT_HOP:  158.196.224.1
 ```
 
@@ -196,7 +196,7 @@ To je důvod, proč ISP routery mají specifické vysoce výkonné CPU + GB RAM 
 
 BGP nemá *vestavěnou autentizaci*. Klasické útoky:
 
-- **Route hijacking** — AS X *neoprávněně inzeruje* prefix patřící AS Y. Traffic letí do X. Příklad: Pakistan blokovalo YouTube 2008 → ohlásilo prefix 208.65.152.0/24 → svět to slyšel → YouTube unreachable globálně 2 h.
+- **Route hijacking** — AS X *neoprávněně inzeruje* prefix patřící AS Y. Traffic letí do X. Příklad: Pakistan blokovalo YouTube 2008 → ohlásilo prefix 208.65.153.0/24 → svět to slyšel → YouTube unreachable globálně 2 h.
 - **Route leak** — customer omylem propaguje cesty mezi peers (zákazník se chová jako tranzit).
 - **AS spoofing** — fake AS_PATH.
 

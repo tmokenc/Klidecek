@@ -49,7 +49,7 @@ Klasifikace odděluje **deterministické** (DRG) a **fyzikální/nefyzikální**
 :::
 
 * **DRG.1** — *DRNG with forward secrecy podle ISO 18031.* Znalost minulých výstupů nedovolí spočítat budoucí. Nejlevnější třída — splňuje jakýkoli "rozumný" AES-CTR/HMAC DRBG.
-* **DRG.2** — DRG.1 + **backward secrecy**. Znalost *vnitřního stavu* nedovolí spočítat minulé výstupy. Vyžaduje *one-way* funkci na update (např. iterace hashe na stavu).
+* **DRG.2** — DRG.1 + **backward secrecy**. Znalost *(pozdějších) výstupů* nedovolí spočítat dřívější výstupy. Vyžaduje *one-way* funkci na update (např. iterace hashe na stavu).
 * **DRG.3** — DRG.2 + **enhanced backward secrecy**. Po každém volání se stav modifikuje tak, že případná kompromitace pozdějšího stavu *nedovolí* rekonstruovat minulé výstupy *ani* za pomoci znalosti vnitřních konstant.
 * **DRG.4** — DRG.3 + **enhanced forward secrecy** (*hybrid DRNG*). Pravidelně se přiseedovává z fyzikálního zdroje (PTRNG nebo NPTRNG), takže kompromitace stavu se v omezené době "zahojí". Toto je třída, kterou aspiruje *většina* moderních kryptografických modulů.
 

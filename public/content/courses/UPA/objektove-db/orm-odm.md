@@ -174,7 +174,7 @@ Second-level cache (např. Ehcache, Hazelcast) sdílí entity mezi sessions. Pro
 
 ## Kdy nepoužívat ORM/ODM
 
-* **Bulk operace** — `UPDATE osoba SET stav='X' WHERE …` přes ORM načte všechny entity do Session, modifikuje a uloží — exponenciálně pomalejší než přímé SQL. Použít `entityManager.createNativeQuery(...).executeUpdate()` nebo přímý JDBC.
+* **Bulk operace** — naivní vzor, kdy se přes ORM načtou všechny entity do Session, v cyklu se modifikují (`setStav('X')`) a uloží, je lineárně pomalejší (úměrně počtu řádků) než přímé SQL — kvůli režii na řádek (materializace entit, dirty checking, N samostatných `UPDATE`). Použít `entityManager.createNativeQuery(...).executeUpdate()` nebo přímý JDBC.
 * **Reporting/OLAP** — agregační dotazy přes GROUP BY, window funkce. ORM zde nepřináší hodnotu, naopak ztěžuje optimalizaci.
 * **Performance-critical** — pro nízkolatentní cesty (high-frequency trading, real-time bidding) je lepší přímý SQL nebo binární protokol.
 

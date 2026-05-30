@@ -114,7 +114,7 @@ Pro recovery: projít bit vector, pro `1` výstup je `A`, pro `0` výstup je dal
 ### Příklad — 2nd nationality
 
 Velmi mnoho lidí má jen jedno občanství, druhé je NULL. Sparse encoding:
-* `bit_vector` označuje *kdo má* druhé občanství (řekněme 10 %).
+* `bit_vector` označuje pozice s dominantní hodnotou (NULL / bez druhého občanství, řekněme 90 %); bit `0` značí řídké pozice, kde druhé občanství je.
 * `remaining` má jen non-null hodnoty (800M entries × 7 bits = 700 MB).
 * `bit_vector` = 8B × 1 bit = 1 GB.
 * **Total: 1.7 GB** vs. 7 GB plain.
@@ -134,7 +134,7 @@ Globální dictionary: 5M jmen, 23 bitů per ID.
 
 Blok 1024 elementů obsahuje jen 8 unikátních jmen:
   Lokální dictionary: 8 entries (pointers do globálního).
-  Bit-packed valueIDs: 1024 × 3 bits = 3 KB (vs. 1024 × 23 bits = 24 KB).
+  Bit-packed valueIDs: 1024 × 3 bits = 384 B (vs. 1024 × 23 bits ≈ 2.9 KB).
   + lokální dictionary: 8 × 23 bits = 23 B.
 ```
 
@@ -162,13 +162,13 @@ Original strings:
 Delta:
   "Brno"           (full)
   4 + "-Bystrc"    (prefix length 4, then suffix)
-  6 + "Komín"      (prefix length 6 "Brno-K"... no, 4 + "-K"; details depend on implementation)
+  5 + "Komín"      (prefix length 5 = "Brno-", then suffix)
   5 + "střed"
 ```
 
 ### Příklad — 1M cities × 49 B average
 
-Bez delta: 47 MB.
+Bez delta: 49 MB.
 S delta encoding: ≈ 16 MB (3× komprese).
 
 ## Kombinace technik

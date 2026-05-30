@@ -182,7 +182,7 @@ procedure REALISTIC_PRAM(A, B, C)
 
 Stejné parametry jako mřížka, ale s *konstantním* dostupem do sdílené paměti — nereálné, ale teoreticky čisté.
 
-## Realistická paralelní violanta s redukcí
+## Realistická paralelní varianta s redukcí
 
 Pokud zpracujeme suma redukčním stromem:
 
@@ -206,12 +206,12 @@ To je idea *cube* algoritmu, který detailně rozebere [[nasobeni-matic-cube]].
 
 ## Praktická aplikace — TPU systolic array
 
-Google **TPU v3+** používá systolic-array architekturu:
+Google **TPU v1** (ISCA 2017) používá systolic-array architekturu:
 
-- 128 × 128 mřížka multiplikačně-akumulačních (MAC) jednotek.
+- 256 × 256 mřížka multiplikačně-akumulačních (MAC) jednotek.
 - Matice tečou *přesně* jak v MESH_MATRIX_MULTIPLICATION.
-- 16-bit fixed-point násobení s 32-bit akumulací.
-- **Throughput**: 90 TFLOPS na čip pro INT8.
+- 8-bit integer násobení s 32-bit akumulací.
+- **Throughput**: ~92 TOPS na čip pro INT8.
 
 NVIDIA **Tensor Cores** v Volta/Ampere/Hopper architekturách taky používají variant systolic-array pro 4×4 matrix multiply-accumulate v *jediném* taktu.
 

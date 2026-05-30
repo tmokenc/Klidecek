@@ -189,22 +189,7 @@ fn takes_static<'a>(x: &'a str) {
 
 ### Function returning local
 
-**Cannot** return reference to local:
-
-```rust
-fn create_string() -> &str {  // ERROR
-    let s = String::from("hello");
-    &s
-}
-```
-
-Solution: return *owned* type:
-
-```rust
-fn create_string() -> String {  // OK
-    String::from("hello")
-}
-```
+**Cannot** return reference to local — viz „Common errors a fixes" níže (`cannot return reference to local variable`); řešením je vrátit *owned* type.
 
 ### Struct with reference
 
@@ -342,7 +327,7 @@ fn modify(x: &mut i32) {
 
 | | Ownership | Lifetimes |
 | :--- | :--- | :--- |
-| Who tracks | runtime (in single-threaded model) | compile-time |
+| Who tracks | compile-time | compile-time |
 | Concept | who owns value | how long ref lives |
 | Mistake → | move-after-use error | dangling reference error |
 
@@ -412,7 +397,7 @@ Lifetimes umožňují *bezpečné* sdílení dat *bez GC*:
 2. **Use 'a, 'b** for short, **'input** or descriptive names for clarity.
 3. **Avoid 'static** for non-literals; prefer specific lifetimes.
 4. **Use owned types** when complex lifetimes get tangled.
-5. **Test in debug mode** — borrow checker catches most issues.
+5. **Spolehněte se na kompiler** — borrow checker hlásí lifetime/borrow chyby *compile-time* (nezávisle na debug/release); nechte se vést `cargo check`.
 
 ---
 

@@ -27,7 +27,7 @@ Když všichni vysílají naplno bez ohledu na síť, *throughput se zhroutí*:
 - *Goodput* (užitečný throughput) klesá s rostoucí nabídkou (*offered load*).
 - *Delay* exponenciálně roste.
 
-Historicky se to stalo v ARPANETu v *říjnu 1986* (10 000× pokles throughput v Berkeley), což přimělo Van Jacobsona navrhnout dnešní congestion control algoritmy (RFC 5681, *TCP Congestion Control*).
+Historicky se to stalo v ARPANETu v *říjnu 1986* (~1000× pokles throughput v Berkeley, z 32 kbps na 40 bps), což přimělo Van Jacobsona navrhnout dnešní congestion control algoritmy (RFC 5681, *TCP Congestion Control*).
 
 ### Cíle congestion control
 

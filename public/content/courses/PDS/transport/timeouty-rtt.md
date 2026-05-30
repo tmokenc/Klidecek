@@ -20,7 +20,7 @@ V TCP se měří *přes každý paket*. Při retransmisi se RTT *neměří* (nem
 
 Vzorec pro *vyhlazený* odhad RTT:
 
-$$srtt_k = (1 - a) \cdot srtt_{k-1} + a \cdot rtt_{k-1}$$
+$$srtt_k = (1 - a) \cdot srtt_{k-1} + a \cdot rtt_k$$
 
 $$timeout_k = srtt_k$$
 
@@ -47,9 +47,9 @@ Samotný EWMA nestačí — *nezohledňuje proměnlivost* RTT v čase. Pokud je 
 
 Zlepšení (Jacobson 1988, RFC 6298) přidává **odchylku rozptylu** (*mean deviation*, RTTVAR):
 
-$$srtt_k = (1 - a) \cdot srtt_{k-1} + a \cdot rtt_{k-1}$$
-$$e_k = |srtt_{k-1} - rtt_{k-1}|$$
-$$rttvar_k = (1 - b) \cdot rttvar_{k-1} + b \cdot e_{k-1}$$
+$$srtt_k = (1 - a) \cdot srtt_{k-1} + a \cdot rtt_k$$
+$$e_k = |srtt_{k-1} - rtt_k|$$
+$$rttvar_k = (1 - b) \cdot rttvar_{k-1} + b \cdot e_k$$
 $$timeout_k = srtt_k + X \cdot rttvar_k$$
 
 kde:

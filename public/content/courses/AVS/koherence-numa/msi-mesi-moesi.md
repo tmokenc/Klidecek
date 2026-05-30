@@ -126,7 +126,7 @@ MSI by každý write generoval BusUpgrade. MESI nic.
 
 ## MOESI — přidává O (Owned)
 
-5 stavů: MESI + **O (Owned)** — *jediná* read-write capable kopie, ale s *více* read-only sharers. Memory zastaralá.
+5 stavů: MESI + **O (Owned)** — read-only kopie, která drží *nejaktuálnější* (dirty) data; je odpovědná za zásobování čtenářů a za pozdější write-back. Memory je zastaralá. Pro zápis musí owner nejprve invalidovat S-sharers a přejít do M.
 
 Klíčový usability: pokud P1 má `M`, P2 reads — *bez* MOESI musí P1 flush do memory, P2 reads. **Dva** memory transactions.
 
@@ -202,7 +202,7 @@ Cache line ping-pongs *between* M-states across cores. Each transfer = 100-300 c
 
 ## Coherence overhead with scale
 
-Pro N cores, snooping protocol potřebuje *broadcast* každé invalidace. Bandwidth roste $O(N^2)$ — quadratic. Pro N > 32 prakticky neudržitelný.
+Snooping (broadcast každé invalidace) škáluje špatně — viz [[snooping-directory]].
 
 ⇒ Pro velké systémy (Intel Xeon 56-core, AMD EPYC 96-core): *directory-based* protokoly ([[snooping-directory]]).
 

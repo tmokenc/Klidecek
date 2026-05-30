@@ -203,7 +203,7 @@ y(i, j) = \max_{a, b \in [0, K)} x(i \cdot s + a, j \cdot s + b)
 
 * **Bez parametrů** — jen agregace.
 * **Translační invariance** — malý posun vstupu nezmění výstup max-pool.
-* Typicky `K = 2, s = 2` — *zhalí* rozlišení.
+* Typicky `K = 2, s = 2` — sníží rozlišení na polovinu (zhruba 2×).
 
 ### Varianty
 

@@ -238,7 +238,7 @@ yellow  → 100
 ```
 
 * **+** Méně dimenzí než one-hot.
-* **−** Ztracená informace (kombinace bitů jsou *překryty*).
+* **−** Zavádí *umělé* vztahy mezi kategoriemi (sdílejí bity bez sémantického významu), hůře interpretovatelné.
 
 ### Hashed encoding
 

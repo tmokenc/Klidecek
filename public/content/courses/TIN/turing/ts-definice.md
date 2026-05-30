@@ -15,7 +15,7 @@ Turingův stroj (TS) je nejjednodušší výpočetní model, který *má sílu o
       <path d="M0 0 L8 4 L0 8 z" fill="var(--accent)"/>
     </marker>
   </defs>
-  <text x="180" y="20" text-anchor="middle" fill="var(--text-muted)">neomezená páska (oboustranně i nekonečná)</text>
+  <text x="180" y="20" text-anchor="middle" fill="var(--text-muted)">neomezená páska (jednostranně nekonečná)</text>
   <g fill="var(--bg-card)" stroke="var(--line-strong)" stroke-width="1">
     <rect x="20" y="35" width="380" height="34"/>
     <line x1="60" y1="35" x2="60" y2="69"/>

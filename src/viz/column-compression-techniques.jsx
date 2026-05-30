@@ -223,6 +223,13 @@ export default function ColumnCompressionTechniques() {
           const len = (r.result.bytes / maxB) * barMaxW;
           const isPlain = r.key === "plain";
           const isBest = r.result.bytes === Math.min(...results.filter(rr => rr.key !== "plain").map(rr => rr.result.bytes));
+          const sizeLabel = `${r.result.bytes} B${!isPlain && plainBytes(values) > 0 ? ` (${(plainBytes(values) / r.result.bytes).toFixed(1)}× plain)` : ""}`;
+          // Keep the size label inside the viewBox: if a left-anchored label
+          // starting at the bar end would run past the right edge, right-anchor
+          // it at the edge instead so nothing is clipped.
+          const labelW = sizeLabel.length * 0.55 * 10;
+          const labelStart = barX + len + 4;
+          const overflows = labelStart + labelW > W - PAD;
           return (
             <g key={r.key} transform={`translate(0, ${120 + i * 22})`}>
               <text x={PAD} y={12} fontSize="10" fontFamily="var(--font-mono)" fill={isBest ? "oklch(0.65 0.16 145)" : "var(--text-muted)"}>
@@ -230,9 +237,8 @@ export default function ColumnCompressionTechniques() {
               </text>
               <rect x={barX} y={4} width={Math.max(1, len)} height={14}
                 fill={isPlain ? "oklch(0.6 0.18 22)" : isBest ? "oklch(0.65 0.16 145)" : "oklch(0.65 0.16 264 / 0.6)"} />
-              <text x={barX + len + 4} y={14} fontSize="10" fontFamily="var(--font-mono)" fill="var(--text-faint)">
-                {r.result.bytes} B
-                {!isPlain && plainBytes(values) > 0 && ` (${(plainBytes(values) / r.result.bytes).toFixed(1)}× plain)`}
+              <text x={overflows ? W - PAD : labelStart} y={14} textAnchor={overflows ? "end" : "start"} fontSize="10" fontFamily="var(--font-mono)" fill="var(--text-faint)">
+                {sizeLabel}
               </text>
             </g>
           );

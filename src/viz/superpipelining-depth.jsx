@@ -59,7 +59,7 @@ export default function SuperpipeliningDepth() {
         {/* axes */}
         <line x1={padX} y1={padY} x2={padX} y2={padY + plotH} stroke="var(--line)" />
         <line x1={padX} y1={padY + plotH} x2={padX + plotW} y2={padY + plotH} stroke="var(--line)" />
-        <text x={padX - 8} y={padY + 4} fontSize="9" fill="var(--text-muted)" textAnchor="end">rel. výkon</text>
+        <text x={padX} y={padY - 6} fontSize="9" fill="var(--text-muted)" textAnchor="start">rel. výkon</text>
         <text x={padX + plotW} y={padY + plotH + 14} fontSize="9" fill="var(--text-muted)" textAnchor="end">hloubka pipeline</text>
 
         {/* curve */}
@@ -75,10 +75,13 @@ export default function SuperpipeliningDepth() {
         {/* reference points */}
         {REF_POINTS.map(rp => {
           const p = points[rp.d - 1];
+          const cx = xPos(rp.d);
+          // flip label to the left of the marker when near the right edge so it doesn't clip
+          const flip = cx > padX + plotW * 0.6;
           return (
             <g key={rp.label}>
-              <circle cx={xPos(rp.d)} cy={yPos(p.perfRel)} r={3} fill={rp.warn ? "oklch(0.6 0.2 22)" : "var(--text-muted)"} />
-              <text x={xPos(rp.d) + 5} y={yPos(p.perfRel) + 3} fontSize="8" fill={rp.warn ? "oklch(0.6 0.2 22)" : "var(--text-faint)"}>{rp.label}</text>
+              <circle cx={cx} cy={yPos(p.perfRel)} r={3} fill={rp.warn ? "oklch(0.6 0.2 22)" : "var(--text-muted)"} />
+              <text x={cx + (flip ? -5 : 5)} y={yPos(p.perfRel) + 3} fontSize="8" textAnchor={flip ? "end" : "start"} fill={rp.warn ? "oklch(0.6 0.2 22)" : "var(--text-faint)"}>{rp.label}</text>
             </g>
           );
         })}

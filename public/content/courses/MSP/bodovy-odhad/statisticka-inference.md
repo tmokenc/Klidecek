@@ -127,7 +127,7 @@ Bayes vrací *posteriorní* rozdělení nad `θ`, nikoli jediný bodový odhad. 
 Statistický odhad `θ̂(X)` je *náhodná veličina*. Liší se od pravé hodnoty `θ` ze dvou důvodů:
 
 * **Šum vzorku** (sampling error) — pro malé `n` je `θ̂(X)` daleko od `θ`. Tato chyba *klesá s `n`* (zákon velkých čísel).
-* **Bias** — systematická chyba odhadu, `E[θ̂(X)] − θ ≠ 0`. Nezávisí na `n` — *struktura odhadu*. Viz [[vlastnosti-odhadu]].
+* **Bias** — systematická chyba dané *konstrukce* odhadu, `E[θ̂(X)] − θ ≠ 0` (na rozdíl od náhodného šumu vzorku). U mnoha odhadů bias s rostoucím `n` klesá k nule (asymptotická nestrannost) — např. `σ̂²_MLE` má bias `−σ²/n → 0`; jiné odhady mají bias nezávislý na `n`. Viz [[vlastnosti-odhadu]].
 
 Cíl statistiky: zkonstruovat odhady, které jsou *konzistentní* (sampling error → 0 s `n → ∞`) a *nestranné* (bias = 0), pokud to jde.
 

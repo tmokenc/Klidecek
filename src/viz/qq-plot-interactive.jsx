@@ -47,6 +47,11 @@ export default function QqPlotInteractive() {
   const xMin = -lim, xMax = lim, yMin = -lim, yMax = lim;
   const toX = (x) => PAD_L + ((x - xMin) / (xMax - xMin)) * PW;
   const toY = (y) => PAD_T + PH - ((y - yMin) / (yMax - yMin)) * PH;
+  // Clamp plotted points to the plot rectangle so extreme z-scores (heavy tails)
+  // peg at the edge instead of rendering past the top/edges and clipping the viewBox.
+  const R = 2.6;
+  const clampX = (x) => Math.max(PAD_L + R, Math.min(PAD_L + PW - R, toX(x)));
+  const clampY = (y) => Math.max(PAD_T + R, Math.min(PAD_T + PH - R, toY(y)));
 
   // K-S statistic and Shapiro-Wilk-like check; use simple K-S against N(0,1) on standardized
   let ksMax = 0;
@@ -76,7 +81,7 @@ export default function QqPlotInteractive() {
 
         {/* Data points */}
         {allXY.map(([x, y], i) => (
-          <circle key={i} cx={toX(x)} cy={toY(y)} r="2.6" fill="var(--accent)" opacity="0.75" />
+          <circle key={i} cx={clampX(x)} cy={clampY(y)} r={R} fill="var(--accent)" opacity="0.75" />
         ))}
 
         {/* axes */}

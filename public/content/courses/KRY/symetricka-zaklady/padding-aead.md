@@ -103,7 +103,7 @@ aead_decrypt(K, nonce, AD, C, tag) → M or ⊥ (FAIL)
 | :--- | :-: | :-: | :-: | :-: |
 | **AES-128-GCM** | 128 b | 96 b (typicky) | 128 b | 5–10 GB/s s AES-NI |
 | **AES-256-GCM** | 256 b | 96 b | 128 b | 4–8 GB/s s AES-NI |
-| **ChaCha20-Poly1305** | 256 b | 96 b | 128 b | 2–3 GB/s bez HW, 1.5–4 s SIMD |
+| **ChaCha20-Poly1305** | 256 b | 96 b | 128 b | 2–3 GB/s bez HW, 1.5–4 GB/s se SIMD |
 | **AES-CCM** | 128/256 b | 56–104 b | 32–128 b | menší než GCM (sériový) |
 | **AES-OCB3** | 128/256 b | 96 b | 64–128 b | rychlejší než GCM, ale patenty (do 2021) |
 | **AES-GCM-SIV** | 128/256 b | 96 b | 128 b | nonce-misuse resistant |
@@ -135,7 +135,7 @@ Nonce *nesmí opakovat* se stejným klíčem. Tři přístupy:
 1. **"Just AES"** — implementace AES-CBC bez MAC. Klasická chyba; doporučte AEAD.
 2. **Stejný klíč pro $E$ i $\mathrm{MAC}$** — funguje (HMAC je doménově oddělené hashováním), ale doporučení je *odlišné klíče přes KDF*. AEAD řeší interně.
 3. **Konstantní nonce / IV** — totální průlom proudových šifer a GCM.
-4. **Neověřit tag** — `aead_decrypt` vrátí ⊥, ale aplikace pokračuje. Klíčová chyba v Heartbleed-class incidentech.
+4. **Neověřit tag** — `aead_decrypt` vrátí ⊥, ale aplikace návratovou hodnotu ignoruje a dál pracuje s odmítnutým plaintextem. Klasický zdroj forgery / decryption-oracle chyb.
 5. **Padding oracle** — vlastní implementace CBC, která uniká chybové stavy. Použijte hotovou AEAD knihovnu.
 
 ---

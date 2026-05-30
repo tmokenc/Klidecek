@@ -183,7 +183,7 @@ Označme $c^* = \log_b a$. Pak:
     <line x1="270" y1="138" x2="270" y2="168"/>
     <line x1="440" y1="138" x2="440" y2="168"/>
   </g>
-  <text x="270" y="220" text-anchor="middle" fill="var(--text-muted)" font-size="10">c* = log_b a — exponent "rekurzivního členu".</text>
+  <text x="270" y="214" text-anchor="middle" fill="var(--text-muted)" font-size="10">c* = log_b a — exponent "rekurzivního členu".</text>
 </svg>
 :::
 
@@ -230,7 +230,9 @@ $$
 
 Standardní násobení by mělo $T(n) \in \Theta(n^3)$. Strassen zlepšil exponent pomocí rekurzivní dekompozice.
 
-### Quicksort (průměrný případ)
+### Quicksort (nejlepší případ)
+
+Při *perfektně vyváženém* rozdělení (pivot vždy uprostřed) dostáváme:
 
 $$
 T(n) = T(n/2) + T(n/2) + O(n) = 2 T(n/2) + O(n).
@@ -241,6 +243,8 @@ $a = 2$, $b = 2$, $c^* = 1$. **Případ 2.**
 $$
 T(n) \in \Theta(n \log n).
 $$
+
+V *průměrném* případě je rekurence ve skutečnosti $T(n) = \frac{1}{n}\sum_{k=0}^{n-1}\bigl(T(k) + T(n-1-k)\bigr) + \Theta(n)$ (průměrování přes všechny polohy pivotu). Tu Master teorém *neřeší* přímo; výsledek $\Theta(n \log n)$ plyne ze samostatné pravděpodobnostní analýzy očekávané ceny.
 
 V *nejhorším* případě (např. už seřazené pole s naivním výběrem pivotu) je rekurence $T(n) = T(n-1) + O(n) \in \Theta(n^2)$ — Master teorém *neaplikujeme*, používáme přímou iteraci.
 

@@ -133,10 +133,11 @@ export function parseBlocks(body) {
   while (i < lines.length) {
     const line = lines[i];
 
-    // Custom typed fence ::: kind args...
-    if (/^:::/.test(line)) {
+    // Custom typed fence ::: kind args...  (indent-tolerant: an indented fence
+    // under a list item is its own block, see the list parser below)
+    if (/^\s*:::/.test(line)) {
       flushText();
-      const header = line.replace(/^:::\s*/, "").trim();
+      const header = line.trim().replace(/^:::\s*/, "").trim();
       const tokens = header.split(/\s+/);
       const kind = tokens[0] || "text";
       const rest = header.slice(kind.length).trim();
@@ -162,7 +163,13 @@ export function parseBlocks(body) {
         code.push(lines[i]);
         i++;
       }
-      blocks.push({ kind: "code", lang, body: code.join("\n") });
+      // A ```math fence (GitHub-flavoured math) is a math block, not code —
+      // otherwise the LaTeX renders as raw monospace text.
+      if (/^math$/i.test(lang)) {
+        blocks.push({ kind: "math", body: code.join("\n").trim() });
+      } else {
+        blocks.push({ kind: "code", lang, body: code.join("\n") });
+      }
       i++;
       continue;
     }
@@ -247,6 +254,10 @@ export function parseBlocks(body) {
     if (LIST_ITEM_RE.test(line)) {
       flushText();
       const ordered = /^\s*\d+\./.test(line);
+      // Starting number for ordered lists (so a list resumed after an
+      // interrupting block — e.g. display math — keeps its numbering).
+      const startM = ordered && line.match(/^\s*(\d+)\./);
+      const start = startM ? parseInt(startM[1], 10) : 1;
       const items = [];
       let baseIndent = -1;
       while (i < lines.length) {
@@ -269,6 +280,10 @@ export function parseBlocks(body) {
           }
           break;
         }
+        // A typed fence (:::) or display-math ($$) opener ends the list rather
+        // than being swallowed as item text — it is parsed as its own block.
+        // This lets an indented `::: math` / `$$` under a list item render.
+        if (/^\s*(:::|\$\$)/.test(cur)) break;
         // Continuation line (indented) appends to the current item
         if (items.length && /^\s{2,}/.test(cur)) {
           items[items.length - 1].text += " " + cur.trim();
@@ -277,7 +292,7 @@ export function parseBlocks(body) {
         }
         break;
       }
-      blocks.push({ kind: "list", ordered, items });
+      blocks.push({ kind: "list", ordered, items, start });
       continue;
     }
 

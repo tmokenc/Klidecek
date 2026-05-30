@@ -82,7 +82,7 @@ Vodoznak je *vědomá* steganografie, kde **odesílatel nechce skrýt existenci*
 | Viditelnost | nulová | viditelná i neviditelná varianta |
 | Odolnost | vůči detekci | vůči odstranění (cropping, kompresi, transformacím) |
 | Kapacita | bity zprávy | obvykle malá (logo, sériové číslo) |
-| Příklady | LSB v obraze | DCI v kinech, Digimarc v PDF, sirény v JPG |
+| Příklady | LSB v obraze | DCI v kinech, Digimarc v PDF, Adobe Content Credentials ve fotkách |
 
 Robustní vodoznaky pracují obvykle v transformační doméně (DCT, DWT) — vepisují do nízkofrekvenčních koeficientů, které přežijí kompresi a běžné zpracování. Útoky: cropping, rotace, šum, recompression, *collusion attack* (porovnání více kopií se stejným obsahem ale různými vodoznaky).
 

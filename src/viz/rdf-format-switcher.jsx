@@ -124,7 +124,7 @@ export default function RdfFormatSwitcher() {
       <svg viewBox={`0 0 ${W} 120`} style={{ width: "100%", background: "var(--bg-card)", borderRadius: 4 }}>
         <text x={16} y={14} fontSize="11" fontFamily="var(--font-mono)" fill="var(--text)">size comparison (bytes)</text>
         {sizes.map((s, i) => {
-          const maxBar = W - 200;
+          const maxBar = W - 280;
           const w = (s.bytes / Math.max(...sizes.map(x => x.bytes))) * maxBar;
           const ratio = s.bytes / minBytes;
           return (

@@ -44,9 +44,9 @@ V SQL: přidání `GROUP BY` přes hrubší úroveň.
 
 Formálně:
 
-- **Vstup:** $m$ aktivních dimenzí, $m \leq n$.
-- **Výstup:** $m + 1$ aktivních dimenzí (přidána neaktivní dimenze $A_i$).
-- Pro $m = n$ je výsledkem **detail všech hodnot** (základní kuboid).
+- **Vstup:** $m$ aktivních dimenzí, $m < n$ (musí zbývat alespoň jedna neaktivní dimenze).
+- **Výstup:** $m + 1$ aktivních dimenzí (přidána dosud neaktivní dimenze $A_{m+1}$).
+- Opakovaný drill-down končí při $m = n$ — to je **detail všech hodnot** (základní kuboid), z nějž už dál dolů nelze.
 
 Příklad: $(rok) \xrightarrow{\text{drill-down}} (rok \times kvartál) \xrightarrow{\text{drill-down}} (rok \times kvartál \times měsíc)$.
 

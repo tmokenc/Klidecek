@@ -52,11 +52,11 @@ Cisco vyvinul NetFlow v 1996 pro *interní use* (router rozhodnutí). V 2002 zve
 | Verze | Rok | Vlastnosti |
 | :--- | :---: | :--- |
 | v1 | 1996 | základní, fixní formát |
-| v5 | 1996 | *standardní*, 5-tuple + BGP, 49 polí, *široce nasazený* |
+| v5 | 2002 | *standardní*, 5-tuple + BGP, 49 polí, *široce nasazený* |
 | v7 | 1997 | Cat 5000 switche |
 | v8 | 1998 | aggregation pre-router |
 | v9 | 2003 | **template-based** — flexibilní, IPv6 support |
-| **IPFIX** | 2008 | IETF standardizace v9 (RFC 7011) |
+| **IPFIX** | 2008 | IETF standardizace v9 (RFC 5101) |
 
 V současnosti:
 

@@ -21,7 +21,7 @@ T3: P3 writes u = 7   → P3.L1: u = 7.
 T4: P1 reads u   → P1.L1 hit, returns 5 (STALE).
 ```
 
-P1 vidí starou hodnotu! Tohle je *neperzistence*. Pro paralelní program ✗.
+P1 vidí starou hodnotu! Tohle je *nekoherence (zastaralé čtení)*. Pro paralelní program ✗.
 
 Koherence říká: po `T3`, jakákoli další **read** musí dostat hodnotu 7.
 

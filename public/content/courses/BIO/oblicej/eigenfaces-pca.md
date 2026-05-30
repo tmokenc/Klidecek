@@ -102,23 +102,23 @@ Pro libovolný obličej $\mathbf{x}$:
     <ellipse cx="80" cy="80" rx="6" ry="3" fill="var(--accent)"/>
     <ellipse cx="80" cy="80" rx="6" ry="3" fill="var(--accent)" transform="translate(15 0)"/>
   </g>
-  <text x="80" y="180" text-anchor="middle">průměrný obličej</text>
+  <text x="80" y="180" text-anchor="middle" fill="var(--text)">průměrný obličej</text>
   <g fill="rgba(100, 100, 200, 0.5)" stroke="var(--accent)" stroke-width="1">
     <ellipse cx="200" cy="100" rx="40" ry="55"/>
     <path d="M180,80 L195,90 L180,100 Z" fill="var(--accent)"/>
     <path d="M220,80 L205,90 L220,100 Z" fill="var(--accent)"/>
   </g>
-  <text x="200" y="180" text-anchor="middle">eigenface 1</text>
+  <text x="200" y="180" text-anchor="middle" fill="var(--text)">eigenface 1</text>
   <text x="200" y="195" text-anchor="middle" font-size="9" fill="var(--text-muted)">jas/kontrast</text>
   <g fill="rgba(200, 100, 100, 0.5)" stroke="var(--accent)" stroke-width="1">
     <ellipse cx="320" cy="100" rx="45" ry="50"/>
   </g>
-  <text x="320" y="180" text-anchor="middle">eigenface 2</text>
+  <text x="320" y="180" text-anchor="middle" fill="var(--text)">eigenface 2</text>
   <text x="320" y="195" text-anchor="middle" font-size="9" fill="var(--text-muted)">tvar tváře</text>
   <g fill="rgba(100, 200, 100, 0.5)" stroke="var(--accent)" stroke-width="1">
     <ellipse cx="440" cy="100" rx="40" ry="60"/>
   </g>
-  <text x="440" y="180" text-anchor="middle">eigenface 3</text>
+  <text x="440" y="180" text-anchor="middle" fill="var(--text)">eigenface 3</text>
   <text x="440" y="195" text-anchor="middle" font-size="9" fill="var(--text-muted)">pose</text>
 </svg>
 :::

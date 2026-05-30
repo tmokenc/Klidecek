@@ -150,7 +150,7 @@ Pro klasický web server / general purpose Linux box — *zůstaňte u stock ker
 
 ## Mladší alternativa — io_uring + AF_XDP
 
-Linux 5.10+ má **AF_XDP** — socket family, který *přímo* dodává pakety z XDP ([[ebpf-xdp]]) do user-space. Bez DPDK driver výměny, *koexistuje* s kernel stackem.
+Linux 4.18+ má **AF_XDP** — socket family, který *přímo* dodává pakety z XDP ([[ebpf-xdp]]) do user-space. Bez DPDK driver výměny, *koexistuje* s kernel stackem.
 
 Throughput: blíže DPDK (~15 Mpps/core), s výhodou kernel-friendly. Roste adopce.
 

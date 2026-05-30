@@ -88,13 +88,13 @@ export default function LivenessPadTradeoff() {
         <line x1={x2px(thr)} y1={20} x2={x2px(thr)} y2={H - 25} stroke="var(--accent)" strokeWidth="2" strokeDasharray="4 3" />
         {/* APCER < 1% line */}
         <line x1={40} y1={y2px(0.01)} x2={W - 20} y2={y2px(0.01)} stroke="rgba(220,80,80,0.3)" strokeDasharray="3 2" />
-        <text x={W - 30} y={y2px(0.01) - 2} fontSize="9" fill="rgba(220,80,80,0.6)">APCER = 1% (Level 2)</text>
+        <text x={W - 22} y={y2px(0.01) - 2} fontSize="9" textAnchor="end" fill="rgba(220,80,80,0.6)">APCER = 1% (Level 2)</text>
         <line x1={40} y1={y2px(0.05)} x2={W - 20} y2={y2px(0.05)} stroke="rgba(64,192,87,0.3)" strokeDasharray="3 2" />
-        <text x={W - 30} y={y2px(0.05) - 2} fontSize="9" fill="rgba(64,192,87,0.6)">BPCER = 5%</text>
+        <text x={W - 22} y={y2px(0.05) - 2} fontSize="9" textAnchor="end" fill="rgba(64,192,87,0.6)">BPCER = 5%</text>
         {[0, 0.25, 0.5, 0.75, 1].map((t) => (
           <text key={t} x={x2px(t)} y={H - 11} fontSize="9" textAnchor="middle" fill="var(--text-muted)">{t}</text>
         ))}
-        <text x={W / 2} y={H - 1} fontSize="10" textAnchor="middle" fill="var(--text-muted)">liveness threshold τ</text>
+        <text x={W / 2} y={H - 4} fontSize="10" textAnchor="middle" fill="var(--text-muted)">liveness threshold τ</text>
       </svg>
 
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", fontSize: 11 }}>

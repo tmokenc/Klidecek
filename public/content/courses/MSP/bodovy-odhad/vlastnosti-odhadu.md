@@ -157,7 +157,7 @@ Ideální:
 | :--- | :--- | :--- | :--- | :--- |
 | `X̄` (mean) | 0 | `σ²/n` | ano | ne (sensitive to outliers) |
 | `med X` (medián) | 0 | `≈ π σ²/(2n)` | ne (rel. eff. `2/π ≈ 64 %`) | ano |
-| `Hodges-Lehmann` | 0 | `≈ 0,955 · σ²/n` | téměř | ano (signed ranks) |
+| `Hodges-Lehmann` | 0 | `≈ 1,047 · σ²/n` | téměř | ano (signed ranks) |
 | `trimmed mean(10 %)` | 0 (sym.) | `≈ 1,05 · σ²/n` | téměř | ano |
 
 Pro „čistá" normální data je `X̄` nejlepší. Při outliers je *medián* nebo *trimmed mean* lepší trade-off.

@@ -45,7 +45,7 @@ TCSEC nahrazen Common Criteria v 2000s. Dnes obsolete.
 
 ## ITSEC — Information Technology Security Evaluation Criteria
 
-Evropská verze (1990, schválena 1995). Vznikla z TCSEC + národní iniciativy UK, FR, DE, NL.
+Evropská verze, harmonizovaná v1.2 vydána 1991. Vznikla z TCSEC + národní iniciativy UK, FR, DE, NL.
 
 ### Klíčový rozdíl proti TCSEC
 

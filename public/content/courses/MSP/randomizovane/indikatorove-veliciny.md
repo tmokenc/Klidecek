@@ -133,7 +133,7 @@ Pro **nezávislé** `X_i` se kovariance vynulují a součet rozptylů je analogi
 
 ## Aplikace
 
-* **Hiring problem** — `O(n log n)` očekávaně.
+* **Hiring problem** — očekávaný počet náborů `O(log n)` = `H_n`.
 * **Quicksort** ([[quicksort-analyza]]) — počet porovnání přes indikátory `1_{X_i compares with X_j}`.
 * **Hash collisions** — očekávaný počet kolizí v hash tabulce.
 * **Permutations** — očekávaný počet fixních bodů náhodné permutace = 1 (přes `n` indikátorů s `P = 1/n`).

@@ -56,7 +56,7 @@ Vulnerability = *slabina* v IS, která může být zneužita hrozbou.
 
 ### CVE — Common Vulnerabilities and Exposures
 
-Veřejná databáze známých vulnerability. Formát: `CVE-YYYY-NNNN`.
+Veřejná databáze známých vulnerability. Formát: `CVE-RRRR-NNNN…` (rok + pořadové číslo o min. 4 číslicích, od r. 2014 i delší — viz CVE-2021-44228).
 
 Příklady:
 

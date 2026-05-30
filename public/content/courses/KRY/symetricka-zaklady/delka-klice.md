@@ -21,10 +21,10 @@ kde $v$ je rychlost útočníka (klíčů testovaných za sekundu). Pro porovná
 | 1 CPU jádro (SW) | $10^7$ | $\approx 2^{48}$ |
 | 1 GPU (RTX 4090) | $10^{10}$ | $\approx 2^{58}$ |
 | 1 ASIC (EFF DES Cracker) | $9 \cdot 10^{10}$ | $\approx 2^{61}$ |
-| Bitcoin síť 2024 (jako analogie SHA-256) | $4 \cdot 10^{20}$ | $\approx 2^{83}$ |
+| Bitcoin síť 2024 (jako analogie SHA-256) | $4 \cdot 10^{20}$ | $\approx 2^{93}$ |
 | Hypotetický kvantový (Grover) | — | $|\mathcal{K}|^{1/2}$ klíčů |
 
-> **Důležité:** Bitcoin síť počítá SHA-256, ne AES. Pro porovnání s AES je třeba normalizovat — ale řád je správný. Žádný útočník dnes nemá $> 2^{80}$ operací za rok dosažitelnou.
+> **Důležité:** Bitcoin síť počítá SHA-256, ne AES. Zvládne sice cca $2^{93}$ SHA-256 operací za rok, ale to není práce na AES a po normalizaci na AES je řád výrazně nižší. AES-128 na úrovni $2^{128}$ tak zůstává zcela mimo dosah.
 
 ## Historie reálných útoků na DES
 

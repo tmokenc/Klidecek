@@ -76,7 +76,7 @@ Pro každou původní buňku $M_k$ má EREW *vlastní* skupinu $p$ buněk: jednu
 
 Algoritmus pro jednu buňku $M_k$:
 
-1. **Fáze nahoru po stromě** ($O(\log p)$ kroků). Začneme v listech: každý procesor $P_i$, který chce zapsat do $M_k$, nastaví do svého listu 1. Procházíme úrovněmi shora dolů od listů ke kořeni. V každé úrovni:
+1. **Fáze nahoru po stromě** ($O(\log p)$ kroků). Začneme v listech: každý procesor $P_i$, který chce zapsat do $M_k$, nastaví do svého listu 1. Procházíme úrovněmi zdola nahoru od listů ke kořeni. V každé úrovni:
    - *Levé dítě* (zájemce) postoupí do rodiče a zapíše 1.
    - *Pravé dítě* (zájemce) přečte hodnotu uloženou *levým sourozencem*. Pokud je 0 (nikdo z levé strany), postoupí do rodiče a zapíše 1; pokud je 1, *nepostupuje* (levý vyhrál).
 
@@ -116,7 +116,7 @@ Některé úlohy *nelze* na CRCW řešit v $O(1)$, bez ohledu na to, kolik proce
 
 **Věta (Beame, Hastad 1987).** PARITY $n$ bitů na CRCW s polynomiálním počtem procesorů vyžaduje $\Omega(\log n / \log\log n)$ kroků.
 
-**Věta (Ragde, Steiger, Szemerédi, Wigderson 1988).** *Element distinctness* na CRCW s $n$ procesory vyžaduje $\Omega(\log\log n)$.
+**Věta (Ragde, Steiger, Szemerédi, Wigderson 1988).** *Element distinctness* na CRCW s $n$ procesory vyžaduje $\Omega(\sqrt{\log n})$.
 
 Tyto výsledky ukazují, že *CRCW není „kouzelný"* — i ten nejsilnější model má dolní meze sub-logaritmického řádu.
 

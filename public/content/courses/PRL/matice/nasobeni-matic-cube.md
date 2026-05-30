@@ -144,9 +144,9 @@ Výsledek: $C(0, j, k) = \sum_i C(i, j, k) = c_{jk}$ pro všechna $j, k$. V rovi
 | Procesory | **Velmi mnoho** — $n^3$ (pro $n = 1024$: 1 miliarda) |
 | Cena | **Suboptimal** — $O(n^3 \log n)$ |
 | Topologie | Hypercube — *šíření* logaritmické, ale stupeň uzlu *roste* |
-| Praktická realizace | Cluster s InfiniBand, *teoretická* hypercube se neexistuje |
+| Praktická realizace | Cluster s InfiniBand; čistá hyperkrychle fyzicky neexistuje |
 
-**Cube je teoretický limit** — dosahuje nejlepšího známého času, ale za cenu velkého počtu procesorů. V praxi se prefereuje *block matrix multiplication* (cluster nebo GPU) s $O(p)$ procesy, kde $p \le n^2$.
+**Cube je teoretický limit** — dosahuje nejlepšího známého času, ale za cenu velkého počtu procesorů. V praxi se preferuje *block matrix multiplication* (cluster nebo GPU) s $O(p)$ procesy, kde $p \le n^2$.
 
 ### Block matrix multiplication (praktická varianta)
 

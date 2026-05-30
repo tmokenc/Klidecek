@@ -11,7 +11,7 @@ CSF je *complement* k ISO 27001 ([[iso-27000]]). Nemá *certification* (na rozd�
 ## Pět funkcí CSF (Core)
 
 ::: svg "NIST CSF — 5 (later 6) functions"
-<svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="11">
+<svg viewBox="0 0 560 180" font-family="ui-sans-serif, system-ui" font-size="11">
   <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.5">
     <circle cx="100" cy="90" r="50"/>
     <circle cx="200" cy="90" r="50"/>
@@ -33,7 +33,7 @@ CSF je *complement* k ISO 27001 ([[iso-27000]]). Nemá *certification* (na rozd�
     <text x="400" y="100">incident</text>
     <text x="500" y="100">restore</text>
   </g>
-  <text x="270" y="165" text-anchor="middle" fill="var(--text-muted)" font-size="10">CSF 2.0 (2024) přidává Govern (cross-cutting)</text>
+  <text x="280" y="165" text-anchor="middle" fill="var(--text-muted)" font-size="10">CSF 2.0 (2024) přidává Govern (cross-cutting)</text>
 </svg>
 :::
 
@@ -145,7 +145,7 @@ Aktuální: **Rev 5** (2020), update 2022.
 | System + Communications Protection | SC | encryption, FW |
 | System + Information Integrity | SI | malware protection |
 | Supply Chain Risk Management | SR | supply chain (Rev 5) |
-| Awareness Training | AT | security awareness |
+| Program Management | PM | program-wide controls (security program plan, risk strategy) |
 
 Each family has multiple *controls* (e.g., AC-1, AC-2, ...).
 

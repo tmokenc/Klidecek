@@ -85,7 +85,7 @@ Bombe běžela ~20 minut na jedno nastavení (1 Walzenlage). Pro 60 Walzenlagí 
 
 ## Mavis Batey a italská Enigma
 
-**Mavis Batey** (Hut 4) ve Bletchley prolomila italskou námořní Enigmu (1941). Klíčový moment: Itálie používala Enigmu bez plugboardu (komerční varianta) — ten dramaticky snižuje stavový prostor. Bateyová si všimla pravidelné struktury indikátoru a využila ji.
+**Mavis Batey** (výzkumná sekce Dillyho Knoxe, tzv. Cottage) ve Bletchley prolomila italskou námořní Enigmu (1941). Klíčový moment: Itálie používala Enigmu bez plugboardu (komerční varianta) — ten dramaticky snižuje stavový prostor. Bateyová si všimla pravidelné struktury indikátoru a využila ji.
 
 Důsledek: bitva u mysu Matapan (28.–29. března 1941). Britská flotila pod admirálem Cunninghamem zachytila a potopila tři italské těžké křižníky díky předpovědi italských pohybů z dešifrovaných zpráv.
 
@@ -108,7 +108,7 @@ Strojem *Lorenz SZ40* (12 rotorů, vyšší úroveň než Enigma) komunikovala n
 
 ## Důsledek a poučení
 
-Prolomení Enigmy zkrátilo válku **o cca 2 roky** podle odhadů Hinsleyho (1979). Bletchley dešifroval cca *80 zpráv denně* v 1944.
+Prolomení Enigmy zkrátilo válku **o cca 2 roky** podle odhadů Hinsleyho (1979). Bletchley dešifroval cca *několik tisíc zpráv denně* (≈ 5 000 zpráv/den v polovině 1944, ≈ 3 000/den v 1943).
 
 Z hlediska moderní kryptografie:
 

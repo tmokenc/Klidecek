@@ -77,7 +77,7 @@ V Linuxu se SACK kombinuje s každou variantou (Reno, Cubic, BBR) — *kongesčn
 
 ## TCP Vegas (1994) — delay-based
 
-Brakke & Peterson, UC Berkeley. Místo *ztrát* detekuje zahlcení podle **růstu RTT** — pokud RTT roste, fronty se plní *před* dropem.
+Brakmo & Peterson, University of Arizona. Místo *ztrát* detekuje zahlcení podle **růstu RTT** — pokud RTT roste, fronty se plní *před* dropem.
 
 Vegas srovnává:
 
@@ -138,8 +138,8 @@ Optimum: `cwnd = BtlBw · RTprop` (BDP) — naplníme linku, ale *nepřelijeme b
 
 BBR pravidelně **probes**:
 
-- Každých 8 RTT zkrátí cwnd o 1/4 na 1 RTT → měření *minimálního* RTprop.
-- Každých 8 cyklů cwnd × 1.25 → zda BtlBw vzrostlo.
+- *ProbeRTT*: když se odhad RTprop (min RTT) neaktualizoval ~10 s, krátce sníží cwnd na ~4 pakety → re-měření *minimálního* RTprop.
+- *ProbeBW*: 8fázový pacing-gain cyklus (jedna RTT na fázi), periodicky aplikuje gain 1.25 (pak 0.75) → zda BtlBw vzrostlo.
 
 Výhody:
 

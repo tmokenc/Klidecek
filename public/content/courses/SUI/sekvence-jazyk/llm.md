@@ -75,17 +75,15 @@ Pro generování:
 
 * **Greedy** — `w_{k+1} = argmax P(...)`. *Deterministický*, ale generuje *opakující se* text.
 * **Beam search** — udržuje `k` nejlepších částečných sekvencí. Použito v překladu, ale *konzervativní* pro otevřené generování.
-* **Top-k** — vyber z `k` nejpravděpodobnějších tokenů s pravděpodobností úměrnou jejich logitu.
+* **Top-k** — ponech `k` nejpravděpodobnějších tokenů, jejich pravděpodobnosti renormalizuj (softmax přes těchto `k`) a z této distribuce vzorkuj.
 * **Top-p (nucleus)** — vyber z minimální množiny tokenů, jejichž souhrn pravděpodobností přesáhne `p` (např. `0.95`). Adaptivně se rozšiřuje pro nejisté distribuce.
-* **Temperature** — `softmax(logits / T)`. `T < 1` zostří distribuci (deterministický), `T > 1` vyhladí (creative). Typicky `T = 0.7`.
+* **Temperature** — `softmax(logits / T)`. `T < 1` zostří distribuci (blíž k argmaxu; deterministický až `T → 0`, ekvivalent greedy), `T > 1` vyhladí (creative). Typicky `T = 0.7`.
 
 ## Tokenizace
 
-LLM nepracují *přímo* se slovy nebo znaky. Používají **subword tokenization** (BPE — Byte Pair Encoding), viz [[embeddings]]:
+LLM nepracují *přímo* se slovy nebo znaky. Používají **subword tokenization** (BPE — Byte Pair Encoding) — princip a příklady viz [[embeddings]]. U češtiny např.:
 
 ```
-"unhappiness" → ["un", "happiness"]
-"chatGPT"     → ["chat", "G", "PT"]
 "přednáška"   → ["př", "edn", "áška"]
 ```
 

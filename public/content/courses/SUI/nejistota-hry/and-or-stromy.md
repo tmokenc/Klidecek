@@ -111,7 +111,7 @@ Algoritmus vrací **plán** ve formě podmíněné konstrukce `if state = s then
 
 ## Dynamické programování — sdílení mezi pod-stromy
 
-V mnoha úlohách se stejné podproblémy *opakují*. **Dynamické programování** (DP, Bellman 1953) je obecná myšlenka *spočítat každý podproblém jednou a uložit*.
+V mnoha úlohách se stejné podproblémy *opakují*. **Dynamické programování** (DP, Bellman 1957) je obecná myšlenka *spočítat každý podproblém jednou a uložit*.
 
 ### Klasický příklad — Fibonacci
 

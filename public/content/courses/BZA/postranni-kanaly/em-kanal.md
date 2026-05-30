@@ -69,7 +69,7 @@ EMA má dvě klíčové výhody:
 
 ### EMA na CPU
 
-[*FRODO: Fritzing-style differential EM analysis*](https://www.usenix.org/system/files/conference/woot18/woot18-paper-camurati.pdf) — útok na ARM Cortex-M0:
+[*Screaming Channels: When Electromagnetic Side Channels Meet Radio Transceivers*](https://www.usenix.org/system/files/conference/woot18/woot18-paper-camurati.pdf) (Camurati et al.) — útok na ARM Cortex-M0:
 
 * Coil na top desky procesoru.
 * Recovery AES klíče během 1 minuty.

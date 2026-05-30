@@ -194,7 +194,7 @@ Toto vyvažuje *prozkoumávání* nových tahů a *využití* slibných.
 
 ### Výhody MCTS
 
-* **Neasymptoticky optimální** — s neomezeným časem konverguje k minimax.
+* **Asymptoticky optimální** — s neomezeným časem konverguje k minimax.
 * **Anytime** — kdykoli ukončíme, máme rozumné rozhodnutí.
 * **Doménově nezávislé** — nepotřebuje *eval function*. Stačí simulátor pro rollouty.
 * **Snadno paralelizovatelné** — rollouts jsou *nezávislé*.
@@ -204,7 +204,7 @@ Toto vyvažuje *prozkoumávání* nových tahů a *využití* slibných.
 [AlphaGo](https://deepmind.com/research/case-studies/alphago-the-story-so-far) (Silver et al., 2016) nahrazuje:
 
 * **Selection policy** — neuronka *policy network* `π(a | s)` (zkušená lidská hra + self-play).
-* **Rollout** — neuronka *value network* `V(s)` přímo odhaduje výsledek (bez náhodné hry až do konce).
+* **Rollout** — neuronka *value network* `V(s)` odhaduje výsledek a kombinuje se s rychlým náhodným rolloutem (mísicí parametr λ, nejlepší výsledky kolem λ≈0,5). Úplné vypuštění rolloutů (list hodnotí jen value network) přináší až AlphaGo Zero / AlphaZero.
 
 [AlphaZero](https://deepmind.com/blog/article/alphazero-shedding-new-light-grand-games-chess-shogi-and-go) (2017) jde dál — *jediná* neuronka výstupuje `(π, V)`. Trénink čistě **self-play**, žádné lidské hry. Funguje pro šachy, shogi, Go.
 

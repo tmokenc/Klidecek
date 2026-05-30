@@ -199,7 +199,7 @@ Tím:
 
 * **MongoDB** — shard cluster s `mongos` (router), `config servers` (metadata), `mongod` (data nodes). Shard key se nastavuje per kolekci.
 * **Cassandra** — automatický sharding přes consistent hashing token ring. Žádný central router.
-* **Elasticsearch** — automatický sharding indexů (default 5 primary shards), replikace per shard.
+* **Elasticsearch** — automatický sharding indexů (default 1 primary shard — od Elasticsearch 7.0; dříve 5), replikace per shard.
 * **PostgreSQL** — sharding přes Citus (extension) nebo aplikační vrstvu.
 
 Více o roli klíčů v dotazování viz [[dotazovani-nosql]].

@@ -48,7 +48,7 @@ C_1^a \cdot C_2^b = M^{e_1 a} \cdot M^{e_2 b} = M^{a e_1 + b e_2} = M.
 
 Útočník stáhne všechny veřejné klíče (např. ze SSL skenu internetu), spočítá $\gcd(n_i, n_j)$ pro každou dvojici. Pokud $\gcd \neq 1$, oba klíče jsou prolomené.
 
-**Heninger, Durumeric, Wustrow, Halderman (USENIX Security 2012):** sken 5,8 mil. SSH klíčů, 6 mil. TLS certifikátů. Faktorizovali ~64 000 SSL klíčů, ~108 000 SSH klíčů. **Příčina:** routery a embedded zařízení generovaly klíče *při bootu*, kdy entropie systému byla minimální.
+**Heninger, Durumeric, Wustrow, Halderman (USENIX Security 2012):** sken 5,8 mil. TLS certifikátů, 6,2 mil. SSH klíčů. Faktorizovali ~64 000 SSL klíčů, ~108 000 SSH klíčů. **Příčina:** routery a embedded zařízení generovaly klíče *při bootu*, kdy entropie systému byla minimální.
 
 > Obrana: kvalitní RNG při generování. Hardware RNG, nebo /dev/urandom *po* dostatečném warm-up.
 

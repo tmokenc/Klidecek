@@ -188,7 +188,7 @@ $$
 (\ell_1 \lor \ell_2 \lor y_1) \land (\neg y_1 \lor \ell_3 \lor y_2) \land (\neg y_2 \lor \ell_4 \lor y_3) \land \dots \land (\neg y_{k-3} \lor \ell_{k-1} \lor \ell_k).
 $$
 
-**Korektnost.** Lze ukázat indukcí: každá $k$-klauzule je splnitelná *právě když* je splnitelná odpovídající konjunkce 3-klauzulí. (V dopředném směru: triviálně. V zpětném: pokud $\ell_i = 0$ pro všechna $i$, pak v každém řezu $(\neg y_{i-1} \lor \ell_{i+1} \lor y_i)$ musí $y_{i-1} = 0$ a $y_i = 1$ — kaskáda do sporu.)
+**Korektnost.** Lze ukázat indukcí: každá $k$-klauzule je splnitelná *právě když* je splnitelná odpovídající konjunkce 3-klauzulí. (V dopředném směru: triviálně. V zpětném: pokud jsou všechny $\ell_i$ nepravdivé, první klauzule $(\ell_1 \lor \ell_2 \lor y_1)$ vynutí $y_1 = 1$, pak $(\neg y_1 \lor \ell_3 \lor y_2)$ vynutí $y_2 = 1$, …, kaskádou $y_1 = \dots = y_{k-3} = 1$; poslední klauzule $(\neg y_{k-3} \lor \ell_{k-1} \lor \ell_k)$ pak nemá žádný splněný literál → spor.)
 
 **Polynomiální čas.** Pro klauzuli délky $k$ vzniknou $k - 2$ klauzulí délky 3 a $k - 3$ nových proměnných. Celá redukce roste *lineárně* s celkovou délkou formule.
 

@@ -4,7 +4,7 @@ title: Lambda kalkul — syntaxe a sémantika
 
 # Lambda kalkul — syntaxe a sémantika
 
-**Lambda kalkul** (λ-kalkul) je *formální systém* pro popis výpočtů pomocí *funkcí*. Alonzo Church ho navrhl ve 20. letech 20. století jako základ matematické logiky. V r. 1930 ukázal Haskell Curry ekvivalenci s teorií kombinátorů (Moses Schönfinkel); v r. 1936 Kleene + Church prokázali, že λ-kalkul je *univerzální výpočetní systém* (Turing-úplný). McCarthy se inspiroval λ-kalkulem při tvorbě jazyka LISP (1950s). Dnes je λ-kalkul *teoretickým základem* všech funkcionálních jazyků — Haskell, ML, Scala, OCaml, F# — a inspirací i pro mainstream jazyky (Java lambdas, C++ lambdas, Python lambdas).
+**Lambda kalkul** (λ-kalkul) je *formální systém* pro popis výpočtů pomocí *funkcí*. Alonzo Church ho navrhl v 30. letech 20. století jako základ matematické logiky. V r. 1930 ukázal Haskell Curry ekvivalenci s teorií kombinátorů (Moses Schönfinkel); v r. 1936 Kleene + Church prokázali, že λ-kalkul je *univerzální výpočetní systém* (Turing-úplný). McCarthy se inspiroval λ-kalkulem při tvorbě jazyka LISP (1950s). Dnes je λ-kalkul *teoretickým základem* všech funkcionálních jazyků — Haskell, ML, Scala, OCaml, F# — a inspirací i pro mainstream jazyky (Java lambdas, C++ lambdas, Python lambdas).
 
 ## Syntaxe
 

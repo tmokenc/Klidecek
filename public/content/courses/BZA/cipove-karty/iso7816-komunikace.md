@@ -176,7 +176,7 @@ Pozorování: **SW1 SW2 nese leak informaci** — `63 C2` (zbývají 2 pokusy) o
 
 Klasický smart card OS spravuje hierarchický file system (ISO 7816-4):
 
-* **MF (Master File)** — kořen, AID `3F 00`.
+* **MF (Master File)** — kořen, file identifier (FID) `3F 00`.
 * **DF (Dedicated File)** — directory.
 * **EF (Elementary File)** — file s daty:
   * **Transparent EF** — sekvence bajtů (READ BINARY, UPDATE BINARY).

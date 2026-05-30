@@ -178,19 +178,13 @@ T_{i-2} = 152 (server přijal)
 T_{i-1} = 161 (server odpověděl)
 T_i     = 204 (klient přijal)
 
-d_i = (152 - 124) + (204 - 161) = 28 + 43 = 71  (??)
-```
-
-Hmm, řekněme přepsanější:
-
-```
 T_{i-2} - T_{i-3} = 28 (tam)
 T_i - T_{i-1} = 43 (zpět)
-d_i = 71
+d_i = 28 + 43 = 71
 o_i = (28 - 43) / 2 = -7.5
 ```
 
-(Skutečný offset je -37 v PDF; numerický příklad záleží na konvenci znaménka. Pointa je *vzorec*.)
+(Znaménko offsetu závisí na konvenci — zda měříme posun serveru vůči klientovi, nebo naopak. Pointa je *vzorec*.)
 
 NTP kontaktuje *více* serverů (typicky 4–8) a získá z každého $(d_i, o_i)$. Filtrování přes **Marzullův algoritmus**.
 
@@ -265,4 +259,4 @@ Pro mnoho úloh (logging, time-stamping) **nestačí fyzický čas** — potřeb
 
 ---
 
-*Zdroj: PRL přednášky 2025/26, Ing. František Zbořil ml., Ph.D., a doc. Ing. Petr Hanáček, Ph.D., FIT VUT v Brně. Externí reference: Mills, D.L.: „Network Time Protocol (NTP), Version 4" (RFC 5905, 2010, [oficiální RFC](https://tools.ietf.org/html/rfc5905)); Mills, D.L.: *Computer Network Time Synchronization: The Network Time Protocol on Earth and in Space* (2. vyd., CRC Press 2011); Gusella, R., Zatti, S.: „The Accuracy of the Clock Synchronization Achieved by TEMPO in Berkeley UNIX 4.3BSD" (IEEE Trans. Softw. Eng. 15(7), 1989, [DOI 10.1109/32.29484](https://doi.org/10.1109/32.29484)); Marzullo, K., Owicki, S.: „Maintaining the time in a distributed system" (PODC 1983, [DOI 10.1145/800221.806706](https://doi.org/10.1145/800221.806706)); IEEE 1588-2008 (PTP) standard; Coulouris et al.: *Distributed Systems* (5. vyd., 2011), kap. 14.*
+*Zdroj: PRL přednášky 2025/26, Ing. František Zbořil ml., Ph.D., a doc. Ing. Petr Hanáček, Ph.D., FIT VUT v Brně. Externí reference: Mills, D.L.: „Network Time Protocol (NTP), Version 4" (RFC 5905, 2010, [oficiální RFC](https://tools.ietf.org/html/rfc5905)); Mills, D.L.: *Computer Network Time Synchronization: The Network Time Protocol on Earth and in Space* (2. vyd., CRC Press 2011); Gusella, R., Zatti, S.: „The Accuracy of the Clock Synchronization Achieved by TEMPO in Berkeley UNIX 4.3BSD" (IEEE Trans. Softw. Eng. 15(7), 1989, [DOI 10.1109/32.29484](https://doi.org/10.1109/32.29484)); Marzullo, K., Owicki, S.: „Maintaining the time in a distributed system" (PODC 1983, [DOI 10.1145/800221.806730](https://doi.org/10.1145/800221.806730)); IEEE 1588-2008 (PTP) standard; Coulouris et al.: *Distributed Systems* (5. vyd., 2011), kap. 14.*

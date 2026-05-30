@@ -40,7 +40,7 @@ public class ObjednavkaService {
 }
 ```
 
-Důležité: `@Transactional` na CDI beanu *přebíjí* fakt, že nejde o EJB. Ve smyslu transakcí se chová jako EJB s CMT, jen s **odlišným výchozím chováním pro výjimky**: u `@Transactional` se rollbacknou všechny *unchecked* (RuntimeException), ostatní (checked) defaultně **necommitují** — což lze konfigurovat parametry `rollbackOn` a `dontRollbackOn`.
+Důležité: `@Transactional` na CDI beanu *přebíjí* fakt, že nejde o EJB. Ve smyslu transakcí se chová jako EJB s CMT, jen s **odlišným výchozím chováním pro výjimky**: u `@Transactional` se rollbacknou všechny *unchecked* (RuntimeException), ostatní (checked) výjimky defaultně rollback **NEvyvolají** — transakce se commituje — což lze změnit parametry `rollbackOn` a `dontRollbackOn`.
 
 ## @TransactionAttribute — řízení propagace
 
@@ -71,6 +71,8 @@ private void odesliPotvrzeni(long id) {
     // commit/rollback této metody neovlivní volající transakci
 }
 ```
+
+> **Pozor:** v této podobě se `REQUIRES_NEW` *neuplatní* — metoda `odesliPotvrzeni` je `private` a je volaná self-invocation (`this`) ze stejné beany, takže CDI/EJB interceptor obejde proxy a žádná nová transakce nevznikne. Aby to fungovalo, musí být `odesliPotvrzeni` v jiné (injektované) beaně a volaná `public` metodou přes injektovaný odkaz.
 
 Tento vzor odpovídá **zřetězené transakci**, kde se kontejner postará o `chain()` — viz [[zretezene-transakce]] pro teoretický pohled.
 

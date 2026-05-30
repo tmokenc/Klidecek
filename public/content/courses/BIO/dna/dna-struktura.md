@@ -117,7 +117,7 @@ FBI standard:
 
 ### Buccal swab (ústní stěr)
 
-* **Cotton swab** vyromodý po stěru vnitřní strany tváře.
+* **Cotton swab** (bavlněný tampon), kterým se setře vnitřní strana tváře.
 * **Quick, non-invasive.**
 * **Painless.**
 * Standard pro voluntary enrollment.

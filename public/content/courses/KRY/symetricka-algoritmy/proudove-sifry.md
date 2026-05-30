@@ -42,9 +42,11 @@ A5/1 byla **utajená do 1999**, kdy byla reverse-engineered Marcem Briceno. Úto
 
 > **A5/2** — záměrně oslabená export-varianta pro neevropské země. Padá za milisekundy. Vyřazena 3GPP 2007.
 
-## ZUC (Snow 3G)
+## ZUC
 
 Standard 3GPP (LTE/5G) jako alternativa k AES-CTR. Také LFSR-based s nelineární kombinací. **F-funkce** s S-boxy z AES. Klíč: 128 bitů.
+
+ZUC je samostatný algoritmus, **odlišný od Snow 3G** (oba 3GPP): ZUC stojí za 128-EEA3/128-EIA3, zatímco Snow 3G za 128-EEA1/128-EIA1.
 
 Stále se používá v mobilních sítích jako *konfidencializační* algoritmus EEA3 a *autentizační* EIA3.
 

@@ -31,10 +31,10 @@ Strukturně tvoří podkostky **svaz** (*lattice*) — částečně uspořádano
 <svg viewBox="0 0 540 220" xmlns="http://www.w3.org/2000/svg" style="max-width:580px;width:100%;height:auto;font-family:system-ui,sans-serif;">
   <defs>
     <style>
-      .node{fill:var(--surface-soft, #e8f0f7);stroke:var(--accent, #1e5a8e);stroke-width:1.5;rx:6}
-      .edge{stroke:var(--ink, #555);stroke-width:1;fill:none}
-      .lbl{font-size:11px;text-anchor:middle;fill:var(--ink, #333);font-family:monospace}
-      .level{font-size:10px;fill:var(--ink-soft, #888);text-anchor:end}
+      .node{fill:var(--bg-inset, #e8f0f7);stroke:var(--accent, #1e5a8e);stroke-width:1.5;rx:6}
+      .edge{stroke:var(--line-strong, #555);stroke-width:1;fill:none}
+      .lbl{font-size:11px;text-anchor:middle;fill:var(--text, #333);font-family:monospace}
+      .level{font-size:10px;fill:var(--text-muted, #888);text-anchor:end}
     </style>
   </defs>
   <!-- level labels -->

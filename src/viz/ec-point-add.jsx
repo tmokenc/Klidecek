@@ -51,10 +51,12 @@ export default function EcPointAdd() {
   const negR = R ? { x: R.x, y: -R.y } : null;
 
   // Plot: x ∈ [-2.5, 2.5], y ∈ [-3, 3]
-  const W = 480, H = 320;
+  // PAD: vertical headroom so off-range points/labels (R far off-curve) aren't clipped.
+  const PAD = 48;
+  const W = 480, H = 320, VH = H + 2 * PAD;
   const xMin = -2.5, xMax = 2.5, yMin = -3, yMax = 3;
   const xToPx = (x) => ((x - xMin) / (xMax - xMin)) * W;
-  const yToPx = (y) => H - ((y - yMin) / (yMax - yMin)) * H;
+  const yToPx = (y) => PAD + H - ((y - yMin) / (yMax - yMin)) * H;
 
   // Trace curve
   const path = useMemo(() => {
@@ -98,10 +100,10 @@ export default function EcPointAdd() {
         )}
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 560, background: "var(--bg-inset)", borderRadius: 6 }}>
+      <svg viewBox={`0 0 ${W} ${VH}`} style={{ width: "100%", maxWidth: 560, background: "var(--bg-inset)", borderRadius: 6 }}>
         {/* axes */}
         <line x1={0} y1={yToPx(0)} x2={W} y2={yToPx(0)} stroke="var(--line)" />
-        <line x1={xToPx(0)} y1={0} x2={xToPx(0)} y2={H} stroke="var(--line)" />
+        <line x1={xToPx(0)} y1={PAD} x2={xToPx(0)} y2={PAD + H} stroke="var(--line)" />
 
         {/* curve */}
         <path d={ptsToD(path1)} fill="none" stroke="var(--accent)" strokeWidth="1.6" />

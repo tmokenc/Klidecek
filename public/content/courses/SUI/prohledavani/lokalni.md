@@ -177,7 +177,7 @@ Reálné úlohy mají *omezení*: „Letiště ne v jezeře", „Plánovač zach
 | Hill climbing | Žádná | Ne | Velmi nízká | Malé prostory, pre-eval |
 | Random restart | Multi-startem | S pravd. 1 v limitu | Nízká | Triviálně paralelizovatelné |
 | Simulated annealing | Časem klesá | Asymptoticky ano | Střední | Dobře laděné, široké pole |
-| Beam search | `k`-koordinovaná | Lepší než hill | Střední | Sekvenční generování |
+| Beam search | `k`-koordinovaná | Lepší než hill | Střední | Optimalizace s paralelními kandidáty |
 | Genetický alg. | Vysoká (populace) | Ne, ale dobré | Vysoká | Kombinatorické, různé domény |
 | Gradient descent | Žádná | Lokální (konvex → globální) | Nízká | Spojité, diferencovatelné |
 

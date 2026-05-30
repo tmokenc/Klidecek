@@ -211,33 +211,9 @@ fib(N, F) :-
 X = 55.
 ```
 
-### Seznam append
+### Práce se seznamy
 
-```prolog
-append([], L, L).
-append([H|T1], L2, [H|T2]) :- append(T1, L2, T2).
-
-?- append([1,2], [3,4], X).
-X = [1,2,3,4].
-
-?- append(X, Y, [1,2,3]).
-X = [], Y = [1,2,3] ;
-X = [1], Y = [2,3] ;
-X = [1,2], Y = [3] ;
-X = [1,2,3], Y = [].
-```
-
-**Reverzibilita** — funkce funguje *v obou směrech*!
-
-### Reverse list
-
-```prolog
-reverse([], []).
-reverse([H|T], R) :- reverse(T, RT), append(RT, [H], R).
-
-?- reverse([1,2,3], X).
-X = [3,2,1].
-```
+Standardní predikáty pro seznamy (`append/3` a jeho **reverzibilita**, `reverse/2`, `length/2`, …) jsou definovány a vysvětleny v [[prolog-seznamy]].
 
 ## Standardní Prolog
 

@@ -20,7 +20,7 @@ Závislost mezi instrukcí $i$ a pozdější instrukcí $j$:
 | WAR | konflikt jmen | přejmenováním ([[renaming-rob]]) |
 | WAW | konflikt jmen | přejmenováním |
 
-V *klasické 5-stupňové* in-order pipeline FX WAW a WAR *vzniknout nemohou* — instrukce dokončují v pořadí vydávání. V FP pipeline s víceтактovým EX a v OoO ([[scoreboard]]) už vznikají.
+V *klasické 5-stupňové* in-order pipeline FX WAW a WAR *vzniknout nemohou* — instrukce dokončují v pořadí vydávání. V FP pipeline s vícetaktovým EX a v OoO ([[scoreboard]]) už vznikají.
 
 ## RAW bez forwardingu — stall
 
@@ -40,7 +40,7 @@ sub r5,r1:      IF  ID  ID  ID  EX  MA  WB
 
 Proč 2 cykly? `add` zapíše `r1` *na začátku* WB (takt 5). `sub` chce `r1` číst v ID — takt 5 nejdřív. Pipeline pozastaví `sub` ve fázi ID 2 takty.
 
-Pokuta: **2 stall cykly na load-use sekvenci** ⇒ CPI pro tuto dvojici = 3. To je rychle drahé — load instrukce tvoří ~25 % typického kódu.
+Pokuta: **2 stall cykly na RAW závislost (ALU→ALU bez forwardingu)** ⇒ CPI pro tuto dvojici = 3. To je rychle drahé — RAW závislosti tvoří podstatnou část typického kódu.
 
 ## Forwarding (bypass)
 
@@ -130,7 +130,7 @@ Tomuhle se říká **load-use delay** a je *neodstranitelný* na 5-stupňové pi
 
 ### Latence FP operací
 
-V FP pipeline s víceтаktovým EX:
+V FP pipeline s vícetaktovým EX:
 
 | Producent | Konzument | Pauza (cykly) |
 | :--- | :--- | :---: |
@@ -150,7 +150,7 @@ V klasické MIPS 5-stupňové pipeline *nevznikají*, protože:
 
 Vznikají *až*:
 
-- V FP pipeline s víceтаktovým EX, kde `fmul` (čeká 4 takty) může být WB pozdější než `fadd` (1 takt).
+- V FP pipeline s vícetaktovým EX, kde `fmul` (čeká 4 takty) může být WB pozdější než `fadd` (1 takt).
 - V OoO superskaláru, kde instrukce vydávají *out-of-order*.
 
 Řešení v obou případech: **přejmenování registrů** ([[renaming-rob]]).

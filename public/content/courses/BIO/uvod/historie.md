@@ -10,7 +10,7 @@ Biometrika *jako disciplína* je překvapivě stará. Lidstvo používá *fyzick
 
 * **500 let př. n. l.** — Babylonské hliněné tabulky obsahují otisky prstů jako *potvrzení* obchodních transakcí. Šlo o *primitivní podpis*, ne o systematické rozpoznávání.
 * **3000 let př. n. l.** — Čína: úředníci pečetili dokumenty otiskem prstu a inkoustu.
-* **14. století** — Persie, *Tarikh-i Jahan-Gusha* (Velká historie světa) zmiňuje použití otisků pro **verifikaci obchodních partnerů**.
+* **13. století** (≈1252–1260) — Persie, *Tarikh-i Jahan-Gusha* (Dějiny dobyvatele světa) zmiňuje použití otisků pro **verifikaci obchodních partnerů**.
 
 ## 19. století — Vědecký základ
 
@@ -27,11 +27,12 @@ Klíčové období; vznik *systematické* biometrie.
 Bratranec Charlese Darwina, statistik, polymát:
 
 * **1865** — studie o dědičnosti fyzických vlastností (*Hereditary talent and character*).
-* **1869** — spoluzakladatel *eugeniky* (kontroverzní, dnes odmítnuto).
+* **1869** — *Hereditary Genius*.
+* **1883** — zavedení pojmu *eugenika* (kontroverzní, dnes odmítnuto).
 * **1875** — zakladatel *výzkumu dvojčat*.
 * **1880** — **antropometrie** — systematické měření lidských dimenzí.
 * **1892** — *Finger Prints*, kniha, která formalizovala studie otisků prstů. Galton dokázal, že:
-  * Otisky jsou **unikátní** (probability shoda < $10^{-64}$).
+  * Otisky jsou **unikátní** (pravděpodobnost shody ≈ 1 ku 64 miliardám, ~$1.6\times10^{-11}$).
   * Otisky jsou **stálé** během života.
   * Existují klasifikovatelné **vzory** (arches, loops, whorls).
 
@@ -78,13 +79,13 @@ Skotský lékař v Japonsku — *první* navrhl **klasifikační systém otisků
 ### 1960s–1970s — Začátky automatizace
 
 * **1968** — první komerční fingerprint reader (FBI).
-* **1971** — **první článek o rozpoznávání obličeje** (Bledsoe).
-* **1976** — Goldstein-Harmon-Lesk: feature-based face recognition (manual measurements).
+* **1964–1966** — **první experimenty s rozpoznáváním obličeje** (Bledsoe, man–machine systém).
+* **1971** — Goldstein-Harmon-Lesk: feature-based face recognition (manual measurements).
 
 ### 1980s — Iris recognition
 
-* **1985** — **Leonard Flom and Aran Safir** představili koncept, že duhovka oka je jedinečná identifikační charakteristika. *Patent*.
-* **1991** — Apple QuickTake camera — early digital cameras opening face recognition era.
+* **1987** — **Leonard Flom and Aran Safir** patentovali koncept, že duhovka oka je jedinečná identifikační charakteristika (myšlenku poprvé navrhl Frank Burch již 1936). *Patent*.
+* **1994** — Apple QuickTake camera — jedna z prvních spotřebitelských digitálních kamer.
 * **1993** — **John Daugman** publikoval Daugman algorithm pro iris encoding ([[daugman]]) — dodnes standardní.
 
 ### 1990s — Komerční rozšíření

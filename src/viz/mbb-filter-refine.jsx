@@ -174,11 +174,15 @@ export default function MbbFilterRefine() {
           <text x={6} y={144} fontSize="10" fontFamily="var(--font-mono)" fill="var(--text-muted)">disjoint: <tspan fill={phase2.disjoint ? "oklch(0.65 0.16 145)" : "var(--text-faint)"}>{String(phase2.disjoint)}</tspan></text>
 
           <text x={0} y={200} fontSize="11" fontFamily="var(--font-mono)" fill="var(--text)">{PREDICATES.find(p => p.key === predicate).label}</text>
-          <rect x={0} y={206} width={180} height={42} fill="var(--bg-inset)" stroke={predResult ? "oklch(0.65 0.16 145)" : "var(--line)"} strokeWidth={predResult ? 1.4 : 0.6} />
+          <rect x={0} y={206} width={180} height={56} fill="var(--bg-inset)" stroke={predResult ? "oklch(0.65 0.16 145)" : "var(--line)"} strokeWidth={predResult ? 1.4 : 0.6} />
           <text x={6} y={224} fontSize="10" fontFamily="var(--font-mono)" fill={predResult ? "oklch(0.65 0.16 145)" : "var(--text-muted)"}>
             {predResult ? "TRUE" : "false"}
           </text>
-          <text x={6} y={240} fontSize="8.5" fontFamily="var(--font-mono)" fill="var(--text-faint)">{PREDICATES.find(p => p.key === predicate).de9im}</text>
+          <text x={6} y={228} fontSize="8.5" fontFamily="var(--font-mono)" fill="var(--text-faint)">
+            {wrapLabel(PREDICATES.find(p => p.key === predicate).de9im, 30).map((ln, i) => (
+              <tspan key={i} x={6} dy={i === 0 ? 12 : 10}>{ln}</tspan>
+            ))}
+          </text>
         </g>
 
         <text x={PAD} y={H - 6} fontSize="10" fontFamily="var(--font-mono)" fill="var(--text-muted)">drag any polygon</text>
@@ -190,6 +194,18 @@ export default function MbbFilterRefine() {
       </div>
     </div>
   );
+}
+
+function wrapLabel(text, max) {
+  const words = text.split(" ");
+  const lines = [];
+  let cur = "";
+  for (const w of words) {
+    if (cur && (cur + " " + w).length > max) { lines.push(cur); cur = w; }
+    else cur = cur ? cur + " " + w : w;
+  }
+  if (cur) lines.push(cur);
+  return lines;
 }
 
 function btn(active) {

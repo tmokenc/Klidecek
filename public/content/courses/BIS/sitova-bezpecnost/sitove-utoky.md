@@ -84,9 +84,7 @@ Run rogue DHCP server. Clients get attacker's gateway IP → MITM.
 
 ### DNS spoofing
 
-Send fake DNS response. Client uses attacker's IP for bank.com.
-
-DNSSEC mitigates if used.
+Viz dedikovaná sekce **## DNS attacks** níže.
 
 ### MITM (Man-In-The-Middle)
 
@@ -169,7 +167,7 @@ Flood network with traffic:
 - **ICMP flood**.
 - **Protocol amplification** — small request → big response. NTP, DNS, Memcached used.
 
-Memcached attack 2018: 51 000× amplification. 1.7 Tbps attacks on GitHub.
+Memcached útok 2018: 51 000× amplifikace. GitHub zasažen 1.35 Tbps (28. 2. 2018); o týden později samostatný 1.7 Tbps útok na zákazníka US poskytovatele (NETSCOUT).
 
 ### Protocol-based
 
@@ -204,7 +202,7 @@ Slow / expensive HTTP requests:
 
 Modern attacks: hundreds of Gbps now common, Tbps possible.
 
-::: viz ddos-amplification "Vyber reflector protocol (DNS 28×, NTP 556×, memcached 51200×) + velikost botnetu. Spočte celkový reflected bandwidth + srovná s historickými útoky (Mirai 1 Tbps, GitHub 1.35 Tbps)."
+::: viz ddos-amplification "Vyber reflector protocol (DNS 28×, NTP 556×, memcached 51000×) + velikost botnetu. Spočte celkový reflected bandwidth + srovná s historickými útoky (Mirai 1 Tbps, GitHub 1.35 Tbps)."
 :::
 
 ## DNS attacks

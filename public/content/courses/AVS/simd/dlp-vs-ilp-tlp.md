@@ -100,7 +100,7 @@ DLP exploit *parallel data* (vector, matrix). ILP exploit *parallel instructions
 
 ### Vektorová CPU (časový paralelismus)
 
-První masová DLP architektura — **Cray-1** (1976). Jedna funkční jednotka *pipelined*, vektorový registr (64-128 elementů). Instrukce `vadd v1, v2, v3` spustí pipeline na 64 cyklů a generuje 1 element/cyklus.
+První masová DLP architektura — **Cray-1** (1976). Jedna funkční jednotka *pipelined*, vektorový registr (64 elementů). Instrukce `vadd v1, v2, v3` spustí pipeline na 64 cyklů a generuje 1 element/cyklus.
 
 Současné vektorové CPU: **NEC SX-Aurora**, **RISC-V V-extension**. Vektorové délky proměnné (vector length register VL).
 
@@ -188,7 +188,7 @@ for (i = 0; i < N; i++)
     if (a[i] > 0) a[i] = sqrt(a[i]);
 ```
 
-Bez SIMD jen některé vlákna v warpu / lane vektoru jdou do `sqrt`. **Predikované provedení** (masked SIMD): všechny lane spočítají sqrt, ale pouze ty s predicate = true zapisují. AVX-512 a SVE mají *first-class* masking. SSE/AVX2 emulují skrz blend.
+V SIMD by jen některá lane vektoru měla jít do `sqrt`. **Predikované provedení** (masked SIMD): všechny lane spočítají sqrt, ale pouze ty s predicate = true zapisují. AVX-512 a SVE mají *first-class* masking. SSE/AVX2 emulují skrz blend.
 
 ## Speedup DLP
 

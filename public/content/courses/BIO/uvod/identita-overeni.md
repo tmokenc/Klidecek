@@ -81,7 +81,7 @@ Multi-factor *dramaticky* sníží riziko — útočník musí získat **oba** f
 
 * **Computational cost:** $O(N)$ comparisons (pro $N$ osob v databázi).
 * **Časová náročnost:** pro $N = 10^6$ a $1\,\text{ms}$ per comparison → $10^3$ sec = 17 min. Vyžaduje *paralelizaci* nebo *indexing*.
-* **Chybové míry kombinují FAR a FRR** — pravděpodobnost false match exponenciálně roste s velikostí databáze.
+* **Chybové míry kombinují FAR a FRR** — pravděpodobnost false match roste *přibližně lineárně* s velikostí databáze: $\text{FMR}_N = 1-(1-\text{FMR})^N \approx N \cdot \text{FMR}$.
 
 ### Aplikace
 

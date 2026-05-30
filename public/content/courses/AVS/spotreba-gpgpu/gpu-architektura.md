@@ -10,9 +10,9 @@ CPU je *latency-optimized*: rychlý OoO single-thread. GPU je *throughput-optimi
 
 | | CPU | GPU |
 | :--- | :--- | :--- |
-| Cores | 8-64 | 1000-10000 (cores per ALU) |
+| Cores | 8-64 | 1000-10000 (ALU lanes / CUDA cores) |
 | Single-thread perf | high (IPC 2-4) | low (in-order, simple) |
-| Cache | velký, multi-level | malý (~16 MB L2 total) |
+| Cache | velký, multi-level | malý (~40 MB L2 total) |
 | Branch prediction | sophisticated | basic / none |
 | OoO | yes | no (in-order) |
 | Memory bandwidth | 50-150 GB/s | 1000-2000 GB/s (HBM) |

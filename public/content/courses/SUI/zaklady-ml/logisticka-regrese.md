@@ -23,7 +23,6 @@ Lineární model `y(x; w) = wᵀx̃` produkuje hodnoty na `(−∞, +∞)` — n
   <g fill="var(--text-muted)" text-anchor="end" font-size="10">
     <text x="36" y="98">0</text>
     <text x="36" y="32">1</text>
-    <text x="36" y="155">−1</text>
   </g>
   <g fill="var(--text-muted)" text-anchor="middle" font-size="10">
     <text x="100" y="110">−4</text>
@@ -33,7 +32,7 @@ Lineární model `y(x; w) = wᵀx̃` produkuje hodnoty na `(−∞, +∞)` — n
     <text x="520" y="98">z</text>
   </g>
   <line x1="40" y1="30" x2="510" y2="30" stroke="var(--line)" stroke-dasharray="3 3"/>
-  <path d="M 40 153 C 200 153 230 33 510 33" stroke="var(--accent)" stroke-width="2" fill="none"/>
+  <path d="M 40 93 C 200 93 230 33 510 33" stroke="var(--accent)" stroke-width="2" fill="none"/>
   <circle cx="275" cy="62" r="3.5" fill="var(--accent)"/>
   <text x="290" y="58" font-size="10" fill="var(--text)">σ(0) = ½</text>
 </svg>
@@ -116,7 +115,7 @@ E(\mathbf{W}) = -\sum_n \sum_k t_{nk} \log P(c = k \mid \mathbf{x}_n)
 | :-- | :--: | :--: |
 | Modeluje | `p(x \| c)` + `P(c)` | `P(c \| x)` přímo |
 | Předpoklady o `x` | Gaussovské rozdělení | Žádné explicitní |
-| Počet parametrů (2D, 2 třídy) | 10 (2× μ ∈ R² + 2× Σ ∈ R^{2×2}) + 2 prior | 3 (w₀, w₁, w₂) |
+| Počet parametrů (2D, 2 třídy) | 10 (2× μ: 2 + 2× symetrická Σ: 3) + 1 prior | 3 (w₀, w₁, w₂) |
 | Decision boundary | Lineární (`Σ₁=Σ₂`) nebo kvadratická | Lineární |
 | Robustnost na špatný model | Špatně — chybný model `p(x \| c)` zhorší výsledek | Lépe — modeluje to, co potřebujeme |
 | Funguje s chybějícími featury | Ano (integrace přes chybějící) | Hůř |

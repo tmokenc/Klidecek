@@ -23,7 +23,7 @@ splňující:
 **Intuice.** V *libovolné* dostatečně dlouhé větě bezkontextového jazyka lze najít *dva* segmenty $v, x$ a *jediný* mezi-segment $w$ — tak, že $v$ a $x$ se *společně* pumpují stejným exponentem. Pumpují se *symetricky* — protože odpovídají *opakovanému neterminálu* v derivačním stromu.
 
 ::: svg "Pumping lemma pro CFG: rozklad z = uvwxy s pumpovatelnými v, x"
-<svg viewBox="0 0 540 230" font-family="ui-sans-serif, system-ui" font-size="11.5">
+<svg viewBox="0 0 540 245" font-family="ui-sans-serif, system-ui" font-size="11.5">
   <g stroke="var(--line)" stroke-width="1" fill="none">
     <line x1="270" y1="20" x2="180" y2="55"/>
     <line x1="270" y1="20" x2="360" y2="55"/>

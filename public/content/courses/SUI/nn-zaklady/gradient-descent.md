@@ -16,7 +16,7 @@ Trénování neuronové sítě = **minimalizace** loss funkce `L(θ)` přes para
 * `∇L(θ)` — vektor parciálních derivací loss podle každého parametru.
 * `α` (learning rate) — velikost kroku.
 
-Gradient ukazuje **směr nejstrmějšího nárůstu** `L`; *mínus* = sestup. S dostatečně malým `α` se *garantuje* pokles `L` v každém kroku (pro nelokálních optim funkcí). Pro nekonvexní funkce (NN) ale nepředpokládejme globální minimum.
+Gradient ukazuje **směr nejstrmějšího nárůstu** `L`; *mínus* = sestup. S dostatečně malým `α` se *garantuje* pokles `L` v každém kroku (pro diferencovatelné funkce s nenulovým gradientem; jde o lokální vlastnost). Pro nekonvexní funkce (NN) ale nepředpokládejme globální minimum.
 
 ::: svg "Gradient descent: opakované kroky ve směru proti gradientu loss funkce."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">

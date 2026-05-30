@@ -40,8 +40,8 @@ Locus může mít *různé* allele counts u různých osob — typically 5–30 
     <text x="40" y="116">Chromosome 5: D5S818, CSF1PO</text>
     <text x="40" y="130">Chromosome 7: D7S820</text>
     <text x="40" y="144">Chromosome 8: D8S1179</text>
-    <text x="40" y="158">Chromosome 10: D10S1248, TH01</text>
-    <text x="280" y="60">Chromosome 11: TH01, D11S554</text>
+    <text x="40" y="158">Chromosome 10: D10S1248</text>
+    <text x="280" y="60">Chromosome 11: TH01</text>
     <text x="280" y="74">Chromosome 12: vWA, D12S391</text>
     <text x="280" y="88">Chromosome 13: D13S317</text>
     <text x="280" y="102">Chromosome 16: D16S539</text>
@@ -92,7 +92,7 @@ To znamená:
 * Probability 1 in $10^{20}$ — there are ~$10^{10}$ humans, so virtually no chance of accidental match.
 * In court: "probability that random unrelated person has this profile is approximately 1 in N".
 
-::: viz str-profile-match "Porovnání suspect vs crime scene přes 13 CODIS lokusů; jeden nesoulad = vyloučení."
+::: viz str-profile-match "Porovnání suspect vs crime scene přes 20 CODIS lokusů; jeden nesoulad = vyloučení."
 :::
 
 ## Specifické situace

@@ -185,7 +185,7 @@ CID se může **rotovat** (NEW_CONNECTION_ID frame) pro privacy — třetí stra
 
 QUIC loss recovery je vlastní algoritmus, ale **inspirovaný TCP** ([[tcp-congestion-variants]]):
 
-- **Packet numbers nikdy nereufuzují** — narozdíl od TCP, kde retransmise má *stejné* `seq`, QUIC retransmise nese *vyšší* packet number. Lehčí odhad RTT (Karn problem zmizí).
+- **Čísla paketů se nikdy znovu nepoužívají** — narozdíl od TCP, kde retransmise má *stejné* `seq`, QUIC retransmise nese *vyšší* packet number. Lehčí odhad RTT (Karn problem zmizí).
 - **ACK ranges** — jako SACK, ale bez omezení 4 bloků.
 - **PTO** (Probe Timeout) místo RTO — agresivnější detekce ztrát.
 - **Loss detection** — *kombinace* time-based (RACK-like) a packet-threshold (3× ACK).

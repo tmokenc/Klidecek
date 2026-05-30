@@ -71,7 +71,7 @@ BLE bezpečnost se vyvíjela přes 4 hlavní verze:
 ### Legacy Pairing (BLE 4.0–4.1, 2010–2013) — SLABÉ
 
 * **Just Works** — žádná autentizace. Klíč sjednán z *0 entropie* TK (Temporary Key) = 0x000000.
-* **Passkey Entry** — 6-digit PIN (1 milión kombinací). Pairing protokol odhaluje PIN přes 5 výzev — *brute-forceable za ~5 sekund*.
+* **Passkey Entry** — 6-digit PIN (1 milión kombinací). Pairing protokol ověřuje PIN bit po bitu přes 20 výzev (1 bit za výzvu) — odposlechnutý handshake je *brute-forceable za ~5 sekund*.
 * **Out of Band (OOB)** — vyžaduje secondary channel (NFC) pro key exchange. Bezpečný, ale málo používaný.
 
 ::: viz ble-crackle "Zachyt pairing handshake, spust Crackle brute force 10^6 PIN. LE Secure Connections (BLE 4.2+) s ECDH P-256 utok znemozni."

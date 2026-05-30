@@ -10,7 +10,7 @@ Stromy jsou *rekurzivně* definované struktury — sekvenční algoritmy (DFS, 
 
 Pro neuspořádaný strom $T = (V, E)$ definujeme **orientovaný graf** $T' = (V, E')$ tak, že každou *neorientovanou* hranu $\{u, v\}$ nahradíme dvěma *orientovanými* hranami $\langle u, v \rangle$ a $\langle v, u \rangle$.
 
-**$T'$ je Eulerovský graf**: každý uzel má *sudý stupeň* (každá neorientovaná hrana přispěje +1 do degree-in i +1 do degree-out). Existuje tedy Eulerovská kružnice — orientovaná uzavřená cesta, která projde každou hranu *právě jednou*.
+**$T'$ je Eulerovský graf**: každý uzel má *degree-in = degree-out* (každá neorientovaná hrana přispěje +1 do degree-in i +1 do degree-out, takže i *celkový stupeň* je sudý). Existuje tedy Eulerovská kružnice — orientovaná uzavřená cesta, která projde každou hranu *právě jednou*.
 
 ::: svg "Strom T a jeho Eulerovský graf T' s 2(n-1) hranami"
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">

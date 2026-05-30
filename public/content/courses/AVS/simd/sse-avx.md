@@ -10,7 +10,7 @@ x86 architektura má **fixed-width SIMD**: každá generace přidala širší re
 
 | ISA | Rok | Šířka | Elementy (float32) | Použití |
 | :--- | :---: | :---: | :---: | :--- |
-| MMX | 1996 | 64-bit | 2 (integer only) | early multimedia |
+| MMX | 1996 | 64-bit | — | early multimedia (integer only): 2× int32 / 4× int16 / 8× int8 |
 | SSE | 1999 | 128-bit | 4 | první float SIMD |
 | SSE2 | 2001 | 128-bit | 4 | + double + integer |
 | SSE3, SSSE3 | 2004-06 | 128-bit | 4 | + horizontal ops |
@@ -46,7 +46,7 @@ Vektorové instrukce typed:
 
 - `_mm256_add_ps` — packed single (float32). 8 elementů.
 - `_mm256_add_pd` — packed double. 4 elementů.
-- `_mm256_add_epi32` — packed extended packed integer 32-bit. 8 elementů.
+- `_mm256_add_epi32` — extended packed integer 32-bit (epi32). 8 elementů.
 
 ::: viz simd-lane-explorer "Změň datový typ (8× f32 / 4× f64 / 8× i32 / 32× i8 …). Stejný 256-bit registr se rozdělí na jiné šíře lanes; SIMD ADD trvá 1 cyklus, skalární smyčka 8 (nebo 32)."
 :::

@@ -101,7 +101,8 @@ Webscraping má tři fáze:
     <text x="405" y="102" text-anchor="middle" fill="var(--text-muted)" font-size="9">XPath, CSS sel.</text>
   </g>
   <line x1="445" y1="80" x2="480" y2="80" stroke="var(--accent)" marker-end="url(#ws-arr)"/>
-  <text x="513" y="80" fill="var(--text-muted)" font-size="9.5">struk. data</text>
+  <text x="510" y="76" text-anchor="middle" fill="var(--text-muted)" font-size="9.5">struk.</text>
+  <text x="510" y="88" text-anchor="middle" fill="var(--text-muted)" font-size="9.5">data</text>
   <defs>
     <marker id="ws-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
       <path d="M0 0L10 5L0 10z" fill="var(--accent)"/>

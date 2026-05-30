@@ -4,7 +4,7 @@ title: FMR, FNMR, EER a další míry
 
 # FMR, FNMR, EER a další míry
 
-Vedle základních [FAR/FRR]([[far-frr]]) má biometrie celou rodinu **specializovaných** chybových měr. Některé pracují na úrovni *single comparison* (FMR/FNMR), jiné agregují přes celou operating curve (EER, ZeroFMR). Znalost rozdílů je klíčová pro správnou interpretaci výsledků.
+Vedle základních [[far-frr|FAR/FRR]] má biometrie celou rodinu **specializovaných** chybových měr. Některé pracují na úrovni *single comparison* (FMR/FNMR), jiné agregují přes celou operating curve (EER, ZeroFMR). Znalost rozdílů je klíčová pro správnou interpretaci výsledků.
 
 ## FMR — False Match Rate
 
@@ -103,7 +103,7 @@ Použití: scenarios, kde *jedna* chyba je nepřípustná.
 * **High-security access** — FMR = 0; ZeroFMR udává, jak často legitimní uživatel selže.
 * **Forensic identification** — FNMR = 0; ZeroFNMR udává, jak často je false positive.
 
-## d' (d-prime) — Bhattacharyya distance
+## d' (d-prime) — index oddělitelnosti (signal-detection sensitivity index)
 
 Měří **separovatelnost** distribucí genuine a impostor scores:
 

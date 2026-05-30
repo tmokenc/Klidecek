@@ -138,8 +138,7 @@ Pokuta: *serializuje* tu část kódu. Pokud `ordered` blok je drahý → no spe
 
 Vynutí *globální* viditelnost. Implementuje:
 
-- Memory barrier (`mfence` na x86).
-- Cache line invalidation pro shared cache lines.
+- Memory barrier (`mfence` na x86), který zajistí pořadí load/store a vyprázdní dočasný pohled vlákna do koherentní paměti. Invalidaci řádků mezi jádry řeší automaticky HW koherence, ne `flush`.
 
 Implicit flush u: barrier, critical (enter + exit), atomic, lock (enter + exit), parallel region entry/exit.
 

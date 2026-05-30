@@ -165,7 +165,7 @@ Formal documentation. Each row:
 | ID | Asset | Threat | Vulnerability | Likelihood | Impact | Risk | Treatment | Owner | Status |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | R-001 | Customer DB | SQL injection | unvalidated input | High | High | Critical | Mitigate (WAF + code review) | DevOps lead | In progress |
-| R-002 | Server room | Fire | no fire suppression | Low | High | Medium | Mitigate (install Halon system) | Facilities | Done |
+| R-002 | Server room | Fire | no fire suppression | Low | High | Medium | Mitigate (install clean-agent suppression — FM-200 / Novec 1230) | Facilities | Done |
 | R-003 | Email | Phishing | user susceptibility | High | Medium | High | Mitigate (training + email filter) | IT Manager | Ongoing |
 
 Pravidelně review — *minimum quarterly*, ideally monthly pro top risks.

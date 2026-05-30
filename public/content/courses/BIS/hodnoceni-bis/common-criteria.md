@@ -187,7 +187,7 @@ Despite limits, CC zůstává standardem pro government a critical infrastructur
 | Red Hat Enterprise Linux 9 | EAL 4+ | enterprise |
 | Cisco ASA Firewall | EAL 4+ | network security |
 | MUSCLE smart card | EAL 5+ | smart card |
-| seL4 microkernel | EAL 6+ (formal proof) | high-assurance embedded |
+| seL4 microkernel | formálně verifikován (assurance nad rámec CC EAL 7; není CC EAL certifikát) | high-assurance embedded |
 | Some military OS | EAL 7 | classified |
 
 ## Vztah k FIPS 140

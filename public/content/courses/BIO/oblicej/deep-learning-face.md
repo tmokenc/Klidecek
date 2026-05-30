@@ -55,7 +55,7 @@ Obecný workflow:
 * **3D face alignment** preprocessing.
 * **9-layer CNN** + **fully connected** layer.
 * Trained on **4 million** Facebook images.
-* **97.35 %** accuracy on LFW — first to exceed human-level (97.5 %).
+* **97.35 %** accuracy on LFW — closing the gap to human-level (~97.5 %).
 
 ### DeepID series (CUHK, 2014–2015)
 
@@ -72,7 +72,7 @@ Obecný workflow:
 * **Inception-based CNN**.
 * **Triplet loss** — explicit metric learning.
 * **128-dimensional** L2-normalized embedding.
-* Trained on **260M** images, **8M** identities.
+* Trained on **~100–200M** images, **~8M** identities.
 * **99.63 %** accuracy on LFW.
 
 #### Triplet loss

@@ -93,7 +93,7 @@ export default function ReplacementPolicyRace() {
   const policies = ["LRU", "FIFO", "PLRU", "random"];
   const results = policies.map(p => sim(p, trace));
 
-  const W = 580, H = 280;
+  const W = 580, H = 296;
   const cellW = Math.min(36, (W - 100) / trace.length);
 
   return (
@@ -143,8 +143,10 @@ export default function ReplacementPolicyRace() {
           );
         })}
 
-        <text x={20} y={H - 10} fontSize="9.5" fill="var(--text-faint)">
+        <text x={20} y={H - 22} fontSize="9.5" fill="var(--text-faint)">
           Bélády anomaly: u FIFO se zvětšením cache může vzrůst počet miss-ů (paradox).
+        </text>
+        <text x={20} y={H - 10} fontSize="9.5" fill="var(--text-faint)">
           Random nemá patologii — překvapivě konkurenční při velké asociativitě.
         </text>
       </svg>

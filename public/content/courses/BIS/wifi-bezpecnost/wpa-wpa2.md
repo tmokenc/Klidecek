@@ -13,7 +13,7 @@ Cíl: zlepšit WEP *bez* nutnosti new hardware. Use *existing* WEP hardware with
 ### Components
 
 - **TKIP** (Temporal Key Integrity Protocol) — replace WEP RC4 keystream generation.
-- **MIC** (Michael Integrity Code) — replace CRC-32 with cryptographic MAC.
+- **MIC** (Message Integrity Code), computed by the **Michael** algorithm — replaces CRC-32 with cryptographic MAC.
 - **802.1X** authentication — enterprise auth via RADIUS.
 - **PSK** mode — pre-shared key for home.
 
@@ -155,17 +155,9 @@ Patched: client + AP firmware updates.
 ::: viz wpa2-handshake-krack "Step skrz 4-way handshake (ANonce, SNonce, GTK, ACK). Po install klíče poslyj data → nonce inkrementuje. Pak ⚠ Replay Msg 3 → PTK reinstall → nonce reset → keystream reuse."
 :::
 
-### Evil twin / Rogue AP
+### Evil twin / Rogue AP a WPS
 
-Create fake AP with same SSID. Clients auto-connect (especially open networks or weak setups).
-
-Defense: 802.11w (Protected Management Frames), client certificate validation.
-
-### WPS — Wi-Fi Protected Setup
-
-PIN-based "easy setup". 8-digit PIN, but *split* checking. Brute-force in <10 000 attempts (Reaver tool 2011).
-
-Most APs disable WPS in newer firmware. Still found on some old devices.
+Fake AP se stejným SSID (evil twin) i brute-force WPS PINu (split checking, ~11 000 pokusů, Reaver) — plné zpracování viz [[wifi-utoky]].
 
 ## WPA2-Enterprise + EAP
 

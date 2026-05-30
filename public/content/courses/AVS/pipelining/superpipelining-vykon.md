@@ -51,7 +51,7 @@ T_5 = (5 + 99) \cdot 5 = 520 \text{ ns}, \quad R = \frac{100}{520} = 192{,}3 \te
 $$
 
 $$
-S_{100} = \frac{100 \cdot 5}{(5 + 99) \cdot 5/20} = \frac{500}{130} \cdot \frac{20}{5} \cdot \dots = 3{,}84
+S_{100} = \frac{N \cdot t_1}{T_5} = \frac{100 \cdot 20}{520} = 3{,}85
 $$
 
 Pro $N \to \infty$: $S_\infty = k = 5$ (ideálně, bez stallů).

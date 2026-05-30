@@ -54,7 +54,7 @@ Stejně pro hash: vygenerujeme $r$ vstupů, pravděpodobnost kolize:
 \Pr[\text{kolize}] \approx 1 - e^{-r^2 / (2 \cdot 2^n)}.
 :::
 
-Pro $r = 2^{n/2}$ je pravděpodobnost $\approx 0{,}39$. Při $r = 2 \cdot 2^{n/2}$ se zvýší na ~63%. **Birthday attack** najde kolizi v $O(2^{n/2})$ čase a paměti.
+Pro $r = 2^{n/2}$ je pravděpodobnost $\approx 0{,}39$. Při $r = 2 \cdot 2^{n/2}$ se zvýší na ~86%. **Birthday attack** najde kolizi v $O(2^{n/2})$ čase a paměti.
 
 ::: viz birthday-paradox "Slider pro velikost hashe (počet bitů). Tlačítko „Empirický pokus" generuje náhodné hashe dokud nenajde kolizi — počet zachycený před kolizí je řádově √N."
 :::
@@ -144,7 +144,7 @@ Standardní konstrukce hashovací funkce z **kompresní funkce** $f: \{0,1\}^{n+
 
 * 160-bit výstup, Merkle-Damgård (rozšíření MD5).
 * **Prolomena:** Stevens, Bursztein, Karpman 2017 — *SHAttered*, praktická kolize PDF dokumentů. 110 GPU-let.
-* **Vyřazeno** z TLS, SSH, PGP. Stále v Git (legacy), Bitcoin (v některých částech).
+* **Vyřazeno** z TLS, SSH, PGP. Stále v Git (legacy).
 
 ### SHA-2 (NIST 2001)
 
@@ -224,7 +224,7 @@ Vítěz NIST SHA-3 soutěže (2007–2012). **Není** Merkle-Damgård — altern
 
 ```bash
 $ sha256sum important_file.tar
-d8e8fca2dc0f896fd7cb4cb0031ba249  important_file.tar
+a948904f2f0f479b8f8197694b30184b0d2ed1c1cd2a1ec0fb85d299a192a447  important_file.tar
 ```
 
 Útočník, který modifikuje soubor, nezvládne najít kolizi (pre-image). Pro SHA-256 by potřeboval $2^{256}$ pokusů.

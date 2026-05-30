@@ -19,7 +19,7 @@ Tři klíčové pojmy se v této definici opakují: *prozrazení*, *modifikace*,
 Tři základní cíle bezpečnosti IS:
 
 ::: svg "CIA triáda — Confidentiality, Integrity, Availability"
-<svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
+<svg viewBox="0 0 540 206" font-family="ui-sans-serif, system-ui" font-size="11">
   <polygon points="270,30 80,170 460,170" fill="none" stroke="var(--accent)" stroke-width="2"/>
   <g fill="var(--text)" text-anchor="middle" font-weight="600">
     <text x="270" y="22">CIA</text>
@@ -81,7 +81,7 @@ Některé modely rozšiřují CIA o další vlastnosti:
 
 - **Authentication** — ověření identity (kdo přistupuje?).
 - **Authorization** — co může daný subjekt dělat?
-- **Accountability** (auditability) — kdo udělal co? — audit logs.
+- **Accountability** (auditability) — kdo udělal co? — audit logs. V AAA tomu odpovídá **Accounting** (zaznamenávání akcí/využití prostředků), které accountability zajišťuje.
 - **Non-repudiation** — subjekt nemůže popřít, že provedl akci. Pomocí digital signature.
 - **Privacy** — kontrola nad osobními údaji (GDPR).
 

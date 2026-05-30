@@ -236,13 +236,13 @@ Distribuované učení na *privátních* datech.
 * Server *agreguje*.
 * Data **neopouštějí** zařízení.
 
-Použití: Gboard (Google klávesnice), iOS lépe predictive text.
+Použití: Gboard (Google klávesnice), prediktivní psaní v iOS (Apple QuickType).
 
 ## Co může selhat
 
 * **Negative transfer** — pre-training data se *velmi liší* od target → model se zhorší.
 * **Catastrophic forgetting** — fine-tuning *přepíše* užitečné předchozí features. Zachování přes EWC, replay buffer.
-* **Over-augmentation** — pokud augmentace *mění* sémantiku (např. horizontal flip mizí informaci o stranách), label-noise → horší výsledek.
+* **Over-augmentation** — pokud augmentace *mění* sémantiku (např. horizontální flip zničí informaci o stranách (levá/pravá)), label-noise → horší výsledek.
 
 ::: link "Goodfellow et al.: Deep Learning, kap. 15 — Representation Learning" "https://www.deeplearningbook.org/"
 :::

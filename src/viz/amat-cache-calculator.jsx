@@ -108,9 +108,12 @@ export default function AmatCacheCalculator() {
           AMAT = latL1
         </text>
         <text x={300} y={242} fontSize="9.5" fill="var(--text)" fontFamily="ui-monospace, monospace">
-          + missL1 × (latL2 + missL2 × (latL3 + missL3 × latDram))
+          + missL1 × (latL2 + missL2
         </text>
-        <text x={300} y={270} fontSize="10.5" fill="var(--accent)" fontFamily="ui-monospace, monospace" fontWeight="600">
+        <text x={300} y={256} fontSize="9.5" fill="var(--text)" fontFamily="ui-monospace, monospace">
+          {"  "}× (latL3 + missL3 × latDram))
+        </text>
+        <text x={300} y={280} fontSize="10.5" fill="var(--accent)" fontFamily="ui-monospace, monospace" fontWeight="600">
           = {amat.toFixed(2)} cyklů
         </text>
 

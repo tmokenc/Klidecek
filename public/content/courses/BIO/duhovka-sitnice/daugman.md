@@ -160,7 +160,7 @@ HD = \frac{1}{N} \sum_{i=1}^N (a_i \oplus b_i) \cdot m_i
 ### Genuine vs. impostor distribution
 
 * **Genuine (same eye, different captures):** HD ~ 0.10 (mean), σ ~ 0.05.
-* **Impostor (different eyes):** HD ~ 0.50 (mean), σ ~ 0.015.
+* **Impostor (different eyes):** HD ~ 0.50 (mean), σ ~ 0.032.
 
 **Extreme separation** — distribuce se prakticky *nepřekrývají*. Daugman ([*Probing the Uniqueness and Randomness of IrisCodes* 2006](https://www.cl.cam.ac.uk/~jgd1000/proceedings.pdf)) odhadl FAR < $10^{-12}$ pro HD < 0.30.
 

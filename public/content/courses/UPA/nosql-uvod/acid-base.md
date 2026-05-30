@@ -17,7 +17,7 @@ Akronym **BASE** (Brewer 2000) představuje filozoficky opačný přístup než 
 Příklad: na Facebooku napíšete komentář a kamarád ho hned uvidí na svém timeline. Ale když ho ihned smažete a kamarád znovu načte stránku, *může* komentář ještě vidět (jen několik sekund, než se smazání propaguje). Toto je *eventual consistency* — žádný uživatel není blokován, ale data jsou na okamžik nekonzistentní.
 
 ::: svg "Eventual consistency: zápis na uzel A se propaguje na uzly B a C asynchronně. Mezi T1 a T3 mohou klienti vidět různé hodnoty."
-<svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
+<svg viewBox="0 0 540 226" font-family="ui-sans-serif, system-ui" font-size="11">
   <g>
     <text x="50" y="30" fill="var(--text)" font-weight="600">T1: Write x=5 na uzel A</text>
     <circle cx="100" cy="60" r="22" fill="var(--accent)" stroke="var(--accent)" stroke-width="2"/>
@@ -76,7 +76,7 @@ Pro každou operaci lze nastavit, kolik replik musí potvrdit:
 * `QUORUM` — většina (R+1 ze 2R+1 replik); silnější garance.
 * `ALL` — všechny repliky; nejsilnější, ale jeden výpadek znamená neúspěch.
 
-Pro **read R + write W ≥ N** (kde N je počet replik) platí *silná konzistence* (Cassandra konfigurovatelná na úrovni dotazu).
+Pro **read R + write W > N** (kde N je počet replik) platí *silná konzistence* (Cassandra konfigurovatelná na úrovni dotazu).
 
 ### Read-your-writes consistency
 
@@ -100,7 +100,7 @@ Když data divergují, kdy a jak je sjednotit?
 * **Conflict resolution** — když dva zápisy vytvořily nekonzistentní hodnoty, kdo vyhraje?
   * **Last-write-wins** (LWW) — newest timestamp. Riziko ztráty zápisu.
   * **CRDTs** (Conflict-free Replicated Data Types) — datové typy, jejichž operace komutují (sets, counters, registers). Bez nutnosti řešení konfliktů.
-  * **Vector clocks** — verzování + aplikační rozhodnutí (DynamoDB).
+  * **Vector clocks** — verzování + aplikační rozhodnutí (Dynamo, Riak).
 
 ## Kdy ACID, kdy BASE
 

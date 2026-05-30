@@ -99,7 +99,7 @@ Předchozí kapitola ([[broadcast-redukce]]) zavedla redukci — agregaci $\bigo
   <g stroke="var(--text)" stroke-width="1" fill="var(--bg-card)">
     <rect x="344" y="140" width="40" height="22"/>
   </g>
-  <text x="364" y="154" text-anchor="middle" font-weight="600">25</text>
+  <text x="364" y="154" text-anchor="middle" font-weight="600" fill="var(--text)">25</text>
   <text x="425" y="154" fill="var(--text-muted)" font-size="9">REDUCE</text>
 </svg>
 :::

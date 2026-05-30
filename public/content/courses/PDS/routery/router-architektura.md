@@ -148,7 +148,7 @@ Table   ←→   Processor (RCP)
 
 Možné příčiny neúspěšného zpracování:
 
-- *Hlavička L3 nevalidní* — drop, ICMP `Parameter Problem`.
+- *Hlavička L3 nevalidní* (špatný checksum / verze / délka) — paket se tiše zahodí (silent discard), bez ICMP. ICMP `Parameter Problem` se posílá jen u specifické chybné položky hlavičky (např. vadné IP volby).
 - *TTL = 0* — drop, ICMP `Time Exceeded`.
 - *No route to destination* — drop, ICMP `Destination Unreachable`.
 - *Output queue full* — drop (tail drop, RED).

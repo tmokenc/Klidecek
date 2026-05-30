@@ -30,13 +30,13 @@ Jinými slovy — *forward propagation* pravděpodobnostní masy podle hran graf
 <svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="11">
   <g>
     <circle cx="100" cy="60" r="22" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="100" y="64" text-anchor="middle">a</text>
+    <text x="100" y="64" text-anchor="middle" fill="var(--text)">a</text>
     <text x="100" y="32" text-anchor="middle" fill="var(--text-muted)" font-size="10">t⁽ᵏ⁻¹⁾(a)</text>
     <circle cx="100" cy="130" r="22" fill="var(--bg-inset)" stroke="var(--accent)"/>
-    <text x="100" y="134" text-anchor="middle">b</text>
+    <text x="100" y="134" text-anchor="middle" fill="var(--text)">b</text>
     <text x="100" y="170" text-anchor="middle" fill="var(--text-muted)" font-size="10">t⁽ᵏ⁻¹⁾(b)</text>
     <circle cx="350" cy="95" r="28" fill="var(--bg-inset)" stroke="var(--accent-line)" stroke-width="2"/>
-    <text x="350" y="99" text-anchor="middle">s</text>
+    <text x="350" y="99" text-anchor="middle" fill="var(--text)">s</text>
     <path d="M 122 60 L 322 90" stroke="var(--line-strong)" fill="none" marker-end="url(#arrT)"/>
     <text x="220" y="65" fill="var(--text-muted)" text-anchor="middle">P(a, s)</text>
     <path d="M 122 130 L 322 100" stroke="var(--line-strong)" fill="none" marker-end="url(#arrT)"/>

@@ -37,7 +37,7 @@ export default function HofPipeline() {
         ))}
       </div>
 
-      <svg viewBox="0 0 540 220" style={{ width: "100%", maxWidth: 600, background: "var(--bg-inset)", borderRadius: 6 }}>
+      <svg viewBox="0 0 580 220" style={{ width: "100%", maxWidth: 600, background: "var(--bg-inset)", borderRadius: 6 }}>
         <defs>
           <marker id="aHP" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
             <path d="M0 0 L8 4 L0 8 z" fill="var(--accent)" />
@@ -58,8 +58,8 @@ export default function HofPipeline() {
             {i < arr.length - 1 && <line x1={s.x + 90} y1="90" x2={arr[i + 1].x} y2="90" stroke="var(--accent)" strokeWidth="1.2" markerEnd="url(#aHP)" />}
           </g>
         ))}
-        <text x="270" y="170" fontSize="10" textAnchor="middle" fill="var(--text-muted)">žádný mezikrok nealokuje celý seznam — laziness pulluje element po elementu</text>
-        <text x="270" y="190" fontSize="10" textAnchor="middle" fill="var(--text-muted)">consumer rozhoduje, kolik prvků se skutečně vyhodnotí (sum = vše, head = první)</text>
+        <text x="290" y="170" fontSize="10" textAnchor="middle" fill="var(--text-muted)">žádný mezikrok nealokuje celý seznam — laziness pulluje element po elementu</text>
+        <text x="290" y="190" fontSize="10" textAnchor="middle" fill="var(--text-muted)">consumer rozhoduje, kolik prvků se skutečně vyhodnotí (sum = vše, head = první)</text>
       </svg>
 
       <div style={{ background: "var(--bg-inset)", padding: 10, borderRadius: 6 }}>

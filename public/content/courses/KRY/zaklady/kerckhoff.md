@@ -8,7 +8,7 @@ Dvě teoretická tvrzení tvoří filozofický rám moderní kryptografie. **Ker
 
 ## Kerckhoffův princip
 
-V devíti pravidlech, která Auguste Kerckhoffs publikoval v *Journal des sciences militaires* (1883), je pro nás stěžejní pravidlo 2:
+V šesti pravidlech, která Auguste Kerckhoffs publikoval v *Journal des sciences militaires* (1883), je pro nás stěžejní pravidlo 2:
 
 > *"Il faut qu'il n'exige pas le secret, et qu'il puisse sans inconvénient tomber entre les mains de l'ennemi."*
 >

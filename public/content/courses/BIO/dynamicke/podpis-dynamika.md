@@ -198,7 +198,7 @@ DTW(s_1, s_2) = \min \sum_{i, j} d(s_1[i], s_2[j])
 
 ## Performance
 
-NIST **SVC2004** (Signature Verification Competition):
+**SVC2004** (First International Signature Verification Competition, organizovaná HKUST, ICBA 2004):
 
 * **Best systems:** EER ~3 % for skilled forgery.
 * **Random forgery:** EER < 0.5 %.

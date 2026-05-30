@@ -96,7 +96,7 @@ Obrana: **constant-time** implementace. AES-NI je inherentně constant-time (har
 
 ### Power analysis (SPA, DPA)
 
-Kogan-Jaffe-Jun (1999) zavedli *Differential Power Analysis* — měření spotřeby čipové karty během šifrování odhalí klíč. Funguje proti AES, DES, RSA bez ochrany.
+Kocher-Jaffe-Jun (1999) zavedli *Differential Power Analysis* — měření spotřeby čipové karty během šifrování odhalí klíč. Funguje proti AES, DES, RSA bez ochrany.
 
 Obrana: **masking** (sdílení tajné hodnoty mezi nezávislé pozorovatelné stavy), randomized clock, dummy operations. Standardní v certifikovaných smartcard implementacích (Common Criteria EAL5+).
 

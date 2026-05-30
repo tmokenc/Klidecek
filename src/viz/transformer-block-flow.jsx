@@ -43,8 +43,8 @@ export default function TransformerBlockFlow() {
         </span>
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", display: "block", maxWidth: 600 }}>
-        <rect width={W} height={H} fill="var(--bg-inset)" />
+      <svg viewBox={`-20 0 ${W + 20} ${H}`} style={{ width: "100%", display: "block", maxWidth: 600 }}>
+        <rect x={-20} width={W + 20} height={H} fill="var(--bg-inset)" />
         {/* Vertical stack of stages */}
         {STAGES.map((s, i) => {
           const yPos = 20 + i * 46;

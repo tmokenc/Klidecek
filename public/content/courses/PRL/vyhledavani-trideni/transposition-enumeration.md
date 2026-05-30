@@ -124,7 +124,7 @@ počátek:   4   3   1   2
 
 Po jedné iteraci liché + jedné sudé se každá *inverze* může posunout nanejvýš o 1 v dobrém směru. Maximální vzdálenost inverze v $n$-prvkové permutaci je $n - 1$. Tedy $\lceil n/2 \rceil$ iterací (každá liché + sudé) stačí.
 
-Algoritmus je *paralelní bubblesort* (Knuth: *„Knuth's sort"*). Pro hardware orientované řadicí sítě je *standardní* (snadno implementovatelný v silikonu).
+Algoritmus je *paralelní obdoba bubble sortu* (původně Habermann, 1972; znám též jako *brick sort* / *parity sort*). Pro hardware orientované řadicí sítě je *standardní* (snadno implementovatelný v silikonu).
 
 ## Enumeration Sort
 

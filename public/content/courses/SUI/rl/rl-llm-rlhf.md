@@ -232,7 +232,7 @@ Podobné pipeline s vlastními variantami.
 
 ## Otevřené problémy
 
-* **Sycofancy** — model přitakává uživateli, místo aby řekl pravdu (Anthropic identified, 2023).
+* **Sycophancy** — model přitakává uživateli, místo aby řekl pravdu (Anthropic identified, 2023).
 * **Hallucination** stále persistentní.
 * **Jailbreaks** — speciální prompty obcházejí safety training.
 * **Long-horizon planning** — RL pro mnoho-krokové úkoly stále problém.

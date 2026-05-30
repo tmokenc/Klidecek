@@ -161,7 +161,7 @@ $\stackrel{2}{\equiv}\ = \stackrel{1}{\equiv}$ — stabilita. Tedy $\equiv = \{\
 **Konstrukce výsledného automatu.** $Q' = \{[A], [B], [C]\}$, kde $[A] = \{A, F\}$, $[B] = \{B, E\}$, $[C] = \{C, D\}$.
 
 ::: svg "Minimální DKA: tři stavy"
-<svg viewBox="0 0 540 130" font-family="ui-sans-serif, system-ui" font-size="11.5">
+<svg viewBox="0 0 540 136" font-family="ui-sans-serif, system-ui" font-size="11.5">
   <defs>
     <marker id="aMin" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
       <path d="M0 0 L8 4 L0 8 z" fill="var(--accent)"/>

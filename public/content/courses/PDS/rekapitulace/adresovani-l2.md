@@ -21,7 +21,7 @@ V *half-duplex* Ethernetu se na sdílené médium aplikuje **CSMA/CD** (*Carrier
 2. **Multiple Access** — pokud je klid, začne vysílat.
 3. **Collision Detection** — pokud detekuje současné vysílání jiného uzlu → *backoff* (random čekání), opakuje pokus.
 
-V dnešní switchované síti je každý port samostatná full-duplex doména, takže k *kolizím nedochází*. CSMA/CD zůstává jen pro WLAN (kde je modifikace CSMA/CA — collision *avoidance*, viz [[prepinac-uvod]]).
+V dnešní switchované síti je každý port samostatná full-duplex doména, takže k *kolizím nedochází* (viz [[prepinac-uvod]]). CSMA/CD je tak dnes prakticky obsoletní. Bezdrátové sítě (WLAN, 802.11) místo detekce kolizí používají **CSMA/CA** — collision *avoidance*, protože detekci kolizí na rádiovém médiu nelze spolehlivě provést.
 
 ## MAC adresa — EUI-48
 

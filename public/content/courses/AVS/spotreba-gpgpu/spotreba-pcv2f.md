@@ -86,7 +86,7 @@ Intel Core i9-13900K (24-core Raptor Lake, 2022):
 
 - Base: 125 W TDP.
 - "Maximum Turbo" power: 253 W.
-- Energy per instruction: ~0.1 nJ (200 W / 2 × 10⁹ insts/s × 32-core threading).
+- Energy per instruction: ~3 nJ (200 W / (32 threads × 2 × 10⁹ insts/s)).
 
 AMD Ryzen 9 7950X (16-core Zen 4): 170 W TDP, 230 W peak.
 

@@ -13,7 +13,7 @@ Tradiční Jakarta EE model. Server běží jako samostatný proces a aplikace (
   <rect x="160" y="20" width="220" height="100" rx="8" fill="oklch(0.62 0.14 142 / 0.15)" stroke="oklch(0.62 0.14 142)"/>
   <text x="270" y="38" text-anchor="middle" font-size="11" font-weight="600" fill="oklch(0.40 0.14 142)">Application server</text>
   <rect x="180" y="55" width="180" height="40" rx="4" fill="var(--bg-card)" stroke="oklch(0.62 0.14 142)" stroke-width="0.8"/>
-  <text x="270" y="78" text-anchor="middle" font-size="11" font-weight="500">Jakarta EE runtime (full)</text>
+  <text x="270" y="78" text-anchor="middle" font-size="11" font-weight="500" fill="var(--text)">Jakarta EE runtime (full)</text>
   <rect x="305" y="32" width="60" height="18" rx="3" fill="var(--bg-card)" stroke="var(--line-strong)"/>
   <text x="335" y="44" text-anchor="middle" font-size="9" fill="var(--text-muted)">Configuration</text>
   <line x1="20" y1="70" x2="158" y2="70" stroke="var(--text-muted)" stroke-width="1.2" marker-end="url(#na)"/>
@@ -23,11 +23,11 @@ Tradiční Jakarta EE model. Server běží jako samostatný proces a aplikace (
   <ellipse cx="510" cy="78" rx="15" ry="22" fill="oklch(0.62 0.14 200 / 0.30)" stroke="oklch(0.62 0.14 200)" stroke-width="0.8"/>
   <text x="510" y="120" text-anchor="middle" font-size="10" fill="var(--text-muted)">DB</text>
   <rect x="180" y="145" width="60" height="45" rx="4" fill="oklch(0.65 0.18 22 / 0.30)" stroke="oklch(0.65 0.18 22)"/>
-  <text x="210" y="172" text-anchor="middle" font-size="10" font-weight="500">app1.war</text>
+  <text x="210" y="172" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">app1.war</text>
   <rect x="250" y="145" width="60" height="45" rx="4" fill="oklch(0.65 0.18 22 / 0.30)" stroke="oklch(0.65 0.18 22)"/>
-  <text x="280" y="172" text-anchor="middle" font-size="10" font-weight="500">app2.war</text>
+  <text x="280" y="172" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">app2.war</text>
   <rect x="320" y="145" width="60" height="45" rx="4" fill="oklch(0.65 0.18 22 / 0.30)" stroke="oklch(0.65 0.18 22)"/>
-  <text x="350" y="172" text-anchor="middle" font-size="10" font-weight="500">app3.war</text>
+  <text x="350" y="172" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">app3.war</text>
   <line x1="210" y1="145" x2="210" y2="120" stroke="var(--text-muted)" stroke-width="1" marker-end="url(#na)"/>
   <line x1="280" y1="145" x2="280" y2="120" stroke="var(--text-muted)" stroke-width="1" marker-end="url(#na)"/>
   <line x1="350" y1="145" x2="350" y2="120" stroke="var(--text-muted)" stroke-width="1" marker-end="url(#na)"/>
@@ -52,20 +52,20 @@ Server se spouští **společně s aplikací**. Aplikace nese pouze část konfi
   <rect x="160" y="20" width="220" height="80" rx="8" fill="oklch(0.62 0.14 142 / 0.15)" stroke="oklch(0.62 0.14 142)"/>
   <text x="270" y="38" text-anchor="middle" font-size="11" font-weight="600" fill="oklch(0.40 0.14 142)">Application server</text>
   <rect x="180" y="48" width="180" height="40" rx="4" fill="var(--bg-card)" stroke="oklch(0.62 0.14 142)" stroke-width="0.8"/>
-  <text x="270" y="72" text-anchor="middle" font-size="10.5" font-weight="500">Jakarta EE runtime (web profile)</text>
+  <text x="270" y="72" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--text)">Jakarta EE runtime (web profile)</text>
   <line x1="20" y1="60" x2="158" y2="60" stroke="var(--text-muted)" stroke-width="1.2" marker-end="url(#nb)"/>
   <text x="90" y="52" text-anchor="middle" font-size="11" font-weight="600" fill="var(--accent)">HTTP</text>
   <line x1="382" y1="60" x2="500" y2="60" stroke="var(--text-muted)" stroke-width="1.2" marker-end="url(#nb)"/>
   <ellipse cx="510" cy="60" rx="15" ry="18" fill="oklch(0.62 0.14 200 / 0.30)" stroke="oklch(0.62 0.14 200)" stroke-width="0.8"/>
   <text x="510" y="100" text-anchor="middle" font-size="10" fill="var(--text-muted)">DB</text>
   <rect x="200" y="135" width="65" height="55" rx="4" fill="oklch(0.65 0.18 22 / 0.30)" stroke="oklch(0.65 0.18 22)"/>
-  <text x="232" y="153" text-anchor="middle" font-size="10" font-weight="500">app1.war</text>
+  <text x="232" y="153" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">app1.war</text>
   <rect x="206" y="158" width="53" height="14" fill="oklch(0.62 0.14 22 / 0.35)"/>
   <text x="232" y="168" text-anchor="middle" font-size="9" fill="var(--text)">Libraries</text>
   <rect x="206" y="172" width="53" height="14" fill="var(--bg-card)" stroke="var(--line)" stroke-width="0.5"/>
   <text x="232" y="182" text-anchor="middle" font-size="8" fill="var(--text-muted)">Config</text>
   <rect x="285" y="135" width="65" height="55" rx="4" fill="oklch(0.65 0.18 22 / 0.30)" stroke="oklch(0.65 0.18 22)"/>
-  <text x="317" y="153" text-anchor="middle" font-size="10" font-weight="500">app2.war</text>
+  <text x="317" y="153" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">app2.war</text>
   <rect x="291" y="158" width="53" height="14" fill="oklch(0.62 0.14 22 / 0.35)"/>
   <text x="317" y="168" text-anchor="middle" font-size="9" fill="var(--text)">Libraries</text>
   <rect x="291" y="172" width="53" height="14" fill="var(--bg-card)" stroke="var(--line)" stroke-width="0.5"/>
@@ -92,11 +92,11 @@ Aplikace, runtime knihovny a konfigurace tvoří **jeden spustitelný balík** (
   <rect x="160" y="20" width="240" height="170" rx="8" fill="oklch(0.62 0.14 142 / 0.15)" stroke="oklch(0.62 0.14 142)"/>
   <text x="280" y="38" text-anchor="middle" font-size="11" font-weight="600" fill="oklch(0.40 0.14 142)">Microservice (executable JAR)</text>
   <rect x="180" y="50" width="200" height="22" rx="3" fill="var(--bg-card)" stroke="oklch(0.62 0.14 142)" stroke-width="0.8"/>
-  <text x="280" y="65" text-anchor="middle" font-size="10" font-weight="500">Jakarta EE runtime (MicroProfile)</text>
+  <text x="280" y="65" text-anchor="middle" font-size="10" font-weight="500" fill="var(--text)">Jakarta EE runtime (MicroProfile)</text>
   <rect x="180" y="78" width="200" height="38" rx="3" fill="oklch(0.65 0.18 22 / 0.30)" stroke="oklch(0.65 0.18 22)"/>
-  <text x="280" y="101" text-anchor="middle" font-size="11" font-weight="500">application</text>
+  <text x="280" y="101" text-anchor="middle" font-size="11" font-weight="500" fill="var(--text)">application</text>
   <rect x="180" y="120" width="200" height="22" rx="3" fill="oklch(0.62 0.14 22 / 0.30)" stroke="oklch(0.62 0.14 22)" stroke-width="0.5"/>
-  <text x="280" y="135" text-anchor="middle" font-size="10">Libraries</text>
+  <text x="280" y="135" text-anchor="middle" font-size="10" fill="var(--text)">Libraries</text>
   <rect x="180" y="150" width="200" height="24" rx="3" fill="var(--bg-card)" stroke="var(--line)" stroke-width="0.5"/>
   <text x="280" y="165" text-anchor="middle" font-size="10" fill="var(--text-muted)">externí Configuration (env)</text>
   <line x1="20" y1="80" x2="158" y2="80" stroke="var(--text-muted)" stroke-width="1.2" marker-end="url(#nc)"/>

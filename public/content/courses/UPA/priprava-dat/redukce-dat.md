@@ -199,60 +199,7 @@ Méně časté události vzorkujeme s vyšší pravděpodobností. Použití: fr
 
 ## Problém nevyváženosti dat
 
-Klasifikační algoritmy předpokládají *vyvážené třídy*. Problém: pokud je menšinová třída pouze 1 %, klasifikátor naivně predikuje vždy majoritní → 99 % accuracy, ale 0 % recall na minoritní.
-
-### Aplikace s nevyváženými daty
-
-* **Detekce podvodů** — < 1 % transakcí podvodné.
-* **Napadení sítě** — naprostá většina paketů normální.
-* **Vzácné nemoci** — 0.1 % populace.
-
-### Strategie řešení
-
-#### Úprava distribuce
-
-**Undersampling** majoritní třídy — náhodný výběr podmnožiny majoritních záznamů, aby měl stejný počet jako minoritní. Riziko: ztráta informace.
-
-**Oversampling** minoritní třídy — náhodné duplikování minoritních záznamů. Riziko: overfitting.
-
-**SMOTE** (Synthetic Minority Over-sampling Technique) — chytrý oversampling: pro každý minoritní bod najít k nejbližších sousedů, vygenerovat *syntetické* body na úsečkách k nim.
-
-```
-FOR EACH instance c̄ minoritní třídy:
-  Najdi K nejbližších sousedů c̄
-  Náhodně vyber jednoho z nich, k̄
-  Generuj nový bod n̄ = c̄ + (k̄ - c̄) * rand(0, 1)
-```
-
-SMOTE generuje *nové, plausible* body — lepší než prostá duplikace. Knihovna: `imbalanced-learn`.
-
-```python
-from imblearn.over_sampling import SMOTE
-
-smote = SMOTE(random_state=42)
-X_resampled, y_resampled = smote.fit_resample(X, y)
-```
-
-#### Algoritmické úpravy
-
-* **Class weights** — vážit majoritní třídu menší vahou v loss function. Většina ML knihoven podporuje `class_weight='balanced'`.
-* **Threshold tuning** — pro binární klasifikaci posunout decision threshold (default 0.5) tak, aby se zvýšil recall na minoritní třídě.
-* **Cost-sensitive learning** — penalize false negatives víc než false positives.
-
-#### Sestava klasifikátorů
-
-* **Bagging s undersampled bootstrap** — RandomForest variant.
-* **EasyEnsemble** — kombinace více klasifikátorů, každý trénovaný na jiném undersample.
-
-## Metriky pro nevyvážená data
-
-Accuracy je *zavádějící* pro nevyvážená data — používejte:
-
-* **Precision, Recall** — pro každou třídu.
-* **F1 score** — harmonický průměr precision a recall.
-* **ROC-AUC** — area under ROC curve.
-* **PR-AUC** — area under precision-recall curve. *Lepší* než ROC-AUC pro vysoce nevyvážená data.
-* **Confusion matrix** — vidět absolutní čísla TP, FP, TN, FN.
+Vzorkování často naráží na **nevyvážené třídy** — pokud je minoritní třída pouze 1 %, prosté náhodné vzorkování ji téměř ztratí a klasifikátor naivně predikuje vždy majoritní (99 % accuracy, ale 0 % recall na minoritní). Strategie jako undersampling, oversampling, SMOTE, class weights a vhodné metriky (precision/recall, F1, PR-AUC) lze kombinovat se vzorkováním. Podrobné zpracování viz [[nevyvazenost]].
 
 ## Praktické tipy
 

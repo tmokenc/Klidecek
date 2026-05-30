@@ -18,9 +18,9 @@ Pro mnoho scénářů (objednávky, notifikace, integrace) je *asynchronní* mod
   <text x="60" y="60" text-anchor="middle" font-size="11" fill="var(--text)">Klient</text>
   <rect x="180" y="35" width="60" height="40" rx="4" fill="var(--bg-card)" stroke="oklch(0.55 0.18 22)"/>
   <text x="210" y="60" text-anchor="middle" font-size="11" fill="var(--text)">Server</text>
-  <path d="M 90 50 L 175 50" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aR)"/>
+  <path fill="none" d="M 90 50 L 175 50" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aR)"/>
   <text x="132" y="42" text-anchor="middle" font-size="9" fill="var(--text-muted)">požadavek</text>
-  <path d="M 175 65 L 90 65" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aR)"/>
+  <path fill="none" d="M 175 65 L 90 65" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aR)"/>
   <text x="132" y="78" text-anchor="middle" font-size="9" fill="var(--text-muted)">odpověď</text>
   <text x="135" y="100" text-anchor="middle" font-size="9" fill="var(--text-muted)" font-style="italic">Klient blokován do odpovědi.</text>
   <text x="135" y="115" text-anchor="middle" font-size="9" fill="var(--text-muted)" font-style="italic">Pokud server padl → klient selže.</text>
@@ -32,8 +32,8 @@ Pro mnoho scénářů (objednávky, notifikace, integrace) je *asynchronní* mod
   <text x="410" y="60" text-anchor="middle" font-size="11" fill="var(--text)">Broker</text>
   <rect x="470" y="35" width="60" height="40" rx="4" fill="var(--bg-card)" stroke="oklch(0.55 0.18 142)"/>
   <text x="500" y="60" text-anchor="middle" font-size="11" fill="var(--text)">Konzument</text>
-  <path d="M 350 55 L 375 55" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aR)"/>
-  <path d="M 440 55 L 465 55" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aR)"/>
+  <path fill="none" d="M 350 55 L 375 55" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aR)"/>
+  <path fill="none" d="M 440 55 L 465 55" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aR)"/>
   <text x="410" y="100" text-anchor="middle" font-size="9" fill="var(--text-muted)" font-style="italic">Producent jen pošle a jde dál.</text>
   <text x="410" y="115" text-anchor="middle" font-size="9" fill="var(--text-muted)" font-style="italic">Konzument zpracuje, až bude moci.</text>
 
@@ -63,14 +63,14 @@ Klasický model **fronty zpráv**: jeden producent zveřejní zprávu, **právě
   <text x="80" y="60" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text)">Producent</text>
   <text x="80" y="78" text-anchor="middle" font-size="9" fill="var(--text-muted)">vytváří zprávy</text>
 
-  <path d="M 145 65 L 210 65" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aS)"/>
+  <path fill="none" d="M 145 65 L 210 65" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aS)"/>
 
   <rect x="215" y="35" width="120" height="60" rx="6" fill="oklch(0.62 0.14 80 / 0.10)" stroke="oklch(0.55 0.18 80)"/>
   <text x="275" y="52" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text)">Message broker</text>
   <rect x="232" y="62" width="86" height="20" rx="10" fill="oklch(0.62 0.14 80 / 0.25)" stroke="oklch(0.55 0.18 80)"/>
   <text x="275" y="76" text-anchor="middle" font-size="10" fill="var(--text)">Queue</text>
 
-  <path d="M 340 65 L 405 65" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aS)"/>
+  <path fill="none" d="M 340 65 L 405 65" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aS)"/>
 
   <rect x="410" y="40" width="120" height="50" rx="6" fill="var(--bg-card)" stroke="oklch(0.55 0.18 142)"/>
   <text x="470" y="60" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text)">Konzument</text>
@@ -110,16 +110,16 @@ Když chceme **jednu událost rozeslat více příjemcům** najednou — pub/sub
   <text x="70" y="80" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text)">Producent</text>
   <text x="70" y="95" text-anchor="middle" font-size="9" fill="var(--text-muted)">publikuje zprávy</text>
 
-  <path d="M 125 84 L 175 84" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aT)"/>
+  <path fill="none" d="M 125 84 L 175 84" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aT)"/>
 
   <rect x="180" y="50" width="130" height="70" rx="6" fill="oklch(0.62 0.14 80 / 0.10)" stroke="oklch(0.55 0.18 80)"/>
   <text x="245" y="68" text-anchor="middle" font-size="12" font-weight="600" fill="var(--text)">Pub/Sub broker</text>
   <rect x="200" y="82" width="90" height="20" rx="10" fill="oklch(0.62 0.14 80 / 0.25)" stroke="oklch(0.55 0.18 80)"/>
   <text x="245" y="96" text-anchor="middle" font-size="10" fill="var(--text)">Topic</text>
 
-  <path d="M 315 84 L 365 30" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aT)"/>
-  <path d="M 315 84 L 365 84" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aT)"/>
-  <path d="M 315 84 L 365 138" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aT)"/>
+  <path d="M 315 84 L 365 30" fill="none" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aT)"/>
+  <path d="M 315 84 L 365 84" fill="none" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aT)"/>
+  <path d="M 315 84 L 365 138" fill="none" stroke="oklch(0.55 0.18 22)" stroke-width="1.5" marker-end="url(#aT)"/>
 
   <rect x="370" y="15" width="120" height="32" rx="5" fill="var(--bg-card)" stroke="oklch(0.55 0.18 142)"/>
   <text x="430" y="35" text-anchor="middle" font-size="11" font-weight="600" fill="var(--text)">Subscriber A</text>

@@ -139,7 +139,7 @@ Klasický útok cílí na CBC-MAC schémata v TLS 1.0/1.1:
 * Pokud padding fail, server vrátí specifickou error. Pokud MAC fail, *jinou*. (TLS 1.0 původně rozlišovalo *jasně*.)
 * Útok: extrahuj cookie, session token z TLS spojení.
 
-Mitigace: TLS 1.0+ patch — *konstantní čas* mezi padding a MAC error (TLS 1.0 SP3 "encrypt-then-MAC"). TLS 1.3 *odstranil* CBC mode úplně — povolen jen AEAD (AES-GCM, ChaCha20-Poly1305).
+Mitigace: TLS 1.0+ patch — *konstantní čas* zpracování padding+MAC; encrypt-then-MAC byl později standardizován jako rozšíření RFC 7366. TLS 1.3 *odstranil* CBC mode úplně — povolen jen AEAD (AES-GCM, ChaCha20-Poly1305).
 
 ### IPsec — Canvel 2003
 
@@ -147,7 +147,7 @@ Mitigace: TLS 1.0+ patch — *konstantní čas* mezi padding a MAC error (TLS 1.
 
 ### ASP.NET — Rizzo-Duong 2010
 
-[BEAST attack](https://blog.qualys.com/qsc/2010/09/15/aspnet-padding-oracle-vulnerability) — Rizzo a Duong demonstrovali padding oracle na ASP.NET ViewState:
+[ASP.NET Padding Oracle vulnerability](https://blog.qualys.com/qsc/2010/09/15/aspnet-padding-oracle-vulnerability) — Rizzo a Duong demonstrovali padding oracle na ASP.NET ViewState:
 
 * ASP.NET používal 3DES CBC pro ViewState (skryté pole na HTML stránce).
 * Web framework vracel HTTP **500** pro bad padding, **HTTP 200** pro bad ViewState.
@@ -162,7 +162,7 @@ Microsoft vydal MS10-070 patch.
 * SSL 3.0 padding nebyl deterministický — pro $n$-byte padding *jen poslední byte* je $n$, ostatní libovolné.
 * Útok přes downgrade: aktivní útočník vynucuje fallback z TLS 1.0 na SSL 3.0.
 * Padding oracle přes JavaScript ve victim browser.
-* Recovery cookies za **~256 requests/byte** (vs. naive **256 bytes/byte**).
+* Recovery cookies: v průměru **~256 dotazů na jeden bajt** plaintextu.
 
 Důsledek: SSL 3.0 vypnut na *všech* serverech do měsíce. POODLE-bis zahrnoval některé TLS 1.0 stacks s nepodáním constant-time padding check.
 
@@ -175,7 +175,7 @@ Důsledek: SSL 3.0 vypnut na *všech* serverech do měsíce. POODLE-bis zahrnova
 * Útočník modifikuje šifrový text a sleduje odpověď — pomocí 1-bit oracle rekonstruuje plaintext.
 * **Million Message Attack** — typicky 1M dotazů, ale s optimalizacemi (Klima 2003) 50–100k.
 
-**ROBOT 2017** ([Böck-Somorovsky-Young](https://robotattack.org/)) — Bleichenbacher *stále funguje* na desítkách miliard webových serverů včetně Facebook, F5 BIG-IP, Cisco. Mitigace v TLS: TLS 1.3 zakazuje RSA encryption *úplně*; používá se ECDHE_RSA jen pro autentizaci, ne pro klíčovou výměnu.
+**ROBOT 2017** ([Böck-Somorovsky-Young](https://robotattack.org/)) — Bleichenbacher *stále funguje* na řadě velkých serverů — 27 z Alexa top-100 domén a produktech vendorů jako F5 BIG-IP, Citrix, Cisco (Facebook, PayPal měly zranitelné hosty). Mitigace v TLS: TLS 1.3 zakazuje RSA encryption *úplně*; používá se ECDHE_RSA jen pro autentizaci, ne pro klíčovou výměnu.
 
 ## Útok č. 6 — HSM padding oracle (Bardou et al. 2012)
 

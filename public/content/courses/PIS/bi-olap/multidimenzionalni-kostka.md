@@ -89,15 +89,15 @@ Kostka $g_3$ má $|A_1| \cdot |A_2| \cdot |A_3| = 2 \cdot 2 \cdot 2 = 8$ potenci
 <svg viewBox="0 0 540 240" xmlns="http://www.w3.org/2000/svg" style="max-width:580px;width:100%;height:auto;font-family:system-ui,sans-serif;">
   <defs>
     <style>
-      .ax{stroke:var(--ink, #333);stroke-width:1.5;fill:none}
-      .lbl{font-size:12px;fill:var(--ink, #333)}
+      .ax{stroke:var(--text, #333);stroke-width:1.5;fill:none}
+      .lbl{font-size:12px;fill:var(--text, #333)}
       .lbl-axis{font-size:13px;font-weight:600;fill:var(--accent, #1e5a8e)}
-      .cube{fill:var(--surface-soft, #e8f0f7);stroke:var(--accent, #1e5a8e);stroke-width:1}
-      .cell{font-size:11px;fill:var(--ink, #333);text-anchor:middle}
+      .cube{fill:var(--bg-card, #e8f0f7);stroke:var(--accent, #1e5a8e);stroke-width:1}
+      .cell{font-size:11px;fill:var(--text, #333);text-anchor:middle}
     </style>
   </defs>
   <!-- 3D wireframe cube -->
-  <g transform="translate(180,40)">
+  <g transform="translate(180,54)">
     <!-- back face -->
     <polygon class="cube" points="60,0 180,0 180,80 60,80" opacity="0.4"/>
     <!-- front face -->
@@ -121,7 +121,7 @@ Kostka $g_3$ má $|A_1| \cdot |A_2| \cdot |A_3| = 2 \cdot 2 \cdot 2 = 8$ potenci
   </g>
   <defs>
     <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-      <polygon points="0,0 6,3 0,6" fill="var(--ink, #333)"/>
+      <polygon points="0,0 6,3 0,6" fill="var(--text, #333)"/>
     </marker>
   </defs>
 </svg>

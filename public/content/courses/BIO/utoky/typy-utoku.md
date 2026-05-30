@@ -240,7 +240,8 @@ Cíle (pro Level 2):
 * Independent lab testing.
 * **Level 1:** basic spoofs (photo, video).
 * **Level 2:** 3D masks, silicone.
-* **Level 3+:** state-level adversary.
+
+iBeta PAD certifikace má pouze Level 1 a Level 2 (žádný oficiální "Level 3"). Sofistikovanější útočníci na úrovni státu jsou mimo rámec iBeta levelů.
 
 Apple Face ID, Windows Hello certify Level 2.
 

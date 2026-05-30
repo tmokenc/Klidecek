@@ -58,7 +58,7 @@ Předpokládejme pro spor, že existuje **totální** TS $K$, který *rozhoduje*
    * Pokud $K$ zamítne (= $M_x$ nezastaví na $x$): $N$ *zastaví normálně* (přijme).
 
 ::: svg "Diagonalizace: N otáčí výsledek K na diagonále tabulky [TS × vstup]"
-<svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
+<svg viewBox="0 0 575 220" font-family="ui-sans-serif, system-ui" font-size="11">
   <g stroke="var(--line-strong)" stroke-width="0.9" fill="var(--bg-card)">
     <rect x="60" y="30" width="50" height="30"/>
     <rect x="110" y="30" width="50" height="30"/>
@@ -153,7 +153,7 @@ Pro libovolný jazyk $L$ a jeho doplněk $\overline{L}$ musí *vždy* nastat *pr
 | Stav | $L$ | $\overline{L}$ | Příklad |
 | :-: | :-: | :-: | :--- |
 | Oba rozhodnutelné | R | R | regulární a kontextové jazyky |
-| Žádný není RE | ¬RE | ¬RE | $\{(M, w) \mid L(M) = \Sigma^*\}$ |
+| Žádný není RE | ¬RE | ¬RE | $\{\langle M\rangle \mid L(M) = \Sigma^*\}$ |
 | Jeden RE, druhý ne | RE \ R | ¬RE | $L_\mathrm{HP}$ vs. $\mathrm{co}\text{-}\mathrm{HP}$ |
 
 Nikdy nemůže nastat "oba jsou RE, ale jen jeden je R" — to by porušilo tvrzení z [[rekurzivni-jazyky]].

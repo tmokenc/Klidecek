@@ -81,7 +81,7 @@ Detekce duplikátů: LSA má **sequence number** a **age**. Vyšší sequence = 
 
 | Vlastnost | Hodnota |
 | :--- | :--- |
-| Metric | **cost** — typicky $10^8 / \text{bandwidth}$ (Mbps) |
+| Metric | **cost** — typicky $10^8 / \text{bandwidth}$ (bandwidth v bps) |
 | Hello interval | 10 s (multi-access), 30 s (NBMA) |
 | Dead interval | 4× Hello |
 | Transport | IP protokol 89 (vlastní) |

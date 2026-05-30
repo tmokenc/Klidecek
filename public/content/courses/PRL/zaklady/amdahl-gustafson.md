@@ -88,9 +88,9 @@ Důležitý wake-up call: úloha s 95 % paralelizovatelností *nikdy* nedosáhne
 
 ### Motivace
 
-Amdahl předpokládá *fixed problem*. V praxi se ale ale paralelní systémy nepoužívají *jen* k zrychlení existujícího problému — typicky se *řeší větší problém*. Pokud máte 1000 procesorů, nehrajete víc Tetris; *simulujete větší atmosféru*.
+Amdahl předpokládá *fixed problem*. V praxi se ale paralelní systémy nepoužívají *jen* k zrychlení existujícího problému — typicky se *řeší větší problém*. Pokud máte 1000 procesorů, nehrajete víc Tetris; *simulujete větší atmosféru*.
 
-Pozorování: **sekvenční podíl roste pomaleji než celková práce** s velikostí problému. Pro CFD simulaci 10× větší mřížky se inicializace zvětší 10× — ale samotný výpočet 10000× (kvadratický scaling). Sekvenční *podíl* klesá.
+Pozorování: **sekvenční podíl roste pomaleji než celková práce** s velikostí problému. Pro CFD simulaci s 10× jemnější mřížkou v každém rozměru se inicializace zvětší řádově 10×, ale samotný výpočet ~10000× (≈1000× více buněk a navíc kratší časový krok dle CFL) — superlineární scaling. Sekvenční *podíl* klesá.
 
 ### Model
 
@@ -155,7 +155,7 @@ Praktický nástroj pro diagnostiku, *proč* paralelní algoritmus dává podsiz
 
 ## Cost-optimal a work-efficient
 
-Algoritmus je **cost-optimal**, pokud $c(n) = N \cdot t(n) = O(T_\text{sekv})$ — celková "procesorpráce" je *stejná jako sekvenční*.
+Pojem **cost-optimal** ($c(n) = N \cdot t(n) = O(T_\text{sekv})$) zavádí [[paralelizace-uvod]] (§Cena). Zde navazuje *jemnější* pojem.
 
 Algoritmus je **work-efficient**, pokud "*celková práce*" (počet basic operations) je asymptoticky stejná jako sekvenční. Slabší než cost-optimal, ale praktičtější pro PRAM model.
 

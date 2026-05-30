@@ -115,8 +115,8 @@ Příjemce s denním klíčem rozšifruje indikátor → získá `WAG` → posun
 
 Námořní (Kriegsmarine) Enigma byla podstatně robustnější:
 
-* **M3** (1934) — výběr 3 rotorů z 8 namísto z 5.
-* **M4** (1942, ponorky U-Bahn) — *čtvrtý* rotor "Beta" nebo "Gamma" pevně nastavený plus tenký reflektor UKW-B/C — efektivně 4 rotory.
+* **M3** (zavedena 1934; od 1940 výběr 3 rotorů z 8 — přidány rotory VI–VIII — namísto z 5).
+* **M4** (1942, ponorky / U-Boote) — *čtvrtý* rotor "Beta" nebo "Gamma" pevně nastavený plus tenký reflektor UKW-B/C — efektivně 4 rotory.
 * **Kurzsignal book / Wetterkurzschlüssel** — kódové knihy pro krátké zprávy o počasí, navigaci.
 
 M4 znemožnila britské dešifrování od února 1942 do prosince 1942 — kritické období bitvy o Atlantik. Bletchley Park získal M4 zachycením tří kódových knih ze ztroskotaných ponorek (U-559 / 1942 byla rozhodující) a sestavil novou Bombu pro 4 rotory.

@@ -159,7 +159,7 @@ Tedy: $\text{send}$ zprávy $m_i$ kauzálně předchází $\text{receive}$ zprá
     <path d="M 470,110 Q 440,160 350,130"/>
   </g>
   <text x="410" y="160" fill="var(--text-muted)" text-anchor="middle" font-size="9">3 procesy, 3 cyklické závislosti</text>
-  <text x="410" y="180" fill="var(--text-muted)" text-anchor="middle" font-size="9">send(m₁)→recv(m₂)→recv(m₃)→recv(m₁)</text>
+  <text x="410" y="180" fill="var(--text-muted)" text-anchor="middle" font-size="9">send(m₁)→recv(m₂), send(m₂)→recv(m₃), send(m₃)→recv(m₁)</text>
 </svg>
 :::
 

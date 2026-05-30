@@ -46,7 +46,7 @@ export default function PipelineStageTracker() {
   const completed = Array.from({ length: n }, (_, i) => stageOf(i, t) === 4 || (mode === "pipelined" ? t - i > 4 : t >= i * 5 + 5)).filter(Boolean).length;
   const cpi = completed > 0 ? (t + 1) / completed : 0;
 
-  const W = LABEL_W + maxT * CELL + 20;
+  const W = LABEL_W + (maxT + 1) * CELL + 8;
   const H = n * ROW + 70;
 
   return (

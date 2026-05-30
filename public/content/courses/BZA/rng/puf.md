@@ -57,7 +57,7 @@ PUF je obvod, který tyto variace **mapuje na bity**.
 Nejznámější design (Lim, Devadas, MIT 2004):
 
 ::: svg "Arbiter PUF: c-bit challenge řídí switches, dvě cesty soutěží, arbiter dá bit podle toho, která dorazí dřív."
-<svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
+<svg viewBox="0 0 560 220" font-family="ui-sans-serif, system-ui" font-size="11">
   <defs>
     <marker id="aPUF1" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
       <path d="M0 0 L8 4 L0 8 z" fill="var(--accent)"/>
@@ -116,7 +116,7 @@ Variace $\Delta_1, \Delta_2, \Delta_3, \Delta_4$ jsou pikosekundové rozdíly; v
 
 ### Slabost: lineární model
 
-Arbiter PUF má **slabost — celkový delay je lineární funkcí challenges** (kromě signu — arbiter aplikuje sign function). Útočník s ~10 000 CRPs umí přes **support vector machine** nebo **logistic regression** rekonstruovat model s 95+% přesností (Rührmair et al. 2013). Proto vznikly nelineární varianty.
+Arbiter PUF má **slabost — celkový delay je lineární funkcí challenges** (kromě signu — arbiter aplikuje sign function). Útočník s ~10 000 CRPs umí přes **support vector machine** nebo **logistic regression** rekonstruovat model s 95+% přesností (Rührmair et al. 2010). Proto vznikly nelineární varianty.
 
 ## XOR PUF a Feed-Forward PUF
 

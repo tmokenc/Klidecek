@@ -16,7 +16,7 @@ Příklady:
 - *DNS query* — bit vzor v UDP/53 payload (transaction ID + flags + queries).
 - *BitTorrent* — řetězec `\x13BitTorrent protocol` v handshaku.
 - *Conficker malware* — specifická sekvence v C&C komunikaci.
-- *Heartbleed exploit* — TLS heartbeat request s payload_length > 65535.
+- *Heartbleed exploit* — TLS heartbeat request, kde deklarovaná payload_length (až 65535 B) je výrazně větší než skutečně poslaná data → buffer over-read serverové paměti.
 
 Workflow:
 
@@ -152,11 +152,11 @@ Z JA3 nelze poznat *obsah*, ale můžete poznat *kdo komunikuje*. Threat intelli
 - *Seřazené* cipher suites a extensions — odolnost proti GREASE (Google's anti-fingerprinting mechanism, který *zámerně* přidává náhodné hodnoty).
 - *Strukturovaný* format místo MD5: `t13d1516h2_8daaf6152771_b186095e22b6`.
   - `t13` — TLS 1.3.
-  - `d` — destination kontext.
+  - `d` — přítomna SNI extension (cíl je doména); alternativa `i` = cíl je IP adresa.
   - `1516` — počet cipher suites a extensions.
   - `h2` — ALPN (HTTP/2).
-  - Druhý segment — *unsorted ciphers hash*.
-  - Třetí — *unsorted extensions hash*.
+  - Druhý segment — SHA256 hash cipher suites *seřazených* v hex pořadí (12 znaků).
+  - Třetí — SHA256 hash *seřazených* extensions. (Nesetříděná varianta je samostatný raw formát JA4_r.)
 - **JA4S** (server-side), **JA4X** (X.509 certifikát), **JA4T** (TCP fingerprint), **JA4H** (HTTP fingerprint), **JA4L** (latency).
 
 Adopce: integrace do Wireshark, Suricata, Zeek, NDR vendor produktů. V 2026 *de facto* standard pro encrypted-traffic fingerprinting.

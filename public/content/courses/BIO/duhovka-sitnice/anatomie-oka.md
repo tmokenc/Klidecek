@@ -62,8 +62,8 @@ title: Anatomie oka pro biometriku
 
 Duhovka je *plochá*, kruhová struktura tloušťky ~0.5 mm. Tvořena ze dvou vrstev:
 
-* **Stroma** — vnitřní vrstva s pigment cells a *spletitými* vlákny — tvoří unique pattern.
-* **Pigment epithelium** — zadní vrstva s pigmentem (melaninem), který určuje barvu (modrá, zelená, hnědá).
+* **Stroma** — přední (viditelná) vrstva s pigment cells a *spletitými* vlákny — tvoří unique pattern. Obsah melaninu ve stromatu (a Rayleigho rozptyl) *určuje barvu* (nízký melanin → modrá, vysoký → hnědá).
+* **Pigment epithelium** — zadní vrstva, u všech lidí *rovnoměrně tmavá* (silně pigmentovaná melaninem).
 
 Duhovka se dělí na **dvě oblasti**:
 

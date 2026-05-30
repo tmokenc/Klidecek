@@ -7,7 +7,7 @@ export default function BiasVar() {
   const data = [];
   for (let c = 0; c <= 100; c += 2) {
     const train = 0.85 * Math.exp(-c/25) + 0.05;
-    const test  = 0.7  * Math.exp(-c/25) + 0.0008 * (c-30)*(c-30) * (c > 30 ? 1 : 0) + 0.1;
+    const test  = 0.7  * Math.exp(-c/25) + 0.00017 * (c-30)*(c-30) * (c > 30 ? 1 : 0) + 0.1;
     data.push({ c, train, test });
   }
   const toX = (c) => 20 + (c/100) * (W - 40);
