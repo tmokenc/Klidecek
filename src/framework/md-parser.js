@@ -382,12 +382,14 @@ function makeTypedBlock(kind, args, body) {
     case "youtube":
     case "video":
     case "embed": {
-      // ::: youtube "<url-or-id>" "Title?" "Channel?"   (body may hold the url too)
+      // ::: youtube "<url-or-id>" "Title?" "Channel?" "cc?"   (body may hold the url too)
+      // 4th arg "cc" turns on English captions by default (for non-English audio).
       const raw = (args[0] || body.trim()).trim();
       const videoId = parseYouTubeId(raw);
       const title = args[1] || "";
       const channel = args[2] || "";
-      return { kind: "embed", provider: "youtube", videoId, src: raw, title, channel };
+      const cc = /^cc$/i.test((args[3] || "").trim());
+      return { kind: "embed", provider: "youtube", videoId, src: raw, title, channel, cc };
     }
     default:
       return { kind: "text", body: body.trim() };

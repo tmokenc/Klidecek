@@ -525,6 +525,8 @@ function EmbedBlock({ block }) {
   }
   const thumb = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
   const watch = `https://www.youtube.com/watch?v=${id}`;
+  // cc → turn English captions on by default (for videos whose audio isn't EN/CS)
+  const embedParams = "autoplay=1&rel=0" + (block.cc ? "&cc_load_policy=1&cc_lang_pref=en&hl=en" : "");
   const ytGlyph = (
     <svg className="embed-yt-icon" width="18" height="13" viewBox="0 0 24 17" fill="currentColor" aria-hidden="true">
       <path d="M23.5 2.6a3 3 0 00-2.1-2.1C19.5 0 12 0 12 0S4.5 0 2.6.5A3 3 0 00.5 2.6 31 31 0 000 8.5a31 31 0 00.5 5.9 3 3 0 002.1 2.1C4.5 17 12 17 12 17s7.5 0 9.4-.5a3 3 0 002.1-2.1 31 31 0 00.5-5.9 31 31 0 00-.5-5.9z"/>
@@ -536,7 +538,7 @@ function EmbedBlock({ block }) {
       {playing ? (
         <div className="embed-frame">
           <iframe
-            src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}
+            src={`https://www.youtube-nocookie.com/embed/${id}?${embedParams}`}
             title={block.title || "YouTube video"}
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -571,6 +573,7 @@ function EmbedBlock({ block }) {
         <a href={watch} target="_blank" rel="noopener noreferrer">
           {block.channel ? `${block.channel} · YouTube` : "Otevřít na YouTube"}
         </a>
+        {block.cc && <span className="embed-cc-badge" title="Anglické titulky zapnuty">CC&nbsp;EN</span>}
       </figcaption>
     </figure>
   );

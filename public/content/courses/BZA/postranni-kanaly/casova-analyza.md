@@ -189,4 +189,9 @@ Tyto útoky jsou *systémově* mitigovány (microcode updates, OS patches, compi
 
 ---
 
+### Videa
+
+::: youtube "https://www.youtube.com/watch?v=I5mRwzVvFGE" "Spectre & Meltdown - Computerphile" "Computerphile"
+:::
+
 *Zdroj: BZA přednášky 2025/26, BZA 05 — Postranní kanály (Malinka). Externí reference: Kocher, P.: *Timing Attacks on Implementations of Diffie-Hellman, RSA, DSS, and Other Systems* (CRYPTO 1996) — [PDF](https://www.paulkocher.com/doc/TimingAttacks.pdf); Brumley, D., Boneh, D.: *Remote Timing Attacks Are Practical* (USENIX Security 2003) — [PDF](https://crypto.stanford.edu/~dabo/papers/ssl-timing.pdf); AlFardan, N., Paterson, K. G.: *Lucky Thirteen: Breaking the TLS and DTLS Record Protocols* (IEEE S&P 2013) — [project page](https://www.isg.rhul.ac.uk/tls/Lucky13.html); Jančár, J. et al.: *Minerva: Cryptographic key recovery from ECDSA implementations* (Brno CRoCS) — [project page](https://minerva.crocs.fi.muni.cz/).*

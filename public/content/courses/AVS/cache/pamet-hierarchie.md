@@ -195,7 +195,7 @@ Page fault je *katastrofa* pro výkon — milisekundy stagnace. ML systémy lad�
 
 ### Videa
 
-::: youtube "https://www.youtube.com/watch?v=zwovvWfkuSg" "L-3.1: Memory Hierarchy in Computer Architecture | Access time, Speed, Size, Cost | All Imp Points" "Gate Smashers"
+::: youtube "https://www.youtube.com/watch?v=lQcU4WwVALI" "Memory Hierarchy & Interfacing" "Neso Academy"
 :::
 
 *Zdroj: AVS přednášky 2025/26, doc. Ing. Jiří Jaroš, Ph.D., FIT VUT v Brně. Externí reference: Hennessy, J.L., Patterson, D.A.: „Computer Architecture: A Quantitative Approach" (6th ed., Morgan Kaufmann 2017), §2.1-2.3 + Appendix B; Patterson, D.A., Hennessy, J.L.: „Computer Organization and Design: RISC-V Edition" (Morgan Kaufmann 2017), §5; Bryant, R.E., O'Hallaron, D.R.: „Computer Systems: A Programmer's Perspective" (3rd ed., Pearson 2016), §6.*

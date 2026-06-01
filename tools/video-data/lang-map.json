@@ -1,0 +1,1186 @@
+[
+  [
+    "g8md4gN8PK0",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "Teoretická informatika - Regulární jazyky I"
+    }
+  ],
+  [
+    "5dxN6kG7wz4",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Konečné automaty"
+    }
+  ],
+  [
+    "hOzc4BUIXRk",
+    {
+      "lang": "en",
+      "channel": "Neso Academy",
+      "title": "Minimization of Deterministic Finite Automata (DFA)"
+    }
+  ],
+  [
+    "uQF-vwjvVyY",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "Teoretická informatika: Regulární jazyky II"
+    }
+  ],
+  [
+    "dikEDuepOtI",
+    {
+      "lang": "en",
+      "channel": "Neso Academy",
+      "title": "Pumping Lemma (For Regular Languages)"
+    }
+  ],
+  [
+    "m-uP64Cq9Kc",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Chomského hierarchie a vlastnosti jazyků"
+    }
+  ],
+  [
+    "Vp_oBaNiIFg",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "Teoretická informatika: Bezkontextové jazyky"
+    }
+  ],
+  [
+    "MRJrzmimB0w",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Zásobníkové automaty"
+    }
+  ],
+  [
+    "bpT5AV6j9N0",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "Teoretická informatika: Turingovy stroje"
+    }
+  ],
+  [
+    "cjJXMGlk7xE",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Turingovy stroje a vyčíslitelné funkce"
+    }
+  ],
+  [
+    "dNRDvLACg5Q",
+    {
+      "lang": "en-US",
+      "channel": "Computerphile",
+      "title": "Turing Machines Explained - Computerphile"
+    }
+  ],
+  [
+    "amrvv9Lgrww",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "Teoretická informatika: Nerozhodnutelnost"
+    }
+  ],
+  [
+    "Iz9RFd5ENIU",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Nerozhodnutelnost"
+    }
+  ],
+  [
+    "macM_MtS_w4",
+    {
+      "lang": "en-US",
+      "channel": "Computerphile",
+      "title": "Turing & The Halting Problem - Computerphile"
+    }
+  ],
+  [
+    "lz4UNeNWM-Q",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "Teoretická informatika: Složitost"
+    }
+  ],
+  [
+    "luqobVkniB4",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Časová a prostorová složitost"
+    }
+  ],
+  [
+    "VMQghxb5aSk",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Prohledávání grafů do hloubky a jeho aplikace"
+    }
+  ],
+  [
+    "i9xUB0qRs2U",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Grafy a jejich prohledávání do šířky"
+    }
+  ],
+  [
+    "oDqjPvD54Ss",
+    {
+      "lang": "en-US",
+      "channel": "WilliamFiset",
+      "title": "Breadth First Search Algorithm | Shortest Path | Graph Theory"
+    }
+  ],
+  [
+    "8Z_sosW2dgU",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ : Lambda kalkul - úvod"
+    }
+  ],
+  [
+    "Eo6FVosifWk",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Lambda kalkul - definice pravdivostních hodnot a přirozených čísel"
+    }
+  ],
+  [
+    "eis11j_iGMs",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "Lambda Calculus - Computerphile"
+    }
+  ],
+  [
+    "ELvZpu3NDF8",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Haskell - typy v jazyce a líné vyhodnocování"
+    }
+  ],
+  [
+    "fCOSrHTsslU",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "FLP: Příprava k půlsemestrální zkoušce"
+    }
+  ],
+  [
+    "Pp6tEZLkASI",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Prolog - Unifikace a vyhodnocování"
+    }
+  ],
+  [
+    "NxhjsWteUSU",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Prolog - Změna programu za běhu"
+    }
+  ],
+  [
+    "xLnQet8cIVA",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Model PRAM, suma prefixů"
+    }
+  ],
+  [
+    "4mSQXGi0zSk",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Paralelní algoritmy nad seznamy a stromy"
+    }
+  ],
+  [
+    "Vg8w9YMAqZU",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Pravděpodobnost"
+    }
+  ],
+  [
+    "KgY0rQZghTg",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Náhodné veličiny, významná rozdělení pravděpodobnosti"
+    }
+  ],
+  [
+    "oI3hZJqXJuc",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "The Main Ideas behind Probability Distributions"
+    }
+  ],
+  [
+    "OSPr6G6Ka-U",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "Expected Values for Continuous Variables!!!"
+    }
+  ],
+  [
+    "rzFX5NWojp0",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "The Normal Distribution, Clearly Explained!!!"
+    }
+  ],
+  [
+    "XP3qg7Qv2So",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Markovské řetězce a jejich analýza"
+    }
+  ],
+  [
+    "zhuOFLxyJdw",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Randomizované algoritmy"
+    }
+  ],
+  [
+    "jEUhyGfDGmo",
+    {
+      "lang": "NA",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Bodové a intervalové odhady, statistické testy"
+    }
+  ],
+  [
+    "pYxNSUDSFH4",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "In Statistics, Probability is not Likelihood."
+    }
+  ],
+  [
+    "XepXtl9YKwc",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "Maximum Likelihood, clearly explained!!!"
+    }
+  ],
+  [
+    "TqOeMYtOc1w",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "Confidence Intervals, Clearly Explained!!!"
+    }
+  ],
+  [
+    "0oc49DyA3hU",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "Hypothesis Testing and The Null Hypothesis, Clearly Explained!!!"
+    }
+  ],
+  [
+    "cPeqgx8sx4Y",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Vícevýběrové testy, testy o rozdělení"
+    }
+  ],
+  [
+    "2_U-A9tZhb4",
+    {
+      "lang": "cs",
+      "channel": "Tomáš Kocourek",
+      "title": "SZZ: Regresní analýza"
+    }
+  ],
+  [
+    "nk2CQITm_eo",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "Linear Regression, Clearly Explained!!!"
+    }
+  ],
+  [
+    "2AQKmw14mHM",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "R-squared, Clearly Explained!!!"
+    }
+  ],
+  [
+    "HZGCoVF3YvM",
+    {
+      "lang": "en",
+      "channel": "3Blue1Brown",
+      "title": "Bayes theorem, the geometry of changing beliefs"
+    }
+  ],
+  [
+    "0iqz4tcKN58",
+    {
+      "lang": "en-US",
+      "channel": "Steve Brunton",
+      "title": "Q-Learning: Model Free Reinforcement Learning and Temporal Difference Learning"
+    }
+  ],
+  [
+    "1z0ULvg_pW8",
+    {
+      "lang": "en-US",
+      "channel": "PowerCert Animated Videos",
+      "title": "Hub, Switch, & Router Explained - What's the difference?"
+    }
+  ],
+  [
+    "TIiQiw7fpsU",
+    {
+      "lang": "en-US",
+      "channel": "PowerCert Animated Videos",
+      "title": "MAC Address Explained"
+    }
+  ],
+  [
+    "ThdO9beHhpA",
+    {
+      "lang": "en",
+      "channel": "PowerCert Animated Videos",
+      "title": "IP Address - IPv4 vs IPv6 Tutorial"
+    }
+  ],
+  [
+    "qqRYkcta6IE",
+    {
+      "lang": "en-US",
+      "channel": "Hussein Nasser",
+      "title": "TCP vs UDP Crash Course"
+    }
+  ],
+  [
+    "r9kbjAN2788",
+    {
+      "lang": "en-US",
+      "channel": "Hussein Nasser",
+      "title": "Slow Start vs Congestion Avoidance in TCP"
+    }
+  ],
+  [
+    "EFg3u_E6eHU",
+    {
+      "lang": "en-US",
+      "channel": "Spanning Tree",
+      "title": "How Dijkstra's Algorithm Works"
+    }
+  ],
+  [
+    "TcxZSmzPw8k",
+    {
+      "lang": "en",
+      "channel": "Veritasium",
+      "title": "The Science of Six Degrees of Separation"
+    }
+  ],
+  [
+    "QRYzre4bf7I",
+    {
+      "lang": "en-US",
+      "channel": "Computerphile",
+      "title": "How TOR Works- Computerphile"
+    }
+  ],
+  [
+    "R-JUOpCgTZc",
+    {
+      "lang": "en-US",
+      "channel": "PowerCert Animated Videos",
+      "title": "VPN (Virtual Private Network) Explained"
+    }
+  ],
+  [
+    "Q_1M2JaijjQ",
+    {
+      "lang": "en",
+      "channel": "Reducible",
+      "title": "What Is Big O Notation?"
+    }
+  ],
+  [
+    "HeQX2HjkcNo",
+    {
+      "lang": "en",
+      "channel": "Veritasium",
+      "title": "Math's Fundamental Flaw"
+    }
+  ],
+  [
+    "RzWB5jL5RX0",
+    {
+      "lang": "en-US",
+      "channel": "Computerphile",
+      "title": "Cracking Enigma in 2021 - Computerphile"
+    }
+  ],
+  [
+    "FGhj3CGxl8I",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "Feistel Cipher - Computerphile"
+    }
+  ],
+  [
+    "Rk0NIQfEXBA",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "Modes of Operation - Computerphile"
+    }
+  ],
+  [
+    "O4xNJsjtN6E",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "AES Explained (Advanced Encryption Standard) - Computerphile"
+    }
+  ],
+  [
+    "wXB-V_Keiu8",
+    {
+      "lang": "en-US",
+      "channel": "Art of the Problem",
+      "title": "Public Key Cryptography: RSA Encryption"
+    }
+  ],
+  [
+    "-ShwJqAalOk",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "Breaking RSA - Computerphile"
+    }
+  ],
+  [
+    "NmM9HA2MQGI",
+    {
+      "lang": "en-US",
+      "channel": "Computerphile",
+      "title": "Secret Key Exchange (Diffie-Hellman) - Computerphile"
+    }
+  ],
+  [
+    "NF1pwjL9-DE",
+    {
+      "lang": "en-US",
+      "channel": "Computerphile",
+      "title": "Elliptic Curves - Computerphile"
+    }
+  ],
+  [
+    "_MoRcYLN-7U",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "Post Quantum Cryptography - Computerphile"
+    }
+  ],
+  [
+    "b4b8ktEV4Bg",
+    {
+      "lang": "en-US",
+      "channel": "Computerphile",
+      "title": "Hashing Algorithms and Security - Computerphile"
+    }
+  ],
+  [
+    "s22eJ1eVLTU",
+    {
+      "lang": "en-US",
+      "channel": "Computerphile",
+      "title": "What are Digital Signatures? - Computerphile"
+    }
+  ],
+  [
+    "86cQJ0MMses",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "TLS Handshake Explained - Computerphile"
+    }
+  ],
+  [
+    "W2Z7fbCLSTw",
+    {
+      "lang": "NA",
+      "channel": "Fireship",
+      "title": "7 Database Paradigms"
+    }
+  ],
+  [
+    "lTAcCNbJ7KE",
+    {
+      "lang": "en-US",
+      "channel": "ByteByteGo",
+      "title": "What Are Microservices Really All About? (And When Not To Use It)"
+    }
+  ],
+  [
+    "O4N81weRolg",
+    {
+      "lang": "en-US",
+      "channel": "Hussein Nasser",
+      "title": "Vlog - Client/Server Programming Languages"
+    }
+  ],
+  [
+    "-mN3VyJuCjM",
+    {
+      "lang": "en-US",
+      "channel": "ByteByteGo",
+      "title": "What Is REST API? Examples And How To Use It: Crash Course System Design #3"
+    }
+  ],
+  [
+    "T0k-3Ze4NLo",
+    {
+      "lang": "en-US",
+      "channel": "Hussein Nasser",
+      "title": "JWT - JSON Web Token Crash Course (NodeJS & Postgres)"
+    }
+  ],
+  [
+    "eIQh02xuVw4",
+    {
+      "lang": "en-US",
+      "channel": "Fireship",
+      "title": "GraphQL Explained in 100 Seconds"
+    }
+  ],
+  [
+    "gnchfOojMk4",
+    {
+      "lang": "NA",
+      "channel": "ByteByteGo",
+      "title": "What is RPC? gRPC Introduction."
+    }
+  ],
+  [
+    "CAQ_a2-9UOI",
+    {
+      "lang": "en",
+      "channel": "IBM Technology",
+      "title": "Observability vs. APM vs. Monitoring"
+    }
+  ],
+  [
+    "W4_aGb_MOls",
+    {
+      "lang": "en-US",
+      "channel": "Hussein Nasser",
+      "title": "What is a Message Queue and When should you use Messaging Queue Systems Like RabbitMQ and Kafka"
+    }
+  ],
+  [
+    "GAe5oB742dw",
+    {
+      "lang": "en-US",
+      "channel": "ByteByteGo",
+      "title": "ACID Properties in Databases With Examples"
+    }
+  ],
+  [
+    "nH4qjmP2KEE",
+    {
+      "lang": "en-US",
+      "channel": "ByteByteGo",
+      "title": "Top 7 Most-Used Distributed System Patterns"
+    }
+  ],
+  [
+    "k4tK2ttdSDg",
+    {
+      "lang": "en",
+      "channel": "IBM Technology",
+      "title": "What is a Data Warehouse?"
+    }
+  ],
+  [
+    "aEJB8IAMMpA",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "True Random Numbers - Computerphile"
+    }
+  ],
+  [
+    "Ks1pw1X22y4",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "Random Numbers with LFSR (Linear Feedback Shift Register) - Computerphile"
+    }
+  ],
+  [
+    "vXe8pe18MNk",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "Power LED Attack - Computerphile"
+    }
+  ],
+  [
+    "6Pf3pY3GxBM",
+    {
+      "lang": "en",
+      "channel": "LiveOverflow",
+      "title": "Hardware Power Glitch Attack (Fault Injection) - rhme2 Fiesta (FI 100)"
+    }
+  ],
+  [
+    "gPsYkV7-yJk",
+    {
+      "lang": "en",
+      "channel": "LiveOverflow",
+      "title": "Self-Learning Reverse Engineering in 2022"
+    }
+  ],
+  [
+    "CgGha_zLqlo",
+    {
+      "lang": "en",
+      "channel": "LiveOverflow",
+      "title": "Reversing Statically-Linked Binaries with Function Signatures - bin 0x2D"
+    }
+  ],
+  [
+    "y69uIxU0eI8",
+    {
+      "lang": "en",
+      "channel": "LiveOverflow",
+      "title": "Scripting radare2 with python for dynamic analysis - TUMCTF 2016 Zwiebel part 2"
+    }
+  ],
+  [
+    "BCBZPtZCI7w",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "Geometric Face Recognition - Computerphile"
+    }
+  ],
+  [
+    "mJx30g3bzQo",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "Sound Recognition - Computerphile"
+    }
+  ],
+  [
+    "RoGHVI-w9bE",
+    {
+      "lang": "NA",
+      "channel": "Two Minute Papers",
+      "title": "DeepFake Detector AIs Are Good Too!"
+    }
+  ],
+  [
+    "t1e8gqXLbsU",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "What is a Monad? - Computerphile"
+    }
+  ],
+  [
+    "5C_HPTJg5ek",
+    {
+      "lang": "en-US",
+      "channel": "Fireship",
+      "title": "Rust in 100 Seconds"
+    }
+  ],
+  [
+    "yIYKR4sgzI8",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "StatQuest: Logistic Regression"
+    }
+  ],
+  [
+    "ySN5Wnu88nE",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "A* (A Star) Search Algorithm - Computerphile"
+    }
+  ],
+  [
+    "U4ogK0MIzqk",
+    {
+      "lang": "en-US",
+      "channel": "Sebastian Lague",
+      "title": "Coding Adventure: Chess"
+    }
+  ],
+  [
+    "BEFY7IHs0HM",
+    {
+      "lang": "en-US",
+      "channel": "Computerphile",
+      "title": "Monte Carlo Tree Search - Computerphile"
+    }
+  ],
+  [
+    "aircAruvnKk",
+    {
+      "lang": "en",
+      "channel": "3Blue1Brown",
+      "title": "But what is a neural network? | Deep learning chapter 1"
+    }
+  ],
+  [
+    "IHZwWFHWa-w",
+    {
+      "lang": "en",
+      "channel": "3Blue1Brown",
+      "title": "Gradient descent, how neural networks learn | Deep Learning Chapter 2"
+    }
+  ],
+  [
+    "KuXjwB4LzSA",
+    {
+      "lang": "en-US",
+      "channel": "3Blue1Brown",
+      "title": "But what is a convolution?"
+    }
+  ],
+  [
+    "gQddtTdmG_8",
+    {
+      "lang": "en-US",
+      "channel": "Computerphile",
+      "title": "Vectoring Words (Word Embeddings) - Computerphile"
+    }
+  ],
+  [
+    "eMlx5fFNoYc",
+    {
+      "lang": "en-US",
+      "channel": "3Blue1Brown",
+      "title": "Attention in transformers, step-by-step | Deep Learning Chapter 6"
+    }
+  ],
+  [
+    "wjZofJX0v4M",
+    {
+      "lang": "en",
+      "channel": "3Blue1Brown",
+      "title": "Transformers, the tech behind LLMs | Deep Learning Chapter 5"
+    }
+  ],
+  [
+    "zjkBMFhNj_g",
+    {
+      "lang": "en",
+      "channel": "Andrej Karpathy",
+      "title": "[1hr Talk] Intro to Large Language Models"
+    }
+  ],
+  [
+    "NF5_btOaCig",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "Using Linear Models for t-tests and ANOVA, Clearly Explained!!!"
+    }
+  ],
+  [
+    "BHqjEjzAicA",
+    {
+      "lang": "en-US",
+      "channel": "ByteByteGo",
+      "title": "CAP Theorem Simplified"
+    }
+  ],
+  [
+    "pomxJOFVcQs",
+    {
+      "lang": "en-US",
+      "channel": "Hussein Nasser",
+      "title": "Relational Database ACID Transactions (Explained by Example)"
+    }
+  ],
+  [
+    "aXD4tWbkoJo",
+    {
+      "lang": "en-US",
+      "channel": "Hussein Nasser",
+      "title": "Avoid premature Database Sharding"
+    }
+  ],
+  [
+    "SzZ6GpcfoQY",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "Calculating the Mean, Variance and Standard Deviation, Clearly Explained!!!"
+    }
+  ],
+  [
+    "xZ_z8KWkhXE",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "Pearson's Correlation, Clearly Explained!!!"
+    }
+  ],
+  [
+    "FgakZw6K1QQ",
+    {
+      "lang": "en",
+      "channel": "StatQuest with Josh Starmer",
+      "title": "StatQuest: Principal Component Analysis (PCA), Step-by-Step"
+    }
+  ],
+  [
+    "Vw1fCeD06YI",
+    {
+      "lang": "en-US",
+      "channel": "Hussein Nasser",
+      "title": "Column vs Row Oriented Databases Explained"
+    }
+  ],
+  [
+    "X8v1BB0UaDs",
+    {
+      "lang": "en-US",
+      "channel": "Computerphile",
+      "title": "Is it the End for Moore's Law? - Computerphile"
+    }
+  ],
+  [
+    "I5mRwzVvFGE",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "Spectre & Meltdown - Computerphile"
+    }
+  ],
+  [
+    "nczJ58WvtYo",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "How Branch Prediction Works in CPUs - Computerphile"
+    }
+  ],
+  [
+    "h9Z4oGN89MU",
+    {
+      "lang": "en-US",
+      "channel": "Branch Education",
+      "title": "How do Graphics Cards Work?  Exploring GPU Architecture"
+    }
+  ],
+  [
+    "V_QS1HzJ8Bc",
+    {
+      "lang": "en-US",
+      "channel": "Neso Academy",
+      "title": "Direct Memory Mapping"
+    }
+  ],
+  [
+    "kPPFNrlN3zo",
+    {
+      "lang": "en",
+      "channel": "IBM Technology",
+      "title": "What is the CIA Triad"
+    }
+  ],
+  [
+    "GSIDS_lvRv4",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "Public Key Cryptography - Computerphile"
+    }
+  ],
+  [
+    "0oeD2Wf25wY",
+    {
+      "lang": "NA",
+      "channel": "IBM Technology",
+      "title": "Mastering AI Risk: NIST’s Risk Management Framework Explained"
+    }
+  ],
+  [
+    "Ula3TG8QS7g",
+    {
+      "lang": "en",
+      "channel": "IBM Technology",
+      "title": "Building a Cybersecurity Framework"
+    }
+  ],
+  [
+    "1S0aBV-Waeo",
+    {
+      "lang": "en",
+      "channel": "Computerphile",
+      "title": "Running a Buffer Overflow Attack - Computerphile"
+    }
+  ],
+  [
+    "EoaDgUgS6QA",
+    {
+      "lang": "en",
+      "channel": "PwnFunction",
+      "title": "Cross-Site Scripting (XSS) Explained"
+    }
+  ],
+  [
+    "ilhGh9CEIwM",
+    {
+      "lang": "en-US",
+      "channel": "PowerCert Animated Videos",
+      "title": "DDoS Attack Explained"
+    }
+  ],
+  [
+    "kDEX1HXybrU",
+    {
+      "lang": "en",
+      "channel": "PowerCert Animated Videos",
+      "title": "What is a Firewall?"
+    }
+  ],
+  [
+    "mYtvjijATa4",
+    {
+      "lang": "en-US",
+      "channel": "Computerphile",
+      "title": "Krack Attacks (WiFi WPA2 Vulnerability) - Computerphile"
+    }
+  ],
+  [
+    "pTB30aXS77U",
+    {
+      "lang": "en-US",
+      "channel": "ArjanCodes",
+      "title": "Uncle Bob’s SOLID Principles Made Easy 🍀 - In Python!"
+    }
+  ],
+  [
+    "tv-_1er1mWI",
+    {
+      "lang": "en-US",
+      "channel": "Fireship",
+      "title": "10 Design Patterns Explained in 10 Minutes"
+    }
+  ],
+  [
+    "WQ8bNdxREHU",
+    {
+      "lang": "en-US",
+      "channel": "ArjanCodes",
+      "title": "The Strategy Pattern: Write BETTER PYTHON CODE Part 3"
+    }
+  ],
+  [
+    "ecK3EnyGD8o",
+    {
+      "lang": "en",
+      "channel": "Fireship",
+      "title": "13 Advanced (but useful) Git Techniques and Shortcuts"
+    }
+  ],
+  [
+    "DlEa8kd7n3Q",
+    {
+      "lang": "en-US",
+      "channel": "Ben Eater",
+      "title": "Hardware interrupts"
+    }
+  ],
+  [
+    "VZ7EHLdrVo0",
+    {
+      "lang": "NA",
+      "channel": "IBM Technology",
+      "title": "What Is Apache Spark?"
+    }
+  ],
+  [
+    "8YPXv7xKh2w",
+    {
+      "lang": "en",
+      "channel": "Philipp Lackner",
+      "title": "How to Make a Clean Architecture Note App (MVVM / CRUD / Jetpack Compose) - Android Studio Tutorial"
+    }
+  ],
+  [
+    "ShNhJ3wMpvQ",
+    {
+      "lang": "en-US",
+      "channel": "Philipp Lackner",
+      "title": "WHAT IS A COROUTINE? - Kotlin Coroutines"
+    }
+  ],
+  [
+    "X8ipUgXH6jw",
+    {
+      "lang": "en",
+      "channel": "Fireship",
+      "title": "React Native vs Flutter - I built the same chat app with both"
+    }
+  ],
+  [
+    "OlbdIXLunt4",
+    {
+      "lang": "en",
+      "channel": "NNgroup",
+      "title": "Paper Prototyping: How to Create & Usability-Test Simple UI Prototypes (40 min tutorial)"
+    }
+  ],
+  [
+    "LnaLPPmY3_Q",
+    {
+      "lang": "en-US",
+      "channel": "NNgroup",
+      "title": "Explain UX with User-Centered Design"
+    }
+  ],
+  [
+    "RhgUirqki50",
+    {
+      "lang": "en-US",
+      "channel": "NNgroup",
+      "title": "Usability Testing w. 5 Users: Design Process (video 1 of 3)"
+    }
+  ],
+  [
+    "lkIFF4maKMU",
+    {
+      "lang": "en-US",
+      "channel": "Fireship",
+      "title": "100+ JavaScript Concepts you Need to Know"
+    }
+  ],
+  [
+    "vn3tm0quoqE",
+    {
+      "lang": "en",
+      "channel": "Fireship",
+      "title": "The Async Await Episode I Promised"
+    }
+  ],
+  [
+    "j9QmMEWmcfo",
+    {
+      "lang": "en-US",
+      "channel": "ByteByteGo",
+      "title": "SSL, TLS, HTTPS Explained"
+    }
+  ],
+  [
+    "RI9np1LWzqw",
+    {
+      "lang": "en-US",
+      "channel": "ByteByteGo",
+      "title": "What Is A CDN? How Does It Work?"
+    }
+  ],
+  [
+    "4KHiSt0oLJ0",
+    {
+      "lang": "en",
+      "channel": "Fireship",
+      "title": "CORS in 100 Seconds"
+    }
+  ],
+  [
+    "eWEgUcHPle0",
+    {
+      "lang": "en-US",
+      "channel": "PwnFunction",
+      "title": "Cross-Site Request Forgery (CSRF) Explained"
+    }
+  ],
+  [
+    "BSLLDXQTqmM",
+    {
+      "lang": "en-US",
+      "channel": "Computer Science Lessons",
+      "title": "Pipeline Architecture"
+    }
+  ],
+  [
+    "lQcU4WwVALI",
+    {
+      "lang": "en-US",
+      "channel": "Neso Academy",
+      "title": "Memory Hierarchy & Interfacing"
+    }
+  ],
+  [
+    "6XV3uLfKzog",
+    {
+      "lang": "en-US",
+      "channel": "MIT OpenCourseWare",
+      "title": "15.2.3 Data Hazards"
+    }
+  ],
+  [
+    "r_ZE1XVT8Ao",
+    {
+      "lang": "en",
+      "channel": "Neso Academy",
+      "title": "Cache Coherence Problem & Cache Coherency Protocols"
+    }
+  ]
+]

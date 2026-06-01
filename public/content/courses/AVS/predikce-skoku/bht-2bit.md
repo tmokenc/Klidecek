@@ -236,4 +236,9 @@ OS pri context switch: některá CPU *flushují* BTB (kvůli Spectre v2 mitigace
 
 ---
 
+### Videa
+
+::: youtube "https://www.youtube.com/watch?v=nczJ58WvtYo" "How Branch Prediction Works in CPUs - Computerphile" "Computerphile"
+:::
+
 *Zdroj: AVS přednášky 2025/26, doc. Ing. Jiří Jaroš, Ph.D., FIT VUT v Brně. Externí reference: Smith, J.E.: „A Study of Branch Prediction Strategies" (ISCA 1981); Hennessy, J.L., Patterson, D.A.: „Computer Architecture: A Quantitative Approach" (6th ed., Morgan Kaufmann 2017), §3.3; Yeh, T.-Y., Patt, Y.N.: „Two-Level Adaptive Training Branch Prediction" (MICRO 1991, [DOI 10.1145/123465.123475](https://doi.org/10.1145/123465.123475)).*

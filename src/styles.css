@@ -1019,6 +1019,13 @@ button { font: inherit; color: inherit; }
 .embed-cap a { color: var(--text); text-decoration: none; }
 .embed-cap a:hover { color: var(--accent); text-decoration: underline; }
 .embed-yt-icon { color: #f00; flex: none; }
+.embed-cc-badge {
+  margin-left: auto;
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.03em;
+  color: var(--text-faint);
+  border: 0.5px solid var(--line-strong, var(--line));
+  border-radius: 4px; padding: 1px 5px;
+}
 .block-embed-bad {
   padding: 12px var(--pad-3);
   font-size: 13px;

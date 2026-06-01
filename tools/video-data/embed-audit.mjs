@@ -49,13 +49,19 @@ for (const dark of [true, false]) {
   await page.goto(BASE, { waitUntil: 'domcontentloaded' });
   await page.evaluate(d => localStorage.setItem('okruhy.tweaks.v1', JSON.stringify({ dark: d })), dark);
   for (const [course, exp] of byCourse) {
+    process.stderr.write(`[${dark ? 'D' : 'L'}] ${course}\n`);
     const errs = [];
     const onMsg = m => { if (m.type() === 'error') errs.push(m.text().slice(0, 200)); };
     const onErr = e => errs.push('PAGEERR: ' + String(e).slice(0, 200));
     page.on('console', onMsg); page.on('pageerror', onErr);
-    await page.goto('about:blank', { waitUntil: 'domcontentloaded' });
-    await page.goto(BASE + exp.route, { waitUntil: 'domcontentloaded' });
-    await page.waitForFunction(() => document.querySelector('.block-embed'), { timeout: 12000 }).catch(() => {});
+    try {
+      await page.goto('about:blank', { waitUntil: 'domcontentloaded', timeout: 15000 });
+      await page.goto(BASE + exp.route, { waitUntil: 'domcontentloaded', timeout: 20000 });
+      await page.waitForFunction(() => document.querySelector('.block-embed'), { timeout: 12000 }).catch(() => {});
+    } catch (e) {
+      page.off('console', onMsg); page.off('pageerror', onErr);
+      bad.push({ theme: dark ? 'dark' : 'light', course, nav: String(e).slice(0, 80) }); continue;
+    }
     await sleep(150);
     const info = await readPage();
     page.off('console', onMsg); page.off('pageerror', onErr);

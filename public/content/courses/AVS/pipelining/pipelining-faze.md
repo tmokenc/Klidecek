@@ -166,7 +166,7 @@ Pipeline ideálně dosahuje CPI = 1, ale [[datove-konflikty-forwarding]] a [[rid
 
 ### Videa
 
-::: youtube "https://www.youtube.com/watch?v=srlgaJgaxRE" "L-4.6: What is Hazard in Pipelining | various types of Hazards | computer Architecture" "Gate Smashers"
+::: youtube "https://www.youtube.com/watch?v=BSLLDXQTqmM" "Pipeline Architecture" "Computer Science Lessons"
 :::
 
 *Zdroj: AVS přednášky 2025/26, doc. Ing. Jiří Jaroš, Ph.D., FIT VUT v Brně. Externí reference: Hennessy, J.L., Patterson, D.A.: „Computer Architecture: A Quantitative Approach" (6th ed., Morgan Kaufmann 2017), Appendix C; Patterson, D.A., Hennessy, J.L.: „Computer Organization and Design: RISC-V Edition" (Morgan Kaufmann 2017), §4; [Berkeley CS61C: Pipelining](https://inst.eecs.berkeley.edu/~cs61c/sp24/).*

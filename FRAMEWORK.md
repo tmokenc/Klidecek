@@ -152,6 +152,30 @@ should not change — fix the path, not the id.
 Use `sharedWith` honestly: only list specs whose exam genuinely covers the
 *same* area. Over-sharing pollutes the "Also in exam for" jumps.
 
+**Supplementary videos.** A subtopic may end with a `### Videa` section — placed
+after the `::: link` references and before the `*Zdroj:*` footer — holding one or
+more `::: youtube` embeds (see the typed-fences table). Conventions:
+
+* **Audio language: English or Czech only.** Prefer an English explainer when one
+  exists. A non-English video may stay *only* if it carries English subtitles —
+  flag it with the 4th `"cc"` argument so the player turns captions on by default
+  (`cc_load_policy=1&cc_lang_pref=en`).
+* **Reputable educational channels only** (Computerphile, 3Blue1Brown, StatQuest,
+  Ben Eater, Hussein Nasser, ByteByteGo, Neso Academy, PowerCert, NNgroup, …).
+  Avoid Hindi/Hinglish re-teach channels (Gate Smashers, Unacademy, Knowledge Gate).
+* **Never hand-type a video id** — resolve and validate real ids with `yt-dlp`. The
+  whole pipeline lives in `tools/video-data/` (memory: `youtube-embed-and-video-curation`).
+
+**Keep specialised material in the course that owns it.** If a subtopic's video (or
+a deep aside) is really about another course's *specialty* — e.g. the Spectre/Meltdown
+*attack* belongs to hardware security (BZA), not the computer-architecture course
+(AVS) — host it in the specialist course's matching subtopic and leave only a
+`[[cross-reference]]` behind in the origin. When unsure which course owns a topic,
+check its scope on the VUT FIT page (`https://www.fit.vut.cz/study/course/<CODE>/.cs`).
+Material that several courses *genuinely share* (probability for stats and ML; AES for
+crypto and security; REST for web and enterprise IS) may stay duplicated — don't force
+a move.
+
 ### 0.6 Default to interactive visualisation — build a viz whenever possible
 
 This is the single highest-leverage rule for authors. Reading walls of prose

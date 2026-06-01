@@ -82,6 +82,8 @@ if (x < array1_size) {
 
 ⇒ **Spectre v1** — extrahuje libovolný byte z paměti procesu (kernel memory, jiné procesy v sandboxu).
 
+> Spectre a Meltdown jsou z bezpečnostního hlediska **útoky postranním kanálem** (cache-timing). Jejich útočný rozbor — i s videem — patří k postranním kanálům: viz [[casova-analyza|Časová analýza (Timing Attack)]].
+
 ### Meltdown — slabší než Spectre
 
 Meltdown je *speciálnější*: využívá, že load z *neautorizované* adresy (kernel page tagged user-mode) **se spekulativně vykoná** *před* permission check. Cache pak prozradí kernel byte.
@@ -134,10 +136,5 @@ Apple M1, M2 staví na "*selective hardening*" — kernel kód má speciální b
 ROB + spekulace + recovery = back-end OoO CPU dokončen. Topic 3 nasaďí *cache* — paměť, ze které OoO bere data. [[pamet-hierarchie]] zavede pojem, [[cache-mapovani]] strukturu, [[ls-jednotka-mshr]] hraje s OoO L/S.
 
 ---
-
-### Videa
-
-::: youtube "https://www.youtube.com/watch?v=I5mRwzVvFGE" "Spectre & Meltdown - Computerphile" "Computerphile"
-:::
 
 *Zdroj: AVS přednášky 2025/26, doc. Ing. Jiří Jaroš, Ph.D., FIT VUT v Brně. Externí reference: Smith, J.E., Pleszkun, A.R.: „Implementation of Precise Interrupts in Pipelined Processors" (ISCA 1985); Kocher, P. et al.: „Spectre Attacks: Exploiting Speculative Execution" (S&P 2019, [arXiv:1801.01203](https://arxiv.org/abs/1801.01203)); Lipp, M. et al.: „Meltdown: Reading Kernel Memory from User Space" (USENIX Sec 2018, [arXiv:1801.01207](https://arxiv.org/abs/1801.01207)); Hennessy, J.L., Patterson, D.A.: „Computer Architecture: A Quantitative Approach" (6th ed., Morgan Kaufmann 2017), §3.10.*

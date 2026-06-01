@@ -20,18 +20,23 @@ for (const v of videos) { const k = `${v.course}/${v.topic}/${v.sub}`; (bySub.ge
 
 function buildSection(vids) {
   const blocks = vids.map(v =>
-    `::: youtube "https://www.youtube.com/watch?v=${v.videoId}" "${esc(v.title)}" "${esc(v.channel)}"\n:::`
+    `::: youtube "https://www.youtube.com/watch?v=${v.videoId}" "${esc(v.title)}" "${esc(v.channel)}"${v.cc ? ' "cc"' : ''}\n:::`
   ).join('\n\n');
   return `### Videa\n\n${blocks}\n`;
 }
 
-let files = 0, total = 0, missing = 0, lostFooter = 0;
-for (const [key, vids] of bySub) {
+// Full sync over EVERY catalogue subtopic: a subtopic with videos gets/keeps its
+// `### Videa` section; one that lost all its videos has its stale section stripped.
+let added = 0, total = 0, stripped = 0, missing = 0, lostFooter = 0;
+const allKeys = new Set([...srcOf.keys()]);
+for (const key of allKeys) {
+  const vids = bySub.get(key) || [];
   const src = srcOf.get(key);
-  if (!src) { console.warn('NO SRC for', key); missing++; continue; }
   const path = ROOT + '/public/' + src.replace(/^\//, '');
-  if (!fs.existsSync(path)) { console.warn('MISSING FILE', path); missing++; continue; }
+  if (!fs.existsSync(path)) { if (vids.length) { console.warn('MISSING FILE', path); missing++; } continue; }
   let md = fs.readFileSync(path, 'utf8');
+  const hadSection = /\n###\s+Videa\s*\n/.test(md);
+  if (!vids.length && !hadSection) continue;                       // nothing to do
 
   // peel off trailing `*Zdroj: …*` footer (if any)
   const fm = md.match(/\n*(\*Zdroj:[^\n]*)\s*$/);
@@ -42,12 +47,13 @@ for (const [key, vids] of bySub) {
   // strip any previously-inserted video section (always lives at body end)
   body = body.replace(/\n*###\s+Videa\s*\n[\s\S]*$/, '');
 
-  const section = buildSection(vids);
-  let next = body.replace(/\s+$/, '') + '\n\n' + section.replace(/\s+$/, '') + '\n';
+  let next = body.replace(/\s+$/, '') + '\n';
+  if (vids.length) { next = body.replace(/\s+$/, '') + '\n\n' + buildSection(vids).replace(/\s+$/, '') + '\n'; }
   if (hadFooter) next += '\n' + footer + '\n';
 
+  if (next === md) continue;
   fs.writeFileSync(path, next);
   if (hadFooter && !/\*Zdroj:/.test(next)) lostFooter++;
-  files++; total += vids.length;
+  if (vids.length) { added++; total += vids.length; } else { stripped++; }
 }
-console.log(`integrated ${total} videos into ${files} subtopic files (${missing} missing, ${lostFooter} lost-footer)`);
+console.log(`integrated ${total} videos into ${added} files | stripped stale section from ${stripped} files (${missing} missing, ${lostFooter} lost-footer)`);

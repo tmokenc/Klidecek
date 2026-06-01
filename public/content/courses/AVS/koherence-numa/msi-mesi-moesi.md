@@ -214,7 +214,7 @@ Snooping (broadcast každé invalidace) škáluje špatně — viz [[snooping-di
 
 ### Videa
 
-::: youtube "https://www.youtube.com/watch?v=m1dA7D6c3C0" "L-3.5: What is Cache Mapping || Cache Mapping techniques || Computer Organisation and Architecture" "Gate Smashers"
+::: youtube "https://www.youtube.com/watch?v=r_ZE1XVT8Ao" "Cache Coherence Problem & Cache Coherency Protocols" "Neso Academy"
 :::
 
 *Zdroj: AVS přednášky 2025/26, doc. Ing. Jiří Jaroš, Ph.D., FIT VUT v Brně. Externí reference: Hennessy, J.L., Patterson, D.A.: „Computer Architecture: A Quantitative Approach" (6th ed., Morgan Kaufmann 2017), §5.2-5.4; Papamarcos, M.S., Patel, J.H.: „A Low-Overhead Coherence Solution for Multiprocessors with Private Cache Memories" (ISCA 1984, [DOI 10.1145/800015.808204](https://doi.org/10.1145/800015.808204)); Sorin, D.J., Hill, M.D., Wood, D.A.: „A Primer on Memory Consistency and Cache Coherence" (Morgan & Claypool 2011).*

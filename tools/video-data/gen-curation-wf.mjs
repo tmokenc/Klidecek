@@ -39,7 +39,7 @@ const ALLOWLIST = [
   'Andrej Karpathy', 'Yannic Kilcher', 'sentdex', 'DeepLearningAI', 'NNgroup', 'Nielsen Norman Group',
   'AJ&Smart', 'Android Developers', 'Apple Developer', 'Philipp Lackner', 'CodeWithChris', 'freeCodeCamp.org',
   'CMU Database Group', 'Hnasr', 'Spanning Tree', 'Tom Scott', 'Lex Fridman', 'PBS Infinite Series',
-  'Eli the Computer Guy', 'Hardware Unboxed', 'Gary Explains', 'Computer Science', 'Neso Academy', 'Gate Smashers',
+  'Eli the Computer Guy', 'Hardware Unboxed', 'Gary Explains', 'Computer Science Lessons', 'Neso Academy',
   'Abdul Bari', 'WilliamFiset', 'Back To Back SWE', 'Errichto', 'Tushar Roy - Coding Made Simple',
   'mCoding', 'Tsoding', 'The Coding Train', 'Socratica', 'Derek Banas', 'Bisqwit',
 ];

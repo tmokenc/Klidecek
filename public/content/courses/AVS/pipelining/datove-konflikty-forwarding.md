@@ -47,7 +47,7 @@ Pokuta: **2 stall cykly na RAW závislost (ALU→ALU bez forwardingu)** ⇒ CPI 
 Klíčový postřeh: výsledek `add` je *hotový* už na konci EX (takt 3), jen *není zapsaný* do register file. Stačí ho **přímo poslat** z výstupu EX zpět na vstup EX další instrukce.
 
 ```
-takt:        1   2   3   4   5
+takt:        1   2   3   4   5   6
 add r1,...: IF  ID  EX  MA  WB
                     └── r1 ──┐
 sub r5,r1:      IF  ID  EX  MA  WB
@@ -56,41 +56,68 @@ sub r5,r1:      IF  ID  EX  MA  WB
 
 CPI této dvojice = **1** — žádný stall. Hardware: **multiplexor před ALU**, který volí mezi výstupem register file a vstupem z EX/MA registru.
 
-::: svg "Forwarding paths v 5-stupňové pipeline"
-<svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
-  <g fill="var(--bg-inset)" stroke="var(--line)">
-    <rect x="20" y="70" width="80" height="40" rx="3"/>
-    <rect x="120" y="70" width="80" height="40" rx="3"/>
-    <rect x="220" y="70" width="80" height="40" rx="3"/>
-    <rect x="320" y="70" width="80" height="40" rx="3"/>
-    <rect x="420" y="70" width="80" height="40" rx="3"/>
-  </g>
-  <g fill="var(--text)" text-anchor="middle" font-weight="600">
-    <text x="60" y="93">IF</text>
-    <text x="160" y="93">ID</text>
-    <text x="260" y="93">EX</text>
-    <text x="360" y="93">MA</text>
-    <text x="460" y="93">WB</text>
-  </g>
-  <g stroke="var(--accent)" fill="none" stroke-width="1.3">
-    <path d="M300,90 Q280,40 240,70" marker-end="url(#fw-arrow)"/>
-  </g>
-  <text x="270" y="40" fill="var(--accent)" text-anchor="middle" font-size="10" font-weight="600">EX → EX bypass</text>
-  <g stroke="var(--accent-line)" fill="none" stroke-width="1.3">
-    <path d="M400,110 Q360,160 250,110" marker-end="url(#fw-arrow2)"/>
-  </g>
-  <text x="320" y="175" fill="var(--accent-line)" text-anchor="middle" font-size="10" font-weight="600">MA → EX bypass (po lw)</text>
-  <g fill="var(--text-muted)" text-anchor="middle" font-size="9">
-    <text x="270" y="195">forwarding sníží stall na 0 (EX→EX) nebo 1 (lw + use)</text>
-  </g>
+::: svg "Forwarding předá výsledek dopředu v čase — do EX pozdější instrukce (zpět to nejde)"
+<svg viewBox="0 0 372 226" font-family="ui-sans-serif, system-ui" font-size="11">
   <defs>
-    <marker id="fw-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-      <path d="M0,0 L5,3 L0,6 z" fill="var(--accent)"/>
-    </marker>
-    <marker id="fw-arrow2" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-      <path d="M0,0 L5,3 L0,6 z" fill="var(--accent-line)"/>
+    <marker id="fwd-flow" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="#3ddc97"/>
     </marker>
   </defs>
+
+  <!-- ===== Diagram A: EX → EX (ALU → ALU), 0 stall ===== -->
+  <text x="186" y="15" text-anchor="middle" fill="var(--text)" font-weight="600">EX → EX bypass (ALU → ALU): 0 stall cyklů</text>
+  <g fill="var(--text-muted)" text-anchor="middle" font-size="8.5">
+    <text x="71" y="30">t1</text><text x="113" y="30">t2</text><text x="155" y="30">t3</text><text x="197" y="30">t4</text><text x="239" y="30">t5</text><text x="281" y="30">t6</text>
+  </g>
+  <text x="6" y="50" fill="var(--text)" font-family="ui-monospace, monospace" font-size="10">add</text>
+  <text x="6" y="84" fill="var(--text)" font-family="ui-monospace, monospace" font-size="10">sub</text>
+  <g text-anchor="middle" font-weight="700" fill="#fff">
+    <!-- add: IF ID EX MA WB (cykly 1-5) -->
+    <rect x="52"  y="34" width="38" height="24" rx="3" fill="#5b8def" opacity="0.85"/><text x="71"  y="50">IF</text>
+    <rect x="94"  y="34" width="38" height="24" rx="3" fill="#7c5bef" opacity="0.85"/><text x="113" y="50">ID</text>
+    <rect x="136" y="34" width="38" height="24" rx="3" fill="#ef5b8d" opacity="0.85"/><text x="155" y="50">EX</text>
+    <rect x="178" y="34" width="38" height="24" rx="3" fill="#ef8d5b" opacity="0.85"/><text x="197" y="50">MA</text>
+    <rect x="220" y="34" width="38" height="24" rx="3" fill="#5befef" opacity="0.85"/><text x="239" y="50">WB</text>
+    <!-- sub: IF ID EX MA WB (cykly 2-6) -->
+    <rect x="94"  y="68" width="38" height="24" rx="3" fill="#5b8def" opacity="0.85"/><text x="113" y="84">IF</text>
+    <rect x="136" y="68" width="38" height="24" rx="3" fill="#7c5bef" opacity="0.85"/><text x="155" y="84">ID</text>
+    <rect x="178" y="68" width="38" height="24" rx="3" fill="#ef5b8d" opacity="0.85"/><text x="197" y="84">EX</text>
+    <rect x="220" y="68" width="38" height="24" rx="3" fill="#ef8d5b" opacity="0.85"/><text x="239" y="84">MA</text>
+    <rect x="262" y="68" width="38" height="24" rx="3" fill="#5befef" opacity="0.85"/><text x="281" y="84">WB</text>
+  </g>
+  <!-- forward arrow: add EX (konec t3) → sub EX (t4) -->
+  <circle cx="155" cy="58" r="2.4" fill="#3ddc97"/>
+  <path d="M155,58 Q176,70 194,68" fill="none" stroke="#3ddc97" stroke-width="1.7" marker-end="url(#fwd-flow)"/>
+  <text x="205" y="65" fill="#3ddc97" font-size="9" font-weight="700">r1</text>
+
+  <!-- ===== Diagram B: MA → EX (load → ALU), 1 stall ===== -->
+  <text x="186" y="119" text-anchor="middle" fill="var(--text)" font-weight="600">MA → EX bypass (load → ALU): 1 stall cyklus</text>
+  <g fill="var(--text-muted)" text-anchor="middle" font-size="8.5">
+    <text x="71" y="134">t1</text><text x="113" y="134">t2</text><text x="155" y="134">t3</text><text x="197" y="134">t4</text><text x="239" y="134">t5</text><text x="281" y="134">t6</text><text x="323" y="134">t7</text>
+  </g>
+  <text x="6" y="158" fill="var(--text)" font-family="ui-monospace, monospace" font-size="10">lw</text>
+  <text x="6" y="192" fill="var(--text)" font-family="ui-monospace, monospace" font-size="10">add</text>
+  <g text-anchor="middle" font-weight="700" fill="#fff">
+    <!-- lw: IF ID EX MA WB (cykly 1-5) -->
+    <rect x="52"  y="142" width="38" height="24" rx="3" fill="#5b8def" opacity="0.85"/><text x="71"  y="158">IF</text>
+    <rect x="94"  y="142" width="38" height="24" rx="3" fill="#7c5bef" opacity="0.85"/><text x="113" y="158">ID</text>
+    <rect x="136" y="142" width="38" height="24" rx="3" fill="#ef5b8d" opacity="0.85"/><text x="155" y="158">EX</text>
+    <rect x="178" y="142" width="38" height="24" rx="3" fill="#ef8d5b" opacity="0.85"/><text x="197" y="158">MA</text>
+    <rect x="220" y="142" width="38" height="24" rx="3" fill="#5befef" opacity="0.85"/><text x="239" y="158">WB</text>
+    <!-- add: IF ID [stall] EX MA WB -->
+    <rect x="94"  y="176" width="38" height="24" rx="3" fill="#5b8def" opacity="0.85"/><text x="113" y="192">IF</text>
+    <rect x="136" y="176" width="38" height="24" rx="3" fill="#7c5bef" opacity="0.85"/><text x="155" y="192">ID</text>
+    <rect x="178" y="176" width="38" height="24" rx="3" fill="var(--bg-inset)" stroke="var(--text-faint)" stroke-dasharray="2 2"/><text x="197" y="192" fill="var(--text-faint)" font-weight="400">—</text>
+    <rect x="220" y="176" width="38" height="24" rx="3" fill="#ef5b8d" opacity="0.85"/><text x="239" y="192">EX</text>
+    <rect x="262" y="176" width="38" height="24" rx="3" fill="#ef8d5b" opacity="0.85"/><text x="281" y="192">MA</text>
+    <rect x="304" y="176" width="38" height="24" rx="3" fill="#5befef" opacity="0.85"/><text x="323" y="192">WB</text>
+  </g>
+  <!-- forward arrow: lw MA (konec t4) → add EX (t5), až po 1 stallu -->
+  <circle cx="197" cy="166" r="2.4" fill="#3ddc97"/>
+  <path d="M197,166 Q220,177 236,176" fill="none" stroke="#3ddc97" stroke-width="1.7" marker-end="url(#fwd-flow)"/>
+  <text x="247" y="173" fill="#3ddc97" font-size="9" font-weight="700">r4</text>
+
+  <text x="186" y="219" text-anchor="middle" fill="var(--text-muted)" font-size="9">Šipky vedou vždy dopředu v čase (doprava-dolů) — zpět to nejde.</text>
 </svg>
 :::
 
@@ -101,7 +128,7 @@ V 5-stupňové pipeline jsou tři praktické bypass cesty:
 | Bypass | Z fáze | Do fáze | Užití |
 | :--- | :--- | :--- | :--- |
 | EX → EX | po ALU | další ALU | `add r1,...` → `sub _, r1, _` (CPI = 1) |
-| MA → EX | po MA | další ALU | starší ALU, ale následuje pomalejší instrukce |
+| MA → EX | po MA | další ALU | RAW na vzdálenost 2 (1 nezávislá mezi nimi) nebo `lw` po 1 stallu — hodnota čeká v latchi MA/WB |
 | MA → MA | po MA | další store | `lw r4,..` → `sw r4,...` (kopírování) |
 
 Bypass zpět *do minulého taktu* **nelze** — kauzalita. Pokud `lw` načte v MA, ALU instrukce po něm v EX *minulý takt* nemůže výsledek dostat.
@@ -114,7 +141,7 @@ add r5, r4, r2   ; potřebuje r4 hned
 ```
 
 ```
-takt:        1   2   3   4   5
+takt:        1   2   3   4   5   6   7
 lw r4,...:  IF  ID  EX  MA  WB
                         └── r4
 add r5,r4:      IF  ID  ID  EX  MA  WB
@@ -150,7 +177,7 @@ V klasické MIPS 5-stupňové pipeline *nevznikají*, protože:
 
 Vznikají *až*:
 
-- V FP pipeline s vícetaktovým EX, kde `fmul` (čeká 4 takty) může být WB pozdější než `fadd` (1 takt).
+- V FP pipeline s vícetaktovým EX, kde `fmul` (delší EX latence) dokončí WB až po později vydaném `fadd`.
 - V OoO superskaláru, kde instrukce vydávají *out-of-order*.
 
 Řešení v obou případech: **přejmenování registrů** ([[renaming-rob]]).
@@ -188,7 +215,7 @@ Datové konflikty řeší forwarding (RAW) a přejmenování (WAR/WAW). [[ridici
 
 ### Videa
 
-::: youtube "https://www.youtube.com/watch?v=cMKn19y4_9E" "L-4.9: What is Read After Write(RAW) Hazards| Data Hazard in Pipelining with Example in Hindi | COA" "Gate Smashers"
+::: youtube "https://www.youtube.com/watch?v=6XV3uLfKzog" "15.2.3 Data Hazards" "MIT OpenCourseWare"
 :::
 
 *Zdroj: AVS přednášky 2025/26, doc. Ing. Jiří Jaroš, Ph.D., FIT VUT v Brně. Externí reference: Hennessy, J.L., Patterson, D.A.: „Computer Architecture: A Quantitative Approach" (6th ed., Morgan Kaufmann 2017), §C.2, str. 147-162; Patterson, D.A., Hennessy, J.L.: „Computer Organization and Design: RISC-V Edition" (Morgan Kaufmann 2017), §4.7.*
