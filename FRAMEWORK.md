@@ -133,8 +133,8 @@ When you author or restructure either layer:
   students discover that two of their courses are studying the same idea
   from different angles. Add a bridge whenever you find one of those
   "wait, that comes back here?" moments.
-* **Test the mindmap visually after adding content** — open `#/c/<id>/mm`
-  and `#/mm`. Labels should not overlap heavily and arcs should look
+* **Test the mindmap visually after adding content** — open `/c/<id>/mm`
+  and `/mm`. Labels should not overlap heavily and arcs should look
   balanced. If a branch is much bigger than its peers, that's a signal
   either to split it or to demote some leaves to a less-emphasised cluster.
 
@@ -389,7 +389,7 @@ home institution and named instructors out of the prose.
                                            ▼                                       │
                          ┌─────────────────────────────────┐                       │
                          │ src/app.jsx (router + chrome)   │                       │
-                         │  routes hash → page component   │                       │
+                         │  routes path → page component   │                       │
                          └─────────────────┬───────────────┘                       │
                                            │                                       │
                                            ▼                                       │
@@ -414,8 +414,8 @@ home institution and named instructors out of the prose.
    the hydrated model.
 2. `src/viz/index.js` is imported for its side effects; each viz module calls
    `register("<id>", Component)` once.
-3. React renders the App, which routes off `location.hash` and passes
-   `content` down into every page.
+3. React renders the App, which routes off the URL path (History API; legacy
+   `#/…` links are rewritten to clean paths) and passes `content` into every page.
 
 **Where progress lives:** `localStorage` under `okruhy.progress.v1`. Keys are
 `<courseId>/<topicId>/<subtopicId>`. Implemented in
@@ -426,7 +426,7 @@ home institution and named instructors out of the prose.
 ## 2. How to add a course
 
 1. Decide an id (short, uppercase, like `IZG`, `IAL`, `KRY`). The id is used
-   in URLs (`#/c/IZG`) and as a localStorage prefix, so do not rename later.
+   in URLs (`/c/IZG`) and as a localStorage prefix, so do not rename later.
 2. Append an entry to `public/content/manifest.json` → `courses[]`:
 
    ```json
@@ -653,11 +653,14 @@ yields args `["rasterize", "Drag the vertices."]`.
 | `quiz`      | `"question"`                                 | a list of `- [x] / - [ ]` choices, each optionally followed by an indented `> reason` line |
 
 The `youtube` fence accepts a full watch/`youtu.be`/`/embed/`/`/shorts/` URL or a
-bare 11-char id. It renders a click-to-load facade (thumbnail + play button +
-title); the privacy-mode (`youtube-nocookie.com`) iframe is only mounted when the
-reader clicks, so a page with many videos makes no third-party request until asked.
-Place videos at the end of a subtopic (with a `### Videa` heading), after the
-`::: link` references — see any subtopic touched by `tools/video-integrate.mjs`.
+bare 11-char id. At render time a subtopic's videos and its `::: link` references are
+gathered out of the inline flow into one compact **"Další zdroje"** list at the end of
+the subtopic (videos first); each video is a click-to-play row that mounts the
+privacy-mode (`youtube-nocookie.com`) iframe only when the reader clicks, so a page with
+many videos makes no third-party request until asked. Authoring is unchanged: place
+videos at the end of a subtopic under a `### Videa` heading, after the `::: link`
+references (the heading itself is dropped on render) — see any subtopic touched by
+`tools/video-integrate.mjs`.
 
 ### Standalone link line
 
@@ -890,7 +893,10 @@ must change when it moves.
 ### 5.3 Verify a viz batch by actually rendering it
 
 Static analysis catches none of the bugs above. The only reliable check is
-to render every viz in a real browser and look. The cheapest setup:
+to render every viz in a real browser and look. Subtopics lazy-mount their viz
+near the viewport, so append `?eager=1` to the route to force the whole page to
+render at once (and wait for the `.block-viz-loading` shimmer to clear). The
+cheapest setup:
 
 ```python
 # requires: pip install playwright && python -m playwright install chromium
@@ -902,7 +908,7 @@ with sync_playwright() as p:
     page = b.new_context(viewport={"width": 1100, "height": 900}).new_page()
     page.set_default_timeout(10000)
     for vid, (cid, tid, sid) in routes.items():
-        page.goto(f"http://localhost:5183/#/c/{cid}/{tid}/{sid}",
+        page.goto(f"http://localhost:5183/c/{cid}/{tid}/{sid}?eager=1",
                   wait_until="domcontentloaded")
         page.wait_for_selector(".block-viz")
         page.wait_for_timeout(400)
@@ -967,7 +973,7 @@ In `manifest.json`, append to `specializations[]`:
   "blurb": "Sequence analysis, structural biology, omics pipelines." }
 ```
 
-* `id` — short uppercase code. Used in URLs (`#/s/NBIO`).
+* `id` — short uppercase code. Used in URLs (`/s/NBIO`).
 * `hue` — OKLCH hue (0–360) used everywhere this spec is shown (dots, chips,
   hero card gradient). Pick one that doesn't clash with neighbours; existing
   specs use 22 / 80 / 142 / 200 / 264 / 340.
@@ -1016,8 +1022,8 @@ In `manifest.json` → `exam`:
 
 There are **two** mindmap views in the app:
 
-1. **Per-course mindmap** at `#/c/<id>/mm` — a radial map of one course.
-2. **Global mindmap** at `#/mm` — every course on one canvas, grouped by
+1. **Per-course mindmap** at `/c/<id>/mm` — a radial map of one course.
+2. **Global mindmap** at `/mm` — every course on one canvas, grouped by
    conceptual domain, with cross-course "bridge" edges for shared concepts.
 
 Both render from JSON files in `public/content/mindmaps/`. The data is
@@ -1247,7 +1253,7 @@ leaf dot.
 | `src/framework/mindmap.jsx`       | Radial course-mindmap layout. |
 | `src/framework/pages.jsx`         | All route page components (courses, specs, exam, course detail). |
 | `src/framework/progress.js`       | localStorage + React hooks for progress, collapse state (per-key defaults for tiers), and user tweaks. |
-| `src/app.jsx`                     | Hash router, theme application, sheets, app shell. |
+| `src/app.jsx`                     | History-API (clean-path) router (legacy `#/…` auto-rewritten), theme, sheets, app shell. |
 | `src/main.jsx`                    | React mount, removes the boot fade. |
 
 **Adding a new block kind** (e.g. `embed` for YouTube):
