@@ -26,7 +26,7 @@
       "name": "Paralelní a distribuované algoritmy",
       "credits": 5,
       "semester": "Winter",
-      "specializations": ["NADE", "NSEN", "NISY"],
+      "specializations": ["NADE", "NSEN", "NISY", "NBIO"],
       "blurb": "Paralelní architektury (Flynn, dataflow, redukční), PRAM model, paralelní algoritmy, distribuované systémy a konsensus. VUT FIT — Zbořil ml., Hanáček.",
       "resources": [
         { "title": "JáJá — An Introduction to Parallel Algorithms", "url": "https://www.pearson.com/en-us/subject-catalog/p/an-introduction-to-parallel-algorithms/P200000005887", "kind": "book", "note": "Standard PRAM reference: prefix sum, list ranking, tree contraction." },
@@ -331,7 +331,7 @@
       "name": "Teoretická informatika",
       "credits": 5,
       "semester": "Winter",
-      "specializations": ["NADE", "NSEN", "NMAL", "NISY"],
+      "specializations": ["NADE", "NSEN", "NMAL", "NISY", "NBIO"],
       "blurb": "Formální jazyky a Chomského hierarchie, konečné a zásobníkové automaty, Turingovy stroje, rozhodnutelnost, P/NP a NP-úplnost, amortizovaná analýza, výroková a predikátová logika, Gödelovy věty.",
       "resources": [
         { "title": "Sipser — Introduction to the Theory of Computation (3rd ed.)", "url": "https://www.cengage.com/c/introduction-to-the-theory-of-computation-3e-sipser/9781133187790/", "kind": "book", "note": "Standard textbook for automata, computability, complexity." },
@@ -922,7 +922,7 @@
       "name": "Funkcionální a logické programování",
       "credits": 5,
       "semester": "Summer",
-      "specializations": ["NADE", "NSEN"],
+      "specializations": ["NADE", "NSEN", "NBIO"],
       "blurb": "Lambda kalkul, funkcionální programování (Haskell), moderní paradigm (Rust od 2026/27) a logické programování (Prolog, legacy do 2025/26). Vyučující: Dušan Kolář.",
       "resources": [
         { "title": "Hutton — Programming in Haskell (2nd ed.)", "url": "https://www.cambridge.org/core/books/programming-in-haskell/", "kind": "book", "note": "Standard introductory Haskell textbook." },
@@ -988,7 +988,7 @@
       "name": "Strojové učení a umělá inteligence",
       "credits": 5,
       "semester": "Winter",
-      "specializations": ["NADE", "NMAL", "NISY"],
+      "specializations": ["NADE", "NMAL", "NISY", "NBIO"],
       "blurb": "Základy strojového učení a umělé inteligence: pravděpodobnostní modely, regrese, klasifikace, inteligentní agenti, prohledávání, hry, CSP, neuronové sítě, CNN, RNN, transformery, LLM a posilované učení.",
       "resources": [
         { "title": "Russell & Norvig — Artificial Intelligence: A Modern Approach (4th ed.)", "url": "https://aima.cs.berkeley.edu/", "kind": "book", "note": "Canonical AI textbook: search, CSP, planning, adversarial." },
@@ -1105,7 +1105,7 @@
       "name": "Statistika a pravděpodobnost",
       "credits": 6,
       "semester": "Winter",
-      "specializations": ["NADE", "NVIZ", "NMAL", "NSEN", "NSEC", "NISD", "NISY"],
+      "specializations": ["NADE", "NVIZ", "NMAL", "NSEN", "NSEC", "NISD", "NISY", "NBIO"],
       "blurb": "Pravděpodobnostní modely v informatice (DTMC, MDP), randomizované algoritmy, bodový a intervalový odhad parametrů, Fisherova informace, testování hypotéz, lineární model + ANOVA, lineární regrese, kategoriální data, neparametrické testy, GLM.",
       "resources": [
         { "title": "Wasserman — All of Statistics (Springer, free PDF)", "url": "https://www.stat.cmu.edu/~larry/all-of-statistics/", "kind": "book", "note": "Compact rigorous treatment, perfect for CS students." },
@@ -1229,7 +1229,7 @@
       "name": "Ukládání a příprava dat",
       "credits": 5,
       "semester": "Winter",
-      "specializations": ["NADE", "NISD", "NMAL"],
+      "specializations": ["NADE", "NISD", "NMAL", "NBIO"],
       "blurb": "Objektově-relační databáze, NoSQL (CAP, BASE, MongoDB/Cassandra/Neo4j/InfluxDB), NewSQL, XML/JSON v DB, sémantický web (RDF, OWL, SPARQL), web scraping, CRISP-DM, čištění a transformace dat, in-memory sloupcové DB (SAP HANA), prostorové databáze (R-tree, k-D tree).",
       "resources": [
         { "title": "Kleppmann — Designing Data-Intensive Applications", "url": "https://dataintensive.net/", "kind": "book", "note": "Modern definitive reference for NoSQL, replication, MapReduce." },
@@ -1353,7 +1353,7 @@
       "name": "Architektury výpočetních systémů",
       "credits": 5,
       "semester": "Winter",
-      "specializations": ["NADE", "NSEN", "NMAL"],
+      "specializations": ["NADE", "NSEN", "NMAL", "NBIO"],
       "blurb": "Pipelining, superskalární CPU (Scoreboard, Tomasulo, ROB), cache hierarchie + virtuální paměť, predikce skoků a prefetch, datový paralelismus (SIMD/AVX), SMT/Hyper-Threading, OpenMP, koherence cache (MESI/MOESI), NUMA, řízení spotřeby a GPGPU (CUDA, SIMT).",
       "resources": [
         { "title": "Hennessy & Patterson — Computer Architecture: A Quantitative Approach (6th ed.)", "url": "https://www.elsevier.com/books/computer-architecture/hennessy/978-0-12-811905-1", "kind": "book", "note": "The definitive reference for ILP, superscalar, cache, NUMA, GPUs." },
@@ -2373,6 +2373,559 @@
             {
               "id": "bezpecnostni-hlavicky",
               "src": "content/courses/WAP/bezpecnost/bezpecnostni-hlavicky.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "BIN",
+      "name": "Biologií inspirované počítače",
+      "credits": 5,
+      "semester": "Summer",
+      "specializations": [
+        "NBIO",
+        "NMAL"
+      ],
+      "blurb": "Přírodou inspirované výpočty — entropie a samoorganizace, celulární automaty a výpočetní vývin, evoluční návrh obvodů, neuroevoluce a DNA počítače.",
+      "resources": [
+        {
+          "title": "C. E. Shannon — A Mathematical Theory of Communication (1948)",
+          "url": "https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf",
+          "kind": "paper",
+          "note": "Informační entropie H = −Σ p log p."
+        },
+        {
+          "title": "S. Wolfram — A New Kind of Science",
+          "url": "https://www.wolframscience.com/nks/",
+          "kind": "book",
+          "note": "Celulární automaty, Wolframovy třídy, pravidlo 110."
+        },
+        {
+          "title": "L. M. Adleman — Molecular Computation of Solutions to Combinatorial Problems (Science, 1994)",
+          "url": "https://www.science.org/doi/10.1126/science.7973651",
+          "kind": "paper",
+          "note": "DNA řešení Hamiltonovské cesty."
+        },
+        {
+          "title": "Stanley & Miikkulainen — Evolving Neural Networks through Augmenting Topologies (NEAT, 2002)",
+          "url": "https://nn.cs.utexas.edu/?stanley:ec02",
+          "kind": "paper",
+          "note": "Neuroevoluce topologie i vah."
+        }
+      ],
+      "topics": [
+        {
+          "id": "entropie",
+          "title": "Entropie, emergence a chaos",
+          "subtopics": [
+            {
+              "id": "entropie-informace",
+              "src": "content/courses/BIN/entropie/entropie-informace.md"
+            },
+            {
+              "id": "emergence-samoorganizace",
+              "src": "content/courses/BIN/entropie/emergence-samoorganizace.md"
+            },
+            {
+              "id": "chaoticke-systemy",
+              "src": "content/courses/BIN/entropie/chaoticke-systemy.md"
+            }
+          ]
+        },
+        {
+          "id": "vypocetni-development",
+          "title": "Výpočetní vývin a celulární automaty",
+          "subtopics": [
+            {
+              "id": "celularni-automaty",
+              "src": "content/courses/BIN/vypocetni-development/celularni-automaty.md"
+            },
+            {
+              "id": "vypocetni-vyvin",
+              "src": "content/courses/BIN/vypocetni-development/vypocetni-vyvin.md"
+            }
+          ]
+        },
+        {
+          "id": "evolucni-navrh",
+          "title": "Evoluční návrh obvodů",
+          "subtopics": [
+            {
+              "id": "evolucni-algoritmus",
+              "src": "content/courses/BIN/evolucni-navrh/evolucni-algoritmus.md"
+            },
+            {
+              "id": "navrh-obvodu",
+              "src": "content/courses/BIN/evolucni-navrh/navrh-obvodu.md"
+            },
+            {
+              "id": "skalovatelnost",
+              "src": "content/courses/BIN/evolucni-navrh/skalovatelnost.md"
+            }
+          ]
+        },
+        {
+          "id": "neuroevoluce",
+          "title": "Neuroevoluce",
+          "subtopics": [
+            {
+              "id": "neuroevoluce-neat",
+              "src": "content/courses/BIN/neuroevoluce/neuroevoluce-neat.md"
+            },
+            {
+              "id": "nahradni-modely",
+              "src": "content/courses/BIN/neuroevoluce/nahradni-modely.md"
+            }
+          ]
+        },
+        {
+          "id": "dna-pocitace",
+          "title": "DNA počítače",
+          "subtopics": [
+            {
+              "id": "adleman-experiment",
+              "src": "content/courses/BIN/dna-pocitace/adleman-experiment.md"
+            },
+            {
+              "id": "dna-sat-dusledky",
+              "src": "content/courses/BIN/dna-pocitace/dna-sat-dusledky.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "KNN",
+      "name": "Konvoluční neuronové sítě",
+      "credits": 5,
+      "semester": "Summer",
+      "specializations": [
+        "NBIO",
+        "NMAL",
+        "NSPE",
+        "NVIZ"
+      ],
+      "blurb": "Konvoluční sítě pro obraz (konvoluční a pooling vrstvy, batch normalizace, VGG/ResNet), grafové neuronové sítě a autoregresivní modely s transformery (attention, jazykové modely).",
+      "resources": [
+        {
+          "title": "Goodfellow, Bengio, Courville — Deep Learning",
+          "url": "https://www.deeplearningbook.org/",
+          "kind": "book",
+          "note": "Konvoluční sítě, regularizace, sekvenční modely."
+        },
+        {
+          "title": "Stanford CS231n — Convolutional Neural Networks for Visual Recognition",
+          "url": "https://cs231n.github.io/",
+          "kind": "course",
+          "note": "Konvoluce, pooling, tvary tenzorů, architektury."
+        },
+        {
+          "title": "He et al. — Deep Residual Learning for Image Recognition (ResNet, 2015)",
+          "url": "https://arxiv.org/abs/1512.03385",
+          "kind": "paper",
+          "note": "Reziduální spojení proti mizejícímu gradientu."
+        },
+        {
+          "title": "Vaswani et al. — Attention Is All You Need (2017)",
+          "url": "https://arxiv.org/abs/1706.03762",
+          "kind": "paper",
+          "note": "Transformer, self-attention, multi-head."
+        },
+        {
+          "title": "Kipf & Welling — Semi-Supervised Classification with GCN (2017)",
+          "url": "https://arxiv.org/abs/1609.02907",
+          "kind": "paper",
+          "note": "Grafové konvoluční sítě."
+        }
+      ],
+      "topics": [
+        {
+          "id": "konvolucni-site",
+          "title": "Konvoluční neuronové sítě",
+          "subtopics": [
+            {
+              "id": "konvolucni-vrstva",
+              "src": "content/courses/KNN/konvolucni-site/konvolucni-vrstva.md"
+            },
+            {
+              "id": "pooling-batchnorm",
+              "src": "content/courses/KNN/konvolucni-site/pooling-batchnorm.md"
+            },
+            {
+              "id": "tenzory-parametry",
+              "src": "content/courses/KNN/konvolucni-site/tenzory-parametry.md"
+            },
+            {
+              "id": "architektury-vgg-resnet",
+              "src": "content/courses/KNN/konvolucni-site/architektury-vgg-resnet.md"
+            }
+          ]
+        },
+        {
+          "id": "grafove-site",
+          "title": "Grafové neuronové sítě",
+          "subtopics": [
+            {
+              "id": "message-passing",
+              "src": "content/courses/KNN/grafove-site/message-passing.md"
+            },
+            {
+              "id": "gnn-vyuziti",
+              "src": "content/courses/KNN/grafove-site/gnn-vyuziti.md"
+            }
+          ]
+        },
+        {
+          "id": "autoregresivni-transformery",
+          "title": "Autoregresivní modely a transformery",
+          "subtopics": [
+            {
+              "id": "autoregresivni-modely",
+              "src": "content/courses/KNN/autoregresivni-transformery/autoregresivni-modely.md"
+            },
+            {
+              "id": "attention-transformer",
+              "src": "content/courses/KNN/autoregresivni-transformery/attention-transformer.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ZZN",
+      "name": "Získávání znalostí z databází",
+      "credits": 5,
+      "semester": "Winter",
+      "specializations": [
+        "NBIO",
+        "NISD",
+        "NISY"
+      ],
+      "blurb": "Proces získávání znalostí z dat — frekventované množiny a asociační pravidla (Apriori, FP-growth), shluková analýza (k-means, hierarchické, DBSCAN) a dolování textu (TF-IDF, vyhledávání informací).",
+      "resources": [
+        {
+          "title": "Han, Kamber, Pei — Data Mining: Concepts and Techniques (3rd ed.)",
+          "url": "https://www.elsevier.com/books/data-mining-concepts-and-techniques/han/978-0-12-381479-1",
+          "kind": "book",
+          "note": "Kanonický zdroj pro asociace, klasifikaci, shlukování."
+        },
+        {
+          "title": "Agrawal & Srikant — Fast Algorithms for Mining Association Rules (Apriori, 1994)",
+          "url": "https://www.vldb.org/conf/1994/P487.PDF",
+          "kind": "paper",
+          "note": "Apriori vlastnost a generování kandidátů."
+        },
+        {
+          "title": "Ester et al. — A Density-Based Algorithm for Discovering Clusters (DBSCAN, 1996)",
+          "url": "https://cdn.aaai.org/KDD/1996/KDD96-037.pdf",
+          "kind": "paper",
+          "note": "Jádrové/hraniční/šumové body, eps a minPts."
+        },
+        {
+          "title": "Manning, Raghavan, Schütze — Introduction to Information Retrieval",
+          "url": "https://nlp.stanford.edu/IR-book/",
+          "kind": "book",
+          "note": "TF-IDF, vektorový model, vyhledávání informací."
+        }
+      ],
+      "topics": [
+        {
+          "id": "asociacni-pravidla",
+          "title": "Dolování asociačních pravidel",
+          "subtopics": [
+            {
+              "id": "frekventovane-mnoziny-apriori",
+              "src": "content/courses/ZZN/asociacni-pravidla/frekventovane-mnoziny-apriori.md"
+            },
+            {
+              "id": "pravidla-metriky",
+              "src": "content/courses/ZZN/asociacni-pravidla/pravidla-metriky.md"
+            },
+            {
+              "id": "fp-growth",
+              "src": "content/courses/ZZN/asociacni-pravidla/fp-growth.md"
+            }
+          ]
+        },
+        {
+          "id": "shlukova-analyza",
+          "title": "Shluková analýza",
+          "subtopics": [
+            {
+              "id": "vzdalenostni-funkce",
+              "src": "content/courses/ZZN/shlukova-analyza/vzdalenostni-funkce.md"
+            },
+            {
+              "id": "k-means-medoids",
+              "src": "content/courses/ZZN/shlukova-analyza/k-means-medoids.md"
+            },
+            {
+              "id": "hierarchicke-dbscan",
+              "src": "content/courses/ZZN/shlukova-analyza/hierarchicke-dbscan.md"
+            }
+          ]
+        },
+        {
+          "id": "dolovani-textu",
+          "title": "Dolování textu",
+          "subtopics": [
+            {
+              "id": "predzpracovani",
+              "src": "content/courses/ZZN/dolovani-textu/predzpracovani.md"
+            },
+            {
+              "id": "tfidf-vyhledavani",
+              "src": "content/courses/ZZN/dolovani-textu/tfidf-vyhledavani.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "BIF",
+      "name": "Bioinformatika",
+      "credits": 5,
+      "semester": "Summer",
+      "specializations": [
+        "NBIO"
+      ],
+      "blurb": "Algoritmy pro analýzu biologických dat — zarovnání sekvencí (NW/SW, BLAST), vícenásobné zarovnání, fylogenetické stromy, sekvenace a sestavování DNA, rozpoznávání genů (HMM) a predikce struktury proteinů.",
+      "resources": [
+        {
+          "title": "Durbin, Eddy, Krogh, Mitchison — Biological Sequence Analysis",
+          "url": "https://doi.org/10.1017/CBO9780511790492",
+          "kind": "book",
+          "note": "DP zarovnání, HMM, profily — referenční text."
+        },
+        {
+          "title": "Needleman & Wunsch — A General Method Applicable to the Search for Similarities (1970)",
+          "url": "https://doi.org/10.1016/0022-2836(70)90057-4",
+          "kind": "paper",
+          "note": "Globální zarovnání dynamickým programováním."
+        },
+        {
+          "title": "Altschul et al. — Basic Local Alignment Search Tool (BLAST, 1990)",
+          "url": "https://doi.org/10.1016/S0022-2836(05)80360-2",
+          "kind": "paper",
+          "note": "Heuristické vyhledávání v databázích."
+        },
+        {
+          "title": "Jumper et al. — Highly accurate protein structure prediction with AlphaFold (2021)",
+          "url": "https://doi.org/10.1038/s41586-021-03819-2",
+          "kind": "paper",
+          "note": "Hluboké učení pro predikci terciární struktury."
+        }
+      ],
+      "topics": [
+        {
+          "id": "zarovnani-sekvenci",
+          "title": "Zarovnání sekvencí",
+          "subtopics": [
+            {
+              "id": "dotplot-skore",
+              "src": "content/courses/BIF/zarovnani-sekvenci/dotplot-skore.md"
+            },
+            {
+              "id": "dynamicke-zarovnani",
+              "src": "content/courses/BIF/zarovnani-sekvenci/dynamicke-zarovnani.md"
+            },
+            {
+              "id": "blast",
+              "src": "content/courses/BIF/zarovnani-sekvenci/blast.md"
+            }
+          ]
+        },
+        {
+          "id": "vicenasobne-zarovnani",
+          "title": "Vícenásobné zarovnání sekvencí",
+          "subtopics": [
+            {
+              "id": "msa-problem",
+              "src": "content/courses/BIF/vicenasobne-zarovnani/msa-problem.md"
+            },
+            {
+              "id": "progresivni-clustal",
+              "src": "content/courses/BIF/vicenasobne-zarovnani/progresivni-clustal.md"
+            }
+          ]
+        },
+        {
+          "id": "fylogeneticke-stromy",
+          "title": "Fylogenetické stromy",
+          "subtopics": [
+            {
+              "id": "distancni-metody",
+              "src": "content/courses/BIF/fylogeneticke-stromy/distancni-metody.md"
+            },
+            {
+              "id": "znakove-ml",
+              "src": "content/courses/BIF/fylogeneticke-stromy/znakove-ml.md"
+            }
+          ]
+        },
+        {
+          "id": "sekvenace-dna",
+          "title": "Sekvenace DNA a sestavování",
+          "subtopics": [
+            {
+              "id": "metody-sekvenace",
+              "src": "content/courses/BIF/sekvenace-dna/metody-sekvenace.md"
+            },
+            {
+              "id": "sestavovani-fragmentu",
+              "src": "content/courses/BIF/sekvenace-dna/sestavovani-fragmentu.md"
+            }
+          ]
+        },
+        {
+          "id": "rozpoznavani-genu",
+          "title": "Rozpoznávání genů",
+          "subtopics": [
+            {
+              "id": "signaly-statistika",
+              "src": "content/courses/BIF/rozpoznavani-genu/signaly-statistika.md"
+            },
+            {
+              "id": "hmm-geny",
+              "src": "content/courses/BIF/rozpoznavani-genu/hmm-geny.md"
+            }
+          ]
+        },
+        {
+          "id": "predikce-proteinu",
+          "title": "Predikce struktury proteinů",
+          "subtopics": [
+            {
+              "id": "struktura-proteinu",
+              "src": "content/courses/BIF/predikce-proteinu/struktura-proteinu.md"
+            },
+            {
+              "id": "sekundarni-predikce",
+              "src": "content/courses/BIF/predikce-proteinu/sekundarni-predikce.md"
+            },
+            {
+              "id": "terciarni-predikce",
+              "src": "content/courses/BIF/predikce-proteinu/terciarni-predikce.md"
+            }
+          ]
+        },
+        {
+          "id": "genomy-anotace",
+          "title": "Informace o genomech a anotace",
+          "subtopics": [
+            {
+              "id": "genomove-databaze",
+              "src": "content/courses/BIF/genomy-anotace/genomove-databaze.md"
+            },
+            {
+              "id": "gene-ontology",
+              "src": "content/courses/BIF/genomy-anotace/gene-ontology.md"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "PBI",
+      "name": "Pokročilá bioinformatika",
+      "credits": 4,
+      "semester": "Winter",
+      "specializations": [
+        "NBIO",
+        "NMAL",
+        "NISD",
+        "NISY"
+      ],
+      "blurb": "Pokročilé bioinformatické metody — genomika a metagenomika, kartézské genetické programování, klasifikace a predikce nad biologickými daty a pohled statistiky, informační teorie a strojového učení na sekvence.",
+      "resources": [
+        {
+          "title": "J. F. Miller — Cartesian Genetic Programming",
+          "url": "https://doi.org/10.1007/978-3-642-17310-3",
+          "kind": "book",
+          "note": "Reprezentace CGP, 1+λ ES, neutralita."
+        },
+        {
+          "title": "The Gene Ontology Consortium — The Gene Ontology resource",
+          "url": "https://geneontology.org/",
+          "kind": "reference",
+          "note": "GO DAG: biologický proces / molekulární funkce / buněčná komponenta."
+        },
+        {
+          "title": "Durbin, Eddy, Krogh, Mitchison — Biological Sequence Analysis",
+          "url": "https://doi.org/10.1017/CBO9780511790492",
+          "kind": "book",
+          "note": "Pravděpodobnostní modely a informační obsah sekvencí."
+        },
+        {
+          "title": "Han, Kamber, Pei — Data Mining: Concepts and Techniques",
+          "url": "https://www.elsevier.com/books/data-mining-concepts-and-techniques/han/978-0-12-381479-1",
+          "kind": "book",
+          "note": "Klasifikace, predikce a hodnocení kvality."
+        }
+      ],
+      "topics": [
+        {
+          "id": "genomika-metagenomika",
+          "title": "Genomika a metagenomika",
+          "subtopics": [
+            {
+              "id": "genomika-pipeline",
+              "src": "content/courses/PBI/genomika-metagenomika/genomika-pipeline.md"
+            },
+            {
+              "id": "metagenomika",
+              "src": "content/courses/PBI/genomika-metagenomika/metagenomika.md"
+            }
+          ]
+        },
+        {
+          "id": "kartezske-gp",
+          "title": "Kartézské genetické programování",
+          "subtopics": [
+            {
+              "id": "cgp-reprezentace",
+              "src": "content/courses/PBI/kartezske-gp/cgp-reprezentace.md"
+            },
+            {
+              "id": "cgp-algoritmus",
+              "src": "content/courses/PBI/kartezske-gp/cgp-algoritmus.md"
+            }
+          ]
+        },
+        {
+          "id": "klasifikace-predikce",
+          "title": "Klasifikace a predikce",
+          "subtopics": [
+            {
+              "id": "klasifikace-vs-predikce",
+              "src": "content/courses/PBI/klasifikace-predikce/klasifikace-vs-predikce.md"
+            },
+            {
+              "id": "klasifikatory",
+              "src": "content/courses/PBI/klasifikace-predikce/klasifikatory.md"
+            },
+            {
+              "id": "hodnoceni",
+              "src": "content/courses/PBI/klasifikace-predikce/hodnoceni.md"
+            }
+          ]
+        },
+        {
+          "id": "biologicke-sekvence-statisticky",
+          "title": "Biologické sekvence pohledem statistiky a ML",
+          "subtopics": [
+            {
+              "id": "sekvence-pravdepodobnost",
+              "src": "content/courses/PBI/biologicke-sekvence-statisticky/sekvence-pravdepodobnost.md"
+            },
+            {
+              "id": "informacni-teorie",
+              "src": "content/courses/PBI/biologicke-sekvence-statisticky/informacni-teorie.md"
+            },
+            {
+              "id": "ml-sekvence",
+              "src": "content/courses/PBI/biologicke-sekvence-statisticky/ml-sekvence.md"
             }
           ]
         }
@@ -3996,56 +4549,84 @@
         "id": "t38",
         "n": 38,
         "title": "Entropie ve fyzice a informatice, emergence, chaotický systém.",
-        "refs": [],
+        "refs": [
+          ["BIN","entropie","entropie-informace"],
+          ["BIN","entropie","emergence-samoorganizace"],
+          ["BIN","entropie","chaoticke-systemy"]
+        ],
         "sharedWith": ["NMAL"]
       },
       {
         "id": "t39",
         "n": 39,
         "title": "Výpočetní development (princip, modely), celulární automaty (v 1D a 2D, Wolframovy třídy, sebereplikace).",
-        "refs": [],
+        "refs": [
+          ["BIN","vypocetni-development","celularni-automaty"],
+          ["BIN","vypocetni-development","vypocetni-vyvin"]
+        ],
         "sharedWith": ["NMAL"]
       },
       {
         "id": "t40",
         "n": 40,
         "title": "Evoluční návrh analogových a číslicových obvodů (kódování, fitness funkce, problém škálovatelnosti a jeho řešení).",
-        "refs": [],
+        "refs": [
+          ["BIN","evolucni-navrh","evolucni-algoritmus"],
+          ["BIN","evolucni-navrh","navrh-obvodu"],
+          ["BIN","evolucni-navrh","skalovatelnost"]
+        ],
         "sharedWith": ["NMAL"]
       },
       {
         "id": "t41",
         "n": 41,
         "title": "Neuroevoluce (zakódování problému, typický algoritmus, využití náhradních modelů pro snížení časové náročnosti).",
-        "refs": [],
+        "refs": [
+          ["BIN","neuroevoluce","neuroevoluce-neat"],
+          ["BIN","neuroevoluce","nahradni-modely"]
+        ],
         "sharedWith": ["NMAL"]
       },
       {
         "id": "t42",
         "n": 42,
         "title": "DNA počítače (Adlemanův experiment, SAT problém, důsledky pro informatiku).",
-        "refs": [],
+        "refs": [
+          ["BIN","dna-pocitace","adleman-experiment"],
+          ["BIN","dna-pocitace","dna-sat-dusledky"]
+        ],
         "sharedWith": ["NMAL"]
       },
       {
         "id": "t43",
         "n": 43,
         "title": "Konvoluční neuronové sítě, jejich části a základní architektury (konvoluční vrstva, pooling vrstva, batch normalizace, tvary tenzorů aktivací, parametry, VGG, ResNet).",
-        "refs": [],
+        "refs": [
+          ["KNN","konvolucni-site","konvolucni-vrstva"],
+          ["KNN","konvolucni-site","pooling-batchnorm"],
+          ["KNN","konvolucni-site","tenzory-parametry"],
+          ["KNN","konvolucni-site","architektury-vgg-resnet"]
+        ],
         "sharedWith": ["NSPE", "NVIZ"]
       },
       {
         "id": "t44",
         "n": 44,
         "title": "Grafové neuronové sítě (struktura, stavební bloky, využití).",
-        "refs": [],
+        "refs": [
+          ["KNN","grafove-site","message-passing"],
+          ["KNN","grafove-site","gnn-vyuziti"]
+        ],
         "sharedWith": ["NMAL", "NVIZ"]
       },
       {
         "id": "t45",
         "n": 45,
         "title": "Autoregresivní generativní modely a transformery (jazykové modely, překlad jazyka, attention).",
-        "refs": [],
+        "refs": [
+          ["KNN","autoregresivni-transformery","autoregresivni-modely"],
+          ["KNN","autoregresivni-transformery","attention-transformer"]
+        ],
         "sharedWith": ["NMAL", "NSPE", "NVIZ"]
       },
       {
@@ -4074,98 +4655,146 @@
         "id": "t48",
         "n": 48,
         "title": "Dolování asociačních pravidel (pojmy frekventovaná množina; asociační pravidlo; podpora; spolehlivost; algoritmy pro dolování asociačních pravidel).",
-        "refs": [],
+        "refs": [
+          ["ZZN","asociacni-pravidla","frekventovane-mnoziny-apriori"],
+          ["ZZN","asociacni-pravidla","pravidla-metriky"],
+          ["ZZN","asociacni-pravidla","fp-growth"]
+        ],
         "sharedWith": ["NISD"]
       },
       {
         "id": "t49",
         "n": 49,
         "title": "Shluková analýza (Princip shlukové analýzy; vzdálenostní funkce; princip rozdělujících metod k-means a k-medoids, princip hierarchických metod; princip metod založených na hustotě).",
-        "refs": [],
+        "refs": [
+          ["ZZN","shlukova-analyza","vzdalenostni-funkce"],
+          ["ZZN","shlukova-analyza","k-means-medoids"],
+          ["ZZN","shlukova-analyza","hierarchicke-dbscan"]
+        ],
         "sharedWith": ["NISD", "NISY"]
       },
       {
         "id": "t50",
         "n": 50,
         "title": "Dolování textu (základní charakteristika, předzpracování textových dokumentů a jejich reprezentace; vyhledávání informací).",
-        "refs": [],
+        "refs": [
+          ["ZZN","dolovani-textu","predzpracovani"],
+          ["ZZN","dolovani-textu","tfidf-vyhledavani"]
+        ],
         "sharedWith": ["NISD", "NISY"]
       },
       {
         "id": "t51",
         "n": 51,
         "title": "Zarovnání sekvencí (dynamického programování, BLAST).",
-        "refs": [],
+        "refs": [
+          ["BIF","zarovnani-sekvenci","dotplot-skore"],
+          ["BIF","zarovnani-sekvenci","dynamicke-zarovnani"],
+          ["BIF","zarovnani-sekvenci","blast"]
+        ],
         "sharedWith": []
       },
       {
         "id": "t52",
         "n": 52,
         "title": "Vícenásobné zarovnání sekvencí (dynamické programování, CLUSTAL).",
-        "refs": [],
+        "refs": [
+          ["BIF","vicenasobne-zarovnani","msa-problem"],
+          ["BIF","vicenasobne-zarovnani","progresivni-clustal"]
+        ],
         "sharedWith": []
       },
       {
         "id": "t53",
         "n": 53,
         "title": "Konstrukce fylogenetických stromů (metody založené na vzdálenosti, metody založené na znacích, maximum likelihood).",
-        "refs": [],
+        "refs": [
+          ["BIF","fylogeneticke-stromy","distancni-metody"],
+          ["BIF","fylogeneticke-stromy","znakove-ml"]
+        ],
         "sharedWith": []
       },
       {
         "id": "t54",
         "n": 54,
         "title": "Metody sekvenace DNA a sestavování fragmentů.",
-        "refs": [],
+        "refs": [
+          ["BIF","sekvenace-dna","metody-sekvenace"],
+          ["BIF","sekvenace-dna","sestavovani-fragmentu"]
+        ],
         "sharedWith": []
       },
       {
         "id": "t55",
         "n": 55,
         "title": "Rozpoznávání genů (statistické metody, skryté Markovovy modely).",
-        "refs": [],
+        "refs": [
+          ["BIF","rozpoznavani-genu","signaly-statistika"],
+          ["BIF","rozpoznavani-genu","hmm-geny"]
+        ],
         "sharedWith": []
       },
       {
         "id": "t56",
         "n": 56,
         "title": "Predikce struktury proteinů (struktura proteinů, predikce elementů sekundární struktury, predikce celkového tvaru proteinů).",
-        "refs": [],
+        "refs": [
+          ["BIF","predikce-proteinu","struktura-proteinu"],
+          ["BIF","predikce-proteinu","sekundarni-predikce"],
+          ["BIF","predikce-proteinu","terciarni-predikce"]
+        ],
         "sharedWith": []
       },
       {
         "id": "t57",
         "n": 57,
         "title": "Informace o genomech (sekvence, anotace), popis funkce genových produktů (\"Gene Ontology\") a související výpočetní nástroje.",
-        "refs": [],
+        "refs": [
+          ["BIF","genomy-anotace","genomove-databaze"],
+          ["BIF","genomy-anotace","gene-ontology"]
+        ],
         "sharedWith": []
       },
       {
         "id": "t58",
         "n": 58,
         "title": "Bioinformatické postupy v genomice a metagenomice a související data, algoritmy a nástroje.",
-        "refs": [],
+        "refs": [
+          ["PBI","genomika-metagenomika","genomika-pipeline"],
+          ["PBI","genomika-metagenomika","metagenomika"]
+        ],
         "sharedWith": []
       },
       {
         "id": "t59",
         "n": 59,
         "title": "Kartézské genetické programování (reprezentace problému, prohledávací algoritmus, fitness funkce).",
-        "refs": [],
+        "refs": [
+          ["PBI","kartezske-gp","cgp-reprezentace"],
+          ["PBI","kartezske-gp","cgp-algoritmus"]
+        ],
         "sharedWith": ["NMAL"]
       },
       {
         "id": "t60",
         "n": 60,
         "title": "Klasifikace a predikce (princip a fáze klasifikace; rozdíl mezi klasifikací a predikcí; princip klasifikace rozhodovacím stromem, bayesovskou naivní klasifikací, neuronovou sítí, lineární a nelineární regrese, metody hodnocení kvality klasifikace).",
-        "refs": [],
+        "refs": [
+          ["PBI","klasifikace-predikce","klasifikace-vs-predikce"],
+          ["PBI","klasifikace-predikce","klasifikatory"],
+          ["PBI","klasifikace-predikce","hodnoceni"]
+        ],
         "sharedWith": ["NISD", "NISY"]
       },
       {
         "id": "t61",
         "n": 61,
         "title": "Biologické sekvence pohledem statistiky, pravděpodobnosti, informační teorie a strojového učení.",
-        "refs": [],
+        "refs": [
+          ["PBI","biologicke-sekvence-statisticky","sekvence-pravdepodobnost"],
+          ["PBI","biologicke-sekvence-statisticky","informacni-teorie"],
+          ["PBI","biologicke-sekvence-statisticky","ml-sekvence"]
+        ],
         "sharedWith": []
       }
     ],
@@ -9277,28 +9906,43 @@
         "id": "t58",
         "n": 58,
         "title": "Dolování asociačních pravidel (pojmy frekventovaná množina; asociační pravidlo; podpora; spolehlivost; algoritmy pro dolování asociačních pravidel).",
-        "refs": [],
+        "refs": [
+          ["ZZN","asociacni-pravidla","frekventovane-mnoziny-apriori"],
+          ["ZZN","asociacni-pravidla","pravidla-metriky"],
+          ["ZZN","asociacni-pravidla","fp-growth"]
+        ],
         "sharedWith": ["NBIO"]
       },
       {
         "id": "t59",
         "n": 59,
         "title": "Klasifikace a predikce (princip a fáze klasifikace; rozdíl mezi klasifikací a predikcí; princip klasifikace rozhodovacím stromem, bayesovskou naivní klasifikací, neuronovou sítí, lineární a nelineární regrese, metody hodnocení kvality klasifikace).",
-        "refs": [],
+        "refs": [
+          ["PBI","klasifikace-predikce","klasifikace-vs-predikce"],
+          ["PBI","klasifikace-predikce","klasifikatory"],
+          ["PBI","klasifikace-predikce","hodnoceni"]
+        ],
         "sharedWith": ["NBIO", "NISY"]
       },
       {
         "id": "t60",
         "n": 60,
         "title": "Shluková analýza (Princip shlukové analýzy; vzdálenostní funkce; princip rozdělujících metod k-means a k-medoids, princip hierarchických metod; princip metod založených na hustotě).",
-        "refs": [],
+        "refs": [
+          ["ZZN","shlukova-analyza","vzdalenostni-funkce"],
+          ["ZZN","shlukova-analyza","k-means-medoids"],
+          ["ZZN","shlukova-analyza","hierarchicke-dbscan"]
+        ],
         "sharedWith": ["NBIO", "NISY"]
       },
       {
         "id": "t61",
         "n": 61,
         "title": "Dolování textu (základní charakteristika, předzpracování textových dokumentů a jejich reprezentace; vyhledávání informací).",
-        "refs": [],
+        "refs": [
+          ["ZZN","dolovani-textu","predzpracovani"],
+          ["ZZN","dolovani-textu","tfidf-vyhledavani"]
+        ],
         "sharedWith": ["NBIO", "NISY"]
       },
       {
@@ -9995,21 +10639,32 @@
         "id": "t44",
         "n": 44,
         "title": "Klasifikace a predikce (princip a fáze klasifikace; rozdíl mezi klasifikací a predikcí; princip klasifikace rozhodovacím stromem, bayesovskou naivní klasifikací, neuronovou sítí, lineární a nelineární regrese, metody hodnocení kvality klasifikace).",
-        "refs": [],
+        "refs": [
+          ["PBI","klasifikace-predikce","klasifikace-vs-predikce"],
+          ["PBI","klasifikace-predikce","klasifikatory"],
+          ["PBI","klasifikace-predikce","hodnoceni"]
+        ],
         "sharedWith": ["NBIO", "NISD"]
       },
       {
         "id": "t45",
         "n": 45,
         "title": "Shluková analýza (Princip shlukové analýzy; vzdálenostní funkce; princip rozdělujících metod k-means a k-medoids, princip hierarchických metod; princip metod založených na hustotě).",
-        "refs": [],
+        "refs": [
+          ["ZZN","shlukova-analyza","vzdalenostni-funkce"],
+          ["ZZN","shlukova-analyza","k-means-medoids"],
+          ["ZZN","shlukova-analyza","hierarchicke-dbscan"]
+        ],
         "sharedWith": ["NBIO", "NISD"]
       },
       {
         "id": "t46",
         "n": 46,
         "title": "Dolování textu (základní charakteristika, předzpracování textových dokumentů a jejich reprezentace; vyhledávání informací).",
-        "refs": [],
+        "refs": [
+          ["ZZN","dolovani-textu","predzpracovani"],
+          ["ZZN","dolovani-textu","tfidf-vyhledavani"]
+        ],
         "sharedWith": ["NBIO", "NISD"]
       },
       {
@@ -10790,42 +11445,62 @@
         "id": "t41",
         "n": 41,
         "title": "Entropie ve fyzice a informatice, emergence, chaotický systém.",
-        "refs": [],
+        "refs": [
+          ["BIN","entropie","entropie-informace"],
+          ["BIN","entropie","emergence-samoorganizace"],
+          ["BIN","entropie","chaoticke-systemy"]
+        ],
         "sharedWith": ["NBIO"]
       },
       {
         "id": "t42",
         "n": 42,
         "title": "Výpočetní development (princip, modely), celulární automaty (v 1D a 2D, Wolframovy třídy, sebereplikace).",
-        "refs": [],
+        "refs": [
+          ["BIN","vypocetni-development","celularni-automaty"],
+          ["BIN","vypocetni-development","vypocetni-vyvin"]
+        ],
         "sharedWith": ["NBIO"]
       },
       {
         "id": "t43",
         "n": 43,
         "title": "Kartézské genetické programování (reprezentace problému, prohledávací algoritmus, fitness funkce).",
-        "refs": [],
+        "refs": [
+          ["PBI","kartezske-gp","cgp-reprezentace"],
+          ["PBI","kartezske-gp","cgp-algoritmus"]
+        ],
         "sharedWith": ["NBIO"]
       },
       {
         "id": "t44",
         "n": 44,
         "title": "Evoluční návrh analogových a číslicových obvodů (kódování, fitness funkce, problém škálovatelnosti a jeho řešení).",
-        "refs": [],
+        "refs": [
+          ["BIN","evolucni-navrh","evolucni-algoritmus"],
+          ["BIN","evolucni-navrh","navrh-obvodu"],
+          ["BIN","evolucni-navrh","skalovatelnost"]
+        ],
         "sharedWith": ["NBIO"]
       },
       {
         "id": "t45",
         "n": 45,
         "title": "Neuroevoluce (zakódování problému, typický algoritmus, využití náhradních modelů pro snížení časové náročnosti).",
-        "refs": [],
+        "refs": [
+          ["BIN","neuroevoluce","neuroevoluce-neat"],
+          ["BIN","neuroevoluce","nahradni-modely"]
+        ],
         "sharedWith": ["NBIO"]
       },
       {
         "id": "t46",
         "n": 46,
         "title": "DNA počítače (Adlemanův experiment, SAT problém, důsledky pro informatiku).",
-        "refs": [],
+        "refs": [
+          ["BIN","dna-pocitace","adleman-experiment"],
+          ["BIN","dna-pocitace","dna-sat-dusledky"]
+        ],
         "sharedWith": ["NBIO"]
       },
       {
@@ -10923,14 +11598,20 @@
         "id": "t60",
         "n": 60,
         "title": "Grafové neuronové sítě (struktura, stavební bloky, využití).",
-        "refs": [],
+        "refs": [
+          ["KNN","grafove-site","message-passing"],
+          ["KNN","grafove-site","gnn-vyuziti"]
+        ],
         "sharedWith": ["NBIO", "NVIZ"]
       },
       {
         "id": "t61",
         "n": 61,
         "title": "Autoregresivní generativní modely a transformery (jazykové modely, překlad jazyka, attention).",
-        "refs": [],
+        "refs": [
+          ["KNN","autoregresivni-transformery","autoregresivni-modely"],
+          ["KNN","autoregresivni-transformery","attention-transformer"]
+        ],
         "sharedWith": ["NBIO", "NSPE", "NVIZ"]
       },
       {
@@ -15327,14 +16008,22 @@
         "id": "t46",
         "n": 46,
         "title": "Konvoluční neuronové sítě, jejich části a základní architektury (konvoluční vrstva, pooling vrstva, batch normalizace, tvary tenzorů aktivací, parametry, VGG, ResNet).",
-        "refs": [],
+        "refs": [
+          ["KNN","konvolucni-site","konvolucni-vrstva"],
+          ["KNN","konvolucni-site","pooling-batchnorm"],
+          ["KNN","konvolucni-site","tenzory-parametry"],
+          ["KNN","konvolucni-site","architektury-vgg-resnet"]
+        ],
         "sharedWith": ["NBIO", "NVIZ"]
       },
       {
         "id": "t47",
         "n": 47,
         "title": "Autoregresivní generativní modely a transformery (jazykové modely, překlad jazyka, attention).",
-        "refs": [],
+        "refs": [
+          ["KNN","autoregresivni-transformery","autoregresivni-modely"],
+          ["KNN","autoregresivni-transformery","attention-transformer"]
+        ],
         "sharedWith": ["NBIO", "NMAL", "NVIZ"]
       },
       {
@@ -17015,14 +17704,22 @@
         "id": "t46",
         "n": 46,
         "title": "Konvoluční neuronové sítě, jejich části a základní architektury (konvoluční vrstva, pooling vrstva, batch normalizace, tvary tenzorů aktivací, parametry, VGG, ResNet).",
-        "refs": [],
+        "refs": [
+          ["KNN","konvolucni-site","konvolucni-vrstva"],
+          ["KNN","konvolucni-site","pooling-batchnorm"],
+          ["KNN","konvolucni-site","tenzory-parametry"],
+          ["KNN","konvolucni-site","architektury-vgg-resnet"]
+        ],
         "sharedWith": ["NBIO", "NSPE"]
       },
       {
         "id": "t47",
         "n": 47,
         "title": "Grafové neuronové sítě (struktura, stavební bloky, využití).",
-        "refs": [],
+        "refs": [
+          ["KNN","grafove-site","message-passing"],
+          ["KNN","grafove-site","gnn-vyuziti"]
+        ],
         "sharedWith": ["NBIO", "NMAL"]
       },
       {
@@ -17036,7 +17733,10 @@
         "id": "t49",
         "n": 49,
         "title": "Autoregresivní generativní modely a transformery (jazykové modely, překlad jazyka, attention).",
-        "refs": [],
+        "refs": [
+          ["KNN","autoregresivni-transformery","autoregresivni-modely"],
+          ["KNN","autoregresivni-transformery","attention-transformer"]
+        ],
         "sharedWith": ["NBIO", "NMAL", "NSPE"]
       },
       {

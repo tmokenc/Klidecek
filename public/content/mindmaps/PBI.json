@@ -1,0 +1,89 @@
+{
+  "courseId": "PBI",
+  "title": "Pokročilá bioinformatika",
+  "summary": "Genomika, kartézské GP a statistika sekvencí",
+  "branches": [
+    {
+      "id": "omics",
+      "label": "Genomika a metagenomika",
+      "hue": 130,
+      "clusters": [
+        {
+          "id": "postupy",
+          "label": "Bioinformatické postupy",
+          "leaves": [
+            {
+              "ref": "genomika-pipeline"
+            },
+            {
+              "ref": "metagenomika"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cgp",
+      "label": "Kartézské genetické programování",
+      "hue": 285,
+      "clusters": [
+        {
+          "id": "repr",
+          "label": "Reprezentace a algoritmus",
+          "leaves": [
+            {
+              "ref": "cgp-reprezentace"
+            },
+            {
+              "ref": "cgp-algoritmus"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "klasifikace",
+      "label": "Klasifikace a predikce",
+      "hue": 35,
+      "clusters": [
+        {
+          "id": "klas",
+          "label": "Klasifikátory a hodnocení",
+          "leaves": [
+            {
+              "ref": "klasifikace-vs-predikce"
+            },
+            {
+              "ref": "klasifikatory"
+            },
+            {
+              "ref": "hodnoceni"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "statistika",
+      "label": "Statistika a ML sekvencí",
+      "hue": 200,
+      "clusters": [
+        {
+          "id": "pst",
+          "label": "Pravděpodobnost a informace",
+          "leaves": [
+            {
+              "ref": "sekvence-pravdepodobnost"
+            },
+            {
+              "ref": "informacni-teorie"
+            },
+            {
+              "ref": "ml-sekvence"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

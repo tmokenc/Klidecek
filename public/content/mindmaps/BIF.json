@@ -1,0 +1,125 @@
+{
+  "courseId": "BIF",
+  "title": "Bioinformatika",
+  "summary": "Algoritmy nad biologickými sekvencemi a strukturami",
+  "branches": [
+    {
+      "id": "zarovnani",
+      "label": "Zarovnání sekvencí",
+      "hue": 200,
+      "clusters": [
+        {
+          "id": "parove",
+          "label": "Párové zarovnání",
+          "leaves": [
+            {
+              "ref": "dotplot-skore"
+            },
+            {
+              "ref": "dynamicke-zarovnani"
+            },
+            {
+              "ref": "blast"
+            }
+          ]
+        },
+        {
+          "id": "msa",
+          "label": "Vícenásobné",
+          "leaves": [
+            {
+              "ref": "msa-problem"
+            },
+            {
+              "ref": "progresivni-clustal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "evoluce",
+      "label": "Fylogeneze a sekvenace",
+      "hue": 130,
+      "clusters": [
+        {
+          "id": "fylo",
+          "label": "Fylogenetické stromy",
+          "leaves": [
+            {
+              "ref": "distancni-metody"
+            },
+            {
+              "ref": "znakove-ml"
+            }
+          ]
+        },
+        {
+          "id": "assembly",
+          "label": "Sekvenace a assembly",
+          "leaves": [
+            {
+              "ref": "metody-sekvenace"
+            },
+            {
+              "ref": "sestavovani-fragmentu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "geny-proteiny",
+      "label": "Geny a proteiny",
+      "hue": 30,
+      "clusters": [
+        {
+          "id": "geny",
+          "label": "Rozpoznávání genů",
+          "leaves": [
+            {
+              "ref": "signaly-statistika"
+            },
+            {
+              "ref": "hmm-geny"
+            }
+          ]
+        },
+        {
+          "id": "proteiny",
+          "label": "Struktura proteinů",
+          "leaves": [
+            {
+              "ref": "struktura-proteinu"
+            },
+            {
+              "ref": "sekundarni-predikce"
+            },
+            {
+              "ref": "terciarni-predikce"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "genomy",
+      "label": "Genomy a anotace",
+      "hue": 300,
+      "clusters": [
+        {
+          "id": "db",
+          "label": "Databáze a Gene Ontology",
+          "leaves": [
+            {
+              "ref": "genomove-databaze"
+            },
+            {
+              "ref": "gene-ontology"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

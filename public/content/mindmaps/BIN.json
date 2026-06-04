@@ -1,0 +1,126 @@
+{
+  "courseId": "BIN",
+  "title": "Biologií inspirované počítače",
+  "summary": "Přírodou inspirované výpočty: entropie, automaty, evoluce a molekulární výpočty",
+  "branches": [
+    {
+      "id": "zaklady",
+      "label": "Entropie, emergence a chaos",
+      "hue": 45,
+      "clusters": [
+        {
+          "id": "entropie",
+          "label": "Entropie",
+          "leaves": [
+            {
+              "ref": "entropie-informace"
+            }
+          ]
+        },
+        {
+          "id": "chaos",
+          "label": "Samoorganizace a chaos",
+          "leaves": [
+            {
+              "ref": "emergence-samoorganizace"
+            },
+            {
+              "ref": "chaoticke-systemy"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "automaty",
+      "label": "Automaty a vývin",
+      "hue": 130,
+      "clusters": [
+        {
+          "id": "ca",
+          "label": "Celulární automaty",
+          "leaves": [
+            {
+              "ref": "celularni-automaty"
+            }
+          ]
+        },
+        {
+          "id": "vyvin",
+          "label": "Vývin a sebereplikace",
+          "leaves": [
+            {
+              "ref": "vypocetni-vyvin"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "evoluce",
+      "label": "Evoluční návrh hardwaru",
+      "hue": 285,
+      "clusters": [
+        {
+          "id": "ea",
+          "label": "Evoluční algoritmus",
+          "leaves": [
+            {
+              "ref": "evolucni-algoritmus"
+            }
+          ]
+        },
+        {
+          "id": "obvody",
+          "label": "Návrh obvodů",
+          "leaves": [
+            {
+              "ref": "navrh-obvodu"
+            },
+            {
+              "ref": "skalovatelnost"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "neuro",
+      "label": "Neuroevoluce",
+      "hue": 210,
+      "clusters": [
+        {
+          "id": "neat",
+          "label": "Topologie a urychlení",
+          "leaves": [
+            {
+              "ref": "neuroevoluce-neat"
+            },
+            {
+              "ref": "nahradni-modely"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "molekularni",
+      "label": "Molekulární výpočty",
+      "hue": 340,
+      "clusters": [
+        {
+          "id": "dna",
+          "label": "DNA počítače",
+          "leaves": [
+            {
+              "ref": "adleman-experiment"
+            },
+            {
+              "ref": "dna-sat-dusledky"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

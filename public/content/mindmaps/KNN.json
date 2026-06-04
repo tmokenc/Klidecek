@@ -1,0 +1,76 @@
+{
+  "courseId": "KNN",
+  "title": "Konvoluční neuronové sítě",
+  "summary": "Od konvolucí k transformerům",
+  "branches": [
+    {
+      "id": "cnn",
+      "label": "Konvoluční sítě",
+      "hue": 200,
+      "clusters": [
+        {
+          "id": "vrstvy",
+          "label": "Vrstvy",
+          "leaves": [
+            {
+              "ref": "konvolucni-vrstva"
+            },
+            {
+              "ref": "pooling-batchnorm"
+            }
+          ]
+        },
+        {
+          "id": "arch",
+          "label": "Tenzory a architektury",
+          "leaves": [
+            {
+              "ref": "tenzory-parametry"
+            },
+            {
+              "ref": "architektury-vgg-resnet"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gnn",
+      "label": "Grafové sítě",
+      "hue": 130,
+      "clusters": [
+        {
+          "id": "mp",
+          "label": "Message passing",
+          "leaves": [
+            {
+              "ref": "message-passing"
+            },
+            {
+              "ref": "gnn-vyuziti"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seq",
+      "label": "Autoregresivní modely a transformery",
+      "hue": 290,
+      "clusters": [
+        {
+          "id": "attn",
+          "label": "Generování a attention",
+          "leaves": [
+            {
+              "ref": "autoregresivni-modely"
+            },
+            {
+              "ref": "attention-transformer"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "courseId": "ZZN",
+  "title": "Získávání znalostí z databází",
+  "summary": "Asociace, shlukování a dolování textu",
+  "branches": [
+    {
+      "id": "asoc",
+      "label": "Asociační pravidla",
+      "hue": 35,
+      "clusters": [
+        {
+          "id": "fis",
+          "label": "Frekventované množiny",
+          "leaves": [
+            {
+              "ref": "frekventovane-mnoziny-apriori"
+            },
+            {
+              "ref": "fp-growth"
+            }
+          ]
+        },
+        {
+          "id": "rules",
+          "label": "Pravidla a metriky",
+          "leaves": [
+            {
+              "ref": "pravidla-metriky"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shluky",
+      "label": "Shluková analýza",
+      "hue": 160,
+      "clusters": [
+        {
+          "id": "metody",
+          "label": "Vzdálenost a metody",
+          "leaves": [
+            {
+              "ref": "vzdalenostni-funkce"
+            },
+            {
+              "ref": "k-means-medoids"
+            },
+            {
+              "ref": "hierarchicke-dbscan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "text",
+      "label": "Dolování textu",
+      "hue": 265,
+      "clusters": [
+        {
+          "id": "ir",
+          "label": "Reprezentace a vyhledávání",
+          "leaves": [
+            {
+              "ref": "predzpracovani"
+            },
+            {
+              "ref": "tfidf-vyhledavani"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

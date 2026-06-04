@@ -3,7 +3,7 @@
 A study / exam-prep app (the **Klideček** site) where the **content** is plain
 Markdown files and the **interactive demos** are plain React components. Built with
 Vite, deployed to GitHub Pages. Content is in Czech and covers the VUT FIT master's
-state-exam (MSZ) topics across 19 courses.
+state-exam (MSZ) topics across 24 courses.
 
 ```
 npm install
