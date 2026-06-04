@@ -379,7 +379,7 @@ Bez performance overhead — všechno je *compile-time*.
 
 Oba jazyky používají *type system* jako *primary* tool, ale s *odlišnými* prioritami.
 
-## Příklad — kompletní program
+## Příklad — kompletní program {tier=example}
 
 ```rust
 use std::io::{self, BufRead};

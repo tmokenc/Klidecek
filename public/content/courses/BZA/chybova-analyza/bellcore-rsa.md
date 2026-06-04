@@ -180,7 +180,7 @@ return S;
 * **Sensors** (light, voltage, glitch) — detekce fault injection apparat.
 * **Mesh tamper-detect** — pokud útočník dělá decap pro laser, mesh přerušení → zeroization.
 
-## Reálné případy
+## Reálné případy {tier=example}
 
 * **Aktivně využíván** v 90. letech proti *placené TV* a *satelitním kartám* — útočníci dostali korektní podpis kreditních příkazů, pak EM-FI indukovali fault → faktorizace klíče provider.
 * **Demonstrace v r. 2010** na akademických kartách bez kontroly — *jediný* fault stačil pro recovery klíče za $1M USD CA cert.

@@ -126,7 +126,7 @@ O(N \cdot b \cdot W)
 * Při ~1 ms RTT to je **~30 minut** pro server.
 * Pro HSM s rychlejší API (~100 μs): **3 minuty**.
 
-## Praktické nasazení
+## Praktické nasazení {tier=example}
 
 ### SSL/TLS — Vaudenay 2002
 

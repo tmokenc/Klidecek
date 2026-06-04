@@ -117,7 +117,7 @@ Allows mixed networks during migration. *But*: WPA2 weaknesses still exploitable
 
 Best practice: **WPA3-only** when feasible.
 
-## WPA3 attacks
+## WPA3 attacks {tier=practice}
 
 ### Dragonblood (2019)
 

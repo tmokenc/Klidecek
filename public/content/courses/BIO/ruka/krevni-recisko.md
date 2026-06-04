@@ -138,7 +138,7 @@ title: Krevní řečiště — vein biometrics
   * Skin pigmentation (very dark = lower contrast).
 * **Cost** — sensor $200–$500, expensive vs. fingerprint.
 
-## Praktická nasazení
+## Praktická nasazení {tier=practice}
 
 ### Banking
 

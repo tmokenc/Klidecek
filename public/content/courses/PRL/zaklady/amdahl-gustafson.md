@@ -167,7 +167,7 @@ Příklady:
 
 Klíčová lekce: rychlejší ≠ levnější. Cost-optimální paralelizace je *netriviální* design.
 
-## Praktické důsledky
+## Praktické důsledky {tier=practice}
 
 1. **Před paralelizací změřte sekvenční podíl.** Profiler řekne, kde program tráví čas.
 2. **Strong scaling vs weak scaling.** Strong = fixed problem on more processors (Amdahl). Weak = larger problem with more processors (Gustafson). Reportujte oba.

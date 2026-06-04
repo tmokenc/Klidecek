@@ -245,7 +245,7 @@ alicePlusOne :: Person
 alicePlusOne = alice { age = age alice + 1 }
 ```
 
-## Examples
+## Examples {tier=example}
 
 ### Linked list
 

@@ -205,7 +205,7 @@ Klíčové otázky:
 * **Goodhart's law** — *„When a measure becomes a target, it ceases to be a good measure."* Reward proxy ≠ skutečná hodnota.
 * **Scalable oversight** — jak hodnotit AI, která je *chytřejší* než my? *Constitutional AI*, *debate*, *RLAIF* jsou částečné odpovědi.
 
-## Konkrétní implementace v frontier LLM
+## Konkrétní implementace v frontier LLM {tier=practice}
 
 ### ChatGPT / GPT-4 (OpenAI)
 
@@ -247,7 +247,7 @@ Podobné pipeline s vlastními variantami.
 
 Pole se vyvíjí *velmi* rychle. 2025-2026 je éra **reasoning models** a **agentic AI**.
 
-## Praktická knihovna — TRL (Transformer Reinforcement Learning)
+## Praktická knihovna — TRL (Transformer Reinforcement Learning) {tier=practice}
 
 ```python
 from trl import PPOTrainer, PPOConfig, AutoModelForCausalLMWithValueHead

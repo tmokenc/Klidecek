@@ -168,7 +168,7 @@ Defense: keep drivers + firmware patched.
 - **Airodump-ng** — passive monitoring.
 - **WiFi Pineapple** — pen test tool (Hak5).
 
-## Real-world incidents
+## Real-world incidents {tier=example}
 
 - **2007 TJX hack** — WEP exploited, 45M credit cards stolen.
 - **2015 Ashley Madison** — internal WiFi compromise contributed to leak.

@@ -189,7 +189,7 @@ E(\mathbf{w}) = \tfrac{1}{2}\|\mathbf{t} - \mathbf{X}\mathbf{w}\|^2 + \tfrac{\la
 
 Volba `λ` se ladí na **validační** množině.
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **Normalizace featur** je důležitá — pokud má jeden feature řád `10⁶` a druhý `10⁻²`, regularizace L2 penalizuje nesymetricky.
 * **Korelace featur** zhoršují podmíněnost `XᵀX` — pomáhá PCA před regrese.

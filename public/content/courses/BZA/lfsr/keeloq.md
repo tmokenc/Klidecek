@@ -95,7 +95,7 @@ Veřejně byla specifikace KeeLoq utajována; Microchip prodával licence výrob
 * Recovery of device key v ~hodině na běžném PC.
 * **Plus:** s known device key a 30 zachycenými code packetech, odvodíte celý $K$ daného ovládače → klonovaný ovládač.
 
-### Praktický útok 2008 — IDA Bochum/Leuven
+### Praktický útok 2008 — IDA Bochum/Leuven {tier=example}
 
 [Tým z Bochum a Leuven](https://www.sciencedaily.com/releases/2008/04/080403132351.htm) demonstroval:
 
@@ -123,7 +123,7 @@ Bez prolomení šifry KeeLoq lze útokem **relay** dosáhnout otevření auta:
 
 Tento útok je *systemický* (nezávisí na šifře), je *aktivně využíván* v r. 2025 (zejména v Evropě — BMW, Mercedes, Audi, Toyota). Mitigace: **UWB ranging** (Tesla Model S Plaid+, BMW iX), *PIN to drive* (Tesla), zapnutí *motion-sensor sleep* v klíči po 30 s nehybnosti.
 
-## Lekce
+## Lekce {tier=extra}
 
 KeeLoq ukázal:
 

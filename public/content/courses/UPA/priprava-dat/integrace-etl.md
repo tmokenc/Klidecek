@@ -222,7 +222,7 @@ Joinem na valid_from/valid_to lze rekonstruovat historický pohled.
 
 **Lakehouse** (Databricks, Snowflake Unistore) kombinuje výhody obou — flexibilita lake + výkon warehouse.
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **Idempotent transformations** — re-běh musí dát stejný výsledek.
 * **Audit columns** — `created_at`, `updated_at`, `source_system` v každém řádku.

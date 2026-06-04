@@ -232,7 +232,7 @@ LPM umožňuje **agregaci**: ISP inzeruje *jediný* `185.10.0.0/16` místo 65536
 
 Naopak směrovací tabulka má bohatou strukturu — protokoly do ní cpou různě "drahé" trasy a router musí vybírat.
 
-## V praxi: `route print` na Windows
+## V praxi: `route print` na Windows {tier=practice}
 
 I notebook má směrovací tabulku — Wifi, Ethernet, VPN, Docker bridge…
 

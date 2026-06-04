@@ -122,7 +122,7 @@ Lokální proměnné vnější funkce by normálně byly po jejím skončení uv
 ::: viz wap-closure-counter "Vytvoř dvě nezávislé instance čítače. Každá si drží vlastní soukromé x — uzávěr je živé propojení, ne snímek."
 :::
 
-### Praktická využití
+### Praktická využití {tier=practice}
 
 * **Soukromé proměnné / enkapsulace** — proměnná uvnitř uzávěru je nedosažitelná zvenčí, přístup jen přes vrácené funkce.
 * **Továrny na funkce** (*function factories*) — funkce generující funkce předkonfigurované zachycenými hodnotami.

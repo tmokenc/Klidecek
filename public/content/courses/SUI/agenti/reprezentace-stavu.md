@@ -118,7 +118,7 @@ Stav = **objekty** a **vztahy** mezi nimi. Síla *predikátové logiky 1. řádu
 * Algoritmy: **plánování v PDDL**, **inferenční mechanismy**, **knowledge graphs**.
 * Lze vyjadřovat **kvantifikátory** (`∀ x: P(x)`, `∃ x: Q(x)`) — *všeobecné* zákonitosti.
 
-### Příklad: Robot v kuchyni
+### Příklad: Robot v kuchyni {tier=example}
 
 Atomická reprezentace selhává — počet stavů kombinatoricky vybuchne. Faktorizovaná dokáže říct, *kde* je hrnec, ale ne *na čem*. Strukturovaná:
 

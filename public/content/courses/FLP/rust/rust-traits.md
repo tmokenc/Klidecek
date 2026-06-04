@@ -449,7 +449,7 @@ Standard library uses this extensively.
 fn process<T: Send + Sync>(t: T) { ... }  // thread-safe types
 ```
 
-## Příklad — sorting
+## Příklad — sorting {tier=example}
 
 ```rust
 use std::cmp::Ordering;

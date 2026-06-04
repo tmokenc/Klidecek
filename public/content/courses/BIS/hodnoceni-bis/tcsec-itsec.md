@@ -141,7 +141,7 @@ Pro hodnocení modern IS používáme:
 - **NIST SP 800-53** pro federal systems.
 - **ISO 27001** pro ISMS ([[iso-27000]]).
 
-## Příklad: smart card hodnocení
+## Příklad: smart card hodnocení {tier=example}
 
 Smart card s payment functionality:
 

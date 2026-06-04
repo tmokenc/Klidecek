@@ -246,7 +246,7 @@ Documentation critical.
 
 Even during investigation, employee privacy considerations apply. Document legal basis for access.
 
-### Famous forensics cases
+### Famous forensics cases {tier=example}
 
 - **BTK Killer (2005)** — metadata in floppy disk identified.
 - **Sony Pictures (2014)** — IPs traced to North Korea.

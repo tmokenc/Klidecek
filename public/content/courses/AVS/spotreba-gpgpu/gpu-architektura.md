@@ -233,7 +233,7 @@ V100: 8× FP16 MMA per Tensor core. A100: also INT8, BF16. H100: also FP8.
 
 For deep learning, Tensor cores give 5-10× speedup over plain CUDA cores. Critical for ML training.
 
-## Performance numbers
+## Performance numbers {tier=practice}
 
 NVIDIA A100 vs Intel Xeon Platinum 8260 (24-core):
 

@@ -101,7 +101,7 @@ printf("%s", user_input);
 
 CVE-2000-0573 (FreeBSD wu-ftpd).
 
-## Buffer overflow demo
+## Buffer overflow demo {tier=example}
 
 Classic example — `gets()` function.
 
@@ -174,7 +174,7 @@ Modern exploits bypass these:
 
 ⇒ Exploit development is *cat-and-mouse* with defenders.
 
-## Famous buffer overflow exploits
+## Famous buffer overflow exploits {tier=example}
 
 | CVE | Software | Year | Impact |
 | :--- | :--- | :---: | :--- |

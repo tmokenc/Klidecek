@@ -116,7 +116,7 @@ Každý reducer zapíše svůj výstup do *vlastního souboru* v distribuovaném
 </svg>
 :::
 
-## Combiner — lokální reducer pro úsporu sítě
+## Combiner — lokální reducer pro úsporu sítě {tier=practice}
 
 Shuffle posílá po síti všechny mezilehlé páry. U Word Countu to znamená i tisíce samostatných `(the, 1)` z jediného mapperu. **Combiner** je *volitelná* mini-Reduce funkce, kterou framework spustí **lokálně na uzlu mapperu** ještě před shuffle — předsečte hodnoty stejného klíče v rámci jednoho mapperu, takže místo `(the, 1)` × 1000 se po síti pošle jediný `(the, 1000)`.
 

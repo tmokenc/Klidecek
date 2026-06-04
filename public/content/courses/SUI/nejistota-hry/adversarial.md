@@ -220,7 +220,7 @@ Lepší `eval` = lepší šachový program. Před érou neuronek byly *eval* fun
 * **Quiescent search** — aplikuj `eval` jen na *klidné* pozice (žádná nevyřízená výměna). V „napjaté" pozici jdi *hlouběji*.
 * **Iterative deepening** — postupné prohlubování, vždy známe alespoň jedno řešení (důležité pro hra na čas).
 
-## Praktické vylepšení
+## Praktické vylepšení {tier=practice}
 
 ### Move ordering
 

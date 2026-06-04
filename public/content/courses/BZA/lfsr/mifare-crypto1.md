@@ -112,7 +112,7 @@ Praktický nástroj **`mfoc` (Mifare Offline Cracker)** spustí útok automatick
 
 V r. 2026 jsou všechny tyto nástroje veřejné, free, běží na běžných USB readerech (Proxmark3, ACR122U, Chameleon Mini, **iPhone s NFC** s aplikacemi typu *NFC Tools*) a *prakticky každá* Mifare Classic karta je dnes klonovatelná.
 
-## Reálné dopady
+## Reálné dopady {tier=example}
 
 * **OV-chipkaart** (Nizozemsko) — útok demonstrován studenty Radboud University 2008. Karta umožnila "jízdu zdarma" do té doby, než ji NS nahradil systémem s server-side verification.
 * **London Oyster** — útok demonstrován [Plötz, Nohl 2008](https://www.youtube.com/watch?v=BMs_4mwgmlA). TfL přešel na ITSO-based karty.

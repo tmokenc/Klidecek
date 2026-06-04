@@ -192,7 +192,7 @@ GCM bez šifrování (M je prázdné, autentizují se jen AD). Standardní *aute
 
 Slabost: **nonce reuse je katastrofa** (jako u GCM). Pro každou autentizaci nový IV.
 
-## Praktická doporučení
+## Praktická doporučení {tier=practice}
 
 | Účel | Doporučení |
 | :--- | :--- |

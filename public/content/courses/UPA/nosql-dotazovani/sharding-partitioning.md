@@ -195,7 +195,7 @@ Tím:
 * range query "data zařízení 42 za 15. března" → 1 partition, sekvenční čtení;
 * range query "data zařízení 42 za celý měsíc" → 30 partitionů, dále efektivní.
 
-## Sharding v praxi
+## Sharding v praxi {tier=practice}
 
 * **MongoDB** — shard cluster s `mongos` (router), `config servers` (metadata), `mongod` (data nodes). Shard key se nastavuje per kolekci.
 * **Cassandra** — automatický sharding přes consistent hashing token ring. Žádný central router.

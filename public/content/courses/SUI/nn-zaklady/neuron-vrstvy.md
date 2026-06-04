@@ -252,7 +252,7 @@ Frameworky jako **PyTorch**, **TensorFlow**, **JAX** automaticky:
 
 Detail jednotlivých typů v dalších kapitolách.
 
-## Praktická poznámka — *naivní* implementace
+## Praktická poznámka — *naivní* implementace {tier=practice}
 
 Pythonská reference (bez optimalizace):
 

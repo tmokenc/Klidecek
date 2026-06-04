@@ -153,7 +153,7 @@ Slabý: korelace $\Pr[z = x_2] = 0{,}75$ — útok korelační analýzou rekonst
 * **Crypto-1** (Mifare Classic) — 48-bit LFSR s nelineární filter function. Prolomeno během několika sekund útoky korelační analýzou ([[mifare-crypto1]]).
 * **KeeLoq** — *není* LFSR, ale podobně strukturovaná 64-bit NLFSR (nonlinear FSR). Také prolomeno ([[keeloq]]).
 
-## LFSR v praktických aplikacích — *non-crypto*
+## LFSR v praktických aplikacích — *non-crypto* {tier=practice}
 
 Mimo kryptografii je LFSR velmi užitečný:
 

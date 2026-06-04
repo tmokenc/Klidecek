@@ -51,7 +51,7 @@ RSA + ECC *zranitelné* k quantum computer (Shor algoritmus). Migration v progre
 
 NIST PQC Standards finalized 2024. Adoption in TLS 1.3 hybrid mode (X25519 + Kyber) already in Chrome, Cloudflare.
 
-## Použití v IS
+## Použití v IS {tier=practice}
 
 ### Key exchange
 

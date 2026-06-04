@@ -74,7 +74,7 @@ loop:
 
 Stav: 256-bajtová permutace $S$ a dva čítače $i, j$. Klíčový proud jeden byte na iteraci.
 
-### Aplikace RC4
+### Aplikace RC4 {tier=practice}
 
 * **WEP** (1997) — Wi-Fi šifrování. Padlo přes Fluhrer-Mantin-Shamir 2001 — útok získá WEP klíč za 1 minutu odposlechu.
 * **WPA-TKIP** — varianta s lepší inicializací, ale stále RC4. Vyřazeno WPA2 (AES-CCM) a WPA3 (AES-GCM).
@@ -155,7 +155,7 @@ chacha20_poly1305_encrypt(K, nonce, AD, M) → (C, tag):
 
 Poly1305 je univerzální hash v $\mathrm{GF}(2^{130} - 5)$, *informačně-teoreticky* bezpečný s náhodným klíčem. Spojení s ChaCha20 dává **AEAD** s bezpečnostními důkazy.
 
-### Použití
+### Použití {tier=practice}
 
 * **TLS 1.3** — `chacha20_poly1305_sha256` jako jedna ze tří standardních cipher suites.
 * **WireGuard VPN** — výchozí (a *jediné*) AEAD.

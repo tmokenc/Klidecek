@@ -73,7 +73,7 @@ V `t`-testu (viz [[t-test]]) statistika `T = (X̄ − μ)/(S/√n)` má rozděle
 T = \frac{(X̄ − μ)/(σ/√n)}{\sqrt{[(n-1)S²/σ²] / (n - 1)}} = \frac{X̄ − μ}{S/\sqrt{n}} \sim t(n-1).
 :::
 
-### Historie
+### Historie {tier=extra}
 
 William Sealy Gosset (Guinness Brewery, 1908) publikoval pod pseudonymem „Student" — Guinness mu nedovolil publikovat pod vlastním jménem. Distribuce řeší problém *malých vzorků* při odhadu pivovarských procesů.
 

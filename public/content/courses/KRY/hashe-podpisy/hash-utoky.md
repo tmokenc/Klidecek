@@ -89,7 +89,7 @@ SHA-1 chosen-prefix attack využívá:
 
 Pro slabé hashe hesel (MD5, SHA-1 bez salt) lze předpočítat tabulku páru (heslo, hash) a online vyhledávat. **Rainbow tables** (Oechslin 2003) optimalizují paměť pomocí "redukčních funkcí" a řetězců.
 
-### Příklad
+### Příklad {tier=example}
 
 Naivní tabulka 1 mld. nejčastějších hesel s MD5: 1 GB. Online lookup: O(1) po načtení tabulky.
 
@@ -147,7 +147,7 @@ Pro post-kvantovou bezpečnost na úrovni $\geq 128$ bitů:
 
 NIST PQC standardy ([[postkvantova]]) používají *primárně* SHA3-256, SHAKE128/256 a SHA-512.
 
-## Praktická doporučení
+## Praktická doporučení {tier=practice}
 
 | Útok | Obrana |
 | :--- | :--- |

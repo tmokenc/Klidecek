@@ -213,7 +213,7 @@ Detailně [[antispoofing-face]]. Stručně:
 * **3D masks:** silicone facial reconstructions — very dangerous.
 * **Deepfakes:** AI-generated synthetic videos.
 
-## Praktická nasazení
+## Praktická nasazení {tier=practice}
 
 ### Apple Face ID (2017+)
 

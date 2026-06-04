@@ -197,7 +197,7 @@ Z [[redukce]] (pro úplnost):
 
 > Vrcholy *hranice rozhodnutelnosti* leží mezi DCFL a CFL — určité problémy lze rozhodnout pro deterministické varianty, ale ne pro nedeterministické.
 
-## PCP v praxi
+## PCP v praxi {tier=practice}
 
 Postův problém má i *praktické* projevy:
 

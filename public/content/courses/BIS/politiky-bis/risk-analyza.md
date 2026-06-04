@@ -57,7 +57,7 @@ Output: **Risk Register** — formal table of risks, owners, controls, status.
 </svg>
 :::
 
-## Quantitative risk analysis
+## Quantitative risk analysis {tier=practice}
 
 Numerical approach. Vyžaduje *číselné* odhady — drahé but precise.
 
@@ -108,7 +108,7 @@ Pokud control cost > savings → don't implement.
 ::: viz risk-matrix-ale "Slidery AV, EF, ARO → SLE → ALE; risk matrix highlight. Posuň control cost / reduction — saved = ALE − ALE' − cost rozhodne, zda zavést."
 :::
 
-## Qualitative risk analysis
+## Qualitative risk analysis {tier=practice}
 
 Less precise but easier. Use *categorical* scales (low / medium / high) místo dollar values.
 
@@ -131,7 +131,7 @@ Less precise but easier. Use *categorical* scales (low / medium / high) místo d
 
 V praxi *hybrid* — kvantitatif pro velký risk, kvalitativní pro malé.
 
-## Threat modeling
+## Threat modeling {tier=practice}
 
 Před risk analysis musíme znát *threats*. Frameworks:
 

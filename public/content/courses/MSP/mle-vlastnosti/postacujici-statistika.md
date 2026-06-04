@@ -127,7 +127,7 @@ Pro exponenciální rodiny jsou postačující statistiky obvykle úplné — Le
 
 `Xᵢ ∼ Po(λ)`, `T = Σ Xᵢ ∼ Po(nλ)`, úplná a postačující. `X̄ = T/n` je nestranný odhad `λ`. ⇒ **UMVUE** `λ̂ = X̄`.
 
-## Aplikace postačujících statistik
+## Aplikace postačujících statistik {tier=practice}
 
 * **Komprese dat** — pro statistickou inference stačí uložit `T(X)`, ne celé `X`. Pro online algoritmy: sufficient statistic je *průběžně updatovatelná*.
 * **EM algoritmus** — používá sufficient statistics pro update parametrů v M-stepu.

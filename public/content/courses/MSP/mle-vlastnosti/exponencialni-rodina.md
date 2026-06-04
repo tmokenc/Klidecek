@@ -173,7 +173,7 @@ Některá běžná rozdělení *nejsou* v exponenciální rodině:
 
 Pro tyto rodiny většina hezkých vět neplatí — MLE může mít více lokálních maxim, neexistovat konjugovaný prior, postačující statistika může být celý vzorek `X`.
 
-## Aplikace EF v moderní ML
+## Aplikace EF v moderní ML {tier=practice}
 
 * **Generalized linear models** — IRLS algoritmus.
 * **Boltzmann machines, Markov random fields** — energy-based models = exponenciální rodina.

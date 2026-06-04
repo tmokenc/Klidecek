@@ -184,7 +184,7 @@ RFC 4556 (2006): rozšíření Kerberos, kde AS-REQ obsahuje X.509 certifikát k
 
 Hybridní bezpečnost: asymetrická pre-auth, symetrické session klíče — pomalý handshake, rychlý zbytek.
 
-## Praktický stack
+## Praktický stack {tier=practice}
 
 * **MIT Kerberos** — open-source referenční implementace.
 * **Heimdal** — BSD-licenced alternativa.
@@ -201,7 +201,7 @@ $ kdestroy                   # vymaže cache, end of session
 
 `/etc/krb5.conf` definuje realmy, KDC servery, default enctypes.
 
-## Kerberos v praxi v 2024
+## Kerberos v praxi v 2024 {tier=practice}
 
 * **Windows Active Directory** — dominuje firemní prostředí. Miliardy uživatelů.
 * **University Athena-likes** — MIT, Stanford, akademické intranety.

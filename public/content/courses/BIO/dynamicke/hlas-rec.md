@@ -177,7 +177,7 @@ Modern *consumer* deployment (Apple Siri Voice ID, Google Voice Match):
 * FAR: 1 in 10 000 (claimed).
 * FRR: 1–5 %.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 ### Phone banking
 

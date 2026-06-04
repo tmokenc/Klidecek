@@ -92,7 +92,7 @@ Instrukce *zapíše* do registr file, **pokud** žádná dřívější instrukce
 
 Toto je *řešení WAR*. Pokud `i2` zapisuje do `f8`, ale `i1` (vydaná dřív) ještě nepřečetla `f8` ve fázi Read operands, `i2` čeká *před* Write result.
 
-## Příklad
+## Příklad {tier=example}
 
 ```asm
 i1: fdiv f0, f2, f4        ; pomalé (40 cyklů)

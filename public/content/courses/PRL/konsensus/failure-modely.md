@@ -204,7 +204,7 @@ upon receive NACK from p:
 - **Konzistence**: stejný $\text{ts}$ → stejný leader.
 - **Nakonec leader**: nakonec všichni korektní procesy souhlasí na *jednom* leadeři.
 
-## Praktické dopady FLP
+## Praktické dopady FLP {tier=practice}
 
 Reálné distribuované systémy *řeší* konsensus i přes FLP:
 

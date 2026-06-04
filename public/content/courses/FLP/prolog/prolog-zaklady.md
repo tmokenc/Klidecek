@@ -178,7 +178,7 @@ Pozor: `X = 5` je **unification**, ne assignment! `X is 5` je *evaluation*.
 !     % cut (commits to choice)
 ```
 
-## Klasické příklady
+## Klasické příklady {tier=example}
 
 ### Faktoriál
 

@@ -177,7 +177,7 @@ Klasický příklad (Anscombe 1973) — čtyři datasety se *stejnými* `X̄, Ȳ
 </svg>
 :::
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Outlier detection** — visualizace `leverage vs. residual plot`.
 * **Robust regression** — automatické snižování vlivu influential bodů (`MM-estimator`, `RANSAC`).

@@ -332,7 +332,7 @@ Klíčové techniky:
 
 **Open-source**: LLaMA (Meta), Mistral, Qwen, DeepSeek. Lze *spustit lokálně* (s Ollama, llama.cpp). Mohou se *fine-tunovat* na vlastní úlohy.
 
-### Provoz lokálně
+### Provoz lokálně {tier=practice}
 
 ```bash
 # Ollama — nejjednodušší cesta
@@ -340,7 +340,7 @@ ollama pull llama3.1
 ollama run llama3.1 "Co je to neuronová síť?"
 ```
 
-### OpenAI API
+### OpenAI API {tier=practice}
 
 ```python
 from openai import OpenAI

@@ -156,7 +156,7 @@ PCA je *global* metoda — žádné *local* features (eyes, nose, mouth) explici
 
 Alternativy: **Local Binary Patterns (LBP)**, **HOG features**, **SIFT/SURF**.
 
-## Historický kontext
+## Historický kontext {tier=extra}
 
 * **1987:** Sirovich & Kirby — first PCA on faces (face *compression*, not recognition).
 * **1991:** **Turk & Pentland — Eigenfaces** — first practical face recognition using PCA.

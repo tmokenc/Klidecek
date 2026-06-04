@@ -214,7 +214,7 @@ Některá rozdělení jsou *typická*:
 
 Pro analytiku je *test normality* (Shapiro-Wilk, Q-Q plot) klíčový — mnohé statistické testy (t-test, ANOVA) předpokládají normalitu.
 
-## Příklad — popisné statistiky platů
+## Příklad — popisné statistiky platů {tier=example}
 
 ```
 platy = [25, 30, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100, 250]  -- tis. Kč
@@ -234,7 +234,7 @@ Bez popisných statistik bychom slepě modelovali jako kdyby data byla "rozumně
 ::: viz distribution-explorer "Posuvníky šikmosti a počtu outlierů ukáží, kdy se mean / median / mode rozcházejí a kdy robustní míry (median, IQR) zůstanou v klidu."
 :::
 
-## Praktické nástroje
+## Praktické nástroje {tier=practice}
 
 * **pandas** (`df.describe()`, `df.quantile()`).
 * **numpy** (`np.mean`, `np.std`, `np.percentile`).

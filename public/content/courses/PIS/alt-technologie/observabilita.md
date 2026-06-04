@@ -226,7 +226,7 @@ otel.exporter.otlp.endpoint=http://collector:4317
 
 Open Liberty: feature **`mpTelemetry-2.0`**.
 
-## Příklad nasazení — Docker Compose
+## Příklad nasazení — Docker Compose {tier=example}
 
 ::: svg "Typické nasazení OpenTelemetry — aplikace → Collector → Prometheus/Jaeger/Loki → Grafana"
 <svg viewBox="0 0 540 220" xmlns="http://www.w3.org/2000/svg">

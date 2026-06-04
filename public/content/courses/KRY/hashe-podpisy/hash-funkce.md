@@ -218,7 +218,7 @@ Vítěz NIST SHA-3 soutěže (2007–2012). **Není** Merkle-Damgård — altern
 * **BLAKE2** (Aumasson, Neves, Wilcox-O'Hearn, Winnerlein 2012) — SHA-3 finalista, *rychlejší* než SHA-2 v SW. Použito v `argon2`, WireGuard.
 * **BLAKE3** (Aumasson, O'Connor, Schneider 2020) — masivně paralelní (Merkle tree struktura), 8 GB/s na běžném CPU. Použito v IPFS, NEAR Protocol.
 
-## Aplikace hashe
+## Aplikace hashe {tier=practice}
 
 ### Hashe souborů — file integrity
 

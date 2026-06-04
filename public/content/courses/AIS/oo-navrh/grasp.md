@@ -163,7 +163,7 @@ public class ZasilkovnaShipping implements ShippingMethod {
 
 Zbytek aplikace pracuje jen s `ShippingMethod`; konkrétní dopravce se může měnit či přibývat bez dopadu jinam. *Protected Variations* je „zastřešující" princip — Low Coupling, Polymorphism, Indirection i Pure Fabrication jsou jeho konkrétní techniky.
 
-## Tahák — jakou otázku si položit
+## Tahák — jakou otázku si položit {tier=extra}
 
 | Princip | Otázka |
 |---|---|

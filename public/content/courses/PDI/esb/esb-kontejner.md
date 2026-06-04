@@ -107,7 +107,7 @@ OSGi nahrazuje strom **grafem classloaderů**: každý bundle má **vlastní cla
 
 Bundle prochází stavy **INSTALLED → RESOLVED → STARTING → ACTIVE → STOPPING → … → UNINSTALLED**. Klíčové je, že jednotlivé integrační trasy, komponenty i celé aplikace lze **za běhu nainstalovat, aktualizovat, spustit nebo smazat** — **bez restartu** celého kontejneru a bez ovlivnění ostatních běžících tras. Nasazení nové verze trasy tak nevyžaduje výpadek sběrnice.
 
-### Škálování — Fuse Fabric
+### Škálování — Fuse Fabric {tier=practice}
 
 Rozsáhlejší infrastruktury sdružují více ESB kontejnerů do clusteru. Nástroje typu **Fuse Fabric** (Fabric8) umožňují **centrální správu** a synchronizaci konfiguračních **profilů** napříč mnoha kontejnery, takže lze hromadně nasadit a udržovat tytéž trasy na celém poli běhových instancí.
 

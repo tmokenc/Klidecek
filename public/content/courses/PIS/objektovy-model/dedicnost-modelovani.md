@@ -116,7 +116,7 @@ Při návrhu hierarchie typů se postupuje dvěma směry:
 
 V praxi se obě cesty střídají iterativně — modeluje se „odshora i odzdola", až vznikne čistá hierarchie.
 
-### Příklad — hierarchie ekonomických subjektů (z přednášky)
+### Příklad — hierarchie ekonomických subjektů (z přednášky) {tier=example}
 
 ::: svg "Hierarchie typů ekonomických subjektů (z přednášky)"
 <svg viewBox="0 0 540 220" xmlns="http://www.w3.org/2000/svg">

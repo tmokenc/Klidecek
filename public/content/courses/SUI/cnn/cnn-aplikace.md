@@ -238,7 +238,7 @@ Příklady: Tesseract (klasické), modernější end-to-end deep learning OCR.
 
 Specifika: *malé datasety*, *high stakes* (chyba = lidský život), *interpretabilita* je důležitější než přesnost.
 
-## Real-world considerations
+## Real-world considerations {tier=practice}
 
 ### Inference speed
 

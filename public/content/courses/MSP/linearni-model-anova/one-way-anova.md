@@ -138,7 +138,7 @@ pwr.anova.test(k=3, f=0.4, sig.level=0.05, power=0.80)
 
 Vrátí `n` per skupinu.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Lékové studie** — porovnání 3+ skupin (placebo + 2 dávky).
 * **A/B/C testing** — porovnání více variant UI.

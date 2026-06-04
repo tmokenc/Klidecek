@@ -198,7 +198,7 @@ Performance tradeoff: deep packet inspection slows throughput. Some sites use:
 - **NGFW with IPS** for north-south traffic.
 - **Inline IDS** for east-west (passive).
 
-## Evasion techniques
+## Evasion techniques {tier=practice}
 
 Attackers try to bypass IDS:
 

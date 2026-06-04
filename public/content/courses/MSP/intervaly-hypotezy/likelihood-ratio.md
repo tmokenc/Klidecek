@@ -141,7 +141,7 @@ Aplikací v `θ̂₀`:
 
 `−ℓ''(θ̂) = n J(θ̂)` (observed information). `(θ̂ − θ̂₀)` má za `H₀` asymptoticky normální distribuci s kovarianční maticí inverzní `n J(θ)`. Kvadratická forma normálních veličin je `χ²` s df = počet *omezení*. □
 
-## Aplikace LRT
+## Aplikace LRT {tier=practice}
 
 * **GLM modely** — testování zařazení / vyloučení proměnných (ANOVA tables v R `anova(model1, model2)`).
 * **Mixed models** — testování random effects (s warning: na hranici parametrického prostoru je distribuce smíšenina `χ²`).

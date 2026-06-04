@@ -162,7 +162,7 @@ kde $Z$ je DH shared secret, FixedInfo je kontext (algorithm ID, party IDs). Cou
 
 Použito v některých standardech (NIST P-curves ECDH). HKDF je flexibilnější.
 
-## Common KDF antipatterns
+## Common KDF antipatterns {tier=practice}
 
 ### 1. Naive `sha256(password)`
 
@@ -207,7 +207,7 @@ key = pbkdf2(password, salt=b"foo", iterations=1000)  # ❌
 
 Záznam plaintextového hesla v databázi je *vždy* chyba. Použijte `argon2id` hash. Pokud útočník získá databázi, hesla jsou *prakticky* nedostupná (předpokládá silná hesla).
 
-## Doporučení (2024)
+## Doporučení (2024) {tier=practice}
 
 | Účel | Algoritmus | Parametry |
 | :--- | :--- | :--- |
@@ -218,7 +218,7 @@ Záznam plaintextového hesla v databázi je *vždy* chyba. Použijte `argon2id`
 | Disk encryption KDF | **scrypt** nebo **Argon2id** | high memory/time |
 | Soubor/file encryption | `age` (X25519 + ChaCha20-Poly1305) | hotová knihovna |
 
-## Stretching pro různé úrovně bezpečnosti
+## Stretching pro různé úrovně bezpečnosti {tier=practice}
 
 | Bezpečnostní úroveň | Min memory | Min time | Hash použít |
 | :-: | :-: | :-: | :-: |

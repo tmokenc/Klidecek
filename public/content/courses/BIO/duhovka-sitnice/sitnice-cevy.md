@@ -139,7 +139,7 @@ Klasický algoritmus pro retina matching (1978, EyeDentify Inc.):
 * Matching → similarity score.
 * Used by EyeDentify EyeScan (1985+).
 
-## Praktická nasazení
+## Praktická nasazení {tier=practice}
 
 ### EyeDentify / EyeScan (1985+)
 

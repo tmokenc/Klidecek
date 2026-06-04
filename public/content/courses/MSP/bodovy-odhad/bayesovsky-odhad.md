@@ -137,7 +137,7 @@ Toto je *integrace přes nejistotu v `θ`* — kvalitnější než dosazení bod
 
 V praxi se přístupy *míchají*: Bayesovští autoři používají frekventistické vlastnosti pro validaci priorů, frekventisté používají Bayesovský update v sequential analysis.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Spam filter** — Naive Bayes klasifikátor s priors na `P(spam)`.
 * **A/B testing** — Bayesovský `Beta-Bernoulli` přístup vs. klasický `t`-test.

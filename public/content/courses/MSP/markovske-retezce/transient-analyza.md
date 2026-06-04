@@ -99,7 +99,7 @@ Co se stane, když `k → ∞`?
 * **Periodický řetězec s periodou `d > 1`** — `t⁽ᵏ⁾` osciluje. Konverguje *Cesàro-průměr* `(1/n) Σ_{k<n} t⁽ᵏ⁾`.
 * **Více rekurentních tříd** — limita existuje a je *kombinací* stacionárních distribucí jednotlivých rekurentních tříd vážených pravděpodobnostmi pohlcení ([[reachability]]).
 
-## Praktický výpočet
+## Praktický výpočet {tier=practice}
 
 Pro malá `|S|` (do tisíců stavů) lze tranzientní distribuci po `k` krocích spočítat třemi způsoby:
 

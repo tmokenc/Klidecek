@@ -293,7 +293,7 @@ Accuracy 99 %, ale F1 na třídě B jen 0.53 — model špatně detekuje minorit
 ::: viz smote-and-threshold-tuning "SMOTE generuje syntetické body interpolací mezi minority instancí a jejím náhodným k-NN. Posuvník threshold ukáže live precision/recall a confusion matrix."
 :::
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **Diagnostikujte první** — zjistěte distribuci tříd před trénováním.
 * **Stratifikované splity** — `train_test_split(stratify=y)` zachová class balance.

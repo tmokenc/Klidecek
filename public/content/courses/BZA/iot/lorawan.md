@@ -192,7 +192,7 @@ Mitigace: per-device unique keys, OTAA, fyzická ochrana ED.
 
 Mitigace: frequency hopping, retransmission.
 
-## Praktické pen-testing nástroje
+## Praktické pen-testing nástroje {tier=practice}
 
 * **LoRaWanAuditor** — open source pen-test framework pro LoRaWAN.
 * **ChirpStack** — open source NS pro test sítě.

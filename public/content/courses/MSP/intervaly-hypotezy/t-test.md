@@ -162,7 +162,7 @@ d = \frac{\bar{X} - \bar{Y}}{S_p}.
 
 Konvence: `d = 0,2` small, `0,5` medium, `0,8` large effect. Důležitější pro *praktickou významnost* než p-hodnota.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **A/B testing** — porovnání konverzních rates dvou variant.
 * **Quality control** — průměrná kvalita produktu před/po procesu.

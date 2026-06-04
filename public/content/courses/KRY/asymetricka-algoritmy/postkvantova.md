@@ -155,7 +155,7 @@ V přechodném období se používá *kombinace*:
 
 > NSA's Commercial National Security Algorithm Suite 2.0 (CNSA 2.0, 2022) stanoví, že **do 2033** musí národní bezpečnostní systémy USA používat **pouze PQC**.
 
-## Praktické dnešní volby (2024)
+## Praktické dnešní volby (2024) {tier=practice}
 
 * **Pro nový projekt s dlouhodobým horizontem:** hybrid X25519 + Kyber-768 (KEM), Ed25519 + Dilithium-3 (podpis). Knihovny: liboqs, BoringSSL trial branches.
 * **Pro běžný projekt:** X25519 + Ed25519. Připravit *crypto agility* — abstrakce algoritmu na úrovni protokolu.

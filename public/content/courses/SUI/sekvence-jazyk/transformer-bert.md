@@ -201,7 +201,7 @@ Fine-tuning typicky **3-5 epoch**, lr `2e-5 — 5e-5`.
 * *Stal se* defaultním baselinem pro NLP.
 * Inspiroval *desítky* variant: RoBERTa, ALBERT, DistilBERT, ELECTRA, DeBERTa.
 
-## Praktické knihovny
+## Praktické knihovny {tier=practice}
 
 ### Hugging Face Transformers
 

@@ -175,7 +175,7 @@ Detail v [[rbac-abac]]. Quick preview:
 
 Not really DAC or MAC — orthogonal axis. *Implementace* může být DAC- or MAC-style.
 
-## Capability vs ACL
+## Capability vs ACL {tier=extra}
 
 Two ways to implement access control:
 

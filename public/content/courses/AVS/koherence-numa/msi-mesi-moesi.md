@@ -157,7 +157,7 @@ Optimalizace pro *velký* L3 cache + mnoho jader — méně contention na bus.
 
 Volba protokolu závisí na *cache topologii* a *typické sharing pattern* aplikací.
 
-## Příklad: producer-consumer
+## Příklad: producer-consumer {tier=example}
 
 P0 produkuje, P1 spotřebuje:
 

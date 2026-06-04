@@ -131,7 +131,7 @@ Lidský typing je *behavioral motor pattern*. Při psaní *stejné* věty se *st
 * **Detect "user change"** — if typing pattern shifts, demand re-authentication.
 * **Use case:** banking application running in background.
 
-## Praktická nasazení
+## Praktická nasazení {tier=practice}
 
 ### Banking
 

@@ -144,7 +144,7 @@ Y není jediný:
 * **Klop's $\Theta'$**.
 * **Curry's Y** je nejznámější.
 
-## Příklady redukce
+## Příklady redukce {tier=example}
 
 ### Booleans (Church encoding)
 

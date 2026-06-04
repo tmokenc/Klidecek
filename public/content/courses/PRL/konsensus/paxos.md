@@ -170,7 +170,7 @@ upon receive REQUEST(v) from client (jen pokud leader):
 - **Liveness** obnovena, jakmile $\Omega$ stabilizuje na *jednom* leaderovi.
 - *Optimalizace*: leader může *přeskočit* fázi 1 pro další návrhy (Multi-Paxos = posloupnost instancí Basic Paxosu — jedna instance na každou položku logu — se sdíleným leaderem).
 
-## Real-world implementace
+## Real-world implementace {tier=practice}
 
 - **Google Chubby** (Burrows 2006) — *lockerová* služba s Paxos backendem, používá ji Bigtable.
 - **Apache ZooKeeper** — používá *Zab*, ne přímo Paxos, ale podobný princip.
@@ -178,7 +178,7 @@ upon receive REQUEST(v) from client (jen pokud leader):
 - **Microsoft Azure Storage** — Paxos pro replikaci metadat.
 - **Google Spanner** — Multi-Paxos pro globálně distribuované transakce.
 
-### Učení z reálného nasazení
+### Učení z reálného nasazení {tier=practice}
 
 Lamport's papers byly notoricky obtížné na pochopení. **Diego Ongaro** (Raft, 2014) explicitně designoval Raft jako *pochopitelnější* alternativu k Paxosu (viz [[raft-praxe]]). Většina moderních systémů preferuje Raft.
 
@@ -191,7 +191,7 @@ Lamport's papers byly notoricky obtížné na pochopení. **Diego Ongaro** (Raft
 | Optimalizace | žádné | leader skip phase 1 |
 | Fáze 1 frequency | každý návrh | jen při výměně leadera |
 
-## Paxos Made Live
+## Paxos Made Live {tier=practice}
 
 **Chandra, Griesemer, Redstone (PODC 2007)** napsali slavný článek o *praktických* problémech implementace Paxosu:
 

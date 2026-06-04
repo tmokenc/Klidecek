@@ -87,7 +87,7 @@ Při Issue:
 
 ⇒ **Cílový registr ukazuje na *novou* RS**, takže *budoucí čtení* uvidí *čerstvou* hodnotu, ne starou. To je **implicit renaming** — žádné jméno registru se nepřeposílá; tagy RS *jsou* nová "jména".
 
-### Příklad: WAW vyřešen automaticky
+### Příklad: WAW vyřešen automaticky {tier=example}
 
 ```asm
 i1: fmul f0, f2, f4

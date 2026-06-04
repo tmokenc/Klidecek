@@ -93,7 +93,7 @@ Key insight: real-world integrity ≠ labels. It's about *correct transactions* 
 6. **Authentication** — users identified before any TP execution.
 7. **Audit log** — TP execution recorded.
 
-### Příklad — banking
+### Příklad — banking {tier=example}
 
 - CDIs: account balances.
 - UDIs: customer deposit requests.
@@ -134,7 +134,7 @@ After each batch TP run: IVP checks invariants:
 
 Pokud IVP fails → alert, investigate.
 
-## Clark-Wilson v praxi
+## Clark-Wilson v praxi {tier=practice}
 
 - **Banking core systems** — IBM, Oracle Financial Services.
 - **ERP systems** — SAP, Oracle ERP.
@@ -162,7 +162,7 @@ Real systems combine:
 - **Audit logs** — accountability.
 - **Backup** — availability.
 
-## Chinese Wall (Brewer-Nash)
+## Chinese Wall (Brewer-Nash) {tier=extra}
 
 Pre-1989 problém: consulting firm has multiple clients. Consultant *shouldn't* see *both* clients' info (conflict of interest).
 

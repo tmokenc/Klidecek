@@ -19,7 +19,7 @@ Srdcem TDD je krátká smyčka tří fází. Jeden průchod by měl trvat řádo
 
 Nejčastější chybou je vynechání třetí fáze. Bez průběžného refaktoru z TDD zůstane jen rostoucí hromada nahodile poslepovaných fragmentů.
 
-## Worked example — kalkulátor (JUnit)
+## Worked example — kalkulátor (JUnit) {tier=example}
 
 Ukázka jednoho cyklu pro metodu `add`. Nejdřív test, který se odkazuje na neexistující kód (nezkompiluje se / selže — fáze **red**):
 

@@ -153,7 +153,7 @@ Obrana: nonce, časová razítka, sekvenční čísla.
 
 Obrana: KDC musí *spojit* klíč s identitami obou stran v každém kroku.
 
-## Klíčová hygiena v aplikacích
+## Klíčová hygiena v aplikacích {tier=practice}
 
 * **Master key v HSM** — Hardware Security Module. Klíč nikdy neopustí hardware; aplikace volá API "podepiš/dešifruj toto", neviděje klíč.
 * **Klíče v paměti** — `mlock` proti swappingu, `memset_s` (C11) nebo `sodium_memzero` po použití. Pro stěžejní data po dešifrování.
@@ -161,7 +161,7 @@ Obrana: KDC musí *spojit* klíč s identitami obou stran v každém kroku.
 * **Žádné klíče v logu** — striktní filtrace.
 * **Žádné klíče v error messages** — útočník vyvolá chybu, dostane stack trace, vidí klíč v paměti.
 
-## Praktický příklad: TLS 1.3 hierarchie
+## Praktický příklad: TLS 1.3 hierarchie {tier=practice}
 
 TLS 1.3 (RFC 8446) má elaborátní hierarchii:
 

@@ -12,7 +12,7 @@ Detail: [[blok-vs-proud]] (block vs stream), [[feistel-spn]] (struktury), [[delk
 
 Stručně: Alice + Bob sdílí klíč `K`. Encrypt: `C = E_K(M)`. Decrypt: `M = D_K(C)`.
 
-## Použití v IS
+## Použití v IS {tier=practice}
 
 ### Storage encryption
 

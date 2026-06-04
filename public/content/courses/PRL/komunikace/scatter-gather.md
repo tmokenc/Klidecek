@@ -227,7 +227,7 @@ MPI: `MPI_Alltoall` — *jeden z nejdražších* kolektivů. Sortování (např.
 
 Konstanty se liší podle topologie a podle toho, zda 1-port nebo multi-port hardware.
 
-## Reálné aplikace
+## Reálné aplikace {tier=practice}
 
 - **FFT distribuovaná**: přechod mezi $N$ frekvenčními pásmy ↔ $N$ uzly = **all-to-all**.
 - **Distribuovaná maticová transpozice**: $A \to A^T$ s blokovou distribucí = **all-to-all**.
@@ -235,7 +235,7 @@ Konstanty se liší podle topologie a podle toho, zda 1-port nebo multi-port har
 - **Deep learning, distributed gradient descent**: synchronizace gradientů = **all-reduce**.
 - **Distribuované embedding tables**: lookup distribuovaný do partitionů = **scatter** + **gather**.
 
-## Praktické rady pro MPI
+## Praktické rady pro MPI {tier=practice}
 
 1. **Použij `MPI_Allreduce` místo `MPI_Reduce` + `MPI_Bcast`** — knihovna ho zkombinuje optimálněji.
 2. **Vyhněte se `MPI_Alltoall` pokud možno** — *nejdražší* kolektiv. Re-design algoritmu často sníží nebo nahradí jinými operacemi.

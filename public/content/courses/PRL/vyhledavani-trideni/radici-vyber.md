@@ -35,7 +35,7 @@ procedure MIN_EXTRACT_SORT
             else: získat menší ze synů
 ```
 
-### Příklad — vstup $[8, 7, 6, 5, 4, 3, 2, 1]$
+### Příklad — vstup $[8, 7, 6, 5, 4, 3, 2, 1]$ {tier=example}
 
 ```
 Inicializace listů:    8  7  6  5  4  3  2  1
@@ -228,7 +228,7 @@ Klíčový rozdíl od sekvenčního quicksort: **každý vnitřní uzel hledá *
 
 **Cost-optimal trojice**: **Bucket Sort**, **Pipeline Merge Sort**, **Median Finding and Splitting**. Všechny mají *jen* $O(\log n)$ procesorů a *lineární* čas.
 
-## Výběr v praxi
+## Výběr v praxi {tier=practice}
 
 | Scénář | Doporučený algoritmus |
 | :--- | :--- |

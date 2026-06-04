@@ -194,7 +194,7 @@ Pro normality test: **doporučení** Shapiro-Wilk (`n ≤ 5000`), pak Q-Q plot.
 * **Malý vzorek** ⇒ slabá síla; *nezamítnutí* `H₀` neznamená, že data jsou opravdu normální. Použij vizualizaci + odbornou intuici.
 * **GoF před parametric test**: dvoukrokový workflow je kontroverzní (Wells, Hintze 2007) — *vyhněte se* automatickému přepínání mezi parametrickým a neparametrickým testem podle GoF.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Quality control** — kontrola, zda měření vyhovují specifikaci.
 * **Risk modeling** — testovat heavy-tailed alternative k normalitě (Student-t, Pareto).

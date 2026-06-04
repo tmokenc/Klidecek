@@ -257,7 +257,7 @@ $\Theta(p \log p)$ přepínačů uspořádaných do $\log p$ úrovní, každá s
 ::: viz omega-network "Vyber zdroj P_i a cíl M_j, pak krokuj. V každém stupni se konzumuje jeden bit cíle (zvýrazněn binárně nahoře) — určuje nastavení switche (přímý/křížení). Mezi stupni perfect-shuffle propojuje výstupy s vstupy."
 :::
 
-## Volba topologie pro algoritmus
+## Volba topologie pro algoritmus {tier=practice}
 
 Žádná topologie není „nejlepší" — volba závisí na *vzoru komunikace* algoritmu:
 

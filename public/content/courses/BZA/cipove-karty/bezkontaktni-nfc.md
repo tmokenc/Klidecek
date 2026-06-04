@@ -154,7 +154,7 @@ Pro mobilní platby (Apple Pay, Google Pay) se nepoužívá *real PAN* (skutečn
 2. *Něco víš/jsi* — odemčení telefonu (PIN/biometrika).
 3. *Něco generuješ* — per-transaction cryptogram.
 
-## Praktické nástroje pro útok i obranu
+## Praktické nástroje pro útok i obranu {tier=practice}
 
 * **Proxmark3** ($300+) — software-defined radio pro 125 kHz a 13,56 MHz. Sniffing, replay, emulace, fuzzing.
 * **ChameleonMini** ($60) — emulátor karet, plně programovatelný, podporuje Mifare Classic, DESFire, Ultralight, ISO 14443.

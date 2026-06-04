@@ -226,7 +226,7 @@ All used in social engineering. Training to *recognize* helps resist.
 ::: viz phishing-indicators "Klikni na podezřelé části emailu — odhalí se red flag a vysvětlení. Spoofed domain, urgency, generic greeting, lookalike URL — klasický phishing recipe."
 :::
 
-## Famous incidents
+## Famous incidents {tier=example}
 
 - **2011 RSA breach** — phishing emails to employees, leading to compromise of RSA SecurID seeds.
 - **2014 Sony Pictures** — North Korean actors used phishing to gain initial access.

@@ -190,7 +190,7 @@ V praxi to ovšem děláte přes knihovny jako [Nimbus JOSE](https://connect2id.
 * **Vždy ověřujte podpis a claims** `iss`, `aud`, `exp` — knihovny to dělají automaticky, ale specifické business validace si musíte napsat sami.
 * Nedávejte do JWT **citlivá data** — payload není šifrovaný. Pouze identita + role.
 
-## Demo — MicroProfile JWT
+## Demo — MicroProfile JWT {tier=extra}
 
 V přednášce odkazované demo: [DIFS-Teaching/rest-auth](https://github.com/DIFS-Teaching/rest-auth) — kompletní příklad MicroProfile JWT s generátorem klíčů a Payara/Liberty konfigurací.
 

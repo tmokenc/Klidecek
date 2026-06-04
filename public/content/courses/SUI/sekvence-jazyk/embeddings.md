@@ -275,7 +275,7 @@ Slovník typicky `30k–50k` subword tokenů — pokrývá *všechny jazyky* a *
 
 Toto je *de facto* standard pro moderní LLM. Detail v [[llm]].
 
-## Praktické použití
+## Praktické použití {tier=practice}
 
 ```python
 import torch.nn as nn

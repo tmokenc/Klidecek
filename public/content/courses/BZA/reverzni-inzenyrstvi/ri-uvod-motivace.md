@@ -96,7 +96,7 @@ V kybernetické bezpečnosti často nezáleží na *kompletní* dekompozici — 
 * **Lidské zdroje** — netriviální development obejít.
 * **Čas** — quick reverse vs. full re-development.
 
-## Aplikace v kyberbezpečnosti
+## Aplikace v kyberbezpečnosti {tier=practice}
 
 ### Defensive
 
@@ -116,7 +116,7 @@ V kybernetické bezpečnosti často nezáleží na *kompletní* dekompozici — 
 * **Incident response** — co útočník udělal v kompromitovaném systému?
 * **Digital evidence analysis** — recovery dat z encrypted nebo damaged storage.
 
-## WannaCry (2017) — Case study
+## WannaCry (2017) — Case study {tier=example}
 
 [WannaCry](https://en.wikipedia.org/wiki/WannaCry_ransomware_attack) ukazuje význam reverzního inženýrství v cyberbezpečnosti:
 
@@ -135,7 +135,7 @@ Marcus Hutchins ("MalwareTech") analyzoval binárku WannaCry pomocí IDA Pro + d
 
 Kdyby NHS pacient zemřel kvůli WannaCry, byl by to *přímý důsledek nedostatečného patchování* (MS17-010 byl k dispozici 2 měsíce před). RE odhalil mechanismus a umožnil quick mitigation.
 
-## Etika
+## Etika {tier=extra}
 
 RE má **morální i právní** dilemata:
 

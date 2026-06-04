@@ -56,7 +56,7 @@ Dedikovaný hardware naopak rozprostře výpočet **v prostoru**: pro každou op
 
 Jitter je pro **tvrdý reálný čas** zásadní: SW odezva kolísá kvůli plánovači, obsluze přerušení a hierarchii cache, zatímco HW dává tutéž odezvu každý cyklus. Proto se v bezpečnostně kritických doménách (automotive, letectví) časově kritické smyčky realizují v HW. Naopak rigidita HW znamená, že chyba v návrhu ASIC se opravuje extrémně draze a pomalu — kdežto SW se přepíše a nahraje.
 
-## Příklad 1 — FFT (datový tok, propustnost)
+## Příklad 1 — FFT (datový tok, propustnost) {tier=example}
 
 Rychlá Fourierova transformace je sledem motýlkových (butterfly) operací. V SW běží sekvenčně: i s DSP instrukcemi brzdí procesor nutnost přesouvat data mezi registry a pamětí. Řádově je 1024-bodová FFT na malém Cortex-M procesoru otázkou stovek mikrosekund.
 

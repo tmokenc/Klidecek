@@ -97,7 +97,7 @@ Pokud `sw` *promáchne* cache (`store miss`), dvě možnosti:
 
 Write-allocate je dobrý, pokud po store *čteš* stejnou adresu (typické pro update). No-write-allocate je dobrý pro streaming write (memset velkého pole).
 
-## Praktické konfigurace
+## Praktické konfigurace {tier=practice}
 
 | CPU | L1 D | L2 | L3 |
 | :--- | :--- | :--- | :--- |

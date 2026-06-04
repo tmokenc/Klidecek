@@ -25,7 +25,7 @@ Stručně: `h = H(M)` — *deterministic*, *one-way*, *fixed-length output*, *co
 
 Use SHA-256 nebo better. Avoid MD5, SHA-1 except for legacy compatibility.
 
-## Použití hashe v IS
+## Použití hashe v IS {tier=practice}
 
 ### Password storage
 
@@ -105,7 +105,7 @@ HMAC-SHA256 is *standard* MAC. Library support universal.
 
 Pokud Alice a Bob *sdílí* secret → MAC stačí. Pokud chceš důkaz pro *třetí stranu* → signature.
 
-## Digital Signature
+## Digital Signature {tier=practice}
 
 *Asymmetric* — Alice signs with private, Bob verifies with public. Detail [[el-podpis]].
 

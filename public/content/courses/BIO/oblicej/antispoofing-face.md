@@ -192,7 +192,7 @@ Notable bypass: Bkav (2017) silikonová maska prošla; Apple opravil firmware up
 * Liveness check (smile, blink).
 * Backed by Alibaba massive deep learning models.
 
-## Slavné spoofing případy
+## Slavné spoofing případy {tier=extra}
 
 ### iPhone X bypass (2017)
 

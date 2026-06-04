@@ -299,7 +299,7 @@ WHERE ST_DWithin(geom, ST_MakePoint(16.6, 49.2), 0.01);
    -- '0.01 degree' ≈ 1.1 km na lat
 ```
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **Vždy index** — `CREATE INDEX … USING GIST (geom)`. Bez něj jsou queries lineární.
 * **MBB tests first** — `&&` operator místo `ST_Intersects` pokud postačí approximate.

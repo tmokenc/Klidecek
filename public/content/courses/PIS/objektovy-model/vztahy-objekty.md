@@ -160,7 +160,7 @@ Sémantika:
 </svg>
 :::
 
-### Příklad — adresát a jeho adresy
+### Příklad — adresát a jeho adresy {tier=example}
 
 Klasický příklad z přednášky: osoba `PrvekSAdr` má kolekci adres, a každá adresa zpětně ví, ke kterému adresátovi patří.
 

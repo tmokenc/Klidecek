@@ -36,7 +36,7 @@ $$
 
 kde **CPI = 1 + q** je průměrný počet taktů na instrukci v ustáleném stavu.
 
-## Konkrétní příklad
+## Konkrétní příklad {tier=example}
 
 Klasický příklad z přednášky (Týden 1):
 

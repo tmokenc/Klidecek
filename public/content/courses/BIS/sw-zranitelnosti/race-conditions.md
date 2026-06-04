@@ -167,7 +167,7 @@ Defense: global lock ordering, try-lock + backoff, deadlock detection.
 
 Not strictly *security* issue, but DoS — attacker triggers deadlock to halt service.
 
-## Real-world race vulnerabilities
+## Real-world race vulnerabilities {tier=example}
 
 | CVE | Description |
 | :--- | :--- |

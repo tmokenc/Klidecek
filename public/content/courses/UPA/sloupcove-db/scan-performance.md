@@ -211,7 +211,7 @@ Column store dnes maximálně využívá moderní HW:
 * **NVMe** — pro persistent storage.
 * **RDMA** — pro cluster shuffle.
 
-## Praktické dopady
+## Praktické dopady {tier=practice}
 
 Pro datový sklad nebo analytickou platformu:
 

@@ -204,7 +204,7 @@ To je idea *cube* algoritmu, který detailně rozebere [[nasobeni-matic-cube]].
 
 **Klíčové pozorování**: paralelní *čas* O(n) je *limit* na mřížce kvůli boundary-only I/O. Pro lepší čas je nutná *jiná* topologie s *globální* komunikací — *cube*, *hypercube*.
 
-## Praktická aplikace — TPU systolic array
+## Praktická aplikace — TPU systolic array {tier=practice}
 
 Google **TPU v1** (ISCA 2017) používá systolic-array architekturu:
 

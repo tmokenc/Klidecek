@@ -76,7 +76,7 @@ F \sim F(k - k_1, n - k).
 </svg>
 :::
 
-## Aplikace
+## Aplikace {tier=practice}
 
 ### 1. ANOVA — test rovnosti skupinových středních
 

@@ -234,7 +234,7 @@ Tento výsledek slouží:
 * **Jako horní mez velikosti DKA** — kanonický tvar je nejmenší.
 * **Jako důkazový nástroj** — pokud ukážeme, že $\sim_L$ má *nekonečně mnoho* tříd, jazyk *není* regulární. Použití v [[pumping-uzaver]].
 
-## Praktický význam minimalizace
+## Praktický význam minimalizace {tier=practice}
 
 Minimalizace je dnes standardní krok v:
 

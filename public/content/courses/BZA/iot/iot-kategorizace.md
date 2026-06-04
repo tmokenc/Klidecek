@@ -153,7 +153,7 @@ Tyto dvě vlastnosti jsou *ortogonální*. Smart lock může být *bezpečný* (
 * **Fitness tracker** → krok, srdce → odhad zdraví, lokace cvičení.
 * **Smart auto** → routes, navigace, časování.
 
-## Bezpečnost je drahá
+## Bezpečnost je drahá {tier=extra}
 
 Klíčový **business** problém: bezpečné IoT zařízení je *dražší* než nebezpečné:
 

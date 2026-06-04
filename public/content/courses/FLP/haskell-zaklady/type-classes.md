@@ -335,7 +335,7 @@ type Showable a = (Show a, Eq a)
 
 > "Type classes provide ad-hoc polymorphism done right." — Wadler.
 
-## Examples
+## Examples {tier=example}
 
 ### Functor instance for own type
 

@@ -70,7 +70,7 @@ Termočlánek dá napětí řádově desítky mikrovoltů na stupeň a jeho char
 
 V *obvodové* elektronice „aktivní prvek" znamená prvek, který do obvodu dodává energii (zdroj, tranzistor), a „pasivní" je rezistor či kondenzátor. V *senzorice* je dělení postavené na témže principu, ale výsledek působí opačně: pasivní senzor *je* proměnný odpor/kondenzátor a potřebuje napájení, kdežto aktivní senzor energii sám dává. Je tedy nutné vždy vědět, zda mluvíme o senzorech, nebo o obvodových prvcích — to je častá past u zkoušky.
 
-## Inteligentní (smart) senzory
+## Inteligentní (smart) senzory {tier=extra}
 
 Moderní trend integruje na jeden čip nejen samotné čidlo, ale i celý začátek měřicího řetězce: zesilovač, **A/D převodník** a **mikroprocesor**. Smart senzor pak komunikuje s nadřazeným MCU rovnou v **digitální** podobě, přes sběrnici jako I2C, SPI nebo 1-Wire.
 

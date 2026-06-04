@@ -201,7 +201,7 @@ Méně časté události vzorkujeme s vyšší pravděpodobností. Použití: fr
 
 Vzorkování často naráží na **nevyvážené třídy** — pokud je minoritní třída pouze 1 %, prosté náhodné vzorkování ji téměř ztratí a klasifikátor naivně predikuje vždy majoritní (99 % accuracy, ale 0 % recall na minoritní). Strategie jako undersampling, oversampling, SMOTE, class weights a vhodné metriky (precision/recall, F1, PR-AUC) lze kombinovat se vzorkováním. Podrobné zpracování viz [[nevyvazenost]].
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **Vždy škálovat před PCA** — `StandardScaler`. Bez toho je PCA dominován atributy s velkým rozsahem.
 * **Train/test split před resamplingem** — jinak leakage (test data jsou součástí trénování).

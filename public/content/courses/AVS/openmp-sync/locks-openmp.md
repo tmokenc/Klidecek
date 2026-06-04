@@ -206,7 +206,7 @@ Pravidla:
 2. **try-lock + backoff** — pokud druhý lock fail, release first + retry.
 3. **Lock hierarchies** — strict order rules in design.
 
-## Performance tips
+## Performance tips {tier=practice}
 
 1. **Inicializace** — `omp_init_lock` *jednou*, ne v hot path.
 2. **Granularita** — fine-grained menší contention, ale víc overhead.

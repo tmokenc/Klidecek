@@ -264,7 +264,7 @@ WHERE {
 
 Lokální endpoint udělá první pattern, vzdálený DBpedia endpoint dodá city. DB sloučí výsledky.
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **PREFIX deklarace** vždy nahoře, šetří psaní.
 * **DISTINCT** používejte rozvážně — drahá operace.

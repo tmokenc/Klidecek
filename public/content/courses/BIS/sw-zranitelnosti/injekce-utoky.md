@@ -41,7 +41,7 @@ Komentář odstraní `AND password=...` → WHERE je triviálně pravdivá → r
 - **Inferential / Blind** — no direct result. Infer via boolean response or timing.
 - **Out-of-band** — exfiltrate via DNS, HTTP from DB server.
 
-### Famous SQLi
+### Famous SQLi {tier=example}
 
 - **TalkTalk 2015** — 4M customers, £77M fine.
 - **Heartland Payment Systems 2008** — 130M credit cards.
@@ -318,7 +318,7 @@ App fetches AWS metadata. Returns IAM creds. Attacker hijacks AWS account.
 - **DNS rebinding protection**.
 - **Network-level** — deny private network from web tier.
 
-## OWASP Top 10 (2021)
+## OWASP Top 10 (2021) {tier=practice}
 
 | Rank | Category |
 | :---: | :--- |

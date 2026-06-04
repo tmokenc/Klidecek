@@ -52,7 +52,7 @@ Pokud distribuce *překrývá*, vznikají chybové míry:
 
 Práh $\tau$ určuje *rovnováhu* mezi nimi.
 
-## Příklady variability — různé biometriky
+## Příklady variability — různé biometriky {tier=example}
 
 ### Otisky prstů
 

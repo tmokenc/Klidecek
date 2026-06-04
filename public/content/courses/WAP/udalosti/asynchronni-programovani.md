@@ -101,7 +101,7 @@ function poDavkach(zbyva) {
 
 Rekurze přes `setTimeout` (makroúlohy) tento problém nemá: mezi každými dvěma makroúlohami smyčka stihne microtask checkpoint *i* render, takže UI zůstává responzivní.
 
-## Srovnání s C# / .NET (TPL)
+## Srovnání s C# / .NET (TPL) {tier=extra}
 
 V C# stojí asynchronní programování na *Task Parallel Library*. `Task`y se často odbavují **paralelně** z thread poolu na více vláknech — to je principiální rozdíl proti jednovláknovému JS. S tím souvisí i odlišný způsob, jak se dá čekat na výsledek.
 

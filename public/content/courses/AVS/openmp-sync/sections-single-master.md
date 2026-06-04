@@ -136,7 +136,7 @@ for (...) { ... }
 
 Nemusíte vytvořit explicit `parallel` region. Direktiva implicitly forks team a immediately work-shares.
 
-## Příklad: pipeline pattern
+## Příklad: pipeline pattern {tier=example}
 
 ```c
 #pragma omp parallel sections
@@ -175,7 +175,7 @@ Three independent stages. Queues = synchronizační datová struktura (musí bý
 
 Trade-off: synchronization overhead vs throughput. Pokud queue má lock, lock contention zpomalí. Lock-free queue (Michael-Scott queue) lepší.
 
-## Příklad: orchestrator + workers
+## Příklad: orchestrator + workers {tier=example}
 
 ```c
 #pragma omp parallel

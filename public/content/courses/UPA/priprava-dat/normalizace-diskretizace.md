@@ -350,7 +350,7 @@ predictions = pipeline.predict(X_test)
 * Žádný leakage (parameters fit jen na train).
 * Snadná serializace pro deployment.
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **Fit jen na train** — fit_transform na train, transform na test. Bez toho leakage.
 * **Pipeline objekty** — kombinujte preprocessing s modelem, snazší údržba a deploy.

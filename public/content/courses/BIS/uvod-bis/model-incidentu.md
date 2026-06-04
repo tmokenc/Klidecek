@@ -181,7 +181,7 @@ Po detekci incidentu defenders *zaznamenají* IoC — markers, podle kterých id
 
 IoC se sdílí v komunitě (MISP, STIX/TAXII format). Sharing → defenders ze stejné komunity rychle detekují stejný malware.
 
-## Příklad: Ransomware attack chain
+## Příklad: Ransomware attack chain {tier=example}
 
 1. **Recon**: scan internet for exposed RDP (3389/tcp).
 2. **Initial Access**: brute force RDP login or exploit BlueKeep CVE-2019-0708.

@@ -139,7 +139,7 @@ E(\mathbf{w}) = -\sum_n \bigl[t_n \log y_n + (1 - t_n) \log(1 - y_n)\bigr] + \fr
 
 V scikit-learn je `LogisticRegression` *defaultně* s L2 regularizací — `C = 1/λ`.
 
-## Praktická poznámka — log-odds (logit)
+## Praktická poznámka — log-odds (logit) {tier=practice}
 
 Inverze sigmoidu je **log-odds**:
 

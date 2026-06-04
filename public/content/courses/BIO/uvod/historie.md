@@ -6,7 +6,7 @@ title: Historie biometrie
 
 Biometrika *jako disciplína* je překvapivě stará. Lidstvo používá *fyzické rysy* k identifikaci osob tisíce let — od otisků prstů na hliněných tabulkách (5. st. př. n. l.) přes Bertillonovo systematické měření (19. století) až po moderní deep learning. Pochopení historického kontextu pomáhá ocenit dnešní state-of-the-art.
 
-## Pravěk a starověk
+## Pravěk a starověk {tier=extra}
 
 * **500 let př. n. l.** — Babylonské hliněné tabulky obsahují otisky prstů jako *potvrzení* obchodních transakcí. Šlo o *primitivní podpis*, ne o systematické rozpoznávání.
 * **3000 let př. n. l.** — Čína: úředníci pečetili dokumenty otiskem prstu a inkoustu.

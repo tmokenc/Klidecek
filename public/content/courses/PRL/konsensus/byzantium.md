@@ -199,7 +199,7 @@ První *praktický* Byzantine konsensus protokol:
 | Předpoklad | crash-stop | adversarial |
 | Použití | databáze, koordinace | blockchain, sec.-kritické |
 
-## Praktické aplikace
+## Praktické aplikace {tier=practice}
 
 - **Bitcoin** — Proof of Work je *implicitně* Byzantine-tolerant (51 % útoku).
 - **Ethereum 2.0** — Casper FFG = PBFT-like + chain-based.

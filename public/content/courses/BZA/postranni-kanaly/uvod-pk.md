@@ -143,7 +143,7 @@ Detailně v [[obrana-pk]]. Stručně dvě filosofie:
 * **Hiding** — *skrýt* signál pod šumem. Náhodné delays, dummy operations, jitter, balanced logic. Cíl: snížit SNR (signal-to-noise ratio).
 * **Masking** — *rozdělit* tajemství na nezávislé sdílené hodnoty, takže každé pozorování dává *náhodné* hodnoty. Klasické: $K = K_1 \oplus K_2$, operace probíhají nad $K_1, K_2$ odděleně. *Provably secure* proti d-th order DPA.
 
-## Praktické důsledky
+## Praktické důsledky {tier=practice}
 
 Klíčová ponaučení:
 

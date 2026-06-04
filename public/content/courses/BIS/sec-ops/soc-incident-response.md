@@ -268,7 +268,7 @@ Examples:
 
 Run quarterly for IR teams. Identify gaps.
 
-## Major incident examples
+## Major incident examples {tier=example}
 
 - **Target 2013** — POS malware via HVAC vendor. 40M cards stolen.
 - **Sony Pictures 2014** — North Korean attack, embarrassing email leak.

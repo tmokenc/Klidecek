@@ -192,7 +192,7 @@ Tj. $C[P_1] \not\sim C[P_2]$ — bisimulace *není* kongruence!
 
 V praxi *slabá* kongruence je obvyklejší — implementace má jiný počet tichých kroků než specifikace, ale stejné navenek viditelné chování.
 
-## Aplikace teorie ekvivalence
+## Aplikace teorie ekvivalence {tier=practice}
 
 ### Formální verifikace
 

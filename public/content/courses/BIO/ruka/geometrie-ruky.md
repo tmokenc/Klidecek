@@ -101,7 +101,7 @@ Klasický systém **Recognition Systems ID3D** (1990s+) — first commercial han
 * **Vulnerable to spoofing** — wax casts, fake hands.
 * **Pose sensitive** — small rotation = large measurement error.
 
-## Praktická nasazení
+## Praktická nasazení {tier=practice}
 
 ### Workforce attendance
 

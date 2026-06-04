@@ -190,7 +190,7 @@ Phases:
 * **Best DL systems** (GaitGL, 2021): ~95 % rank-1 accuracy on CASIA-B.
 * **Wearable sensors:** EER ~2–5 %.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 ### Surveillance
 

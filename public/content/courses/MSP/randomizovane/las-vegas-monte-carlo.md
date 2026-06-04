@@ -114,7 +114,7 @@ Důkaz `E[X] = 2`:
 E[X] = \sum_{k=1}^{\infty} k \cdot \tfrac{1}{2^k} = 2.
 :::
 
-## Aplikace v praxi
+## Aplikace v praxi {tier=practice}
 
 * **Primality testing** (Miller-Rabin) — `O(k log³ n)`, `P[chyba] ≤ 4⁻ᵏ`.
 * **Polynomial identity testing** — Schwartz-Zippel lemma, `P[chyba] ≤ d/|S|`.

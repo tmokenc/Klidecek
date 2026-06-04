@@ -226,7 +226,7 @@ Church encoding zůstává *konceptuálně* důležité — pomáhá pochopit *e
   * Pairs: $\forall A\ B.\ \forall C.\ (A \to B \to C) \to C$.
 * Tato čísla mají *type* a *struct* odpovídající Church encoding.
 
-## Praktické příklady v Haskellu
+## Praktické příklady v Haskellu {tier=example}
 
 ```haskell
 -- Church booleans

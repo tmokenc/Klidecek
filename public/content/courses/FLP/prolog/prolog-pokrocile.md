@@ -241,7 +241,7 @@ internal(...) :- ...  % not exported
 ?- mymodule:exported(X).
 ```
 
-## DSLs — Domain Specific Languages
+## DSLs — Domain Specific Languages {tier=example}
 
 Prolog *excels* at DSLs:
 

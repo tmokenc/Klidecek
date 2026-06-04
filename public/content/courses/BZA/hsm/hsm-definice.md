@@ -22,7 +22,7 @@ Charakteristiky:
 * **Certifikace** — FIPS 140-2/3, Common Criteria EAL ([[fips-cc]]).
 * **Mass throughput** — 10 000+ RSA-2048 signatures/sec u high-end modulů.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 ::: svg "Aplikace HSM: PKI/CA, payment processing, code signing, database encryption, blockchain, cloud KMS."
 <svg viewBox="0 0 540 240" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -117,7 +117,7 @@ Pro context: *single* modern CPU dělá ~50 000 AES-256 GCM MB/s (s AES-NI). HSM
 * **Cloud HSM** — managed service (AWS CloudHSM, Azure Dedicated HSM). Same fyzická HW, but provider operuje. SaaS model.
 * **Mobile/embedded HSM** — TPM 2.0, Apple Secure Enclave, Google Titan M chip. Per-device HSM v telefonu / PC.
 
-## HSM v cloudu
+## HSM v cloudu {tier=practice}
 
 Cloudová varianta je dnes dominantní pro nové aplikace:
 
@@ -159,7 +159,7 @@ To dovoluje customer udržet *control* nad klíčem (audit logs, revocation), za
 * **Lock-in** — některé features jsou vendor-specific (Thales-only, Utimaco-only). Migration mezi HSMs vyžaduje export/import s wrapping keys.
 * **API útoky** ([[utoky-na-api]]) — i s perfectní fyzickou ochranou může API design dovolit logical útoky.
 
-## HSM komerční hráči
+## HSM komerční hráči {tier=extra}
 
 * **Thales** — největší trh share. Luna (general purpose), payShield (payment), nShield (legacy).
 * **Utimaco** — německý výrobce. SecurityServer (general), CryptoServer (banking).

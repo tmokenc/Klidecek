@@ -244,7 +244,7 @@ Performance pro body je *konkurenceschopná* k k-D tree pro většinu queries. R
 ::: viz rtree-insert-split "Tahem na ploše vytvořte obdélník — ChooseLeaf vybere subtree s nejmenším zvětšením MBR. Při přetečení (M=4) Quadratic Split rozdělí entries. Tahejte oranžový query rect — sledujte počet visited/pruned uzlů."
 :::
 
-## R-tree v praxi
+## R-tree v praxi {tier=practice}
 
 * **PostGIS** — GiST index s R-tree algoritmem. `CREATE INDEX ... USING GIST (geom)`.
 * **Oracle Spatial** — R-tree index.
@@ -262,7 +262,7 @@ WHERE geom && ST_MakeEnvelope(16.55, 49.15, 16.65, 49.25, 4326);
    -- '&&' uses R-tree index pro MBR test
 ```
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **Vždy indexujte spatial sloupce** — bez indexu jsou queries lineární (O(N)).
 * **CLUSTER tabulku** — `CLUSTER buildings USING idx_buildings_geom` — fyzicky seřadí data podle indexu, zvyší cache locality.

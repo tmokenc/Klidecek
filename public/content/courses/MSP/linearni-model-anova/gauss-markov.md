@@ -113,7 +113,7 @@ Stejná logika, ale OLS *není* optimal při heteroskedasticitě/autokorelaci. T
 * **Spatial statistics** — `Σ` zachycuje prostorovou autokorelaci.
 * **Mixed models** — random effects mění strukturu `Σ`.
 
-## Praktická poznámka — software
+## Praktická poznámka — software {tier=practice}
 
 Standardní statistické softwary (`R: lm()`, `Python: statsmodels.OLS`, `SAS: PROC REG`) počítají `β̂_OLS = (XᵀX)⁻¹XᵀY`. Numericky se ale často používá **QR dekompozice** `X = QR`:
 

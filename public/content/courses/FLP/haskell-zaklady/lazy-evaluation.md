@@ -227,7 +227,7 @@ data Point = Point !Int !Int  -- both fields strict
 
 GHC has **strictness analysis** that *automatically* makes things strict when safe.
 
-## Examples — programming patterns
+## Examples — programming patterns {tier=example}
 
 ### Memoization
 

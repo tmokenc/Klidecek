@@ -149,7 +149,7 @@ asyncio.run(scrape())
 * **Mechanical Soup** — pro statické formuláře bez JS (Python). Viz [[knihovny-scraping]].
 * **Apify** — cloud platform pro scraping (open-source SDK `Crawlee` pro Node/Python).
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 ### Čekání na obsah
 

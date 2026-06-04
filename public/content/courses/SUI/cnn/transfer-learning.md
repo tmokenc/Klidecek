@@ -238,7 +238,7 @@ Distribuované učení na *privátních* datech.
 
 Použití: Gboard (Google klávesnice), prediktivní psaní v iOS (Apple QuickType).
 
-## Co může selhat
+## Co může selhat {tier=practice}
 
 * **Negative transfer** — pre-training data se *velmi liší* od target → model se zhorší.
 * **Catastrophic forgetting** — fine-tuning *přepíše* užitečné předchozí features. Zachování přes EWC, replay buffer.

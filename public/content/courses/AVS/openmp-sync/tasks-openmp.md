@@ -211,7 +211,7 @@ recurse(n);    // při hluboké rekurzi, neslituj task overhead
 
 `mergeable` — runtime může task *sloučit* s rodičovským kontextem (no separate data env). Optimizace.
 
-## Reálná aplikace: quicksort
+## Reálná aplikace: quicksort {tier=example}
 
 ```c
 void quicksort(int *a, int lo, int hi) {
@@ -239,7 +239,7 @@ int main() {
 
 `if(hi - lo > 1000)` — pro malé subarray, *no task overhead*, just inline call. *Cutoff* je klíčový parametr.
 
-## Reálná aplikace: tree traversal
+## Reálná aplikace: tree traversal {tier=example}
 
 ```c
 void traverse(Node *n) {

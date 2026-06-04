@@ -170,7 +170,7 @@ Tím se *bezpečně* přechází bez dvouhlavého clusteru (split-brain).
 
 V praxi Raft *prudce vytlačil* Paxos — moderní systémy (etcd, Consul, CockroachDB, TiDB) používají Raft.
 
-## Praktické aplikace konsensu
+## Praktické aplikace konsensu {tier=practice}
 
 ### Cloud storage a koordinace
 

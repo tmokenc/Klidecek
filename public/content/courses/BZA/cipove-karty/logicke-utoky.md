@@ -161,7 +161,7 @@ Klasické: PIN je 4 decimaly = 10 000 možností. Karta drží *čítač chybný
 
 Mitigace: zápis čítače **před** verifikací PIN (nezpětně decrement po úspěchu); použití *write-then-verify* paradigm; redundantní storage čítače (3 kopie, majority vote).
 
-## Lekce
+## Lekce {tier=extra}
 
 1. **Logické útoky jsou nejlevnější.** Nepotřebují HW lab, vybavení, čas. Pokud nejsou v threat modelu, *padnou jako první*.
 2. **API design je security boundary.** Každá funkce, která vrací status code, je potenciální oracle. Konstantní časy odpovědi, sjednocené error messages.

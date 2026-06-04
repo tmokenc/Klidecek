@@ -243,7 +243,7 @@ Detail v [[wifi-utoky]]. Quick preview:
 - **WPA2 KRACK** — replay attack.
 - **WPS PIN brute force**.
 
-## Detekce a obrana
+## Detekce a obrana {tier=practice}
 
 ### Network monitoring
 

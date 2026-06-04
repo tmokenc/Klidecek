@@ -174,7 +174,7 @@ Tools:
 * **PE-Explorer** / **CFF Explorer** — PE format.
 * **otool** — Mach-O.
 
-## Příklad — extrakce hardcoded klíčů
+## Příklad — extrakce hardcoded klíčů {tier=example}
 
 Klasická úloha: najít AES klíč v IoT firmware.
 
@@ -189,7 +189,7 @@ Klasická úloha: najít AES klíč v IoT firmware.
 
 V open-source IoT firmware (router) lze najít AES klíče ve **flash dump** běžně.
 
-## Příklad — algoritmus reverz
+## Příklad — algoritmus reverz {tier=example}
 
 Klasická úloha: rekonstrukce **algoritmu** licenční validace.
 

@@ -155,7 +155,7 @@ Per-thread:
 | Single-thread perf | rovna | vysoká | mírně nižší (~10-15%) |
 | Throughput | dobrá pro latency hiding | linear scaling | best per area |
 
-## Reálné implementace
+## Reálné implementace {tier=practice}
 
 | CPU | Architektura | Typ |
 | :--- | :--- | :--- |

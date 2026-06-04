@@ -156,7 +156,7 @@ Asymptotická *relativní efektivnost* (ARE) neparametrického testu vůči para
 
 Pro *nenormální* data (zejména heavy-tailed) jsou neparametrické *silnější* — viz následující.
 
-### Příklad — Cauchy data
+### Příklad — Cauchy data {tier=example}
 
 `t`-test má *nulovou sílu* na Cauchy data (rozptyl nekonečný, `X̄` se nestane „lepším" s `n`). Wilcoxon stále funguje (pořadí Cauchy data je *rozumná* statistika).
 
@@ -170,7 +170,7 @@ Z **Hodges-Lehmannova estimátoru** (pseudomedian rozdílů) lze sestrojit *robu
 
 CI: percentily Walshových průměrů.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Likertovy škály** — ordinální data, klasické testy nepoužitelné.
 * **Reakce na lék** — robustní vůči outliers.

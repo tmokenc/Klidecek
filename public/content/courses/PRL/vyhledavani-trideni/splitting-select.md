@@ -138,7 +138,7 @@ T(n) = O(n/N + \log N) \cdot \sum_{i=0}^{\infty} \left(\frac{7}{10}\right)^i = O
 
 **Cena**: $c(n) = N \cdot t(n) = O(n + N \log N) = O(n)$ pro $N \le n/\log n$. **Cost-optimal!**
 
-### Příklad — najít 8. prvek (medián 15-prvkové posloupnosti)
+### Příklad — najít 8. prvek (medián 15-prvkové posloupnosti) {tier=example}
 
 $S = [13, 1, 12, 14, 3,\ 6, 8, 10, 2, 15,\ 7, 11, 4, 5, 9]$, $N = 3$ procesory, $k = 8$.
 
@@ -181,7 +181,7 @@ Splitting samo o sobě se používá ve více algoritmech:
 - **Geometric range query** v 2D — splitting podle $x$, pak podle $y$.
 - **DFS/BFS frontier** — splitting podle úrovně.
 
-## Praktické rady
+## Praktické rady {tier=practice}
 
 1. **Pro malé $n$ ($< 1000$) použij sekvenční** — paralelní overhead převažuje.
 2. **Pro multimedián** (najdi *všechny* kvantily současně) je *sample sort* lepší než opakovaný PAR_SELECT.

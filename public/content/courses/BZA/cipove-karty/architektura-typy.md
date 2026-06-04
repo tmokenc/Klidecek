@@ -19,7 +19,7 @@ Sekundární cíle:
 * **Bezpečné uložení klíčů** — soukromý RSA/ECC klíč nikdy neopustí kartu; všechny operace probíhají uvnitř.
 * **Kryptografické operace** — podepisování, dešifrování, MAC, key generation; karta je *crypto accelerator* pro hostitelské zařízení.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 | Sektor | Použití |
 | :--- | :--- |

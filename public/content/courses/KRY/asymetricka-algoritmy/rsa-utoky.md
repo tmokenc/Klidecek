@@ -143,7 +143,7 @@ Krátká odpověď: **ano, ale dlouhodobě ne.**
   * Reálný timeline: 2035–2045 podle většiny odhadů.
 * "Harvest now, decrypt later": NSA, Čína sbírají zašifrovaný provoz dnes pro budoucí dešifrování. Pro vysoce citlivá data: *již dnes* hybrid RSA+Kyber, nebo pure Kyber ([[postkvantova]]).
 
-## Praktické doporučení (2024–2025)
+## Praktické doporučení (2024–2025) {tier=practice}
 
 | Účel | Doporučení |
 | :--- | :--- |

@@ -81,7 +81,7 @@ Více "instancí" výpočtu sdílí *stejné* uzly (rozlišené tagem). Plně vy
 
 **Monsoon processor** (MIT, ISCA 1990) — kanonický dynamic dataflow počítač.
 
-### Aplikace
+### Aplikace {tier=practice}
 
 Dataflow je *koncepčně krásný*, ale prakticky se *nepoužívá* jako hlavní hardware. Důvody:
 
@@ -117,7 +117,7 @@ Příklad v LISP-like notaci: `(+ (* 3 2) (- 3 2))` → `(+ 6 1)` → `7`.
 - **Paralelismus** — *nezávislé* sub-výrazy redukují *současně*.
 - **Žádný side-effect** — výsledek nezáleží na *pořadí* redukcí.
 
-### Historický kontext
+### Historický kontext {tier=extra}
 
 - **SKI combinator machines** — abstrakce funcionálního programování ve hardware.
 - **Symbolics Lisp Machine** (1980s) — komerční pokus, neuspěl ekonomicky.
@@ -125,7 +125,7 @@ Příklad v LISP-like notaci: `(+ (* 3 2) (- 3 2))` → `(+ 6 1)` → `7`.
 
 Nedosáhly mainstream — kompilátory funkcionálních jazyků (Haskell GHC, OCaml) běží na klasickém von Neumann velmi efektivně.
 
-### Vliv
+### Vliv {tier=practice}
 
 Redukční idea ovlivnila:
 
@@ -152,7 +152,7 @@ Implementace:
 - *Dedikovaný HW* — Google TPU, NVidia Tensor Cores, Apple Neural Engine.
 - *Neuromorphic chips* — Intel Loihi, IBM TrueNorth. Inspirované biology, *spiking neurons*. Niche.
 
-## Quantum computing (mimo PRL)
+## Quantum computing (mimo PRL) {tier=extra}
 
 Pro úplnost: **kvantové počítače** používají *kvantové bity* (qubits), využívají *superpozici* a *entanglement* pro *exponenciální* paralelismus. Pro úzký set úloh (Shor's algorithm, Grover) překonávají klasické počítače.
 

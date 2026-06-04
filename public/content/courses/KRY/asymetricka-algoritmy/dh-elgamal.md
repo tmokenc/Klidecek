@@ -177,7 +177,7 @@ NIST standard 1991 (FIPS 186), refinement ElGamala. Pro NIST P-curve verzi → E
 
 DSA s 2048-bit $p$ a 256-bit $q$ má bezpečnost 112–128 bitů a podpis ~512 bitů (vs. ElGamal 4096 bitů).
 
-## Praktické použití DH a ElGamal v 2024
+## Praktické použití DH a ElGamal v 2024 {tier=practice}
 
 * **DH (FFDHE):** RFC 7919 definuje 5 standardních prvočísel (2048, 3072, 4096, 6144, 8192 bitů). TLS 1.3 podporuje, ale primárně se používá **ECDH** s X25519 nebo P-256.
 * **ElGamal šifrování:** *žádné* moderní použití. PGP do 2007 ho nabízelo; nahrazeno hybridem RSA + AEAD nebo ECIES.

@@ -155,7 +155,7 @@ Trusted subjects mají *zvláštní* clearance ("trusted" bit).
 
 Most systems weak — necessary for re-classification, declassification.
 
-## Příklad — TS spy
+## Příklad — TS spy {tier=example}
 
 Spy klasifikován jako TS. Wants to leak TS document to unclassified email.
 
@@ -177,7 +177,7 @@ But: covert channels (timing, output magnitude) can leak — BLP doesn't cover.
 - **Awkward in practice** — many real workflows need *occasional* declassification.
 - **Covert channels** — timing, storage covert channels bypass MAC.
 
-## Bell-LaPadula v praxi
+## Bell-LaPadula v praxi {tier=practice}
 
 - **Trusted Solaris (1993)** — MLS Solaris.
 - **HP-UX BLS** (B-Level Security).
@@ -186,7 +186,7 @@ But: covert channels (timing, output magnitude) can leak — BLP doesn't cover.
 
 Commercial *general-purpose* OS *don't* implement BLP. Vojenské + intelligence sítě (SIPRNet, JWICS) do.
 
-## BLP vs reality
+## BLP vs reality {tier=practice}
 
 Most enterprise data is *not* tagged with sensitivity labels.
 

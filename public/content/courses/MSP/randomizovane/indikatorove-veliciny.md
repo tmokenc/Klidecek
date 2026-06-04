@@ -131,7 +131,7 @@ Linearita dává *střední hodnotu*. Pokud potřebujeme *rozptyl* nebo *koncent
 
 Pro **nezávislé** `X_i` se kovariance vynulují a součet rozptylů je analogie linearity střední hodnoty. Pro závislé indikátory je třeba kovariance počítat *jednotlivě*.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Hiring problem** — očekávaný počet náborů `O(log n)` = `H_n`.
 * **Quicksort** ([[quicksort-analyza]]) — počet porovnání přes indikátory `1_{X_i compares with X_j}`.

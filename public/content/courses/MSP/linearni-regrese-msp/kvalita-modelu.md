@@ -134,7 +134,7 @@ Nižší = lepší. AIC tends k vybrat *více* parametrů než BIC.
 | BIC | `k log n` | striktnější | konzistentní výběr |
 | Cross-validation | empirická | nejrobustnější | predikce, výpočetně náročné |
 
-## Porovnání modelů — workflow
+## Porovnání modelů — workflow {tier=practice}
 
 1. Fitti všechny kandidátní modely (full subset, stepwise, lasso atd.).
 2. Pro každý: `R², R²_adj, AIC, BIC, R²_pred`.

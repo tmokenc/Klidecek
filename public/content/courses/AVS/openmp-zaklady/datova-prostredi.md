@@ -130,7 +130,7 @@ Mechanismus:
 
 OpenMP 4.0+ podporuje *user-defined reduction* (UDR) pro vlastní operace.
 
-## Příklad bez vs s reduction
+## Příklad bez vs s reduction {tier=example}
 
 ### Špatně: race
 

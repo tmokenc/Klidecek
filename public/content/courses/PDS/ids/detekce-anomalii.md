@@ -156,7 +156,7 @@ Neural net trained reconstructovat *normální* data. Pokud rekonstrukce má vys
 
 Pro time-series traffic. Modeluje *sekvenci* paketů (port-knocking, beaconing detection).
 
-## Případ studie — IEC 104
+## Případ studie — IEC 104 {tier=example}
 
 Lecture cituje *konkrétní* případ: **IEC 60870-5-104** — průmyslový protokol pro SCADA/PLC v elektrických rozvodnách.
 

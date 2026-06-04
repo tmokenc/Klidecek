@@ -19,7 +19,7 @@ Předchozí kapitola ([[kontrakce-uvod]]) zavedla *tree contraction* — opakova
 
 **Paralelně**: chceme $O(\log n)$ — ale prostý paralelní procházení nestačí (hodnoty *závisí* na potomcích).
 
-### Příklad
+### Příklad {tier=example}
 
 ```
         +
@@ -225,7 +225,7 @@ Tree contraction algoritmus funguje pro *libovolné* asociativní operátory + p
 
 Klíčový požadavek: typ uložený na hranách musí být **uzavřený na skládání** (operace * z operátoru $\odot$).
 
-## Aplikace v praxi
+## Aplikace v praxi {tier=practice}
 
 - **Compiler optimization**: paralelní *constant folding* a *strength reduction* v abstraktních syntaktických stromech.
 - **Symbolic computation**: Mathematica, Maple, SymPy — paralelní eval výrazů.

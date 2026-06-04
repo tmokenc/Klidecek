@@ -118,7 +118,7 @@ Nonce *nesmí opakovat* se stejným klíčem. Tři přístupy:
 
 > Pokud potřebujete šifrovat víc než $2^{32}$ zpráv jedním klíčem, použijte XChaCha20 nebo AES-GCM-SIV. Pokud nevíte, použijte ChaCha20-Poly1305 z `libsodium` nebo systémové TLS knihovny.
 
-## Praktický přehled — kdy co
+## Praktický přehled — kdy co {tier=practice}
 
 | Scénář | Doporučení |
 | :--- | :--- |
@@ -130,7 +130,7 @@ Nonce *nesmí opakovat* se stejným klíčem. Tři přístupy:
 | Zpráva s dlouhou životností | AES-256-GCM-SIV nebo XChaCha20-Poly1305 |
 | Veřejně přístupný embed | NaCl secretbox = XSalsa20-Poly1305 |
 
-## Antipatterny v praxi
+## Antipatterny v praxi {tier=practice}
 
 1. **"Just AES"** — implementace AES-CBC bez MAC. Klasická chyba; doporučte AEAD.
 2. **Stejný klíč pro $E$ i $\mathrm{MAC}$** — funguje (HMAC je doménově oddělené hashováním), ale doporučení je *odlišné klíče přes KDF*. AEAD řeší interně.

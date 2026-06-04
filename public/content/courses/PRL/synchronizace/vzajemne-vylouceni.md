@@ -259,14 +259,14 @@ Alternativní *token-based* algoritmus *broadcastovým* stylem:
 
 $T$ = jedno round-trip délka zprávy.
 
-## Praktické aplikace
+## Praktické aplikace {tier=practice}
 
 - **Distribuované databáze** (PostgreSQL multi-master) používají *2-phase locking* nad Lamport-like protokolem.
 - **Apache ZooKeeper** — zápisy do *znode* fungují přes *Zab* protokol s leader-based mutex.
 - **Mutex v Hadoop** — token-based pro HDFS NameNode.
 - **Modern blockchain** — Bitcoin mining = vlastně distribuovaný mutex přes *proof of work*.
 
-## Praktické rady
+## Praktické rady {tier=practice}
 
 1. **Pro malé $n$ (< 10)**: Ricart-Agrawala stačí, jednoduchý.
 2. **Pro střední $n$ (10–1000)**: Maekawa nebo Raymond.

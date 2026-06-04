@@ -169,7 +169,7 @@ Tyto metriky *nejsou* přímo srovnatelné s klasickým `R²` z lineární regre
 
 Q-Q plot deviance residuals — analogie diagnostiky linearity, normality.
 
-## Praktické use cases
+## Praktické use cases {tier=practice}
 
 ::: svg "Tři GLM pro různé typy dat: lineární (spojité symetrické), logistická (binární), Poissonova (counts)."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="10.5">

@@ -49,7 +49,7 @@ Pro pohodlí se zavedly konvence, které **vynechávají** zbytečné závorky:
 
 Tedy $\lambda x y z.\ E$ je zkratka pro $\lambda x.\ \lambda y.\ \lambda z.\ E$ — *curried* funkce s třemi parametry.
 
-## Příklady
+## Příklady {tier=example}
 
 ### Identita
 

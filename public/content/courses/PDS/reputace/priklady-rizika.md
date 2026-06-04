@@ -1,5 +1,6 @@
 ---
 title: Příklady reputačních systémů a jejich rizika
+tier: example
 ---
 
 # Příklady reputačních systémů a rizika

@@ -234,7 +234,7 @@ Konsolidované doporučení pro identity v praxi:
 * **HTTPS všude** — tokeny jsou citlivé přihlašovací údaje. Bez HTTPS jsou veřejné.
 * **Verify discovery konfigurace** pomocí `well-known` endpointu — eliminujte hard-coded URL.
 
-## Demo + průvodce
+## Demo + průvodce {tier=extra}
 
 * [openliberty.io/blog — Keycloak with Open Liberty](https://openliberty.io/blog/2024/07/31/keycloak-with-openliberty.html) — kompletní příklad OIDC s Jakarta Security 3.0.
 * [openliberty.io/guides/microprofile-jwt.html](https://openliberty.io/guides/microprofile-jwt.html) — MicroProfile JWT s ověřením tokenů.

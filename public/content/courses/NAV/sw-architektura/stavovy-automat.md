@@ -100,7 +100,7 @@ void tx_step(void) {
 | `switch`-`case` | $O(1)$ při souvislých `enum` | dobrá | překladač generuje jump table |
 | pole ukazatelů na funkce | $O(1)$ | velmi dobrá (modulární) | **nutná kontrola mezí indexu** |
 
-## Hierarchický koordinátor
+## Hierarchický koordinátor {tier=extra}
 
 Když systém roste, jeden plochý automat s desítkami stavů přestane být udržitelný. Osvědčuje se proto **hierarchické řízení**: jeden nadřazený **koordinátor** (hlavní stavový automat) spravuje a aktivuje **podřízené automaty** — pro komunikaci, pro displej, pro řízení motoru. Každý podřízený automat řeší svou doménu nezávisle a koordinátor jen rozhoduje, který je právě aktivní. Tím se zachová modularita a každý dílčí automat zůstane malý a otestovatelný.
 

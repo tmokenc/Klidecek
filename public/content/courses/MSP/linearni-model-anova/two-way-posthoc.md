@@ -178,7 +178,7 @@ Variant Levene s *mediány* místo průměrů. Ještě robustnější.
 * **Heteroskedasticita** → Welchova ANOVA (jednoduchá), GLS, robust SE.
 * **Hierarchická data** → mixed models (`lme4::lmer` v R).
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Klinické studie** — efekt léku × dávka.
 * **Marketing** — efekt slevy × kanálu.

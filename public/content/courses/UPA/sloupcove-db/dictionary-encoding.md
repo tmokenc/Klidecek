@@ -188,7 +188,7 @@ Pro tyto důvody jsou column stores nesvědčí pro *high-throughput OLTP*. Víc
 * **ClickHouse** — `LowCardinality` data type — explicit opt-in pro dictionary.
 * **Snowflake** — automatický, transparent.
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **Vyhněte se high-cardinality dictionaries** — pokud sloupec má skoro unikátní hodnoty (UUID, primary keys), dictionary nepřináší žádnou kompresi, jen overhead.
 * **Pre-sort dictionary** — pro hot lookups je sorted lepší.

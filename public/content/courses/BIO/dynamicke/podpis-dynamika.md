@@ -158,7 +158,7 @@ DTW(s_1, s_2) = \min \sum_{i, j} d(s_1[i], s_2[j])
 * **ISO/IEC 19794-7:2014** — Signature/sign time series data.
 * **ISO/IEC 19794-11:2013** — Signature/sign processed dynamic data.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 ### Banking
 

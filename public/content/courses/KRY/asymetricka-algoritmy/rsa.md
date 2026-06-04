@@ -57,7 +57,7 @@ Pokud $M' = M$ (nebo přesněji, $\sigma^e \equiv h(M) \pmod n$ pro hashovanou z
 
 > Symetrie šifrování/podpisu (oba jsou umocnění modulo $n$) je *specifická* pro RSA. DH/ECDH umí jen *key agreement*, ECDSA jen *podpis*.
 
-## Příklad — malé prvočíslo
+## Příklad — malé prvočíslo {tier=example}
 
 Volíme $p = 11, q = 13$:
 

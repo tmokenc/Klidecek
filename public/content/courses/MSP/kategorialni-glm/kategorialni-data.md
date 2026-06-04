@@ -215,7 +215,7 @@ McNemar:
 
 Testuje *symetrii* — pravděpodobnost změny v jednom směru = pravděpodobnost změny v druhém.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Epidemiologie** — testy asociace expozice-onemocnění.
 * **Marketing** — efektivita kampaní (konverzní rates).

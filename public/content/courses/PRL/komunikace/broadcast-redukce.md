@@ -330,7 +330,7 @@ procedure ALL_REDUCE_HC(my_val)
 
 **Čas**: $\log N$ — stejně jako jednoduchý broadcast. **MPI standardní operace `MPI_Allreduce`** ji implementuje *přesně* takto pro mocniny dvou, jinak rekurzivním půlením (recursive halving) s předzpracováním přebývajících procesů do nejbližší mocniny dvou (Rabenseifnerův algoritmus).
 
-## Praktické důsledky
+## Praktické důsledky {tier=practice}
 
 1. **Broadcast je „zdarma" v CRCW** — pro algoritmy nad sdílenou cache (multi-core) lze považovat za $O(1)$.
 2. **Na clusteru je broadcast** $O(\log N)$ — *dominantní* fáze mnoha distribuovaných výpočtů. Optimalizace = pipelining (rozdělit zprávu na bloky a začít posílat dále *předtím*, než přijde celá).

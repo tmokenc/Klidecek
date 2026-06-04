@@ -105,7 +105,7 @@ Tedy: rozhodnutí "$\mathbb{N} \models \varphi_{M, w}$" je *ekvivalentní* rozho
 * **Nedosažitelnost kompletního static analyzeru**: každý SMT solver bude *neúplný* pro program zahrnující obecnou aritmetiku.
 * **Existence pravdivých-nedokazatelných tvrzení**: některá tvrzení o programech jsou *pravdivá*, ale *nedokazatelná v dané teorii*. Příklad: termination libovolného TM.
 
-## Praktické konkrétní příklady
+## Praktické konkrétní příklady {tier=practice}
 
 **Goldbachova hypotéza**: každé sudé číslo > 2 je součtem dvou prvočísel. Pravdivost dosud neověřena. Není známo, zda lze dokázat v PA.
 

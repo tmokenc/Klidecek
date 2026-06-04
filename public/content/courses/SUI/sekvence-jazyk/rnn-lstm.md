@@ -335,7 +335,7 @@ Problém: *bottleneck* `h_T` — celý vstup *stísněn* do jednoho vektoru. Pro
 
 **Transformer** ([[transformer-bert]]) tyto problémy řeší — paralelizovaný, bez recurrence. Dominantní architektura od 2017.
 
-## Praktický PyTorch příklad
+## Praktický PyTorch příklad {tier=practice}
 
 ```python
 import torch.nn as nn

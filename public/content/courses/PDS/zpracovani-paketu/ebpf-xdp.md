@@ -121,7 +121,7 @@ Kompiluje se přes LLVM clang `-target bpf`, loaduje `bpftool prog load`, attach
 
 Drop *přímo* v NIC driveru — paket nikdy nedosáhne sk_buff alokaci. Cena drop: ~10 CPU cycles. Při DDoS 50 Mpps SYN flood — XDP zvládne s jediným jádrem.
 
-## Reálné use-cases
+## Reálné use-cases {tier=practice}
 
 ### DDoS mitigation — Cloudflare
 

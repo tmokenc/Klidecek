@@ -130,7 +130,7 @@ Stav `X⁽ᵏ⁾` je *náhodná veličina* — DTMC je tedy *pravděpodobnostní
 
 DTMC pokrývá *fully observable, discrete time* — viz [[mdp-definice]] pro generalizaci s nedeterminismem.
 
-## Použití DTMC v informatice
+## Použití DTMC v informatice {tier=practice}
 
 * **Síťové protokoly** — pravděpodobnost úspěšného doručení, retry-modely.
 * **Randomizované algoritmy** — analýza hiring problem, Quick Sort ([[quicksort-analyza]]).

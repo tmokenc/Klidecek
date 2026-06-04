@@ -131,7 +131,7 @@ Pro asymptotiku `g(θ̂_MLE)` použij **delta metodu**:
 
 To kombinuje MLE invariance s lineární aproximací `g` v okolí pravé hodnoty. Vyžaduje `g` diferencovatelné v `θ`.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **GLM** — regularita ⇒ standardní statistická inference (Wald test, LR test).
 * **Survival analysis** — exponenciální rodina, regulární; censored data komplikují, ale Cox model zachovává.

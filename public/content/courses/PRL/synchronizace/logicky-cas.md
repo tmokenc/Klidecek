@@ -103,7 +103,7 @@ C_i \leftarrow \max(C_i + 1,\ t_p + 1)
 
 (Vždy o 1 *vyšší* než *pozdější* z lokálního a přijatého času.)
 
-### Příklad
+### Příklad {tier=example}
 
 ::: svg "Lamportovy hodiny — místní čítače rostou + max při příjmu zprávy"
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">

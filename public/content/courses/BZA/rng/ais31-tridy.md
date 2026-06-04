@@ -124,7 +124,7 @@ Certifikační laboratoř při hodnocení RNG kontroluje:
 
 Smartkartové certifikace (BSI-PP-0084, Common Criteria EAL5+) **vyžadují** alespoň PTG.2, pro CA-grade tokeny PTG.3.
 
-## Příklad — komerční implementace
+## Příklad — komerční implementace {tier=example}
 
 **Infineon SLE 78** (smartcard chip, dnes základ pro mnoho eID karet) má:
 

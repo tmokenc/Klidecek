@@ -38,7 +38,7 @@ procedure ODD_EVEN_TRANSPOSITION_SORT(y[1..n])
   endfor
 ```
 
-### Příklad — řazení $[4, 3, 1, 2]$
+### Příklad — řazení $[4, 3, 1, 2]$ {tier=example}
 
 ```
 počátek:   4   3   1   2

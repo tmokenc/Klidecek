@@ -201,7 +201,7 @@ Datový vědec **musí spolupracovat s doménovým expertem** — bez něj nelze
 
 Doménový expert je *prostředník* mezi byznysem a technologií. V CRISP-DM ([[crisp-dm]]) je klíčový v fázi 1 a 5.
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **Začněte malou ukázkou** — než budete tahat 100 GB dat, prozkoumejte 10 MB sample. Vyhnete se 99 % problémů.
 * **Datový slovník** — dokumentujte každý atribut: typ, povolené hodnoty, sémantika, zdroj.

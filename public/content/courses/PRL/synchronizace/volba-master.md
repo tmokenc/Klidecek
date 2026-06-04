@@ -34,7 +34,7 @@ Mnoho distribuovaných algoritmů vyžaduje **vůdce** (leader, master) — uzel
 - Každý uzel, který zprávu přijme, si UID *poznačí*, *odznačí* se, a přepošle.
 - Vítěz zprávu po kompletním kruhu zahodí.
 
-### Příklad
+### Příklad {tier=example}
 
 Pro kruh 5 uzlů s UID $\{2, 3, 5, 1, 4\}$:
 
@@ -167,7 +167,7 @@ Pro **velký** $n$ je Hirschberg-Sinclair *asymptoticky lepší* — Chang-Rober
 - **Leader-election ve stromech**: variant pro stromové topologie, $O(n)$ zpráv.
 - **Randomizované volby**: pro situace, kdy nejsou unikátní UIDs (každý uzel hodí kostkou, pak nejvyšší výsledek). *Nedeterministické*.
 
-## Použití v praxi
+## Použití v praxi {tier=practice}
 
 - **ZooKeeper** (Apache) — implementuje *Zab* protokol, který obsahuje variant leader election.
 - **Raft consensus** ([[raft-praxe]]) — leader election je první fáze Raft konsensu.

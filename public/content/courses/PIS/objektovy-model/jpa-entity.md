@@ -137,7 +137,7 @@ Každý objekt JPA entity je v jednom ze **čtyř stavů**:
 | **detached** | Entita byla *managed*, ale persistenční kontext skončil (transakce uzavřena, `detach()` volán). Změny už se *nepromítají*. |
 | **removed** | `em.remove()` označila *managed* entitu ke smazání. Po commitu se vykoná DELETE. |
 
-### Příklady CRUD operací
+### Příklady CRUD operací {tier=example}
 
 **Vytvoření a uložení (INSERT):**
 

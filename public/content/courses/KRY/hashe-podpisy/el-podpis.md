@@ -232,7 +232,7 @@ Pokud útočník nedokáže s ne-zanedbatelnou pravděpodobností, schéma je EU
 
 Moderní schémata (RSA-PSS, EdDSA, ECDSA s deterministickým nonce) splňují EUF-CMA pod standardními předpoklady.
 
-## Praktické volby (2024–2025)
+## Praktické volby (2024–2025) {tier=practice}
 
 | Účel | Doporučení |
 | :--- | :--- |
@@ -247,7 +247,7 @@ Moderní schémata (RSA-PSS, EdDSA, ECDSA s deterministickým nonce) splňují E
 | Post-kvantový | ML-DSA (Dilithium), SLH-DSA (SPHINCS+) — viz [[postkvantova]] |
 | **Vyhněte se:** | DSA (vyřazen), RSA-1024 (slabý), ECDSA bez determ. nonce |
 
-## Antipatterny
+## Antipatterny {tier=practice}
 
 1. **Sign bez hash** — pomalé, omezené velikostí klíče.
 2. **Stejný klíč pro šifrování i podpis** — možné (s opatrností), ale doporučení: *odlišné páry* pro odlišné účely.

@@ -200,7 +200,7 @@ PAR
 
 Procedury jsou *parameterizované* procesy, lze je libovolně instancovat.
 
-## Reálné implementace OCCAM
+## Reálné implementace OCCAM {tier=practice}
 
 - **INMOS Transputery** — 1980s–90s. Hardware s vestavěnými kanály a OCCAM kompilátorem.
 - **KRoC** (Kent Retargetable occam Compiler) — open-source kompilátor.

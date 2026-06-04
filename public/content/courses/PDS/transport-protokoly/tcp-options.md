@@ -118,7 +118,7 @@ Stručně, kvůli úplnosti:
 | 34 | TCP Fast Open | data v `SYN` |
 | 254 | EXP_FastOpen | dříve experimentální TFO (sdílená exp. option, ExID 0xF989) |
 
-## Praktické zachycení
+## Praktické zachycení {tier=practice}
 
 Wireshark zobrazí options v expandovaném pohledu TCP segmentu. Příkazem `tshark -O tcp -V tcp.flags.syn==1 -c 1` vypíšete options při handshaku:
 

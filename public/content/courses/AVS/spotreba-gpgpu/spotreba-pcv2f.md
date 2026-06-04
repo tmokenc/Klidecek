@@ -137,7 +137,7 @@ Programátor může ovlivnit:
 
 Anomalie: AVX-512 *žere* power (wider ALU, higher activity). Some CPUs *automatically* reduce frequency when AVX-512 used → less benefit than expected. Sapphire Rapids (2023) mitigates this.
 
-## Reálné cost data
+## Reálné cost data {tier=practice}
 
 Single 250 W CPU running 24/7:
 

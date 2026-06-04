@@ -217,7 +217,7 @@ sum (filter even [1..10])  ==  sum $ filter even [1..10]
 
 Useful for chaining without nested parens.
 
-## Examples — practical
+## Examples — practical {tier=example}
 
 ### Sum of squares of evens
 

@@ -148,7 +148,7 @@ Vedle povrchových (otisky, [[geometrie-ruky|geometrie]]) a vnitřních ([[krevn
 * **Image registration** — direct image alignment + correlation.
 * **Hybrid** approaches.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 ### Medical-biometric hybrid
 

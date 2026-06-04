@@ -177,7 +177,7 @@ Z 3-SAT a CLIQUE se redukcí dokazují další NP-úplné problémy:
 </svg>
 :::
 
-## Tříděné problémy z různých oblastí
+## Tříděné problémy z různých oblastí {tier=extra}
 
 NP-úplnost se vyskytuje *všude* v informatice:
 
@@ -211,7 +211,7 @@ NP-úplnost se vyskytuje *všude* v informatice:
 * **Database query optimization** (specifické verze).
 * **Sudoku, Cross-puzzle, Tetris** (generalizované na $n$).
 
-## Co dělat s NP-úplnými problémy v praxi
+## Co dělat s NP-úplnými problémy v praxi {tier=practice}
 
 Když narazíme na NP-úplný problém *v reálné aplikaci*, máme možnosti:
 

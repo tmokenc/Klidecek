@@ -201,7 +201,7 @@ CAA výrazně omezí "rogue CA" útok — útočník nedokáže přesvědčit *j
 * **HPKP (Public Key Pinning)** — server řekne browseru "očekávej můj certifikát s tímto pinem". *Deprecated* (Chrome 2017) kvůli riskim sebepoškození.
 * **Expect-CT** — server vyžaduje Certificate Transparency. Také deprecated, nyní implicitní.
 
-## Praktický stack (2024)
+## Praktický stack (2024) {tier=practice}
 
 * **TLS 1.3** + **ECDSA P-256** certifikáty.
 * **Let's Encrypt** s **ACME-DNS** nebo **certbot** auto-renewal.

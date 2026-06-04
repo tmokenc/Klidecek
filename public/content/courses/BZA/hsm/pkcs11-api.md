@@ -173,7 +173,7 @@ C_CloseSession(hSession);
 C_Finalize(NULL);
 ```
 
-## Široké použití PKCS#11
+## Široké použití PKCS#11 {tier=practice}
 
 * **TrueCrypt / VeraCrypt** — disk encryption.
 * **Mozilla Firefox, Thunderbird** — pro client certs uložené v smart cards / tokens.

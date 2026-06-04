@@ -267,7 +267,7 @@ sns.histplot(df['salary'], bins=30, kde=True)
 plt.show()
 ```
 
-## Praktické pravidlo
+## Praktické pravidlo {tier=practice}
 
 V EDA dělejte **vždy minimálně**:
 

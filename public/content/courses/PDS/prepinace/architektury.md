@@ -51,7 +51,7 @@ Switch má 16 portů po 100 Mb/s, sběrnice taktována 40 MHz:
 - *Jediný port* může komunikovat v daný okamžik.
 - *S počtem portů* roste šířka sběrnice — fyzikální limit.
 
-### Cisco Catalyst 6000 (Classic Mode)
+### Cisco Catalyst 6000 (Classic Mode) {tier=example}
 
 Reálný příklad s třemi typy sběrnic:
 
@@ -115,7 +115,7 @@ Proto **sdílená paměť** dosahuje *vysokých propustností*, ale neškálovat
 - *Flexibilní velikost* front (FIFO per output).
 - Hlavní omezení: **rychlost paměti** $\geq 2 N R$.
 
-### Cisco Catalyst 3550 (shared memory)
+### Cisco Catalyst 3550 (shared memory) {tier=example}
 
 - 4 MB sdílené DRAM.
 - 10 Gb/s propustnost.

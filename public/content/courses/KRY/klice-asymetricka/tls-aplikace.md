@@ -181,7 +181,7 @@ Side-channel proti DH-static handshake. TLS 1.3 ho nemá.
 
 Comeback komprese útoků. Vyřešeno: striktní zakázat HTTP kompresi tajných dat (CSRF tokeny).
 
-## Praktická konfigurace serveru (2024)
+## Praktická konfigurace serveru (2024) {tier=practice}
 
 ### Nginx
 

@@ -124,7 +124,7 @@ Důsledky:
 
 Signal je dnes pod kapotou WhatsAppu, Facebook Messengera, Skypeu.
 
-## Praktické knihovny
+## Praktické knihovny {tier=practice}
 
 | Knihovna | API | Algoritmy |
 | :--- | :--- | :--- |
@@ -136,7 +136,7 @@ Signal je dnes pod kapotou WhatsAppu, Facebook Messengera, Skypeu.
 
 **Doporučení pro nové aplikace:** `libsodium` `crypto_box` (X25519 + XSalsa20-Poly1305), nebo `age` pro file encryption. Vyhněte se vlastní implementaci RSA-OAEP nebo ECIES — chyby v paddingu, kdfs a nonce reuse jsou časté.
 
-## Anti-patterny
+## Anti-patterny {tier=practice}
 
 1. **Pouze asymetrika pro objem dat** — pokus o šifrování gigabajtů RSAOAEPem je *nepraktický* a *nebezpečný* (textbook RSA u dlouhých zpráv je deterministický → unikne strukturu).
 2. **Sdílený symetrický klíč mezi více session** — porušuje forward secrecy. Vždy generovat *čerstvý* $K_{\mathrm{session}}$ na každou session.

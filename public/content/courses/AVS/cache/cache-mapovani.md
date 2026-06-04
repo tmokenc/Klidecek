@@ -194,7 +194,7 @@ V *direct-mapped* nebo *low-associativity*: dva (nebo víc) bloky se *střídaj�
 
 Reduce: **vyšší asociativita**. 8-way + LRU má conflict miss ~zanedbatelné.
 
-## Reálné konfigurace
+## Reálné konfigurace {tier=practice}
 
 | CPU | L1 D | L1 I | L2 | L3 |
 | :--- | :--- | :--- | :--- | :--- |

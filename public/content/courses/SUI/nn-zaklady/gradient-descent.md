@@ -257,7 +257,7 @@ v_t = \beta_2 v_{t-1} + (1-\beta_2)(\nabla L)^2
 * **AdamW** — Adam + decoupled weight decay.
 * **LAMB, LARS** — pro velmi velké batche (pre-training LLM).
 
-## Praktický workflow
+## Praktický workflow {tier=practice}
 
 ```python
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)

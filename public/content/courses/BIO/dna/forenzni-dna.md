@@ -6,7 +6,7 @@ title: Forenzní DNA — případy a metody
 
 DNA analysis revolucionalizoval forenzní vědu. Od první-ever DNA-based conviction (1987) jsou tisíce zločinů vyřešeny a tisíce *unjust convictions* obráceny díky DNA testing. Kapitola pokrývá historické případy, metodiku, a aktuální trendy v investigative genetic genealogy.
 
-## Historie
+## Historie {tier=extra}
 
 ### First DNA conviction — Colin Pitchfork (1987)
 
@@ -71,7 +71,7 @@ Forenzní biologové hledají:
 * **Cross-examination** by defense.
 * Court decides admissibility (Daubert/Frye standard).
 
-## Slavné případy
+## Slavné případy {tier=extra}
 
 ### O. J. Simpson (1995)
 

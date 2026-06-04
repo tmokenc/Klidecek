@@ -132,7 +132,7 @@ Z IP adresy lze určit:
 
 V 2026 hodně organizací používá **TI feeds** pro automatické blokování — IP X je *known bad*, drop bez ohledu na port a payload.
 
-## Reálné použití
+## Reálné použití {tier=practice}
 
 V *enterprise firewallu* (Palo Alto, Fortigate, Cisco FTD) je port + IP klasifikace **úvodní filtr** — *miliony rules* běží wire-speed. Provoz, který projde port-based fází, jde do hlubší analýzy (signatury [[signatury-snort]], DPI).
 

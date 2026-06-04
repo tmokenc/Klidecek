@@ -232,7 +232,7 @@ For raw throughput on modern HW:
 
 WireGuard often 2-3× faster than OpenVPN for same security.
 
-## VPN attacks
+## VPN attacks {tier=practice}
 
 ### Tunnel split confusion
 

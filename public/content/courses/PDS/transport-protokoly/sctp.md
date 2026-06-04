@@ -182,7 +182,7 @@ $$
 
 Konstanty $\alpha=1/8, \beta=1/4, k=4$ jsou stejné jako u TCP.
 
-## Praktické nasazení
+## Praktické nasazení {tier=practice}
 
 SCTP **se prosadilo úzce**, nikoli univerzálně:
 

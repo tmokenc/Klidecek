@@ -258,7 +258,7 @@ Stochastická policy *přirozeně* exploruje díky randomness. Strategie:
 | Sample efficiency | Nižší | Vyšší |
 | Implementace | Jednodušší | Složitější |
 
-## Praktické pipeline
+## Praktické pipeline {tier=practice}
 
 ```python
 from stable_baselines3 import PPO
@@ -285,7 +285,7 @@ model = SAC("MlpPolicy", env, learning_rate=3e-4, buffer_size=1_000_000)
 model.learn(total_timesteps=500_000)
 ```
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Robotika** — manipulace, lokomoce, navigace. SAC, PPO.
 * **Hry** — AlphaStar (StarCraft II), OpenAI Five (Dota 2).

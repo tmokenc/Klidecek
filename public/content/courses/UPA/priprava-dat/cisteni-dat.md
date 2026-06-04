@@ -268,7 +268,7 @@ assert df['age'].between(0, 120).all()
 assert df.isna().sum().sum() == 0
 ```
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **Audit trail** — uchovejte původní `raw_data.csv` + log změn. Reprodukovatelnost je klíčová.
 * **Pipeline as code** — čištění jako Python script/dbt model/Spark job, ne ad-hoc Excel manipulace.

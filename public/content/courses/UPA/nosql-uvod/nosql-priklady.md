@@ -1,5 +1,6 @@
 ---
 title: Příklady NoSQL databází — Cassandra, MongoDB, Neo4j, InfluxDB
+tier: example
 ---
 
 # Příklady NoSQL databází — Cassandra, MongoDB, Neo4j, InfluxDB

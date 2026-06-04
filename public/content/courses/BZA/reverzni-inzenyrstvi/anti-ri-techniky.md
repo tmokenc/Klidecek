@@ -234,7 +234,7 @@ Cílem je *překročit threshold* economic viability:
 
 Pro **state-level adversary** (NSA, FSB) je threshold *velmi vysoký* — anti-RE *neprotektuje*. Pro **commercial cracking** ano.
 
-## Praktická volba
+## Praktická volba {tier=practice}
 
 Pro většinu commercial products:
 

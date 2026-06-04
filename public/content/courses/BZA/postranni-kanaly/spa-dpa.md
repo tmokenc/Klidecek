@@ -150,7 +150,7 @@ v = S(\text{plaintext}[i] \oplus k[i])
 * **Template attack** ([Chari et al. 2002](https://link.springer.com/chapter/10.1007/3-540-36400-5_3)) — *learning-based* DPA. Profilovací fáze: útočník má identické zařízení, naučí modely pro každou hodnotu klíče. Útoková fáze: porovnává naměřené traces s modely. Nejvyšší úspěšnost, nejnižší počet traces.
 * **Machine learning DPA** — neural networks (CNN, LSTM) místo statistik (Maghrebi-Portigliatti-Prouff 2016).
 
-## DPA na Trezor One (2019)
+## DPA na Trezor One (2019) {tier=example}
 
 [Ledger Donjon](https://blog.ledger.com/Tu-Sais-Pas-Mon-Numero-Si-Tu-Ne-Sais-Pas-Mon-PIN/): praktický útok na Trezor One hardware wallet:
 

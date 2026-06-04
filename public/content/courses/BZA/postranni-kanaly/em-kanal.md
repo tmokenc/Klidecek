@@ -123,7 +123,7 @@ To je *de facto* side-channel útok přes akustický kanál, ale fyzikální pri
 
 Mitigace: Intel/STMicro vydali firmware updates s constant-time implementace.
 
-## Praktický pohled — co útoky vyžadují
+## Praktický pohled — co útoky vyžadují {tier=practice}
 
 Reálný EMA útok:
 

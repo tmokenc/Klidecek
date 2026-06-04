@@ -156,7 +156,7 @@ Aggregation pipeline je deklarativní řetězec **stages** — každý stage tra
 | `$bucket` | grupovat do předem definovaných intervalů |
 | `$graphLookup` | rekurzivní traversal (hierarchie) |
 
-### Příklad — top 5 kategorií podle průměrné ceny
+### Příklad — top 5 kategorií podle průměrné ceny {tier=example}
 
 ```javascript
 db.products.aggregate([
@@ -171,7 +171,7 @@ db.products.aggregate([
 ]);
 ```
 
-### Příklad — join + agregace
+### Příklad — join + agregace {tier=example}
 
 ```javascript
 db.orders.aggregate([

@@ -120,7 +120,7 @@ Pravděpodobnost, že systém *chybně odmítne* legitimního uživatele.
 
 Dvě nezávislé veličiny: typically se reportují **FAR** a **FRR**.
 
-## Příklad — výpočet
+## Příklad — výpočet {tier=example}
 
 Test biometrického systému s 1 000 genuine + 1 000 impostor pokusy:
 

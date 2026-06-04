@@ -145,7 +145,7 @@ Subflow lze přidávat/odebírat dynamicky:
 - **REMOVE_ADDR** — *odbírám* adresu (WiFi vypadl, LTE jediný).
 - **MP_PRIO** — změna priority subflow (např. degraduj LTE, když WiFi back).
 
-## Praktické nasazení
+## Praktické nasazení {tier=practice}
 
 - **Apple iOS 7+ (2013)** — Siri MP-TCP přes WiFi + LTE. **Mac OS** od 11.0.
 - **Linux kernel 5.6+ (2020)** — upstream MP-TCP (předtím out-of-tree fork "MPTCP-Linux").

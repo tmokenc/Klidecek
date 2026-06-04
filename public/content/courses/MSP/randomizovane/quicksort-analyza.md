@@ -141,7 +141,7 @@ RANDOMIZED-SELECT(A, p, r, k):
 
 Důkaz: opět přes indikátory, `E[T(n)] = O(n)`. Existuje i deterministická varianta (*Median of medians* Blum-Floyd-Pratt-Rivest-Tarjan 1973), ale s vyšším konstantním faktorem.
 
-## Praktické poznámky
+## Praktické poznámky {tier=practice}
 
 * **Pivot strategy**:
   * *First element* — bad on sorted input.

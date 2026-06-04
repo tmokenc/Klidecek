@@ -150,7 +150,7 @@ procedure DOWN_SWEEP(A[0..n-1])
 </svg>
 :::
 
-## Příklad — krok po kroku
+## Příklad — krok po kroku {tier=example}
 
 Vstup: $A = [3, 1, 7, 0, 4, 1, 6, 3]$.
 
@@ -293,7 +293,7 @@ Operátor $\boxplus$ je *asociativní* (lze ověřit), takže standardní up-swe
 
 **Čas**: $O(\log n)$ stejně jako neoznačený scan.
 
-## Praktické rady
+## Praktické rady {tier=practice}
 
 1. **Použij existující knihovní implementaci** — Thrust, CUB, std::scan v C++17 implementují vše. Vlastní implementace zřídka vyhraje.
 2. **Pro malé $n$ použij sekvenční** — paralelní overhead pro $n < 100$ převáží zisk.

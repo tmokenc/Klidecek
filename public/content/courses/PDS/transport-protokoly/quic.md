@@ -219,7 +219,7 @@ V praxi FEC v gQUIC nepřinesl významný benefit (overhead ~10 %, gains pro 1% 
 
 První request stále jde přes HTTPS/TCP (kvůli DNS+TLS); až server pošle `Alt-Svc: h3=":443"`, klient přepne. Hadnoty se cache-ují → další návštěva začíná hned v HTTP/3.
 
-## Praktické dopady
+## Praktické dopady {tier=practice}
 
 - **YouTube** — všechno HTTP/3 od 2021.
 - **Cloudflare** — HTTP/3 default pro všechny hostované weby.

@@ -165,7 +165,7 @@ Pro $m = n$: $c(n) = O(n^2 + n \log n) = O(n^2)$. **Cost-optimal!**
 
 **Strom** je *rychlejší* za stejnou cenu — díky logaritmické redukci součinů. Pro velký $n$ je rozdíl podstatný.
 
-## Praktická aplikace
+## Praktická aplikace {tier=practice}
 
 - **Sparse matrix-vector multiplication (SpMV)**: ve vědeckých simulacích, ML, PageRank.
 - **Iterativní solvery**: GMRES, Conjugate Gradient — opakované SpMV.

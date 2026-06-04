@@ -144,7 +144,7 @@ Implicit flush u: barrier, critical (enter + exit), atomic, lock (enter + exit),
 
 Manual `flush` rare — programátor nepíše explicit. Memory model OpenMP relaxed → většinou je sync skrytá v jiných direktivách.
 
-### Příklad — producer-consumer bez locks
+### Příklad — producer-consumer bez locks {tier=example}
 
 ```c
 shared int data;
@@ -167,7 +167,7 @@ use(data);
 
 Toto je *dangerous* bez detailní znalosti memory model. Lépe použít `omp_lock` nebo `critical`.
 
-## Příklady společně
+## Příklady společně {tier=example}
 
 ### Histogram — bad and good
 

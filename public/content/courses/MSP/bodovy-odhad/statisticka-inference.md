@@ -131,7 +131,7 @@ Statistický odhad `θ̂(X)` je *náhodná veličina*. Liší se od pravé hodno
 
 Cíl statistiky: zkonstruovat odhady, které jsou *konzistentní* (sampling error → 0 s `n → ∞`) a *nestranné* (bias = 0), pokud to jde.
 
-## Aplikace statistické inference
+## Aplikace statistické inference {tier=practice}
 
 * **Engineering reliability** — odhad MTBF, MTTF pro spolehlivost systémů.
 * **Medical trials** — odhad účinnosti léku (proporce úspěchů, hazard rates).

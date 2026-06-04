@@ -151,7 +151,7 @@ Standardní vztah:
 </svg>
 :::
 
-## Příklad — jak síla modelu mění čas
+## Příklad — jak síla modelu mění čas {tier=example}
 
 **Úloha**: spočítat **logický OR** $n$ bitů $a_1, a_2, \dots, a_n \in \{0, 1\}$.
 
@@ -162,7 +162,7 @@ Standardní vztah:
 
 Tedy **CRCW může OR v $O(1)$, EREW vyžaduje $\Omega(\log n)$** — *exponenciální separace* mezi modely pro tuto úlohu.
 
-## Příklad — element distinctness
+## Příklad — element distinctness {tier=example}
 
 **Úloha**: rozhodnout, zda v poli $A[1..n]$ jsou dva stejné prvky.
 
@@ -171,7 +171,7 @@ Tedy **CRCW může OR v $O(1)$, EREW vyžaduje $\Omega(\log n)$** — *exponenci
 
 Element distinctness je *kanonický* příklad úlohy, která rozlišuje modely uvnitř CRCW hierarchie.
 
-## Která varianta odpovídá kterému hardwaru
+## Která varianta odpovídá kterému hardwaru {tier=practice}
 
 - **Cluster s message-passing** (MPI) — odpovídá *EREW* (či zhruba CROW), neboť čistě paralelní čtení sdílené buňky neexistuje.
 - **Multi-core CPU se sdílenou cache** — *CREW*, neboť čtení je téměř zdarma (skrz cache), ale zápis vyžaduje koherenční protokoly.

@@ -38,7 +38,7 @@ Suffix sum = scan s sčítáním zprava — pro pozici $i$ vrátí součet `weig
    preorder(root) = 1
 ```
 
-### Příklad
+### Příklad {tier=example}
 
 Pro strom s 4 uzly (1 = kořen, 2, 3, 4 = děti):
 

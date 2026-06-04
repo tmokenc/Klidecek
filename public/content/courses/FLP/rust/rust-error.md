@@ -448,7 +448,7 @@ enum MathError {
 }
 ```
 
-## Result chain example
+## Result chain example {tier=example}
 
 ```rust
 use std::fs;

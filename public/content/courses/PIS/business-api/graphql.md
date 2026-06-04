@@ -347,7 +347,7 @@ Konfigurace JWT je tatáž jako v [[rest-autentizace|REST autentizaci]] — `MET
 * **Zpracování SDL** nebo **generování SDL z kódu** (jak to dělá MicroProfile GraphQL).
 * **Mnoho knihoven**: viz [graphql.org/code](https://graphql.org/code/) — Java (Eclipse MicroProfile, graphql-java), Node.js, Python, Go, Rust, ….
 
-### Demo
+### Demo {tier=extra}
 
 Open Liberty Guide: [openliberty.io/guides/microprofile-graphql.html](https://openliberty.io/guides/microprofile-graphql.html).
 

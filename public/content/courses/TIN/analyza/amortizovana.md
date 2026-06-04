@@ -124,14 +124,14 @@ Pokud po DELETE klesne $\alpha(T) \leq 0.5$, alokujeme *poloviční* tabulku a p
 
 **Trik**: re-alokace na *zmenšení* jen když $\alpha \leq 0.25$. Pak je nejmenší stará tabulka "půlplná" před zmenšením, a do dalšího zmenšení musí dojít k odebrání aspoň $|S|/2$ prvků. Tato strategie dává $O(1)$ amortizovanou cenu.
 
-## Aplikace v praxi
+## Aplikace v praxi {tier=practice}
 
 * **Dynamické pole** v knihovnách (C++ `std::vector`, Python `list`, Java `ArrayList`): amortizovaný $O(1)$ insert.
 * **Disjoint Set Union** (Union-Find): operace `find` a `union` mají amortizovanou cenu $O(\alpha(n))$ (inverzní Ackermann, prakticky konstantní).
 * **Splay tree**: amortizovaný $O(\log n)$ na operaci.
 * **Fibonacciho halda**: amortizovaný $O(1)$ na decreaseKey, $O(\log n)$ na deleteMin.
 
-## Hlubší příklad: trie s "prune"
+## Hlubší příklad: trie s "prune" {tier=example}
 
 Trie reprezentuje *množinu řetězců* nad abecedou $\Sigma$:
 * Kořen + vnitřní uzly se symbolem ze $\Sigma$ → potomek.

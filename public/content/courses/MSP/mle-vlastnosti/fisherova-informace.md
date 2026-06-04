@@ -176,7 +176,7 @@ Asymptotická variance `J(θ)⁻¹` dosahuje *Cramér-Raovy meze* — MLE je **a
 
 V praxi je *observed* informace lepší aproximace skutečné variance MLE pro daný vzorek (Efron-Hinkley 1978). Standardní statistický software hlásí *standard errors* = `√(Ĵ⁻¹)`.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Standardní chyby parametrů** — `s.e.(θ̂_MLE) = √(J_n(θ̂)⁻¹)`. Reportováno např. v R `summary(lm)`.
 * **CI pro MLE**: `θ̂ ± z_{α/2} · s.e.(θ̂)` (Waldův CI, [[intervaly-spolehlivosti]]).

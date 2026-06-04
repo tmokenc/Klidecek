@@ -197,7 +197,7 @@ Kombinace `L1 + L2`. Užitečné pro vysoce korelované prediktory.
 
 Volba `λ` přes *cross-validation*.
 
-## Praktický workflow
+## Praktický workflow {tier=practice}
 
 1. **Exploratory** — popisné statistiky, korelace, scatter plots.
 2. **Fit kandidátů** — `lm()` s několika konfiguracemi.
@@ -206,7 +206,7 @@ Volba `λ` přes *cross-validation*.
 5. **Validace** — *holdout* dataset, predikce na nových datech.
 6. **Interpretace** — koeficienty + CI + fyzikální význam.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Engineering** — predikce výkonu, kalibrace senzorů.
 * **Economics** — predikce HDP, inflace.

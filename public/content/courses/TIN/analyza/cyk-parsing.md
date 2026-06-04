@@ -204,7 +204,7 @@ $T_{1, 4}$ pro $w_1 w_2 w_3 w_4 = abaa$ kombinuje dělení $k = 1, 2, 3$ a vyjde
 
 **Závěr**: $S \in T_{1, 4}$, slovo $abaa$ je v $L(G)$.
 
-## Praktické použití CYK
+## Praktické použití CYK {tier=practice}
 
 * **Parsing přirozeného jazyka** — některé NLP toolkit (Stanford NLP) používají variantu CYK.
 * **Verifikace formálních specifikací** — některé property-checking algoritmy redukují na *membership in CFG*.

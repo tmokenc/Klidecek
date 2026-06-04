@@ -211,7 +211,7 @@ Důkaz se rozpadá na dvě části, obě konstruktivní:
 
 > Velikost RV ve směru "DKA → RV" může být *exponenciální* v počtu stavů DKA, byť ne ostře — existují DKA, jejichž ekvivalentní RV má délku $\Omega(2^n)$.
 
-## Rozšíření v praktických regex enginech
+## Rozšíření v praktických regex enginech {tier=practice}
 
 Praktické "regulární výrazy" v Perl, Python, JavaScript, PCRE jdou *daleko za* matematickou definici:
 

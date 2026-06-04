@@ -222,7 +222,7 @@ Z toho plyne, že každý orientovaný graf lze rozložit na *strukturu SCC prop
 * **Topologické řazení** SCC (= "úrovně" závislostí).
 * **Reachability**: $u$ dosažitelný z $v$ ⟺ SCC obsahující $u$ je dosažitelná ze SCC obsahující $v$ v DAG.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 | Algoritmus | Aplikace |
 | :--- | :--- |

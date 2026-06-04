@@ -66,7 +66,7 @@ Hlavní úkol — překlenout impedance mismatch mezi OOP modelem a relačním/d
 </svg>
 :::
 
-## Příklad — JPA/Hibernate
+## Příklad — JPA/Hibernate {tier=example}
 
 ```java
 @Entity

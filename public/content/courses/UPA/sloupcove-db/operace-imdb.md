@@ -247,7 +247,7 @@ In-memory column store používá **group commit**:
 * **−** *Malé okno* (~ms) pro ztrátu commitnutých tranzakcí v případě pádu HW.
 * Pro většinu byznysu akceptovatelné. Pro safety-critical (banking) lze nastavit synchronous fsync (s nižší propustností).
 
-## Praktické důsledky
+## Praktické důsledky {tier=practice}
 
 ### Když je sloupcový DB nevhodný
 
@@ -275,7 +275,7 @@ Moderní *HTAP* (Hybrid Transactional/Analytical Processing): jedna DB pro obě 
 
 Cena: kompromis (write OLAP slower than dedicated row, analytics slower than dedicated columnar).
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **Bulk insert** — pro velké imports použít BULK INSERT (CSV import) místo jednotlivých INSERT — DB to optimalizuje (single delta merge).
 * **Batch UPDATE/DELETE** — pro spousty změn nejprve `BEGIN`, mass changes, `COMMIT`. Snižuje overhead per row.

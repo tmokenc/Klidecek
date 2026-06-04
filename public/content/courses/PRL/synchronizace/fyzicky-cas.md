@@ -170,7 +170,7 @@ o_i = \frac{1}{2}\left[(T_{i-2} - T_{i-3}) - (T_i - T_{i-1})\right]
 
 (Předpokládá se *symetrická* latence; offset je rozdíl mezi *střednou cestou tam* a *střednou cestou zpět*.)
 
-### Příklad
+### Příklad {tier=example}
 
 ```
 T_{i-3} = 124 (klient odeslal)
@@ -232,7 +232,7 @@ Pro 4 intervaly $[1, 4]$, $[2, 5]$, $[3, 6]$, $[2, 4]$:
 
 Maximum *count = 4* dosáhnuto v offsetu 3 → výsledný interval `[3, 4]`. Tj. čas je *mezi* 3 a 4.
 
-### Use case
+### Use case {tier=practice}
 
 NTP používá Marzullův algoritmus pro **konsensus** mezi více servery — filtruje *odlehlé* (chybné) odpovědi.
 

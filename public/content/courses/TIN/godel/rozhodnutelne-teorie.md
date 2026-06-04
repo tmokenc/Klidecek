@@ -174,7 +174,7 @@ Klíčový krok: **eliminace existenčního kvantifikátoru** $\exists x\, \varp
 
 > **Klíčové**: úplnost neznamená "jediný model". Úplnost = "každá věta je *buď dokazatelná, nebo její negace*". To je *slabší* podmínka než kategorické popisování modelu.
 
-## Praktická hodnota rozhodnutelných teorií
+## Praktická hodnota rozhodnutelných teorií {tier=practice}
 
 * **SMT solvery** (Z3, CVC4, Yices) implementují QE pro Presburgera, kombinace s teorií polí, pole, bit-vectorů, atd.
 * **Symbolický integrátor** ve Wolfram Mathematica používá rozhodnutelné teorie reálných čísel.

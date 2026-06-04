@@ -358,7 +358,7 @@ example = do
 
 `mtl` library provides standard transformers.
 
-## Praktické nasazení
+## Praktické nasazení {tier=practice}
 
 ### Configuration
 

@@ -237,7 +237,7 @@ Web extrakce se pohybuje na škále:
 
 Trend: posun z *manufaktury* k *inteligentním systémům*. LLM extrakce je čím dál levnější (každoroční pokles cen 10×), open-source modely (Llama 3, Mistral 7B) jsou dostatečně přesné pro většinu use cases.
 
-## Praktické tipy
+## Praktické tipy {tier=practice}
 
 * **Začněte jednoduše** — rule-based scraper většinou funguje. LLM až když selže.
 * **Hybrid přístup** — rules pro stable fields, LLM pro ambiguous.

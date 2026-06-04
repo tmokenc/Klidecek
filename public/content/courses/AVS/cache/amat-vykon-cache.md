@@ -22,7 +22,7 @@ $$
 
 kde $m_i$ = *local* miss rate (miss rate jen u přístupů, které dorazí na úroveň $i$).
 
-### Příklad
+### Příklad {tier=example}
 
 Předpoklady:
 

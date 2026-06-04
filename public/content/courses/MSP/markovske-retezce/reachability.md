@@ -128,7 +128,7 @@ Z reachability se odvozují další analytické otázky:
 * **Očekávaný čas do dosažení** (expected hitting time) — soustava `h(s) = 1 + Σ P(s, s') h(s')` pro `s ∉ T`, `h(s) = 0` pro `s ∈ T`. Klíčové pro analýzu randomizovaných algoritmů.
 * **Pravděpodobnost s konstantou** — `P(s → T) ⋈ p` pro `⋈ ∈ {<, ≤, =, ≥, >}` — toto je *PCTL* formule v stochastic model checking ([[prism-model-checking]]).
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Bezpečnostní protokoly** — `T` = množina stavů „attacker uspěl"; cíl: `x(start) ≤ 10⁻⁶`.
 * **Spolehlivost** — `T` = stav „systém selhal"; výpočet MTBF přes očekávanou dobu do `T`.

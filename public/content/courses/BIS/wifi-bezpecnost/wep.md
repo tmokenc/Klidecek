@@ -84,7 +84,7 @@ Pychkine-Tews-Weinmann. Aircrack-ptw. ~40-85k packets → key recovery in *minut
 
 Decrypt packet *without* key. Modify last byte iteratively, detect valid ICV via AP response.
 
-## Reálný útok
+## Reálný útok {tier=example}
 
 ```bash
 # Put wireless card in monitor mode
@@ -108,7 +108,7 @@ Total time: 5-15 minutes for 64-bit WEP. 128-bit slightly longer.
 ::: viz wep-fms-cracker "Spusť capture (zapni ARP replay pro 10× rychlost). Bar 'weak IVs' roste; key byty se postupně dopočítají statisticky. ~40k paketů → 104-bit klíč zlámaný."
 :::
 
-## ARP injection — speed up
+## ARP injection — speed up {tier=example}
 
 If target network quiet, no traffic to collect. **ARP replay attack**:
 
@@ -117,7 +117,7 @@ If target network quiet, no traffic to collect. **ARP replay attack**:
 
 aireplay-ng `-3` mode does this. *Active* attack.
 
-## Why WEP took so long to die
+## Why WEP took so long to die {tier=extra}
 
 - **Backwards compatibility** — old devices.
 - **Inertia** — "we have WEP, we're secure".

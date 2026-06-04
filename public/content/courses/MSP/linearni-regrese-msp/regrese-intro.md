@@ -205,7 +205,7 @@ Klíčové komponenty:
 * **R-squared** — viz [[kvalita-modelu]].
 * **F-statistic** — společný test.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Engineering** — kalibrace, predikce výkonu.
 * **Economics** — modelování poptávky, cen.

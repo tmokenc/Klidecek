@@ -215,7 +215,7 @@ Komprese je *citlivá na pořadí*. Tabulka může být seřazena podle *jednoho
 
 Volba sorting column je jedna z **nejdůležitějších design decisions** v sloupcové DB.
 
-## Kompresní ratio v praxi
+## Kompresní ratio v praxi {tier=practice}
 
 | Systém | Typický compression ratio | Dominant techniques |
 | :--- | :---: | :--- |

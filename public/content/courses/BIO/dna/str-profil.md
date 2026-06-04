@@ -163,7 +163,7 @@ Output: STR profile table:
 * Different data structure, but *can be cross-referenced* with forensic.
 * Used in *investigative genetic genealogy* (Golden State Killer 2018).
 
-## Praktická aplikace
+## Praktická aplikace {tier=practice}
 
 ### Forensic identification
 

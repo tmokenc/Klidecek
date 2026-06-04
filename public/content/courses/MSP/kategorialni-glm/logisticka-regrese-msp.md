@@ -169,7 +169,7 @@ Pro `Y ∈ {1, 2, …, K}` *ordinální* (uspořádané kategorie): **proportion
 
 Logistická regrese predikuje `P(Y = 1 | x) ∈ (0, 1)` pro libovolné `x` (nikdy přesně 0 nebo 1). Ale *extrapolace* mimo range trénovacích dat je *nespolehlivá*. Sigmoid se „lepí" k 0 nebo 1 mimo training data — predikce může být *jistá ale špatná*.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Medical** — riziko onemocnění, mortality predikce.
 * **Banking** — credit scoring, default predikce.

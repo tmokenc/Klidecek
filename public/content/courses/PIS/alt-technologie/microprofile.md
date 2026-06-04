@@ -251,7 +251,7 @@ Mikroslužby mohou komunikovat dvěma způsoby:
 * **Synchronně** — REST (nejčastěji), gRPC. Klientská služba *čeká* na odpověď. Pokud volaná služba nedostupná, klient čeká nebo selže.
 * **Asynchronně** — *message broker* zprostředkovává zprávy. Producent pošle a nečeká. Detail viz [[messaging-fault-tolerance]].
 
-## Praktický příklad — kompletní MP služba
+## Praktický příklad — kompletní MP služba {tier=example}
 
 ```xml
 <!-- server.xml -->

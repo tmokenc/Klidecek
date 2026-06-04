@@ -140,7 +140,7 @@ KARGER-STEIN(G):
 
 Idea: kontrakce na `n/√2` vrcholů zachovává min-cut s pravděpodobností `≈ 1/2`. Místo amplifikace `O(n²)` opakováním celého algoritmu, *rekurzivní* zachycení.
 
-## Aplikace
+## Aplikace {tier=practice}
 
 * **Image segmentation** — graf-based segmentace (Felzenszwalb, Huttenlocher 2004).
 * **Network reliability** — pravděpodobnost spolehlivosti sítě je úzce vázána na min-cut.

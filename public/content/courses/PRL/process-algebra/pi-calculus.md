@@ -163,7 +163,7 @@ kde $\alpha$ je *akce*:
 
 LTS umožňuje *kompozicionální* analýzu: chování složeného procesu lze odvodit z LTS jeho podproc.
 
-## Příklad — výpočet faktoriálu v π-kalkulu
+## Příklad — výpočet faktoriálu v π-kalkulu {tier=example}
 
 Synchronní rekurze přes replikaci:
 
@@ -186,7 +186,7 @@ Klient: $\bar{f}(5, \text{result}).\text{result}(v). \dots$ — pošle 5 + kaná
 | Sémantika | trace, failures, divergence | LTS, bisimulace |
 | Použití | hardware design, formal verification | mobilní systémy, security, cloud |
 
-## Reálné aplikace π-kalkulu
+## Reálné aplikace π-kalkulu {tier=practice}
 
 - **Spi-calculus** (Abadi, Gordon 1997) — extension pro kryptografické protokoly. Modeluje symbolické šifrování, nonces, atd.
 - **Applied π-calculus** — pro protokoly typu TLS, Signal, Kerberos.
