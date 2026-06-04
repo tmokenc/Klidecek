@@ -7,6 +7,7 @@ import {
   ExamPage, ExamSpecPage, ExamTopicPage,
   GlobalMindmapPage,
 } from "./framework/pages.jsx";
+import { KomisePage } from "./framework/komise-page.jsx";
 import {
   useProgress, useTweaks,
   loadProgress, saveProgress, exportProgress, importProgress,
@@ -47,6 +48,9 @@ function parseRoute(raw) {
   }
   if (head === "mm") {
     return { mode: "global-mindmap" };
+  }
+  if (head === "k") {
+    return { mode: "komise" };
   }
   return { mode: "home" };
 }
@@ -264,11 +268,13 @@ function ModeSwitcher({ route, navigate }) {
   let top = "courses";
   if (["specs", "spec"].includes(route.mode)) top = "specs";
   if (["exam", "exam-spec", "exam-topic"].includes(route.mode)) top = "exam";
+  if (route.mode === "komise") top = "komise";
   if (route.mode === "home") top = null;
   const items = [
     { id: "courses", label: "Courses", to: "/c", icon: "M4 6h16M4 12h16M4 18h10" },
     { id: "specs",   label: "Specializations", to: "/s", icon: "M12 2 4 6v6c0 5 8 10 8 10s8-5 8-10V6z" },
     { id: "exam",    label: "Final exam", to: "/x", icon: "M9 11h6M9 15h6M5 4h14v16H5z" },
+    { id: "komise",  label: "Komise", to: "/k", icon: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" },
   ];
   return (
     <nav className="modeswitch-wrap">
@@ -546,6 +552,7 @@ export function App() {
     case "exam-spec":      page = <ExamSpecPage content={content} specId={route.specId} navigate={navigate} />; break;
     case "exam-topic":     page = <ExamTopicPage content={content} specId={route.specId} topicId={route.topicId} navigate={navigate} />; break;
     case "global-mindmap": page = <GlobalMindmapPage content={content} navigate={navigate} />; break;
+    case "komise":         page = <KomisePage content={content} navigate={navigate} />; break;
     default:               page = <HomePage content={content} navigate={navigate} />;
   }
 

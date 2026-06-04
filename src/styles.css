@@ -1894,3 +1894,244 @@ button { font: inherit; color: inherit; }
   background: var(--line-strong);
   border-radius: 999px;
 }
+
+/* ─── Komise (committee insights) ─────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid var(--line);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  vertical-align: -3px;
+  animation: spin 0.6s linear infinite;
+}
+
+.komise-tabs {
+  display: flex; gap: 4px;
+  padding: 3px;
+  background: var(--bg-inset);
+  border-radius: 10px;
+  width: fit-content;
+  margin-bottom: var(--pad-5);
+}
+.komise-tab {
+  appearance: none; border: none; background: transparent;
+  color: var(--text-muted);
+  font: inherit; font-size: 13.5px; font-weight: 500;
+  padding: 7px 16px; border-radius: 8px;
+  cursor: default;
+  display: flex; align-items: center; gap: 7px;
+}
+.komise-tab:hover { color: var(--text); }
+.komise-tab[data-active="true"] {
+  background: var(--bg-card);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+.komise-tab-badge {
+  font-size: 11px; font-weight: 600;
+  min-width: 18px; height: 18px; padding: 0 5px;
+  border-radius: 999px;
+  background: var(--accent); color: var(--accent-text-on);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+.komise-banner {
+  padding: 10px 14px; margin-bottom: var(--pad-4);
+  background: oklch(0.68 0.16 65 / 0.10);
+  border: 0.5px solid var(--warn);
+  border-radius: var(--r-md);
+  color: var(--warn); font-size: 13px;
+}
+.komise-empty {
+  padding: var(--pad-6) var(--pad-4);
+  text-align: center; color: var(--text-faint);
+  font-size: 14px;
+}
+.komise-muted { color: var(--text-faint); font-size: 13px; }
+.komise-summary {
+  margin: var(--pad-4) 0 var(--pad-3);
+  font-size: 13px; color: var(--text-muted);
+}
+.komise-summary b { color: var(--text); }
+
+/* member picker / chips */
+.komise-picker-input {
+  width: 100%;
+  padding: 9px 12px;
+  background: var(--bg-inset);
+  border: 0.5px solid var(--line);
+  border-radius: var(--r-md);
+  color: var(--text); font: inherit; font-size: 14px;
+  margin-bottom: var(--pad-3);
+}
+.komise-picker-input:focus { outline: none; border-color: var(--accent-line); }
+.komise-board { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: var(--pad-3) 0; }
+
+/* type-ahead combobox for adding board members */
+.komise-combo { position: relative; }
+.komise-combo .komise-picker-input { margin-bottom: 0; }
+.komise-suggest {
+  position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 30;
+  list-style: none; margin: 0; padding: 4px;
+  background: var(--bg-card);
+  border: 0.5px solid var(--line-strong);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-lg);
+  max-height: 340px; overflow-y: auto;
+}
+.komise-suggest-item {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 8px 10px; border-radius: 8px;
+  cursor: default; font-size: 13.5px;
+}
+.komise-suggest-item[data-active="true"] { background: var(--accent-soft); }
+.komise-suggest-name { font-weight: 600; color: var(--text); }
+.komise-suggest-titles { font-size: 11.5px; color: var(--text-faint); }
+.komise-suggest-meta { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; }
+.komise-suggest-empty { padding: 9px 10px; color: var(--text-faint); font-size: 13px; }
+.komise-chip {
+  appearance: none; cursor: default; font: inherit;
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12.5px;
+  padding: 5px 10px; border-radius: 999px;
+  background: var(--bg-card); border: 0.5px solid var(--line);
+  color: var(--text-muted);
+}
+.komise-chip:hover { border-color: var(--line-strong); color: var(--text); }
+.komise-chip[data-on="true"] {
+  background: var(--accent-soft); border-color: var(--accent-line);
+  color: var(--text);
+}
+.komise-chip-n {
+  font-family: var(--font-mono); font-size: 10.5px;
+  color: var(--text-faint);
+}
+.komise-chip-check { color: var(--accent); font-size: 11px; }
+.komise-chip-x { color: var(--text-faint); margin-left: 2px; }
+.komise-clear { padding: 4px 10px; font-size: 12.5px; }
+
+/* ranked topics */
+.komise-topics { display: flex; flex-direction: column; gap: var(--pad-2); }
+.komise-topic {
+  background: var(--bg-card);
+  border: 0.5px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--pad-3) var(--pad-3);
+}
+.komise-topic[data-open="true"] { border-color: var(--line-strong); }
+.komise-topic-head { display: flex; gap: var(--pad-3); align-items: flex-start; }
+.komise-rank {
+  flex-shrink: 0;
+  min-width: 26px; height: 24px; padding: 0 6px;
+  border-radius: 6px;
+  background: var(--accent-soft); color: var(--accent);
+  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.komise-rank.inline { height: 18px; min-width: 20px; font-size: 11px; }
+.komise-topic-main { flex: 1; min-width: 0; }
+.komise-topic-title {
+  appearance: none; border: none; background: transparent; cursor: default;
+  font: inherit; text-align: left; color: var(--text);
+  display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+  font-size: 14px; font-weight: 500; line-height: 1.35;
+  padding: 0; width: 100%;
+}
+.komise-topic-title:disabled { cursor: default; }
+.komise-topic-title:not(:disabled):hover { color: var(--accent); }
+.komise-topic-title:not(:disabled):hover .komise-go { opacity: 1; }
+.komise-go { color: var(--accent); opacity: 0; font-weight: 600; }
+.komise-approx {
+  color: var(--text-faint); font-weight: 600;
+  cursor: help; border-bottom: 1px dotted var(--text-faint);
+}
+.komise-topic-by {
+  margin-top: 4px; font-size: 12.5px; color: var(--text-muted);
+}
+.komise-expand {
+  appearance: none; border: none; background: transparent; cursor: default;
+  font: inherit; font-size: 12.5px; color: var(--text-faint);
+  padding: 6px 0 0; margin-left: 38px;
+}
+.komise-expand:hover { color: var(--accent); }
+
+/* question notes */
+.komise-notes {
+  list-style: none; margin: 8px 0 2px 38px; padding: 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.komise-notes li {
+  font-size: 13px; line-height: 1.5;
+  padding-left: 10px; border-left: 2px solid var(--line);
+}
+.komise-note-meta { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-right: 6px; }
+.komise-note-meta b { font-weight: 600; color: var(--text); }
+.komise-note-session { font-size: 11px; color: var(--text-faint); font-family: var(--font-mono); }
+.komise-note-text { color: var(--text-muted); }
+
+/* loose / off-topic section */
+.komise-loose { margin-top: var(--pad-4); }
+.komise-loose .komise-expand { margin-left: 0; }
+.komise-loose-group { margin-top: var(--pad-3); }
+.komise-loose-head { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+.komise-loose-group .komise-notes { margin-left: 0; }
+
+/* browse: members */
+.komise-members { display: flex; flex-direction: column; gap: var(--pad-2); margin-top: var(--pad-3); }
+.komise-member {
+  background: var(--bg-card); border: 0.5px solid var(--line);
+  border-radius: var(--r-md); overflow: hidden;
+}
+.komise-member[data-open="true"] { border-color: var(--line-strong); }
+.komise-member-head { display: flex; align-items: center; gap: 8px; padding: 10px var(--pad-3); }
+.komise-member-toggle {
+  appearance: none; border: none; background: transparent; cursor: default;
+  font: inherit; text-align: left; color: var(--text);
+  flex: 1; min-width: 0;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.komise-member-name { font-weight: 600; font-size: 14.5px; }
+.komise-member-titles { font-size: 11.5px; color: var(--text-faint); }
+.komise-member-count { font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
+.komise-member-courses { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.komise-add { padding: 4px 10px; font-size: 12px; flex-shrink: 0; }
+.komise-add[data-on="true"] { color: var(--accent); }
+.komise-member-body {
+  padding: 4px var(--pad-3) var(--pad-3);
+  border-top: 0.5px solid var(--line);
+  display: flex; flex-direction: column; gap: var(--pad-3);
+}
+.komise-mt { padding-top: 8px; }
+.komise-mt .komise-topic-title { margin-bottom: 2px; }
+.komise-mt .komise-notes { margin-left: 0; }
+
+/* repositories */
+.komise-repos { display: flex; flex-direction: column; gap: var(--pad-2); }
+.komise-repo {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: var(--bg-card); border: 0.5px solid var(--line);
+  border-radius: var(--r-md); padding: 12px var(--pad-3);
+}
+.komise-repo[data-off="true"] { opacity: 0.55; }
+.komise-repo-toggle { padding-top: 2px; }
+.komise-repo-toggle input { width: 16px; height: 16px; accent-color: var(--accent); cursor: default; }
+.komise-repo-main { flex: 1; min-width: 0; }
+.komise-repo-name { font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.komise-repo-url {
+  font-family: var(--font-mono); font-size: 11px; color: var(--text-faint);
+  word-break: break-all; margin-top: 2px;
+}
+.komise-repo-err { font-size: 12px; color: var(--warn); margin-top: 4px; }
+.komise-tag {
+  font-size: 10.5px; font-weight: 500;
+  padding: 1px 7px; border-radius: 999px;
+  background: var(--bg-inset); color: var(--text-faint);
+}
+.komise-tag.ok { background: oklch(0.62 0.15 145 / 0.12); color: var(--ok); }
+.komise-tag.err { background: oklch(0.68 0.16 65 / 0.12); color: var(--warn); }
+.komise-addrepo {
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  margin-top: var(--pad-4);
+}
+.komise-addrepo .komise-picker-input { margin-bottom: 0; flex: 1; min-width: 180px; }

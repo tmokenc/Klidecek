@@ -1252,6 +1252,8 @@ leaf dot.
 | `src/framework/viz-registry.js`   | `register(id, Component)` + `get(id)`. |
 | `src/framework/mindmap.jsx`       | Radial course-mindmap layout. |
 | `src/framework/pages.jsx`         | All route page components (courses, specs, exam, course detail). |
+| `src/framework/komise.js`         | Komise data layer — repository list (localStorage), fetch+merge, index, min-max ranking (§11). |
+| `src/framework/komise-page.jsx`   | The `/k` page: min-max by commission, browse by examiner, manage repositories (§11). |
 | `src/framework/progress.js`       | localStorage + React hooks for progress, collapse state (per-key defaults for tiers), and user tweaks. |
 | `src/app.jsx`                     | History-API (clean-path) router (legacy `#/…` auto-rewritten), theme, sheets, app shell. |
 | `src/main.jsx`                    | React mount, removes the boot fade. |
@@ -1264,3 +1266,68 @@ leaf dot.
 3. Add any required CSS to `src/styles.css`.
 
 The block shape is freeform — only `kind` is required.
+
+## 11. Komise — what the committee asks (external data repositories)
+
+The **Komise** page (`/k`, bottom-nav "Komise") answers a different question from the
+rest of the app: *given who will examine me at the state exam (MSZ), what do those
+people historically ask — and which okruhy should I prioritise?* It maps real
+student-reported committee questions onto concrete `{course, topic}` study material.
+
+**The data is not bundled.** It is fetched at runtime from one or more *repositories*
+— URLs returning a `klidecek-komise/v1` JSON. The list of repositories is remembered in
+`localStorage` and is user-extensible (add a friend's raw-GitHub URL, disable or remove a
+repo, etc.). A **default** repository ships same-origin at `<BASE>repos/fit-msz.json`; it
+is seeded on first use and can be disabled **or removed** like any other (a "↺ Obnovit
+výchozí seznam" button restores it). The seed only happens when nothing has ever been
+saved — once the list is touched, it is respected verbatim (`loadRepos`/`restoreDefault`
+in `komise.js`). All *enabled* repos are fetched and their records merged (members with
+the same `key` merge across repos).
+
+### Repository format (`klidecek-komise/v1`)
+
+```jsonc
+{
+  "schema": "klidecek-komise/v1",
+  "name": "...", "description": "...", "version": "...",
+  "members": [ { "key", "surname", "first", "titles", "aliases", "count", "display" } ],
+  "records": [ {
+    "id", "session", "memberKey", "course", "num", "title", "text",
+    "map": { "course", "topic", "examTitle", "confidence": "high|low|course" } | null
+  } ]
+}
+```
+
+- `memberKey` references `members[].key` (diacritic-folded surname). `null` = examiner
+  couldn't be resolved.
+- `map` is the topic mapping. `high`/`low` carry a `topic`; `low` is approximate (the UI
+  marks it `≈` — always verify against `record.text`). `course` = course known but no
+  topic; `null` = course not covered by the app (another specialisation). Records always
+  show their raw `text`, so an imperfect map never hides the ground truth.
+
+### How it's produced
+
+`tools/committee-data/build.py` converts `materials/MSZ 2026 ALL KOMISE.xlsx` →
+`public/repos/fit-msz.json`. It (1) normalises ~180 messy examiner strings (full titles,
+surname-only, diacritic and word-order variants, nicknames) into canonical people via a
+curated `PEOPLE` table, and (2) maps each record onto a course topic with an
+IDF-weighted, accent-insensitive keyword matcher built from the manifest's own
+topic / sub-topic / exam-question titles. **Re-run it after renaming content topics** so
+the mapping stays in sync. See `tools/committee-data/README.md`.
+
+### The page (`komise-page.jsx`)
+
+Three tabs:
+
+- **Tvoje komise** (min-max) — pick the examiners on your board; `rankForCommission()`
+  ranks the okruhy those people asked by frequency × confidence. Each row links into the
+  study material and expands to the raw question notes. The selection persists
+  (`okruhy.komise.board.v1`).
+- **Komisaři** (browse) — every examiner and the topics they asked; "+ do komise" feeds
+  the min-max selection.
+- **Repozitáře** — add/remove/enable repository URLs; shows per-repo load status and
+  record counts.
+
+`komise.js` is pure logic + storage (no React); the page drives it. localStorage keys:
+`okruhy.komise.repos.v1`, `okruhy.komise.board.v1`. Verify with
+`node tools/committee-data/smoke.mjs` (spawns vite, drives `/k` headless).

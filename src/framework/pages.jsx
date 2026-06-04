@@ -212,6 +212,25 @@ export function HomePage({ content, navigate }) {
         </button>
       )}
 
+      <button
+        className="card"
+        onClick={() => navigate("/k")}
+        style={{ marginTop: 14, padding: "16px 20px", display: "flex", alignItems: "center", gap: 14, textAlign: "left" }}
+      >
+        <span style={{ width: 38, height: 38, borderRadius: 10, background: "var(--accent-soft)", color: "var(--accent)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </span>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <h3 className="card-title" style={{ marginBottom: 2 }}>Komise — co se ptají u státnic</h3>
+          <p style={{ margin: 0, fontSize: 13, color: "var(--text-muted)" }}>
+            Zadej, kdo tě bude zkoušet, a uvidíš, na co se daní komisaři ptali — namapováno na okruhy. Data z externích repozitářů.
+          </p>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: "var(--text-faint)" }}><path d="m9 6 6 6-6 6"/></svg>
+      </button>
+
       {tot > 0 && (
         <div style={{ marginTop: 24, padding: 14, background: "var(--bg-inset)", borderRadius: "var(--r-md)", fontSize: 13, color: "var(--text-muted)" }}>
           You've checked off <strong style={{ color: "var(--text)" }}>{tot}</strong> subtopics. Keep going.
