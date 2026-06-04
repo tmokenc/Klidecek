@@ -114,8 +114,9 @@ function Topbar({ navigate, onOpenSearch, onOpenProgress, onOpenSettings, hasPro
           </div>
         </button>
         <div className="topbar-actions">
-          <button className="icon-btn" onClick={onOpenSearch} title="Search (⌘K)" aria-label="Search">
+          <button className="icon-btn search-btn" onClick={onOpenSearch} title="Search — press S anywhere (⇧S for all courses)" aria-label="Search">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <kbd className="search-btn-kbd">S</kbd>
           </button>
           {repoUrl && (
             <a className="icon-btn" href={repoUrl} target="_blank" rel="noopener noreferrer" title="View source on GitHub" aria-label="GitHub repository">
@@ -155,9 +156,10 @@ function HighlightedLabel({ text, query }) {
   );
 }
 
-function SearchSheet({ content, defaultScopeCourseId, navigate, onClose }) {
+function SearchSheet({ content, defaultScopeCourseId, initialScope, navigate, onClose }) {
   const [q, setQ] = useState("");
-  const [scope, setScope] = useState(defaultScopeCourseId ? "course" : "all");
+  // ⇧S passes initialScope="all" to force the global scope even on a course page.
+  const [scope, setScope] = useState(initialScope || (defaultScopeCourseId ? "course" : "all"));
   const [activeIdx, setActiveIdx] = useState(0);
   const inputRef = useRef(null);
   const listRef = useRef(null);
@@ -220,7 +222,8 @@ function SearchSheet({ content, defaultScopeCourseId, navigate, onClose }) {
           {q.trim() === "" ? (
             <div className="search-empty">
               Type to search topics, subtopics, and courses. Diacritics are
-              ignored — "rizeni" finds "Řízení".
+              ignored — "rizeni" finds "Řízení". Press <kbd className="search-kbd">S</kbd>{" "}
+              anywhere to open this; <kbd className="search-kbd">⇧ S</kbd> searches all courses.
               <div className="search-hint">↑ ↓ to move · ↵ to open · esc to close</div>
             </div>
           ) : results.length === 0 ? (
@@ -440,21 +443,31 @@ export function App() {
   const [showProgress, setShowProgress] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [searchInitialScope, setSearchInitialScope] = useState(null);
   const [toastMsg, setToastMsg] = useState(null);
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
 
-  // Global ⌘K / Ctrl-K opens search. `/` also works as long as no input is focused.
+  // Keyboard: ⌘K/Ctrl-K opens search anywhere. With no text field focused, `S`
+  // opens search (⇧S forces the all-courses scope) and `/` also opens it.
   useEffect(() => {
     const onKey = (e) => {
       const meta = e.metaKey || e.ctrlKey;
       if (meta && (e.key === "k" || e.key === "K")) {
         e.preventDefault();
+        setSearchInitialScope(null);
         setShowSearch(true);
         return;
       }
+      if (meta || e.altKey) return; // leave other modified combos to the browser
       const tag = e.target && e.target.tagName;
-      if (e.key === "/" && tag !== "INPUT" && tag !== "TEXTAREA" && !e.target.isContentEditable) {
+      if (tag === "INPUT" || tag === "TEXTAREA" || (e.target && e.target.isContentEditable)) return;
+      if (e.key === "s" || e.key === "S") {
         e.preventDefault();
+        setSearchInitialScope(e.shiftKey ? "all" : null); // ⇧S → always global
+        setShowSearch(true);
+      } else if (e.key === "/") {
+        e.preventDefault();
+        setSearchInitialScope(null);
         setShowSearch(true);
       }
     };
@@ -560,6 +573,7 @@ export function App() {
         <SearchSheet
           content={content}
           defaultScopeCourseId={route.mode === "course" ? route.courseId : null}
+          initialScope={searchInitialScope}
           navigate={navigate}
           onClose={() => setShowSearch(false)}
         />

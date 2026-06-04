@@ -168,6 +168,23 @@ button { font: inherit; color: inherit; }
 .icon-btn:hover { background: var(--bg-inset); color: var(--text); }
 .icon-btn[data-active="true"] { color: var(--accent); background: var(--accent-soft); }
 
+/* Search button carries a visible "S" shortcut hint on wider screens. */
+.search-btn { width: auto; padding: 0 7px 0 9px; gap: 6px; display: flex; align-items: center; }
+.search-btn-kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1;
+  color: var(--text-faint);
+  border: 0.5px solid var(--line);
+  border-radius: 4px;
+  padding: 2px 5px;
+  background: var(--bg-inset);
+}
+@media (max-width: 600px) {
+  .search-btn { width: 32px; padding: 0; }
+  .search-btn-kbd { display: none; }
+}
+
 .content {
   max-width: var(--maxw);
   margin: 0 auto;
