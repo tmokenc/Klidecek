@@ -9,8 +9,53 @@ import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import {
   addRepo, removeRepo, setRepoEnabled, restoreDefault,
   rankForCommission, topicsForMember,
+  buildCommissionExport, exportToCSV, parseBoardParam,
 } from "./komise.js";
 import { useKomise } from "./komise-context.jsx";
+
+/* trigger a file download from an in-memory string */
+function downloadText(text, filename, type) {
+  const blob = new Blob([text], { type });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+}
+
+/* Save / share / export bar for the selected commission. */
+function ExportBar({ index, board }) {
+  const [copied, setCopied] = useState(false);
+  const stamp = () => new Date().toISOString().slice(0, 10);
+  const data = () => buildCommissionExport(index, board, { exportedAt: new Date().toISOString() });
+  const dlJSON = () => downloadText(JSON.stringify(data(), null, 2), `komise-${stamp()}.json`, "application/json");
+  const dlCSV = () => downloadText(exportToCSV(data()), `komise-${stamp()}.csv`, "text/csv;charset=utf-8");
+  const copyLink = async () => {
+    const link = location.href;
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopied(true);
+      window.toast && window.toast("Odkaz zkopírován — ulož si ho");
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      window.toast && window.toast("Schránka není dostupná — zkopíruj si odkaz ručně");
+      window.prompt("Zkopíruj si odkaz:", link);
+    }
+  };
+  const n = index.records.filter((r) => board.includes(r.memberKey)).length;
+  return (
+    <div className="komise-export">
+      <span className="komise-export-label">Ulož / sdílej výběr ({n} otázek):</span>
+      <button className="btn" onClick={copyLink} title="Odkaz s tvojí komisí — ulož do záložek nebo pošli dál">
+        {copied ? "✓ Zkopírováno" : "Zkopírovat odkaz"}
+      </button>
+      <button className="btn" onClick={dlJSON} title="Export otázek jako JSON">Stáhnout JSON</button>
+      <button className="btn" onClick={dlCSV} title="Export otázek jako tabulku (CSV pro Excel)">Stáhnout CSV</button>
+    </div>
+  );
+}
 
 /* ─── helpers ─────────────────────────────────────────────── */
 function resolveTopic(content, course, topic, fallbackTitle) {
@@ -190,7 +235,7 @@ function MinMaxView({ content, index, board, setBoard, navigate, memberNameOf })
 
       <MemberPicker members={index.members} board={board} onAdd={toggle} />
 
-      {boardMembers.length > 0 && (
+      {board.length > 0 && (
         <div className="komise-board">
           <span className="komise-muted">Tvoje komise:</span>
           {boardMembers.map((m) => (
@@ -198,9 +243,14 @@ function MinMaxView({ content, index, board, setBoard, navigate, memberNameOf })
               {m.display}<span className="komise-chip-x">×</span>
             </button>
           ))}
+          {board.length > boardMembers.length && (
+            <span className="komise-muted">({board.length - boardMembers.length} mimo data)</span>
+          )}
           <button className="btn ghost komise-clear" onClick={() => setBoard([])}>Vyčistit</button>
         </div>
       )}
+
+      {board.length > 0 && <ExportBar index={index} board={board} />}
 
       {board.length === 0 ? (
         <div className="komise-empty">Vyber alespoň jednoho komisaře výše.</div>
@@ -402,6 +452,30 @@ export function KomisePage({ content, navigate }) {
   const { repos, setRepos, status, index, errors, reload, board, setBoard, ensureLoaded } = useKomise();
   const [tab, setTab] = useState("minmax");
   useEffect(() => { ensureLoaded(); }, [ensureLoaded]);
+
+  // Shareable/saveable selection. The URL carries "?komise=key1,key2". Capture it once at
+  // mount (before the reflect effect can rewrite it), adopt it after the index loads so
+  // keys are validated against real members (garbled/unknown keys are dropped), then keep
+  // the URL in sync with the board.
+  const initialSearch = useRef(null);
+  if (initialSearch.current === null) initialSearch.current = location.search;
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    if (hydrated || !index) return; // wait for data so unknown/garbled keys can be dropped
+    const keys = parseBoardParam(initialSearch.current);
+    const valid = keys ? keys.filter((k) => index.byKey.has(k)) : [];
+    if (valid.length) setBoard(valid);
+    setHydrated(true);
+  }, [index, hydrated, setBoard]);
+  useEffect(() => {
+    if (!hydrated) return; // don't clobber the shared param before we've adopted it
+    try {
+      const params = new URLSearchParams(location.search);
+      if (board.length) params.set("komise", board.join(",")); else params.delete("komise");
+      const qs = params.toString();
+      history.replaceState(history.state, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
+    } catch { /* replaceState can be blocked (sandboxed iframe / CSP) — non-fatal */ }
+  }, [board, hydrated]);
 
   const memberNameOf = useCallback((key) => {
     const m = index && index.members.find((x) => x.key === key);

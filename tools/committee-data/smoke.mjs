@@ -1,11 +1,40 @@
 // Headless smoke test for the Komise page. Spawns vite, drives the /k route.
 //   node tools/committee-data/smoke.mjs
 import { spawn } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 import puppeteer from 'puppeteer-core';
 
 const EXE = process.env.HOME + '/.cache/ms-playwright/chromium_headless_shell-1223/chrome-headless-shell-linux64/chrome-headless-shell';
 const PORT = 5197, BASE = `http://127.0.0.1:${PORT}/`;
 const ROOT = process.cwd();
+const DL = path.join(process.env.TMPDIR || '/tmp', 'komdl');
+
+// minimal RFC-4180 parser (handles quoted fields with commas / newlines / "")
+function parseCSV(text) {
+  if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+  const rows = []; let row = [], field = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else q = false; }
+      else field += c;
+    } else if (c === '"') q = true;
+    else if (c === ',') { row.push(field); field = ''; }
+    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+    else if (c !== '\r') field += c;
+  }
+  if (field.length || row.length) { row.push(field); rows.push(row); }
+  return rows;
+}
+async function waitForFile(dir, re) {
+  for (let i = 0; i < 60; i++) {
+    const f = (fs.existsSync(dir) ? fs.readdirSync(dir) : []).find((n) => re.test(n) && !n.endsWith('.crdownload'));
+    if (f) return path.join(dir, f);
+    await new Promise(r => setTimeout(r, 200));
+  }
+  throw new Error('download did not appear: ' + re);
+}
 
 const vite = spawn('node', ['./node_modules/.bin/vite', '--port', String(PORT), '--host', '127.0.0.1', '--strictPort'], { cwd: ROOT, stdio: 'ignore' });
 process.on('exit', () => { try { vite.kill('SIGTERM'); } catch {} });
@@ -129,6 +158,38 @@ try {
   await page.waitForSelector('.komise-asked', { timeout: 12000 });
   const askers = await page.$$eval('.komise-asked-chip', e => e.length);
   ok(`exam topic shows who asked (${askers} examiners)`, askers > 0);
+
+  // ── save / share / export ──
+  fs.rmSync(DL, { recursive: true, force: true }); fs.mkdirSync(DL, { recursive: true });
+  const client = await page.target().createCDPSession();
+  await client.send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: DL });
+  await page.goto(BASE + 'k', { waitUntil: 'domcontentloaded' });
+  await page.waitForSelector('.komise-export', { timeout: 12000 });
+  // selection is encoded in the URL (shareable/saveable link) — written once data loads
+  await page.waitForFunction(() => /komise=/.test(location.search), { timeout: 6000 }).catch(() => {});
+  const urlParam = await page.evaluate(() => location.search);
+  ok(`selection encoded in URL (${urlParam || 'none'})`, /komise=/.test(urlParam));
+  const expectN = await page.$eval('.komise-export-label', el => parseInt((el.textContent.match(/\((\d+)/) || [])[1], 10));
+
+  // CSV export — real download, round-tripped
+  await page.evaluate(() => [...document.querySelectorAll('.komise-export .btn')].find(b => /CSV/.test(b.textContent)).click());
+  const csv = fs.readFileSync(await waitForFile(DL, /\.csv$/), 'utf8');
+  const rows = parseCSV(csv);
+  const allSixCols = rows.every(r => r.length === 6);
+  ok(`CSV: BOM + header + ${rows.length - 1} rows = board (${expectN}), quoting ok`,
+     csv.charCodeAt(0) === 0xFEFF && /Komisař/.test(rows[0].join(',')) && rows.length - 1 === expectN && allSixCols);
+
+  // JSON export
+  await page.evaluate(() => [...document.querySelectorAll('.komise-export .btn')].find(b => /JSON/.test(b.textContent)).click());
+  const obj = JSON.parse(fs.readFileSync(await waitForFile(DL, /\.json$/), 'utf8'));
+  ok(`JSON: valid schema + ${obj.count} records = count`,
+     obj.schema === 'klidecek-komise-export/v1' && obj.records.length === obj.count && obj.count === expectN);
+
+  // a shared link pre-fills the commission on load
+  await page.goto(BASE + 'k?komise=malinka,hanacek', { waitUntil: 'domcontentloaded' });
+  await page.waitForSelector('.komise-board .komise-chip', { timeout: 12000 });
+  const boardChips = await page.$$eval('.komise-board .komise-chip', els => els.map(e => e.textContent).join(' '));
+  ok(`shared link pre-fills board (${boardChips.replace(/\s+/g, ' ').trim().slice(0, 40)})`, /Malinka/.test(boardChips));
 
 } catch (e) {
   ok('exception: ' + e.message, false);

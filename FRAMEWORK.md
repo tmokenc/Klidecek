@@ -1324,7 +1324,11 @@ Three tabs:
 - **Tvoje komise** (min-max) — pick the examiners on your board; `rankForCommission()`
   ranks the okruhy those people asked by frequency × confidence. Each row links into the
   study material and expands to the raw question notes. The selection persists
-  (`okruhy.komise.board.v1`).
+  (`okruhy.komise.board.v1`) **and is encoded in the URL** (`/k?komise=key1,key2`) so it
+  can be bookmarked/shared — "Zkopírovat odkaz" copies the current link, and opening such
+  a link pre-fills the board. The selection can also be **exported**: "Stáhnout JSON" /
+  "Stáhnout CSV" (`buildCommissionExport` + `exportToCSV` — RFC-4180, UTF-8 BOM for Excel)
+  dump every question those examiners asked.
 - **Komisaři** (browse) — every examiner and the topics they asked; "+ do komise" feeds
   the min-max selection.
 - **Repozitáře** — add/remove/enable repository URLs; shows per-repo load status and

@@ -344,3 +344,69 @@ export function askHistogram(index, examTopics, board, scope) {
     return { id: t.id, n: t.n, title: t.title, count };
   });
 }
+
+/* ─── Export: the selected commission's questions ─────────────
+ * "json nebo tabulku s otázkami co byli u lidi co si vyklikas" — every question the
+ * chosen examiners asked, ready to save. With no board, exports everything. */
+export function buildCommissionExport(index, board, meta) {
+  const set = new Set(board || []);
+  const all = !board || board.length === 0;
+  const commission = (board || []).map((k) => {
+    const m = index.byKey.get(k);
+    return m ? { key: m.key, name: m.display, titles: m.titles || "" } : { key: k, name: k };
+  });
+  const records = index.records
+    .filter((r) => r.memberKey && (all || set.has(r.memberKey)))
+    .map((r) => ({
+      examiner: memberDisplay(index, r.memberKey),
+      examinerKey: r.memberKey || null,
+      course: r.course || null,
+      examTopic: (r.map && r.map.examTitle) || null,
+      mappedTopic: (r.map && r.map.topic && r.course) ? r.course + "/" + r.map.topic : null,
+      confidence: (r.map && r.map.confidence) || null,
+      session: r.session || null,
+      asked: r.text || r.title || null,
+    }));
+  return {
+    schema: "klidecek-komise-export/v1",
+    exportedAt: (meta && meta.exportedAt) || null,
+    commission,
+    count: records.length,
+    records,
+  };
+}
+
+// RFC-4180 CSV with a UTF-8 BOM so Excel reads the Czech diacritics correctly. Newlines
+// inside the question text are preserved (allowed inside a quoted field).
+export function exportToCSV(exportData) {
+  const cols = ["Komisař", "Předmět", "Okruh", "Spolehlivost", "Rok", "Na co se ptal"];
+  const esc = (v) => {
+    let s = String(v == null ? "" : v);
+    // CSV/formula-injection guard: a cell starting with = + - @ (or tab/CR) is run as a
+    // formula by Excel/Sheets. The texts are free-form notes, so neutralise with a quote.
+    if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+    return '"' + s.replace(/"/g, '""') + '"';
+  };
+  const rowsToText = (r) => [r.examiner, r.course, r.examTopic, r.confidence, r.session, r.asked];
+  const lines = [cols.map(esc).join(",")];
+  for (const r of exportData.records) lines.push(rowsToText(r).map(esc).join(","));
+  return "\uFEFF" + lines.join("\r\n");
+}
+
+// Board <-> URL param helpers ("?komise=krivka,bartik,..").
+// Member keys are diacritic-folded surnames (build.py), i.e. [a-z0-9-]. Keep only keys
+// of that shape and cap the count, so a hostile/garbled ?komise= can't inject junk,
+// blow up the board, or smuggle markup. Existence is then checked against the index.
+const MAX_BOARD = 64;
+export function parseBoardParam(search) {
+  try {
+    const v = new URLSearchParams(search || "").get("komise");
+    if (!v) return null;
+    const keys = [...new Set(
+      v.split(",").map((s) => s.trim().toLowerCase()).filter((s) => /^[a-z0-9-]{1,40}$/.test(s))
+    )].slice(0, MAX_BOARD);
+    return keys.length ? keys : null;
+  } catch {
+    return null;
+  }
+}

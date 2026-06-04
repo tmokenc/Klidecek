@@ -2193,3 +2193,13 @@ button { font: inherit; color: inherit; }
   color: var(--text); font-weight: 600;
 }
 .komise-asked-n { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint); }
+
+/* Komise: save / share / export bar */
+.komise-export {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+  margin: var(--pad-3) 0;
+  padding: 10px var(--pad-3);
+  background: var(--bg-inset); border-radius: var(--r-md);
+}
+.komise-export-label { font-size: 12.5px; color: var(--text-muted); margin-right: 2px; }
+.komise-export .btn { padding: 5px 12px; font-size: 12.5px; }
