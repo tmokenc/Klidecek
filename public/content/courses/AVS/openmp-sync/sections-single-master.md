@@ -4,11 +4,11 @@ title: sections, single, master — work-sharing direktivy
 
 # Work-sharing: sections, single, master
 
-`parallel for` ([[parallel-for-scheduling]]) je nejčastější work-sharing direktiva. Pro *jiné* vzory existují **sections**, **single**, **master** — *funkční* paralelismus, *jedno* vlákno provede sekci, *master* speciální role.
+`parallel for` ([[parallel-for-scheduling]]) je nejčastější work-sharing direktiva. Pro *jiné* vzory existují direktivy **sections**, **single** a **master**. Jde o *funkční* paralelismus: u `sections` běží různé úkoly současně, u `single` provede daný blok *jedno* vlákno (thread) a `master` má speciální roli vyhrazenou hlavnímu vláknu.
 
 ## sections — funkční paralelismus
 
-Když máte *více různých* úkolů, které jdou paralelně:
+Když máte *více různých* úkolů, které mohou běžet paralelně:
 
 ```c
 #pragma omp parallel
@@ -27,24 +27,24 @@ Když máte *více různých* úkolů, které jdou paralelně:
 }
 ```
 
-Každá `section` je *přiřazena* některému vláknu. Pokud T = 4 a sekcí 3, jedno vlákno bude idle (pokud nedoubluje). Pokud T = 2 a sekcí 3, jedno z vláken bude dělat 2 sekce postupně.
+Každá `section` je *přiřazena* některému vláknu. Pokud je počet vláken T = 4 a sekce jsou jen 3, jedno vlákno bude nečinné (idle), pokud nezdvojuje práci. Pokud je T = 2 a sekce jsou 3, jedno z vláken vykoná 2 sekce postupně za sebou.
 
-Synchronizace: implicit barrier na konci `sections`. Lze vypnout: `sections nowait`.
+Synchronizace: na konci `sections` je implicitní bariéra (implicit barrier). Lze ji vypnout pomocí `sections nowait`.
 
 ### Kdy použít
 
-- **Heterogenní úkoly** — read input, parse, process současně.
-- **Pipeline stages** — stage1 vyrobí data, stage2 spotřebuje (s producer-consumer queue).
-- **Different algorithms over same data** — checksum + parse, search + sort.
+- **Heterogenní úkoly** — například současně načítat vstup, parsovat a zpracovávat.
+- **Fáze kolony (pipeline stages)** — fáze 1 vyrobí data, fáze 2 je spotřebuje (s frontou typu producent-konzument).
+- **Různé algoritmy nad stejnými daty** — kontrolní součet (checksum) plus parsování, vyhledávání plus řazení.
 
 ### Limity
 
-- Statický počet sekcí. Pokud chcete *dynamický* počet úkolů → `tasks` ([[tasks-openmp]]).
-- Pokud sekce mají *nerovnou* dobu, scheduling špatný (nelze auto-balance).
+- Počet sekcí je statický. Pokud chcete *dynamický* počet úkolů, použijte `tasks` ([[tasks-openmp]]).
+- Pokud mají sekce *nestejnou* dobu běhu, je rozvrhování (scheduling) nevyvážené — nelze ho automaticky vybalancovat.
 
 ## single — jediné vlákno
 
-V parallel regionu blok provede *jedno* (libovolné) vlákno:
+V paralelní oblasti (parallel region) provede daný blok *jedno* (libovolné) vlákno:
 
 ```c
 #pragma omp parallel
@@ -60,13 +60,13 @@ V parallel regionu blok provede *jedno* (libovolné) vlákno:
 }
 ```
 
-Klíčové aplikace:
+Klíčová použití:
 
-- **Initialization** — alokace, file open.
-- **Print** statements (debugging).
-- **Master writes to shared state** while workers prepare.
+- **Inicializace** — alokace paměti, otevření souboru.
+- **Výpisy** (`print` při ladění, debuggingu).
+- **Hlavní vlákno zapisuje do sdíleného stavu**, zatímco pracovní vlákna se připravují.
 
-Vlákno, které vykoná `single`, je *implementačně určené* (typicky první, kdo dorazí). Ostatní *čekají* na implicit barrier.
+Vlákno, které vykoná `single`, je *určeno implementací* (typicky první, které dorazí). Ostatní *čekají* na implicitní bariéře.
 
 ### nowait
 
@@ -77,9 +77,9 @@ Vlákno, které vykoná `single`, je *implementačně určené* (typicky první,
 }
 ```
 
-Bez barrier — ostatní vlákna pokračují, nečekají. Single thread *delayed*. Pak je třeba *manuální* sync, pokud následuje práce s init data.
+Bez bariéry — ostatní vlákna pokračují dál a nečekají. Vlákno provádějící `single` se tím zpozdí. Pak je nutná *ruční* synchronizace, pokud následuje práce s inicializačními daty.
 
-## master — pouze master thread
+## master — pouze hlavní vlákno
 
 ```c
 #pragma omp parallel
@@ -94,21 +94,21 @@ Bez barrier — ostatní vlákna pokračují, nečekají. Single thread *delayed
 }
 ```
 
-`master` blok provede *thread 0* (master). Ostatní *přeskočí*, nečekají.
+Blok `master` provede *vlákno 0* (master). Ostatní vlákna ho *přeskočí* a nečekají.
 
 ### master vs single
 
 | | master | single |
 | :--- | :--- | :--- |
-| Který thread | thread 0 | *any* thread (first to arrive) |
-| Implicit barrier? | **NE** | **ANO** (lze nowait) |
-| Použití | jednoduchý announcement | init that others need |
+| Které vlákno | vlákno 0 | *libovolné* vlákno (první, které dorazí) |
+| Implicitní bariéra? | **NE** | **ANO** (lze vypnout přes nowait) |
+| Použití | jednoduché oznámení | inicializace, kterou potřebují ostatní |
 
-`master` je *rychlejší* (no barrier), ale méně flexibilní. Lépe pro print/log; horší pro initialization.
+`master` je *rychlejší* (bez bariéry), ale méně flexibilní. Hodí se lépe pro výpis/log; hůře pro inicializaci.
 
-## Workshare directives (Fortran-only)
+## Direktiva workshare (pouze ve Fortranu)
 
-OpenMP Fortran má `workshare` pro array operations:
+OpenMP ve Fortranu má direktivu `workshare` pro operace nad poli:
 
 ```fortran
 !$omp parallel workshare
@@ -117,11 +117,11 @@ WHERE (A > 0) A = A / 2
 !$omp end parallel workshare
 ```
 
-C/C++ ekvivalent: `parallel for` over array. Workshare je *Fortranová* abstrakce nad numpy-like operacemi.
+Ekvivalentem v C/C++ je `parallel for` přes celé pole. `workshare` je *fortranovská* abstrakce nad operacemi ve stylu numpy.
 
-## Combined directives
+## Kombinované direktivy
 
-OpenMP umožňuje *zkratky* — kombinovat `parallel` s work-sharing:
+OpenMP umožňuje *zkratky* — kombinovat `parallel` s work-sharing direktivou:
 
 ```c
 #pragma omp parallel for      // = parallel + for
@@ -134,9 +134,9 @@ for (...) { ... }
 }
 ```
 
-Nemusíte vytvořit explicit `parallel` region. Direktiva implicitly forks team a immediately work-shares.
+Nemusíte vytvářet samostatnou explicitní `parallel` oblast. Direktiva implicitně vytvoří (forkne) tým vláken a okamžitě rozdělí práci mezi ně.
 
-## Příklad: pipeline pattern {tier=example}
+## Příklad: vzor kolony (pipeline) {tier=example}
 
 ```c
 #pragma omp parallel sections
@@ -171,11 +171,11 @@ Nemusíte vytvořit explicit `parallel` region. Direktiva implicitly forks team 
 }
 ```
 
-Three independent stages. Queues = synchronizační datová struktura (musí být thread-safe — concurrent queue).
+Tři nezávislé fáze. Fronty (queues) jsou synchronizační datová struktura — musí být bezpečné pro souběžný přístup z více vláken (thread-safe), tedy souběžná (concurrent) fronta.
 
-Trade-off: synchronization overhead vs throughput. Pokud queue má lock, lock contention zpomalí. Lock-free queue (Michael-Scott queue) lepší.
+Kompromis: režie synchronizace (synchronization overhead) proti propustnosti (throughput). Pokud fronta používá zámek (lock), soupeření o zámek (lock contention) ji zpomalí. Lepší je bezzámková (lock-free) fronta, například Michael-Scottova fronta.
 
-## Příklad: orchestrator + workers {tier=example}
+## Příklad: řídicí vlákno a pracovní vlákna {tier=example}
 
 ```c
 #pragma omp parallel
@@ -192,11 +192,11 @@ Trade-off: synchronization overhead vs throughput. Pokud queue má lock, lock co
 }
 ```
 
-Master generates, workers (including master after generation) consume via task scheduler. Detaily v [[tasks-openmp]].
+Hlavní vlákno (master) generuje úlohy (tasks), pracovní vlákna — včetně hlavního vlákna poté, co je dogeneruje — je spotřebovávají přes plánovač úloh (task scheduler). Podrobnosti najdete v [[tasks-openmp]].
 
 ## Co dál
 
-[[tasks-openmp]] popisuje **task** direktivu — dynamický paralelismus, idální pro irregular work (tree, recursive algorithms). Pak [[synchronizace-bariery]], [[locks-openmp]], [[false-sharing-races]] dokončí Topic 8.
+[[tasks-openmp]] popisuje direktivu **task** — dynamický paralelismus, ideální pro nepravidelnou práci (procházení stromů, rekurzivní algoritmy). Pak [[synchronizace-bariery]], [[locks-openmp]] a [[false-sharing-races]] dokončí Téma 8.
 
 ---
 

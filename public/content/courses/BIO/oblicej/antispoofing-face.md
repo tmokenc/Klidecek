@@ -4,9 +4,9 @@ title: Anti-spoofing pro obličej
 
 # Anti-spoofing pro obličej
 
-Face recognition systémy musí *rozpoznat*, zda je před senzorem *živý člověk* nebo *podvrh* — fotografie, video, maska, deepfake. Tento problém je známý jako **face anti-spoofing** nebo **liveness detection**. S rostoucí kvalitou útoků (silikonové masky, deepfakes) je antispoofing kritickou komponentou bezpečných systémů.
+Systémy pro rozpoznávání obličeje (face recognition) musí *rozpoznat*, zda je před senzorem *živý člověk*, nebo *podvrh* — fotografie, video, maska či deepfake. Tento problém je známý jako **face anti-spoofing** neboli **detekce živosti (liveness detection)**. S rostoucí kvalitou útoků (silikonové masky, deepfaky) se anti-spoofing stává kritickou součástí bezpečných systémů.
 
-## Typy útoků na face recognition
+## Typy útoků na rozpoznávání obličeje
 
 ::: svg "Útoky na face systémy: photo, video replay, 3D mask (paper, silicone), deepfake video, makeup/disguise."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -56,182 +56,182 @@ Face recognition systémy musí *rozpoznat*, zda je před senzorem *živý člov
 </svg>
 :::
 
-### 1. Photo attack
+### 1. Útok fotografií (photo attack)
 
-* Nejjednodušší — printed fotografii oběti.
-* **Cost:** $0.50 (printed photo).
-* **Vulnerable systems:** *všechny* 2D-only face systems.
-* **Defenze:** depth sensing, IR, motion detection.
+* Nejjednodušší způsob — útočník použije vytištěnou fotografii oběti.
+* **Cena:** 0,50 $ (vytištěná fotografie).
+* **Zranitelné systémy:** *všechny* čistě 2D systémy pro rozpoznávání obličeje.
+* **Obrana:** snímání hloubky (depth sensing), infračervené (IR) snímání, detekce pohybu.
 
-### 2. Video replay
+### 2. Přehrání videa (video replay)
 
-* Tablet/phone přehrávající *video* oběti.
-* **Cost:** $200 (phone) + access to video.
-* **Vulnerable systems:** 2D + motion detection (video has motion).
-* **Defenze:** screen reflection detection, depth sensing.
+* Tablet nebo telefon přehrávající *video* oběti.
+* **Cena:** 200 $ (telefon) plus získání videa.
+* **Zranitelné systémy:** 2D systémy doplněné o detekci pohybu (video totiž pohyb obsahuje).
+* **Obrana:** detekce odlesků obrazovky, snímání hloubky.
 
-### 3. Paper mask (cutout)
+### 3. Papírová maska s výřezem (paper mask, cutout)
 
-* Vyříznutá fotografie obličeje na hůlce.
-* **Cost:** $1.
-* **Cíl:** simulate motion (when held in hand).
-* **Defenze:** depth sensing.
+* Vyříznutá fotografie obličeje nasazená na hůlce.
+* **Cena:** 1 $.
+* **Cíl:** napodobit pohyb (když útočník maskou pohybuje v ruce).
+* **Obrana:** snímání hloubky.
 
-### 4. 3D silicone mask
+### 4. Silikonová 3D maska (3D silicone mask)
 
-* Profesionální silikonová maska s realistickými texture, color, hair.
-* **Cost:** $500–$5000.
-* **Cíl:** simulate 3D structure of real face.
-* **Vulnerable systems:** *většina* 3D depth systems including Apple Face ID (demo by [Bkav 2017](https://www.bkav.com/about-us/bkav-news/-/journal_content/56/22600/face-id-on-iphone-x-fooled-by-bkavs-mask?ref=https://www.bkav.com/about-us/bkav-news)).
-* **Defenze:** *liveness* via blood flow, micro-expressions.
+* Profesionální silikonová maska s realistickou texturou, barvou a vlasy.
+* **Cena:** 500–5000 $.
+* **Cíl:** napodobit prostorovou (3D) strukturu skutečného obličeje.
+* **Zranitelné systémy:** *většina* hloubkových 3D systémů včetně Apple Face ID (předvedeno firmou [Bkav 2017](https://www.bkav.com/about-us/bkav-news/-/journal_content/56/22600/face-id-on-iphone-x-fooled-by-bkavs-mask?ref=https://www.bkav.com/about-us/bkav-news)).
+* **Obrana:** detekce *živosti* podle průtoku krve a mikrovýrazů.
 
 ### 5. Deepfake video
 
-* AI-generated synthetic video oběti.
-* **Cost:** $0 (open-source tools).
-* **Cíl:** real-time face swap.
-* **Defenze:** specialized deepfake detectors ([[deepfakes]]).
+* Synteticky vytvořené video oběti generované umělou inteligencí.
+* **Cena:** 0 $ (nástroje s otevřeným zdrojovým kódem).
+* **Cíl:** výměna obličeje (face swap) v reálném čase.
+* **Obrana:** specializované detektory deepfaků ([[deepfakes]]).
 
-### 6. Makeup / disguise
+### 6. Líčení a převlek (makeup / disguise)
 
-* Heavy makeup, prosthetics, glasses, beard.
-* **Cost:** variable.
-* **Cíl:** *evasion* (avoid recognition), ne impersonation.
-* **Defenze:** robust embeddings, periodic re-enrollment.
+* Výrazné líčení, protetika, brýle, vousy.
+* **Cena:** proměnlivá.
+* **Cíl:** *vyhnutí se* rozpoznání (evasion), nikoli vydávání se za jinou osobu.
+* **Obrana:** robustní vektorové reprezentace obličeje (embeddings), pravidelná opětovná registrace.
 
-## Anti-spoofing techniques
+## Techniky anti-spoofingu
 
-### Liveness detection — passive
+### Detekce živosti — pasivní (passive)
 
-Detection bez user interaction:
+Detekce bez nutnosti součinnosti uživatele:
 
-* **Texture analysis** — printed photos have *different* texture (LBP, moiré patterns).
-* **Color analysis** — printer color gamut differs from real skin.
-* **Motion analysis** — natural micro-movements (breathing, blink).
-* **Reflection patterns** — skin reflects differently than paper/screen.
-* **Depth sensing** — 2D vs. 3D structure.
-* **IR sensing** — skin reflects IR; photo doesn't.
+* **Analýza textury** — vytištěné fotografie mají *odlišnou* texturu (LBP, moaré vzory).
+* **Analýza barev** — barevný gamut tiskárny se liší od skutečné kůže.
+* **Analýza pohybu** — přirozené mikropohyby (dýchání, mrkání).
+* **Vzory odlesků** — kůže odráží světlo jinak než papír nebo obrazovka.
+* **Snímání hloubky** — rozlišení 2D a 3D struktury.
+* **Infračervené snímání (IR)** — kůže odráží infračervené světlo, fotografie nikoli.
 
-### Liveness detection — challenge-response
+### Detekce živosti — výzva a odpověď (challenge-response)
 
-Active prompting user:
+Aktivní vyzývání uživatele:
 
-* **Blink detection** — "blink twice".
-* **Head turn** — "turn left, then right".
-* **Smile** — "please smile".
-* **Read random text** — speech + face sync.
-* **Random color flash** — user's face illuminates with random colors; check natural response.
+* **Detekce mrknutí** — „dvakrát mrkněte“.
+* **Otočení hlavy** — „otočte hlavu doleva a pak doprava“.
+* **Úsměv** — „prosím usmějte se“.
+* **Přečtení náhodného textu** — synchronizace řeči a pohybu obličeje.
+* **Záblesk náhodné barvy** — obličej uživatele je osvícen náhodnými barvami a kontroluje se přirozená reakce.
 
-### Multimodal sensing
+### Multimodální snímání (multimodal sensing)
 
-Kombinace:
+Kombinace více zdrojů:
 
-* **Depth** (3D structure) + **IR** (skin reflection) + **Visible** (color/texture).
-* **Apple Face ID** používá *all three*.
-* Difficult to spoof *všechny* modality simultaneously.
+* **Hloubka** (3D struktura) + **infračervené (IR)** snímání (odrazivost kůže) + **viditelné světlo** (barva a textura).
+* **Apple Face ID** používá *všechny tři* zmíněné modality.
+* Je obtížné podvrhnout *všechny* modality současně.
 
-### Deep learning-based detection
+### Detekce založená na hlubokém učení (deep learning)
 
-* CNN trained on *real* vs. *spoofed* face images.
-* **Architecture:** ResNet, EfficientNet, or specialized like *Patchnet*.
-* **Datasets:** OULU-NPU, ROSE-Youtu, Replay-Attack.
-* **Cross-dataset generalization** je *velký problém* — model trained on one dataset failuje on novel attacks.
+* Konvoluční neuronová síť (CNN) natrénovaná na *skutečných* versus *podvržených* snímcích obličejů.
+* **Architektura:** ResNet, EfficientNet nebo specializované sítě jako *Patchnet*.
+* **Datové sady:** OULU-NPU, ROSE-Youtu, Replay-Attack.
+* **Zobecnění napříč datovými sadami (cross-dataset generalization)** je *velký problém* — model natrénovaný na jedné datové sadě selhává na nových, dosud neviděných útocích.
 
 ## Standardy
 
-### ISO/IEC 30107 — Presentation Attack Detection (PAD)
+### ISO/IEC 30107 — detekce prezentačních útoků (Presentation Attack Detection, PAD)
 
-* **Part 1:** framework + terminology.
-* **Part 2:** data formats.
-* **Part 3:** testing methodology.
+* **Část 1:** rámec (framework) a terminologie.
+* **Část 2:** datové formáty.
+* **Část 3:** metodika testování.
 
 **Klíčové metriky:**
 
-* **APCER** (Attack Presentation Classification Error Rate) — % spoofs accepted as real.
-* **BPCER** (Bona Fide Presentation Classification Error Rate) — % real users rejected as spoof.
+* **APCER** (Attack Presentation Classification Error Rate) — procento podvrhů přijatých jako pravé.
+* **BPCER** (Bona Fide Presentation Classification Error Rate) — procento skutečných uživatelů odmítnutých jako podvrh.
 
-Cíl: minimize obě (typically APCER < 1 %, BPCER < 5 %).
+Cílem je minimalizovat obě hodnoty (typicky APCER < 1 %, BPCER < 5 %).
 
-### iBeta testing
+### Testování iBeta
 
-[iBeta Quality Assurance](https://www.ibeta.com/) — accredited lab testing for face liveness:
+[iBeta Quality Assurance](https://www.ibeta.com/) — akreditovaná laboratoř pro testování detekce živosti obličeje:
 
-* **Level 1** — basic photo/video attacks.
-* **Level 2** — 3D masks, silicone, makeup.
-* **Level 3+** — advanced (state-actor level).
+* **Úroveň 1** — základní útoky fotografií a videem.
+* **Úroveň 2** — 3D masky, silikon, líčení.
+* **Úroveň 3 a vyšší** — pokročilé útoky (na úrovni státních aktérů).
 
-Apple Face ID certified iBeta Level 2.
+Apple Face ID je certifikován na úrovni iBeta Level 2.
 
 ## Konkrétní implementace
 
-### Apple Face ID (2017+)
+### Apple Face ID (od roku 2017)
 
-* **TrueDepth camera** captures 30 000+ IR dots.
-* **Attention detection** — vyžaduje *user looking at camera*.
-* **Eye tracking** — detection.
-* **Neural network** trained on >1B images of *real* a *fake* faces.
-* **iBeta Level 2** certified.
+* **Kamera TrueDepth** zachytí přes 30 000 infračervených bodů.
+* **Detekce pozornosti** — vyžaduje, aby se *uživatel díval do kamery*.
+* **Sledování očí (eye tracking)** — detekce pohledu.
+* **Neuronová síť** natrénovaná na více než miliardě snímků *skutečných* i *falešných* obličejů.
+* Certifikace **iBeta Level 2**.
 
-Notable bypass: Bkav (2017) silikonová maska prošla; Apple opravil firmware update.
+Známé prolomení: silikonová maska firmy Bkav (2017) systém oklamala; Apple to opravil aktualizací firmwaru.
 
 ### Windows Hello
 
-* **NIR camera** + IR illumination.
-* **Liveness** via 3D depth + eye blink.
-* Microsoft requires *Hello Enhanced Anti-Spoofing* compliance for "Windows Hello Plus" certification.
+* **Kamera NIR** (blízké infračervené světlo) plus IR osvětlení.
+* **Živost** ověřena pomocí 3D hloubky a mrkání očí.
+* Microsoft vyžaduje shodu s normou *Hello Enhanced Anti-Spoofing* pro certifikaci „Windows Hello Plus“.
 
-### Bank of America (mobile)
+### Bank of America (mobilní aplikace)
 
-* Face liveness for transaction authorization.
-* Active challenge (head movement).
-* Backend ML-based detection.
+* Ověření živosti obličeje pro autorizaci transakce.
+* Aktivní výzva (pohyb hlavou).
+* Detekce na straně serveru založená na strojovém učení (ML).
 
 ### Smile to Pay (Alibaba)
 
-* China — payment via face scan.
-* Liveness check (smile, blink).
-* Backed by Alibaba massive deep learning models.
+* Čína — platba pomocí naskenování obličeje.
+* Kontrola živosti (úsměv, mrknutí).
+* Postaveno na rozsáhlých modelech hlubokého učení firmy Alibaba.
 
-## Slavné spoofing případy {tier=extra}
+## Slavné případy spoofingu {tier=extra}
 
-### iPhone X bypass (2017)
+### Prolomení iPhonu X (2017)
 
-[Bkav](https://www.youtube.com/watch?v=i4YQRLQVixM) demonstroval, že *handmade* silikonová maska s 2D printed eyes obejde Face ID.
+[Bkav](https://www.youtube.com/watch?v=i4YQRLQVixM) předvedl, že *ručně vyrobená* silikonová maska s 2D vytištěnými očima obejde Face ID.
 
-* **Cost:** $150.
-* **Effort:** 9 hodin.
-* Apple opraveno firmware update (improved liveness checking).
+* **Cena:** 150 $.
+* **Námaha:** 9 hodin.
+* Apple problém opravil aktualizací firmwaru (vylepšená kontrola živosti).
 
-### Galaxy S10 bypass (2019)
+### Prolomení Galaxy S10 (2019)
 
-* Ultrasonic fingerprint sensor.
-* **Pencil rubber + silicone** spoof — demonstrated by Imgur user *darkshark9*.
-* Samsung firmware update.
+* Ultrazvukový senzor otisku prstu.
+* Podvrh pomocí **gumy z tužky a silikonu** — předvedl uživatel Imguru *darkshark9*.
+* Samsung vydal aktualizaci firmwaru.
 
 ### Wells Fargo eyeprint (2017)
 
-* Wells Fargo banking app used iris-like eye scan.
-* **Photo of eyes** + close-up macro lens → bypass.
-* Removed from production.
+* Bankovní aplikace Wells Fargo používala sken očí podobný snímání duhovky.
+* **Fotografie očí** plus makroobjektiv pro detailní záběr → prolomení.
+* Funkce byla z produkce odebrána.
 
-## Best practices pro nasazení
+## Osvědčené postupy pro nasazení
 
-1. **Multimodal sensing** — *vždy* víc než jen visible camera.
-2. **Active liveness** — challenge-response.
-3. **Server-side validation** — never trust client-only liveness.
-4. **Periodic certification** (iBeta Level 2+).
-5. **Adversarial training** — train detector na *novel* spoofing techniques.
-6. **Continuous updates** — new spoofing methods emerge regularly.
-7. **Multi-factor** — combine biometrics with PIN/password.
-8. **Risk-based authentication** — extra verification for high-value transactions.
+1. **Multimodální snímání** — *vždy* používejte více než jen kameru ve viditelném světle.
+2. **Aktivní detekce živosti** — výzva a odpověď (challenge-response).
+3. **Ověření na straně serveru** — nikdy nedůvěřujte živosti vyhodnocené pouze na straně klienta.
+4. **Pravidelná certifikace** (iBeta Level 2 a vyšší).
+5. **Trénink na protivnících (adversarial training)** — detektor trénujte na *nových* technikách spoofingu.
+6. **Průběžné aktualizace** — nové metody spoofingu se objevují pravidelně.
+7. **Vícefaktorové ověření (multi-factor)** — kombinujte biometriku s PINem nebo heslem.
+8. **Autentizace podle míry rizika (risk-based authentication)** — vyžadujte další ověření u transakcí s vysokou hodnotou.
 
 ## Otevřené problémy
 
-* **Cross-dataset generalization** — detectors trained on one attack type fail on others.
-* **Real-time efficiency** — DL detectors are computationally heavy.
-* **Adversarial robustness** — sophisticated adversarial examples bypass detection.
-* **Deepfake detection** — arms race, deepfakes improving faster than detectors.
-* **User experience** — too many challenges frustrate users.
+* **Zobecnění napříč datovými sadami** — detektory natrénované na jednom typu útoku selhávají na jiných.
+* **Efektivita v reálném čase** — detektory založené na hlubokém učení jsou výpočetně náročné.
+* **Odolnost vůči protivníkům (adversarial robustness)** — sofistikované adversariální vstupy obcházejí detekci.
+* **Detekce deepfaků** — závody ve zbrojení, deepfaky se zlepšují rychleji než detektory.
+* **Uživatelská zkušenost** — příliš mnoho výzev uživatele frustruje.
 
 ---
 

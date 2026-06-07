@@ -4,19 +4,19 @@ title: Bellcore útok na RSA-CRT
 
 # Bellcore útok na RSA-CRT
 
-Klasický příklad **DFA** ([[dfa-princip]]) — útok na RSA implementace s CRT optimalizací. **Boneh, DeMillo, Lipton 1996** ho objevili, *byl pojmenován po laboratoři Bellcore* (Bell Communications Research), kde výzkum probíhal. Jednoduchost a elegance útoku ho udělaly **kanonickým** příkladem důležitosti fault-resistant implementací.
+Klasický příklad **diferenciální chybové analýzy (DFA)** ([[dfa-princip]]) — útok na implementace RSA s optimalizací pomocí čínské věty o zbytcích (CRT). Objevili ho **Boneh, DeMillo a Lipton v roce 1996** a *byl pojmenován po laboratoři Bellcore* (Bell Communications Research), kde výzkum probíhal. Díky své jednoduchosti a eleganci se stal **kanonickým** příkladem toho, jak důležité jsou implementace odolné vůči chybám (fault-resistant).
 
 ## RSA-CRT — proč se používá
 
-Standard RSA podpis nebo dešifrování:
+Standardní podpis nebo dešifrování RSA vypadá takto:
 
 ::: math
 S = m^d \bmod n
 :::
 
-kde $n = pq$ je modulus, $d$ je soukromý exponent. Pro 2048-bit RSA klíč: $|d| \approx 2048$ bitů. Operace je *pomalá* — modular exponentiation s 2048-bit operandy.
+kde $n = pq$ je modulus a $d$ je soukromý exponent. Pro 2048bitový RSA klíč platí $|d| \approx 2048$ bitů. Tato operace je *pomalá* — jde o modulární umocňování (modular exponentiation) s 2048bitovými operandy.
 
-**Chinese Remainder Theorem (CRT) optimalizace** rozkládá:
+**Optimalizace pomocí čínské věty o zbytcích (Chinese Remainder Theorem, CRT)** výpočet rozkládá takto:
 
 ::: math
 \begin{aligned}
@@ -25,7 +25,7 @@ S_q &= m^{d_q} \bmod q, \quad &d_q = d \bmod (q-1)
 \end{aligned}
 :::
 
-a slepuje výsledek pomocí CRT (Gauss algorithm nebo Garner):
+a poté výsledek slepí zpět dohromady pomocí CRT (Gaussovým nebo Garnerovým algoritmem):
 
 ::: math
 S = \text{CRT}(S_p, S_q) = S_q + q \cdot (q^{-1} \bmod p) \cdot (S_p - S_q) \bmod n
@@ -34,10 +34,10 @@ S = \text{CRT}(S_p, S_q) = S_q + q \cdot (q^{-1} \bmod p) \cdot (S_p - S_q) \bmo
 Výhoda:
 
 * $|p| = |q| = 1024$ bitů.
-* Modular exponentiation s 1024-bit operandy je **~4× rychlejší** než s 2048-bit (kubická komplexita pro multiplication).
-* **Celkový speedup: ~3–4×** (memory + CRT slepování má cca 5 % overhead).
+* Modulární umocňování s 1024bitovými operandy je **~4× rychlejší** než s 2048bitovými (násobení má kubickou složitost).
+* **Celkové zrychlení: ~3–4×** (paměť a slepování přes CRT přidávají jen asi 5 % režie).
 
-Standardní v OpenSSL, mbedTLS, Java JCE, smart cards, HSMs. **Téměř** všechny moderní RSA implementace používají CRT.
+Je to standardní postup v OpenSSL, mbedTLS, Java JCE, na čipových kartách i v hardwarových bezpečnostních modulech (HSM). CRT používají **téměř** všechny moderní implementace RSA.
 
 ## Útok
 
@@ -84,27 +84,27 @@ Standardní v OpenSSL, mbedTLS, Java JCE, smart cards, HSMs. **Téměř** všech
 
 1. Útočník má veřejný klíč $(n, e)$.
 2. Získá **korektní** podpis $S$ pro známý plaintext $m$: $S \equiv m^d \pmod{n}$.
-3. Indukuje chybu (glitch, laser, EM-FI) během CRT výpočtu — *konkrétně* během výpočtu $S_p$ (ne $S_q$). Získá **chybný** podpis $S'$.
-4. $S'$ má vlastnost:
+3. Během výpočtu CRT vyvolá chybu (glitch, laser, EM-FI) — *konkrétně* při výpočtu $S_p$ (nikoli $S_q$). Tím získá **chybný** podpis $S'$.
+4. Podpis $S'$ má tuto vlastnost:
    * $S' \equiv S_p' \pmod{p}$, kde $S_p'$ je chybná hodnota.
    * $S' \equiv S_q \pmod{q}$, kde $S_q$ je *správné* (chyba ho nezasáhla).
-5. Protože $S$ je *správné* mod obou prvočísel:
+5. Protože $S$ je *správné* modulo obě prvočísla:
    * $S - S' \equiv 0 \pmod{q}$ — oba dávají $S_q$.
    * $S - S' \not\equiv 0 \pmod{p}$ — liší se v $S_p$.
-6. Spočti **GCD**:
+6. Spočítej **největší společný dělitel (GCD)**:
 
 ::: math
 \gcd(S - S', n) = q
 :::
 
-7. **Faktorizace:** $p = n / q$. Z $(p, q)$ se odvodí $\varphi(n) = (p-1)(q-1)$ a $d = e^{-1} \bmod \varphi(n)$ (extended Euclidean algorithm).
+7. **Faktorizace:** $p = n / q$. Z dvojice $(p, q)$ se odvodí $\varphi(n) = (p-1)(q-1)$ a $d = e^{-1} \bmod \varphi(n)$ (rozšířeným Eukleidovým algoritmem).
 
-### Komplexita
+### Složitost
 
-* **Jeden** fault pair $(S, S')$ stačí.
+* Stačí **jediná** dvojice $(S, S')$ s chybou.
 * GCD: $O(|n|^2) = O(2048^2)$ bitových operací — *milisekundy* na běžném PC.
-* EEA pro $d$: dalších $O(|n|^2)$.
-* **Recovery RSA-2048 klíče za < 1 sekundu** od získání chybného podpisu.
+* Rozšířený Eukleidův algoritmus pro $d$: dalších $O(|n|^2)$.
+* **Obnova RSA-2048 klíče za < 1 sekundu** od získání chybného podpisu.
 
 ## Varianty útoku
 
@@ -112,26 +112,26 @@ Standardní v OpenSSL, mbedTLS, Java JCE, smart cards, HSMs. **Téměř** všech
 
 [*Memo on RSA signature generation in the presence of faults*](https://link.springer.com/chapter/10.1007/3-540-49649-1_18) — útočník nemá *korektní* $S$, jen $S'$ a hash zprávy $h(m)$:
 
-* Útočník ověří, zda $(S')^e \stackrel{?}{=} h(m) \pmod{n}$ — pokud fault, ne.
+* Útočník ověří, zda $(S')^e \stackrel{?}{=} h(m) \pmod{n}$ — pokud nastala chyba, rovnost neplatí.
 * Spočítá $X = (S')^e - h(m) \bmod n$.
-* $\gcd(X, n) = q$ — protože $X$ je dělitelné $q$ ($(S')^e \equiv h(m) \pmod q$, ale ne mod $p$).
+* $\gcd(X, n) = q$ — protože $X$ je dělitelné $q$ (platí $(S')^e \equiv h(m) \pmod q$, ale ne modulo $p$).
 
-**Důsledek:** útočník nepotřebuje znát korektní $S$. Stačí znát hash zprávy a chybný podpis.
+**Důsledek:** útočník nepotřebuje znát korektní $S$. Stačí mu znát hash zprávy a chybný podpis.
 
-### Random fault model
+### Model náhodné chyby
 
-* Útočník neumí cílit přesně na $S_p$ vs $S_q$. Indukuje *random* fault.
-* S pravděpodobností ~50 % zasáhne $S_p$ (přesně Boneh-DeMillo-Lipton).
-* S pravděpodobností ~50 % zasáhne $S_q$ — analogicky $\gcd(S - S', n) = p$.
-* S malou pravděpodobností zasáhne CRT slepování — útok stále možný (Joye-Yen 1999).
+* Útočník neumí zacílit přesně na $S_p$ oproti $S_q$. Vyvolá *náhodnou* chybu.
+* S pravděpodobností ~50 % zasáhne $S_p$ (přesně případ Boneh-DeMillo-Lipton).
+* S pravděpodobností ~50 % zasáhne $S_q$ — analogicky pak $\gcd(S - S', n) = p$.
+* S malou pravděpodobností zasáhne slepování přes CRT — útok je i tak možný (Joye-Yen 1999).
 
-### Single-byte fault model
+### Model jednobytové chyby
 
-Realistický pro EM-FI / laser: chyba flipne *jeden byte* (8 bitů) v $S_p$. Útok stále funguje, ale obtížnější identifikovat, kterou *konkrétní* fault model.
+Realistický pro EM-FI a laser: chyba převrátí *jeden byte* (8 bitů) v $S_p$. Útok stále funguje, jen je obtížnější zjistit, o kterou *konkrétní* chybu šlo.
 
 ## Obrany
 
-### Standardní — verify before output
+### Standardní — ověření před výstupem
 
 Po výpočtu $S$ ověř:
 
@@ -142,27 +142,27 @@ if (S^e mod n != m) {
 return S;
 ```
 
-* **Cost:** jedna další modular exponentiation s veřejným exponentem $e$. Protože $e$ je typicky malé (3, 65537), je *rychlé*.
+* **Cena:** jedno modulární umocňování navíc, a to s veřejným exponentem $e$. Protože $e$ bývá malé (3, 65537), je *rychlé*.
 * **Účinnost:** 100 % proti DFA na RSA-CRT.
-* **OpenSSL** od r. 2002 (po publikaci útoku v praktickém scenáři) implementuje tuto kontrolu.
+* **OpenSSL** tuto kontrolu implementuje od r. 2002 (poté, co byl útok publikován v praktickém scénáři).
 
-### Shamir's trick (1999)
+### Shamirův trik (1999)
 
-[Shamir](http://www.wisdom.weizmann.ac.il/~naor/PUZZLES/eli/safeRSA.html) navrhl jinou strategii — místo verify spočítej *podpis dvakrát*:
+[Shamir](http://www.wisdom.weizmann.ac.il/~naor/PUZZLES/eli/safeRSA.html) navrhl jinou strategii — místo ověření spočítej *podpis dvakrát*:
 
 * První výpočet: $S \bmod p \cdot t$ pro náhodné $t$ a $S \bmod q \cdot t$.
 * Druhý výpočet: $(S \bmod p \cdot t) \bmod t$ a $(S \bmod q \cdot t) \bmod t$.
-* Pokud oba dávají stejný výsledek mod $t$, fault detected = false. Pokud ne, fault detected.
+* Pokud oba dávají stejný výsledek modulo $t$, žádná chyba se neodhalila. Pokud se liší, byla chyba detekována.
 
-Cost: ~10 % overhead. Dnes méně populární než plain verify.
+Cena: ~10 % režie. Dnes je tato metoda méně oblíbená než prosté ověření.
 
 ### Aumüller-Bier-Fischer-Hofreiter-Seifert 2002
 
-[*Fault Attacks on RSA with CRT*](https://link.springer.com/chapter/10.1007/3-540-36400-5_20) — robustnější varianta Shamir's trick. Detekce *random* faults s vysokou pravděpodobností.
+[*Fault Attacks on RSA with CRT*](https://link.springer.com/chapter/10.1007/3-540-36400-5_20) — robustnější varianta Shamirova triku. Detekuje *náhodné* chyby s vysokou pravděpodobností.
 
-### Infective countermeasures
+### Infekční protiopatření (infective countermeasures)
 
-Místo *abort* po fault, *infect* output s random data:
+Místo *abort* po chybě se výstup *zamoří* (infect) náhodnými daty:
 
 ```c
 if (S^e mod n != m) {
@@ -171,29 +171,29 @@ if (S^e mod n != m) {
 return S;
 ```
 
-* **Výhoda:** žádný timing rozdíl mezi correct a fault case. Útočník nedostane informaci o tom, *zda* fault detected.
-* **Nevýhoda:** pokud implementace špatně, infection sama o sobě může leak informaci.
+* **Výhoda:** mezi korektním a chybovým případem není žádný časový (timing) rozdíl. Útočník nezíská informaci o tom, *zda* byla chyba detekována.
+* **Nevýhoda:** je-li implementace chybná, samotné zamoření může informaci prozradit.
 
-### Hardware-level
+### Hardwarová úroveň
 
-* **Dual rail logic** ([[obrana-pk]]) — symetrické signály, fault by musel zasáhnout *oba* (málo pravděpodobné s laser).
-* **Sensors** (light, voltage, glitch) — detekce fault injection apparat.
-* **Mesh tamper-detect** — pokud útočník dělá decap pro laser, mesh přerušení → zeroization.
+* **Dvojkolejná logika (dual rail logic)** ([[obrana-pk]]) — symetrické signály, chyba by musela zasáhnout *oba* zároveň (s laserem málo pravděpodobné).
+* **Senzory** (světla, napětí, glitche) — detekce zařízení pro vstřikování chyb (fault injection).
+* **Tamper-detect síť (mesh)** — pokud útočník provádí dekapsulaci čipu kvůli laseru, přerušení sítě vede k vynulování (zeroization) klíče.
 
 ## Reálné případy {tier=example}
 
-* **Aktivně využíván** v 90. letech proti *placené TV* a *satelitním kartám* — útočníci dostali korektní podpis kreditních příkazů, pak EM-FI indukovali fault → faktorizace klíče provider.
-* **Demonstrace v r. 2010** na akademických kartách bez kontroly — *jediný* fault stačil pro recovery klíče za $1M USD CA cert.
-* **Smart cards EAL4** v r. 2002 zranitelné; po Bellcore publikaci certifikace EAL5+ explicitně testuje resistance.
-* **Java Card 3.0.5** od r. 2017 obsahuje *povinný* verify check pro `RSA.signWithCRT()`.
-* **OpenSSL** od r. 2002 (verze 0.9.7) implementuje verify check.
+* **Aktivně využíván** v 90. letech proti *placené TV* a *satelitním kartám* — útočníci získali korektní podpis kreditních příkazů, poté vyvolali chybu pomocí EM-FI a faktorizovali tak klíč poskytovatele.
+* **Demonstrace v r. 2010** na akademických kartách bez kontroly — *jediná* chyba stačila k obnově klíče u certifikátu certifikační autority (CA) v hodnotě 1 M USD.
+* **Čipové karty EAL4** byly v r. 2002 zranitelné; po publikaci útoku Bellcore certifikace EAL5+ výslovně testuje odolnost vůči němu.
+* **Java Card 3.0.5** od r. 2017 obsahuje *povinné* ověření (verify check) pro `RSA.signWithCRT()`.
+* **OpenSSL** implementuje ověření od r. 2002 (verze 0.9.7).
 
 ## Klíčová ponaučení
 
-1. **Optimalizace ≠ bezpečnost.** CRT je *4× rychlejší*, ale otevírá útok, který *neexistuje* pro non-CRT RSA. Designér musí *uvědomovat trade-off*.
-2. **Jeden fault stačí.** Na rozdíl od většiny DPA/TA, kde je potřeba mnoho měření, DFA na RSA-CRT je *singleton* útok. Žádné průměrování, žádná statistika.
-3. **Verify after compute** je univerzální patika. Stejný princip se aplikuje na AES (re-encrypt and compare), ECDSA (verify), atd.
-4. **Boneh-DeMillo-Lipton je klasický paper.** Teoretická elegance v kombinaci s praktickým dopadem — referenční čtení pro fault-attack literaturu.
+1. **Optimalizace ≠ bezpečnost.** CRT je *4× rychlejší*, ale otevírá útok, který u RSA bez CRT *neexistuje*. Návrhář si musí být tohoto kompromisu (trade-off) vědom.
+2. **Stačí jediná chyba.** Na rozdíl od většiny útoků DPA/TA, kde je potřeba mnoho měření, je DFA na RSA-CRT *jednorázový* útok. Žádné průměrování, žádná statistika.
+3. **Ověření po výpočtu (verify after compute)** je univerzální protiopatření. Stejný princip se uplatňuje u AES (znovu zašifrovat a porovnat), u ECDSA (ověřit) atd.
+4. **Boneh-DeMillo-Lipton je klasická práce.** Teoretická elegance v kombinaci s praktickým dopadem — referenční čtení pro literaturu o chybových útocích (fault attacks).
 
 ---
 

@@ -2,25 +2,25 @@
 title: Spotřeba procesoru — P = CV²f
 ---
 
-# Spotřeba CPU — dynamická vs statická, P = CV²f
+# Spotřeba CPU — dynamická vs. statická, P = CV²f
 
-Příkon je *druhý* fundamental constraint vedle performance. Moderní CPU je *power-limited*: nelze přidat víc jader nebo zvýšit frekvenci, *aniž* by chip nevyhořel. Power-aware design je *nezbytný* od ~2005 (Dennard scaling stagnace).
+Příkon je *druhým* zásadním omezením vedle výkonu (performance). Moderní CPU je výkonově omezený (power-limited): nelze přidat víc jader ani zvýšit frekvenci, *aniž* by se čip přehřál a vyhořel. Návrh ohlížející se na příkon (power-aware design) je proto *nezbytný* zhruba od roku 2005, kdy začalo váznout Dennardovo škálování (Dennard scaling).
 
 ## Tři složky příkonu
 
-Celkový ztrátový výkon tranzistoru:
+Celkový ztrátový výkon jednoho tranzistoru:
 
 $$
 P_{\text{device}} = \frac{1}{2} C V_{DD} V_{\text{swing}} \alpha f + I_{\text{leakage}} V_{DD} + I_{SC} V_{DD}
 $$
 
-- **Přepínací (dynamic, switching)**: $P_{\text{sw}} = \frac{1}{2} C V_{DD} V_{\text{swing}} \alpha f$. Dominantní pro starší technologii (>90 nm).
-- **Klidový proud (leakage / static)**: $P_{\text{leak}} = I_{\text{leakage}} V_{DD}$. Roste s teplotou, klesající rozměry transistorů.
-- **Zkratový proud (short-circuit)**: $P_{SC} = I_{SC} V_{DD}$. Krátký okamžik, kdy *oba* PMOS+NMOS otevřené při přepínání. Méně významné s nižším $V_{DD}$.
+- **Přepínací (dynamický, switching)**: $P_{\text{sw}} = \frac{1}{2} C V_{DD} V_{\text{swing}} \alpha f$. Dominantní u starších technologií (větších než 90 nm).
+- **Klidový proud (svodový, leakage / static)**: $P_{\text{leak}} = I_{\text{leakage}} V_{DD}$. Roste s teplotou a se zmenšujícími se rozměry tranzistorů.
+- **Zkratový proud (short-circuit)**: $P_{SC} = I_{SC} V_{DD}$. Vzniká v krátkém okamžiku přepínání, kdy jsou *oba* tranzistory PMOS i NMOS otevřené. S nižším $V_{DD}$ je méně významný.
 
-Pro typický 7 nm chip: ~60 % switching, 35 % leakage, 5 % short-circuit. Pro 5 nm: leakage roste — některé designs leakage > switching.
+U typického 7nm čipu připadá zhruba 60 % na přepínací, 35 % na svodovou a 5 % na zkratovou složku. U 5nm čipů svodová složka roste — u některých návrhů již svodová převyšuje přepínací.
 
-## Zjednodušená formule
+## Zjednodušený vzorec
 
 Často uváděná podoba:
 
@@ -28,129 +28,129 @@ $$
 P_{\text{dyn}} = \alpha \cdot C \cdot V^2 \cdot f
 $$
 
-- $\alpha$ — *activity factor* (0–1). Kolik bitů přepíná každý cyklus. Idle ALU: 0.05. Hot loop: 0.5.
-- $C$ — kapacitance.
+- $\alpha$ — faktor aktivity (activity factor, 0–1). Udává, kolik bitů se přepne v každém cyklu. Nečinná ALU: 0,05. Vytížená smyčka (hot loop): 0,5.
+- $C$ — kapacita.
 - $V$ — napětí.
 - $f$ — frekvence.
 
-Klíčové insights:
+Klíčová zjištění:
 
-- **Dvojnásobná frekvence → 2× power.**
-- **Dvojnásobné napětí → 4× power.**
-- Plus *vyšší* napětí umožňuje *vyšší* frekvenci (rychlejší transistor switching). Combined: ~8× power for ~2× perf. *Špatný trade-off*.
+- **Dvojnásobná frekvence → dvojnásobný příkon.**
+- **Dvojnásobné napětí → čtyřnásobný příkon.**
+- Navíc *vyšší* napětí umožňuje *vyšší* frekvenci (tranzistor přepíná rychleji). Dohromady to znamená zhruba 8× vyšší příkon za zhruba 2× vyšší výkon. *Špatný kompromis (trade-off)*.
 
-## Power vs Performance
+## Příkon vs. výkon
 
-Pro určitou architekturu (fixed IPC):
+Pro danou architekturu (s pevným IPC) platí:
 
 $$
 P \propto f \cdot V^2 \propto f^3
 $$
 
-(Vyšší f vyžaduje úměrně vyšší V → kubicky power.)
+(Vyšší $f$ vyžaduje úměrně vyšší $V$, takže příkon roste s třetí mocninou frekvence.)
 
-To je *fundamental power-frequency wall*. Nelze přejít z 3 GHz na 6 GHz, aniž by se power 8× nezvedl. Proto je frekvence v posledních 15 letech *stagnant* — single-core ~3-5 GHz, dál se neposunuje.
+To je *zásadní výkonově-frekvenční bariéra* (power-frequency wall). Nelze přejít ze 3 GHz na 6 GHz, aniž by se příkon zvedl 8×. Proto frekvence v posledních 15 letech *stagnuje* — jedno jádro běží zhruba na 3–5 GHz a dál se neposouvá.
 
-## Energy vs Power
+## Energie vs. příkon
 
-- **Power** [W] — *instantaneous* dissipation. Limit: chladicí systém.
-- **Energy** [J] — *integral power over time*. Limit: battery, electricity bill.
+- **Příkon** [W] — *okamžitá* ztráta energie. Omezuje ho chladicí systém.
+- **Energie** [J] — *příkon integrovaný v čase*. Omezuje ji baterie a účet za elektřinu.
 
 $$
 E = P \cdot t
 $$
 
-Pro úlohu trvající $T$ na CPU s avg power $P$: total energy $E = P \cdot T$.
+Pro úlohu trvající $T$ na CPU s průměrným příkonem $P$ je celková spotřebovaná energie $E = P \cdot T$.
 
-### Race-to-idle
+### Race-to-idle (rychle hotovo, pak do klidu)
 
-Pokud spustím úlohu na 4 GHz CPU (2× power) místo 2 GHz, *ale* skončí 2× rychleji, total energy *stejná*. Pokud po dokončení CPU může jít do *idle* (~10× nižší power), strávím *víc času* idle.
+Pokud úlohu spustím na 4GHz procesoru (s dvojnásobným příkonem) místo na 2GHz, *ale* skončí 2× rychleji, je celková spotřebovaná energie *stejná*. Pokud po dokončení může procesor přejít do klidového stavu (idle, zhruba 10× nižší příkon), stráví v něm *více času*.
 
-⇒ **Race-to-idle wins** when idle power << active power.
+⇒ **Strategie „rychle hotovo, pak do klidu" (race-to-idle) vyhrává**, pokud je klidový příkon mnohem menší než příkon při zátěži.
 
-Apple M1 strategy: *velmi rychle* dokončit task → *velmi rychle* do idle. Per-task energy lepší než competitors.
+Strategie Apple M1: úlohu dokončit *velmi rychle* a poté *velmi rychle* přejít do klidu. Energie na jednu úlohu je tak nižší než u konkurence.
 
 ## Termodynamický limit
 
-Landauerův princip (1961): smazat 1 bit informace = $kT \ln 2 \approx 3 \cdot 10^{-21}$ J při room temperature.
+Landauerův princip (1961): smazání jednoho bitu informace stojí $kT \ln 2 \approx 3 \cdot 10^{-21}$ J při pokojové teplotě.
 
-Moderní CPU žravost: 1 nJ per instrukci = $3 \cdot 10^{11} \times$ Landauer bound. Stále *daleko* od fyzikálního limitu.
+Žravost moderního CPU je 1 nJ na instrukci, tedy $3 \cdot 10^{11}\times$ víc, než činí Landauerova mez. Stále jsme tedy *daleko* od fyzikálního limitu.
 
-Praktický limit: cooling capacity. *Air cooling* ~150 W. *Liquid* ~300 W. *Phase-change* / *immersion* ~500 W. Custom *liquid nitrogen* OC: >1 kW briefly.
+Praktickým limitem je chladicí kapacita. *Vzduchové chlazení* zvládne zhruba 150 W, *kapalinové* asi 300 W, *fázová změna* či *imerzní chlazení* zhruba 500 W. Extrémní přetaktování s *kapalným dusíkem* zvládne krátkodobě i přes 1 kW.
 
-Konvenční server CPU: 200-400 W TDP (Thermal Design Power). Datacenter cluster: 50-150 kW per rack.
+Běžný serverový CPU má 200–400 W TDP (Thermal Design Power, návrhový tepelný výkon). Datacentrový cluster spotřebuje 50–150 kW na jeden rack.
 
-## Power v moderním CPU
+## Příkon v moderním CPU
 
-Intel Core i9-13900K (24-core Raptor Lake, 2022):
+Intel Core i9-13900K (24jádrový Raptor Lake, 2022):
 
-- Base: 125 W TDP.
-- "Maximum Turbo" power: 253 W.
-- Energy per instruction: ~3 nJ (200 W / (32 threads × 2 × 10⁹ insts/s)).
+- Základní: 125 W TDP.
+- Příkon v režimu „Maximum Turbo": 253 W.
+- Energie na instrukci: zhruba 3 nJ (200 W / (32 vláken × 2 × 10⁹ instrukcí/s)).
 
-AMD Ryzen 9 7950X (16-core Zen 4): 170 W TDP, 230 W peak.
+AMD Ryzen 9 7950X (16jádrový Zen 4): 170 W TDP, špička 230 W.
 
-Apple M2 Max (12-core, 2023): 30 W under load. *5× lepší perf/W* než desktop x86.
+Apple M2 Max (12jádrový, 2023): 30 W při plné zátěži. *5× lepší výkon na watt* než desktopové x86.
 
-## Spotřeba per část jádra
+## Spotřeba po částech jádra
 
-V modernu OoO jádře (Intel Skylake, simulační data):
+V moderním jádře s přeskupováním instrukcí (OoO, out-of-order; Intel Skylake, simulační data):
 
-| Komponenta | % power |
+| Komponenta | % příkonu |
 | :--- | :---: |
 | L1 cache | 15 % |
 | L2 cache | 10 % |
-| Branch predictor | 7 % |
-| Decode + rename | 12 % |
-| OoO scheduler + RS + ROB | 15 % |
-| Functional units (ALU, FPU) | 18 % |
-| Register file | 8 % |
-| Memory subsystem (L/S, MSHR) | 10 % |
-| Leakage everywhere | 5 % |
+| Prediktor skoků (branch predictor) | 7 % |
+| Dekódování + přejmenování registrů | 12 % |
+| OoO plánovač + RS + ROB | 15 % |
+| Funkční jednotky (ALU, FPU) | 18 % |
+| Registrové pole (register file) | 8 % |
+| Paměťový subsystém (L/S, MSHR) | 10 % |
+| Svodový proud všude | 5 % |
 
-OoO scheduler je *přepychový* — RS scan, dispatch, retire logic — žere 15 % power.
+OoO plánovač je *přepychový* — prohledávání rezervační stanice (RS), rozdělování instrukcí a logika dokončení (retire) — a spotřebuje 15 % příkonu.
 
-**Apple M-cores** šetří power tím, že OoO scheduler je *jednodušší* (in-order back-end pro některé μops) a *víc decode* (8-wide front-end vs Intel 6-wide). Other design trade-offs.
+**Jádra Apple M** šetří příkon tím, že OoO plánovač je *jednodušší* (in-order zadní část pipeline pro některé μops) a *dekódování je širší* (8 instrukcí najednou oproti 6 u Intelu). K tomu se přidávají další návrhové kompromisy.
 
-## Power knobs
+## Páky pro řízení příkonu
 
 Hardware může nastavit:
 
-1. **Frekvence** — DVFS (Dynamic Voltage and Frequency Scaling). Lower f → lower P.
-2. **Napětí** — vždy spolu s f (lower f umožňuje lower V).
-3. **Activity (clock gating)** — turn off clock to idle ALU.
-4. **Power gating** — *kompletně* odpojit napájení neaktivních blocks.
-5. **C-states** (CPU sleep) — řízeno OS.
+1. **Frekvence** — DVFS (Dynamic Voltage and Frequency Scaling, dynamické škálování napětí a frekvence). Nižší $f$ → nižší příkon.
+2. **Napětí** — vždy společně s $f$ (nižší $f$ umožňuje nižší $V$).
+3. **Aktivita (clock gating)** — odpojení hodinového signálu od nečinné ALU.
+4. **Power gating** — *úplné* odpojení napájení od neaktivních bloků.
+5. **C-stavy (C-states)** — režimy spánku procesoru, řízené operačním systémem.
 
-Detaily v [[dvfs-power-mgmt]].
+Podrobnosti v [[dvfs-power-mgmt]].
 
-## Power-aware programming
+## Programování ohlížející se na příkon
 
-Programátor může ovlivnit:
+Programátor může příkon ovlivnit takto:
 
-- **Sleep when idle** — `sleep()`, `cv_wait()` lépe než spin-loop.
-- **Batch IO** — buffer write/read, fewer expensive transitions.
-- **Vector instructions** — *více práce* per instruction → *fewer* instructions → lower power.
-- **Cache-friendly access** — fewer DRAM accesses (DRAM 100× power per access vs L1).
+- **Spát, když není co dělat** — `sleep()` či `cv_wait()` jsou lepší než aktivní čekání ve smyčce (spin-loop).
+- **Dávkovat vstupy/výstupy (IO)** — vyrovnávat zápisy a čtení do bufferu a snížit tak počet nákladných přechodů.
+- **Vektorové instrukce** — udělají *více práce* na instrukci → potřeba *méně* instrukcí → nižší příkon.
+- **Přístupy přívětivé pro cache** — méně přístupů do DRAM (jeden přístup do DRAM stojí 100× víc příkonu než přístup do L1).
 
-⇒ Performance-aware = power-aware. Optimization that reduces time *and* reduces energy.
+⇒ Ohled na výkon = ohled na příkon. Optimalizace, která zkracuje čas, *zároveň* šetří energii.
 
-Anomalie: AVX-512 *žere* power (wider ALU, higher activity). Some CPUs *automatically* reduce frequency when AVX-512 used → less benefit than expected. Sapphire Rapids (2023) mitigates this.
+Výjimka: AVX-512 *žere* příkon (širší ALU, vyšší aktivita). Některé procesory proto *automaticky* sníží frekvenci, jakmile se AVX-512 použije, takže přínos je menší, než se čeká. Sapphire Rapids (2023) tento problém zmírňuje.
 
-## Reálné cost data {tier=practice}
+## Reálná data o nákladech {tier=practice}
 
-Single 250 W CPU running 24/7:
+Jeden 250W procesor běžící nepřetržitě 24/7:
 
-- Daily: 250 W × 24 h = 6 kWh
-- Annual: 2200 kWh
+- Denně: 250 W × 24 h = 6 kWh
+- Ročně: 2200 kWh
 
-At average commercial electricity rate $0.10/kWh: **$220 per CPU per year** just for power. *Plus* cooling overhead (~50 % more = $330).
+Při průměrné komerční ceně elektřiny 0,10 $/kWh to dělá **220 $ na jeden procesor ročně** jen za napájení. *K tomu* je třeba připočítat režii chlazení (zhruba o 50 % víc = 330 $).
 
-Datacenter with 10,000 servers: $3.3M/year in electricity. Compute costs are *substantial part of TCO*.
+Datacentrum s 10 000 servery: 3,3 milionu $ ročně za elektřinu. Náklady na výpočetní výkon tvoří *podstatnou část celkových nákladů na vlastnictví (TCO)*.
 
 ## Co dál
 
-[[dvfs-power-mgmt]] popisuje *jak* CPU runtime mění frekvenci a napětí — DVFS, clock gating, C-states. [[nizkoprikon-arch]] popisuje *architektury* designované od nuly pro low power — VLIW, ARM big.LITTLE, RISC-V embedded.
+[[dvfs-power-mgmt]] popisuje, *jak* CPU za běhu mění frekvenci a napětí — DVFS, clock gating, C-stavy. [[nizkoprikon-arch]] popisuje *architektury* navržené od základu pro nízký příkon — VLIW, ARM big.LITTLE, vestavěné RISC-V.
 
 ---
 

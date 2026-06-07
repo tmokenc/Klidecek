@@ -4,9 +4,9 @@ title: Bezpečnostní opatření (controls)
 
 # Bezpečnostní opatření (controls) — taxonomie
 
-Bezpečnostní *opatření* (controls) jsou *mechanismy*, které redukují *riziko* — buď snížením *pravděpodobnosti* incidentu nebo *dopadu*. Tato sekce klasifikuje controls podle druhu (administrative / technical / physical) a funkce (preventive / detective / corrective / ...).
+Bezpečnostní *opatření* (controls) jsou *mechanismy*, které snižují *riziko* — buď snížením *pravděpodobnosti* incidentu, nebo jeho *dopadu*. Tato sekce třídí opatření podle druhu (administrativní / technická / fyzická) a podle funkce (preventivní / detekční / nápravná / …).
 
-## Tři druhy controls
+## Tři druhy opatření
 
 ::: svg "Tři druhy controls — admin, technical, physical"
 <svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -42,157 +42,157 @@ Bezpečnostní *opatření* (controls) jsou *mechanismy*, které redukují *rizi
 </svg>
 :::
 
-### Administrative ("soft controls")
+### Administrativní opatření („soft controls")
 
-Management-oriented. Souvisí s *politikou*, *procesy*, *lidmi*.
+Jsou zaměřena na řízení (management). Souvisejí s *politikou* (policy), *procesy* a *lidmi*.
 
-- **Security policy** — formal document.
-- **Standards & procedures** — *jak* implementovat policy.
-- **Training & awareness** — uživatelé znají bezpečnost.
-- **Personnel screening** — background checks at hire.
-- **Separation of duties** — žádný jednotlivec nemá *vše*.
-- **Job rotation** — detekuje fraud.
-- **Mandatory vacation** — detekuje long-running fraud.
-- **Code of conduct** — etical guidelines.
+- **Bezpečnostní politika (security policy)** — formální dokument.
+- **Standardy a postupy (standards & procedures)** — popisují, *jak* politiku zavést.
+- **Školení a osvěta (training & awareness)** — uživatelé vědí, jak se bezpečně chovat.
+- **Prověřování personálu (personnel screening)** — ověření minulosti při náboru.
+- **Oddělení pravomocí (separation of duties)** — žádný jednotlivec nemá *vše* ve své moci.
+- **Rotace pracovních pozic (job rotation)** — odhaluje podvody (fraud).
+- **Povinná dovolená (mandatory vacation)** — odhaluje dlouhodobě skrývané podvody.
+- **Etický kodex (code of conduct)** — pravidla správného chování.
 
-### Technical (logical / "logic") controls
+### Technická (logická) opatření
 
-Software + hardware components. Implementují policy *technicky*.
+Jsou tvořena softwarovými a hardwarovými prvky. Zavádějí politiku *technicky*.
 
-- **Firewalls** ([[firewall]]).
+- **Firewally (firewalls)** ([[firewall]]).
 - **IDS / IPS** ([[ids-ips]]).
-- **Encryption** ([[symetrika-v-is]]).
-- **Identification + authentication** — passwords, MFA, biometrics.
-- **Access control** ([[dac-mac]]).
+- **Šifrování (encryption)** ([[symetrika-v-is]]).
+- **Identifikace a autentizace (authentication)** — hesla, MFA, biometrie.
+- **Řízení přístupu (access control)** ([[dac-mac]]).
 - **Antivirus / EDR** (Endpoint Detection & Response).
 - **VPN / IPsec** ([[vpn-ipsec]]).
-- **DLP** (Data Loss Prevention).
+- **DLP** (Data Loss Prevention, ochrana před únikem dat).
 
-### Physical controls
+### Fyzická opatření
 
 Fyzické bariéry.
 
-- **Locks** — dveře, racks, drawers.
-- **Fences & barriers** — perimeter.
-- **Security guards** — lidský dohled.
-- **Surveillance** — CCTV, motion sensors.
-- **Mantraps** — dvojité dveře.
-- **HVAC + fire suppression** — environmental.
-- **EM shielding** — Faraday cage proti TEMPEST.
+- **Zámky (locks)** — dveře, racky, zásuvky.
+- **Ploty a zábrany (fences & barriers)** — perimetr.
+- **Ostraha (security guards)** — lidský dohled.
+- **Kamerový dohled (surveillance)** — CCTV, pohybové senzory.
+- **Bezpečnostní propusti (mantraps)** — dvojité dveře.
+- **Klimatizace a hašení požáru (HVAC + fire suppression)** — ochrana prostředí.
+- **Elektromagnetické stínění (EM shielding)** — Faradayova klec proti TEMPEST.
 
-## Šest funkcí controls
+## Šest funkcí opatření
 
-Každý control má jednu nebo více *funkcí*:
+Každé opatření má jednu nebo více *funkcí*:
 
 | Funkce | Co dělá | Příklad |
 | :--- | :--- | :--- |
-| **Preventive** | předchází | locks, firewall, encryption |
-| **Detective** | detekuje | IDS, audit log, CCTV |
-| **Corrective** | opravuje | server image restore, IR plan |
-| **Deterrent** | odrazuje | fences, warning signs, audit policy |
-| **Recovery** | obnovuje | backup, disaster recovery |
-| **Compensating** | nahrazuje | proxy místo firewallu |
+| **Preventivní (preventive)** | předchází | zámky, firewall, šifrování |
+| **Detekční (detective)** | detekuje | IDS, auditní log, CCTV |
+| **Nápravná (corrective)** | opravuje | obnova obrazu serveru, plán reakce na incident |
+| **Odrazující (deterrent)** | odrazuje | ploty, výstražné cedule, auditní politika |
+| **Obnovovací (recovery)** | obnovuje | zálohy, zotavení po havárii |
+| **Kompenzační (compensating)** | nahrazuje | proxy místo firewallu |
 
-Defense in depth = *všechny* funkce, *vrstvené*.
+Hloubková obrana (defense in depth) = *všechny* funkce, *ve vrstvách*.
 
-## Mapování control → funkce → druh
+## Mapování opatření → funkce → druh
 
-| Control | Type | Function |
+| Opatření | Druh | Funkce |
 | :--- | :--- | :--- |
-| Door lock | Physical | Preventive + Deterrent |
-| Firewall | Technical | Preventive |
-| IDS | Technical | Detective |
-| Audit logs | Admin (policy) + Technical (impl) | Detective + Corrective |
-| Backup | Technical | Recovery |
-| Security policy doc | Admin | Preventive (sets expectations) |
-| Security training | Admin | Preventive (reduces user errors) |
-| CCTV camera | Physical | Detective + Deterrent |
-| BCP plan | Admin | Recovery |
+| Zámek na dveřích | Fyzické | Preventivní + odrazující |
+| Firewall | Technické | Preventivní |
+| IDS | Technické | Detekční |
+| Auditní logy | Administrativní (politika) + technické (implementace) | Detekční + nápravné |
+| Záloha | Technické | Obnovovací |
+| Dokument bezpečnostní politiky | Administrativní | Preventivní (stanovuje očekávání) |
+| Bezpečnostní školení | Administrativní | Preventivní (snižuje chyby uživatelů) |
+| Kamera CCTV | Fyzické | Detekční + odrazující |
+| Plán kontinuity provozu (BCP) | Administrativní | Obnovovací |
 
-## Defense in Depth (layered defense)
+## Hloubková obrana (defense in depth, vrstvená obrana)
 
-Princip: *více vrstev* ochrany — útočník musí překonat *všechny*.
+Princip: *více vrstev* ochrany — útočník (attacker) musí překonat *všechny*.
 
-| Vrstva | Příklad controls |
+| Vrstva | Příklad opatření |
 | :--- | :--- |
-| Perimeter | firewall, DDoS protection, fence |
-| Network | segmentation, VLAN, internal FW |
-| Endpoint | EDR, antivirus, OS hardening |
-| Application | secure coding, WAF, input validation |
-| Data | encryption at rest + in transit, DLP |
-| Identity | MFA, RBAC, least privilege |
-| Audit | logging, SIEM, SOC monitoring |
+| Perimetr | firewall, ochrana proti DDoS, plot |
+| Síť | segmentace, VLAN, interní firewall |
+| Koncový bod (endpoint) | EDR, antivirus, zpevnění operačního systému (OS hardening) |
+| Aplikace | bezpečné programování, WAF, validace vstupů |
+| Data | šifrování v klidu i při přenosu, DLP |
+| Identita | MFA, RBAC, princip nejmenšího oprávnění |
+| Audit | logování, SIEM, dohled v SOC |
 
-Žádná jediná vrstva *není* dostatečná. Každá vrstva *delays* nebo *detect* attacker.
+Žádná jediná vrstva *není* dostatečná. Každá vrstva útočníka *zdrží*, nebo jej *odhalí*.
 
-## Princip nejmenšího oprávnění (Least Privilege)
+## Princip nejmenšího oprávnění (least privilege)
 
-Subjekt má *minimum* oprávnění, *jen* co potřebuje pro práci. Žádné nadbytečné práva.
+Subjekt má *minimum* oprávnění — *jen* tolik, kolik potřebuje pro svou práci. Žádná nadbytečná práva.
 
 Příklady:
 
-- User accounts (ne admin) pro denní práci.
-- Service accounts only do *konkrétních* věcí.
-- Database connections s read-only user pro reporting tools.
-- Network rules — explicit allow, deny rest.
+- Pro každodenní práci běžné uživatelské účty (ne administrátorské).
+- Servisní účty (service accounts) jen pro *konkrétní* úkony.
+- Databázová spojení s účtem pouze pro čtení (read-only) pro reportovací nástroje.
+- Síťová pravidla — explicitně povolit, zbytek zakázat.
 
-Detail v [[rbac-abac]].
+Podrobnosti v [[rbac-abac]].
 
-## Separation of Duties
+## Oddělení pravomocí (separation of duties)
 
-*Žádný* jednotlivec *nemá* veškerou autoritu pro citlivou operaci.
+*Žádný* jednotlivec *nemá* veškerou pravomoc pro citlivou operaci.
 
-Klasický příklad: financial transactions.
+Klasický příklad: finanční transakce.
 
-- Person A: initiates payment.
-- Person B: approves payment.
+- Osoba A: zahájí platbu.
+- Osoba B: platbu schválí.
 
-Pokud A *malicious*, A nemůže provést sám. Potřebuje spolupráci B → much harder.
+Pokud má A *zlý úmysl* (malicious), nemůže ji provést sám. Potřebuje součinnost osoby B → mnohem obtížnější.
 
 V IT:
 
-- Developer ≠ Sysadmin.
-- Developer ≠ Auditor.
-- Auditor ≠ Operations.
+- Vývojář ≠ správce systému (sysadmin).
+- Vývojář ≠ auditor.
+- Auditor ≠ provoz (operations).
 
-## Need to Know
+## Potřeba vědět (need to know)
 
-Subjekt má přístup k *information*, jen pokud *potřebuje* pro work.
+Subjekt má přístup k *informaci* jen tehdy, pokud ji *potřebuje* pro svou práci.
 
-Nestačí mít clearance pro *level*. Musíš mít *legitimate need*.
+Nestačí mít prověrku (clearance) na danou *úroveň*. Musíš mít *legitimní potřebu* danou informaci znát.
 
-Vojenský princip — top-secret cleared person doesn't automatically read *all* top-secret docs.
+Vojenský princip — osoba prověřená na stupeň „přísně tajné" automaticky nečte *všechny* přísně tajné dokumenty.
 
-V IT: enterprise-wide repositories filtered by department, project.
+V IT: celopodniková úložiště filtrovaná podle oddělení a projektu.
 
-## Kompenzační controls
+## Kompenzační opatření (compensating controls)
 
-Pokud *ideální* control není feasible (technical / cost / business), zavedeme *náhradu* poskytující *podobnou* ochranu.
+Pokud *ideální* opatření není proveditelné (technicky, nákladově nebo z hlediska provozu), zavedeme *náhradu* poskytující *podobnou* ochranu.
 
 Příklady:
 
-- Cannot patch legacy system → put behind WAF.
-- Cannot disable password reuse → enforce MFA.
-- Cannot encrypt at rest → physical security of facility + access control.
+- Nelze záplatovat zastaralý systém → umístíme jej za WAF.
+- Nelze zakázat opětovné použití hesel → vynutíme MFA.
+- Nelze šifrovat data v klidu → fyzické zabezpečení objektu a řízení přístupu.
 
-PCI DSS *explicitly* allows compensating controls s documentation.
+Norma PCI DSS kompenzační opatření *výslovně* připouští, pokud jsou zdokumentována.
 
-## Tradeoffs
+## Kompromisy (tradeoffs)
 
-Implementing controls má *cost*:
+Zavedení opatření má svou *cenu*:
 
-- **Money** — license, hardware, staff.
-- **Time** — slower workflow.
-- **Usability** — friction for users.
-- **Productivity** — false positives interrupt.
+- **Peníze** — licence, hardware, personál.
+- **Čas** — pomalejší pracovní postup.
+- **Použitelnost** — překážky pro uživatele.
+- **Produktivita** — falešné poplachy (false positives) přerušují práci.
 
-Vyvážený design: cost(control) < risk reduction(control).
+Vyvážený návrh: cena(opatření) < snížení rizika(opatření).
 
-Pokud control costs $1M ale reduces risk by $50k expected loss → not worth it.
+Pokud opatření stojí 1 M $, ale sníží riziko o očekávanou ztrátu 50 tis. $ → nevyplatí se.
 
-Pokud control costs $50k a reduces risk by $1M → obvious win.
+Pokud opatření stojí 50 tis. $ a sníží riziko o 1 M $ → jednoznačná výhra.
 
-Risk analysis ([[risk-analyza]]) kvantifikuje.
+Analýza rizik ([[risk-analyza]]) toto kvantifikuje.
 
 ---
 

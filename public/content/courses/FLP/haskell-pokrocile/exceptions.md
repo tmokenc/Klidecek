@@ -4,11 +4,13 @@ title: Výjimky a chybové stavy
 
 # Výjimky a chybové stavy
 
-Haskell má *několik* mechanismů pro chybovou obsluhu — od *pure* (Maybe, Either) po *imperative* (IO exceptions). Volba ovlivňuje *strukturu* programu a *typovou* bezpečnost.
+Haskell nabízí *několik* mechanismů pro ošetření chyb (error handling) — od čistě funkčních (Maybe, Either) až po imperativní (výjimky v IO). Volba mechanismu ovlivňuje *strukturu* programu i jeho *typovou* bezpečnost.
 
-## Strategie chybové obsluhy
+## Strategie ošetření chyb
 
-### 1. Maybe — partial functions
+### 1. Maybe — částečné funkce (partial functions)
+
+Částečná funkce je funkce, která pro některé vstupy nevrací smysluplný výsledek (například dělení nulou). Typ Maybe umožňuje takový „chybějící" výsledek vyjádřit přímo v typu.
 
 ```haskell
 safeDivide :: Int -> Int -> Maybe Int
@@ -21,11 +23,13 @@ case safeDivide 10 2 of
     Nothing -> putStrLn "Division by zero"
 ```
 
-* **Pure** — type system enforces handling.
-* **No error info** — only "missing".
-* **Limit:** can't carry error message.
+* **Čistě funkční** — typový systém vynucuje ošetření chyby.
+* **Bez informace o chybě** — víme jen, že výsledek „chybí".
+* **Omezení:** nedokáže nést chybovou zprávu.
 
-### 2. Either — error with info
+### 2. Either — chyba s informací
+
+Typ Either umí na rozdíl od Maybe nést i popis chyby: levá hodnota (Left) obsahuje chybu, pravá hodnota (Right) úspěšný výsledek.
 
 ```haskell
 safeDivide :: Int -> Int -> Either String Int
@@ -40,13 +44,15 @@ calculate a b c = do
     return y
 ```
 
-* **Pure**, **typed errors**.
-* **Standard** for application logic.
+* **Čistě funkční**, **typované chyby**.
+* **Standardní** volba pro aplikační logiku.
 
-::: viz maybe-either-chain "Sequence operací s Maybe/Either; vyberte, kde selže — viz short-circuit a propagace zprávy."
+::: viz maybe-either-chain "Sekvence operací s Maybe/Either; vyberte, kde selže — uvidíte zkrácené vyhodnocení (short-circuit) a propagaci chybové zprávy."
 :::
 
-### 3. ExceptT — Either + monad transformer
+### 3. ExceptT — Either + transformátor monád (monad transformer)
+
+Transformátor ExceptT kombinuje chování Either s další monádou (typicky IO). Díky tomu lze v jednom výpočtu spojit vedlejší efekty (například čtení vstupu) s typovaným ošetřením chyb.
 
 ```haskell
 import Control.Monad.Except
@@ -62,10 +68,10 @@ calculate = do
 result <- runExceptT calculate
 ```
 
-* **Combines** Either + IO.
-* **Idiomatic** for application errors with effects.
+* **Spojuje** Either a IO.
+* **Idiomatické** pro aplikační chyby spojené s efekty.
 
-### 4. IO exceptions — runtime errors
+### 4. Výjimky v IO — chyby za běhu (runtime)
 
 ```haskell
 import Control.Exception
@@ -85,10 +91,10 @@ safeExample = catch example handler
         return 0
 ```
 
-* **Imperative-style.**
-* For *unrecoverable* errors (file not found, out of memory).
+* **Imperativní styl.**
+* Vhodné pro *neobnovitelné* chyby (soubor nenalezen, došla paměť).
 
-## Exception hierarchy
+## Hierarchie výjimek (exception hierarchy)
 
 ```haskell
 class Show e => Exception e where
@@ -159,7 +165,7 @@ example2 = throwIO DivideByZero  -- ok: in IO
 example3 = throwError "error"  -- ok: in ExceptT
 ```
 
-## Module Control.Exception
+## Modul Control.Exception
 
 ```haskell
 -- Bracket — resource management (acquire, release, use)
@@ -200,7 +206,7 @@ readFileWithCheck path = do
         Right content -> return (Just content)
 ```
 
-## Custom exception types
+## Vlastní typy výjimek (custom exception types)
 
 ```haskell
 {-# LANGUAGE DeriveDataTypeable #-}
@@ -229,9 +235,9 @@ parseInput "valid"  = return 42
 parseInput _ = throwIO (ParseError "Invalid input")
 ```
 
-## Async exceptions
+## Asynchronní výjimky (async exceptions)
 
-V GHC mohou být vlákna *přerušena* externě:
+V GHC mohou být vlákna (thread) *přerušena* zvenčí:
 
 ```haskell
 import Control.Concurrent
@@ -277,14 +283,14 @@ todo :: Int -> Int
 todo = undefined  -- placeholder, will crash if called
 ```
 
-* **error**: throws ErrorCall.
-* **undefined**: throws "Prelude.undefined".
-* Both *bottom* (⊥) values.
-* Used for *impossible* cases or *incomplete* code.
+* **error**: vyhodí výjimku ErrorCall.
+* **undefined**: vyhodí „Prelude.undefined".
+* Obě jsou hodnoty typu *bottom* (⊥), tedy „dno" — výpočet, který nikdy nedá smysluplný výsledek.
+* Používají se pro *nemožné* případy nebo *nedokončený* kód.
 
-## Best practices
+## Osvědčené postupy
 
-### 1. Prefer Maybe/Either for expected failures
+### 1. Pro očekávaná selhání dejte přednost Maybe/Either
 
 ```haskell
 -- Good: expected case
@@ -298,7 +304,7 @@ head' [] = error "Empty list!"  -- avoid
 head' (x:_) = x
 ```
 
-### 2. Use IOException for IO errors
+### 2. Pro chyby vstupu/výstupu používejte IOException
 
 ```haskell
 -- File operations naturally throw IOException
@@ -313,7 +319,7 @@ main = do
         Right content -> process content
 ```
 
-### 3. Use ExceptT for stack of effects
+### 3. Pro vrstvu efektů používejte ExceptT
 
 ```haskell
 data AppError = DbError | ConfigError | ValidationError
@@ -332,7 +338,7 @@ main = do
         Right res -> print res
 ```
 
-### 4. Don't catch unless necessary
+### 4. Nezachytávejte výjimky, pokud to není nutné
 
 ```haskell
 -- Bad: swallows all errors
@@ -342,7 +348,7 @@ result <- catch action (\_ -> return defaultValue)
 result <- catch action (\(e :: IOException) -> ...)
 ```
 
-### 5. Use bracket for resources
+### 5. Pro správu zdrojů používejte bracket
 
 ```haskell
 processFile :: FilePath -> IO ()
@@ -354,9 +360,9 @@ processFile path = bracket
         processContents contents)
 ```
 
-## Anti-patterns
+## Antivzory (anti-patterns)
 
-### Anti-pattern 1: catching all exceptions
+### Antivzor 1: zachytávání všech výjimek
 
 ```haskell
 -- BAD
@@ -367,7 +373,7 @@ do
         Right v -> return v
 ```
 
-### Anti-pattern 2: error from library code
+### Antivzor 2: error z kódu knihovny
 
 ```haskell
 -- BAD: library function throws ErrorCall
@@ -383,7 +389,7 @@ myLibFunc x
     | otherwise = Right x
 ```
 
-### Anti-pattern 3: throwing async exceptions from threads
+### Antivzor 3: vyhazování asynchronních výjimek z vláken
 
 ```haskell
 -- BAD: caller cannot reliably catch
@@ -391,25 +397,25 @@ forkIO $ do
     when condition (throw MyException)
 ```
 
-## Summary table
+## Souhrnná tabulka
 
-| Mechanism | Pure? | Typed? | Use case |
+| Mechanismus | Čistě funkční? | Typováno? | Použití |
 | :--- | :---: | :---: | :--- |
-| Maybe | ✓ | partial | Possibly missing value |
-| Either | ✓ | ✓ | Recoverable error with info |
-| ExceptT | ✓ | ✓ | Stack of effects + errors |
-| IOException | ✗ | partial | I/O system errors |
-| Custom Exception | ✗ | ✓ | Library-specific runtime errors |
-| error / undefined | ✗ | ✗ | Impossible cases (programmer error) |
+| Maybe | ✓ | částečně | Možná chybějící hodnota |
+| Either | ✓ | ✓ | Obnovitelná chyba s informací |
+| ExceptT | ✓ | ✓ | Vrstva efektů + chyby |
+| IOException | ✗ | částečně | Systémové chyby vstupu/výstupu |
+| Vlastní výjimka | ✗ | ✓ | Chyby za běhu specifické pro knihovnu |
+| error / undefined | ✗ | ✗ | Nemožné případy (chyba programátora) |
 
-## Modern alternatives
+## Moderní alternativy
 
-* **`safe-exceptions`** — better exception handling.
-* **`unliftio`** — unified IO interface.
-* **`polysemy`, `freer-simple`** — effect systems.
-* **`fused-effects`** — efficient effect handling.
+* **`safe-exceptions`** — lepší práce s výjimkami.
+* **`unliftio`** — jednotné rozhraní pro IO.
+* **`polysemy`, `freer-simple`** — systémy efektů (effect systems).
+* **`fused-effects`** — efektivní práce s efekty.
 
-These reduce boilerplate and improve composability.
+Tyto knihovny snižují množství opakujícího se kódu a zlepšují skládatelnost.
 
 ---
 

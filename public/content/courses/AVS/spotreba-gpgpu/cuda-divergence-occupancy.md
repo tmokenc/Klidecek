@@ -1,14 +1,14 @@
 ---
-title: CUDA — branch divergence, occupancy, optimization
+title: CUDA — divergence větvení, occupancy, optimalizace
 ---
 
-# CUDA programming — divergence, occupancy, optimization
+# Programování v CUDA — divergence, occupancy, optimalizace
 
-GPU dosáhne peak performance *pokud* kód *respektuje* SIMT model. Divergence, low occupancy, uncoalesced access — vše může snížit výkon o řád. Tato sekce shrnuje hlavní praktické bottlenecks a optimalizace.
+GPU dosáhne špičkového výkonu (peak performance) *jen tehdy*, když kód *respektuje* model SIMT. Divergence větvení, nízká occupancy (obsazenost) i nesdružené přístupy do paměti (uncoalesced access) — to vše může snížit výkon o celý řád. Tato sekce shrnuje hlavní praktická úzká místa (bottlenecks) a optimalizace.
 
-## Branch divergence
+## Divergence větvení (branch divergence)
 
-Vlákna v warpu vykonají *stejnou* instrukci. Co když mají *odlišný* control flow?
+Vlákna (threads) v jednom warpu vykonávají *stejnou* instrukci. Co se ale stane, když mají *odlišný* tok řízení (control flow)?
 
 ```cuda
 __global__ void diverging(int *out) {
@@ -21,12 +21,12 @@ __global__ void diverging(int *out) {
 }
 ```
 
-GPU *postupně* vykonává obě větve:
+GPU vykoná obě větve *postupně*:
 
-1. Phase 1: `compute_A()` se vykoná, ale **jen** T16-T31 *zapisují*. T0-T15 jsou *maskované* (no-op).
-2. Phase 2: `compute_B()` se vykoná, jen T0-T15 zapisují. T16-T31 maskované.
+1. Fáze 1: provede se `compute_A()`, ale *zápis* udělají **jen** vlákna T16-T31. Vlákna T0-T15 jsou *maskovaná* (no-op, žádná operace).
+2. Fáze 2: provede se `compute_B()`, zapisují jen T0-T15. Vlákna T16-T31 jsou maskovaná.
 
-Total: **2× delší** než kdyby všichni dělali totéž.
+Celkem to trvá **2× déle**, než kdyby všechna vlákna dělala totéž.
 
 ### Patologie
 
@@ -35,9 +35,9 @@ if (tid % 2 == 0) compute_A();
 else              compute_B();
 ```
 
-50/50 split. *Vždy* 2× pokuta — *žádný* warp není uniformně.
+Rozdělení v poměru 50/50. *Vždy* dvojnásobná pokuta — *žádný* warp neběží uniformně (jednotně).
 
-Worst case: nested branches:
+Nejhorší případ jsou vnořené větve:
 
 ```cuda
 if (cond1) {
@@ -49,21 +49,21 @@ if (cond1) {
 }
 ```
 
-Bez careful design exponenciální slowdown.
+Bez pečlivého návrhu (careful design) dostáváme exponenciální zpomalení.
 
-### Mitigace
+### Zmírnění (mitigace)
 
-1. **Reorganize data** — group threads s same control flow.
-2. **Sort** — pokud branch závisí na hodnotě, sort data před launch.
-3. **Replace branches with arithmetic** — `result = cond ? a : b` → `result = cond * a + (1-cond) * b` (no branch).
-4. **Branchless algorithms** — known patterns (SAXPY, reduction) without conditionals.
+1. **Reorganizace dat** — seskup vlákna se stejným tokem řízení.
+2. **Třídění (sort)** — pokud větev závisí na hodnotě, setřiď data před spuštěním (launch).
+3. **Nahrazení větvení aritmetikou** — `result = cond ? a : b` přepiš na `result = cond * a + (1-cond) * b` (žádná větev).
+4. **Algoritmy bez větvení (branchless)** — známé vzory (SAXPY, redukce) bez podmínek.
 
 ::: viz gpu-warp-divergence "Vyber rozdělení threadů (grouped split slider / alternating / random / uniform). Sleduj 2 fáze (compute_A / compute_B) — uniform = 1 cyklus, divergence = 2."
 :::
 
-## Memory coalescing
+## Sdružování přístupů do paměti (memory coalescing)
 
-Připomenutí: consecutive threads in warp should access consecutive memory addresses.
+Připomeňme: po sobě jdoucí vlákna ve warpu by měla přistupovat k po sobě jdoucím adresám v paměti.
 
 ```cuda
 // Good: T0 reads a[0], T1 reads a[1], ..., T31 reads a[31]
@@ -73,11 +73,11 @@ sum += a[blockIdx.x * blockDim.x + threadIdx.x];
 sum += a[threadIdx.x * 32 + blockIdx.x];
 ```
 
-Uncoalesced = 32 separate transactions per warp instead of 1. 32× more bandwidth used.
+Nesdružený přístup znamená 32 samostatných transakcí na jeden warp místo jediné. Spotřebuje se tak 32× více přenosové kapacity (bandwidth).
 
-### Stride patterns
+### Vzory s krokem (stride patterns)
 
-Common bad pattern: row-major iteration of column-major storage.
+Častý špatný vzor je procházení po řádcích u dat uložených po sloupcích.
 
 ```cuda
 // Matrix B stored column-major (B[col][row])
@@ -86,11 +86,11 @@ Common bad pattern: row-major iteration of column-major storage.
 //                Uncoalesced for col → row_stride access
 ```
 
-Layout transformation často critical. Use NVIDIA Visual Profiler / Nsight to detect.
+Změna rozložení dat (layout) je často klíčová. K detekci použij NVIDIA Visual Profiler nebo Nsight.
 
-## Shared memory bank conflicts
+## Konflikty bank ve sdílené paměti (shared memory bank conflicts)
 
-Shared memory rozdělena na 32 *banks*. Each bank serves 1 access per cycle. Pokud více threads in warp access *same bank* (different addresses) → *serialized*.
+Sdílená paměť je rozdělena na 32 *bank* (paměťových bank). Každá banka obslouží 1 přístup za cyklus. Pokud více vláken ve warpu přistupuje ke *stejné bance* (na různé adresy), přístupy se *serializují* (vykonají se postupně za sebou).
 
 ```cuda
 __shared__ float data[32][32];
@@ -102,28 +102,28 @@ float v = data[threadIdx.x][0];
 float v = data[0][threadIdx.x];     // column 0, bank for data[0][i] depends on i
 ```
 
-Detection: NVIDIA profiler counters `shared_load_bank_conflict`.
+Detekce: čítače v NVIDIA profileru `shared_load_bank_conflict`.
 
-Mitigation: pad shared arrays (`__shared__ float data[32][33]` adds 1 column padding).
+Zmírnění: vycpávka (padding) sdílených polí (`__shared__ float data[32][33]` přidá jeden sloupec navíc).
 
 ::: viz bank-conflict-warp "Vyber přístupový pattern (no conflict / 2-way / 4-way / 32-way / broadcast / padded). Sleduj kolik threadů míří na každý z 32 bank — vícenásobné kolize serializují."
 :::
 
-## Occupancy
+## Occupancy (obsazenost)
 
-Occupancy = *kolik* warps active per SM relative to maximum.
+Occupancy udává, *kolik* warpů je aktivních na jednom SM v poměru k maximu.
 
-NVIDIA A100: max 64 warps active per SM. Pokud kernel uses 32 warps per SM → occupancy 50%.
+NVIDIA A100: maximálně 64 aktivních warpů na SM. Pokud kernel využívá 32 warpů na SM, je occupancy 50 %.
 
 ### Limity occupancy
 
-Per-block resources limit how many blocks fit per SM:
+Prostředky vázané na blok určují, kolik bloků se na jeden SM vejde:
 
-- **Registers per thread** — limited per SM (~65k registers / SM).
-- **Shared memory per block** — limited per SM (~96 kB).
-- **Threads per block** — limited per SM (~2048).
+- **Registry na vlákno (registers per thread)** — omezené na SM (~65 tis. registrů na SM).
+- **Sdílená paměť na blok** — omezená na SM (~96 kB).
+- **Vlákna na blok** — omezená na SM (~2048).
 
-If kernel uses 64 registers/thread → max 1024 active threads (64k regs ÷ 64). That's 32 warps → 50% occupancy.
+Pokud kernel používá 64 registrů na vlákno, je maximum 1024 aktivních vláken (64 tis. registrů ÷ 64). To je 32 warpů, tedy 50% occupancy.
 
 ### Optimalizace
 
@@ -134,31 +134,31 @@ void mykernel() {
 }
 ```
 
-`__launch_bounds__(maxThreadsPerBlock, minBlocksPerSM)` tells compiler: optimize for at least 4 blocks per SM. Compiler limits registers per thread accordingly.
+`__launch_bounds__(maxThreadsPerBlock, minBlocksPerSM)` říká překladači (compiler): optimalizuj pro alespoň 4 bloky na SM. Překladač podle toho omezí počet registrů na vlákno.
 
-Trade-off: fewer registers per thread → less instruction-level reuse → may need more memory access.
+Kompromis: méně registrů na vlákno znamená menší znovupoužití na úrovni instrukcí (instruction-level reuse), což může vyžadovat více přístupů do paměti.
 
-### High occupancy not always best
+### Vysoká occupancy není vždy nejlepší
 
-Sometimes *low occupancy + more registers per thread* better. Each thread has more state in registers → less memory access → less latency hiding needed.
+Někdy je lepší *nízká occupancy a více registrů na vlákno*. Každé vlákno pak drží v registrech více stavu, takže potřebuje méně přístupů do paměti, a tím i méně skrývání latence (latency hiding).
 
-Common case: matrix multiply with large tiles. 25% occupancy can outperform 100% if each thread fully utilizes its registers.
+Typický případ: násobení matic s velkými dlaždicemi (tiles). 25% occupancy může předčit 100%, pokud každé vlákno plně využije své registry.
 
-Performance tuning is empirical — try different `__launch_bounds__` and measure.
+Ladění výkonu (performance tuning) je empirické — zkoušej různá nastavení `__launch_bounds__` a měř.
 
-## Latency hiding via TLP
+## Skrývání latence pomocí TLP
 
-GPU hides DRAM latency (~500 cycles) by switching warps. Need enough *parallel warps* to fill latency.
+GPU skrývá latenci DRAM (~500 cyklů) tím, že přepíná warpy. Aby latenci zaplnilo, potřebuje dostatek *paralelních warpů*.
 
-Required parallelism = latency × throughput / work-per-warp.
+Potřebný paralelismus = latence × propustnost / práce na jeden warp.
 
-For A100: 500 cycles × 64 active warps / (1 instruction per cycle) = 32000 warp-cycles of work to hide one memory access.
+Pro A100: 500 cyklů × 64 aktivních warpů / (1 instrukce za cyklus) = 32000 warp-cyklů práce na zakrytí jednoho přístupu do paměti.
 
-⇒ Many active warps essential. Low occupancy = exposed latency = slow.
+⇒ Mnoho aktivních warpů je tedy zásadní. Nízká occupancy znamená nezakrytou latenci a tím pomalý běh.
 
-## OpenMP target offload — alternativa CUDA
+## OpenMP target offload — alternativa k CUDA
 
-OpenMP 4.0+ supports GPU offload via *pragma*:
+OpenMP od verze 4.0 podporuje offload na GPU pomocí *pragma direktiv*:
 
 ```c
 #pragma omp target teams distribute parallel for
@@ -166,19 +166,19 @@ for (int i = 0; i < N; i++)
     a[i] = b[i] * c[i];
 ```
 
-Compiler (GCC, Clang) generates GPU code from same source.
+Překladač (GCC, Clang) vygeneruje kód pro GPU ze stejného zdroje.
 
-- **target** — execute on accelerator.
-- **teams** — analog of CUDA blocks.
-- **distribute parallel for** — analog of `parallel for` but for GPU.
+- **target** — vykonej na akcelerátoru.
+- **teams** — obdoba bloků v CUDA.
+- **distribute parallel for** — obdoba `parallel for`, ale pro GPU.
 
-Benefit: portability. Same code on CPU, NVIDIA GPU, AMD GPU, Intel GPU.
+Přínos: přenositelnost. Stejný kód běží na CPU, GPU NVIDIA, GPU AMD i GPU Intel.
 
-Performance: typically 80-90 % of hand-tuned CUDA. Worth it for *portability* vs CUDA lock-in.
+Výkon: typicky 80-90 % ručně laděné CUDA. Vyplatí se kvůli *přenositelnosti* oproti uzamčení na CUDA (CUDA lock-in).
 
-## Tensor Core programming
+## Programování Tensor Core
 
-For matrix multiply, NVIDIA provides specialized API:
+Pro násobení matic poskytuje NVIDIA specializované API:
 
 ```cuda
 #include <mma.h>
@@ -197,42 +197,42 @@ mma_sync(c_frag, a_frag, b_frag, c_frag);
 store_matrix_sync(C_smem, c_frag, 16, mem_row_major);
 ```
 
-Single `mma_sync` performs **16×16×16 = 4096 FP16 multiply-adds in 1 instruction**. 5-10× speedup over plain CUDA cores for matrix workloads.
+Jediná instrukce `mma_sync` provede **16×16×16 = 4096 operací násobení a sčítání (multiply-add) ve formátu FP16 v rámci jediné instrukce**. To je 5-10× zrychlení oproti běžným CUDA jádrům u maticových úloh.
 
-Used internally by cuBLAS, cuDNN, PyTorch — programmer typically doesn't write directly.
+Interně to využívají knihovny cuBLAS, cuDNN i PyTorch — programátor toto API typicky nepíše přímo.
 
-## Optimization workflow
+## Pracovní postup optimalizace
 
-1. **Profile** — Nsight, NVIDIA Visual Profiler. Identify bottleneck (compute, memory, latency).
-2. **Coalesce memory access** — verify with profiler.
-3. **Maximize occupancy** — adjust block size, registers.
-4. **Use shared memory** for data reuse.
-5. **Avoid divergence** — branchless when possible.
-6. **Use tensor cores** for matrix workloads.
+1. **Profiluj** — Nsight, NVIDIA Visual Profiler. Najdi úzké místo (výpočet, paměť, latence).
+2. **Sdruž přístupy do paměti (coalesce)** — ověř profilerem.
+3. **Maximalizuj occupancy** — uprav velikost bloku a počet registrů.
+4. **Využij sdílenou paměť** pro znovupoužití dat.
+5. **Vyhni se divergenci** — kde to jde, programuj bez větvení (branchless).
+6. **Použij tensor cores** pro maticové úlohy.
 
-Modern GPU code achieves **70-90 %** of peak FLOPS with above. CPU-bound code rarely achieves more than 30 % peak.
+Moderní kód pro GPU s výše uvedeným dosahuje **70-90 %** špičkového výkonu (peak FLOPS). Kód vázaný na CPU (CPU-bound) zřídka překročí 30 % špičky.
 
-## When NOT to use GPU
+## Kdy GPU NEpoužívat
 
-- Sekvenční / irregular control flow (parser, compiler, DB query planner).
-- Small data (< 1 MB) — overhead of CPU↔GPU transfer dominates.
-- Latency-critical (real-time control) — GPU has high response latency.
-- Complex memory access patterns (graph traversal, sparse matrix without structure).
+- Sekvenční nebo nepravidelný tok řízení (parser, překladač, plánovač dotazů databáze).
+- Malá data (< 1 MB) — převáží režie přenosu mezi CPU a GPU.
+- Úlohy kritické na latenci (řízení v reálném čase) — GPU má vysokou latenci odezvy.
+- Složité vzory přístupu do paměti (procházení grafů, řídké matice bez struktury).
 
-GPU = throughput. CPU = latency. Choose based on problem.
+GPU = propustnost (throughput). CPU = latence. Volbu dělej podle problému.
 
 ## Závěrečné shrnutí
 
-Architektura výpočetních systémů je *kompromis* mezi pákami:
+Architektura výpočetních systémů je *kompromis* mezi několika pákami:
 
-- **ILP** (pipelining + OoO + superskalár) — implicit, HW-driven.
-- **DLP** (SIMD + GPU) — explicit, programátor + compiler.
-- **TLP** (multi-core + SMT) — explicit, programátor.
-- **Cache** + paměťová hierarchie — kompenzace memory wall.
-- **Predikce + spekulace** — překryje neefekty branches a memory.
-- **Power management** — DVFS, gating, big.LITTLE — energy-aware design.
+- **ILP** (pipelining + OoO + superskalár) — implicitní, řízený hardwarem.
+- **DLP** (SIMD + GPU) — explicitní, řeší programátor a překladač (compiler).
+- **TLP** (multi-core + SMT) — explicitní, řeší programátor.
+- **Cache** a paměťová hierarchie — kompenzace paměťové stěny (memory wall).
+- **Predikce a spekulace** — překryjí neefektivity větvení (branches) a paměti.
+- **Správa spotřeby (power management)** — DVFS, gating, big.LITTLE — návrh ohlížející se na energii.
 
-Optimalizace programu = identifikace bottlenecku + nasazení odpovídající páky. Profil-driven, iterativní, empirický.
+Optimalizace programu = identifikace úzkého místa (bottleneck) a nasazení odpovídající páky. Postup řízený profilem, iterativní a empirický.
 
 ---
 

@@ -4,118 +4,118 @@ title: Forenzní DNA — případy a metody
 
 # Forenzní DNA — případy a metody
 
-DNA analysis revolucionalizoval forenzní vědu. Od první-ever DNA-based conviction (1987) jsou tisíce zločinů vyřešeny a tisíce *unjust convictions* obráceny díky DNA testing. Kapitola pokrývá historické případy, metodiku, a aktuální trendy v investigative genetic genealogy.
+Analýza DNA způsobila ve forenzní vědě revoluci. Od vůbec prvního odsouzení na základě DNA (1987) byly díky testování DNA vyřešeny tisíce zločinů a tisíce neoprávněných odsouzení (unjust convictions) bylo zvráceno. Kapitola pokrývá historické případy, metodiku a aktuální trendy v investigativní genetické genealogii (investigative genetic genealogy).
 
 ## Historie {tier=extra}
 
-### First DNA conviction — Colin Pitchfork (1987)
+### První odsouzení na základě DNA — Colin Pitchfork (1987)
 
-* **Leicestershire, UK, 1983–1987.**
-* Dvě 15-leté oběti znásilněny a zavražděny: **Lynda Mann** (1983) a **Dawn Ashworth** (1986).
-* Police vyslechli pekařského dělníka **Richarda Bucklanda** — admitted to Dawn Ashworth murder.
-* **Alec Jeffreys** (University of Leicester) recently vyvinul *DNA fingerprinting* (1984).
-* DNA analysis ze sperm samples ukázala:
-  * Buckland *není* the perpetrator (released!).
-  * The same male committed both murders.
-* **Mass screening:** 5000+ men in 3 villages provided DNA.
+* **Leicestershire, Velká Británie, 1983–1987.**
+* Dvě patnáctileté oběti byly znásilněny a zavražděny: **Lynda Mann** (1983) a **Dawn Ashworth** (1986).
+* Policie vyslechla pekařského dělníka **Richarda Bucklanda** — ten se k vraždě Dawn Ashworth přiznal.
+* **Alec Jeffreys** (University of Leicester) krátce předtím vyvinul metodu „genetického otisku prstu" (DNA fingerprinting, 1984).
+* Analýza DNA ze vzorků spermatu ukázala:
+  * Buckland *není* pachatel (a byl propuštěn!).
+  * Obě vraždy spáchal stejný muž.
+* **Hromadný odběr:** přes 5000 mužů ze 3 vesnic poskytlo vzorek DNA.
 * Náhodou bylo vyslechnuto, že jeden muž (**Ian Kelly**) poskytl vzorek místo **Colina Pitchforka** — tato informace byla nahlášena policii.
-* Pitchfork's DNA matched. **Confessed.** Sentenced to life.
+* Pitchforkova DNA se shodovala. **Přiznal se.** Byl odsouzen na doživotí.
 
-This was:
-1. **First DNA exoneration** (Buckland).
-2. **First DNA conviction** (Pitchfork).
-3. **First mass DNA screening.**
+Šlo o:
+1. **První zproštění viny na základě DNA** (Buckland).
+2. **První odsouzení na základě DNA** (Pitchfork).
+3. **První hromadný odběr DNA.**
 
 ### Innocence Project
 
-* Founded 1992 (Barry Scheck, Peter Neufeld).
-* **Goal:** exonerate wrongfully convicted using DNA.
-* **Outcomes:**
-  * 375+ exonerations since founding.
-  * 21 from death row.
-  * Many original convictions based on faulty eyewitness, false confessions, junk science.
+* Založen roku 1992 (Barry Scheck, Peter Neufeld).
+* **Cíl:** pomocí DNA očistit neprávem odsouzené.
+* **Výsledky:**
+  * Více než 375 zproštění viny od založení.
+  * 21 z nich z cely smrti.
+  * Mnoho původních odsouzení se zakládalo na chybné výpovědi očitých svědků, falešných přiznáních a pseudovědeckých metodách (junk science).
 
-## Methodologie forenzní DNA
+## Metodologie forenzní DNA
 
-### Stopa identifikace
+### Identifikace stopy
 
 Forenzní biologové hledají:
 
-* **Krev** — fluorescence, presumptive tests (luminol).
-* **Sperm** — visualization (Christmas tree stain).
-* **Saliva** — alpha-amylase test.
-* **Hair with roots** — visual.
-* **Skin cells, sweat** — touch DNA.
+* **Krev** — fluorescence, orientační (presumptivní) testy (luminol).
+* **Sperma** — vizualizace (barvení Christmas tree stain).
+* **Sliny** — test na alfa-amylázu.
+* **Vlasy s kořínkem** — vizuálně.
+* **Kožní buňky, pot** — tzv. dotyková DNA (touch DNA).
 
 ### Sběr vzorků
 
-* **Sterile swabs** — cotton, nylon.
-* **Plastic bags** for clothing.
-* **Reference samples** from suspects, victims (buccal swabs).
+* **Sterilní tampony (swaby)** — bavlněné, nylonové.
+* **Plastové sáčky** na oblečení.
+* **Referenční vzorky** od podezřelých a obětí (stěr z ústní dutiny, buccal swab).
 
 ### Laboratoř
 
-1. **Documentation** — chain of custody.
-2. **DNA extraction.**
-3. **Quantification.**
-4. **STR amplification.**
-5. **CE analysis.**
-6. **Profile interpretation.**
-7. **Database comparison** (if no suspect).
-8. **Report** for court.
+1. **Dokumentace** — řetězec důkazů (chain of custody).
+2. **Extrakce DNA.**
+3. **Kvantifikace.**
+4. **Amplifikace STR.**
+5. **Analýza pomocí kapilární elektroforézy (CE).**
+6. **Interpretace profilu.**
+7. **Porovnání s databází** (pokud není podezřelý).
+8. **Zpráva** pro soud.
 
-### Court testimony
+### Svědectví u soudu
 
-* **DNA analyst** explains methodology.
-* **Statistician** explains match probability.
-* **Cross-examination** by defense.
-* Court decides admissibility (Daubert/Frye standard).
+* **Analytik DNA** vysvětluje metodiku.
+* **Statistik** vysvětluje pravděpodobnost shody.
+* **Křížový výslech** ze strany obhajoby.
+* Soud rozhodne o přípustnosti důkazu (standard Daubert/Frye).
 
 ## Slavné případy {tier=extra}
 
 ### O. J. Simpson (1995)
 
-* Most-watched US trial.
-* DNA evidence linked Simpson to murder scene (Nicole Brown Simpson + Ron Goldman).
-* **Defense** challenged sample handling (LAPD contamination).
-* **Acquitted** — despite DNA, jury believed contamination.
-* Civil suit (1997) — guilty, $33.5M judgment.
+* Nejsledovanější soudní proces v USA.
+* Důkazy z DNA spojily Simpsona s místem činu (Nicole Brown Simpson a Ron Goldman).
+* **Obhajoba** zpochybnila způsob nakládání se vzorky (kontaminace u losangeleské policie, LAPD).
+* **Zproštěn viny** — přes důkazy z DNA porota uvěřila tvrzení o kontaminaci.
+* Civilní žaloba (1997) — vinen, náhrada škody 33,5 milionu dolarů.
 
 ### BTK Killer (Dennis Rader, 2005)
 
-* Wichita, Kansas serial killer (1974–1991).
-* Identified 30 years later via **familial DNA** + computer floppy disk metadata.
+* Sériový vrah z Wichity v Kansasu (1974–1991).
+* Identifikován o 30 let později pomocí **rodinné DNA (familial DNA)** a metadat na počítačové disketě.
 
-### Madeleine McCann (2007–present)
+### Madeleine McCann (2007–dosud)
 
-* British 3-year-old missing in Portugal.
-* DNA evidence inconclusive — ongoing case.
+* Tříletá Britka, jež zmizela v Portugalsku.
+* Důkazy z DNA jsou nejednoznačné — případ stále probíhá.
 
-### Boston Strangler (2013)
+### Bostonský škrtič (2013)
 
-* Cold case from 1960s.
-* DNA from victim's clothing matched **Albert DeSalvo** (deceased) via familial DNA.
-* Provided closure 50+ years after.
+* Odložený případ (cold case) ze 60. let.
+* DNA z oblečení oběti se shodovala s **Albertem DeSalvem** (již zesnulým) díky rodinné DNA.
+* Přineslo to uzavření případu více než 50 let poté.
 
-### Golden State Killer (2018) — investigative genetic genealogy
+### Golden State Killer (2018) — investigativní genetická genealogie
 
-* Serial killer in California (1974–1986); 13 murders, 50 rapes, 100+ burglaries.
-* Police uploaded crime scene DNA to **GEDmatch** (consumer genealogy DB).
-* Found *distant relatives* of perpetrator.
-* Built family tree → identified **Joseph James DeAngelo** (former cop).
-* Confessed, sentenced 2020.
+* Sériový vrah v Kalifornii (1974–1986); 13 vražd, 50 znásilnění, přes 100 vloupání.
+* Policie nahrála DNA z místa činu do databáze **GEDmatch** (spotřebitelská genealogická databáze).
+* Našla *vzdálené příbuzné* pachatele.
+* Sestavila rodokmen → identifikovala **Josepha Jamese DeAngela** (bývalého policistu).
+* Přiznal se, odsouzen v roce 2020.
 
-**Controversy:** consumer DNA databases used for forensic. Privacy questions. GEDmatch changed policy (opt-in required).
+**Kontroverze:** spotřebitelské databáze DNA byly použity pro forenzní účely. Vyvolává to otázky soukromí. GEDmatch změnil pravidla (nyní je nutný výslovný souhlas, opt-in).
 
-### Idaho 4 murders (2022–2023)
+### Vraždy Idaho 4 (2022–2023)
 
-* 4 University of Idaho students murdered.
-* **Touch DNA on knife sheath** + investigative genetic genealogy identified Bryan Kohberger.
-* Genetic genealogy played key role.
+* Zavražděni 4 studenti University of Idaho.
+* **Dotyková DNA na pouzdru nože** a investigativní genetická genealogie vedly k identifikaci Bryana Kohbergera.
+* Genetická genealogie sehrála klíčovou roli.
 
-## Investigative Genetic Genealogy (IGG)
+## Investigativní genetická genealogie (IGG)
 
-::: svg "IGG workflow: crime scene DNA → upload to GEDmatch/FTDNA → find distant matches → build family tree → identify suspect."
+::: svg "Postup IGG: DNA z místa činu → nahrání do GEDmatch/FTDNA → nalezení vzdálených shod → sestavení rodokmenu → identifikace podezřelého."
 <svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="11">
   <defs>
     <marker id="aIGG" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
@@ -152,94 +152,94 @@ Forenzní biologové hledají:
 
 ### Postup
 
-1. **Crime scene DNA** sequenced — typically NGS with thousands of SNPs.
-2. **Upload to consumer database** (GEDmatch, FTDNA).
-3. **Find DNA matches** — distant cousins (3rd–5th cousin level).
-4. **Genealogical research** — public records, social media, obituaries.
-5. **Build family tree** — common ancestor 4–6 generations back.
-6. **Identify candidates** — descendant of common ancestor matching geographic/age profile of crime.
-7. **Confirm via direct DNA** — covert collection (discarded item, voluntary buccal).
+1. **DNA z místa činu** se osekvenuje — typicky technologií NGS s tisíci jednonukleotidových polymorfismů (SNP).
+2. **Nahrání do spotřebitelské databáze** (GEDmatch, FTDNA).
+3. **Vyhledání shod DNA** — vzdálení příbuzní (úroveň bratrance ze 3.–5. kolena).
+4. **Genealogický výzkum** — veřejné záznamy, sociální sítě, nekrology.
+5. **Sestavení rodokmenu** — společný předek 4–6 generací zpět.
+6. **Identifikace kandidátů** — potomek společného předka, který odpovídá zeměpisnému a věkovému profilu zločinu.
+7. **Potvrzení přímou DNA** — skrytý odběr (zahozený předmět, dobrovolný stěr z ústní dutiny).
 
-### Solved cases
+### Vyřešené případy
 
-100+ cold cases solved 2018–2023 using IGG:
+V letech 2018–2023 bylo pomocí IGG vyřešeno přes 100 odložených případů (cold cases):
 
 * Golden State Killer.
-* Buckskin Girl (Marcia King, 1981 cold case).
-* Bear Brook murders.
-* Boyfriend murders.
-* Many more.
+* Buckskin Girl (Marcia King, odložený případ z roku 1981).
+* Vraždy Bear Brook.
+* Vraždy „Boyfriend" (Boyfriend murders).
+* A mnoho dalších.
 
-### Controversies
+### Kontroverze
 
-* **Consent:** consumer DB users didn't consent to forensic use.
-* **Familial privacy** — your relatives' DNA can identify you.
-* **Bias** — disproportionately affects certain demographic groups.
-* **GEDmatch changes** — now opt-in for law enforcement matching.
-* **FBI** uses *internal* DNA database (CODIS) only, doesn't use consumer DBs directly.
+* **Souhlas:** uživatelé spotřebitelských databází nedali souhlas s forenzním využitím.
+* **Soukromí příbuzných** — DNA vašich příbuzných může identifikovat i vás.
+* **Předpojatost (bias)** — neúměrně postihuje určité demografické skupiny.
+* **Změny v GEDmatch** — porovnávání pro orgány činné v trestním řízení je nyní podmíněno výslovným souhlasem (opt-in).
+* **FBI** používá pouze *interní* databázi DNA (CODIS), spotřebitelské databáze přímo nevyužívá.
 
-## DNA phenotyping
+## Fenotypizace z DNA (DNA phenotyping)
 
-* **Predict physical traits** from DNA — eye color, hair color, ancestry.
-* **Companies:** Parabon NanoLabs.
-* **Used** in forensic to narrow suspect pool.
-* **Controversies:** racial profiling concerns.
+* **Předpověď fyzických znaků** z DNA — barva očí, barva vlasů, původ (ancestry).
+* **Firmy:** Parabon NanoLabs.
+* **Využití** ve forenzní praxi ke zúžení okruhu podezřelých.
+* **Kontroverze:** obavy z rasového profilování.
 
-## Disaster Victim Identification (DVI)
+## Identifikace obětí katastrof (Disaster Victim Identification, DVI)
 
-* **9/11 (2001)** — identifying ~2700 victims at WTC. DNA from family reference samples vs. remains.
-* **Tsunami 2004** — Interpol DVI protocols established.
-* **Plane crashes, mass casualties** — standard process.
+* **11. září 2001** — identifikace přibližně 2700 obětí ve Světovém obchodním centru (WTC). DNA z referenčních vzorků od rodin se porovnávala s ostatky.
+* **Vlna tsunami 2004** — ustaveny protokoly Interpolu pro DVI.
+* **Letecká neštěstí, hromadné neštěstí** — standardní postup.
 
-### Methodology
+### Metodika
 
-1. **Antemortem** records — dental, fingerprint, DNA from family.
-2. **Postmortem** sample from victim remains.
-3. **Match** via DNA (most reliable for fragmented remains).
-4. **Identification** → return to family.
+1. **Antemortem záznamy** (před smrtí) — zubní, otisky prstů, DNA od rodiny.
+2. **Postmortem vzorek** (po smrti) z ostatků oběti.
+3. **Shoda** pomocí DNA (nejspolehlivější u fragmentovaných ostatků).
+4. **Identifikace** → předání rodině.
 
-## Practical issues
+## Praktické problémy
 
-### Sample contamination
+### Kontaminace vzorku
 
-* **Lab cross-contamination.**
-* **Personnel DNA** in samples.
-* **Strict protocols** — negative controls, gloves, sterile equipment.
+* **Křížová kontaminace v laboratoři.**
+* **DNA personálu** ve vzorcích.
+* **Přísné protokoly** — negativní kontroly, rukavice, sterilní vybavení.
 
-### Low Copy Number (LCN) DNA
+### DNA o nízkém počtu kopií (Low Copy Number, LCN)
 
-* Touch DNA, degraded samples.
-* **<100 picograms** DNA.
-* **Probabilistic genotyping** essential.
-* Court admissibility debated.
+* Dotyková DNA, degradované vzorky.
+* **Méně než 100 pikogramů** DNA.
+* **Pravděpodobnostní genotypizace (probabilistic genotyping)** je nezbytná.
+* O přípustnosti u soudu se vede spor.
 
-### Mixed DNA samples
+### Směsné vzorky DNA
 
-* Multiple contributors.
-* **Probabilistic genotyping software** (STRmix, TrueAllele).
-* Likelihood ratios for specific contributor combinations.
+* Více přispěvatelů.
+* **Software pro pravděpodobnostní genotypizaci** (STRmix, TrueAllele).
+* Věrohodnostní poměry (likelihood ratios) pro konkrétní kombinace přispěvatelů.
 
-## Czech kontext
+## Český kontext
 
 ### Forenzní DNA v ČR
 
-* **Kriminalistický ústav Praha** — main forensic DNA lab.
-* **Policejní DNA databáze** — administered by Policie ČR.
-* **Connected** to Prüm system (EU integration).
-* **Cca 70 000** profiles.
+* **Kriminalistický ústav Praha** — hlavní forenzní laboratoř DNA.
+* **Policejní databáze DNA** — spravovaná Policií ČR.
+* **Napojena** na systém Prüm (integrace v rámci EU).
+* **Cca 70 000** profilů.
 
-### Notable cases
+### Významné případy
 
-* Several cold cases solved with DNA in recent decades.
-* International cooperation via Eurojust, Europol.
+* V posledních desetiletích bylo pomocí DNA vyřešeno několik odložených případů.
+* Mezinárodní spolupráce probíhá prostřednictvím Eurojustu a Europolu.
 
-## Ethics & limitations
+## Etika a omezení
 
-* **Privacy** — DNA reveals more than identity (health, ancestry).
-* **Genetic discrimination** — Genetic Information Nondiscrimination Act (GINA) in US.
-* **Retention** — long-term DNA storage controversies.
-* **Familial DNA searches** — relatives implicated without consent.
-* **Innocent until proven guilty** — DNA can corroborate but not solely establish guilt.
+* **Soukromí** — DNA prozrazuje víc než jen totožnost (zdraví, původ).
+* **Genetická diskriminace** — v USA řešena zákonem Genetic Information Nondiscrimination Act (GINA).
+* **Uchovávání** — kontroverze kolem dlouhodobého skladování DNA.
+* **Vyhledávání podle rodinné DNA** — příbuzní jsou zataženi do případu bez svého souhlasu.
+* **Presumpce neviny** — DNA může vinu podpořit, ale sama o sobě ji nemůže prokázat.
 
 ---
 

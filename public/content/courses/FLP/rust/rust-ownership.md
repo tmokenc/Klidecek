@@ -1,24 +1,24 @@
 ---
-title: Rust — Ownership a borrowing
+title: Rust — vlastnictví a vypůjčování
 ---
 
-# Rust — Ownership a borrowing
+# Rust — vlastnictví a vypůjčování
 
-**Rust** je *moderní systémový jazyk* (Mozilla 2010+, Rust Foundation 2021+) s *unikátním* memory management modelem — **ownership** + **borrowing**. Žádný garbage collector, žádná manuální správa, ale **memory safety** zaručená *compile-time*. Od akademického roku **2026/27** zařazen do osnovy jako moderní alternativa k *čistě* funkcionálnímu Haskellu.
+**Rust** je *moderní systémový jazyk* (Mozilla 2010+, Rust Foundation 2021+) s *unikátním* modelem správy paměti — **vlastnictvím (ownership)** a **vypůjčováním (borrowing)**. Nemá garbage collector ani manuální správu paměti, a přesto je **bezpečnost paměti (memory safety)** zaručena už při překladu (compile-time). Od akademického roku **2026/27** je zařazen do osnovy jako moderní alternativa k *čistě* funkcionálnímu Haskellu.
 
-## Proč Rust ve výuce FP
+## Proč Rust ve výuce funkcionálního programování
 
 Aktuální osnova (2026/27) představuje *více paradigmat*:
 
 * **Lambda kalkul** — teoretický základ.
-* **Haskell** — pure functional programming.
-* **Rust** — *systémový jazyk s funkcionálními rysy* — ownership inspired by linear types, iterators, closures, pattern matching, ADTs (enum), traits (jako type classes).
+* **Haskell** — čisté funkcionální programování (pure functional programming).
+* **Rust** — *systémový jazyk s funkcionálními rysy*. Jeho vlastnictví je inspirováno lineárními typy, dále nabízí iterátory, uzávěry (closures), porovnávání vzorů (pattern matching), algebraické datové typy ADT (enum) a traity (trait), které fungují podobně jako typové třídy (type classes).
 
-Rust *spojuje* funkcionální koncepty s *imperativním* + *systémovým* programováním. Studenti se učí, že FP principy *nejsou* omezeny na čisté FP jazyky.
+Rust *spojuje* funkcionální koncepty s *imperativním* a *systémovým* programováním. Studenti se na něm učí, že principy funkcionálního programování *nejsou* omezeny jen na čistě funkcionální jazyky.
 
-## Ownership
+## Vlastnictví (ownership)
 
-**Klíčový princip:** každá hodnota má *právě jednoho* vlastníka. Když vlastník opustí scope, hodnota je *automaticky* uvolněna.
+**Klíčový princip:** každá hodnota má *právě jednoho* vlastníka. Když vlastník opustí svůj rozsah platnosti (scope), je hodnota *automaticky* uvolněna.
 
 ### Příklady
 
@@ -29,7 +29,7 @@ fn main() {
 } // s opustí scope, "hello" je dropped (uvolněno)
 ```
 
-### Move semantika
+### Sémantika přesunu (move)
 
 ```rust
 fn main() {
@@ -41,11 +41,11 @@ fn main() {
 }
 ```
 
-Po `let s2 = s1` přestává `s1` být platné. Toto je *fundamental difference* oproti C++ (copy by default) nebo Java/Python (reference semantics).
+Po `let s2 = s1` přestává být `s1` platné — hodnota se přesune (move) do `s2`. To je *zásadní rozdíl* oproti C++ (kde se hodnota implicitně kopíruje) nebo Javě či Pythonu (kde se pracuje s referenční sémantikou).
 
-### Copy types
+### Typy s implicitní kopií (Copy)
 
-Pro malé typy (Int, Bool, Char) je *implicitní copy*:
+Pro malé typy (Int, Bool, Char) probíhá *implicitní kopie*:
 
 ```rust
 fn main() {
@@ -56,9 +56,9 @@ fn main() {
 }
 ```
 
-Typy s `Copy` trait: `i32`, `f64`, `bool`, `char`, tuples of Copy types, fixed arrays.
+Typy s traitem `Copy`: `i32`, `f64`, `bool`, `char`, n-tice (tuples) složené z Copy typů a pole pevné velikosti.
 
-Typy *bez* `Copy`: `String`, `Vec<T>`, `Box<T>`, `Rc<T>`, user types (unless derived `Copy`).
+Typy *bez* `Copy`: `String`, `Vec<T>`, `Box<T>`, `Rc<T>` a uživatelské typy (pokud pro ně `Copy` výslovně neodvodíme).
 
 ### Předávání funkci
 
@@ -88,11 +88,11 @@ fn main() {
 }
 ```
 
-## Borrowing
+## Vypůjčování (borrowing)
 
-**Problém:** ownership má issue — předáním do funkce *ztratíme* hodnotu. **Řešení:** *borrowing* — předat *referenci* místo vlastnictví.
+**Problém:** vlastnictví má jednu nevýhodu — předáním hodnoty do funkce o ni *přijdeme*. **Řešení:** *vypůjčování (borrowing)* — místo vlastnictví předáme *referenci*.
 
-### Immutable references (&T)
+### Neměnné reference (&T)
 
 ```rust
 fn calculate_length(s: &String) -> usize {  // borrow
@@ -107,7 +107,7 @@ fn main() {
 }
 ```
 
-### Mutable references (&mut T)
+### Měnitelné reference (&mut T)
 
 ```rust
 fn change(s: &mut String) {
@@ -121,12 +121,12 @@ fn main() {
 }
 ```
 
-### Borrowing rules
+### Pravidla vypůjčování
 
-**Klíčová pravidla** (compile-time enforced):
+**Klíčová pravidla** (vynucená při překladu):
 
-1. **Either** *one* mutable reference, **or** *any number* of immutable references — but **not both**.
-2. References must **always be valid** (no dangling pointers).
+1. **Buď** *jedna* měnitelná reference, **nebo** *libovolný počet* neměnných referencí — ale **nikdy obojí zároveň**.
+2. Reference musí být **vždy platná** (žádné visící ukazatele, dangling pointers).
 
 ::: viz ownership-flow "Krok-po-kroku scénáře move / copy / borrow / drop; vidíte stav obou bindingů + borrow checker chybu."
 :::
@@ -153,9 +153,9 @@ let r2 = &mut s;  // ERROR: cannot have mutable when immutable exists
 println!("{} {}", r1, r2);
 ```
 
-### Lifetime — preview
+### Doba života (lifetime) — náhled
 
-Borrows mají *lifetime*:
+Vypůjčky mají svou *dobu života (lifetime)* — interval, po který musí být reference platná:
 
 ```rust
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
@@ -163,11 +163,11 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 }
 ```
 
-Detailněji v [[rust-lifetimes]].
+Podrobněji v [[rust-lifetimes]].
 
 ## String vs. &str
 
-Dva základní string typy:
+Existují dva základní řetězcové typy:
 
 ```rust
 // String — owned, heap-allocated
@@ -179,10 +179,10 @@ let s: &str = "hello";  // string literal, static
 let s: &str = &String::from("hello");  // borrow of String
 ```
 
-* `String` je *owned* — má lifetime, modifikovatelná.
-* `&str` je *borrowed* — read-only, lifetime musí být validní.
+* `String` je *vlastněný (owned)* — má dobu života a lze ho měnit.
+* `&str` je *vypůjčený (borrowed)* — je pouze pro čtení a jeho doba života musí být platná.
 
-Pravidlo: **functions take `&str` parameter**, pokud nepotřebujete ownership:
+Pravidlo: **funkce přijímají parametr typu `&str`**, pokud nepotřebují vlastnictví:
 
 ```rust
 fn greet(name: &str) {  // accepts &str AND &String (auto-coerced)
@@ -196,7 +196,7 @@ fn main() {
 }
 ```
 
-## Slices
+## Řezy (slices)
 
 Reference na *část* hodnoty:
 
@@ -209,13 +209,13 @@ let nums = vec![1, 2, 3, 4, 5];
 let first_two: &[i32] = &nums[0..2];  // [1, 2]
 ```
 
-Slices jsou *fat pointers* — pointer + length.
+Řezy jsou *tlusté ukazatele (fat pointers)* — obsahují ukazatel (pointer) i délku.
 
-## Cleanup
+## Uvolňování zdrojů (cleanup)
 
-### Drop trait
+### Trait Drop
 
-Když ownership opouští scope, `drop` se volá automaticky:
+Když vlastnictví opouští rozsah platnosti, automaticky se volá metoda `drop`:
 
 ```rust
 struct Resource {
@@ -236,24 +236,24 @@ fn main() {
 
 ### RAII
 
-**Resource Acquisition Is Initialization** — Rust ho vynucuje:
+**Resource Acquisition Is Initialization** (získání zdroje je inicializace) — Rust tento princip vynucuje:
 
-* File handles, network connections, mutex locks — *vše* používá RAII.
-* No `try-finally`, no explicit `close()`.
-* Resource je *guaranteed* uvolněn, even on panic.
+* Souborové popisovače (file handles), síťová spojení i zámky mutexu — *vše* využívá RAII.
+* Žádné `try-finally`, žádné explicitní `close()`.
+* Zdroj je *zaručeně* uvolněn, a to i při panice (panic).
 
-## Smart pointers
+## Chytré ukazatele (smart pointers)
 
 ### Box<T>
 
-Heap allocation:
+Alokace na haldě (heap):
 
 ```rust
 let b = Box::new(42);  // i32 on heap
 println!("{}", *b);  // dereference: 42
 ```
 
-### Rc<T> — reference counting
+### Rc<T> — počítání referencí (reference counting)
 
 ```rust
 use std::rc::Rc;
@@ -265,9 +265,9 @@ let c = Rc::clone(&a);
 // String dropped when last Rc dropped
 ```
 
-Used for *shared ownership*, single-threaded.
+Používá se pro *sdílené vlastnictví* v jednovláknovém prostředí.
 
-### Arc<T> — atomic reference counting
+### Arc<T> — atomické počítání referencí
 
 ```rust
 use std::sync::Arc;
@@ -276,7 +276,9 @@ let a = Arc::new(String::from("shared"));
 // Like Rc but thread-safe (atomic ops)
 ```
 
-### RefCell<T> — interior mutability
+Funguje stejně jako `Rc`, ale je bezpečný pro práci ve více vláknech (thread), protože používá atomické operace.
+
+### RefCell<T> — vnitřní měnitelnost (interior mutability)
 
 ```rust
 use std::cell::RefCell;
@@ -286,12 +288,12 @@ let data = RefCell::new(5);
 println!("{}", *data.borrow());  // 15
 ```
 
-Allows mutation through `&` reference; *runtime* check (not compile-time).
+Umožňuje měnit hodnotu skrze referenci `&`. Kontrola pravidel zde probíhá *za běhu (runtime)*, nikoli při překladu.
 
 ::: viz smart-pointer-graph "Box / Rc / Arc / RefCell + Rc<RefCell<T>> jako grafy s refcounty; vyberte typ scénáře."
 :::
 
-## Move closures
+## Přesouvací uzávěry (move closures)
 
 ```rust
 fn main() {
@@ -307,11 +309,11 @@ fn main() {
 }
 ```
 
-`move` keyword *forces* capture by move.
+Klíčové slovo `move` *vynutí* zachycení proměnné přesunem (move).
 
-## Common patterns
+## Běžné návrhové vzory (common patterns)
 
-### Builder pattern
+### Vzor builder
 
 ```rust
 let config = ConfigBuilder::new()
@@ -320,7 +322,7 @@ let config = ConfigBuilder::new()
     .build();
 ```
 
-### Newtype wrapper
+### Obal newtype
 
 ```rust
 struct UserId(u64);
@@ -329,55 +331,55 @@ let id = UserId(42);
 let n = id.0;  // access inner
 ```
 
-### Type alias
+### Typový alias
 
 ```rust
 type Name = String;
 type Result<T> = std::result::Result<T, MyError>;
 ```
 
-## Memory safety
+## Bezpečnost paměti (memory safety)
 
-Rust *eliminuje* většinu memory bugs *compile-time*:
+Rust *eliminuje* většinu chyb práce s pamětí už *při překladu*:
 
-* **Use after free** — impossible (lifetime checking).
-* **Double free** — impossible (single owner).
-* **Dangling pointer** — impossible (lifetime checks).
-* **Iterator invalidation** — impossible (borrowing rules).
-* **Data race** — impossible (Send/Sync traits).
+* **Použití po uvolnění (use after free)** — nemožné (kontrola doby života).
+* **Dvojí uvolnění (double free)** — nemožné (právě jeden vlastník).
+* **Visící ukazatel (dangling pointer)** — nemožné (kontrola doby života).
+* **Invalidace iterátoru (iterator invalidation)** — nemožné (pravidla vypůjčování).
+* **Souběh dat (data race)** — nemožné (traity Send/Sync).
 
-Bez performance overhead — všechno je *compile-time*.
+A to vše bez dopadu na výkon (performance) — všechny kontroly probíhají *při překladu*.
 
-## Trade-offs
+## Klady a zápory (trade-offs)
 
-### Pros
+### Klady
 
-* **Memory safe** without GC.
-* **Fast** (no runtime overhead).
-* **Concurrent** (compile-time race prevention).
-* **Modern features** — pattern matching, ADTs, traits.
-* **Growing ecosystem** — cargo, crates.io.
+* **Bezpečná práce s pamětí** bez garbage collectoru.
+* **Rychlost** (žádná režie za běhu).
+* **Souběžnost** (prevence souběhů dat už při překladu).
+* **Moderní vlastnosti** — porovnávání vzorů, algebraické datové typy, traity.
+* **Rostoucí ekosystém** — cargo, crates.io.
 
-### Cons
+### Zápory
 
-* **Steep learning curve** — ownership/lifetimes.
-* **Compile times** — slower than C/Go.
-* **Verbose** in some scenarios.
-* **No "easy" mode** — must understand ownership.
+* **Strmá křivka učení** — vlastnictví a doby života.
+* **Doba překladu** — pomalejší než u C nebo Go.
+* **Upovídanost** v některých situacích.
+* **Žádný „jednoduchý" režim** — vlastnictví je nutné pochopit.
 
-## Srovnání s Haskell
+## Srovnání s Haskellem
 
-| Aspect | Haskell | Rust |
+| Hledisko | Haskell | Rust |
 | :--- | :--- | :--- |
-| Paradigm | pure FP | multi-paradigm |
-| Memory | GC | ownership |
-| Types | static, inferred | static, inferred |
-| Effects | monads | direct (with discipline) |
-| Performance | good | excellent (~C) |
-| Learning curve | steep (laziness, monads) | steep (ownership) |
-| Use case | research, finance, compilers | systems, performance, infra |
+| Paradigma | čisté FP | více paradigmat |
+| Paměť | garbage collector | vlastnictví |
+| Typy | statické, odvozované | statické, odvozované |
+| Efekty | monády | přímo (s patřičnou disciplínou) |
+| Výkon | dobrý | vynikající (~C) |
+| Křivka učení | strmá (lenost, monády) | strmá (vlastnictví) |
+| Typické nasazení | výzkum, finance, překladače | systémy, výkon, infrastruktura |
 
-Oba jazyky používají *type system* jako *primary* tool, ale s *odlišnými* prioritami.
+Oba jazyky používají *typový systém* jako svůj *hlavní* nástroj, ale s *odlišnými* prioritami.
 
 ## Příklad — kompletní program {tier=example}
 
@@ -413,14 +415,14 @@ fn main() {
 }
 ```
 
-## Trends 2025+
+## Trendy 2025+
 
-* **Rust 2024 edition** released.
-* **Linux kernel** accepts Rust modules (2022+).
-* **Windows, Android** integrating Rust.
-* **WebAssembly** primary target.
-* **Embedded** growing (RISC-V, ARM).
-* **Async/await** for concurrency.
+* **Vydání edice Rust 2024.**
+* **Linuxové jádro** přijímá moduly v Rustu (od roku 2022).
+* **Windows a Android** integrují Rust.
+* **WebAssembly** jako hlavní cílová platforma.
+* **Vestavěné systémy (embedded)** — rostoucí oblast (RISC-V, ARM).
+* **Async/await** pro souběžnost.
 
 ---
 

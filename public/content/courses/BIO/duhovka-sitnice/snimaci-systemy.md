@@ -1,175 +1,175 @@
 ---
-title: Snímací systémy — komerční iris/retina scannery
+title: Snímací systémy — komerční scannery duhovky a sítnice
 ---
 
-# Snímací systémy — komerční iris/retina scannery
+# Snímací systémy — komerční scannery duhovky a sítnice
 
-Praktické nasazení iris a retina biometriky vyžaduje *specifické* zařízení. Zde přehled hlavních komerčních systémů a vývojových projektů, včetně multimodálního zařízení **Eyrina**.
+Praktické nasazení biometriky duhovky a sítnice vyžaduje *specifické* zařízení. Zde je přehled hlavních komerčních systémů a vývojových projektů, včetně multimodálního zařízení **Eyrina**.
 
-## Iris scannery
+## Scannery duhovky
 
 ### IriShield (IriTech)
 
-* **Compact** USB iris scanner.
-* Sample 640 × 480 NIR image.
-* Distance 8–25 cm.
-* Cena: $300–$1000.
-* Použití: enrollment stations, mobile ID.
+* **Kompaktní** USB scanner duhovky.
+* Snímá NIR (blízké infračervené) obrázky v rozlišení 640 × 480.
+* Snímací vzdálenost 8–25 cm.
+* Cena: 300–1000 $.
+* Použití: zápisové stanice (enrollment stations), mobilní identifikace.
 
 ### CMITech BMT-20 (Aware)
 
-* High-throughput iris reader.
-* Captures 1 m vzdálenost — *no contact*.
-* Use case: airport eGates.
+* Čtečka duhovky s vysokou propustností.
+* Snímá ze vzdálenosti 1 m — *bezkontaktně*.
+* Příklad nasazení: automatizované odbavovací brány na letištích (eGates).
 
 ### Princeton Identity ID-200 / ID-300
 
-* Acquired Princeton Identity (Samsung subsidiary).
-* High-end iris recognition for enterprise.
-* Used by U.S. military, intelligence.
+* Společnost Princeton Identity (dceřiná společnost Samsungu) byla převzata (akvizice).
+* Rozpoznávání duhovky špičkové třídy pro firemní nasazení.
+* Používá ji armáda a zpravodajské služby USA.
 
 ### IRIS ID iCAM 7000 series
 
-* Standard iris scanner v Indian Aadhaar.
-* 1.3 billion enrollments.
+* Standardní scanner duhovky v indickém systému Aadhaar.
+* 1,3 miliardy zápisů (enrollments).
 
-### Mobile iris
+### Mobilní snímání duhovky
 
-* **Samsung Galaxy S8/S9/Note 8** (2017–2018) — first mass-market mobile iris scanner. *Discontinued* in S10+ (replaced by ultrasonic fingerprint).
-* **iPhone X+** — *not* iris, ale Face ID (different biometric).
+* **Samsung Galaxy S8/S9/Note 8** (2017–2018) — první masově dostupný mobilní scanner duhovky. *Ukončeno* u modelu S10 a novějších (nahrazeno ultrazvukovou čtečkou otisků prstů).
+* **iPhone X a novější** — *nejde* o duhovku, ale o Face ID (jiná biometrika).
 
 ### Worldcoin Orb
 
-* 2022 controversial project.
-* Mass-iris-scanning for global UBI / ID infrastructure.
-* Custom hardware ($100K+ per unit).
-* Privacy concerns + EU regulation reactions.
+* Kontroverzní projekt z roku 2022.
+* Masové snímání duhovky pro globální infrastrukturu nepodmíněného základního příjmu (UBI) a identity.
+* Zakázkový hardware (přes 100 000 $ za jednotku).
+* Obavy o soukromí a reakce evropské regulace.
 
-## Retina scannery
+## Scannery sítnice
 
 ### EyeDentify EyeScan
 
-* První commercial retinal scanner (1985).
-* Specialized chair + headrest.
-* $10K+ per unit.
-* Used by NSA, CIA, FBI, nuclear plants.
-* Discontinued ~2000s.
+* První komerční scanner sítnice (1985).
+* Speciální křeslo s opěrkou hlavy.
+* Přes 10 000 $ za jednotku.
+* Používaly jej NSA, CIA, FBI a jaderné elektrárny.
+* Výroba ukončena kolem roku 2000.
 
-### Topcon retinal cameras
+### Topcon — kamery sítnice
 
-* Medical-grade fundus cameras (TRC-50DX series).
-* Primary use: diagnostics.
-* Biometric mode possible but rarely used.
+* Fundus kamery v lékařské kvalitě (řada TRC-50DX).
+* Hlavní využití: diagnostika.
+* Biometrický režim je možný, ale využívá se zřídka.
 
 ### Optos California / Daytona
 
-* Wide-field retinal imaging.
-* Single-image capture without dilatation.
-* Medical primary, biometric secondary.
+* Širokoúhlé snímání sítnice.
+* Pořízení jediného snímku bez nutnosti rozšíření zornice (dilatace).
+* Primárně lékařské využití, biometrika je až druhotná.
 
-### Smartphone-attached
+### Nástavce pro chytré telefony
 
-* **Welch Allyn iExaminer** — iPhone case + ophthalmoscope.
-* **Aurora Smart Retinal Camera** — handheld.
-* **D-EYE** — Italian startup, mobile ophthalmoscope.
+* **Welch Allyn iExaminer** — pouzdro na iPhone s oftalmoskopem.
+* **Aurora Smart Retinal Camera** — ruční přístroj.
+* **D-EYE** — italský startup, mobilní oftalmoskop.
 
-## Eyrina — multimodální iris+retina zařízení
+## Eyrina — multimodální zařízení pro duhovku i sítnici
 
-Akademický projekt zaměřený na *kombinované snímání* iris a retina jedním zařízením.
+Akademický projekt zaměřený na *kombinované snímání* duhovky a sítnice jedním zařízením.
 
 ### Cíl projektu
 
-Vyvinutí zařízení, které *téměř v jednom okamžiku* pořídí *oba snímky* (iris + retina).
+Vyvinout zařízení, které *téměř v jediném okamžiku* pořídí *oba snímky* (duhovku i sítnici).
 
 ### Architektura
 
-* **Iris snímání** — NIR camera, similar to commercial iris scanners.
-* **Retina snímání** — fundus camera optical path.
-* **Sdílená optická cesta** — same eye, both sensors.
-* **Precision alignment** — automated subject positioning.
+* **Snímání duhovky** — NIR kamera, podobná komerčním scannerům duhovky.
+* **Snímání sítnice** — optická dráha fundus kamery.
+* **Sdílená optická cesta** — totéž oko, oba snímače.
+* **Přesné zarovnání** — automatizované polohování snímaného subjektu.
 
 ### Využití
 
-* **Biometrické** — hybrid biometric s vyšší přesností než jen iris nebo jen retina.
-* **Biomedicínské** — *jednorázová* diagnostická akce; detekce diabetes, glaucoma, hypertenze.
+* **Biometrické** — hybridní biometrika s vyšší přesností než samotná duhovka nebo samotná sítnice.
+* **Biomedicínské** — *jednorázová* diagnostická akce; detekce cukrovky (diabetes), zeleného zákalu (glaukomu) a vysokého krevního tlaku (hypertenze).
 
 ## Společné prvky komerčních scannerů
 
 ### Hardware
 
-* **NIR LED illumination** — neviditelné, neruší user experience.
-* **CCD/CMOS sensor** — high resolution, low noise.
-* **Optical system** — narrow depth of field, focus on iris/retina.
-* **Anti-reflective coatings** — minimize specular reflections from cornea.
+* **NIR LED osvětlení** — neviditelné, neruší uživatelský komfort.
+* **Snímač CCD/CMOS** — vysoké rozlišení, nízký šum.
+* **Optická soustava** — malá hloubka ostrosti, zaostření na duhovku/sítnici.
+* **Antireflexní vrstvy** — minimalizují zrcadlové odlesky od rohovky.
 
-### Capture protocol
+### Protokol snímání
 
-1. **Subject positioning** — chin rest / head positioning aid.
-2. **Auto-focus** — detect eye, adjust focus.
-3. **Quality assessment** — check sharpness, brightness, iris area.
-4. **Capture** — single snap or multi-frame averaging.
-5. **Post-processing** — image enhancement.
+1. **Polohování subjektu** — opěrka brady nebo pomůcka pro nastavení hlavy.
+2. **Automatické zaostření** — detekce oka, nastavení ostrosti.
+3. **Posouzení kvality** — kontrola ostrosti, jasu a plochy duhovky.
+4. **Pořízení snímku** — jeden snímek nebo průměrování z více snímků.
+5. **Následné zpracování** — vylepšení obrazu.
 
-### Quality metrics
+### Metriky kvality
 
-* **Sharpness** — high-frequency content present.
-* **Brightness** — uniform illumination.
-* **Iris area** — sufficient (>200 pixels diameter for iris).
-* **Eyelid occlusion** — minimal.
-* **Pupil-iris ratio** — within acceptable range (0.1–0.7).
+* **Ostrost** — přítomnost vysokofrekvenčního obsahu.
+* **Jas** — rovnoměrné osvětlení.
+* **Plocha duhovky** — dostatečná (pro duhovku průměr větší než 200 pixelů).
+* **Překrytí víčkem** — minimální.
+* **Poměr zornice a duhovky** — v přijatelném rozsahu (0,1–0,7).
 
 ## Standardy snímání
 
-* **ISO/IEC 19794-6:2011** — Iris image format.
-* **ISO/IEC 29794-6:2015** — Iris image quality.
-* **NIST SP 800-76-2** — Biometric data for PIV cards (includes iris).
-* **ANSI/NIST-ITL 1-2011 Type 17** — Iris image record.
+* **ISO/IEC 19794-6:2011** — formát obrazu duhovky.
+* **ISO/IEC 29794-6:2015** — kvalita obrazu duhovky.
+* **NIST SP 800-76-2** — biometrická data pro karty PIV (zahrnuje duhovku).
+* **ANSI/NIST-ITL 1-2011 Type 17** — datový záznam obrazu duhovky.
 
-## Mobile vs. desktop
+## Mobilní vs. stolní zařízení
 
-| | **Mobile** | **Desktop / enterprise** |
+| | **Mobilní** | **Stolní / firemní** |
 | :--- | :---: | :---: |
-| Velikost | <50 g | >1 kg |
-| Cena | $10–$100 add-on | $500–$5000 |
-| Resolution | adequate | high |
-| Distance | <30 cm | 0.5–1 m |
-| Use case | personal auth | enrollment, identification |
+| Velikost | < 50 g | > 1 kg |
+| Cena | nástavec za 10–100 $ | 500–5000 $ |
+| Rozlišení | dostačující | vysoké |
+| Vzdálenost | < 30 cm | 0,5–1 m |
+| Příklad použití | osobní ověření | zápis, identifikace |
 
-## Trends 2025
+## Trendy 2025
 
-* **Touchless iris** — Apple/Google research; integrate iris into front camera.
-* **Standoff iris** (multi-meter) — surveillance use, controversial.
-* **3D iris reconstruction** — depth + texture, more spoof-resistant.
-* **Iris + retina fusion** — kombinovaná zařízení (Eyrina-like) směřují ke komerčnímu nasazení.
-* **Privacy-preserving iris** — encrypted templates, cancelable iris codes.
+* **Bezkontaktní snímání duhovky** — výzkum Applu a Googlu; integrace snímání duhovky do přední kamery.
+* **Snímání duhovky na dálku** (řádově metry) — využití pro sledování, kontroverzní.
+* **3D rekonstrukce duhovky** — hloubka i textura, odolnější vůči podvržení (spoofing).
+* **Fúze duhovky a sítnice** — kombinovaná zařízení (jako Eyrina) směřují ke komerčnímu nasazení.
+* **Snímání duhovky se zachováním soukromí** — šifrované šablony, odvolatelné kódy duhovky (cancelable iris codes).
 
-## Anti-spoofing pro iris/retina
+## Ochrana proti podvržení (anti-spoofing) pro duhovku a sítnici
 
-### Iris
+### Duhovka
 
-* **Photo attack** — high-resolution photo of iris. Defenze: depth analysis, pupil dynamics.
-* **Patterned contact lens** — printed iris pattern. Defenze: spectral analysis (lens has different spectrum than natural iris).
-* **Real iris from corpse / surgery** — extreme case. Defenze: pupil dynamics (live pupil reacts to light).
+* **Útok fotografií** — fotografie duhovky ve vysokém rozlišení. Obrana: analýza hloubky, dynamika zornice.
+* **Vzorovaná kontaktní čočka** — vytištěný vzor duhovky. Obrana: spektrální analýza (čočka má jiné spektrum než přirozená duhovka).
+* **Skutečná duhovka z mrtvého těla / po operaci** — krajní případ. Obrana: dynamika zornice (živá zornice reaguje na světlo).
 
-### Retina
+### Sítnice
 
-* **Extremely difficult** to spoof — retina is *inside* eye.
-* **3D-printed eye model** + retinal pattern → possible but very expensive.
-* No documented real-world spoofs.
+* **Mimořádně obtížné** podvrhnout — sítnice je *uvnitř* oka.
+* **3D vytištěný model oka** + vzor sítnice → možné, ale velmi nákladné.
+* Nejsou zdokumentovány žádné reálné případy podvržení.
 
 ## Limity nasazení
 
-### Iris
+### Duhovka
 
-* Mass deployment feasible but **slowed** by user acceptance.
-* "Eye scanning" creates *unease* among public.
-* Religious / cultural concerns in some regions.
+* Masové nasazení je proveditelné, ale **brzdí** je přijetí ze strany uživatelů.
+* „Skenování oka" vyvolává *nepříjemné pocity* u veřejnosti.
+* V některých oblastech existují náboženské nebo kulturní výhrady.
 
-### Retina
+### Sítnice
 
-* **Highly inconvenient** — close contact, bright light.
-* **Cooperative subject** required.
-* **Not suitable** for surveillance / mass deployment.
+* **Velmi nepohodlné** — blízký kontakt, jasné světlo.
+* Vyžaduje **spolupracující subjekt**.
+* **Nevhodné** pro sledování či masové nasazení.
 
 ---
 

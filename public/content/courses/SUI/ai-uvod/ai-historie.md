@@ -4,7 +4,7 @@ title: Historie AI a dvě tradice
 
 # Historie AI a dvě tradice
 
-AI má kořeny ve **dvou paralelních tradicích**, které se po desetiletí *střídaly* v dominanci. Jejich konvergence v moderním deep learningu je hlavní vědecký příběh posledních let.
+AI má kořeny ve **dvou paralelních tradicích**, které se po desetiletí *střídaly* v převaze. Jejich sbližování v moderním hlubokém učení (deep learning) je hlavním vědeckým příběhem posledních let.
 
 ## Dvě tradice
 
@@ -37,111 +37,111 @@ AI má kořeny ve **dvou paralelních tradicích**, které se po desetiletí *st
 
 ### Symbolická AI (GOFAI — *Good Old-Fashioned AI*)
 
-* Inteligence = manipulace **symboly** podle **logických pravidel**.
+* Inteligence = manipulace se **symboly** podle **logických pravidel**.
 * Vychází z **logiky** (Aristoteles, Frege, Russell, Gödel) a **počítačů** (Turing, von Neumann).
-* Dominantní: 1950s-1980s a v některých subdisciplínách (plánování, formální verifikace) dodnes.
+* Převládala v letech 1950–1980 a v některých podoborech (plánování, formální verifikace) dodnes.
 
 ### Konekcionistická / sub-symbolická AI
 
-* Inteligence = **emergentní** vlastnost sítí jednoduchých prvků (neuronů).
+* Inteligence = **emergentní** (vynořující se) vlastnost sítí jednoduchých prvků (neuronů). Tedy chytré chování nevzniká z jednoho pravidla, ale ze spolupráce mnoha jednoduchých částí.
 * Vychází z **neurovědy** (McCulloch-Pitts) a **statistiky** (Bayes, Fisher).
-* Dominantní: 2010s-současnost (díky velkým datům + výpočetnímu výkonu).
+* Převládá od roku 2010 do současnosti (díky velkým datům a výpočetnímu výkonu).
 
 ## Linie dějin
 
-### Začátky (1940s-1950s)
+### Začátky (1940.–1950. léta)
 
 * **1943** — McCulloch & Pitts: *A Logical Calculus of the Ideas Immanent in Nervous Activity*. **První matematický model neuronu**. Spojení logiky a neuronů.
 * **1950** — Alan Turing: *Computing Machinery and Intelligence*. Turingův test.
-* **1952** — Arthur Samuel: program pro *dámu*, který se *učí* (alpha-beta + heuristické *learned weights*). První *self-learning* program.
+* **1952** — Arthur Samuel: program pro *dámu*, který se *učí* (algoritmus alfa-beta a heuristické naučené váhy). První program, který se učil sám.
 * **1955** — Newell & Simon: *Logic Theorist* — dokazování teorémů z *Principia Mathematica*.
 
-### Dartmouth Conference (1956)
+### Dartmouthská konference (1956)
 
 Léto 1956, Dartmouth College, organizováno *Johnem McCarthym* (Dartmouth), *Marvinem Minskym* (MIT), *Claudem Shannonem* (Bell Labs), *Nathanielm Rochesterem* (IBM):
 
 > *Návrh: každý aspekt učení nebo jakékoli jiné rysy inteligence lze tak přesně popsat, že stroj může být zkonstruován tak, aby ho simuloval.*
 
-**Tehdy se objevil termín „artificial intelligence"**. Konference se považuje za *zrod oboru*.
+**Tehdy se objevil termín „umělá inteligence" (artificial intelligence)**. Konference se považuje za *zrod oboru*.
 
-### Optimistická éra (1950s-1960s)
+### Optimistická éra (1950.–1960. léta)
 
-* **1957** — Frank Rosenblatt: *Perceptron* — první trénovatelný lineární klasifikátor s perceptronovým pravidlem učení (error-driven update).
+* **1957** — Frank Rosenblatt: *Perceptron* — první trénovatelný lineární klasifikátor s perceptronovým pravidlem učení (úprava vah řízená chybou). Síť tedy upravuje své váhy podle toho, jak moc se v predikci spletla.
 * **1958** — McCarthy: LISP — programovací jazyk pro AI.
 * **1959** — Newell & Simon: *General Problem Solver* (GPS).
-* **1966** — Joseph Weizenbaum: *ELIZA* — chatbot (psychoterapeut), zmátl uživatele.
+* **1966** — Joseph Weizenbaum: *ELIZA* — chatbot (psychoterapeut), který dokázal uživatele zmást.
 
-> **Marvin Minsky (1967):** *„Within 10 years the problems of artificial intelligence will be substantially solved."*
-> **Herbert Simon (1965):** *„Machines will be capable, within twenty years, of doing any work a man can do."*
+> **Marvin Minsky (1967):** *„Během deseti let budou problémy umělé inteligence v zásadě vyřešeny."*
+> **Herbert Simon (1965):** *„Stroje budou do dvaceti let schopny vykonávat jakoukoli práci, kterou zvládne člověk."*
 
-Optimismus byl ale *nadhodnocený* — nikdo netušil, jak těžké je *zdravým rozumem* operovat ve světě.
+Tento optimismus byl ale *přehnaný* — nikdo netušil, jak těžké je orientovat se ve světě se *zdravým rozumem*.
 
-### Problémy a první AI Winter (konec 1960s-70s)
+### Problémy a první zima AI (AI Winter, konec 60. a 70. léta)
 
-Po překonání hraní her a triviálních úloh narazila symbolická AI na **kombinatorickou explozi** a *real-world knowledge*:
+Po zvládnutí hraní her a jednoduchých úloh narazila symbolická AI na **kombinatorickou explozi** (lavinový nárůst počtu možností) a na potřebu *znalostí o reálném světě*:
 
-* **Hrubé překladače**: legendární anekdota „*The spirit is willing but the flesh is weak*" → překlad do ruštiny zpět → *„The vodka is good but the meat is rotten"*.
-* **Real world**: pravidla nestačí — svět je *nepřesný*, *nejistý*, *implicitní*.
-* **Computation**: stroje 60. let měly *kilobyte* paměti.
+* **Hrubé překladače**: legendární anekdota — věta „*Duch je odhodlaný, ale tělo je slabé*" (*The spirit is willing but the flesh is weak*) se po překladu do ruštiny a zpět vrátila jako *„Vodka je dobrá, ale maso je zkažené"* (*The vodka is good but the meat is rotten*).
+* **Reálný svět**: pravidla nestačí — svět je *nepřesný*, *nejistý* a *nevyřčený* (implicitní).
+* **Výpočetní výkon**: stroje 60. let měly jen *kilobajty* paměti.
 
-**1966**: ALPAC report — strojový překlad „nevyhovuje". US government *ukončil financování*. *První AI Winter*.
+**1966**: zpráva ALPAC — strojový překlad „nevyhovuje". Vláda USA *ukončila financování*. Přišla *první zima AI*.
 
-### Knowledge-based systems (1970s-80s)
+### Znalostní systémy (1970.–80. léta)
 
-Symbolická AI hledá novou cestu — **expertní systémy**. Místo *obecné* inteligence se extrahuje *konkrétní doménová* znalost ve formě **if-then pravidel**:
+Symbolická AI hledá novou cestu — **expertní systémy**. Místo *obecné* inteligence se vytěžuje *konkrétní oborová* znalost ve formě pravidel typu **„když–pak" (if-then)**:
 
-* **DENDRAL** (Stanford, 1965-): identifikace molekul z hmotnostní spektrometrie.
-* **MYCIN** (Stanford, 1972): diagnóza krevních infekcí. Dokázala lépe diagnostikovat než většina lékařů.
-* **XCON** (Digital Equipment, 1982): konfigurace VAX/PDP počítačů. Roční úspora `$25M`.
+* **DENDRAL** (Stanford, od 1965): identifikace molekul z hmotnostní spektrometrie.
+* **MYCIN** (Stanford, 1972): diagnostika krevních infekcí. Dokázal diagnostikovat lépe než většina lékařů.
+* **XCON** (Digital Equipment, 1982): konfigurace počítačů VAX/PDP. Roční úspora `$25M`.
 
-**Komerční úspěch**: 60% Fortune 500 mělo nějaký expertní systém v 1990. **Ale**:
+**Komerční úspěch**: v roce 1990 mělo nějaký expertní systém 60 % firem z žebříčku Fortune 500. **Ale**:
 
-* **Knowledge base** byla *drahá* (expertní rozhovory, pravidlový engineering).
-* **Křehkost** mimo zaměřenou oblast.
-* **Update** byl *manuální*.
+* **Báze znalostí** (knowledge base) byla *drahá* (rozhovory s experty, ruční tvorba pravidel).
+* **Křehkost** mimo úzce zaměřenou oblast.
+* **Aktualizace** se musela dělat *ručně*.
 
-### Druhý AI Winter (konec 80s)
+### Druhá zima AI (konec 80. let)
 
-Limity expertních systémů. *Lisp Machines* zkrachovaly. Druhý pokles financování.
+Projevily se limity expertních systémů. Počítače *Lisp Machines* zkrachovaly. Přišel druhý pokles financování.
 
-### Renesance — strojové učení (90s)
+### Renesance — strojové učení (90. léta)
 
-Po prvním AI Winteru se začala formovat *jiná* AI — **statistická / data-driven**:
+Po první zimě AI se začala formovat *jiná* AI — **statistická, řízená daty** (data-driven):
 
 * **Bayesovské sítě** (Pearl 1985) — pravděpodobnostní modely.
-* **SVM** (Vapnik 1995) — kernelové metody pro klasifikaci.
-* **Decision trees, random forests** — robustní obecné metody.
-* **HMM-GMM** — dominantní v rozpoznávání řeči.
+* **SVM** (Vapnik 1995) — jádrové (kernelové) metody pro klasifikaci.
+* **Rozhodovací stromy, náhodné lesy** (decision trees, random forests) — robustní obecné metody.
+* **HMM-GMM** — převládaly v rozpoznávání řeči.
 
-**1997** — *Deep Blue* (IBM) porazil Garryho Kasparova v šachu. Symbolická AI: hluboké prohledávání + databáze + α-β.
+**1997** — *Deep Blue* (IBM) porazil Garryho Kasparova v šachu. Šlo o symbolickou AI: hluboké prohledávání, databáze a algoritmus α-β.
 
 ### Konekcionistická AI — pomalý pokrok
 
-Mezitím se v *podzemí* vyvíjela neuronová cesta:
+Mezitím se *v ústraní* vyvíjela neuronová cesta:
 
-* **1969** — Minsky & Papert: *Perceptrons* — kniha ukázala, že lineární perceptron nedokáže řešit XOR. *Zabila* zájem o neuronky na 15 let.
-* **1986** — Rumelhart, Hinton, Williams: popularizace **backpropagation** pro tréning vícevrstvých sítí. Začátek *druhé vlny* neuronek.
-* **1989** — Yann LeCun: *Handwritten Zip Code Recognition with Multilayer Networks* — první *praktická* CNN.
+* **1969** — Minsky & Papert: *Perceptrons* — kniha ukázala, že lineární perceptron nedokáže řešit funkci XOR. To *pohřbilo* zájem o neuronové sítě na 15 let.
+* **1986** — Rumelhart, Hinton, Williams: popularizace metody zpětného šíření chyby (**backpropagation**) pro trénování vícevrstvých sítí. Začátek *druhé vlny* neuronových sítí.
+* **1989** — Yann LeCun: *Handwritten Zip Code Recognition with Multilayer Networks* — první *prakticky použitelná* CNN.
 * **1997** — Hochreiter & Schmidhuber: **LSTM** ([[rnn-lstm]]).
-* **2006** — Hinton: *Deep Belief Networks* — pre-training pro hluboké sítě.
+* **2006** — Hinton: *Deep Belief Networks* — předtrénování (pre-training) pro hluboké sítě.
 
-### Golden age (2012-současnost)
+### Zlatý věk (2012–současnost)
 
-* **2012** — **AlexNet** (Krizhevsky, Sutskever, Hinton): hluboká CNN výrazně překonala dosavadní state-of-the-art na ImageNet (16% top-5 error vs. 26%). *Začátek deep learning revoluce*.
-* **2013** — *Word2Vec* (Mikolov): efficient word embeddings.
-* **2013** — DQN (Mnih et al.): hraní *Atari* hry z pixelů přes deep RL.
-* **2014** — *Sequence-to-sequence* (Sutskever, Vinyals, Le): translation.
-* **2014** — **GAN** (Goodfellow): generativní adversariální sítě.
-* **2015** — **ResNet** (He et al.): skip connections, 152 vrstev, ImageNet 3.6% error.
-* **2016** — **AlphaGo** (DeepMind): porazil Lee Sedola v Go.
+* **2012** — **AlexNet** (Krizhevsky, Sutskever, Hinton): hluboká CNN výrazně překonala dosavadní špičku (state-of-the-art) na datové sadě ImageNet (16% chyba top-5 oproti 26%). *Začátek revoluce hlubokého učení*.
+* **2013** — *Word2Vec* (Mikolov): efektivní vektorové reprezentace slov (word embeddings).
+* **2013** — DQN (Mnih et al.): hraní her *Atari* přímo z obrazových pixelů pomocí hlubokého zpětnovazebního učení (deep RL).
+* **2014** — *Sequence-to-sequence* (Sutskever, Vinyals, Le): strojový překlad.
+* **2014** — **GAN** (Goodfellow): generativní soupeřící (adversariální) sítě.
+* **2015** — **ResNet** (He et al.): přeskakující spoje (skip connections), 152 vrstev, na ImageNetu chyba 3,6 %.
+* **2016** — **AlphaGo** (DeepMind): porazil Lee Sedola ve hře go.
 * **2017** — **Transformer** (Vaswani et al.): *Attention Is All You Need*.
-* **2017** — **AlphaZero**: jedna síť hraje šachy, shogi, Go bez lidských dat.
-* **2018** — **BERT** (Google): masked language modeling, dominantní v NLP.
+* **2017** — **AlphaZero**: jedna síť hraje šachy, shogi i go bez lidských dat.
+* **2018** — **BERT** (Google): maskované jazykové modelování (masked language modeling), převládalo v NLP.
 * **2019** — **GPT-2** (OpenAI): velký jazykový model, autoregresivní.
-* **2020** — **GPT-3**: 175 mld parametrů, few-shot learning.
-* **2021** — **DALL-E**, **AlphaFold 2** (Nobelova cena 2024 pro chemii).
-* **2022** — **ChatGPT** veřejně dostupné, *masivní* společenský dopad.
-* **2023+** — **GPT-4**, **Claude**, **Gemini**, **LLaMA** open-source, **agentní LLM**.
+* **2020** — **GPT-3**: 175 miliard parametrů, učení z mála příkladů (few-shot learning).
+* **2021** — **DALL-E**, **AlphaFold 2** (Nobelova cena za chemii 2024).
+* **2022** — **ChatGPT** veřejně dostupný, *masivní* společenský dopad.
+* **2023+** — **GPT-4**, **Claude**, **Gemini**, **LLaMA** jako open-source, **agentní LLM**.
 
 ::: svg "Linie pokroku AI: opakované cykly nadějí, zklamání (AI winter) a průlomů."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -181,23 +181,23 @@ Mezitím se v *podzemí* vyvíjela neuronová cesta:
 AI nepracuje izolovaně. Konkrétní *užitečné nápady*:
 
 * **Bayesovo pravidlo** (Bayes, 1763) — z pravděpodobnosti.
-* **Least squares** (Gauss, 1795) — z astronomie.
+* **Metoda nejmenších čtverců** (least squares; Gauss, 1795) — z astronomie.
 * **Predikátová logika** (Frege, 1893) — z logiky.
-* **Maximum likelihood** (Fisher, 1922) — ze statistiky.
+* **Metoda maximální věrohodnosti** (maximum likelihood; Fisher, 1922) — ze statistiky.
 * **Neuronové sítě** (McCulloch, Pitts, 1943) — z neurovědy.
-* **Minimax** (von Neumann, 1944) — z ekonomie / teorie her.
-* **Stochastic gradient descent** (Robbins, Monro, 1951) — z optimalizace.
-* **Uniform-cost / Dijkstra** (Dijkstra, 1956) — z algoritmů.
-* **Value iteration** (Bellman, 1957) — z teorie řízení.
-* **Attention** (Bahdanau, 2014) — z neuronek + psychologie.
+* **Minimax** (von Neumann, 1944) — z ekonomie a teorie her.
+* **Stochastický gradientní sestup** (stochastic gradient descent; Robbins, Monro, 1951) — z optimalizace.
+* **Prohledávání podle ceny / Dijkstra** (uniform-cost; Dijkstra, 1956) — z algoritmů.
+* **Iterace hodnot** (value iteration; Bellman, 1957) — z teorie řízení.
+* **Pozornost** (attention; Bahdanau, 2014) — z neuronových sítí a psychologie.
 
-AI je *konečnou* aplikací myšlenek, které se dlouho rodily v jiných oborech.
+AI je *výsledným* uplatněním myšlenek, které se dlouho rodily v jiných oborech.
 
 ## Současný stav — kde stojíme
 
-* **Narrow AI** — *dramaticky úspěšná*. Vidění, řeč, překlad, hra, doporučení.
-* **Široké AI / foundation models** — LLM jako *univerzální* nástroje. Občas překvapivě dobré, občas selhávají na základní logice (*hallucination*).
-* **AGI** — *otevřená otázka*. Někteří experti tvrdí, že LLM jsou cestou; jiní, že potřebujeme radikálně jiné techniky (symbolické integrace, world models, embodiment).
+* **Úzká AI** (narrow AI) — *dramaticky úspěšná*. Vidění, řeč, překlad, hraní her, doporučování.
+* **Široká AI / základové modely** (foundation models) — LLM jako *univerzální* nástroje. Občas překvapivě dobré, občas selhávají na základní logice (*halucinace*).
+* **AGI** (obecná umělá inteligence) — *otevřená otázka*. Někteří experti tvrdí, že LLM jsou tou správnou cestou; jiní, že potřebujeme radikálně jiné techniky (integrace se symbolickými přístupy, modely světa, ukotvení v těle a prostředí — embodiment).
 
 ::: link "Russell & Norvig: AIMA, kap. 1 — A Brief History of AI" "http://aima.cs.berkeley.edu/"
 :::

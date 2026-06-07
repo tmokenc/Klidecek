@@ -1,14 +1,14 @@
 ---
-title: Buffer overflow a memory corruption
+title: Buffer overflow a poškození paměti
 ---
 
 # Buffer overflow — klasická paměťová chyba
 
-**Buffer overflow** je nejstarší a stále nejnebezpečnější třída softwarových chyb. Poprvé dokumentován v roce **1972**. Despite decades of mitigations, *stále aktivní* — Heartbleed (2014), CVE-2024-3094 (XZ backdoor 2024), atd.
+**Buffer overflow** (přetečení bufferu) je nejstarší a stále nejnebezpečnější třída softwarových chyb. Poprvé byl zdokumentován v roce **1972**. Navzdory desítkám let obranných opatření je *stále aktivní* — Heartbleed (2014), CVE-2024-3094 (backdoor v XZ z roku 2024) a další.
 
 ## Princip
 
-Buffer = ohraničená paměťová oblast. Pokud zápis *přesahuje* hranice → overwrite okolních dat.
+Buffer (vyrovnávací paměť) je ohraničená paměťová oblast. Pokud zápis *přesáhne* její hranice, dojde k přepsání okolních dat.
 
 ```c
 char buf[8];
@@ -16,13 +16,13 @@ strcpy(buf, "AAAAAAAAAAAAAAAA");   // 16 bytes into 8-byte buffer
 // Past buf bytes overwritten — adjacent data corrupted
 ```
 
-Tato chyba *není* detekována C/C++ kompilátorem. Memory write is *valid* operation; just goes past end of intended buffer.
+Tuto chybu C/C++ překladač (compiler) *neodhalí*. Zápis do paměti je z jeho pohledu *platná* operace; jen zasahuje za konec zamýšleného bufferu.
 
-## Buffer overflow varianty
+## Varianty buffer overflow
 
-### Stack-based buffer overflow
+### Buffer overflow na zásobníku (stack-based)
 
-Buffer na *stacku* (lokální proměnná). Overwrite *return address* funkce → kontrola execution flow.
+Buffer je umístěn na *zásobníku* (stack), tedy jako lokální proměnná. Přepsáním *návratové adresy* (return address) funkce získá útočník kontrolu nad tokem vykonávání programu.
 
 ```c
 void vulnerable(char *input) {
@@ -32,7 +32,7 @@ void vulnerable(char *input) {
 }
 ```
 
-Stack layout (downward growing):
+Rozložení zásobníku (roste směrem dolů):
 
 ```
                   | local buffer[64]    |
@@ -43,33 +43,33 @@ Stack layout (downward growing):
 high address      | ...                 |
 ```
 
-Klasický exploit:
+Klasické zneužití (exploit):
 
-1. Find return address slot.
-2. Construct payload:
-   - Padding to fill buffer.
-   - New return address pointing to *shellcode*.
-   - Shellcode (assembly executing `/bin/sh`).
-3. Call function → return jumps to shellcode → attacker has shell.
+1. Najdi pozici (slot) s návratovou adresou.
+2. Sestav payload (datovou nálož):
+   - Výplň (padding), která zaplní buffer.
+   - Novou návratovou adresu mířící na *shellcode*.
+   - Shellcode (assemblerový kód spouštějící `/bin/sh`).
+3. Při volání funkce návrat skočí na shellcode → útočník (attacker) získá shell.
 
-### Heap-based buffer overflow
+### Buffer overflow na haldě (heap-based)
 
-Buffer na *heap* (malloc/new). Overwrites heap metadata or adjacent objects.
+Buffer je umístěn na *haldě* (heap), tedy alokovaný přes malloc/new. Přetečení přepíše metadata haldy nebo sousední objekty.
 
 ```c
 char *buf = malloc(64);
 strcpy(buf, input);    // overflow corrupts heap chunks
 ```
 
-Heap exploitation:
+Zneužití haldy:
 
-- Overwrite *function pointer* in adjacent object.
-- Corrupt heap metadata → controlled writes via unlink (older glibc).
-- Overwrite vtable pointer (C++).
+- Přepsání *ukazatele na funkci* (function pointer) v sousedním objektu.
+- Poškození metadat haldy → řízené zápisy přes operaci unlink (u starších verzí glibc).
+- Přepsání ukazatele na vtable (tabulku virtuálních metod) v C++.
 
-Modern glibc adds heap hardening — safe unlinking checks, pointer mangling (PTR_MANGLE), tcache double-free detection, and chunk-size sanity checks.
+Moderní glibc přidává zpevnění haldy (hardening) — bezpečnostní kontroly při operaci unlink, maskování ukazatelů (PTR_MANGLE), detekci dvojího uvolnění v tcache (double-free) a kontroly smysluplnosti velikosti chunků.
 
-### Integer overflow
+### Přetečení celého čísla (integer overflow)
 
 ```c
 size_t count = atoi(input);     // attacker controls count
@@ -78,18 +78,18 @@ char *buf = malloc(count * sizeof(int));
 for (int i = 0; i < count; i++) buf[i] = data[i];   // huge buffer overflow
 ```
 
-Integer arithmetic wraps around. Resulting size *small*, but loop writes *much*.
+Celočíselná aritmetika se přetočí (wrap around). Výsledná velikost vyjde *malá*, ale smyčka zapisuje *mnohem více* dat.
 
-### Off-by-one
+### Chyba o jedničku (off-by-one)
 
 ```c
 char buf[16];
 for (int i = 0; i <= 16; i++) buf[i] = 'A';    // writes 17 bytes
 ```
 
-Just *one* byte past buffer. Often overwrites *least significant byte* of saved frame pointer → *frame pointer overflow*.
+Zápis přesahuje buffer jen o *jediný* bajt. Často přepíše *nejméně významný bajt* uloženého ukazatele na rámec (frame pointer) → *přetečení ukazatele na rámec* (frame pointer overflow).
 
-### Format string vulnerabilities
+### Zranitelnosti formátovacích řetězců (format string vulnerabilities)
 
 ```c
 printf(user_input);          // BAD — user_input may contain %s
@@ -97,13 +97,13 @@ printf(user_input);          // BAD — user_input may contain %s
 printf("%s", user_input);
 ```
 
-`%n` writes value to memory address. `%s` reads from memory. Attacker controls printf arg list via format specifier.
+Specifikátor `%n` zapíše hodnotu na adresu v paměti, `%s` z paměti čte. Útočník tak skrze formátovací specifikátor ovládá seznam argumentů funkce printf.
 
 CVE-2000-0573 (FreeBSD wu-ftpd).
 
-## Buffer overflow demo {tier=example}
+## Ukázka buffer overflow {tier=example}
 
-Classic example — `gets()` function.
+Klasický příklad — funkce `gets()`.
 
 ```c
 #include <stdio.h>
@@ -114,13 +114,13 @@ int main() {
 }
 ```
 
-`gets()` reads *unlimited* input → overflow trivial. *Officially removed* from C11 (2011). Still in older code.
+`gets()` načítá *neomezený* vstup → přetečení je triviální. Z jazyka C byla *oficiálně odstraněna* v normě C11 (2011). Ve starším kódu se ale stále vyskytuje.
 
-`fgets(buf, sizeof(buf), stdin)` — safe alternative.
+`fgets(buf, sizeof(buf), stdin)` je bezpečná alternativa.
 
 ## Shellcode
 
-Assembly instructions that *do something useful*:
+Instrukce v assembleru, které *udělají něco užitečného*:
 
 ```assembly
 xor eax, eax       ; clear eax
@@ -135,84 +135,84 @@ mov al, 0xb        ; execve syscall
 int 0x80           ; trigger
 ```
 
-Result: `execve("/bin/sh", ["/bin//sh", NULL], NULL)` → shell prompt.
+Výsledek: `execve("/bin/sh", ["/bin//sh", NULL], NULL)` → příkazová řádka shellu.
 
-Shellcode databases: [shellstorm.org](http://shell-storm.org/shellcode/), Metasploit framework.
+Databáze shellcodů: [shellstorm.org](http://shell-storm.org/shellcode/), framework Metasploit.
 
 ::: viz stack-bof-visualizer "Posouvej délku vstupu — sleduj, jak zápis přeteče buffer, EBP, RIP. Toggle canary / NX / ASLR — uvidíš, který mitigation co brání."
 :::
 
-## Mitigations
+## Obranná opatření (mitigations)
 
-### Source code (best)
+### Úroveň zdrojového kódu (nejlepší)
 
-- **Use safer functions**: `strncpy`, `fgets`, `snprintf` (with checked sizes).
-- **Use safer languages**: Rust, Go, Java, Python — eliminate buffer overflows entirely.
-- **Bounds checking**: array length checks.
+- **Používej bezpečnější funkce**: `strncpy`, `fgets`, `snprintf` (s kontrolovanou velikostí).
+- **Používej bezpečnější jazyky**: Rust, Go, Java, Python — ty buffer overflow zcela eliminují.
+- **Kontrola hranic** (bounds checking): kontrola délky polí.
 
-### Compiler hardening
+### Zpevnění na úrovni překladače (compiler hardening)
 
-- **Stack canaries** — random value before return address. Check at function exit. If overwritten → abort.
-- **DEP / NX bit** — Data Execution Prevention. Stack/heap *not* executable. Shellcode on stack won't run.
-- **ASLR** — Address Space Layout Randomization. Random load addresses. Attacker can't predict where to jump.
+- **Stack canaries** — náhodná hodnota umístěná před návratovou adresu. Při ukončení funkce se kontroluje. Pokud byla přepsána → program se ukončí.
+- **DEP / NX bit** — Data Execution Prevention (zabránění vykonání dat). Zásobník i halda jsou *nespustitelné*. Shellcode na zásobníku se nespustí.
+- **ASLR** — Address Space Layout Randomization (náhodné rozmístění adresního prostoru). Adresy zavádění jsou náhodné, takže útočník nedokáže předvídat, kam skočit.
 
-### OS hardening
+### Zpevnění na úrovni operačního systému (OS hardening)
 
-- **W^X** (Write XOR Execute) — page either writable or executable, never both.
-- **CFI** (Control Flow Integrity) — verify jumps go to *valid* function entries.
-- **Shadow stack** — Intel CET, ARM PAuth. Separate stack for return addresses.
-- **Stack-strong** (Clang) — modern stack hardening.
+- **W^X** (Write XOR Execute) — stránka je buď zapisovatelná, nebo spustitelná, nikdy obojí zároveň.
+- **CFI** (Control Flow Integrity, integrita toku řízení) — ověřuje, že skoky míří na *platné* vstupní body funkcí.
+- **Shadow stack** (stínový zásobník) — Intel CET, ARM PAuth. Oddělený zásobník pouze pro návratové adresy.
+- **Stack-strong** (Clang) — moderní zpevnění zásobníku.
 
-### Bypassing mitigations
+### Obcházení obranných opatření
 
-Modern exploits bypass these:
+Moderní exploity tato opatření obcházejí:
 
-- **ROP** (Return-Oriented Programming) — chain *existing* code "gadgets" to bypass NX.
+- **ROP** (Return-Oriented Programming) — řetězí *existující* úseky kódu („gadgets"), aby obešel NX.
 - **JOP** (Jump-Oriented Programming).
-- **Info leak + ASLR bypass** — exploit other bug to leak addresses.
-- **Heap spray** — fill heap with shellcode → guess address works.
+- **Únik informací + obejití ASLR** — využije jinou chybu k získání adres.
+- **Heap spray** — zaplaví haldu shellcodem → uhodnutí adresy pak vyjde.
 
-⇒ Exploit development is *cat-and-mouse* with defenders.
+⇒ Vývoj exploitů je *hra na kočku a myš* s obránci.
 
-## Famous buffer overflow exploits {tier=example}
+## Slavné exploity zneužívající buffer overflow {tier=example}
 
-| CVE | Software | Year | Impact |
+| CVE | Software | Rok | Dopad |
 | :--- | :--- | :---: | :--- |
-| Morris Worm | fingerd | 1988 | first internet worm |
-| Code Red | IIS | 2001 | 359k systems infected |
-| Slammer | SQL Server | 2003 | global internet slowdown |
-| Blaster | Windows RPC | 2003 | mass infection |
-| Heartbleed | OpenSSL | 2014 | read 64KB server memory |
-| Stagefright | Android | 2015 | MMS-based exploit |
+| Morris Worm | fingerd | 1988 | první internetový červ |
+| Code Red | IIS | 2001 | nakaženo 359 tisíc systémů |
+| Slammer | SQL Server | 2003 | globální zpomalení internetu |
+| Blaster | Windows RPC | 2003 | masová nákaza |
+| Heartbleed | OpenSSL | 2014 | čtení 64 KB paměti serveru |
+| Stagefright | Android | 2015 | zneužití přes MMS |
 | EternalBlue | Windows SMB | 2017 | WannaCry, NotPetya |
 
 ## ROP — Return-Oriented Programming
 
-Modern exploit (Shacham 2007). Since DEP prevents shellcode execution, *reuse* existing code:
+Moderní exploit (Shacham 2007). Protože DEP brání spuštění shellcodu, *znovu se použije* existující kód:
 
-1. Find *gadgets* — short sequences ending with `ret`. E.g., `pop %rax; ret`.
-2. Chain gadgets via stack — each `ret` jumps to next gadget's address.
-3. Setup needed registers, then call legitimate function (mprotect, execve).
+1. Najdi *gadgety* — krátké sekvence končící instrukcí `ret`. Například `pop %rax; ret`.
+2. Zřetěz gadgety přes zásobník — každé `ret` skočí na adresu dalšího gadgetu.
+3. Nastav potřebné registry a poté zavolej legitimní funkci (mprotect, execve).
 
-Tools: ROPgadget, pwntools.
+Nástroje: ROPgadget, pwntools.
 
-ASLR mitigates ROP. Combined info leak + ROP = modern exploit.
+ASLR ztěžuje ROP. Kombinace úniku informací a ROP = moderní exploit.
 
-## Detection
+## Detekce
 
-### Static analysis
+### Statická analýza
 
-- **Coverity, Klocwork, Fortify** — commercial code scanners.
-- **Clang static analyzer**.
-- **Coccinelle, Semmle/CodeQL** — pattern-based.
+- **Coverity, Klocwork, Fortify** — komerční nástroje pro analýzu kódu.
+- **Statický analyzátor Clangu**.
+- **Coccinelle, Semmle/CodeQL** — založené na porovnávání vzorů (pattern matching).
 
-Detects many but not all. False positives common.
+Odhalí mnoho chyb, ale ne všechny. Časté jsou falešně pozitivní nálezy.
 
-### Dynamic analysis
+### Dynamická analýza
 
-- **AddressSanitizer (ASAN)** — Clang/GCC runtime checker. Inserts checks around memory ops.
-- **Valgrind Memcheck** — detect uninitialized reads, double-free, out-of-bounds.
-- **Fuzzing** — feed random input, catch crashes (AFL, libFuzzer, syzkaller).
+- **AddressSanitizer (ASAN)** — kontrolor za běhu (runtime) pro Clang/GCC. Vkládá kontroly kolem operací s pamětí.
+- **Valgrind Memcheck** — odhalí čtení neinicializované paměti, dvojí uvolnění (double-free) a zápisy mimo meze.
+- **Fuzzing** — krmí program náhodnými vstupy a zachytává pády (AFL, libFuzzer, syzkaller).
 
 ### Fuzzing
 
@@ -220,24 +220,24 @@ Detects many but not all. False positives common.
 afl-fuzz -i input/ -o output/ ./program @@
 ```
 
-AFL+ runs `program` with random inputs, detects crashes. Modern OS fuzzing (syzkaller for Linux kernel) finds *hundreds* of bugs.
+AFL+ spouští `program` s náhodnými vstupy a detekuje pády. Moderní fuzzing operačních systémů (syzkaller pro jádro Linuxu) najde *stovky* chyb.
 
-OSS-Fuzz (Google) continuously fuzzes open-source projects.
+OSS-Fuzz (Google) průběžně fuzzuje open-source projekty.
 
-## Why still present in 2024?
+## Proč je tato chyba i v roce 2024 stále přítomná?
 
-- Legacy C/C++ code base — *trillions* of lines, can't rewrite all.
-- New code in C/C++ for performance (kernels, browsers, embedded).
-- Complex memory models — hard to get right.
-- Developer errors persist.
+- Zděděná kódová základna v C/C++ — *biliony* řádků, nelze je přepsat všechny.
+- Nový kód se píše v C/C++ kvůli výkonu (performance) — jádra, prohlížeče, vestavěné systémy.
+- Složité paměťové modely — je obtížné je zvládnout správně.
+- Chyby vývojářů přetrvávají.
 
-Solution: gradual migration to *memory-safe languages*:
+Řešení: postupný přechod na *paměťově bezpečné jazyky*:
 
-- **Rust** — kernel, system tools (RustLinux, Project Verona).
-- **Go** — backend services.
-- **Java, C#, Python** — applications.
+- **Rust** — jádra, systémové nástroje (Rust v Linuxu, Project Verona).
+- **Go** — backendové služby.
+- **Java, C#, Python** — aplikace.
 
-Mozilla rewrote parts of Firefox in Rust → reduced memory safety bugs significantly.
+Mozilla přepsala části Firefoxu do Rustu → výrazně tím snížila počet chyb v bezpečnosti paměti.
 
 ---
 

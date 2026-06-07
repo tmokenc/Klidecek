@@ -4,7 +4,7 @@ title: Model bezpečnostního incidentu
 
 # Model bezpečnostního incidentu a kill chain
 
-Bezpečnostní incident *nevzniká* okamžitě — typicky probíhá *řetězec* kroků útoku. Pochopení *fází* útoku umožňuje detekovat ho v některé fázi a *zastavit*, ne čekat na finální dopad.
+Bezpečnostní incident *nevzniká* okamžitě — typicky probíhá jako *řetězec* jednotlivých kroků útoku. Pochopení jeho *fází* nám dovolí útok zachytit už v některé z nich a *zastavit* ho, místo abychom čekali až na konečný dopad.
 
 ## Model incidentu
 
@@ -46,26 +46,26 @@ Bezpečnostní incident *nevzniká* okamžitě — typicky probíhá *řetězec*
 </svg>
 :::
 
-Incident vzniká, když:
+Incident vznikne, jen když jsou splněny všechny tyto podmínky najednou:
 
-1. **Útočník** (vnější svět) má motivaci + příležitost.
-2. **Zranitelnost** existuje a je dostupná.
-3. **Aktivum** za zranitelností má hodnotu.
-4. **Controls** nefungují (neexistují nebo selhaly).
+1. **Útočník** (vnější svět) má motivaci a zároveň příležitost.
+2. **Zranitelnost (vulnerability)** existuje a je pro útočníka dostupná.
+3. **Aktivum** ukryté za zranitelností má pro něj nějakou hodnotu.
+4. **Opatření (controls)** nefungují — buď vůbec neexistují, nebo selhala.
 
-⇒ Eliminate any one of the 4 = incident *neproběhne*.
+⇒ Stačí odstranit kteroukoli z těchto čtyř podmínek a incident *neproběhne*.
 
 ## Lockheed Martin Cyber Kill Chain (2011)
 
-Model 7 fází APT-style útoku:
+Model popisuje 7 fází útoku typu APT (tedy cíleného, dlouhodobého a pokročilého):
 
-1. **Reconnaissance** — sběr informací o cíli (Google dorks, LinkedIn, Shodan, port scan).
-2. **Weaponization** — příprava exploit + payload (custom malware, weaponized PDF).
-3. **Delivery** — doručení (email phishing, watering hole, USB).
-4. **Exploitation** — spuštění exploit na cílovém systému (RCE).
-5. **Installation** — persistence (rootkit, scheduled task, registry).
-6. **Command & Control (C2)** — útočník získá vzdálenou kontrolu.
-7. **Actions on Objectives** — splnění cíle (data exfil, ransom, sabotage).
+1. **Reconnaissance (průzkum)** — sběr informací o cíli (Google dorks, LinkedIn, Shodan, skenování portů).
+2. **Weaponization (příprava zbraně)** — sestavení zneužití (exploit) a škodlivé části (payload), například malware na míru nebo PDF nakažené škodlivým kódem.
+3. **Delivery (doručení)** — doručení útoku k oběti (phishing e-mailem, watering hole, USB klíč).
+4. **Exploitation (zneužití)** — spuštění zneužití (exploit) na cílovém systému (typicky vzdálené spuštění kódu, RCE).
+5. **Installation (instalace)** — zajištění trvalé přítomnosti (persistence) pomocí rootkitu, naplánované úlohy nebo zápisu do registru.
+6. **Command & Control (C2)** — útočník (attacker) získá vzdálené řízení napadeného systému.
+7. **Actions on Objectives (splnění cíle)** — dosažení vlastního záměru: odcizení dat (data exfil), vydírání (ransom) nebo sabotáž.
 
 ::: svg "Cyber Kill Chain — 7 fází APT útoku"
 <svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="9">
@@ -108,48 +108,48 @@ Model 7 fází APT-style útoku:
 </svg>
 :::
 
-Klíčový insight: **early detection wins**. Zastavit útok ve fázi 1 (recon) je *triviální*. Zastavit ve fázi 7 (data exfil already happening) je *katastrofa*.
+Klíčové poučení zní: **vyhrává ten, kdo útok odhalí brzy**. Zastavit útok ve fázi 1 (průzkum) je *triviální*. Zastavit ho až ve fázi 7, kdy už únik dat probíhá, je *katastrofa*.
 
 ::: viz kill-chain-defender "Zapni defenders v jednotlivých fázích; survival probability útoku napříč 7-stupňovým řetězcem. Defense in depth = násobení P(survive)."
 :::
 
-## MITRE ATT&CK rozšíření
+## Rozšíření MITRE ATT&CK
 
-ATT&CK rozšiřuje Kill Chain o detail. 14 *taktik* (cílů):
+ATT&CK celý Kill Chain rozpracovává mnohem podrobněji. Definuje 14 *taktik* (tedy dílčích cílů útočníka):
 
-1. **Reconnaissance**
-2. **Resource Development**
-3. **Initial Access**
-4. **Execution**
-5. **Persistence**
-6. **Privilege Escalation**
-7. **Defense Evasion**
-8. **Credential Access**
-9. **Discovery**
-10. **Lateral Movement**
-11. **Collection**
-12. **Command and Control**
-13. **Exfiltration**
-14. **Impact**
+1. **Reconnaissance** (průzkum)
+2. **Resource Development** (příprava zdrojů)
+3. **Initial Access** (první přístup)
+4. **Execution** (spuštění kódu)
+5. **Persistence** (trvalá přítomnost)
+6. **Privilege Escalation** (zvýšení oprávnění)
+7. **Defense Evasion** (obejití obrany)
+8. **Credential Access** (získání přihlašovacích údajů)
+9. **Discovery** (mapování prostředí)
+10. **Lateral Movement** (pohyb po síti)
+11. **Collection** (sběr dat)
+12. **Command and Control** (řízení)
+13. **Exfiltration** (odsávání dat)
+14. **Impact** (dopad)
 
-Pod každou taktikou ~10-30 konkrétních *technik* (např. T1566 Phishing, T1190 Exploit Public-Facing Application).
+Pod každou taktikou je řazeno přibližně 10 až 30 konkrétních *technik* (například T1566 Phishing nebo T1190 Exploit Public-Facing Application).
 
-Defenders mapují své controls k ATT&CK techniques. Tools (Mandiant, SOC Prime) automatizují.
+Obránci (defenders) přiřazují svá opatření (controls) k jednotlivým technikám ATT&CK. Toto mapování umějí automatizovat nástroje jako Mandiant nebo SOC Prime.
 
 ## Diamond Model (2013)
 
-Alternativa: každý incident *zachycený* 4 vrcholy diamantu:
+Jde o alternativní pohled: každý incident je *zachycen* čtyřmi vrcholy diamantu:
 
-- **Adversary** — kdo útočí.
-- **Capability** — jaká schopnost (malware, exploit, technique).
-- **Infrastructure** — IP, domains, command-control.
-- **Victim** — cíl.
+- **Adversary (protivník)** — kdo útočí.
+- **Capability (schopnost)** — čím útočí (malware, exploit, technika).
+- **Infrastructure (infrastruktura)** — jeho IP adresy, domény a řídicí servery (command-control).
+- **Victim (oběť)** — koho útok míří, tedy cíl.
 
-Pivoting: znajíc 1 vrchol, hledat *spojení* na ostatní. Threat intelligence platform pivotuje napříč incidenty.
+Princip se nazývá pivoting: pokud znáte jeden vrchol, hledáte *spojení* na ostatní. Platformy pro threat intelligence díky tomu propojují související incidenty napříč daty.
 
-## Attack Tree
+## Strom útoku (attack tree)
 
-Hierarchický graf *způsobů*, jak útočník může dosáhnout cíle.
+Hierarchický graf zachycující všechny *způsoby*, jakými může útočník dosáhnout svého cíle.
 
 ```
 Goal: Compromise webserver
@@ -164,46 +164,46 @@ Goal: Compromise webserver
     └── Pretexting
 ```
 
-AND = všechny musí být splněny. OR = stačí jeden.
+Uzel AND znamená, že musí být splněny všechny jeho větve. Uzel OR znamená, že stačí splnit jedinou z nich.
 
-Use case: *threat modeling* (najít všechny cesty útoku) + *security architecture* (které controls eliminují více cest najednou).
+Využití je dvojí: při *modelování hrozeb (threat modeling)* slouží k nalezení všech cest útoku a při návrhu *bezpečnostní architektury* pomáhá zjistit, která opatření (controls) uzavřou hned několik cest najednou.
 
 ::: viz attack-tree-traversal "Klikni na leaf box pro toggle (útočník schopnost ano/ne); AND/OR propagují k root. Najdi minimální cut k zavření všech cest."
 :::
 
-## Indicators of Compromise (IoC)
+## Indikátory kompromitace (Indicators of Compromise, IoC)
 
-Po detekci incidentu defenders *zaznamenají* IoC — markers, podle kterých identifikovat *jiné* podobné incidenty:
+Po odhalení incidentu si obránci (defenders) *zaznamenají* indikátory kompromitace (IoC) — stopy, podle nichž lze rozpoznat *další* podobné incidenty:
 
-- **Network IoC**: malicious IP, domain, URL.
-- **Host IoC**: hash souboru (MD5/SHA-1/SHA-256), filename, registry key.
-- **Behavior IoC**: unusual process tree, abnormal command line.
+- **Síťové IoC**: škodlivá IP adresa, doména nebo URL.
+- **Hostitelské IoC**: hash souboru (MD5/SHA-1/SHA-256), název souboru, klíč registru.
+- **Behaviorální IoC**: neobvyklý strom procesů, podezřelý příkazový řádek.
 
-IoC se sdílí v komunitě (MISP, STIX/TAXII format). Sharing → defenders ze stejné komunity rychle detekují stejný malware.
+Indikátory se sdílejí v komunitě (formáty MISP, STIX/TAXII). Díky tomuto sdílení dokážou obránci ze stejné komunity stejný malware rychle odhalit.
 
-## Příklad: Ransomware attack chain {tier=example}
+## Příklad: řetězec ransomwarového útoku {tier=example}
 
-1. **Recon**: scan internet for exposed RDP (3389/tcp).
-2. **Initial Access**: brute force RDP login or exploit BlueKeep CVE-2019-0708.
-3. **Execution**: drop ransomware (e.g. Conti).
-4. **Persistence**: scheduled task + registry run key.
-5. **Privilege Escalation**: exploit kernel CVE or stolen admin creds.
-6. **Lateral Movement**: pass-the-hash, WMI to other hosts.
-7. **Defense Evasion**: disable Windows Defender, delete shadow copies.
-8. **Impact**: encrypt files, demand ransom in cryptocurrency.
+1. **Recon (průzkum)**: prohledání internetu po vystavených portech RDP (3389/tcp).
+2. **Initial Access (první přístup)**: prolomení přihlášení k RDP hrubou silou nebo zneužití zranitelnosti BlueKeep CVE-2019-0708.
+3. **Execution (spuštění)**: nasazení ransomwaru (například Conti).
+4. **Persistence (trvalá přítomnost)**: naplánovaná úloha a spouštěcí klíč v registru.
+5. **Privilege Escalation (zvýšení oprávnění)**: zneužití zranitelnosti jádra nebo odcizených údajů správce.
+6. **Lateral Movement (pohyb po síti)**: pass-the-hash a WMI k šíření na další stroje.
+7. **Defense Evasion (obejití obrany)**: vypnutí Windows Defenderu a smazání stínových kopií.
+8. **Impact (dopad)**: zašifrování souborů a požadavek výkupného v kryptoměně.
 
-Defenders watch každý krok. *Detection in step 4 (persistence)* may prevent *step 8 (encryption)*.
+Obránci sledují každý jednotlivý krok. Už *odhalení ve čtvrtém kroku (trvalá přítomnost)* může zabránit *kroku osmému (zašifrování)*.
 
-## SLA — Service Level Agreement
+## SLA — Service Level Agreement (dohoda o úrovni služby)
 
-Incident má dopad na *availability*. SLA definuje akceptovatelné metriky:
+Incident má dopad na dostupnost (availability). SLA proto stanovuje přijatelné hodnoty těchto metrik:
 
-- **MTBF** (Mean Time Between Failures) — průměrný čas mezi failures.
-- **MTTR** (Mean Time To Repair / Recover) — průměrný čas obnovy.
-- **RPO** (Recovery Point Objective) — kolik dat můžeme ztratit (last backup).
-- **RTO** (Recovery Time Objective) — za kolik musí být služba zpět.
+- **MTBF** (Mean Time Between Failures) — průměrná doba mezi výpadky.
+- **MTTR** (Mean Time To Repair / Recover) — průměrná doba obnovy.
+- **RPO** (Recovery Point Objective) — kolik dat si můžeme dovolit ztratit (tedy stáří poslední zálohy).
+- **RTO** (Recovery Time Objective) — do jaké doby musí být služba opět v provozu.
 
-Příklad: webová služba s 99.9 % uptime SLA = 8.76 h downtime/rok. Přísnější SLA 99.99 % = jen ~52 min downtime/rok.
+Příklad: webová služba se SLA na dostupnost 99,9 % smí být nedostupná 8,76 hodiny za rok. Přísnější SLA 99,99 % povoluje výpadek pouhých zhruba 52 minut za rok.
 
 ---
 

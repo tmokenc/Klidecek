@@ -1,30 +1,30 @@
 ---
-title: Social engineering a uživatelské chyby
+title: Sociální inženýrství a uživatelské chyby
 ---
 
-# Social engineering — útoky na uživatele
+# Sociální inženýrství — útoky na uživatele
 
-Best technical security useless pokud *user* poskytne attackerovi credentials. **Social engineering** je *manipulace* lidí to give up info or perform actions. Stále *#1 attack vector* in real-world breaches.
+Sebelepší technické zabezpečení je k ničemu, pokud uživatel (user) sám předá útočníkovi (attacker) své přihlašovací údaje (credentials). **Sociální inženýrství (social engineering)** je *manipulace* lidí s cílem přimět je vyzradit informace nebo provést nějakou akci. Stále jde o útočný vektor číslo jedna (#1 attack vector) ve skutečných bezpečnostních incidentech.
 
 ## Princip
 
-Útočník využívá *psychological tendencies*:
+Útočník (attacker) využívá *psychologické sklony* (psychological tendencies) oběti:
 
-- **Authority** — pretend to be IT admin, manager, police.
-- **Urgency** — "your account will be deleted in 1 hour".
-- **Fear** — "your computer is infected; pay to fix".
-- **Greed** — "you won a prize" / "investment opportunity".
-- **Curiosity** — "see embarrassing photo of you".
-- **Trust** — "I'm a colleague, can you help".
-- **Reciprocity** — "I helped you, now help me".
+- **Autorita (authority)** — vydává se za IT administrátora, manažera nebo policii.
+- **Naléhavost (urgency)** — „váš účet bude do hodiny smazán".
+- **Strach (fear)** — „váš počítač je infikován; zaplaťte za opravu".
+- **Chamtivost (greed)** — „vyhráli jste cenu" / „investiční příležitost".
+- **Zvědavost (curiosity)** — „podívejte se na svou trapnou fotku".
+- **Důvěra (trust)** — „jsem kolega, můžeš mi pomoct".
+- **Reciprocita (reciprocity)** — „já jsem pomohl tobě, teď pomoz ty mně".
 
-Útoky nevyžadují technical exploit — *člověk* je vulnerability.
+Tyto útoky nevyžadují žádné technické zneužití (technical exploit) — zranitelností (vulnerability) je samotný *člověk*.
 
 ## Phishing
 
-**Phishing** = mass email impersonating legitimate sender, asking for credentials or to click malicious link.
+**Phishing** je hromadný e-mail, který se vydává za legitimního odesílatele a žádá o přihlašovací údaje nebo o kliknutí na škodlivý odkaz.
 
-### Email phishing
+### E-mailový phishing
 
 ```
 From: support@paypal.com  (spoofed)
@@ -41,13 +41,13 @@ Thank you,
 PayPal Security Team
 ```
 
-User clicks → fake PayPal login page → enters credentials → attacker has them.
+Uživatel klikne → falešná přihlašovací stránka PayPalu → zadá své údaje → útočník je má.
 
-### Spear phishing
+### Cílený phishing (spear phishing)
 
-*Targeted* phishing. Attacker researches victim → personalized.
+*Cílený* phishing. Útočník si oběť nejprve nastuduje a zprávu jí přizpůsobí na míru.
 
-Example: pretend to be CEO emailing CFO:
+Příklad: útočník se vydává za ředitele (CEO), který píše finanční ředitelce (CFO):
 
 ```
 From: ceo@company.com  (spoofed or compromised)
@@ -62,188 +62,188 @@ Thanks,
 Mike
 ```
 
-CFO complies → $50k gone. **Business Email Compromise (BEC)** — $43B reported losses 2016-2021 globally (FBI IC3).
+Finanční ředitelka vyhoví → 50 000 dolarů je pryč. Tomuto typu se říká **kompromitace firemního e-mailu (Business Email Compromise, BEC)** — celosvětově nahlášené ztráty činily 43 miliard dolarů v letech 2016–2021 (FBI IC3).
 
-### Whaling
+### Lov na velryby (whaling)
 
-Spear phishing targeting *executives*.
+Cílený phishing zaměřený na *vrcholové vedení* (executives).
 
-### Vishing — voice phishing
+### Vishing — phishing po telefonu
 
-Phone call. Attacker pretends to be:
+Telefonát. Útočník se vydává za:
 
-- IT support: "your computer is infected, give me remote access".
-- Bank: "verify your account, give me your PIN".
-- Tax authority: "you owe taxes, pay immediately".
+- IT podporu: „váš počítač je infikován, dejte mi vzdálený přístup".
+- banku: „ověřte svůj účet, sdělte mi svůj PIN".
+- finanční úřad: „dlužíte na daních, zaplaťte ihned".
 
-### Smishing — SMS phishing
+### Smishing — phishing přes SMS
 
 ```
 "Your package can't be delivered. Pay $1.99 customs at example.com/pay"
 ```
 
-Link to credential-harvesting site or malware.
+Odkaz vede na stránku sbírající přihlašovací údaje nebo na malware.
 
-### Pretexting
+### Vymyšlená záminka (pretexting)
 
-Attacker invents *story* (pretext) to extract info.
+Útočník si vymyslí *příběh* (záminku, pretext), aby z oběti vylákal informace.
 
-Example: pretend to be HR doing security audit, ask for password.
+Příklad: vydává se za pracovníka HR, který provádí bezpečnostní audit, a žádá o heslo.
 
-Famous: Kevin Mitnick (1990s) — talked his way into many companies.
+Slavný případ: Kevin Mitnick (90. léta) — „uřečnil" si cestu do mnoha firem.
 
-## Phishing kits
+## Phishingové sady (phishing kits)
 
-Off-the-shelf phishing infrastructure:
+Hotová phishingová infrastruktura na klíč:
 
-- **Evilginx** — TLS proxy to defeat MFA.
-- **GoPhish** — open-source phishing framework (red team, legitimately).
-- **Modlishka** — credential interception.
+- **Evilginx** — TLS proxy, která dokáže obejít vícefaktorové ověření (MFA).
+- **GoPhish** — open-source phishingový framework (legitimně pro red team).
+- **Modlishka** — nástroj pro zachytávání přihlašovacích údajů.
 
-Modern kit cost: ~$100. Low barrier to entry → criminal proliferation.
+Cena moderní sady: zhruba 100 dolarů. Nízká vstupní bariéra → bujení kriminality.
 
-## Defense
+## Obrana
 
-### Email authentication
+### Autentizace e-mailu (email authentication)
 
-- **SPF** (Sender Policy Framework) — DNS record listing allowed senders.
-- **DKIM** (DomainKeys Identified Mail) — cryptographic signature on outgoing email.
-- **DMARC** — combines SPF + DKIM, defines policy for failures.
+- **SPF** (Sender Policy Framework) — DNS záznam vyjmenovávající povolené odesílatele.
+- **DKIM** (DomainKeys Identified Mail) — kryptografický podpis odchozího e-mailu.
+- **DMARC** — kombinuje SPF + DKIM a definuje politiku pro případ selhání kontroly.
 
-Properly configured → ~95% of phishing blocked at email gateway.
+Při správné konfiguraci se na e-mailové bráně zachytí zhruba 95 % phishingu.
 
-### Email gateway
+### E-mailová brána (email gateway)
 
-Microsoft Defender for Office 365, Proofpoint, Mimecast — scan attachments, URLs, sender reputation.
+Microsoft Defender for Office 365, Proofpoint, Mimecast — kontrolují přílohy, URL adresy a reputaci odesílatele.
 
-### URL inspection
+### Kontrola URL adres (URL inspection)
 
-Click-time URL rewriting — gateway rewrites URLs in emails to go through gateway. Time-of-click check vs real-time threat intel.
+Přepis URL v okamžiku kliknutí (click-time URL rewriting) — brána přepíše odkazy v e-mailech tak, aby vedly skrz ni. V okamžiku kliknutí pak odkaz prověří vůči aktuálním informacím o hrozbách (threat intel).
 
-### MFA
+### Vícefaktorové ověření (MFA)
 
-Even if password phished, attacker can't login without MFA second factor (TOTP, hardware token).
+I když útočník heslo vyphishuje, nepřihlásí se bez druhého faktoru MFA (TOTP, hardwarový token).
 
-**Phishing-resistant MFA**: hardware tokens with WebAuthn (FIDO2). Phishing-resistant because cryptographically bound to legitimate domain.
+**MFA odolné vůči phishingu**: hardwarové tokeny s WebAuthn (FIDO2). Jsou odolné proto, že jsou kryptograficky vázané na legitimní doménu.
 
-SMS-based MFA *not* phishing-resistant (attacker can phish OTP too via Evilginx).
+MFA založené na SMS *není* odolné vůči phishingu (útočník dokáže přes Evilginx vyphishovat i jednorázový kód OTP).
 
-### Browser warnings
+### Varování prohlížeče
 
-Chrome, Firefox warn on known phishing sites (Google Safe Browsing list).
+Chrome i Firefox varují před známými phishingovými stránkami (seznam Google Safe Browsing).
 
-### User training
+### Školení uživatelů
 
-- **Security awareness training** — annual, topic-specific.
-- **Phishing simulation** — simulated phishing emails, track click rate.
+- **Školení bezpečnostního povědomí (security awareness training)** — pravidelně každý rok, zaměřené na konkrétní témata.
+- **Phishingová simulace** — simulované phishingové e-maily, sleduje se míra prokliků.
 
-KnowBe4, Proofpoint Security Awareness, SANS — major vendors.
+KnowBe4, Proofpoint Security Awareness, SANS — hlavní dodavatelé.
 
-Effectiveness mixed. *Reduces* click rate but doesn't eliminate.
+Účinnost je různá. *Snižuje* míru prokliků, ale neeliminuje ji úplně.
 
-## Pretexting + impersonation
+## Záminky a vydávání se za někoho jiného (pretexting + impersonation)
 
-### Tailgating
+### Proklouznutí za zády (tailgating)
 
-Attacker physically follows authorized person through controlled door. "I forgot my badge, can you let me in?"
+Útočník fyzicky projde za oprávněnou osobou hlídanými dveřmi. „Zapomněl jsem si kartu, pustíš mě dovnitř?"
 
-Defense: mantraps, security awareness, badge enforcement.
+Obrana: bezpečnostní propusti (mantraps), bezpečnostní povědomí, důsledné vyžadování přístupových karet.
 
-### Dumpster diving
+### Prohrabávání odpadků (dumpster diving)
 
-Sift through company trash for sensitive info — printed reports, employee names, network diagrams.
+Probírání firemního odpadu kvůli citlivým informacím — vytištěné reporty, jména zaměstnanců, síťová schémata.
 
-Defense: shredder for sensitive docs, secure shred bins.
+Obrana: skartovačka na citlivé dokumenty, zabezpečené skartovací nádoby.
 
-### Shoulder surfing
+### Pohled přes rameno (shoulder surfing)
 
-Watch user type password from behind.
+Útočník sleduje zezadu, jak uživatel píše heslo.
 
-Defense: privacy screen, awareness in public spaces.
+Obrana: filtr soukromí (privacy screen) na monitor, opatrnost na veřejných místech.
 
-## Watering hole
+## Útok na navštěvovaný web (watering hole)
 
-Attacker compromises *legitimate* website that target visits. Visitors get drive-by malware.
+Útočník kompromituje *legitimní* web, který oběť navštěvuje. Návštěvníci si tak při pouhém prohlížení stáhnou malware (drive-by malware).
 
-Example: 2013 attack on US Department of Labor website injected exploit → infected DoE employees visiting.
+Příklad: útok z roku 2013 na web amerického ministerstva práce, kam byl vložen exploit → infikovali se zaměstnanci ministerstva energetiky (DoE), kteří stránku navštívili.
 
-Defense: web filtering, EDR, sandboxing browser (Chromium site isolation).
+Obrana: webové filtrování, EDR, izolace prohlížeče v sandboxu (Chromium site isolation).
 
-## USB drops
+## Podstrčená USB (USB drops)
 
-Leave USB drive in parking lot with "Salary 2024.xlsx" or "Confidential".
+Útočník nechá na parkovišti USB disk s nápisem „Salary 2024.xlsx" nebo „Confidential".
 
-Curious employee plugs into work computer → runs autorun malware.
+Zvědavý zaměstnanec ho zapojí do pracovního počítače → spustí se malware přes automatické přehrání (autorun).
 
-Stuxnet (2010) — propagated to Iran nuclear via USB.
+Stuxnet (2010) — do íránského jaderného zařízení se rozšířil právě přes USB.
 
-Defense: disable autorun, port lock-down (deny USB on prod machines), training.
+Obrana: zakázat autorun, uzamknout porty (zakázat USB na produkčních strojích), školení.
 
-## Insider threats
+## Vnitřní hrozby (insider threats)
 
-*Internal* attackers — disgruntled employees, contractors, moles.
+*Interní* útočníci — nespokojení zaměstnanci, dodavatelé, nasazení agenti.
 
-- **Edward Snowden (2013)** — leaked NSA documents.
-- **Chelsea Manning (2010)** — leaked diplomatic cables.
-- **Various banking insiders** — embezzle via insider access.
+- **Edward Snowden (2013)** — vynesl dokumenty NSA.
+- **Chelsea Manning (2010)** — vynesla diplomatické depeše.
+- **Různí bankovní zaměstnanci** — zpronevěra díky vnitřnímu přístupu.
 
-### Defense
+### Obrana
 
-- **Background checks** — at hire.
-- **Least privilege** — minimum access.
-- **Separation of duties** — no single person can cause major damage.
-- **Job rotation** — change roles periodically.
-- **Mandatory vacation** — detect fraud requiring continuous presence.
-- **Behavior analytics (UEBA)** — anomaly detection.
-- **DLP** (Data Loss Prevention) — block sensitive data transfers.
+- **Prověrky (background checks)** — při náboru.
+- **Princip nejmenších oprávnění (least privilege)** — minimální nutný přístup.
+- **Oddělení povinností (separation of duties)** — žádný jednotlivec nedokáže způsobit velkou škodu sám.
+- **Rotace pracovních rolí (job rotation)** — pravidelné střídání rolí.
+- **Povinná dovolená (mandatory vacation)** — odhalí podvod, který vyžaduje neustálou přítomnost pachatele.
+- **Analýza chování (behavior analytics, UEBA)** — detekce anomálií.
+- **Prevence úniku dat (Data Loss Prevention, DLP)** — blokování přenosu citlivých dat.
 
-## OSINT — Open Source Intelligence
+## OSINT — zpravodajství z otevřených zdrojů (Open Source Intelligence)
 
-Attackers gather *public* info before attack:
+Útočníci si před útokem shromáždí *veřejně dostupné* informace:
 
-- **LinkedIn** — employees, roles, tech stack.
-- **GitHub** — code, sometimes credentials.
-- **Company website** — org structure, contact info.
-- **Social media** — personal info for spear phishing.
-- **Shodan** — exposed services.
-- **WHOIS, DNS** — infrastructure.
+- **LinkedIn** — zaměstnanci, role, používané technologie.
+- **GitHub** — zdrojový kód, někdy i přihlašovací údaje.
+- **Firemní web** — organizační struktura, kontakty.
+- **Sociální sítě** — osobní informace pro cílený phishing.
+- **Shodan** — vystavené (dostupné) služby.
+- **WHOIS, DNS** — infrastruktura.
 
-Defense: minimize public info, train employees on social media privacy, monitor data leaks.
+Obrana: omezit množství veřejných informací, školit zaměstnance o soukromí na sociálních sítích, sledovat úniky dat.
 
-## Psychological principles
+## Psychologické principy
 
-Cialdini's 6 principles of influence (1984):
+Cialdiniho 6 principů ovlivňování (1984):
 
-1. **Reciprocity** — return favors.
-2. **Commitment + Consistency** — commit publicly → consistent.
-3. **Social Proof** — others do it, must be OK.
-4. **Authority** — obey perceived authority.
-5. **Liking** — agree with people we like.
-6. **Scarcity** — limited time = act now.
+1. **Reciprocita (reciprocity)** — oplácíme laskavosti.
+2. **Závazek a důslednost (commitment + consistency)** — když se veřejně zavážeme, držíme se toho.
+3. **Sociální důkaz (social proof)** — když to dělají ostatní, musí to být v pořádku.
+4. **Autorita (authority)** — posloucháme vnímanou autoritu.
+5. **Sympatie (liking)** — souhlasíme s lidmi, které máme rádi.
+6. **Vzácnost (scarcity)** — omezený čas = jednej hned.
 
-All used in social engineering. Training to *recognize* helps resist.
+Všechny se v sociálním inženýrství využívají. Pomáhá, když je člověk vyškolen je *rozpoznat* a odolat jim.
 
 ::: viz phishing-indicators "Klikni na podezřelé části emailu — odhalí se red flag a vysvětlení. Spoofed domain, urgency, generic greeting, lookalike URL — klasický phishing recipe."
 :::
 
-## Famous incidents {tier=example}
+## Slavné incidenty {tier=example}
 
-- **2011 RSA breach** — phishing emails to employees, leading to compromise of RSA SecurID seeds.
-- **2014 Sony Pictures** — North Korean actors used phishing to gain initial access.
-- **2017 Equifax** — exploited unpatched Apache Struts, but also poor incident response (org failure).
-- **2020 Twitter** — vishing employees → access to admin tools → famous account takeover.
-- **2022 Uber** — MFA fatigue + push-bombing.
+- **Únik z RSA (2011)** — phishingové e-maily zaměstnancům vedly ke kompromitaci seedů pro RSA SecurID.
+- **Sony Pictures (2014)** — severokorejští aktéři získali počáteční přístup pomocí phishingu.
+- **Equifax (2017)** — zneužití nezáplatovaného Apache Struts, ale také špatná reakce na incident (selhání organizace).
+- **Twitter (2020)** — vishing zaměstnanců → přístup k administrátorským nástrojům → slavné převzetí kont.
+- **Uber (2022)** — únava z MFA (MFA fatigue) plus zahlcení push notifikacemi (push-bombing).
 
-## MFA fatigue
+## Únava z MFA (MFA fatigue)
 
-Attacker has password. Triggers MFA push *repeatedly*. User clicks "Approve" out of annoyance or thinks it's legitimate.
+Útočník má heslo. *Opakovaně* spouští push notifikace MFA. Uživatel klikne na „Schválit" z otrávenosti nebo v domnění, že je to legitimní.
 
-Defense:
+Obrana:
 
-- **Number matching** — push prompt shows random number, user types into auth app.
-- **Hardware tokens** — physical button press required.
+- **Shoda čísel (number matching)** — push notifikace zobrazí náhodné číslo, které uživatel opíše do autentizační aplikace.
+- **Hardwarové tokeny** — vyžadují fyzické stisknutí tlačítka.
 
-## Defense framework
+## Vrstvená obrana (defense framework)
 
 ```
 Layer 1: Email gateway      (block 95 % of phishing)
@@ -254,7 +254,7 @@ Layer 5: Behavior detection (detect compromised account)
 Layer 6: Incident response  (contain quickly)
 ```
 
-Defense in depth — *no single layer* sufficient.
+Obrana do hloubky (defense in depth) — *žádná samostatná vrstva* nestačí.
 
 ---
 

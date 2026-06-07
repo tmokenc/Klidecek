@@ -1,14 +1,16 @@
 ---
-title: Pattern matching a algebraické datové typy
+title: Porovnávání vzorů a algebraické datové typy
 ---
 
-# Pattern matching a algebraické datové typy
+# Porovnávání vzorů a algebraické datové typy
 
-**Algebraic Data Types** (ADTs) jsou *fundamental* feature funkcionálních jazyků. Umožňují *konstruktivní* definice typů (sum + product types) a *dekonstruktivní* manipulaci via **pattern matching**. Spolu tvoří *signature* expressivity FP.
+Algebraické datové typy (algebraic data types, ADT) jsou základní vlastností funkcionálních jazyků. Umožňují *konstruktivní* definice typů (sum types a product types) a *dekonstruktivní* manipulaci pomocí porovnávání vzorů (pattern matching). Dohromady tvoří charakteristický rys výrazové síly funkcionálního programování.
 
 ## Definice ADT
 
-### Sum types (alternatives)
+### Sum types (varianty)
+
+Sum type říká, že hodnota je *jedna z* několika alternativ — proto se mu také říká součtový typ.
 
 ```haskell
 -- Klasické sum types
@@ -22,7 +24,9 @@ data Maybe a = Nothing | Just a
 data Either a b = Left a | Right b
 ```
 
-### Product types (records)
+### Product types (záznamy)
+
+Product type naopak hodnotu skládá ze *všech* svých složek najednou — proto se mu říká součinový typ.
 
 ```haskell
 -- Tuple-like (positional)
@@ -36,7 +40,7 @@ data Person = Person {
 }
 ```
 
-### Recursive types
+### Rekurzivní typy
 
 ```haskell
 -- Linked list
@@ -52,18 +56,18 @@ data Expr = Num Int
           | If Expr Expr Expr
 ```
 
-### Generic / polymorphic
+### Generické / polymorfní
 
 ```haskell
 data Pair a b = Pair a b
 data Triple a b c = Triple a b c
 ```
 
-## Pattern matching
+## Porovnávání vzorů
 
-Klíčový dekonstrukce ADTs:
+Porovnávání vzorů je klíčový způsob, jak ADT rozložit zpět na jednotlivé složky:
 
-### Function definitions
+### Definice funkcí
 
 ```haskell
 -- Single argument
@@ -92,7 +96,7 @@ zipWith _ _      []     = []
 zipWith f (a:as) (b:bs) = f a b : zipWith f as bs
 ```
 
-### case expressions
+### Výrazy case
 
 ```haskell
 classify :: Int -> String
@@ -107,7 +111,7 @@ describe x = case x of
     Just n  -> "value is " ++ show n
 ```
 
-### Guards
+### Stráže (guards)
 
 ```haskell
 absolute :: Int -> Int
@@ -123,16 +127,16 @@ bmiCheck bmi
   | otherwise  = "obese"
 ```
 
-## Pattern types
+## Druhy vzorů
 
-### Wildcards
+### Zástupné znaky (wildcards)
 
 ```haskell
 ignoreSecond :: (a, b) -> a
 ignoreSecond (x, _) = x  -- _ matches anything, ignores
 ```
 
-### As-patterns
+### Pojmenování celku (as-patterns)
 
 ```haskell
 firstTwo :: [a] -> ([a], a)
@@ -140,14 +144,14 @@ firstTwo all@(x:_) = (all, x)
 -- 'all' refers to whole list, 'x' to first element
 ```
 
-### Nested patterns
+### Vnořené vzory
 
 ```haskell
 swap :: (a, (b, c)) -> ((c, b), a)
 swap (x, (y, z)) = ((z, y), x)
 ```
 
-### Constructor patterns
+### Vzory s konstruktory
 
 ```haskell
 case lst of
@@ -157,7 +161,7 @@ case lst of
     _:_:_  -> "many"
 ```
 
-### Numeric patterns
+### Číselné vzory
 
 ```haskell
 isZero :: Int -> Bool
@@ -165,7 +169,7 @@ isZero 0 = True
 isZero _ = False
 ```
 
-### String patterns (specifically [Char])
+### Řetězcové vzory (konkrétně [Char])
 
 ```haskell
 greet :: String -> String
@@ -174,9 +178,9 @@ greet "Bob"   = "Hi Bob!"
 greet n       = "Hello " ++ n
 ```
 
-## Exhaustiveness
+## Úplnost (exhaustiveness)
 
-GHC kontroluje, zda jsou *všechny* případy pokryty:
+Překladač GHC kontroluje, zda jsou *všechny* případy pokryty:
 
 ```haskell
 {-# OPTIONS_GHC -Wall #-}
@@ -186,17 +190,17 @@ dangerous True = "yes"
 -- WARNING: Non-exhaustive patterns!
 ```
 
-Compile-time warning prevents runtime errors.
+Toto varování při překladu (compile-time) předchází chybám za běhu (runtime).
 
 ::: viz adt-pattern-match "Vyberte ADT, zaškrtejte které konstruktory pokrýváte; checker hlásí non-exhaustive patterns."
 :::
 
-## Algebraic operations
+## Algebraické operace
 
-**Sum types** = "OR" — value is *one of* the alternatives.
-**Product types** = "AND" — value contains *all* fields.
+**Sum type** = „OR" — hodnota je *jedna z* alternativ.
+**Product type** = „AND" — hodnota obsahuje *všechny* složky.
 
-Mathematical algebra applies:
+Platí tu obyčejná matematická algebra:
 
 ```
 | Bool | = | True | + | False | = 1 + 1 = 2
@@ -205,11 +209,11 @@ Mathematical algebra applies:
 | Either Bool Color | = 2 + 3 = 5
 ```
 
-This is why "algebraic" types — they obey laws of high school algebra!
+Právě proto se těmto typům říká „algebraické" — řídí se zákony středoškolské algebry.
 
-## Deriving
+## Odvozování (deriving)
 
-GHC automatically derives common typeclass instances:
+Překladač GHC automaticky odvozuje instance běžných typových tříd (type class):
 
 ```haskell
 data Point = Point Double Double
@@ -222,9 +226,9 @@ data Point = Point Double Double
 -- read :: String -> Point
 ```
 
-Available: `Show`, `Eq`, `Ord`, `Read`, `Enum`, `Bounded`, `Functor`, `Foldable`, `Traversable` (with `DeriveFunctor` extension), etc.
+K dispozici jsou například `Show`, `Eq`, `Ord`, `Read`, `Enum`, `Bounded`, `Functor`, `Foldable`, `Traversable` (poslední s rozšířením `DeriveFunctor`) a další.
 
-## Record syntax
+## Záznamová syntaxe (record syntax)
 
 ```haskell
 data Person = Person {
@@ -245,9 +249,9 @@ alicePlusOne :: Person
 alicePlusOne = alice { age = age alice + 1 }
 ```
 
-## Examples {tier=example}
+## Příklady {tier=example}
 
-### Linked list
+### Spojový seznam
 
 ```haskell
 data List a = Nil | Cons a (List a)
@@ -268,7 +272,7 @@ listMap _ Nil          = Nil
 listMap f (Cons x xs)  = Cons (f x) (listMap f xs)
 ```
 
-### Binary tree
+### Binární strom
 
 ```haskell
 data Tree a = Leaf | Node (Tree a) a (Tree a)
@@ -287,7 +291,7 @@ inorder Leaf = []
 inorder (Node left val right) = inorder left ++ [val] ++ inorder right
 ```
 
-### Expression evaluator
+### Vyhodnocování výrazů
 
 ```haskell
 data Expr = Num Int
@@ -319,9 +323,9 @@ data JsonValue = JsonNull
                deriving (Show, Eq)
 ```
 
-## GADT — Generalized Algebraic Data Types
+## GADT — zobecněné algebraické datové typy
 
-Pokročilejší extension:
+Pokročilejší rozšíření jazyka:
 
 ```haskell
 {-# LANGUAGE GADTs #-}
@@ -340,33 +344,33 @@ eval (Add l r)   = eval l + eval r
 eval (If c t e) = if eval c then eval t else eval e
 ```
 
-GADTs allow types to be *refined* by constructors.
+Díky GADT mohou být typy *zpřesňovány* podle použitého konstruktoru.
 
 ## Týden v praxi
 
-Pattern matching + ADTs jsou *fundamental*:
+Porovnávání vzorů spolu s ADT patří k základním stavebním kamenům:
 
-* **Parsers** — define grammar via ADT, recursively descend.
-* **Compilers** — AST as ADT, traversal via pattern matching.
-* **State machines** — sum type for states, transitions via pattern.
-* **Domain modeling** — represent business logic precisely.
+* **Parsery** — gramatiku popíšeme pomocí ADT a rekurzivně ji procházíme.
+* **Překladače** — abstraktní syntaktický strom (AST) jako ADT, jeho průchod přes porovnávání vzorů.
+* **Stavové automaty** — sum type pro stavy, přechody řešené vzory.
+* **Modelování domény** — přesné vyjádření obchodní logiky.
 
-> "Make impossible states impossible." — Yaron Minsky.
+> „Make impossible states impossible." — Yaron Minsky.
 
-Pomocí ADT lze *type system* využít k vyloučení neplatných stavů — compile-time safety.
+Pomocí ADT lze využít typový systém k vyloučení neplatných stavů — bezpečnost je tak zajištěna už při překladu (compile-time).
 
 ## Srovnání s OOP
 
-| Aspect | OOP (Java/C++) | FP (Haskell) |
+| Aspekt | OOP (Java/C++) | FP (Haskell) |
 | :--- | :--- | :--- |
-| Data definition | classes + inheritance | ADTs |
-| Dispatch | virtual methods | pattern matching |
-| Adding type | new subclass | new constructor (changes all matches) |
-| Adding op | virtual method | new function (no class changes) |
+| Definice dat | třídy + dědičnost (inheritance) | ADT |
+| Výběr chování (dispatch) | virtuální metody | porovnávání vzorů |
+| Přidání typu | nová podtřída | nový konstruktor (mění všechna porovnávání) |
+| Přidání operace | virtuální metoda | nová funkce (beze změny tříd) |
 
-**Expression problem:** OOP makes type extension easy, op extension hard; FP opposite.
+**Problém rozšiřitelnosti (expression problem):** OOP usnadňuje přidávání typů, ale ztěžuje přidávání operací; ve funkcionálním programování je tomu naopak.
 
-Modern languages (Scala, Kotlin, Rust, Swift) provide *both* — ADTs (sealed classes) + classes.
+Moderní jazyky (Scala, Kotlin, Rust, Swift) nabízejí *obojí* — ADT (zapečetěné, tzv. sealed třídy) i klasické třídy.
 
 ---
 

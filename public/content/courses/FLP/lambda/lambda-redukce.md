@@ -4,7 +4,7 @@ title: Beta redukce a Y kombinátor
 
 # Beta redukce a Y kombinátor
 
-**Beta redukce** ($\beta$-redukce) je *hlavní* výpočetní pravidlo lambda kalkulu — *aplikuje* funkci na argument substitucí. **Y kombinátor** umožňuje *rekurzi* bez explicitního pojmenování — je *fixed-point combinator*. Spolu tvoří jádro výpočetní moci λ-kalkulu.
+**Beta redukce** ($\beta$-redukce) je *hlavní* výpočetní pravidlo lambda kalkulu — *aplikuje* funkci na argument pomocí substituce. **Y kombinátor** umožňuje *rekurzi (recursion)* bez explicitního pojmenování funkce — jde o tzv. kombinátor pevného bodu (fixed-point combinator). Společně tvoří jádro výpočetní moci λ-kalkulu.
 
 ## Beta redukce
 
@@ -14,7 +14,7 @@ Klíčové výpočetní pravidlo:
 (\lambda x.\ E)\ E' \to_\beta E[x \to E']
 :::
 
-Aplikace abstrakce $\lambda x.\ E$ na argument $E'$ se *redukuje* na *tělo* $E$ s nahrazením všech volných výskytů $x$ za $E'$.
+Aplikace abstrakce $\lambda x.\ E$ na argument $E'$ se *redukuje* na *tělo* $E$, v němž jsou všechny volné výskyty $x$ nahrazeny výrazem $E'$.
 
 ### Příklady
 
@@ -24,14 +24,14 @@ Aplikace abstrakce $\lambda x.\ E$ na argument $E'$ se *redukuje* na *tělo* $E$
 
 ### Redex
 
-**Redex** (reducible expression) = výraz formy $(\lambda x.\ E)\ E'$ — *kandidát* na β-redukci.
+**Redex** (reducible expression, tj. redukovatelný výraz) je výraz tvaru $(\lambda x.\ E)\ E'$ — *kandidát* na β-redukci.
 
-Výraz může mít **více** redexů; **strategie evaluace** určuje, který se redukuje první:
+Výraz může mít **více** redexů; o tom, který se redukuje první, rozhoduje **strategie vyhodnocování (evaluation strategy)**:
 
-* **Normal order** (leftmost-outermost) — redukuj *nejvíc vnější* redex.
-* **Applicative order** (leftmost-innermost) — redukuj *nejvíc vnitřní*.
-* **Lazy** (call-by-need) — leftmost-outermost + sdílení (memoization).
-* **Eager / strict** (call-by-value) — applicative order.
+* **Normální pořadí** (normal order, leftmost-outermost) — redukuj *nejvíce vnější* redex.
+* **Aplikační pořadí** (applicative order, leftmost-innermost) — redukuj *nejvíce vnitřní* redex.
+* **Líné vyhodnocování (lazy evaluation, call-by-need)** — leftmost-outermost se sdílením výsledků (memoizace).
+* **Striktní vyhodnocování (eager / strict, call-by-value)** — aplikační pořadí.
 
 ## Eta konverze
 
@@ -39,38 +39,38 @@ Výraz může mít **více** redexů; **strategie evaluace** určuje, který se 
 \lambda x.\ E\ x \equiv_\eta E \quad \text{kde } x \notin FV(E)
 :::
 
-Funkce, která jen aplikuje $E$ na svůj argument, *je* funkce $E$.
+Funkce, která jen aplikuje $E$ na svůj argument, *je* totéž co funkce $E$.
 
-Praktický význam: **point-free style** — eliminace zbytečných argumentů. V Haskellu: `g x = f x` (kde `x` se na pravé straně už jinak nevyskytuje) lze zapsat bez argumentu jako `g = f` — to je právě $\lambda x.\ f\ x \equiv_\eta f$.
+Praktický význam: **bezbodový styl (point-free style)** — odstranění zbytečných argumentů. V Haskellu: zápis `g x = f x` (kde `x` se na pravé straně už jinak nevyskytuje) lze přepsat bez argumentu jako `g = f` — to je právě $\lambda x.\ f\ x \equiv_\eta f$.
 
 ## Normální forma
 
-**Normální forma** (NF) je výraz *bez* redexů — *nelze* dál redukovat.
+**Normální forma** (NF) je výraz *bez* redexů — *nelze* jej už dál redukovat.
 
 * $\lambda x.\ x$ je NF.
 * $\lambda x y.\ x$ je NF.
 * $(\lambda x.\ x)\ y$ **není** NF — redukuje se na $y$.
 
-### Church-Rosser theorem
+### Church-Rosserova věta
 
-> Pokud výraz má normální formu, je *jednoznačně určena* (nezávisle na strategii redukce). Pokud má více cest k NF, *konvergují* k téže NF.
+> Pokud výraz má normální formu, je *jednoznačně určena* (nezávisle na strategii redukce). Pokud k normální formě vede více cest, všechny *konvergují* k téže NF.
 
-Důsledek: výpočetní výsledek nezávisí na strategii.
+Důsledek: výsledek výpočtu nezávisí na strategii.
 
 ::: viz church-rosser-converge "Stejný výraz redukovaný v normal vs applicative — konvergence k NF (nebo divergence u Ω)."
 :::
 
-### Termination
+### Ukončení výpočtu (termination)
 
-* Některé výrazy *nemají* NF — *non-terminating*.
-* Příklad: $\Omega = (\lambda x.\ x\ x)\ (\lambda x.\ x\ x) \to_\beta (\lambda x.\ x\ x)\ (\lambda x.\ x\ x) \to_\beta \ldots$ — infinite loop.
-* Toto je analogie *nekonečné* smyčky v jazycích.
+* Některé výrazy *nemají* NF — výpočet se *nikdy neukončí* (non-terminating).
+* Příklad: $\Omega = (\lambda x.\ x\ x)\ (\lambda x.\ x\ x) \to_\beta (\lambda x.\ x\ x)\ (\lambda x.\ x\ x) \to_\beta \ldots$ — nekonečná smyčka.
+* Jde o analogii *nekonečné* smyčky v běžných programovacích jazycích.
 
 ## Y kombinátor
 
-**Problém:** λ-výraz *sám sobě* jméno *nemá*. Jak udělat *rekurzi*?
+**Problém:** λ-výraz *sám sobě* žádné jméno *nedává*. Jak tedy zapsat *rekurzi*?
 
-**Řešení:** Y kombinátor — *fixed-point* combinator.
+**Řešení:** Y kombinátor — kombinátor pevného bodu (fixed-point combinator).
 
 ::: math
 Y = \lambda f.\ (\lambda x.\ f\ (x\ x))\ (\lambda x.\ f\ (x\ x))
@@ -95,36 +95,36 @@ Y\ f &= (\lambda f.\ (\lambda x.\ f\ (x\ x))\ (\lambda x.\ f\ (x\ x)))\ f \\
 
 ### Použití pro rekurzi
 
-Chceme definovat factorial:
+Chceme definovat faktoriál:
 
 ```
 fact n = if n == 0 then 1 else n * fact (n-1)
 ```
 
-V λ-kalkulu nemůžeme přímo — `fact` by se odkazoval sám na sebe. Místo toho:
+V λ-kalkulu to nejde přímo — `fact` by se odkazoval sám na sebe. Místo toho použijeme:
 
 ```
 fact_template = λ f n. if n == 0 then 1 else n * f (n-1)
 fact = Y fact_template
 ```
 
-`Y fact_template` = `fact_template (Y fact_template)` = `fact_template fact`.
+Platí `Y fact_template` = `fact_template (Y fact_template)` = `fact_template fact`.
 
 Když aplikujeme `fact n`:
-* If `n == 0`: returns 1.
-* Else: returns `n * f (n-1)` = `n * fact (n-1)`.
+* Pokud `n == 0`: vrátí 1.
+* Jinak: vrátí `n * f (n-1)` = `n * fact (n-1)`.
 
-Rekurze funguje!
+Rekurze tak funguje!
 
 ::: viz y-combinator "Derivace Y g = g (Y g) krok po kroku + factorial via Y se stop na max depth."
 :::
 
 ## Y kombinátor v typovaném světě
 
-* **STLC** (Simply Typed λ-Calculus) **nemá** Y kombinátor — typový systém ho zakazuje (selfaplikace $x\ x$ není typovatelná).
-* **Therefore** STLC je *strongly normalizing* (terminates always).
-* **System F** ani System Fω také ne.
-* **Pro rekurzi** v typovaných jazycích je třeba *přidat* explicitní fix-point operator (Haskell: `fix`).
+* **STLC** (Simply Typed λ-Calculus, jednoduše typovaný λ-kalkul) Y kombinátor **nemá** — typový systém ho zakazuje (sebeaplikace $x\ x$ není typovatelná).
+* **Proto** je STLC silně normalizující (strongly normalizing) — výpočet vždy skončí.
+* **System F** ani System Fω Y kombinátor také nemají.
+* **Pro rekurzi** je v typovaných jazycích třeba *přidat* explicitní operátor pevného bodu (v Haskellu `fix`).
 
 ## Fix kombinátor v Haskellu
 
@@ -136,17 +136,17 @@ factorial :: Int -> Int
 factorial = fix (\f n -> if n == 0 then 1 else n * f (n-1))
 ```
 
-## Other fixed-point combinators
+## Další kombinátory pevného bodu
 
 Y není jediný:
 
-* **Turing's Θ:** $\Theta = (\lambda x f.\ f\ (x\ x\ f))\ (\lambda x f.\ f\ (x\ x\ f))$.
-* **Klop's $\Theta'$**.
-* **Curry's Y** je nejznámější.
+* **Turingův Θ:** $\Theta = (\lambda x f.\ f\ (x\ x\ f))\ (\lambda x f.\ f\ (x\ x\ f))$.
+* **Klopův $\Theta'$**.
+* **Curryho Y** je nejznámější.
 
 ## Příklady redukce {tier=example}
 
-### Booleans (Church encoding)
+### Booleovské hodnoty (Church encoding)
 
 ```
 TRUE  = λ x y. x
@@ -157,38 +157,38 @@ IF    = λ c t e. c t e
 Redukce:
 * `IF TRUE a b` = `(λ c t e. c t e) TRUE a b` = `TRUE a b` = `(λ x y. x) a b` = `a`.
 
-### Numerals (Church encoding)
+### Číselné hodnoty (Church encoding)
 
-Čísla jako $n \equiv \lambda f\ x.\ f^n(x)$ a successor `SUCC = λ n f x. f (n f x)` (vč. derivace `SUCC TWO = THREE`) viz [[church-enc]].
+Čísla zapsaná jako $n \equiv \lambda f\ x.\ f^n(x)$ a funkci následníka `SUCC = λ n f x. f (n f x)` (včetně derivace `SUCC TWO = THREE`) viz [[church-enc]].
 
-## Computational power
+## Výpočetní síla
 
-Lambda kalkul je **Turing-úplný**:
+Lambda kalkul je **Turingovsky úplný**:
 
-* Lze simulovat libovolný Turingův stroj.
-* Lze počítat *libovolnou* computable funkci.
-* Equivalent v silnosti s μ-recursive functions, register machines, Turingovými stroji.
+* Lze jím simulovat libovolný Turingův stroj.
+* Lze jím spočítat *libovolnou* vyčíslitelnou (computable) funkci.
+* Je svou silou ekvivalentní μ-rekurzivním funkcím, registrovým strojům i Turingovým strojům.
 
-**Church-Turing thesis:** všechny tyto modely výpočtu jsou *ekvivalentní*; co je computable v jednom, je v druhém.
+**Churchova-Turingova teze:** všechny tyto modely výpočtu jsou *ekvivalentní*; co je vyčíslitelné v jednom, je vyčíslitelné i v ostatních.
 
 ## Praktická implementace
 
-Modern functional language compilers:
+Překladače (compiler) moderních funkcionálních jazyků postupují takto:
 
-1. **Parse** zdrojový kód → AST.
-2. **Desugar** → core λ-kalkul (Haskell Core, ML CoreML).
-3. **Type check** + inference.
-4. **Optimize** (deforestation, fusion, strictness analysis).
-5. **Compile** to bytecode / native code.
+1. **Parsování** — zdrojový kód → AST (abstraktní syntaktický strom).
+2. **Desugaring** — překlad na jádro λ-kalkulu (Haskell Core, ML CoreML).
+3. **Typová kontrola** + inference (odvozování typů).
+4. **Optimalizace** (deforestace, fúze, analýza striktnosti).
+5. **Kompilace** do bytekódu / nativního kódu.
 
-GHC's Core jazyk je **rozšířený typovaný λ-kalkul** s ADTs, case expressions, type lambdas.
+Jazyk GHC Core je **rozšířený typovaný λ-kalkul** s algebraickými datovými typy (ADT), výrazy case a typovými lambdami.
 
-## Performance
+## Výkon (performance)
 
-* **Naive** λ interpreter is slow.
-* **Graph reduction** with sharing — exponential speedup.
-* **STG machine** (Spineless Tagless G-machine) — modern Haskell evaluator.
-* **Real-world Haskell:** competitive with C++ for many tasks.
+* **Naivní** interpret λ-kalkulu je pomalý.
+* **Grafová redukce** se sdílením — exponenciální zrychlení.
+* **STG machine** (Spineless Tagless G-machine) — moderní vyhodnocovač Haskellu.
+* **Haskell v praxi:** v mnoha úlohách konkurenceschopný s C++.
 
 ---
 

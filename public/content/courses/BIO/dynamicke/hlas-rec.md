@@ -4,7 +4,7 @@ title: Rozpoznávání hlasu (speaker recognition)
 
 # Rozpoznávání hlasu (speaker recognition)
 
-**Speaker recognition** identifikuje *osobu* podle jejího hlasu. Liší se od **speech recognition** (rozpoznávání *obsahu* řeči) — speaker recognition cílí na *kdo* mluví, ne *co* říká. Hlas je *behaviorální* biometrika kombinující anatomické (velikost vokálních ústrojí) a behaviorální (intonace, rytmus) komponenty.
+**Rozpoznávání mluvčího (speaker recognition)** identifikuje *osobu* podle jejího hlasu. Liší se od **rozpoznávání řeči (speech recognition)**, které rozpoznává *obsah* řeči — rozpoznávání mluvčího cílí na to, *kdo* mluví, nikoli na to, *co* říká. Hlas je *behaviorální* biometrika, jež kombinuje anatomické složky (velikost hlasového ústrojí) a behaviorální složky (intonace, rytmus).
 
 ## Anatomie hlasového aparátu
 
@@ -33,35 +33,35 @@ title: Rozpoznávání hlasu (speaker recognition)
 </svg>
 :::
 
-* **Larynx (hrtan)** s **vocal cords** (hlasivky) — primary source pitch.
-* **Pharynx, oral cavity, nasal cavity** — *resonance chambers* shaping spectrum.
-* **Tongue, lips** — articulators.
-* **Velum** — soft palate.
+* **Hrtan (larynx)** s **hlasivkami (vocal cords)** — primární zdroj výšky tónu (pitch).
+* **Hltan (pharynx), ústní dutina (oral cavity), nosní dutina (nasal cavity)** — *rezonanční dutiny*, které utvářejí tvar spektra.
+* **Jazyk (tongue), rty (lips)** — artikulátory.
+* **Měkké patro (velum)**.
 
-Individuality:
-* **Anatomical:** size of cavities, vocal cord length/mass.
-* **Behavioral:** speaking style, accent, rhythm, intonation.
+Co určuje individualitu hlasu:
+* **Anatomické rysy:** velikost dutin, délka a hmotnost hlasivek.
+* **Behaviorální rysy:** styl řeči, přízvuk, rytmus, intonace.
 
-## Modes of speaker recognition
+## Režimy rozpoznávání mluvčího
 
-### Text-dependent
+### Text-dependent (závislé na textu)
 
-* User says *specific* phrase (e.g., "My voice is my password").
-* Higher accuracy.
-* Used in *voice biometric phone banking*.
+* Uživatel vysloví *konkrétní* frázi (např. „My voice is my password").
+* Vyšší přesnost.
+* Používá se v *hlasové biometrii pro telefonní bankovnictví*.
 
-### Text-independent
+### Text-independent (nezávislé na textu)
 
-* User speaks *arbitrary* content.
-* Lower accuracy, more flexibility.
-* Used in *forensic*, *surveillance*.
+* Uživatel mluví o *libovolném* obsahu.
+* Nižší přesnost, ale větší flexibilita.
+* Používá se ve *forenzní* praxi a při *sledování*.
 
-### Text-prompted
+### Text-prompted (s vyžádaným textem)
 
-* System prompts random phrase, user repeats.
-* Anti-spoofing (against pre-recorded audio).
+* Systém vyzve uživatele k vyslovení náhodné fráze, kterou uživatel zopakuje.
+* Slouží jako ochrana proti podvržení (anti-spoofing) — brání použití předem nahraného zvuku.
 
-## Speaker recognition pipeline
+## Zpracovatelský řetězec rozpoznávání mluvčího
 
 ::: svg "Pipeline: audio capture → preprocessing → feature extraction → model (GMM, i-vector, x-vector) → matching."
 <svg viewBox="0 0 540 160" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -98,184 +98,184 @@ Individuality:
 </svg>
 :::
 
-### 1. Audio capture
+### 1. Snímání zvuku
 
-* **Sample rate:** 8 kHz (telephone) – 48 kHz (high-quality).
-* **Bit depth:** 16-bit signed.
-* **Mono.**
+* **Vzorkovací frekvence (sample rate):** 8 kHz (telefon) až 48 kHz (vysoká kvalita).
+* **Bitová hloubka (bit depth):** 16bitová se znaménkem.
+* **Mono** (jeden kanál).
 
-### 2. Preprocessing
+### 2. Předzpracování
 
-* **Voice Activity Detection (VAD)** — remove silence.
-* **Noise reduction** — spectral subtraction.
-* **Pre-emphasis filter** — boost high frequencies.
+* **Detekce řečové aktivity (Voice Activity Detection, VAD)** — odstraní úseky ticha.
+* **Potlačení šumu (noise reduction)** — spektrální odečítání.
+* **Preemfázní filtr (pre-emphasis filter)** — zvýrazní vysoké frekvence.
 
-### 3. Feature extraction
+### 3. Extrakce příznaků
 
 #### MFCC (Mel-Frequency Cepstral Coefficients)
 
-Standard speech features:
+Standardní řečové příznaky:
 
-1. Window audio (25 ms frames, 10 ms hop).
-2. **FFT** — spectrum.
-3. **Mel filterbank** — 26 filters spaced on perceptual mel scale.
-4. **Log** — power → loudness.
-5. **DCT** — decorrelate → 12–13 coefficients per frame.
+1. Rozdělení zvuku do oken (rámce po 25 ms, posun po 10 ms).
+2. **FFT** — výpočet spektra.
+3. **Mel banka filtrů (mel filterbank)** — 26 filtrů rozmístěných podle percepční mel stupnice.
+4. **Logaritmus** — převod výkonu na vnímanou hlasitost.
+5. **DCT** — dekorelace, výsledkem je 12–13 koeficientů na rámec.
 
-Output: time series of MFCC vectors.
+Výstupem je časová řada vektorů MFCC.
 
 ::: viz voice-mfcc "Pipeline FFT → mel filterbank → log → DCT → MFCC; heatmapa MFCC pro dva mluvčí + cosine similarity."
 :::
 
-#### Other features
+#### Další příznaky
 
-* **LPC** (Linear Predictive Coding).
-* **PLP** (Perceptual Linear Prediction).
-* **Delta + delta-delta** — temporal derivatives.
+* **LPC** (Linear Predictive Coding, lineární prediktivní kódování).
+* **PLP** (Perceptual Linear Prediction, percepční lineární predikce).
+* **Delta + delta-delta** — časové derivace příznaků.
 
-### 4. Speaker modeling
+### 4. Modelování mluvčího
 
-#### GMM (Gaussian Mixture Models)
+#### GMM (Gaussian Mixture Models, gaussovské směsové modely)
 
-Classical:
+Klasický přístup:
 
-* Each speaker modeled by mixture of Gaussians in feature space.
-* Universal Background Model (UBM) trained on all speakers; speaker-specific model adapted.
+* Každý mluvčí je modelován směsí gaussovských rozdělení v prostoru příznaků.
+* Univerzální základní model (Universal Background Model, UBM) je natrénován na všech mluvčích; model konkrétního mluvčího z něj vznikne přizpůsobením (adaptací).
 
 #### i-vector (2010)
 
-* **Identity vector** — fixed-length representation of variable-length utterance.
-* Based on factor analysis of GMM supervectors.
-* Dominant 2010–2017.
+* **Identitní vektor (identity vector)** — reprezentace promluvy proměnné délky převedená na vektor pevné délky.
+* Vychází z faktorové analýzy GMM supervektorů.
+* Dominoval v letech 2010–2017.
 
 #### x-vector (2018+)
 
-* **DL-based embedding** — Time Delay Neural Network (TDNN) processes MFCC + outputs fixed embedding.
-* Replaced i-vectors as state-of-the-art.
-* Used by NIST SRE leading systems.
+* **Embedding založený na hlubokém učení (DL)** — neuronová síť s časovým zpožděním (Time Delay Neural Network, TDNN) zpracuje MFCC a vrátí embedding pevné délky.
+* Nahradil i-vektory jako špičkové řešení (state-of-the-art).
+* Používají jej přední systémy v evaluaci NIST SRE.
 
 #### ECAPA-TDNN (2020+)
 
-* Improved x-vector with **attention** mechanism.
-* Current state-of-the-art for many benchmarks.
+* Vylepšený x-vector s mechanismem pozornosti (**attention**).
+* Současné špičkové řešení (state-of-the-art) pro řadu testovacích sad.
 
-### 5. Matching
+### 5. Porovnávání
 
-* **Cosine similarity** between embeddings.
-* **PLDA** (Probabilistic Linear Discriminant Analysis) scoring — handles within-class vs between-class variability.
+* **Kosinová podobnost (cosine similarity)** mezi embeddingy.
+* Skórování pomocí **PLDA** (Probabilistic Linear Discriminant Analysis) — odděluje variabilitu uvnitř třídy od variability mezi třídami.
 
-## Performance
+## Výkon
 
-NIST **SRE** (Speaker Recognition Evaluation), ongoing since 1996:
+NIST **SRE** (Speaker Recognition Evaluation), probíhá od roku 1996:
 
-* **2020 SRE:** best EER ~1 % for short utterances (10–60 sec).
-* **Telephone audio:** EER 3–5 %.
-* **Cross-language:** harder, EER 5–10 %.
+* **SRE 2020:** nejlepší EER zhruba 1 % u krátkých promluv (10–60 s).
+* **Telefonní zvuk:** EER 3–5 %.
+* **Mezi jazyky (cross-language):** obtížnější, EER 5–10 %.
 
-Modern *consumer* deployment (Apple Siri Voice ID, Google Voice Match):
+Moderní *spotřebitelské* nasazení (Apple Siri Voice ID, Google Voice Match):
 
-* FAR: 1 in 10 000 (claimed).
+* FAR: 1 ku 10 000 (deklarováno výrobcem).
 * FRR: 1–5 %.
 
 ## Aplikace {tier=practice}
 
-### Phone banking
+### Telefonní bankovnictví
 
-* **Voice biometric authentication** instead of password.
+* **Hlasová biometrická autentizace (authentication)** namísto hesla.
 * HSBC Voice ID (2016+), Citi VoicePass.
-* **Phrase:** "My voice is my password."
+* **Fráze:** „My voice is my password."
 
-### Forensic
+### Forenzní využití
 
-* **Voice analysis** for criminal investigations.
-* Compare suspect audio to known recordings.
-* Court-admissible in many jurisdictions with expert testimony.
+* **Analýza hlasu** pro kriminalistické vyšetřování.
+* Porovnání zvukového záznamu podezřelého se známými nahrávkami.
+* V mnoha jurisdikcích přípustná u soudu spolu se znaleckým posudkem.
 
-### Smart speakers
+### Chytré reproduktory
 
-* **Apple Siri** Voice ID (per-user).
-* **Google Voice Match** — distinguishes household members.
+* **Apple Siri** Voice ID (rozlišení jednotlivých uživatelů).
+* **Google Voice Match** — rozlišuje členy domácnosti.
 * **Amazon Echo** Voice Profiles.
 
-### Call centers
+### Call centra
 
-* **Caller identification** without explicit verification.
-* **Fraud detection** — voice biometric blacklist.
+* **Identifikace volajícího** bez výslovného ověření.
+* **Detekce podvodů (fraud detection)** — hlasový biometrický blacklist.
 
-### Surveillance
+### Sledování
 
-* Tracking individuals across multiple recordings.
-* Voice in mobile communications.
+* Sledování osob napříč více nahrávkami.
+* Hlas v mobilní komunikaci.
 
 ## Útoky a anti-spoofing
 
-### Replay attack
+### Útok přehráním (replay attack)
 
-* Pre-recorded audio of legitimate user.
-* **Defenze:** liveness — random phrase prompts, channel analysis (recording artifacts).
+* Předem nahraný zvuk legitimního uživatele.
+* **Obrana:** ověření živosti (liveness) — vyžádání náhodných frází, analýza kanálu (artefakty vzniklé při nahrávání).
 
-### Voice cloning / synthesis
+### Klonování / syntéza hlasu
 
-* Modern AI tools (ElevenLabs, Resemble AI) — high-quality voice cloning from seconds of audio.
-* **Threat:** can spoof voice biometric with synthetic audio.
-* **Defenze:** anti-spoofing classifiers (ASVspoof challenges).
+* Moderní nástroje s umělou inteligencí (ElevenLabs, Resemble AI) — vysoce kvalitní klonování hlasu z několika sekund záznamu.
+* **Hrozba (threat):** umožňují podvrhnout (spoof) hlasovou biometriku syntetickým zvukem.
+* **Obrana:** klasifikátory proti podvržení (anti-spoofing), viz soutěže ASVspoof.
 
-### Impersonation
+### Napodobení (impersonation)
 
-* Human impressionists.
-* Generally not perfect, detectable by good systems.
+* Lidští imitátoři.
+* Napodobení obvykle není dokonalé a dobré systémy je dokážou odhalit.
 
-### Voice modification
+### Úprava hlasu
 
-* Speech synthesizers, voice changers.
-* Detectable via spectrum analysis.
+* Syntetizátory řeči, měniče hlasu (voice changers).
+* Odhalitelné pomocí spektrální analýzy.
 
 ## ASVspoof
 
-[ASVspoof Challenge](https://www.asvspoof.org/) — biennial competition for anti-spoofing:
+[ASVspoof Challenge](https://www.asvspoof.org/) — soutěž v ochraně proti podvržení (anti-spoofing) konaná každé dva roky:
 
-* **Logical access** (LA) — synthesized speech detection.
-* **Physical access** (PA) — replay attack detection.
-* Datasets, baselines, leaderboards.
+* **Logical access (LA)** — detekce syntetizované řeči.
+* **Physical access (PA)** — detekce útoku přehráním.
+* Poskytuje datové sady, referenční řešení (baselines) a žebříčky.
 
-State-of-the-art detectors use:
-* **CNN-based** acoustic features.
-* **Constant-Q transform**.
-* **Wave2Vec** representations.
+Špičkové detektory využívají:
+* **Akustické příznaky založené na CNN.**
+* **Constant-Q transformaci.**
+* **Reprezentace Wave2Vec.**
 
 ## Standardy
 
-* **ISO/IEC 19794-13:2018** — Voice data.
-* **NIST SRE** — ongoing evaluation.
+* **ISO/IEC 19794-13:2018** — hlasová data.
+* **NIST SRE** — průběžně probíhající evaluace.
 
 ## Limity
 
 ### Vnitrotřídní variabilita
 
-* **Stejná osoba** říká stejnou větu *jinak* podle:
-  * Emotion (calm vs. angry).
-  * Cold / illness.
-  * Tiredness.
-  * Microphone differences.
+* **Stejná osoba** říká stejnou větu *pokaždé jinak* podle:
+  * Emoce (klid vs. hněv).
+  * Nachlazení či nemoci.
+  * Únavy.
+  * Rozdílů mezi mikrofony.
 
 ### Mezitřídní variabilita
 
-* **Identical twins, family members** mají *very similar* voices.
-* Same-gender, same-age, same-dialect — harder to distinguish.
+* **Jednovaječná dvojčata a členové rodiny** mají *velmi podobné* hlasy.
+* Stejné pohlaví, stejný věk i stejné nářečí — hůře se rozlišují.
 
-### Aging
+### Stárnutí
 
-* Voice changes *significantly* over time.
-* Children → adolescent → adult voice shifts.
-* Older adults — voice tremor, weakening.
+* Hlas se v čase *výrazně* mění.
+* Posuny od dětského hlasu přes dospívání až k dospělému hlasu.
+* U starších lidí — třes hlasu, jeho zeslabení.
 
-## Trends
+## Trendy
 
-* **AI-driven voice synthesis** ↔ **AI-driven detection** — arms race.
-* **Multi-microphone** capture (smart speakers) — direction + voice biometric.
-* **Federated learning** — privacy-preserving training.
-* **Voice + face** multimodal.
-* **Continuous authentication** — passive voice recognition during call.
+* **Syntéza hlasu řízená AI** ↔ **detekce řízená AI** — vzájemné závody ve zbrojení.
+* **Vícemikrofonní (multi-microphone)** snímání (chytré reproduktory) — kromě hlasové biometriky určuje i směr příchodu zvuku.
+* **Federované učení (federated learning)** — trénování zachovávající soukromí.
+* **Multimodální spojení hlasu a obličeje** (voice + face).
+* **Průběžná autentizace (continuous authentication)** — pasivní rozpoznávání hlasu během hovoru.
 
 ---
 

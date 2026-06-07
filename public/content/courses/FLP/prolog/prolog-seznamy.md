@@ -6,7 +6,7 @@ title: Seznamy v Prologu (legacy)
 
 > **POZOR — LEGACY MATERIÁL:** Tato problematika *není zařazena* od **akademického roku 2026/27**. Prolog byl nahrazen jazykem **[[rust-ownership|Rust]]**.
 
-**Seznamy** jsou *fundamental* datová struktura Prologu — *prakticky všechno* lze reprezentovat seznamy. Pochopení jejich manipulace je nutné pro praktické programování v Prologu.
+**Seznamy (lists)** jsou základní datová struktura Prologu — *prakticky všechno* lze reprezentovat pomocí seznamů. Pochopení toho, jak se s nimi pracuje, je pro praktické programování v Prologu nezbytné.
 
 ## Reprezentace
 
@@ -27,11 +27,11 @@ title: Seznamy v Prologu (legacy)
 [A, B|T] = [1, 2, 3]  % A = 1, B = 2, T = [3]
 ```
 
-Vnitřně: `[1, 2, 3]` = `.(1, .(2, .(3, [])))` — cons-cell representation.
+Vnitřně je `[1, 2, 3]` totéž co `.(1, .(2, .(3, [])))` — jde o reprezentaci pomocí buněk cons (cons-cell representation). To znamená, že každý prvek je dvojice „hlava a zbytek seznamu" a seznam je zakončen prázdným seznamem `[]`.
 
 ## Základní operace
 
-### Member
+### Členství v seznamu (member)
 
 ```prolog
 % Define
@@ -49,7 +49,7 @@ X = a ; X = b ; X = c.
 false.
 ```
 
-### Append
+### Spojení seznamů (append)
 
 ```prolog
 % Define
@@ -72,7 +72,9 @@ X = [1,2,3], Y = [].
 true.
 ```
 
-### Length
+Predikát `append` je obousměrný (reversible): dokáže nejen seznamy spojovat, ale při dotazu s neznámými argumenty také rozkládá daný seznam na všechny možné dvojice předpony a přípony.
+
+### Délka seznamu (length)
 
 ```prolog
 length([], 0).
@@ -86,7 +88,7 @@ N = 3.
 L = [_,_,_] ;   % creates list of 3 unknowns
 ```
 
-### Reverse
+### Obrácení seznamu (reverse)
 
 ```prolog
 % Naive (slow, O(n²))
@@ -104,7 +106,9 @@ reverse([H|T], Acc, R) :- reverse(T, [H|Acc], R).
 X = [3,2,1].
 ```
 
-## Last element
+Naivní verze je pomalá, protože pro každý prvek volá `append` (celkem O(n²)). Efektivní verze používá akumulátor (accumulator), do něhož postupně přesouvá hlavu seznamu, a zvládne obrácení v lineárním čase O(n).
+
+## Poslední prvek (last element)
 
 ```prolog
 last([X], X).
@@ -114,7 +118,7 @@ last([_|T], X) :- last(T, X).
 X = 3.
 ```
 
-## Nth element
+## N-tý prvek (nth element)
 
 ```prolog
 nth0(0, [H|_], H).
@@ -126,7 +130,7 @@ X = b.
 % Modern Prolog: built-in nth0/3, nth1/3
 ```
 
-## Filter
+## Filtrování (filter)
 
 ```prolog
 filter(_, [], []).
@@ -139,7 +143,7 @@ is_positive(X) :- X > 0.
 R = [2, 4, 5].
 ```
 
-## Map
+## Transformace prvků (map)
 
 ```prolog
 map(_, [], []).
@@ -155,7 +159,7 @@ R = [2,4,6].
 % Modern Prolog: maplist/2, maplist/3
 ```
 
-## Fold
+## Skládání hodnot (fold)
 
 ```prolog
 % Right fold
@@ -176,7 +180,9 @@ foldl(F, A, [H|T], R) :-
     foldl(F, NA, T, R).
 ```
 
-## Sort
+Operace fold postupně „složí" celý seznam do jediné hodnoty: na každý prvek zavolá danou funkci společně s dosavadním mezivýsledkem. Varianta `foldr` skládá zprava, `foldl` zleva a je díky koncové rekurzi (tail recursion) úspornější.
+
+## Řazení (sort)
 
 ```prolog
 % Quick sort
@@ -206,7 +212,7 @@ S = [1,3,4,5].
 S = [1,1,3,4,5].
 ```
 
-## List comprehension equivalent
+## Obdoba list comprehension
 
 ```prolog
 % Equivalent to Haskell: [X*X | X <- list, even X]
@@ -219,9 +225,9 @@ R = [4, 16].
 
 ## Pokročilé techniky
 
-### Difference lists
+### Rozdílové seznamy (difference lists)
 
-Efficient list concatenation via *open-ended* lists:
+Umožňují efektivní spojování seznamů pomocí *otevřených* seznamů (open-ended lists) — tedy seznamů, jejichž konec je ponechán jako nesvázaná proměnná:
 
 ```prolog
 % List as difference: List - Suffix
@@ -235,9 +241,9 @@ append_dl(L1-T1, T1-T2, L1-T2).
 L = [1,2,3,4,5].
 ```
 
-Used for efficient list building.
+Tato technika se používá pro efektivní postupné budování seznamů.
 
-### Lists of lists (matrices)
+### Seznamy seznamů (matice)
 
 ```prolog
 % 3x3 matrix
@@ -259,9 +265,9 @@ extract_column([[H|T]|Rs], [H|Heads], [T|Tails]) :-
     extract_column(Rs, Heads, Tails).
 ```
 
-## Common list patterns
+## Časté vzory práce se seznamy
 
-### Check sorted
+### Kontrola seřazení (check sorted)
 
 ```prolog
 sorted([]).
@@ -269,7 +275,7 @@ sorted([_]).
 sorted([X,Y|T]) :- X =< Y, sorted([Y|T]).
 ```
 
-### Remove duplicates
+### Odstranění duplicit (remove duplicates)
 
 ```prolog
 no_dup([], []).
@@ -277,7 +283,7 @@ no_dup([H|T], R) :- member(H, T), !, no_dup(T, R).
 no_dup([H|T], [H|R]) :- no_dup(T, R).
 ```
 
-### Find maximum
+### Nalezení maxima (find maximum)
 
 ```prolog
 max_list([X], X).
@@ -286,7 +292,7 @@ max_list([H|T], Max) :-
     Max is max(H, MT).
 ```
 
-### Take / Drop
+### Vezmi / Zahoď (take / drop)
 
 ```prolog
 take(0, _, []) :- !.
@@ -304,7 +310,7 @@ R = [a,b,c].
 R = [c,d,e].
 ```
 
-### Split
+### Rozdělení (split)
 
 ```prolog
 split(L, N, Front, Back) :-
@@ -315,36 +321,36 @@ split(L, N, Front, Back) :-
 F = [1,2], B = [3,4,5].
 ```
 
-## Performance considerations
+## Co ovlivňuje výkon
 
-* **Accumulator pattern** for tail recursion.
-* **Indexing** — first argument used for clause selection.
-* **Difference lists** for efficient append.
-* **Modern Prolog built-ins** (length, append, sort) optimized in C.
+* **Vzor s akumulátorem (accumulator pattern)** pro koncovou rekurzi.
+* **Indexování (indexing)** — k výběru klauzule slouží první argument.
+* **Rozdílové seznamy (difference lists)** pro efektivní spojování.
+* **Vestavěné predikáty moderního Prologu** (length, append, sort) jsou optimalizované v jazyce C.
 
-## Limity Prologu pro list processing
+## Limity Prologu pro zpracování seznamů
 
-Compared to Haskell:
+Ve srovnání s Haskellem platí:
 
-* **No lazy evaluation** — cannot have infinite lists naturally.
-* **No higher-order functions** built-in (need `call/N`).
-* **No type safety** — runtime errors common.
-* **No pattern matching** in head as elegant.
-* **Side effects** harder to reason about.
+* **Žádné líné vyhodnocování (lazy evaluation)** — nelze přirozeně pracovat s nekonečnými seznamy.
+* **Žádné vestavěné funkce vyššího řádu (higher-order functions)** — je nutné použít `call/N`.
+* **Žádná typová bezpečnost** — běžně vznikají chyby až za běhu (runtime).
+* **Porovnávání vzorů (pattern matching)** v hlavě klauzule není tak elegantní.
+* **Vedlejší účinky (side effects)** se hůř promýšlejí.
 
-But:
-* **Backtracking** elegant for search problems.
-* **Reversibility** sometimes useful.
+Na druhou stranu:
+* **Backtracking** je elegantní pro vyhledávací úlohy.
+* **Obousměrnost (reversibility)** je občas užitečná.
 
 ## Klíčové ponaučení
 
-* Lists jsou *univerzální* datová struktura.
-* `[H|T]` pattern je klíčový.
-* Append + member + length + reverse jsou základ.
-* Tail recursion + accumulator pro O(n) operations.
-* findall/bagof/setof for collection.
+* Seznamy jsou *univerzální* datová struktura.
+* Vzor `[H|T]` je klíčový.
+* Append, member, length a reverse tvoří základ.
+* Koncová rekurze (tail recursion) s akumulátorem zajišťuje operace v čase O(n).
+* findall, bagof a setof slouží ke sběru řešení do seznamu.
 
-> Despite legacy status, list processing in Prolog provides *intuition* useful in functional programming generally.
+> I přes status legacy materiálu poskytuje zpracování seznamů v Prologu *intuici*, která je užitečná pro funkcionální programování obecně.
 
 ---
 

@@ -4,11 +4,11 @@ title: Sítnice a cévní řečiště
 
 # Sítnice a cévní řečiště
 
-**Sítnice** (retina) je *vnitřní* světločitlivá vrstva oka. Pro biometriku je relevantní její *cévní vzor* (vascular pattern) — *unique per person* a *extrémně stabilní* během života. Retina-based biometric je technicky nejtěžší ze všech, ale poskytuje nejvyšší přesnost — proto se používá jen v *vysoce zabezpečených* aplikacích.
+**Sítnice** (retina) je *vnitřní* světločitlivá vrstva oka. Pro biometriku je podstatný její *cévní vzor* (vascular pattern) — pro každého člověka *jedinečný* a *mimořádně stabilní* v průběhu života. Biometrika založená na sítnici je technicky nejnáročnější ze všech, zato poskytuje nejvyšší přesnost — proto se používá jen ve *vysoce zabezpečených* aplikacích.
 
 ## Cévní struktura sítnice
 
-::: svg "Fundus oculi — pohled na sítnici: optical disk (vstup cév), macula, centrální arterie a venule s větveními."
+::: svg "Fundus oculi — pohled na sítnici: terč zrakového nervu (vstup cév), žlutá skvrna, centrální tepna a žíla s větveními."
 <svg viewBox="0 0 540 240" font-family="ui-sans-serif, system-ui" font-size="11">
   <g fill="rgba(180,140,100,0.5)" stroke="var(--accent)" stroke-width="1.5">
     <circle cx="270" cy="120" r="100"/>
@@ -46,168 +46,168 @@ title: Sítnice a cévní řečiště
 </svg>
 :::
 
-* **Optical disk** (papilla optici, slepá skvrna) — místo, kde optical nerve a *central retinal artery* + *vena* vstupují/vystupují. ~1.5 mm v průměru.
-* **Macula lutea** — žlutá skvrna s nejvyšší hustotou čípků; central vision. ~5 mm v průměru, *fovea* uprostřed.
-* **Central retinal artery (CRA)** — vstupuje s optical nerve, větvení do *superior/inferior* arcs a dále.
-* **Central retinal vein (CRV)** — analogicky, drenáž.
+* **Terč zrakového nervu** (optical disk, papilla optici, slepá skvrna) — místo, kde do oka vstupuje a vystupuje zrakový nerv (optical nerve) spolu s *centrální sítnicovou tepnou* (central retinal artery) a *žílou*. Má v průměru asi 1,5 mm.
+* **Žlutá skvrna** (macula lutea) — oblast s nejvyšší hustotou čípků, zodpovědná za ostré centrální vidění. V průměru má zhruba 5 mm, uprostřed leží *fovea* (jamka nejostřejšího vidění).
+* **Centrální sítnicová tepna** (central retinal artery, CRA) — vstupuje společně se zrakovým nervem a větví se do *horního a dolního* oblouku a dále.
+* **Centrální sítnicová žíla** (central retinal vein, CRV) — vede analogicky a zajišťuje odvod krve.
 
 ### Vzor cév
 
-Vzor se vytvoří *během fetal development* (~16 týden) a *zůstává stabilní* po celý život.
+Vzor cév se vytvoří *během vývoje plodu* (přibližně 16. týden) a *zůstává stabilní* po celý život.
 
-* **Genetics** určuje *globální layout* (lokace optical disku, typical branching).
-* **Epigenetic factors** ovlivňují *přesné branching pattern* — odlišné u *identických dvojčat*.
+* **Genetika** (genetics) určuje *globální uspořádání* (lokaci terče zrakového nervu, typický způsob větvení).
+* **Epigenetické faktory** (epigenetic factors) ovlivňují *přesný vzor větvení* — proto je odlišný i u *jednovaječných dvojčat*.
 * **Vlastnosti:**
-  * **Unique** — *žádné dva* obrazy retiny nejsou totožné.
-  * **Stálý** — od cca 1. roku života do smrti.
-  * **Nelze externě modifikovat** — chráněn anatomickou polohou.
+  * **Jedinečnost** — *žádné dva* obrazy sítnice nejsou totožné.
+  * **Stálost** — od přibližně 1. roku života až do smrti.
+  * **Nelze jej zvnějšku změnit** — je chráněn svou anatomickou polohou.
 
 ### Změny vlivem nemocí
 
-* **Diabetes** — *diabetic retinopathy*: mikroaneurysma, neovaskularizace, exudates.
-* **Hypertenze** — *hypertenzní retinopatie*: arteriolar narrowing, A/V crossings.
-* **Glaukom** — *cup-to-disc ratio* changes.
-* **Macular degeneration** (AMD) — central vision loss.
+* **Cukrovka** (diabetes) — *diabetická retinopatie*: mikroaneurysmata, novotvorba cév (neovaskularizace), exsudáty.
+* **Vysoký krevní tlak** (hypertenze) — *hypertenzní retinopatie*: zúžení arteriol, změny v místech křížení tepen a žil.
+* **Glaukom** (zelený zákal) — změny poměru exkavace k terči zrakového nervu (cup-to-disc ratio).
+* **Věkem podmíněná makulární degenerace** (AMD) — ztráta centrálního vidění.
 
-Z perspektivy *biometriky* tyto změny mohou degradovat matching — vyžadují adaptive enrollment.
+Z pohledu *biometriky* mohou tyto změny zhoršit porovnávání (matching) — vyžadují proto průběžnou aktualizaci registrované šablony (adaptive enrollment).
 
-Z perspektivy *medicíny* — fundus imaging je primary diagnostický nástroj.
+Z pohledu *medicíny* je naopak snímkování očního pozadí (fundus imaging) primárním diagnostickým nástrojem.
 
 ## Snímání sítnice
 
-### Fundus camera
+### Funduskamera (fundus camera)
 
-Specializované zařízení:
+Specializované zařízení tvoří:
 
-* **Light source** (visible / NIR) — flash illumination.
-* **Optical system** — slit lamp + condensing lens.
-* **Sensor** — high-resolution CCD/CMOS.
-* **Distance** — ~5 cm od oka.
+* **Zdroj světla** (viditelné světlo nebo blízké infračervené záření, NIR) — osvětlení zábleskem.
+* **Optická soustava** — štěrbinová lampa a kondenzační čočka.
+* **Snímač** — vysokorozlišovací čip CCD nebo CMOS.
+* **Vzdálenost** — přibližně 5 cm od oka.
 
-### Process
+### Postup
 
-1. Subject sits with **chin rest** + **forehead band** for stability.
-2. **Pupil dilatation** (mydriasis) — eye drops to widen pupil. *Limits real-world use*.
-3. **Alignment** — examiner positions camera precisely.
-4. **Snapshot** — single image.
-5. **Image quality assessment** — possibly repeat.
+1. Vyšetřovaná osoba se opírá o **podpěru brady** a **opěrku čela**, aby zůstala v klidu.
+2. **Rozšíření zornice** (mydriáza) — pomocí očních kapek se zornice roztáhne. Tato nutnost *omezuje reálné nasazení*.
+3. **Zacílení** — obsluha přesně nastaví polohu kamery.
+4. **Pořízení snímku** — jeden samostatný obraz.
+5. **Posouzení kvality snímku** — případně se snímání opakuje.
 
-### Difficulties
+### Obtíže
 
-* **Eye movement** — natural saccades během snímání.
-* **Cornea + lens** — light must pass through these (any opacity = poor image).
-* **Pupil constriction** — natural reflex to bright light.
-* **Subject cooperation** required — *not* suitable for surveillance.
+* **Pohyby oka** — během snímání přirozeně dochází k drobným cukavým pohybům (sakádám).
+* **Rohovka a čočka** — světlo jimi musí projít, takže jakýkoli zákal vede ke špatnému obrazu.
+* **Stažení zornice** — přirozený reflex na silné světlo.
+* **Spolupráce snímané osoby** je nutná — metoda *není* vhodná pro sledování (surveillance).
 
-### Mobile retinal imaging
+### Mobilní snímání sítnice
 
-* **Welch Allyn iExaminer** — smartphone-attached ophthalmoscope.
-* **Aurora Smart Retinal Camera** — handheld for primary care.
-* Lower quality than full fundus cameras, but more accessible.
+* **Welch Allyn iExaminer** — oftalmoskop připojitelný k chytrému telefonu.
+* **Aurora Smart Retinal Camera** — ruční přístroj pro primární péči.
+* Mají nižší kvalitu než plnohodnotné funduskamery, zato jsou dostupnější.
 
 ## Algoritmy
 
-### Vessel extraction
+### Extrakce cév
 
-1. **Image preprocessing** — green channel (best contrast for vessels).
-2. **Vessel segmentation:**
-   * **Classical:** matched filters (Frangi filter, vessel-enhancing convolution).
-   * **DL-based:** U-Net semantic segmentation.
-3. **Skeleton extraction** — thinning.
-4. **Bifurcation points** — *vascular crossings* + *branch points*.
+1. **Předzpracování obrazu** — zelený kanál (poskytuje nejlepší kontrast cév).
+2. **Segmentace cév:**
+   * **Klasická:** přizpůsobené filtry (matched filters), například Frangiho filtr nebo konvoluce zvýrazňující cévy.
+   * **Založená na hlubokém učení (DL):** sémantická segmentace sítí U-Net.
+3. **Extrakce kostry** — ztenčování (thinning).
+4. **Body větvení (bifurkace)** — *místa křížení cév* a *body, kde se céva dělí*.
 
-### Feature extraction
+### Extrakce příznaků
 
-* **Branch points** — souřadnice + úhly.
-* **Vessel lengths** — distances between bifurcations.
-* **Vessel widths**.
-* **Optical disc center** — reference point pro alignment.
+* **Body větvení** — souřadnice a úhly.
+* **Délky cév** — vzdálenosti mezi bifurkacemi.
+* **Šířky cév**.
+* **Střed terče zrakového nervu** — referenční bod pro zarovnání (alignment).
 
-### Matching
+### Porovnávání (matching)
 
-Similar to fingerprint minutiae matching ([[markanty]]):
+Obdobné porovnávání markant u otisku prstu ([[markanty]]):
 
-* Align via optical disc center + 2 nearest bifurcations.
-* Count matching feature points.
-* Score normalize.
+* Zarovnání podle středu terče zrakového nervu a dvou nejbližších bifurkací.
+* Spočítání shodných příznakových bodů.
+* Normalizace skóre.
 
-### Hill / Frome algorithm
+### Algoritmus Hill / Frome
 
-Klasický algoritmus pro retina matching (1978, EyeDentify Inc.):
+Klasický algoritmus pro porovnávání sítnice (1978, EyeDentify Inc.):
 
-* 320 reference *coronal* features.
-* Matching → similarity score.
-* Used by EyeDentify EyeScan (1985+).
+* 320 referenčních příznaků v okolí terče zrakového nervu (coronal features).
+* Porovnání vede k výslednému skóre podobnosti.
+* Použit v zařízení EyeDentify EyeScan (od roku 1985).
 
 ## Praktická nasazení {tier=practice}
 
-### EyeDentify / EyeScan (1985+)
+### EyeDentify / EyeScan (od roku 1985)
 
-* První commercial retinal scanner.
-* High-security facilities: NSA, CIA, FBI, nuclear plants.
+* První komerční skener sítnice.
+* Nasazení v objektech s vysokým zabezpečením: NSA, CIA, FBI, jaderné elektrárny.
 * FAR < $10^{-6}$.
-* Cena ~$10 000 per unit.
-* Discontinued ~2000s (iris recognition replaced it).
+* Cena přibližně 10 000 $ za kus.
+* Výroba ukončena kolem roku 2000 (nahradilo ji rozpoznávání podle duhovky).
 
-### IriTech IrisShield retina mode
+### IriTech IrisShield v režimu sítnice
 
-* Modern device kombinující iris + retina.
-* Hybrid biometric.
-* High-security access control.
+* Moderní zařízení kombinující duhovku a sítnici.
+* Hybridní biometrika.
+* Řízení přístupu (access control) ve vysoce zabezpečených objektech.
 
-### Medical-biometric overlap
+### Překryv medicíny a biometriky
 
-* Smartphone-based diabetic retinopathy screening + biometric identification.
-* AI detection of pathology + identity verification.
-* Aravind Eye Care (India) — large-scale rural deployment.
+* Vyšetření diabetické retinopatie pomocí chytrého telefonu spojené s biometrickou identifikací.
+* Detekce patologie umělou inteligencí současně s ověřením totožnosti.
+* Aravind Eye Care (Indie) — rozsáhlé nasazení ve venkovských oblastech.
 
-## Limity retinal biometrics
+## Limity biometriky podle sítnice
 
-### User experience
+### Uživatelská zkušenost
 
-* **Invasive feeling** — bright light into eye, close proximity.
-* **Pupil dilatation** required — temporary blurred vision.
-* **Cooperative subject** mandatory — žádné covert recognition.
-* **Multiple captures** often needed.
+* **Nepříjemný pocit** — silné světlo namířené do oka z bezprostřední blízkosti.
+* **Nutné rozšíření zornice** — dočasné rozmazané vidění.
+* **Nezbytná spolupráce snímané osoby** — žádné skryté rozpoznávání (covert recognition).
+* **Často je potřeba více snímků**.
 
-### Cost
+### Náklady
 
-* Specialized hardware ($1000+ per device).
-* Trained operator preferred.
+* Specializovaný hardware (více než 1000 $ za přístroj).
+* Vhodná je vyškolená obsluha.
 
-### Health concerns
+### Zdravotní obavy
 
-* **Bright flash** — *hyperbolic concerns* but generally safe.
-* **Frequent imaging** — no long-term studies on biometric-frequency use.
+* **Silný záblesk** — *přehnané obavy*, jinak je obecně bezpečný.
+* **Časté snímkování** — neexistují dlouhodobé studie o používání v četnosti běžné u biometrie.
 
 ## Eyrina — kombinované snímání
 
-Akademický projekt zaměřený na *téměř současné* snímání iris + retina:
+Akademický projekt zaměřený na *téměř současné* snímání duhovky a sítnice:
 
-* Jedním přístrojem pořídí iris i retinal image v rychlé sekvenci.
+* Jedním přístrojem se v rychlém sledu pořídí obraz duhovky i sítnice.
 * Hybridní biometrika s vyšší přesností než samostatná modalita.
-* Detailně [[snimaci-systemy]].
+* Podrobně viz [[snimaci-systemy]].
 
-## Retina vs. iris
+## Sítnice vs. duhovka
 
-| | **Retina** | **Iris** |
+| | **Sítnice** | **Duhovka** |
 | :--- | :---: | :---: |
-| Snímání | invasive (close, bright light) | non-invasive |
-| User cooperation | high | low |
-| Accuracy | very high | very high |
-| Spoofing | extremely difficult | difficult (with anti-spoof) |
-| Cost | high | medium |
-| Mass deployment | difficult | feasible |
-| Medical value | high (pathology detection) | partial |
+| Snímání | invazivní (zblízka, silné světlo) | neinvazivní |
+| Spolupráce uživatele | vysoká | nízká |
+| Přesnost | velmi vysoká | velmi vysoká |
+| Podvržení (spoofing) | mimořádně obtížné | obtížné (s ochranou proti podvržení) |
+| Náklady | vysoké | střední |
+| Hromadné nasazení | obtížné | proveditelné |
+| Lékařský přínos | vysoký (záchyt patologií) | částečný |
 
-Konsensus: **iris** pro mass deployment; **retina** pro very high-security or medical-biometric hybrid.
+Shrnutí: **duhovku** volíme pro hromadné nasazení, **sítnici** pro velmi vysoké zabezpečení nebo lékařsko-biometrické hybridy.
 
-## Trends 2025
+## Trendy roku 2025
 
-* **AI-based retinal disease detection** + identity verification combined.
-* **OCT** (Optical Coherence Tomography) — *3D* retinal imaging, *deeper* than fundus photo.
-* **Smartphone-based** retinal imaging (still moderate quality).
-* **Federated learning** — collaborative training without sharing patient images.
+* **Detekce onemocnění sítnice umělou inteligencí** spojená s ověřením totožnosti.
+* **OCT** (optická koherentní tomografie) — *3D* snímkování sítnice, *hlubší* než běžná fotografie očního pozadí.
+* **Snímání sítnice chytrým telefonem** (stále jen průměrná kvalita).
+* **Federované učení** (federated learning) — společné trénování modelů bez sdílení pacientských snímků.
 
 ---
 

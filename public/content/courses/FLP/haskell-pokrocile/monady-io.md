@@ -4,17 +4,17 @@ title: Monády a IO
 
 # Monády a IO
 
-**Monády** jsou Haskellův mechanismus pro *sequence* výpočtů s *vedlejšími efekty* (state, exceptions, I/O, nedeterminismus) zachovávajíc *čistotu* (purity). Reputace monád jako "obtížných" plyne ze *vysoké abstrakce*, ale praktické použití je *přímé* — `do` notation činí monády *téměř* imperativními.
+**Monády** jsou v Haskellu mechanismus pro řetězení (sequencing) výpočtů, které mají vedlejší efekty (stav, výjimky, vstup/výstup, nedeterminismus), a přitom zachovávají čistotu (purity) jazyka. Pověst monád coby „obtížných“ pramení z jejich vysoké míry abstrakce, ale praktické použití je přímočaré — zápis pomocí `do` notace dělá práci s monádami téměř imperativní (tj. připomíná běžný příkazový kód).
 
 ## Motivace
 
-V Haskellu jsou funkce **čisté** — vždy dávají stejný výsledek pro stejné vstupy, žádné vedlejší efekty.
+V Haskellu jsou funkce **čisté** (pure) — pro stejné vstupy vracejí vždy stejný výsledek a nemají žádné vedlejší efekty.
 
-**Problém:** real programs *potřebují* efekty — čtení souboru, println, network, random.
+**Problém:** skutečné programy efekty potřebují — čtení souboru, výpis na obrazovku, práci se sítí nebo generování náhodných čísel.
 
-**Řešení:** efekty jsou *zaobaleny* v *type* (např. `IO a`), funkce nad ním jsou stále čisté. Spojování efektů = `>>=` (bind).
+**Řešení:** efekty se zaobalí do typu (například `IO a`), takže funkce, které s tímto typem pracují, zůstávají čisté. Spojování efektů zajišťuje operátor `>>=` (bind, česky „naváž“).
 
-## Monad type class
+## Typová třída Monad
 
 ```haskell
 class Monad m where
@@ -26,12 +26,12 @@ class Monad m where
     a >> b = a >>= \_ -> b
 ```
 
-* **return** — wrap pure value into monadic context.
-* **(>>=)** (bind, "then") — extract value, pass to next monadic operation.
+* **return** — zabalí (wrap) čistou hodnotu do monadického kontextu.
+* **(>>=)** (bind, čteno „then“, tedy „potom“) — vytáhne hodnotu a předá ji další monadické operaci.
 
 ## Příklady monád
 
-### Maybe — possibly missing
+### Maybe — možná chybějící hodnota
 
 ```haskell
 data Maybe a = Nothing | Just a
@@ -54,7 +54,7 @@ doubleAge "Alice"  -- Just 60
 doubleAge "Eve"    -- Nothing (propagates)
 ```
 
-### Either — error or success
+### Either — chyba, nebo úspěch
 
 ```haskell
 data Either a b = Left a | Right b
@@ -77,7 +77,7 @@ addParsed "5" "10"   -- Right 15
 addParsed "5" "abc"  -- Left "Cannot parse: abc"
 ```
 
-### List — non-determinism
+### List — nedeterminismus
 
 ```haskell
 instance Monad [] where
@@ -91,7 +91,7 @@ pairs ns ss = ns >>= \n -> ss >>= \s -> return (n, s)
 pairs [1,2] ["a","b"]  -- [(1,"a"),(1,"b"),(2,"a"),(2,"b")]
 ```
 
-### IO — input/output
+### IO — vstup a výstup
 
 ```haskell
 -- Conceptually
@@ -102,9 +102,9 @@ instance Monad IO where
     io >>= f = ...  -- run io, pass result to f
 ```
 
-## do notation
+## do notace
 
-Syntactic sugar for monadic sequencing:
+Jde o syntaktické zjednodušení (syntactic sugar) pro monadické řetězení:
 
 ```haskell
 -- Explicit bind
@@ -119,12 +119,12 @@ example2 = do
     putStrLn ("Hello " ++ name)
 ```
 
-Both are *equivalent* — same compiled code.
+Oba zápisy jsou rovnocenné — výsledný přeložený kód je stejný.
 
-::: viz monad-bind-flow "Přepněte monad (Maybe/Either/List/IO) a uvidíte, jak >>= chaning se per-monad chová — short-circuit u Maybe, branching u List."
+::: viz monad-bind-flow "Přepínejte mezi monádami (Maybe/Either/List/IO) a uvidíte, jak se řetězení pomocí >>= chová v každé z nich — zkratové vyhodnocení (short-circuit) u Maybe, větvení u List."
 :::
 
-### Translation
+### Překlad do notace
 
 ```haskell
 do x <- ma
@@ -151,9 +151,9 @@ do let x = pureExpr
 let x = pureExpr in ma
 ```
 
-## IO monad
+## Monáda IO
 
-### Reading input
+### Čtení vstupu
 
 ```haskell
 getLine :: IO String
@@ -164,7 +164,7 @@ readFile :: FilePath -> IO String
 readLn :: Read a => IO a
 ```
 
-### Writing output
+### Zápis výstupu
 
 ```haskell
 putStr :: String -> IO ()
@@ -175,7 +175,7 @@ writeFile :: FilePath -> String -> IO ()
 appendFile :: FilePath -> String -> IO ()
 ```
 
-### main entry point
+### Vstupní bod main
 
 ```haskell
 main :: IO ()
@@ -185,7 +185,7 @@ main = do
     putStrLn ("Hello, " ++ name)
 ```
 
-### Sequencing actions
+### Řetězení akcí
 
 ```haskell
 example :: IO ()
@@ -197,7 +197,7 @@ example = do
     return ()  -- IO () not needed but legal
 ```
 
-### Conditional IO
+### Podmíněné IO
 
 ```haskell
 example :: IO ()
@@ -208,7 +208,7 @@ example = do
         else putStrLn "Non-positive"
 ```
 
-### IO in loops
+### IO ve smyčkách
 
 ```haskell
 import Control.Monad (replicateM_, forM_)
@@ -223,9 +223,9 @@ example2 = forM_ [1..5] (\i ->
     putStrLn ("Iteration " ++ show i))
 ```
 
-## Monad laws
+## Zákony monád
 
-Every Monad instance *must* satisfy:
+Každá instance třídy Monad musí splňovat:
 
 ```haskell
 -- 1. Left identity
@@ -238,9 +238,9 @@ m >>= return  =  m
 (m >>= f) >>= g  =  m >>= (\x -> f x >>= g)
 ```
 
-Not enforced by compiler, but *expected* — violations cause subtle bugs.
+Překladač (compiler) tyto zákony nevynucuje, ale očekává se jejich dodržení — jejich porušení vede ke zrádným chybám.
 
-## Functor + Applicative + Monad hierarchy
+## Hierarchie Functor + Applicative + Monad
 
 ```haskell
 class Functor f where
@@ -255,13 +255,13 @@ class Applicative m => Monad m where
     (>>=) :: m a -> (a -> m b) -> m b
 ```
 
-* **Functor** — map a function inside a context.
-* **Applicative** — apply a function-in-context to a value-in-context.
-* **Monad** — chain computations where each step depends on previous result.
+* **Functor** — umí aplikovat funkci na hodnotu uvnitř kontextu.
+* **Applicative** — umí aplikovat funkci v kontextu na hodnotu v kontextu.
+* **Monad** — umí řetězit výpočty, kde každý krok závisí na výsledku předchozího.
 
-Monad ⊇ Applicative ⊇ Functor (strictly more powerful).
+Platí Monad ⊇ Applicative ⊇ Functor (každá další třída je striktně mocnější).
 
-### Examples
+### Příklady
 
 ```haskell
 -- Functor
@@ -279,27 +279,27 @@ do
     return (x + y)        -- Just 8
 ```
 
-## Common monads
+## Běžné monády
 
 ### Maybe
 
-For computations that may fail (no error info).
+Pro výpočty, které mohou selhat (bez informace o chybě).
 
 ### Either
 
-For computations that may fail with error.
+Pro výpočty, které mohou selhat s informací o chybě.
 
 ### List
 
-For non-deterministic computations.
+Pro nedeterministické výpočty.
 
 ### IO
 
-For input/output and external effects.
+Pro vstup/výstup a vnější efekty.
 
 ### State
 
-For computations carrying state.
+Pro výpočty, které s sebou nesou stav.
 
 ```haskell
 import Control.Monad.State
@@ -315,7 +315,7 @@ runCounter init = execState counter init
 
 ### Reader
 
-For computations with shared read-only environment.
+Pro výpočty se sdíleným prostředím určeným jen ke čtení.
 
 ```haskell
 import Control.Monad.Reader
@@ -328,7 +328,7 @@ config = do
 
 ### Writer
 
-For computations that produce log/output.
+Pro výpočty, které produkují záznam (log) či výstup.
 
 ```haskell
 import Control.Monad.Writer
@@ -340,9 +340,9 @@ logger = do
     return 42
 ```
 
-## Monad transformers
+## Transformátory monád (monad transformers)
 
-Combine multiple monad effects:
+Umožňují zkombinovat efekty více monád dohromady:
 
 ```haskell
 import Control.Monad.Trans.State
@@ -356,11 +356,11 @@ example = do
     put (n + 1)
 ```
 
-`mtl` library provides standard transformers.
+Standardní sadu transformátorů poskytuje knihovna `mtl`.
 
 ## Praktické nasazení {tier=practice}
 
-### Configuration
+### Konfigurace
 
 ```haskell
 data Config = Config { dbUrl :: String, port :: Int }
@@ -372,7 +372,7 @@ readConfig = do
     return $ Config url (read portStr)
 ```
 
-### File processing
+### Zpracování souboru
 
 ```haskell
 processFile :: FilePath -> IO Int
@@ -387,7 +387,7 @@ main = do
     putStrLn $ "Lines: " ++ show count
 ```
 
-### HTTP requests (with http-client)
+### HTTP požadavky (pomocí http-client)
 
 ```haskell
 import Network.HTTP.Simple
@@ -398,7 +398,7 @@ fetchData = do
     return $ getResponseBody response
 ```
 
-### Error handling with Either
+### Ošetření chyb (error handling) pomocí Either
 
 ```haskell
 data Error = ParseError | NetworkError | ValidationError String
@@ -412,22 +412,22 @@ processInput input = do
 
 ## Klíčové ponaučení
 
-1. **Monads = sequencing with effects.**
-2. **return** = inject value, **>>=** = chain.
-3. **do notation** = imperative-like syntax.
-4. **IO is just a monad** — *not* magic.
-5. **Pure functions + monadic IO** = best of both worlds.
+1. **Monády slouží k řetězení výpočtů s efekty.**
+2. **return** vkládá hodnotu do kontextu, **>>=** výpočty zřetězí.
+3. **do notace** dává imperativně vypadající (příkazovou) syntaxi.
+4. **IO je jen další monáda** — není to žádné kouzlo.
+5. **Čisté funkce v kombinaci s monadickým IO** dávají to nejlepší z obou světů.
 
-> "A monad is a monoid in the category of endofunctors." — accurate but unhelpful.
+> „Monáda je monoid v kategorii endofunktorů.“ — přesné, ale k ničemu.
 >
-> Better: "A monad is a way to combine effectful computations." — Hutton.
+> Lépe: „Monáda je způsob, jak skládat výpočty s vedlejšími efekty.“ — Hutton.
 
-## Resources
+## Další zdroje
 
-* **Real World Haskell** — chapter on monads.
-* **Learn You a Haskell** — gentle intro.
-* **Hutton's textbook** — clear treatment.
-* **Wadler's papers** — original theory.
+* **Real World Haskell** — kapitola o monádách.
+* **Learn You a Haskell** — vlídný úvod.
+* **Huttonova učebnice** — srozumitelný výklad.
+* **Wadlerovy články** — původní teorie.
 
 ---
 

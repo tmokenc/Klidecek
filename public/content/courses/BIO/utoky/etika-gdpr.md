@@ -1,300 +1,300 @@
 ---
-title: Etika a GDPR pro biometriky
+title: Etika a GDPR pro biometriku
 ---
 
-# Etika a GDPR pro biometriky
+# Etika a GDPR pro biometriku
 
-Biometrika *není* běžná data. Je *neměnná*, *trvalá*, *vysoce identifikující*. Tyto vlastnosti znamenají, že biometrické systémy *vyžadují* zvláštní právní a etický rámec. EU GDPR explicitně klasifikuje biometriku jako *special category data* s nejvyšší úrovní ochrany. Pochopení této ochrany je *povinné* pro deployment.
+Biometrické údaje *nejsou* běžná data. Jsou *neměnné* (immutable), *trvalé* a *vysoce identifikující*. Tyto vlastnosti znamenají, že biometrické systémy *vyžadují* zvláštní právní a etický rámec. Evropské nařízení GDPR výslovně klasifikuje biometriku jako zvláštní kategorii osobních údajů (special category data) s nejvyšší úrovní ochrany. Pochopení této ochrany je *povinné* pro každé nasazení (deployment) takového systému.
 
 ## Klíčové etické otázky
 
 ### 1. Neměnnost
 
 * Heslo lze *změnit*.
-* Biometrický rys **nelze**:
-  * Obličej: chirurgie možná, drahá, viditelná.
-  * Otisky prstů: trvalé, neměnné.
+* Biometrický rys **změnit nelze**:
+  * Obličej: chirurgická úprava je možná, ale drahá a viditelná.
+  * Otisky prstů: trvalé a neměnné.
   * DNA: nemožné změnit.
-  * Iris: nemožné změnit.
+  * Duhovka (iris): nemožné změnit.
 
-**Důsledek:** kompromitované biometrické data jsou *trvale* kompromitované. Útočník, který získá *templates*, je má *navždy*.
+**Důsledek:** kompromitované biometrické údaje jsou kompromitované *trvale*. Útočník (attacker), který získá biometrické šablony (templates), je má *navždy*.
 
 ### 2. Bohatství informací
 
-DNA, iris, obličej obsahují *víc* než identifikační informace:
+DNA, duhovka i obličej obsahují *víc* než jen identifikační informace:
 
-* **Zdravotní status** (DNA, retinal images, gait).
-* **Pohlaví, věk, etnicita** (face).
-* **Emoce, stres, mentální stav** (face, voice).
-* **Reprodukční stav** (voice — pregnancy).
+* **Zdravotní stav** (DNA, snímky sítnice, chůze).
+* **Pohlaví, věk, etnicita** (obličej).
+* **Emoce, stres, duševní stav** (obličej, hlas).
+* **Reprodukční stav** (hlas — například těhotenství).
 
-Mass biometric surveillance znamená *mass* mining personálních informací.
+Hromadné biometrické sledování (mass biometric surveillance) tak znamená *hromadné* dolování osobních informací.
 
-### 3. Surveillance and consent
+### 3. Sledování a souhlas
 
-* **CCTV face recognition** v veřejném prostoru.
-* **Voice biometric** in call centers (often without explicit consent).
-* **Gait recognition** for surveillance.
-* **Cross-camera tracking** building person re-identification.
+* **Rozpoznávání obličejů z kamer (CCTV)** ve veřejném prostoru.
+* **Hlasová biometrie** v call centrech (často bez výslovného souhlasu).
+* **Rozpoznávání podle chůze (gait recognition)** pro účely sledování.
+* **Sledování napříč kamerami** umožňující opětovnou identifikaci osob.
 
-Question: *consent* in public spaces is virtually impossible to obtain meaningfully.
+Problém: ve veřejném prostoru je prakticky nemožné získat *souhlas* (consent), který by byl skutečně smysluplný.
 
-### 4. Discrimination
+### 4. Diskriminace
 
-* **Algorithmic bias** — face recognition consistently worse for darker skin, women (Buolamwini-Gebru 2018).
-* **False positives** disproportionately affect marginalized communities.
-* **High-profile wrongful arrests** based on face recognition (Robert Williams 2020, Detroit).
+* **Algoritmické zkreslení (algorithmic bias)** — rozpoznávání obličejů soustavně funguje hůře u tmavší pleti a u žen (Buolamwini–Gebru 2018).
+* **Falešné shody (false positives)** dopadají nepřiměřeně na marginalizované komunity.
+* **Medializovaná neoprávněná zatčení** na základě rozpoznávání obličeje (Robert Williams, 2020, Detroit).
 
-### 5. Function creep
+### 5. Plíživé rozšiřování účelu (function creep)
 
-* Originally collected for *one purpose* (passport).
-* Later used for *another* (criminal investigation, immigration enforcement, surveillance).
-* **Schengen Information System** — originally border, expanded scope.
-* **Aadhaar** — originally welfare, now ubiquitous in India.
+* Údaje byly původně shromážděny pro *jeden účel* (cestovní pas).
+* Později se použijí pro *jiný* (vyšetřování trestné činnosti, vymáhání imigračních pravidel, sledování).
+* **Schengenský informační systém** — původně určen pro hranice, postupně rozšířil svůj rozsah.
+* **Aadhaar** — původně sociální dávky, dnes v Indii všudypřítomný.
 
-## GDPR (Regulation EU 2016/679)
+## GDPR (nařízení EU 2016/679)
 
 ### Klíčový rámec
 
-* **Effective:** May 25, 2018.
-* **Applies:** all EU residents + companies processing EU resident data.
-* **Penalties:** up to **€20M** or **4 % global revenue** (whichever higher).
+* **Účinnost:** od 25. května 2018.
+* **Působnost:** všichni obyvatelé EU a všechny firmy, které zpracovávají údaje obyvatel EU.
+* **Sankce:** až **20 mil. €** nebo **4 % celosvětového obratu** (podle toho, co je vyšší).
 
-### Article 4 — Definice
+### Článek 4 — Definice
 
-**Biometric data** (Art. 4(14)):
-> "Personal data resulting from specific technical processing relating to the physical, physiological or behavioural characteristics of a natural person, which allow or confirm the unique identification of that natural person, such as facial images or dactyloscopic data."
+**Biometrické údaje** (čl. 4 odst. 14):
+> „Osobní údaje vyplývající z konkrétního technického zpracování týkajícího se fyzických či fyziologických znaků nebo znaků chování fyzické osoby, které umožňují nebo potvrzují jedinečnou identifikaci této fyzické osoby, jako jsou zobrazení obličeje nebo daktyloskopické údaje."
 
-### Article 9 — Special category data
+### Článek 9 — Zvláštní kategorie údajů
 
-Biometric data is **special category** (along with health data, racial origin, religious beliefs, etc.).
+Biometrické údaje patří do **zvláštní kategorie** (společně s údaji o zdravotním stavu, rasovém původu, náboženském vyznání atd.).
 
-**Processing prohibited** unless one of these legal bases applies:
+**Zpracování je zakázáno**, pokud neplatí jeden z těchto právních důvodů:
 
-* **(a)** Explicit consent.
-* **(b)** Employment, social security obligations.
-* **(c)** Protect vital interests.
-* **(d)** Legitimate activities of non-profit body.
-* **(e)** Data made public by data subject.
-* **(f)** Legal claims.
-* **(g)** Substantial public interest, proportionate.
-* **(h)** Healthcare.
-* **(i)** Public health.
-* **(j)** Archiving, research, statistical (with safeguards).
+* **(a)** Výslovný souhlas.
+* **(b)** Povinnosti v oblasti zaměstnání a sociálního zabezpečení.
+* **(c)** Ochrana životně důležitých zájmů.
+* **(d)** Oprávněná činnost neziskové organizace.
+* **(e)** Údaje, které subjekt sám zveřejnil.
+* **(f)** Uplatnění právních nároků.
+* **(g)** Významný veřejný zájem, přiměřeně.
+* **(h)** Zdravotní péče.
+* **(i)** Veřejné zdraví.
+* **(j)** Archivace, výzkum, statistika (se zárukami).
 
-### Specific requirements
+### Konkrétní požadavky
 
-#### Consent
+#### Souhlas
 
-* Must be **explicit** (Art. 9), not just opt-in.
-* **Freely given, specific, informed, unambiguous**.
-* **Easily withdrawable**.
-* **Documented**.
+* Musí být **výslovný** (čl. 9), nestačí pouhé přihlášení (opt-in).
+* **Svobodný, konkrétní, informovaný a jednoznačný.**
+* **Snadno odvolatelný.**
+* **Doložený.**
 
-#### Data minimization
+#### Minimalizace údajů
 
-* Collect only *necessary* biometric data.
-* No "may be useful later" reasoning.
+* Shromažďujte jen *nezbytné* biometrické údaje.
+* Žádné zdůvodňování ve smyslu „mohlo by se to později hodit".
 
-#### Storage limitation
+#### Omezení doby uložení
 
-* Retain only *as long as necessary*.
-* Define retention period.
-* Automatic deletion.
+* Údaje uchovávejte jen *po nezbytně nutnou dobu*.
+* Stanovte dobu uchování.
+* Zajistěte automatické mazání.
 
-#### Security
+#### Zabezpečení
 
-* **Appropriate technical and organizational measures** (Art. 32):
-  * Encryption.
-  * Pseudonymization.
-  * Confidentiality, integrity, availability, resilience.
-  * Restore capability after incident.
-  * Regular testing.
+* **Vhodná technická a organizační opatření** (čl. 32):
+  * Šifrování (encryption).
+  * Pseudonymizace.
+  * Důvěrnost, integrita, dostupnost a odolnost.
+  * Schopnost obnovy po incidentu.
+  * Pravidelné testování.
 
-#### Data subject rights
+#### Práva subjektu údajů
 
-* **Right to access** (Art. 15) — what data held, why.
-* **Right to rectification** (Art. 16) — correct inaccuracies.
-* **Right to erasure** (Art. 17) — "right to be forgotten".
-* **Right to restriction** (Art. 18) — limit processing.
-* **Right to data portability** (Art. 20) — export data.
-* **Right to object** (Art. 21) — to certain processing.
+* **Právo na přístup** (čl. 15) — jaké údaje jsou uchovávány a proč.
+* **Právo na opravu** (čl. 16) — oprava nepřesností.
+* **Právo na výmaz** (čl. 17) — „právo být zapomenut".
+* **Právo na omezení zpracování** (čl. 18) — omezit zpracování.
+* **Právo na přenositelnost údajů** (čl. 20) — export údajů.
+* **Právo vznést námitku** (čl. 21) — proti určitým druhům zpracování.
 
-#### Automated decision-making (Art. 22)
+#### Automatizované rozhodování (čl. 22)
 
-* Restrictions on *fully automated* decisions with significant effect.
-* **Right to human review.**
+* Omezení *plně automatizovaných* rozhodnutí s významným dopadem.
+* **Právo na lidský přezkum.**
 
-#### DPIA — Data Protection Impact Assessment
+#### DPIA — posouzení vlivu na ochranu osobních údajů
 
-Required (Art. 35) for:
-* Systematic + extensive evaluation.
-* **Large-scale special category processing** (includes biometric).
-* Systematic monitoring of public area.
+Vyžaduje se (čl. 35) pro:
+* Systematické a rozsáhlé vyhodnocování.
+* **Rozsáhlé zpracování zvláštní kategorie údajů** (zahrnuje biometriku).
+* Systematické monitorování veřejného prostoru.
 
-Most biometric systems require DPIA.
+Většina biometrických systémů posouzení DPIA vyžaduje.
 
-### Penalties
+### Sankce
 
-* **Tier 1:** up to €10M or 2 % revenue (lesser violations).
-* **Tier 2:** up to €20M or 4 % revenue (Art. 9 violations).
+* **Stupeň 1:** až 10 mil. € nebo 2 % obratu (méně závažná porušení).
+* **Stupeň 2:** až 20 mil. € nebo 4 % obratu (porušení čl. 9).
 
-#### Notable fines
+#### Významné pokuty
 
-* **Clearview AI:** €20M each from France (CNIL), Italy (Garante) and Greece (HDPA); £7.5M from the UK ICO.
-* **Facebook (Meta):** €1.2B for transatlantic data transfers.
-* **Several face recognition** vendors fined.
+* **Clearview AI:** po 20 mil. € od Francie (CNIL), Itálie (Garante) a Řecka (HDPA); 7,5 mil. £ od britského ICO.
+* **Facebook (Meta):** 1,2 mld. € za transatlantické předávání údajů.
+* **Několik dodavatelů** systémů pro rozpoznávání obličeje dostalo pokuty.
 
-## EU AI Act (Regulation 2024/1689)
+## Akt EU o umělé inteligenci (nařízení 2024/1689)
 
-**Effective:** August 2024 (phased).
+**Účinnost:** od srpna 2024 (postupně).
 
-### Biometric provisions
+### Ustanovení k biometrice
 
-* **Real-time remote biometric identification** in public spaces — **PROHIBITED** with narrow exceptions (terrorism, serious crime, missing children) and authorization.
-* **Post-remote biometric identification** — high-risk, regulated.
-* **Emotion recognition** in workplace, education — **PROHIBITED**.
-* **Biometric categorization** (race, political views, sexual orientation) — **PROHIBITED**.
-* **Mass scraping of facial images** for face databases — **PROHIBITED**.
+* **Biometrická identifikace na dálku v reálném čase** ve veřejném prostoru — **ZAKÁZÁNA** s úzce vymezenými výjimkami (terorismus, závažná trestná činnost, pohřešované děti) a po schválení.
+* **Následná biometrická identifikace na dálku** — vysoce riziková, regulovaná.
+* **Rozpoznávání emocí** na pracovišti a ve školství — **ZAKÁZÁNO**.
+* **Biometrická kategorizace** (rasa, politické názory, sexuální orientace) — **ZAKÁZÁNA**.
+* **Hromadné stahování snímků obličejů** pro databáze obličejů — **ZAKÁZÁNO**.
 
-### High-risk biometric systems
+### Vysoce rizikové biometrické systémy
 
-* Border control biometric.
-* Law enforcement biometric.
-* Employment biometric.
+* Biometrie pro ochranu hranic.
+* Biometrie pro orgány činné v trestním řízení.
+* Biometrie v zaměstnání.
 
-Require:
-* **Risk management system.**
-* **Data governance.**
-* **Technical documentation.**
-* **Logging.**
-* **Transparency.**
-* **Human oversight.**
-* **Accuracy + robustness.**
-* **Cybersecurity.**
+Vyžadují:
+* **Systém řízení rizik.**
+* **Správu dat (data governance).**
+* **Technickou dokumentaci.**
+* **Záznamy (logging).**
+* **Transparentnost.**
+* **Lidský dohled.**
+* **Přesnost a robustnost.**
+* **Kybernetickou bezpečnost.**
 
-### Penalties
+### Sankce
 
-* **Tier 1:** €35M or 7 % revenue (prohibited practices).
-* **Tier 2:** €15M or 3 % revenue.
+* **Stupeň 1:** 35 mil. € nebo 7 % obratu (zakázané praktiky).
+* **Stupeň 2:** 15 mil. € nebo 3 % obratu.
 
-## Czech specific
+## Specifika v České republice
 
 ### Zákon o ochraně osobních údajů (110/2019 Sb.)
 
-* Implements GDPR in CZ.
-* **ÚOOÚ** (Úřad pro ochranu osobních údajů) — supervisory authority.
+* Provádí GDPR v ČR.
+* **ÚOOÚ** (Úřad pro ochranu osobních údajů) — dozorový orgán.
 
 ### Zákon o policii (273/2008 Sb.)
 
-* Regulates police biometric collection (DNA, fingerprints).
-* **Retention periods** specified.
-* **Deletion procedures** after acquittal.
+* Upravuje sběr biometrických údajů policií (DNA, otisky prstů).
+* Stanovuje **doby uchování**.
+* Stanovuje **postupy mazání** po zproštění obvinění.
 
-### Specific guidance
+### Konkrétní doporučení
 
-* **ÚOOÚ** has issued multiple guidances on biometric processing.
-* **Schools** cannot generally use biometric attendance systems (children).
-* **Workplaces** — strict consent + proportionality.
+* **ÚOOÚ** vydal několik metodik ke zpracování biometrických údajů.
+* **Školy** zpravidla nemohou používat biometrické systémy docházky (jde o děti).
+* **Pracoviště** — přísný souhlas a přiměřenost.
 
-## Globalní pohledy
+## Globální pohledy
 
-### USA — patchwork
+### USA — roztříštěná úprava
 
-* **No federal biometric law.**
-* **Illinois BIPA (2008)** — strong law, $1000–$5000 per violation.
-* **Texas, Washington, California** — similar laws.
-* **Several class actions** against tech companies.
+* **Žádný federální zákon o biometrice.**
+* **Illinois BIPA (2008)** — silný zákon, 1000–5000 $ za jedno porušení.
+* **Texas, Washington, Kalifornie** — podobné zákony.
+* **Několik hromadných žalob** proti technologickým firmám.
 
-### Asia
+### Asie
 
-* **China** — laws focus on government surveillance, less protection from companies.
-* **India** — Aadhaar surveillance + DPDP Act (2023).
-* **Japan** — APPI (Act on Protection of Personal Information).
+* **Čína** — zákony se zaměřují na vládní sledování, menší ochrana před firmami.
+* **Indie** — sledování přes Aadhaar a zákon DPDP Act (2023).
+* **Japonsko** — APPI (zákon o ochraně osobních údajů).
 
-### Russia
+### Rusko
 
-* Strict laws but enforcement variable.
-* Mass surveillance documented.
+* Přísné zákony, ale proměnlivé vymáhání.
+* Hromadné sledování je doloženo.
 
-## Ethical guidelines for designers
+## Etická pravidla pro návrháře
 
-### Build for privacy
+### Navrhujte se soukromím na prvním místě
 
-* **Privacy by design** — embed protections from start.
-* **Privacy by default** — strictest settings by default.
-* **Data minimization** — collect only what's necessary.
-* **Local processing** — keep biometric on device where possible.
-* **Cancelable biometrics** — transformed templates that can be rotated.
+* **Soukromí už v návrhu (privacy by design)** — ochranná opatření zabudujte od začátku.
+* **Soukromí ve výchozím nastavení (privacy by default)** — nejpřísnější nastavení jako výchozí.
+* **Minimalizace údajů** — shromažďujte jen to, co je nezbytné.
+* **Lokální zpracování** — biometriku pokud možno ponechte v zařízení.
+* **Zrušitelná biometrika (cancelable biometrics)** — transformované šablony, které lze obměňovat.
 
-### Build for fairness
+### Navrhujte férově
 
-* **Diverse training data.**
-* **Demographic parity testing.**
-* **Bias mitigation algorithms.**
-* **Transparent performance reporting** across demographics.
+* **Rozmanitá trénovací data.**
+* **Testování demografické vyváženosti.**
+* **Algoritmy pro zmírnění zkreslení.**
+* **Transparentní vykazování výkonu** napříč demografickými skupinami.
 
-### Build for accountability
+### Navrhujte s ohledem na odpovědnost
 
-* **Audit logging.**
-* **Explainability** — why was decision made.
-* **Human review** for important decisions.
-* **Easy redress** for affected individuals.
+* **Auditní záznamy.**
+* **Vysvětlitelnost** — proč bylo rozhodnutí učiněno.
+* **Lidský přezkum** u důležitých rozhodnutí.
+* **Snadná náprava** pro dotčené osoby.
 
-### Build for security
+### Navrhujte bezpečně
 
-* **Encryption everywhere.**
-* **Strong key management.**
-* **Regular security testing.**
-* **Incident response plans.**
+* **Šifrování všude.**
+* **Silná správa klíčů (key management).**
+* **Pravidelné bezpečnostní testování.**
+* **Plány reakce na incidenty.**
 
-## Wrongful biometric decisions
+## Chybná biometrická rozhodnutí
 
 ### Robert Williams (Detroit, 2020)
 
-* **First publicly known** wrongful arrest from face recognition.
-* Detroit Police arrested Williams (Black man).
-* Face recognition matched him to shoplifting suspect.
-* Wrong match — Williams had alibi.
-* **Lawsuit settled** $300 000.
+* **První veřejně známé** neoprávněné zatčení kvůli rozpoznávání obličeje.
+* Policie v Detroitu zatkla Williamse (černocha).
+* Rozpoznávání obličeje ho ztotožnilo s podezřelým z krádeže v obchodě.
+* Šlo o chybnou shodu — Williams měl alibi.
+* **Soudní spor byl urovnán** za 300 000 $.
 
-### Other cases
+### Další případy
 
-* Multiple wrongful arrests documented globally.
-* **Disproportionately affects** people of color.
-* Disclosure: many jurisdictions don't reveal use of face recognition.
+* Po celém světě je doloženo více neoprávněných zatčení.
+* **Nepřiměřeně dopadají** na osoby tmavé pleti.
+* Problém s transparentností: mnoho jurisdikcí nezveřejňuje, že rozpoznávání obličeje vůbec používá.
 
-## Trends
+## Trendy
 
-### Privacy-enhancing technologies
+### Technologie posilující soukromí
 
-* **Homomorphic encryption** for biometric matching without revealing data.
-* **Federated learning** — train models without centralizing data.
-* **Secure multi-party computation.**
-* **Differential privacy** for aggregate analytics.
+* **Homomorfní šifrování (homomorphic encryption)** pro porovnávání biometrie bez odhalení samotných údajů.
+* **Federované učení (federated learning)** — trénování modelů bez centralizace dat.
+* **Bezpečný vícestranný výpočet (secure multi-party computation).**
+* **Diferenciální soukromí (differential privacy)** pro souhrnné analýzy.
 
-### Regulation expansion
+### Rozšiřování regulace
 
-* **State-level laws** proliferating (US).
-* **AI-specific regulation** beyond GDPR (EU AI Act).
-* **International cooperation** on standards.
+* **Zákony na úrovni jednotlivých států** se množí (USA).
+* **Regulace zaměřená přímo na AI** nad rámec GDPR (Akt EU o AI).
+* **Mezinárodní spolupráce** na standardech.
 
-### Consumer awareness
+### Povědomí spotřebitelů
 
-* Growing public concern about face recognition.
-* Some cities **banning** government face recognition (San Francisco, Boston).
-* Companies **withdrawing** from problematic uses (IBM exited face recognition 2020).
+* Roste znepokojení veřejnosti z rozpoznávání obličeje.
+* Některá města **zakazují** vládní rozpoznávání obličeje (San Francisco, Boston).
+* Firmy **ustupují** od problematických způsobů použití (IBM rozpoznávání obličeje opustilo v roce 2020).
 
-## Recommendations pro projekty
+## Doporučení pro projekty
 
-1. **DPIA early** — assess privacy risks before deployment.
-2. **Consent properly** — explicit, documented.
-3. **Minimize** — only what's needed.
-4. **Local processing** — keep biometric on device.
-5. **Audit access** — log everything.
-6. **Test fairness** — across demographics.
-7. **Plan for breach** — incident response.
-8. **Regular review** — laws change.
+1. **Zpracujte DPIA včas** — vyhodnoťte rizika pro soukromí ještě před nasazením.
+2. **Získejte souhlas správně** — výslovný a doložený.
+3. **Minimalizujte** — jen to, co je potřeba.
+4. **Zpracovávejte lokálně** — biometriku ponechte v zařízení.
+5. **Auditujte přístup** — zaznamenávejte vše.
+6. **Testujte férovost** — napříč demografickými skupinami.
+7. **Počítejte s únikem dat** — mějte plán reakce na incidenty.
+8. **Pravidelně revidujte** — zákony se mění.
 
 ---
 

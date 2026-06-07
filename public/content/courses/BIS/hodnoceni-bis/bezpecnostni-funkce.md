@@ -4,7 +4,7 @@ title: Bezpečnostní funkce — taxonomie
 
 # Bezpečnostní funkce — taxonomie
 
-Bezpečnostní funkce (security functions) jsou *mechanismy*, které IS implementuje, aby splnil bezpečnostní cíle. ITSEC, později Common Criteria, klasifikovaly 8 hlavních kategorií. Tato sekce je vyjmenovává a vysvětluje, *co každá obsahuje*.
+Bezpečnostní funkce (security functions) jsou *mechanismy*, které informační systém implementuje, aby splnil bezpečnostní cíle. Normy ITSEC, a později Common Criteria, je rozdělily do 8 hlavních kategorií. Tato sekce je vyjmenovává a vysvětluje, *co každá z nich zahrnuje*.
 
 ## 1. Identifikace a autentizace (FIA)
 
@@ -12,129 +12,129 @@ Bezpečnostní funkce (security functions) jsou *mechanismy*, které IS implemen
 
 ### Identifikace
 
-Subjekt *tvrdí* identitu (username, email, ID).
+Subjekt *tvrdí* svou identitu (uživatelské jméno, e-mail, ID).
 
 ### Autentizace
 
-Subjekt *prokazuje* identitu. 5 faktorů:
+Subjekt svou identitu *prokazuje*. Rozlišujeme 5 faktorů:
 
-1. **Something you know** — password, PIN.
-2. **Something you have** — token, smart card.
-3. **Something you are** — biometrika (BIO course).
-4. **Somewhere you are** — geolocation.
-5. **Something you do** — keystroke dynamics.
+1. **Něco, co znáš** (something you know) — heslo, PIN.
+2. **Něco, co máš** (something you have) — token, čipová karta.
+3. **Něco, čím jsi** (something you are) — biometrika (předmět BIO).
+4. **Někde, kde jsi** (somewhere you are) — geolokace.
+5. **Něco, co děláš** (something you do) — dynamika psaní na klávesnici (keystroke dynamics).
 
-**MFA** (Multi-Factor Authentication) = 2+ z různých kategorií. Typicky password + token / SMS / TOTP.
+**Vícefaktorová autentizace** (MFA, Multi-Factor Authentication) = kombinace 2 a více faktorů z různých kategorií. Typicky heslo + token / SMS / TOTP.
 
 ### Mechanismy
 
-- **Password-based** — most common, weak.
-- **Token-based** — RSA SecurID, YubiKey, smart card.
-- **Certificate-based** — X.509 ([[x509]]).
-- **Biometric** — fingerprint, face, iris.
-- **Federated** — SAML, OAuth, OpenID Connect.
+- **Hesla** (password-based) — nejrozšířenější, ale slabé.
+- **Tokeny** (token-based) — RSA SecurID, YubiKey, čipová karta.
+- **Certifikáty** (certificate-based) — X.509 ([[x509]]).
+- **Biometrika** (biometric) — otisk prstu, obličej, oční duhovka.
+- **Federovaná autentizace** (federated) — SAML, OAuth, OpenID Connect.
 
 ## 2. Řízení přístupu (FDP)
 
-Po authentication: *co* může subjekt dělat?
+Po autentizaci řešíme: *co* může subjekt dělat?
 
-Modely (detail viz [[dac-mac]] + [[rbac-abac]]):
+Modely řízení přístupu (podrobně viz [[dac-mac]] a [[rbac-abac]]):
 
-- **DAC** (Discretionary) — owner decides ([[dac-mac]]).
-- **MAC** (Mandatory) — system enforces labels.
-- **RBAC** (Role-Based) — role determine permissions ([[rbac-abac]]).
-- **ABAC** (Attribute-Based) — attributes of subject + object + environment.
+- **DAC** (Discretionary, volitelné řízení) — o přístupu rozhoduje vlastník objektu ([[dac-mac]]).
+- **MAC** (Mandatory, povinné řízení) — přístup vynucuje systém na základě bezpečnostních značek.
+- **RBAC** (Role-Based, řízení podle rolí) — oprávnění určuje role uživatele ([[rbac-abac]]).
+- **ABAC** (Attribute-Based, řízení podle atributů) — rozhoduje se podle atributů subjektu, objektu i prostředí.
 
 ### Bezpečnostní modely
 
-- **Bell-LaPadula** — confidentiality, *no read up, no write down* ([[bell-lapadula]]).
-- **Biba** — integrity, *no read down, no write up* ([[biba-clark-wilson]]).
-- **Clark-Wilson** — commercial integrity, well-formed transactions.
+- **Bell-LaPadula** — model důvěrnosti, pravidlo *nečti nahoru, nezapisuj dolů* (no read up, no write down) ([[bell-lapadula]]).
+- **Biba** — model integrity, pravidlo *nečti dolů, nezapisuj nahoru* (no read down, no write up) ([[biba-clark-wilson]]).
+- **Clark-Wilson** — komerční model integrity založený na dobře definovaných transakcích.
 
 ## 3. Účtovatelnost (FAU)
 
-*Co se stalo?* Audit logs zaznamenávají akce.
+*Co se stalo?* Auditní záznamy (audit logs) zaznamenávají provedené akce.
 
-### Co logovat
+### Co zaznamenávat
 
-- **Successful + failed authentication** — detect brute force.
-- **Privileged operations** — sudo, admin actions.
-- **Data access** — read/modify sensitive data.
-- **Configuration changes** — system + security settings.
-- **Network connections** — flow records.
-- **Process creation** — what runs.
+- **Úspěšné i neúspěšné autentizace** — umožní odhalit útok hrubou silou (brute force).
+- **Privilegované operace** — sudo, akce administrátora.
+- **Přístup k datům** — čtení a úprava citlivých dat.
+- **Změny konfigurace** — systémová i bezpečnostní nastavení.
+- **Síťová spojení** — záznamy o datových tocích.
+- **Vytvoření procesů** — co se na systému spouští.
 
-### Vlastnosti logu
+### Vlastnosti záznamů
 
-- **Integrity** — logs *nesmí* být změnitelné (append-only).
-- **Timestamping** — synchronized time (NTP).
-- **Retention** — store enough time for forensics + compliance (GDPR 6m, SOX 7y).
-- **Privacy** — anonymize PII when possible.
+- **Integrita** — záznamy *nesmějí* být dodatečně změnitelné (princip append-only, tedy pouze přidávání na konec).
+- **Časová razítka** (timestamping) — pomocí synchronizovaného času (NTP).
+- **Doba uchování** (retention) — záznamy je třeba uchovat dostatečně dlouho pro forenzní analýzu i pro soulad s předpisy (GDPR 6 měsíců, SOX 7 let).
+- **Soukromí** — pokud je to možné, anonymizovat osobní údaje (PII).
 
-### Tools
+### Nástroje
 
-- **syslog** / journald — Linux logs.
-- **Windows Event Log**.
-- **SIEM** ([[siem-monitoring]]) — central collection + correlation.
+- **syslog** / journald — záznamy v systému Linux.
+- **Windows Event Log** — záznamy ve Windows.
+- **SIEM** ([[siem-monitoring]]) — centrální sběr a korelace záznamů.
 
 ## 4. Audit
 
-Periodic *review* of:
+Periodická *kontrola* (review):
 
-- **Security controls** — implemented as designed?
-- **Compliance** — meeting regulatory requirements?
-- **Logs** — anomalies, violations.
+- **Bezpečnostní opatření** — jsou implementována tak, jak byla navržena?
+- **Soulad s předpisy** (compliance) — splňujeme regulatorní požadavky?
+- **Záznamy** — anomálie a porušení.
 
-Audit je *manažerský* proces — interní audit, externí auditoři, vendor audits.
+Audit je *manažerský* proces — patří sem interní audit, externí auditoři i audity dodavatelů.
 
-ISO 19011 standardizuje audit process.
+Samotný proces auditu standardizuje norma ISO 19011.
 
 ## 5. Opakované užití objektů (Object Reuse)
 
-Pokud objekt (memory, disk block, register) je *deallocated* a re-allocated *jinému* subject, *nesmí* obsahovat zbytky předchozího obsahu.
+Pokud je objekt (oblast paměti, blok na disku, registr) *uvolněn* (deallocated) a znovu přidělen *jinému* subjektu, *nesmí* obsahovat zbytky předchozího obsahu.
 
 ### Mechanismy
 
-- **Memory clearing** — zero pages před realloc.
-- **Disk wipe** — secure delete (multiple overwrites, ATA Secure Erase).
-- **Register clearing** — zero registers při context switch.
+- **Mazání paměti** (memory clearing) — vynulování stránek paměti před opětovným přidělením.
+- **Bezpečné mazání disku** (disk wipe) — bezpečné smazání (vícenásobné přepsání, ATA Secure Erase).
+- **Mazání registrů** (register clearing) — vynulování registrů při přepnutí kontextu (context switch).
 
-### Bez object reuse
+### Co hrozí bez opakovaného užití
 
-Útoky: cold boot attack (data v RAM po vypnutí), disk recovery (deleted files), memory dump.
+Útoky: cold boot attack (data zůstávají v RAM i po vypnutí), obnova dat z disku (disk recovery, smazané soubory), výpis paměti (memory dump).
 
-Patří k MAC requirements TCSEC B-level.
+Tato funkce patří mezi MAC požadavky úrovně B podle TCSEC.
 
 ## 6. Přesnost (Accuracy)
 
-Data jsou *přesná* — žádné neúmyslné modifikace, no corruption.
+Data jsou *přesná* — nedochází k neúmyslným úpravám ani k poškození (corruption).
 
 ### Mechanismy
 
-- **Checksum** — CRC, parity.
-- **Error correction codes** — ECC RAM, RAID.
-- **Database constraints** — referential integrity, type checks.
-- **Application-level validation** — input sanitization.
+- **Kontrolní součty** (checksum) — CRC, parita.
+- **Samoopravné kódy** (error correction codes) — ECC paměť, RAID.
+- **Databázová omezení** (constraints) — referenční integrita, kontroly typů.
+- **Validace na úrovni aplikace** — ošetření vstupů (input sanitization).
 
-Integrity ≠ Accuracy: integrity je *neoprávněná modifikace*, accuracy je *neúmyslná modifikace*. V praxi překryv.
+Integrita ≠ přesnost: integrita se týká *neoprávněné modifikace*, kdežto přesnost se týká *neúmyslné modifikace*. V praxi se však tyto pojmy překrývají.
 
 ## 7. Spolehlivost a dostupnost služeb
 
-*Availability* + *reliability* — služba *funguje*, *kdy* uživatelé potřebují.
+*Dostupnost* (availability) a *spolehlivost* (reliability) — služba *funguje* tehdy, *kdy* ji uživatelé potřebují.
 
 ### Mechanismy
 
-- **Redundance** — RAID, clustering, hot standby.
-- **Load balancing** — distribuce zátěže.
-- **Backup + DR** — disaster recovery plans.
-- **Capacity planning** — predict + scale.
-- **DDoS protection** — rate limiting, anycast, CDN.
+- **Redundance** — RAID, clustering, hot standby (záložní systém v pohotovosti).
+- **Vyvažování zátěže** (load balancing) — rozložení zátěže mezi více uzlů.
+- **Zálohování a obnova po havárii** (backup + DR) — plány obnovy po havárii (disaster recovery).
+- **Plánování kapacity** (capacity planning) — předvídat zátěž a podle ní škálovat.
+- **Ochrana proti DDoS** — omezování rychlosti (rate limiting), anycast, CDN.
 
 ### Metriky
 
-- **Uptime %** — 99 / 99.9 / 99.99 / ... „nines".
-- **MTBF, MTTR**.
-- **RPO, RTO**.
+- **Procento dostupnosti** (uptime %) — 99 / 99,9 / 99,99 / … tzv. „devítky" (nines).
+- **MTBF, MTTR** — střední doba mezi poruchami a střední doba opravy.
+- **RPO, RTO** — cíl bodu obnovy a cíl doby obnovy.
 
 ## 8. Výměna dat (Data Exchange)
 
@@ -142,39 +142,39 @@ Bezpečná *komunikace* mezi systémy.
 
 ### Mechanismy
 
-- **Confidentiality v transit** — TLS ([[tls-aplikace]]), VPN ([[vpn-ipsec]]).
-- **Integrity v transit** — MAC, signature ([[mac-hmac]]).
-- **Authentication** — mutual TLS, IPsec, Kerberos ([[kerberos]]).
-- **Replay protection** — sequence numbers, timestamps, nonces.
+- **Důvěrnost při přenosu** (confidentiality in transit) — TLS ([[tls-aplikace]]), VPN ([[vpn-ipsec]]).
+- **Integrita při přenosu** (integrity in transit) — MAC, podpis ([[mac-hmac]]).
+- **Autentizace** — vzájemné (mutual) TLS, IPsec, Kerberos ([[kerberos]]).
+- **Ochrana proti opakování** (replay protection) — pořadová čísla, časová razítka, jednorázová čísla (nonce).
 
-### Standards
+### Standardy
 
-- **TLS 1.3** — web, app.
-- **IPsec** — VPN, network layer.
-- **SSH** — remote shell.
-- **S/MIME, PGP** — email.
-- **DNSSEC** — DNS integrity.
+- **TLS 1.3** — web, aplikace.
+- **IPsec** — VPN, síťová vrstva.
+- **SSH** — vzdálený shell.
+- **S/MIME, PGP** — e-mail.
+- **DNSSEC** — integrita DNS.
 
-## Common Criteria SFR mapování
+## Mapování na Common Criteria SFR
 
-Pro mapování na CC functional classes ([[common-criteria]]):
+Mapování na funkční třídy Common Criteria ([[common-criteria]]):
 
-| BIS funkce | CC class |
+| Funkce v BIS | Třída CC |
 | :--- | :--- |
 | Identifikace, autentizace | **FIA** — Identification and Authentication |
 | Řízení přístupu | **FDP** — User Data Protection |
 | Účtovatelnost | **FAU** — Security Audit |
-| Audit | **FAU** + **AMA** assurance |
+| Audit | **FAU** + třída záruk **AMA** |
 | Opakované užití | **FDP_RIP** — Residual Information Protection |
 | Přesnost | **FDP_IFC, FDP_DAU** — Data Authentication |
 | Spolehlivost, dostupnost | **FRU** — Resource Utilization, **FPT** — Protection of TSF |
 | Výměna dat | **FTP** — Trusted Path/Channels, **FCO** — Communication |
 
-Plus **FCS** (Cryptographic Support) prochází napříč — všechna komunikace, ukládání, autentizace používá kryptografii.
+Navíc třída **FCS** (Cryptographic Support, kryptografická podpora) prochází napříč všemi ostatními — veškerá komunikace, ukládání i autentizace používá kryptografii.
 
 ## Závislosti mezi funkcemi
 
-Bezpečnostní funkce *nestojí samostatně* — mají závislosti:
+Bezpečnostní funkce *nestojí samostatně* — vzájemně na sobě závisí:
 
 ```
 Audit needs:
@@ -189,7 +189,7 @@ Access control needs:
    Audit (record what was accessed)
 ```
 
-Bezpečnost = *systém* funkcí. Pokud jedna chybí, ostatní mají snížený efekt.
+Bezpečnost je *systém* funkcí. Pokud jedna z nich chybí, ostatní mají snížený účinek.
 
 ---
 

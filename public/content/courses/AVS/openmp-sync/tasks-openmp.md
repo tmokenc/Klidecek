@@ -4,7 +4,7 @@ title: OpenMP tasks — dynamický paralelismus
 
 # OpenMP tasks — dynamický paralelismus
 
-`parallel for` a `sections` jsou *statické* — počet iterací / sekcí znám předem. Pro *dynamický* paralelismus (recursive trees, irregular work, producer-consumer) je třeba **task** direktiva. OpenMP 3.0 (2008) ji zavedla; OpenMP 4.0 přidala dependencies; OpenMP 5.0 detaše a affinity.
+Konstrukce `parallel for` a `sections` jsou *statické* — počet iterací či sekcí znám předem. Pro *dynamický* paralelismus (rekurzivní stromy, nepravidelná práce, schéma producent–konzument) je potřeba direktiva **task**. Zavedl ji OpenMP 3.0 (2008); OpenMP 4.0 přidal závislosti mezi úkoly (dependencies) a OpenMP 5.0 oddělené úkoly (detached tasks) a afinitu.
 
 ## task — vytvoření úkolu
 
@@ -13,9 +13,9 @@ title: OpenMP tasks — dynamický paralelismus
 do_work();
 ```
 
-Vytváří **task** — *odlišitelná* jednotka práce. Tým vláken si tasks bere z **fronty**.
+Vytváří **task** (úkol) — *samostatně rozlišitelnou* jednotku práce. Tým vláken si tyto úkoly bere z **fronty**.
 
-### Příklad — recursive Fibonacci
+### Příklad — rekurzivní výpočet Fibonacciho čísla
 
 ```c
 int fib(int n) {
@@ -42,16 +42,16 @@ int main() {
 }
 ```
 
-Klíčový pattern:
+Klíčový vzor (pattern):
 
 1. `#pragma omp parallel` vytvoří tým.
-2. `#pragma omp single` — jen jedno vlákno (master typicky) *začne* recursion.
-3. `#pragma omp task` — *vytvoří* task pro `fib(n-1)`, `fib(n-2)`. Free workers ho *vykonají*.
-4. `#pragma omp taskwait` — počkej, dokud všechny "child" tasks nedokončí.
+2. `#pragma omp single` — jen jedno vlákno (typicky hlavní, master) *zahájí* rekurzi.
+3. `#pragma omp task` — *vytvoří* úkol pro `fib(n-1)` a `fib(n-2)`. Volná vlákna (workers) je pak *vykonají*.
+4. `#pragma omp taskwait` — počkej, dokud všechny potomkové (child) úkoly nedokončí.
 
-⇒ Recursive parallelism *bez* manuální správa thread pool.
+⇒ Rekurzivní paralelismus *bez* ruční správy fondu vláken (thread pool).
 
-## task lifecycle
+## Životní cyklus úkolu (task lifecycle)
 
 ::: svg "Task model — fronta a worker threads"
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="10">
@@ -107,13 +107,13 @@ Klíčový pattern:
 </svg>
 :::
 
-Task scheduler je *work-stealing*: pokud worker dokončí svou queue, *ukradne* task od jiného workera. Klasický pattern (Cilk 1995, Blumofe et al.).
+Plánovač úkolů (task scheduler) pracuje na principu *kradení práce* (work-stealing): pokud worker vyprázdní svou frontu, *ukradne* úkol jinému workerovi. Jde o klasický vzor (Cilk 1995, Blumofe et al.).
 
-## task clauses
+## Klauzule direktivy task (task clauses)
 
 ### shared / private / firstprivate
 
-Stejné jako u parallel ([[datova-prostredi]]). Pozor: defaultní *task data sharing* je **firstprivate** (snapshot v okamžiku creation), ne shared.
+Fungují stejně jako u direktivy parallel ([[datova-prostredi]]). Pozor: výchozí sdílení dat (data sharing) u úkolu je **firstprivate** (tedy snímek hodnoty v okamžiku vytvoření úkolu), nikoli shared.
 
 ```c
 int x = 5;
@@ -123,7 +123,7 @@ x = 10;                            // outer x changed AFTER task creation
 // Task still sees x = 5
 ```
 
-Pro shared use `shared(x)` explicit.
+Chceme-li sdílení, je nutné explicitně použít `shared(x)`.
 
 ### if(condition)
 
@@ -132,11 +132,11 @@ Pro shared use `shared(x)` explicit.
 process(n);
 ```
 
-Pokud `n > 100`, vytvoří task. Jinak *immediately* execute (no task overhead). Optimalizace pro malé úkoly.
+Pokud platí `n > 100`, vytvoří se úkol. Jinak se kód provede *okamžitě* (bez režie úkolu, task overhead). Jde o optimalizaci pro drobné úkoly.
 
 ### depend(in/out/inout : var)
 
-Task dependence:
+Závislost mezi úkoly (task dependence):
 
 ```c
 #pragma omp task depend(out: x)
@@ -149,9 +149,9 @@ y = compute_b();
 z = x + y;
 ```
 
-Třetí task *čeká*, dokud `x` i `y` nejsou dokončeny. Builds task DAG.
+Třetí úkol *čeká*, dokud nejsou dokončeny `x` i `y`. Tím se buduje orientovaný acyklický graf úkolů (task DAG).
 
-To je *dataflow* paralelismus — automatic dependency resolution.
+Jde o *datově řízený* (dataflow) paralelismus — závislosti se vyhodnocují automaticky.
 
 ## taskwait, taskgroup
 
@@ -166,7 +166,7 @@ phase_B();
 phase_C();
 ```
 
-Čeká jen na *přímé* children tasks. Pokud `phase_A` spustila vlastní subtasks, *nečeká* na ně (jen na samu `phase_A` task).
+Čeká pouze na *přímé* potomky (children tasks). Pokud `phase_A` spustila vlastní podúkoly (subtasks), na ně *nečeká* — čeká jen na samotný úkol `phase_A`.
 
 ### taskgroup
 
@@ -181,11 +181,11 @@ phase_C();
 // Po taskgroup: všechny tasks (including grand-children) hotové
 ```
 
-Recursive wait — *všechny* potomci, ne jen direct.
+Rekurzivní čekání — počká na *všechny* potomky, nejen na ty přímé.
 
 ## taskloop
 
-OpenMP 4.5+: kombinace task + parallel for:
+OpenMP 4.5 a novější: kombinace task a parallel for:
 
 ```c
 #pragma omp taskloop grainsize(64)
@@ -193,12 +193,12 @@ for (int i = 0; i < N; i++)
     process(i);
 ```
 
-Smyčka rozdělena na tasks, každý task pokrývá `grainsize` iterací. Workers berou tasks dynamicky.
+Smyčka se rozdělí na úkoly, přičemž každý úkol pokrývá `grainsize` iterací. Workers si úkoly berou dynamicky.
 
-Výhoda nad `parallel for schedule(dynamic, 64)`:
+Výhoda oproti `parallel for schedule(dynamic, 64)`:
 
-- Lze *kombinovat* s rekursivními tasks (mixed structure).
-- Lze použít `depend` mezi taskloopy.
+- Lze ji *kombinovat* s rekurzivními úkoly (smíšená struktura).
+- Lze použít `depend` mezi jednotlivými taskloopy.
 
 ## final, mergeable
 
@@ -207,9 +207,9 @@ Výhoda nad `parallel for schedule(dynamic, 64)`:
 recurse(n);    // při hluboké rekurzi, neslituj task overhead
 ```
 
-`final` — pokud true, task se *neslévá* dál (žádné další task creation uvnitř). Pro recursive limits.
+`final` — je-li podmínka pravdivá, úkol se dál *nerozvětvuje* (uvnitř už nevznikají žádné další úkoly). Slouží k omezení hloubky rekurze.
 
-`mergeable` — runtime může task *sloučit* s rodičovským kontextem (no separate data env). Optimizace.
+`mergeable` — běhové prostředí (runtime) může úkol *sloučit* s kontextem rodiče (bez samostatného datového prostředí). Jde o optimalizaci.
 
 ## Reálná aplikace: quicksort {tier=example}
 
@@ -237,9 +237,9 @@ int main() {
 }
 ```
 
-`if(hi - lo > 1000)` — pro malé subarray, *no task overhead*, just inline call. *Cutoff* je klíčový parametr.
+`if(hi - lo > 1000)` — pro malé podpole se *žádný úkol nevytvoří* a provede se prosté přímé (inline) volání. Tato mez (*cutoff*) je klíčovým parametrem.
 
-## Reálná aplikace: tree traversal {tier=example}
+## Reálná aplikace: průchod stromem {tier=example}
 
 ```c
 void traverse(Node *n) {
@@ -256,21 +256,21 @@ void traverse(Node *n) {
 }
 ```
 
-Pro vyvážený strom 1M uzlů → 1M tasks. Worker queue je *deep*, lots of contention.
+Pro vyvážený strom s 1 milionem uzlů vznikne 1 milion úkolů. Fronta workerů je *hluboká* a dochází k velkému soupeření o ni (contention).
 
-Optimization: *cutoff* depth (přestat spawnovat tasks v hloubce > k) nebo *grainsize*.
+Optimalizace: zavést *cutoff* podle hloubky (přestat vytvářet úkoly v hloubce > k) nebo použít *grainsize*.
 
-## Limity tasks
+## Omezení úkolů (limity tasks)
 
-- **Overhead per task** — vytvořit task ~100-500 ns. Pro malé tasks (< 1 μs work) overhead dominantní.
-- **Queue contention** — worker stealing může být bottleneck při miliónech tasks.
-- **No nested data sharing** — task v task má *vlastní* data env. Sharing přes shared(), ale beware races.
+- **Režie na jeden úkol (overhead per task)** — vytvoření úkolu trvá zhruba 100–500 ns. U malých úkolů (práce < 1 μs) tato režie převažuje.
+- **Soupeření o frontu (queue contention)** — při milionech úkolů se kradení práce mezi workery může stát úzkým hrdlem (bottleneck).
+- **Žádné vnořené sdílení dat** — úkol vnořený v jiném úkolu má *vlastní* datové prostředí. Sdílet lze přes `shared()`, ale pozor na souběhy (races).
 
-Práce per task by měla být **> 10× task creation overhead** — typicky 1-100 μs.
+Práce na jeden úkol by měla být **více než 10× větší než režie jeho vytvoření** — typicky tedy 1–100 μs.
 
 ## Co dál
 
-[[synchronizace-bariery]] popisuje synchronizační primitiva — barrier, critical, atomic. [[locks-openmp]] manuální locks pro fine-grained control. [[false-sharing-races]] varuje před cache-level race conditions.
+[[synchronizace-bariery]] popisuje synchronizační primitiva — barrier, critical, atomic. [[locks-openmp]] se věnuje ručním zámkům (locks) pro jemně zrnité řízení (fine-grained control). [[false-sharing-races]] varuje před souběhy na úrovni cache (cache-level race conditions).
 
 ---
 

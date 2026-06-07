@@ -4,164 +4,164 @@ title: Testování a evaluace biometrických systémů
 
 # Testování a evaluace biometrických systémů
 
-Hodnocení biometrického systému je *statistický* problém — pro spolehlivé odhady FAR/FRR ([[far-frr]]) potřebujeme *velký* dataset, *reprezentativní* podmínky a *standardizovanou* metodologii. ISO/IEC 19795 a NIST guidelines specifikují tři úrovně evaluace.
+Hodnocení biometrického systému je *statistický* problém — pro spolehlivé odhady FAR/FRR ([[far-frr]]) potřebujeme *velký* dataset, *reprezentativní* podmínky a *standardizovanou* metodologii. Normy ISO/IEC 19795 a směrnice NIST (NIST guidelines) specifikují tři úrovně evaluace.
 
 ## Tři úrovně evaluace (ISO/IEC 19795-1)
 
 ### 1. Evaluace technologie (Technology evaluation)
 
 * **Cíl:** porovnání algoritmů na **standardní databázi**.
-* **Postup:** dataset je *zveřejněn*, různé algoritmy ho zpracovávají, výsledky se porovnávají.
-* **Výhody:** *reprodukovatelné*, nezávislé na hardware.
-* **Nevýhody:** *nezachycuje* real-world podmínky (různé senzory, environment).
+* **Postup:** dataset je *zveřejněn*, různé algoritmy ho zpracovávají a výsledky se porovnávají.
+* **Výhody:** *reprodukovatelné* a nezávislé na hardwaru.
+* **Nevýhody:** *nezachycuje* podmínky reálného nasazení (real-world podmínky) — různé senzory, různé prostředí (environment).
 * **Příklady:** NIST FRVT, FpVTE, FVC (Fingerprint Verification Competition).
 
 ### 2. Evaluace scénáře (Scenario evaluation)
 
-* **Cíl:** test systému v **kontrolovaném** prostředí simulujícím reálné nasazení.
-* **Postup:** real subjects ve specific test scenario (např. testovací letiště, gateway).
-* **Výhody:** zachycuje *typické* podmínky (kvalita capture, user behavior).
-* **Nevýhody:** *drahé*, vyžaduje subjects + control.
-* **Příklady:** UK Home Office IBIA evaluations, DHS Maryland Test Facility.
+* **Cíl:** test systému v **kontrolovaném** prostředí, které simuluje reálné nasazení.
+* **Postup:** reální účastníci (real subjects) v konkrétním testovacím scénáři (test scenario) — například testovací letiště nebo bezpečnostní brána (gateway).
+* **Výhody:** zachycuje *typické* podmínky (kvalita snímání (capture), chování uživatele (user behavior)).
+* **Nevýhody:** je *drahá* a vyžaduje účastníky (subjects) i řízení (control) celého testu.
+* **Příklady:** evaluace IBIA britského ministerstva vnitra (UK Home Office), DHS Maryland Test Facility.
 
 ### 3. Provozní evaluace (Operational evaluation)
 
-* **Cíl:** measurement *v reálném nasazení*.
-* **Postup:** instrumentace produkčního systému; sběr dat během běžného provozu.
-* **Výhody:** *most realistic*; *true* user population, environment.
-* **Nevýhody:** *no ground truth* pro impostors (často není); *privacy concerns*.
-* **Příklady:** US-VISIT throughput reports, Aadhaar reliability studies.
+* **Cíl:** měření (measurement) *v reálném nasazení*.
+* **Postup:** instrumentace produkčního systému a sběr dat během běžného provozu.
+* **Výhody:** *nejrealističtější*; *skutečná* populace uživatelů a skutečné prostředí.
+* **Nevýhody:** chybí *referenční pravda (ground truth)* pro podvodníky (impostors) — často ji nelze získat; vznikají také obavy o soukromí (privacy concerns).
+* **Příklady:** reporty propustnosti programu US-VISIT, studie spolehlivosti systému Aadhaar.
 
 ## Sběr dat a vyhodnocení
 
-### Test sets
+### Testovací množiny (test sets)
 
-* **Train set** — pro *trénování* (pokud algoritmus má learning fázi).
-* **Validation set** — pro *tuning* parameters (threshold, hyperparameters).
-* **Test set** — pro *final* evaluation. *Disjoint* od train/validation.
+* **Trénovací množina (train set)** — slouží k *trénování* (pokud má algoritmus fázi učení, learning).
+* **Validační množina (validation set)** — slouží k *ladění* parametrů (threshold, hyperparametry).
+* **Testovací množina (test set)** — slouží k *finálnímu* vyhodnocení. Musí být *disjunktní* od trénovací i validační množiny.
 
-Important: **subject overlap** mezi train a test je *fatal* — vyhodnocení je optimistické. Standardní paradigm: *subject-independent* split.
+Důležité: **překryv subjektů (subject overlap)** mezi trénovací a testovací množinou je *fatální* — vyhodnocení pak vyjde příliš optimisticky. Standardním paradigmatem je rozdělení *nezávislé na subjektech* (subject-independent split), kde se tytéž osoby neobjeví v obou množinách.
 
 ### Velikost datasetu
 
-Pro *statistical confidence* of FAR/FRR estimates:
+Pro *statistickou jistotu (statistical confidence)* odhadů FAR/FRR platí:
 
 ::: math
 \text{počet impostor pokusů} \ge \frac{1}{\text{target FAR}} \cdot \text{confidence factor}
 :::
 
-Pro target FAR = $10^{-6}$ s 95 % confidence: **minimum 10⁷ impostor comparisons**.
+Pro cílovou FAR (target FAR) = $10^{-6}$ s 95% spolehlivostí (confidence): **minimálně 10⁷ porovnání podvodníků (impostor comparisons)**.
 
-* **NIST FRVT 2024:** 18 million face images.
-* **Aadhaar:** 1.3 miliardy enrollment.
-* Pro academic research: 10⁵ – 10⁶ comparisons typical.
+* **NIST FRVT 2024:** 18 milionů snímků obličejů.
+* **Aadhaar:** 1,3 miliardy zaregistrovaných osob (enrollment).
+* Pro akademický výzkum: typicky 10⁵ – 10⁶ porovnání.
 
-### Test environments
+### Testovací prostředí (test environments)
 
-* **Lab** — kontrolované osvětlení, fixed senzor, optimal pose.
-* **Office/Indoor** — typické office environment.
-* **Outdoor** — daylight, weather variations.
-* **Mobile** — handheld phone capture, motion blur.
+* **Laboratoř (lab)** — kontrolované osvětlení, pevný senzor, optimální poloha (pose).
+* **Kancelář / interiér (office/indoor)** — typické kancelářské prostředí.
+* **Venku (outdoor)** — denní světlo, proměnlivé počasí.
+* **Mobil (mobile)** — snímání z telefonu v ruce, rozmazání pohybem (motion blur).
 
 ## Stárnutí (Aging)
 
-Specifický test — *jak* se přesnost mění s časem mezi enrollment a recognition?
+Specifický test — *jak* se přesnost mění s časem, který uplyne mezi registrací (enrollment) a rozpoznáním (recognition)?
 
 * **Otisky prstů:** velmi stabilní; pomalá degradace.
-* **Obličej:** *rychlá* degradace (vrásky, váhové změny, vlasy).
-* **Iris:** *velmi* stabilní (po dětství).
-* **Voice:** kolísá; nemoci, věkové změny.
+* **Obličej:** *rychlá* degradace (vrásky, změny váhy, vlasy).
+* **Iris (duhovka):** *velmi* stabilní (po dětství).
+* **Hlas (voice):** kolísá; ovlivňují ho nemoci a věkové změny.
 
-**NIST FRVT Aging study** (2018): FRR @ FAR=10⁻⁴ vzroste z 1 % (čerstvé enrollment) na 3 % po 10 letech (face).
+**Studie NIST FRVT Aging** (2018): FRR při FAR=10⁻⁴ vzroste z 1 % (čerstvá registrace) na 3 % po 10 letech (obličej).
 
 ### Mitigace
 
-* **Re-enrollment** každých N let.
-* **Adaptive enrollment** — automatic update při successful authentication.
-* **Multiple templates** uložené v různých časech.
+* **Opětovná registrace (re-enrollment)** každých N let.
+* **Adaptivní registrace (adaptive enrollment)** — automatická aktualizace při úspěšné autentizaci (authentication).
+* **Více šablon (multiple templates)** uložených v různých časech.
 
 ## Dvojčata
 
-**Stress test** — biometrika mezi identickými dvojčaty.
+**Zátěžový test (stress test)** — biometrika u jednovaječných dvojčat.
 
-* **DNA:** prakticky stejná (sdílení 99.99 %); rozlišení vyžaduje specifické markery (SNPs).
-* **Obličej:** *velmi* podobný; mnoho FaceID systems chybuje.
-* **Hlas:** podobný (genetics + environment).
-* **Otisky prstů:** *odlišné* (epigeneticky tvořené).
-* **Iris:** *odlišné* (epigeneticky tvořené).
+* **DNA:** prakticky stejná (sdílení 99,99 %); rozlišení vyžaduje specifické markery (SNPs).
+* **Obličej:** *velmi* podobný; mnoho systémů FaceID zde chybuje.
+* **Hlas:** podobný (kombinace genetiky a prostředí).
+* **Otisky prstů:** *odlišné* (vznikají epigeneticky).
+* **Iris (duhovka):** *odlišné* (vzniká epigeneticky).
 
-Test database: **TwinsDB** (NIST), **ND-Twins** (Notre Dame) — speciální datasets s twin pairs.
+Testovací databáze: **TwinsDB** (NIST), **ND-Twins** (Notre Dame) — speciální datasety s páry dvojčat (twin pairs).
 
 ## Počet porovnání pro výpočet FMR
 
-Pro $N$ enrolled subjects v test set:
+Pro $N$ zaregistrovaných subjektů v testovací množině:
 
-* **Genuine comparisons** (FNMR): $N \cdot \binom{T}{2} = N \cdot T(T - 1) / 2$, kde $T$ je počet samples per subject.
-* **Impostor comparisons** (FMR): $\binom{N}{2} \cdot T \cdot T$ (každý pair × samples).
+* **Pravá porovnání (genuine comparisons)** (FNMR): $N \cdot \binom{T}{2} = N \cdot T(T - 1) / 2$, kde $T$ je počet vzorků (samples) na jeden subjekt.
+* **Porovnání podvodníků (impostor comparisons)** (FMR): $\binom{N}{2} \cdot T \cdot T$ (každý pár × vzorky).
 
-Pro $N = 1000$ subjects, $T = 10$ samples:
+Pro $N = 1000$ subjektů a $T = 10$ vzorků:
 
-* Genuine: ~45 000.
-* Impostor: ~50 milion.
+* Pravá: ~45 000.
+* Podvodnická: ~50 milionů.
 
-Toto je *enough* pro FMR > 10⁻⁵, *not enough* pro FMR < 10⁻⁶.
+To *stačí* pro FMR > 10⁻⁵, ale *nestačí* pro FMR < 10⁻⁶.
 
-## NIST benchmarks
+## Benchmarky NIST
 
-NIST vede *ongoing* evaluation programs:
+NIST vede *průběžné* (ongoing) evaluační programy:
 
-* **FRVT** (Face Recognition Vendor Test) — face recognition, since 2002.
-* **FpVTE** (Fingerprint Vendor Technology Evaluation) — fingerprints, since 2003.
-* **IREX** (Iris Exchange) — iris, since 2009.
-* **SRE** (Speaker Recognition Evaluation) — voice, since 1996.
-* **MINEX** (Minutiae Interoperability Exchange) — fingerprint template interoperability.
+* **FRVT** (Face Recognition Vendor Test) — rozpoznávání obličejů, od roku 2002.
+* **FpVTE** (Fingerprint Vendor Technology Evaluation) — otisky prstů, od roku 2003.
+* **IREX** (Iris Exchange) — duhovka, od roku 2009.
+* **SRE** (Speaker Recognition Evaluation) — hlas, od roku 1996.
+* **MINEX** (Minutiae Interoperability Exchange) — interoperabilita šablon otisků prstů.
 
-Vendors *poskytují* svůj algoritmus, NIST ho testuje *blind* na proprietary databases. Reporting je *fully transparent* — žebříčky publikované online.
+Dodavatelé (vendors) *poskytují* svůj algoritmus a NIST jej testuje *naslepo (blind)* na neveřejných (proprietary) databázích. Reportování je *plně transparentní* — žebříčky jsou publikované online.
 
 ## Plánování testování
 
-Před started evaluation:
+Než se evaluace zahájí:
 
-1. **Definuj test scope** — který biometric, který modal, kterou metriku (verifikace nebo identifikace).
-2. **Vyber dataset** — relevant demographics, conditions, size.
-3. **Definuj protocol** — train/test split, single-shot vs. multiple, allowed retries.
-4. **Implement** — testing pipeline, scoring.
-5. **Statistical analysis** — confidence intervals, demographic effects.
-6. **Report** — ISO/IEC 19795-1 standardizes report format.
+1. **Definuj rozsah testu (test scope)** — který biometrický rys, kterou modalitu (modal) a kterou metriku (verifikace, nebo identifikace).
+2. **Vyber dataset** — relevantní demografie, podmínky a velikost.
+3. **Definuj protokol (protocol)** — rozdělení na trénovací/testovací množinu, jeden pokus vs. více pokusů, povolené opakování (retries).
+4. **Implementuj** — testovací řetězec (pipeline) a vyhodnocování skóre (scoring).
+5. **Statistická analýza** — intervaly spolehlivosti (confidence intervals), demografické vlivy.
+6. **Reportuj** — norma ISO/IEC 19795-1 standardizuje formát reportu.
 
-## Dataset bias a fairness
+## Zkreslení datasetu a férovost (Dataset bias a fairness)
 
-Důležitý nedávný topic:
+Důležité téma posledních let:
 
-* Mnoho commercial face recognition systems performs *much worse* on darker skin tones (Buolamwini-Gebru 2018, *Gender Shades*).
-* Důvod: training data heavily biased toward white/male subjects.
-* **NIST FRVT Part 3: Demographic Effects** (2019) — formal evaluation napříč pohlaví, věk, etnicita.
+* Mnoho komerčních systémů rozpoznávání obličeje funguje *výrazně hůře* na tmavších odstínech pleti (Buolamwini-Gebru 2018, *Gender Shades*).
+* Důvod: trénovací data jsou silně zkreslená (biased) směrem k bílým a mužským subjektům.
+* **NIST FRVT Part 3: Demographic Effects** (2019) — formální evaluace napříč pohlavím, věkem a etnicitou.
 
 Mitigace:
 
-* Diverse training data.
-* **Adversarial debiasing** — penalize learning gender/race-specific features.
-* **Demographic-aware thresholds** — different thresholds per group (controversial).
+* Rozmanitá (diverse) trénovací data.
+* **Adversariální odstranění zkreslení (adversarial debiasing)** — postih učení rysů specifických pro pohlaví či rasu.
+* **Prahy zohledňující demografii (demographic-aware thresholds)** — odlišné prahy pro jednotlivé skupiny (kontroverzní řešení).
 
-## Reporting standardy
+## Standardy reportování
 
-ISO/IEC 19795-1 vyžaduje:
+Norma ISO/IEC 19795-1 vyžaduje:
 
-* Description of *test corpus* (subjects, samples, demographics).
-* *Protocol* (how comparisons were made).
-* *Algorithm version* + parameters.
-* *Operating point* + corresponding rates.
-* *Confidence intervals* on reported rates.
-* *Demographic breakdown* (gender, age, ethnicity).
+* Popis *testovacího korpusu (test corpus)* (subjekty, vzorky, demografie).
+* *Protokol* (jak byla porovnání prováděna).
+* *Verzi algoritmu* a jeho parametry.
+* *Pracovní bod (operating point)* a odpovídající míry.
+* *Intervaly spolehlivosti (confidence intervals)* u reportovaných měr.
+* *Demografický rozpad (demographic breakdown)* (pohlaví, věk, etnicita).
 
-Pro **academic publications** — full reproducibility (code, dataset access).
+Pro **akademické publikace** — plná reprodukovatelnost (kód, přístup k datasetu).
 
-## Limit evaluací
+## Limity evaluací
 
-* **Spoofing not tested** in traditional evaluations — separate vulnerability assessment ([[liveness]]).
-* **Quality variations** — real-world has *worse* quality than benchmarks.
-* **Adversarial robustness** — pre-DL benchmarks ignore adversarial examples.
-* **Long-term aging** — most benchmarks span only few years.
+* **Podvržení (spoofing) se netestuje** v tradičních evaluacích — je předmětem samostatného posouzení zranitelnosti (vulnerability assessment) ([[liveness]]).
+* **Kolísání kvality (quality variations)** — reálný svět má *horší* kvalitu než benchmarky.
+* **Adversariální robustnost** — benchmarky z doby před hlubokým učením (pre-DL) ignorují adversariální příklady.
+* **Dlouhodobé stárnutí (long-term aging)** — většina benchmarků pokrývá jen několik let.
 
 ---
 

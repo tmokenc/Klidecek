@@ -1,12 +1,12 @@
 ---
-title: parallel for — scheduling, chunk, dynamic
+title: parallel for — plánování, chunk, dynamic
 ---
 
-# OpenMP parallel for — distribuce iterací mezi vlákna
+# OpenMP parallel for — rozdělení iterací mezi vlákna
 
-`#pragma omp parallel for` je *workhorse* OpenMP — paralelizuje smyčku, automaticky rozdělí iterace mezi tým vláken. Klíčové rozhodnutí: **scheduling policy** — *jak* rozdělit iterace.
+`#pragma omp parallel for` je tažný kůň (workhorse) OpenMP — paralelizuje smyčku a automaticky rozdělí iterace mezi tým vláken. Klíčové rozhodnutí je strategie plánování (scheduling policy) — tedy *jak* iterace rozdělit.
 
-## Základní syntax
+## Základní syntaxe
 
 ```c
 #pragma omp parallel for
@@ -14,31 +14,31 @@ for (int i = 0; i < N; i++)
     a[i] = b[i] + c[i];
 ```
 
-Compiler vygeneruje:
+Překladač (compiler) vygeneruje toto chování:
 
-1. Fork team of T threads.
+1. Vytvoří (fork) tým T vláken.
 2. Rozdělí iterace `0..N-1` mezi T vláken.
-3. Každé vlákno provede svou *chunk* iterací.
-4. Implicit barrier na konci.
+3. Každé vlákno provede svůj díl iterací (chunk).
+4. Na konci je implicitní bariéra (barrier).
 
-## Co potřebuje smyčka
+## Co musí smyčka splňovat
 
-Aby OpenMP mohl paralelizovat:
+Aby ji OpenMP mohl paralelizovat, musí platit:
 
-1. **Canonical form** — `for (i = init; i < limit; i++)` (nebo `+=, -=, *=`). Žádné `while`.
-2. **Trip count knowable** — `limit` a `step` deterministické.
-3. **Žádné loop-carried dependence** — `a[i]` nesmí záviset na `a[i-1]`.
-4. **Žádné early exit** — `break`, `return`, `goto`. *Continue* OK.
+1. **Kanonická forma (canonical form)** — `for (i = init; i < limit; i++)` (nebo `+=, -=, *=`). Žádné `while`.
+2. **Známý počet iterací (trip count)** — `limit` a `step` musí být deterministické.
+3. **Žádné závislosti přenášené smyčkou (loop-carried dependence)** — `a[i]` nesmí záviset na `a[i-1]`.
+4. **Žádný předčasný odchod (early exit)** — žádné `break`, `return`, `goto`. `continue` je v pořádku.
 
-Canonical form a zákaz early-exit kompilátor vynutí (chyba při překladu). Loop-carried dependence ale kompilátor NEdetekuje — `#pragma omp parallel for` ji tiše paralelizuje a vznikne race / nesprávný výsledek; odpovědnost za nezávislost iterací nese programátor.
+Kanonickou formu a zákaz předčasného odchodu překladač vynutí (jinak ohlásí chybu při překladu). Závislost přenášenou smyčkou ale překladač NEdetekuje — `#pragma omp parallel for` ji tiše paralelizuje a vznikne souběh (race) nebo nesprávný výsledek. Odpovědnost za nezávislost iterací nese programátor.
 
-## Schedule clauses
+## Klauzule schedule
 
 ```c
 #pragma omp parallel for schedule(<kind>, <chunk_size>)
 ```
 
-Pět druhů:
+Existuje pět druhů:
 
 ### static
 
@@ -46,9 +46,9 @@ Pět druhů:
 #pragma omp parallel for schedule(static)
 ```
 
-Iterace rozděleny **rovnoměrně** na začátku. Pro N = 100, T = 4: thread 0 dostane 0-24, thread 1 dostane 25-49, atd.
+Iterace se rozdělí **rovnoměrně** hned na začátku. Pro N = 100 a T = 4 dostane vlákno 0 iterace 0–24, vlákno 1 iterace 25–49 a tak dál.
 
-Pokud `chunk_size` specified: round-robin chunks of that size.
+Pokud je zadán `chunk_size`, přidělují se chunky dané velikosti metodou round-robin (cyklicky po vláknech):
 
 ```c
 #pragma omp parallel for schedule(static, 16)
@@ -56,9 +56,9 @@ Pokud `chunk_size` specified: round-robin chunks of that size.
 // thread 1: 16-31, 80-95, ...
 ```
 
-- **Pro**: nulový runtime overhead, predictable.
-- **Proti**: pokud iterace mají *nerovnou* dobu, někteří dělníci čekají.
-- **Best for**: regular numeric loops (matrix multiply, FFT).
+- **Pro**: nulová režie za běhu (runtime), předvídatelné rozdělení.
+- **Proti**: pokud iterace trvají *nestejně* dlouho, část vláken čeká.
+- **Nejvhodnější pro**: pravidelné numerické smyčky (násobení matic, FFT).
 
 ### dynamic
 
@@ -66,7 +66,7 @@ Pokud `chunk_size` specified: round-robin chunks of that size.
 #pragma omp parallel for schedule(dynamic, chunk_size)
 ```
 
-Iterace přidělovány *runtime* — vlákno *dokončí* chunk a *poprosí* o další. Load balancing.
+Iterace se přidělují *za běhu* (runtime) — vlákno *dokončí* svůj chunk a *požádá* o další. Tím se vyrovnává zátěž (load balancing).
 
 ```c
 #pragma omp parallel for schedule(dynamic, 16)
@@ -74,15 +74,15 @@ Iterace přidělovány *runtime* — vlákno *dokončí* chunk a *poprosí* o da
 // When done, fetch next 16
 ```
 
-- **Pro**: skvělé load balancing pro irregular work.
-- **Proti**: runtime overhead (queue, atomic decrement). Vyšší cache miss (chunks rotují mezi vlákny).
-- **Best for**: nerovnoměrná zátěž (sparse matrix, recursive task).
+- **Pro**: výborné vyvážení zátěže pro nepravidelnou práci.
+- **Proti**: režie za běhu (fronta úkolů, atomické dekrementy). Více výpadků cache (chunky se střídají mezi vlákny).
+- **Nejvhodnější pro**: nerovnoměrnou zátěž (řídké matice, rekurzivní úlohy).
 
-Chunk size matters:
+Na velikosti chunku záleží:
 
-- Příliš malý (1) → overhead dominantní.
-- Příliš velký (N/T) → equivalent static.
-- Sweet spot 8-64 typically.
+- Příliš malý (1) → převládne režie.
+- Příliš velký (N/T) → chová se jako static.
+- Optimum (sweet spot) bývá typicky 8–64.
 
 ### guided
 
@@ -90,13 +90,13 @@ Chunk size matters:
 #pragma omp parallel for schedule(guided, chunk_size)
 ```
 
-*Hybrid*: začne s velkými chunks, snižuje k chunk_size. Iterace dynamicky přidělované.
+*Hybridní* přístup: začne s velkými chunky a postupně je zmenšuje až k velikosti `chunk_size`. Iterace se přidělují dynamicky.
 
-Algoritmus: zbývajících iterací / (T × constant). Klesá k chunk_size.
+Algoritmus: velikost chunku se počítá jako počet zbývajících iterací / (T × konstanta). Klesá až k `chunk_size`.
 
-- **Pro**: kompromis mezi static a dynamic — méně overhead než dynamic, lepší balance než static.
-- **Proti**: nepředvídatelné chování.
-- **Best for**: mírně nerovná zátěž.
+- **Pro**: kompromis mezi static a dynamic — menší režie než dynamic, lepší vyvážení než static.
+- **Proti**: hůře předvídatelné chování.
+- **Nejvhodnější pro**: mírně nerovnoměrnou zátěž.
 
 ### auto
 
@@ -104,7 +104,7 @@ Algoritmus: zbývajících iterací / (T × constant). Klesá k chunk_size.
 #pragma omp parallel for schedule(auto)
 ```
 
-Runtime rozhodne. Skutečné chování závisí na kompilátoru/runtime.
+O rozdělení rozhodne běhové prostředí (runtime). Skutečné chování závisí na konkrétním překladači a běhovém prostředí.
 
 ### runtime
 
@@ -112,7 +112,7 @@ Runtime rozhodne. Skutečné chování závisí na kompilátoru/runtime.
 #pragma omp parallel for schedule(runtime)
 ```
 
-Použij `OMP_SCHEDULE` env var. Praktické pro tuning bez recompile.
+Použije se proměnná prostředí `OMP_SCHEDULE`. Praktické pro ladění (tuning) bez nutnosti opětovného překladu.
 
 ## Srovnání
 
@@ -165,7 +165,7 @@ Použij `OMP_SCHEDULE` env var. Praktické pro tuning bez recompile.
 ::: viz omp-scheduling-comparator "Vyber workload (triangulární / skewed / uniform). Gantt 4 vláken pro 4 schedule strategie — idle čas červeně, % balance vlevo. Dynamic/guided minimalizují čekání."
 :::
 
-## Decision tree
+## Rozhodovací strom
 
 ```
 Loop work per iteration roughly constant?
@@ -178,7 +178,7 @@ Loop work per iteration roughly constant?
 
 ## Nowait
 
-Default: implicit barrier na konci `parallel for`. Můžete *vypnout*:
+Standardně je na konci `parallel for` implicitní bariéra (barrier). Můžete ji *vypnout*:
 
 ```c
 #pragma omp parallel
@@ -193,11 +193,11 @@ Default: implicit barrier na konci `parallel for`. Můžete *vypnout*:
 }
 ```
 
-Pokud `phase2` *nezávisí* na `phase1` výsledcích, `nowait` ušetří barrier. Při skewed phase1 (some thread slower), `nowait` umožní fast threads start phase2 dřív.
+Pokud `phase2` *nezávisí* na výsledcích `phase1`, klauzule `nowait` ušetří bariéru. Pokud je `phase1` nevyvážená (některé vlákno je pomalejší), `nowait` umožní rychlejším vláknům začít `phase2` dříve.
 
 ## Collapse
 
-Pro *vnořené* smyčky, OpenMP defaultně paralelizuje **jen** vnější:
+U *vnořených* smyček paralelizuje OpenMP standardně **jen** tu vnější:
 
 ```c
 #pragma omp parallel for
@@ -206,7 +206,7 @@ for (int i = 0; i < N; i++)             // paralelizovaná
         a[i][j] = b[i][j];
 ```
 
-Pokud N malé (např. 4) a M velké (1000000), parallelism jen ×4. **Collapse** zploští:
+Pokud je N malé (např. 4) a M velké (1 000 000), získáme paralelismus jen 4×. **Collapse** vnořené smyčky zploští:
 
 ```c
 #pragma omp parallel for collapse(2)
@@ -215,13 +215,13 @@ for (int i = 0; i < N; i++)
         a[i][j] = b[i][j];
 ```
 
-Teď iteruje přes `N × M` iterací paralelně. Pro 4×1000000 = 4M iterací → distribuovaných mezi T vláken.
+Nyní se iteruje přes `N × M` iterací paralelně. Pro 4×1 000 000 = 4M iterací → rozdělených mezi T vláken.
 
-Limit `collapse(k)`: vnořené smyčky musí být *rektangulární* (limity nezávislé na vnějších proměnných) a *bez instrukcí mezi*.
+Omezení `collapse(k)`: vnořené smyčky musí být *pravoúhlé* (rektangulární — meze nesmí záviset na vnějších proměnných) a *bez instrukcí mezi sebou*.
 
-## Loop transformations
+## Transformace smyček
 
-OpenMP 5.0+ direktivy `tile`, `unroll`, `permute`:
+OpenMP 5.0+ přidává direktivy `tile`, `unroll`, `permute`:
 
 ```c
 #pragma omp tile sizes(4, 8)
@@ -234,9 +234,9 @@ for (int i = 0; i < 8; i++)
     ...
 ```
 
-Tile (blocking) optimization for cache. Unroll for ILP. Před OpenMP 5 to bylo kompilátorové property (`-funroll-loops`); teď je standardizováno.
+Tile (blokování, blocking) je optimalizace pro cache. Unroll (rozbalení smyčky) zvyšuje paralelismus na úrovni instrukcí (ILP). Před OpenMP 5 šlo o vlastnost překladače (`-funroll-loops`); nyní je tato funkce standardizovaná.
 
-## SIMD-aware parallel for
+## parallel for s podporou SIMD
 
 ```c
 #pragma omp parallel for simd
@@ -244,13 +244,13 @@ for (int i = 0; i < N; i++)
     a[i] = b[i] * c[i];
 ```
 
-Kombinace: paralelizace mezi vlákna **+** vektorizace uvnitř. Pro AXPY na 8 jader + AVX2 je teoretický strop 8 jader × 8 lanes = 64×; reálná AXPY je ale memory-bound, takže skutečné zrychlení je výrazně nižší (limit propustnost paměti).
+Kombinace dvou úrovní: paralelizace mezi vlákna **+** vektorizace uvnitř. Pro AXPY na 8 jádrech s AVX2 je teoretický strop 8 jader × 8 lanes (drah) = 64×; reálná AXPY je ale omezená pamětí (memory-bound), takže skutečné zrychlení je výrazně nižší (limit je propustnost paměti).
 
-GCC s `-O3 -fopenmp -march=native` zahrnuje SIMD pragma efektivně.
+GCC s `-O3 -fopenmp -march=native` zahrne pragmu SIMD efektivně.
 
 ## Co dál
 
-[[datova-prostredi]] popisuje *data sharing* klauzule: private / shared / reduction. To je kritické pro správnost paralelního kódu (race conditions, false sharing).
+[[datova-prostredi]] popisuje klauzule pro sdílení dat (data sharing): private / shared / reduction. To je kritické pro správnost paralelního kódu (souběhy, false sharing).
 
 ---
 

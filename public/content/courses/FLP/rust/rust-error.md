@@ -1,14 +1,14 @@
 ---
-title: Rust — Error handling (Result, Option)
+title: Rust — ošetření chyb (Result, Option)
 ---
 
-# Rust — Error handling (Result, Option)
+# Rust — ošetření chyb (Result, Option)
 
-Rust *nemá* exceptions (jako C++, Java, Python). Místo nich má **type-safe** error handling pomocí `Result<T, E>` a `Option<T>`. Tento přístup *vynucuje* explicitní handling errors — *compile-time* enforcement *neignorování* chyb.
+Rust *nemá* výjimky (exceptions) jako C++, Java či Python. Místo nich nabízí typově bezpečné (type-safe) ošetření chyb (error handling) pomocí `Result<T, E>` a `Option<T>`. Tento přístup *vynucuje* explicitní zpracování chyb — překladač (compiler) už při překladu (compile-time) hlídá, aby se na žádnou chybu nezapomnělo.
 
 ## Option<T>
 
-Pro hodnoty, které *mohou chybět*:
+Typ pro hodnoty, které *mohou chybět*:
 
 ```rust
 enum Option<T> {
@@ -17,9 +17,9 @@ enum Option<T> {
 }
 ```
 
-Analogous to Haskell's `Maybe`.
+Je obdobou typu `Maybe` z Haskellu.
 
-### Examples
+### Příklady
 
 ```rust
 fn first_word(s: &str) -> Option<&str> {
@@ -34,7 +34,7 @@ fn main() {
 }
 ```
 
-### Common methods
+### Běžné metody
 
 ```rust
 let some_val: Option<i32> = Some(5);
@@ -67,7 +67,7 @@ some_val.is_some();  // true
 none_val.is_none();  // true
 ```
 
-### Pattern matching
+### Porovnávání vzorů (pattern matching)
 
 ```rust
 match some_val {
@@ -89,7 +89,7 @@ while let Some(x) = stack.pop() {
 
 ## Result<T, E>
 
-Pro operace, které *mohou selhat* s informací o chybě:
+Typ pro operace, které *mohou selhat* a nesou s sebou informaci o chybě:
 
 ```rust
 enum Result<T, E> {
@@ -98,9 +98,9 @@ enum Result<T, E> {
 }
 ```
 
-Analogous to Haskell's `Either`.
+Je obdobou typu `Either` z Haskellu.
 
-### Examples
+### Příklady
 
 ```rust
 fn parse_int(s: &str) -> Result<i32, String> {
@@ -115,7 +115,7 @@ fn main() {
 }
 ```
 
-### Common methods
+### Běžné metody
 
 ```rust
 let ok_val: Result<i32, String> = Ok(5);
@@ -145,9 +145,9 @@ ok_val.and_then(|x| Ok(x + 1));  // Ok(6)
 err_val.or_else(|_| Ok(0));  // Ok(0)
 ```
 
-### The ? operator
+### Operátor ?
 
-**Question mark (?)** automatically *propagates* errors:
+**Otazník (?)** automaticky *propaguje* chyby (předává je výš volajícímu, takže se o ně nemusíte starat na místě):
 
 ```rust
 fn read_and_parse(path: &str) -> Result<i32, std::io::Error> {
@@ -158,7 +158,7 @@ fn read_and_parse(path: &str) -> Result<i32, std::io::Error> {
 }
 ```
 
-`?` is syntactic sugar for:
+`?` je syntaktickým zkrácením (syntactic sugar) pro:
 
 ```rust
 match expr {
@@ -170,7 +170,7 @@ match expr {
 ::: viz rust-result-chain "Result chain s ? operátorem; různé scénáře (OK / fail v každém kroku); propagace přes From conversion."
 :::
 
-### `?` requires compatible error types
+### `?` vyžaduje kompatibilní typy chyb
 
 ```rust
 use std::fs;
@@ -197,9 +197,9 @@ fn read_number(path: &str) -> Result<i32, AppError> {
 }
 ```
 
-## panic! a unwinding
+## panic! a odvíjení zásobníku
 
-Pro **unrecoverable** errors:
+Pro **neodstranitelné (unrecoverable)** chyby, ze kterých se program nemá jak zotavit:
 
 ```rust
 fn main() {
@@ -210,7 +210,7 @@ fn main() {
 }
 ```
 
-### Explicit panic
+### Explicitní panic
 
 ```rust
 fn divide(a: i32, b: i32) -> i32 {
@@ -221,9 +221,9 @@ fn divide(a: i32, b: i32) -> i32 {
 }
 ```
 
-### Stack unwinding
+### Odvíjení zásobníku (stack unwinding)
 
-Default: stack unwinds, drop runs.
+Výchozí chování: zásobník (stack) se odvíjí a spustí se úklid (proběhnou volání `drop`).
 
 ```toml
 # Cargo.toml — abort instead
@@ -231,11 +231,11 @@ Default: stack unwinds, drop runs.
 panic = "abort"
 ```
 
-`abort` is faster (no unwinding) but no cleanup. Useful for embedded / when no destructors needed.
+Varianta `abort` je rychlejší (žádné odvíjení zásobníku), ale neprovede žádný úklid. Hodí se pro vestavěné (embedded) systémy nebo tam, kde žádné destruktory nepotřebujeme.
 
-## Custom error types
+## Vlastní typy chyb
 
-### Simple enum
+### Jednoduchý enum
 
 ```rust
 #[derive(Debug)]
@@ -253,7 +253,7 @@ fn divide(a: i32, b: i32) -> Result<i32, CalculatorError> {
 }
 ```
 
-### Display + Error trait
+### Traity Display a Error
 
 ```rust
 use std::fmt;
@@ -272,9 +272,9 @@ impl fmt::Display for CalculatorError {
 impl Error for CalculatorError {}
 ```
 
-### Using `thiserror` crate
+### Použití crate `thiserror`
 
-Reduces boilerplate:
+Omezuje opakující se kód (boilerplate):
 
 ```rust
 use thiserror::Error;
@@ -292,9 +292,9 @@ enum AppError {
 }
 ```
 
-### Using `anyhow` crate
+### Použití crate `anyhow`
 
-For applications (not libraries):
+Pro aplikace (nikoli pro knihovny):
 
 ```rust
 use anyhow::{Context, Result};
@@ -310,13 +310,13 @@ fn process_file(path: &str) -> Result<String> {
 }
 ```
 
-## Error patterns
+## Vzory pro ošetření chyb
 
-### Pattern 1: From conversion + `?`
+### Vzor 1: převod přes From + `?`
 
-Define a custom error enum with a `From` impl per source error, then let `?` convert each error automatically — see the `AppError` example above under [`?` requires compatible error types](#-requires-compatible-error-types) (`enum { Io, Parse }` + two `From` impls + a read-file/parse function).
+Nadefinujte vlastní enum chyb a ke každé zdrojové chybě jednu implementaci traitu `From`. Operátor `?` pak každou chybu převede automaticky — viz příklad `AppError` výše v sekci [`?` vyžaduje kompatibilní typy chyb](#-vyzaduje-kompatibilni-typy-chyb) (`enum { Io, Parse }` + dvě implementace `From` + funkce, která načte soubor a rozparsuje ho).
 
-### Pattern 2: Combinators
+### Vzor 2: kombinátory
 
 ```rust
 fn process(input: &str) -> Result<i32, String> {
@@ -327,7 +327,7 @@ fn process(input: &str) -> Result<i32, String> {
 }
 ```
 
-### Pattern 3: Early return
+### Vzor 3: časný návrat
 
 ```rust
 fn process(input: &str) -> Result<i32, MyError> {
@@ -339,9 +339,9 @@ fn process(input: &str) -> Result<i32, MyError> {
 }
 ```
 
-## Best practices
+## Osvědčené postupy
 
-### 1. Use Result, not panic
+### 1. Používejte Result, ne panic
 
 ```rust
 // BAD — panics
@@ -355,7 +355,7 @@ fn divide(a: i32, b: i32) -> Result<i32, String> {
 }
 ```
 
-### 2. Use ? operator
+### 2. Používejte operátor ?
 
 ```rust
 // BAD — verbose
@@ -379,12 +379,12 @@ fn process() -> Result<i32, MyError> {
 }
 ```
 
-### 3. Library vs. application errors
+### 3. Chyby v knihovně vs. v aplikaci
 
-* **Library:** define typed errors (`thiserror`).
-* **Application:** use generic errors (`anyhow`).
+* **Knihovna:** definujte typované chyby (`thiserror`).
+* **Aplikace:** použijte obecné chyby (`anyhow`).
 
-### 4. Don't panic in libraries
+### 4. V knihovnách nepoužívejte panic
 
 ```rust
 // BAD — library function panics
@@ -398,7 +398,7 @@ pub fn parse(input: &str) -> Result<i32, ParseError> {
 }
 ```
 
-### 5. Use expect with informative messages
+### 5. Používejte expect s výstižnou zprávou
 
 ```rust
 let port: u16 = env::var("PORT")
@@ -407,9 +407,9 @@ let port: u16 = env::var("PORT")
     .expect("PORT must be a valid number");
 ```
 
-## Anti-patterns
+## Antivzory (anti-patterns)
 
-### Anti-pattern 1: unwrap everywhere
+### Antivzor 1: unwrap všude
 
 ```rust
 // BAD — crashes on any error
@@ -420,7 +420,7 @@ fn main() {
 }
 ```
 
-### Anti-pattern 2: Boxing all errors
+### Antivzor 2: zabalení všech chyb do Boxu
 
 ```rust
 // AVOID — loses type information
@@ -429,7 +429,7 @@ fn process() -> Result<i32, Box<dyn Error>> {
 }
 ```
 
-### Anti-pattern 3: String errors
+### Antivzor 3: chyby jako řetězce
 
 ```rust
 // AVOID — no structure
@@ -448,7 +448,7 @@ enum MathError {
 }
 ```
 
-## Result chain example {tier=example}
+## Příklad zřetězeného Result {tier=example}
 
 ```rust
 use std::fs;
@@ -495,18 +495,18 @@ fn main() {
 }
 ```
 
-## Srovnání s Haskell
+## Srovnání s Haskellem
 
-| Aspect | Haskell | Rust |
+| Aspekt | Haskell | Rust |
 | :--- | :--- | :--- |
-| Optional value | `Maybe a` | `Option<T>` |
-| Error type | `Either e a` | `Result<T, E>` |
-| Propagation | monad bind (`>>=`) | `?` operator |
-| Exception | `throwIO` (IO only) | `panic!` (unrecoverable) |
-| Recovery | `catch` | `Result::or_else`, custom |
-| Custom errors | data type + class | enum + From + Display |
+| Volitelná hodnota | `Maybe a` | `Option<T>` |
+| Typ chyby | `Either e a` | `Result<T, E>` |
+| Propagace | monadické navázání (`>>=`) | operátor `?` |
+| Výjimka | `throwIO` (jen v IO) | `panic!` (neodstranitelné) |
+| Zotavení | `catch` | `Result::or_else`, vlastní řešení |
+| Vlastní chyby | datový typ + třída | enum + From + Display |
 
-Oba jazyky preferují *type-encoded* errors before exceptions.
+Oba jazyky upřednostňují chyby zakódované v typech (type-encoded) před výjimkami.
 
 ---
 

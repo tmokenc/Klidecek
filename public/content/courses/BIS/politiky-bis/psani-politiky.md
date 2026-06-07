@@ -1,14 +1,14 @@
 ---
-title: Psaní security policy
+title: Psaní bezpečnostní politiky
 ---
 
-# Psaní bezpečnostní politiky — struktura a best practices
+# Psaní bezpečnostní politiky — struktura a osvědčené postupy
 
-Bezpečnostní politika (security policy) je *formální dokument*, který definuje, *jak* organizace přistupuje k bezpečnosti. Není to seznam technických opatření — je to *manažerský* dokument s *delegací odpovědnosti*.
+Bezpečnostní politika (security policy) je *formální dokument*, který definuje, *jak* organizace přistupuje k bezpečnosti. Nejde o seznam technických opatření — je to *manažerský* dokument, který zároveň *deleguje odpovědnost*.
 
 ## Hierarchie dokumentů
 
-::: svg "Hierarchie security documentation"
+::: svg "Hierarchie bezpečnostní dokumentace"
 <svg viewBox="0 0 580 200" font-family="ui-sans-serif, system-ui" font-size="11">
   <g fill="var(--bg-inset)" stroke="var(--line)">
     <rect x="200" y="40" width="140" height="30" rx="3"/>
@@ -31,74 +31,74 @@ Bezpečnostní politika (security policy) je *formální dokument*, který defin
 </svg>
 :::
 
-### Policy
+### Politika (policy)
 
-*Vysoká úroveň* — co a proč.
+*Vysoká úroveň* — říká, co se má dělat a proč.
 
-- "All sensitive data must be encrypted in transit and at rest."
-- Schvaluje top management.
-- Krátký (1-10 stran).
-- Vyžaduje sign-off od CEO/CISO.
+- „All sensitive data must be encrypted in transit and at rest." (Všechna citlivá data musí být šifrována při přenosu i v úložišti.)
+- Schvaluje ji vrcholové vedení (top management).
+- Je krátká (1–10 stran).
+- Vyžaduje podpis (sign-off) od CEO/CISO.
 
 ### Standard
 
-*Konkrétní* (specific technical requirements).
+*Konkrétní* technické požadavky (specific technical requirements).
 
-- "All HTTPS communications must use TLS 1.2 or higher with approved cipher suites."
-- Schvaluje CISO / Security Director.
-- Středně dlouhý (5-20 stran per topic).
-- Mandatory.
+- „All HTTPS communications must use TLS 1.2 or higher with approved cipher suites." (Veškerá komunikace přes HTTPS musí používat TLS 1.2 nebo vyšší se schválenými sadami šifer.)
+- Schvaluje ho CISO / ředitel bezpečnosti (Security Director).
+- Je středně dlouhý (5–20 stran na téma).
+- Je závazný (mandatory).
 
-### Procedure
+### Procedura (procedure)
 
-*Step-by-step* instructions.
+Návod krok za krokem (step-by-step instructions).
 
-- "To rotate the database encryption key: 1. ... 2. ... 3. ..."
-- Operations team.
-- Detailed (5-50 stran per procedure).
-- Mandatory pro operations.
+- „To rotate the database encryption key: 1. ... 2. ... 3. ..." (Postup rotace šifrovacího klíče databáze: 1. ... 2. ... 3. ...)
+- Vlastní ji provozní tým (operations team).
+- Je podrobná (5–50 stran na proceduru).
+- Je závazná pro provoz.
 
-### Guideline
+### Směrnice (guideline)
 
-*Best practices, recommendations*.
+Osvědčené postupy a doporučení (best practices, recommendations).
 
-- "We recommend monitoring DNS traffic for sinkhole detection."
-- Advisory — not mandatory.
-- Vendor-specific or contextual.
+- „We recommend monitoring DNS traffic for sinkhole detection." (Doporučujeme monitorovat DNS provoz kvůli detekci sinkhole.)
+- Má doporučující charakter (advisory) — není závazná.
+- Bývá vázaná na konkrétního dodavatele (vendor-specific) nebo na daný kontext.
 
-## Typy policies
+## Typy politik
 
-### Enterprise policy
+### Podniková politika (enterprise policy)
 
-Top-level, organization-wide.
+Nejvyšší úroveň, platí pro celou organizaci.
 
-- "Information Security Policy" — overall stance.
-- "Acceptable Use Policy (AUP)" — what users may/may not do.
-- "Privacy Policy" — data handling.
+- „Information Security Policy" — celkový postoj organizace k bezpečnosti.
+- „Acceptable Use Policy (AUP)" — co uživatelé smějí a nesmějí dělat.
+- „Privacy Policy" — nakládání s daty.
 
-### Issue-specific
+### Politika k danému tématu (issue-specific)
 
-For *particular* technology or issue.
+Pokrývá *konkrétní* technologii nebo problém.
 
-- "Email Policy" — usage, retention, monitoring.
-- "BYOD Policy" — bring-your-own-device.
-- "Remote Work Policy".
-- "Password Policy".
+- „Email Policy" — používání, retence, monitorování.
+- „BYOD Policy" — používání vlastních zařízení (bring-your-own-device).
+- „Remote Work Policy" — práce na dálku.
+- „Password Policy" — hesla.
 
-### System-specific
+### Politika k danému systému (system-specific)
 
-For *individual* system.
+Vztahuje se k *jednomu konkrétnímu* systému.
 
-- "ERP Security Policy".
-- "Payment Processing Security Policy".
+- „ERP Security Policy".
+- „Payment Processing Security Policy".
 
 ## Komponenty bezpečnostní politiky
 
-Standard struktura:
+Standardní struktura:
 
-### 1. Purpose
+### 1. Účel (purpose)
 
-*Proč* policy existuje. Jaký business need řeší.
+*Proč* politika existuje a jakou byznysovou potřebu (business need) řeší.
 
 ```
 The purpose of this policy is to establish requirements for protecting 
@@ -106,18 +106,18 @@ organizational information and information systems from threats, both
 internal and external...
 ```
 
-### 2. Scope
+### 2. Rozsah platnosti (scope)
 
-*Kde* + *na koho* se vztahuje.
+*Kde* a *na koho* se politika vztahuje.
 
 ```
 This policy applies to all employees, contractors, vendors, and any 
 party with access to organizational information systems.
 ```
 
-### 3. Policy statement(s)
+### 3. Vlastní ustanovení politiky (policy statements)
 
-*Co* je vyžadováno / zakázáno.
+*Co* je vyžadováno a co je zakázáno.
 
 ```
 1. All systems handling sensitive data MUST encrypt data in transit 
@@ -127,11 +127,11 @@ party with access to organizational information systems.
    Center within 4 hours of discovery.
 ```
 
-Pozn: RFC 2119 keywords (MUST, MUST NOT, SHOULD, MAY) explicitly.
+Pozn.: výslovně používejte klíčová slova podle RFC 2119 (MUST, MUST NOT, SHOULD, MAY).
 
-### 4. Roles + Responsibilities
+### 4. Role a odpovědnosti (roles & responsibilities)
 
-*Kdo* odpovídá za co.
+*Kdo* za co odpovídá.
 
 ```
 CISO is responsible for:
@@ -145,18 +145,18 @@ System Administrators are responsible for:
    - Monitoring system logs
 ```
 
-### 5. Compliance + Enforcement
+### 5. Soulad a vymáhání (compliance & enforcement)
 
-*Co se stane*, pokud někdo nedodrží.
+*Co se stane*, pokud někdo politiku nedodrží.
 
 ```
 Violations may result in disciplinary action up to and including 
 termination of employment.
 ```
 
-### 6. Exceptions
+### 6. Výjimky (exceptions)
 
-*Process* pro exemptions.
+*Proces* pro udělování výjimek (exemptions).
 
 ```
 Any exception to this policy must be:
@@ -166,74 +166,74 @@ Any exception to this policy must be:
    - Time-limited (review annually)
 ```
 
-### 7. Definitions
+### 7. Definice (definitions)
 
-Glossary of technical terms.
+Slovníček technických pojmů.
 
-### 8. References
+### 8. Reference (references)
 
-Related policies, standards, regulations.
+Související politiky, standardy a předpisy.
 
-### 9. Revision history
+### 9. Historie revizí (revision history)
 
-Date, author, summary of changes.
+Datum, autor a shrnutí změn.
 
-### 10. Approval signatures
+### 10. Schvalovací podpisy (approval signatures)
 
-CEO / CISO / Legal etc.
+CEO / CISO / právní oddělení a podobně.
 
-## Psaní — best practices
+## Psaní — osvědčené postupy
 
-### Be specific
+### Buďte konkrétní
 
-❌ "All systems should be secure."
+❌ „All systems should be secure." (Všechny systémy by měly být bezpečné.)
 
-✓ "Systems handling Confidential data must be patched within 30 days of security update release."
+✓ „Systems handling Confidential data must be patched within 30 days of security update release." (Systémy zpracovávající důvěrná data musí být aktualizovány do 30 dnů od vydání bezpečnostní aktualizace.)
 
-### Use RFC 2119 keywords
+### Používejte klíčová slova podle RFC 2119
 
-- **MUST** / **MUST NOT** — absolute requirement.
-- **SHOULD** / **SHOULD NOT** — strong recommendation.
-- **MAY** — optional.
+- **MUST** / **MUST NOT** — absolutní požadavek.
+- **SHOULD** / **SHOULD NOT** — silné doporučení.
+- **MAY** — volitelné.
 
-Avoid ambiguous: "important", "as soon as possible", "best efforts".
+Vyhněte se nejednoznačným výrazům jako „important", „as soon as possible" nebo „best efforts".
 
-### Tie to business
+### Navažte politiku na byznys
 
-Policy *připojena* k business goals. "Why" should be clear.
+Politika musí být *navázána* na byznysové cíle (business goals). „Proč" by mělo být jasné.
 
-❌ "Use strong passwords."
+❌ „Use strong passwords." (Používejte silná hesla.)
 
-✓ "To protect customer data and meet PCI DSS Requirement 8, all user accounts must use passwords meeting [Password Policy] requirements."
+✓ „To protect customer data and meet PCI DSS Requirement 8, all user accounts must use passwords meeting [Password Policy] requirements." (Kvůli ochraně dat zákazníků a splnění požadavku PCI DSS Requirement 8 musí všechny uživatelské účty používat hesla splňující požadavky [Password Policy].)
 
-### Avoid implementation details
+### Vyhněte se implementačním detailům
 
-Policy says *what*, not *how* (that's procedure).
+Politika říká *co*, nikoli *jak* (to je úkol procedury).
 
-❌ "Use ssh -i ~/.ssh/keyfile.pem user@server."
+❌ „Use ssh -i ~/.ssh/keyfile.pem user@server."
 
-✓ "Remote access to production systems must use cryptographically secure protocols (SSH, VPN) with strong authentication."
+✓ „Remote access to production systems must use cryptographically secure protocols (SSH, VPN) with strong authentication." (Vzdálený přístup k produkčním systémům musí používat kryptograficky bezpečné protokoly (SSH, VPN) se silnou autentizací (authentication).)
 
-### Make it readable
+### Pište čitelně
 
-- Plain English. Avoid jargon when possible.
-- Short sentences.
-- Headers, bullets.
-- Examples.
+- Srozumitelný jazyk. Pokud to jde, vyhněte se žargonu.
+- Krátké věty.
+- Nadpisy a odrážky.
+- Příklady.
 
-If users *can't read* policy, they *can't follow* it.
+Pokud uživatelé politiku *nedokážou přečíst*, nemohou se jí ani *řídit*.
 
-### Sustainable
+### Udržujte ji životaschopnou
 
-- Review annually.
-- Update when tech changes.
-- Archive old versions.
+- Revidujte ji každý rok.
+- Aktualizujte ji, když se mění technologie.
+- Archivujte staré verze.
 
-Stale policy worse than no policy — gives false security.
+Zastaralá politika je horší než žádná — vytváří totiž falešný pocit bezpečí.
 
-## Standards examples
+## Příklady standardů
 
-### Password Standard
+### Standard pro hesla (Password Standard)
 
 ```
 Section 4: Requirements
@@ -260,9 +260,9 @@ Section 4: Requirements
     All accounts with privileged access MUST use MFA.
 ```
 
-Pozn: NIST SP 800-63B (2017+) explicitly *recommends against* mandatory periodic rotation — humans pick weaker passwords or write them down.
+Pozn.: NIST SP 800-63B (2017 a novější) výslovně *nedoporučuje* povinnou periodickou rotaci hesel — lidé si pak volí slabší hesla nebo si je zapisují.
 
-### Encryption Standard
+### Standard pro šifrování (Encryption Standard)
 
 ```
 Section 5: Approved Algorithms
@@ -286,36 +286,36 @@ Section 5: Approved Algorithms
     - Keys MUST be rotated annually OR when compromise suspected
 ```
 
-## Awareness + Training
+## Osvěta a školení
 
-Policy without *training* = ignored.
+Politika bez *školení* je ignorovaná.
 
-- New hire orientation includes security policy.
-- Annual refresh training.
-- Phishing simulation campaigns.
-- Topic-specific (incident response drill, social engineering).
+- Školení nových zaměstnanců (new hire orientation) zahrnuje i bezpečnostní politiku.
+- Každoroční opakovací školení.
+- Simulované phishingové kampaně.
+- Školení k jednotlivým tématům (nácvik reakce na incident, sociální inženýrství).
 
-KnowBe4, SANS, Proofpoint — providers of security training content.
+KnowBe4, SANS a Proofpoint jsou poskytovatelé obsahu pro bezpečnostní školení.
 
-## Common mistakes
+## Časté chyby
 
-- **Too long** — nobody reads 100-page policy.
-- **Too vague** — "do the right thing".
-- **Out of date** — last revised 2010.
-- **Conflicts** — multiple policies say different things.
-- **No ownership** — nobody knows who maintains.
-- **No enforcement** — written but not followed.
+- **Příliš dlouhá** — stostránkovou politiku nikdo nečte.
+- **Příliš vágní** — „dělejte správnou věc".
+- **Zastaralá** — naposledy revidovaná v roce 2010.
+- **Konflikty** — jednotlivé politiky si navzájem odporují.
+- **Bez vlastníka** — nikdo neví, kdo ji spravuje.
+- **Bez vymáhání** — je sepsaná, ale nikdo ji nedodržuje.
 
-Policy je *žijící dokument*. Maintain it.
+Politika je *žijící dokument*. Udržujte ji.
 
-## Real-world templates
+## Šablony z praxe
 
-Many organizations *publish* their policies (great learning resource):
+Mnoho organizací své politiky *zveřejňuje* (skvělý zdroj k učení):
 
 - **State of Indiana** — Information Security Framework.
-- **NIST** — sample policies in Special Publications.
-- **SANS** — policy templates ([sans.org/information-security-policy](https://www.sans.org/information-security-policy/)).
-- **ISO 27001** — Annex A controls map to specific policies.
+- **NIST** — ukázkové politiky ve svých Special Publications.
+- **SANS** — šablony politik ([sans.org/information-security-policy](https://www.sans.org/information-security-policy/)).
+- **ISO 27001** — opatření z přílohy Annex A se mapují na konkrétní politiky.
 
 ---
 

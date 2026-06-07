@@ -1,14 +1,14 @@
 ---
-title: Klasifikace otisků prstů — Henry, Ridge count
+title: Klasifikace otisků prstů — Henry, počítání papilárních linií (ridge count)
 ---
 
-# Klasifikace otisků prstů — Henry, Ridge count
+# Klasifikace otisků prstů — Henry, počítání papilárních linií (ridge count)
 
-Pro **efektivní vyhledávání** v databázi miliónů otisků není možné porovnávat *každý* s každým. Klasifikační systémy redukují search space — *předfiltrují* kandidáty podle *globálního typu* otisku, pak provádí *detailní* porovnání jen v relevantní podmnožině.
+Pro **efektivní vyhledávání** v databázi miliónů otisků není možné porovnávat *každý* s každým. Klasifikační systémy zmenšují prohledávaný prostor (search space) tím, že kandidáty *předfiltrují* podle *globálního typu* otisku, a teprve poté provádějí *detailní* porovnání jen v relevantní podmnožině.
 
 ## Globální vzory
 
-Tři základní (a jejich kombinace) — **Galton class** (1892):
+Existují tři základní vzory (a jejich kombinace) — tzv. **Galtonovy třídy** (Galton class, 1892):
 
 ::: svg "Tři základní vzory otisků prstů: oblouky (arches) — bez delta, smyčky (loops) — 1 delta, závity (whorls) — 2+ delta."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -51,32 +51,32 @@ Tři základní (a jejich kombinace) — **Galton class** (1892):
 
 ### Klíčové body
 
-* **Core** (jádro) — *centrální* bod ridges; vrchol "loop".
-* **Delta** (delta point) — *trojúhelníkový* bod, kde se setkávají tři směry ridges.
+* **Jádro (core)** — *centrální* bod papilárních linií (ridges); vrchol smyčky („loop").
+* **Delta (delta point)** — *trojúhelníkový* bod, kde se setkávají tři směry papilárních linií.
 
 ### Arch (oblouk) — ~5 % populace
 
-* Ridges *plynou napříč* obrazem od jedné strany ke druhé bez vytvoření smyčky.
+* Papilární linie *plynou napříč* obrazem od jedné strany ke druhé, aniž by vytvořily smyčku.
 * **0 delta, 0 nebo 1 core**.
-* Sub-types:
+* Podtypy:
   * **Plain arch** — pozvolný oblouk.
   * **Tented arch** — *ostřejší* obrátka uprostřed.
 
 ### Loop (smyčka) — ~65 % populace
 
-Nejčastější typ. Ridges *vstupují* z jedné strany, vytvoří smyčku, *vystupují* ze stejné strany.
+Nejčastější typ. Papilární linie *vstupují* z jedné strany, vytvoří smyčku a *vystupují* ze stejné strany.
 
 * **1 delta, 1 core**.
-* Sub-types:
-  * **Radial loop** — smyčka směřuje k *radius* kosti (k palci).
-  * **Ulnar loop** — smyčka směřuje k *ulna* kosti (k malíčku).
+* Podtypy:
+  * **Radial loop** — smyčka směřuje ke kosti *radius* (k palci).
+  * **Ulnar loop** — smyčka směřuje ke kosti *ulna* (k malíčku).
 
 ### Whorl (závit) — ~30 % populace
 
-Ridges *kroutí* okolo centrálního bodu.
+Papilární linie se *kroutí* okolo centrálního bodu.
 
 * **2+ delta, 1 core (nebo více)**.
-* Sub-types:
+* Podtypy:
   * **Plain whorl** — koncentrické kruhy.
   * **Central pocket loop** — kruh uprostřed smyčky.
   * **Double loop** — dvě protilehlé smyčky.
@@ -91,75 +91,75 @@ Ridges *kroutí* okolo centrálního bodu.
 ::: viz henry-pattern-classifier "Vyberte vzor (arch/loop/whorl) a 10-prstovou kombinaci; spočte se Henry primary."
 :::
 
-## Henry Classification System
+## Henryho klasifikační systém (Henry Classification System)
 
-**Sir Edward Henry** (Indie/Britský Egypt, 1897) zavedl systematickou klasifikaci pro **10 otisků** (všech prstů) najednou.
+**Sir Edward Henry** (Indie / Britský Egypt, 1897) zavedl systematickou klasifikaci pro **10 otisků** (všech prstů) najednou.
 
 ### Algoritmus
 
-Pro každý z 10 prstů:
+Pro každý z 10 prstů platí:
 
 * **Whorl** = 1.
 * **Loop / Arch** = 0.
 
-Pak váhováný součet (podle pozice). Poziční váhy: prsty 1–2 = 16, 3–4 = 8, 5–6 = 4, 7–8 = 2, 9–10 = 1.
+Poté se spočítá vážený součet (podle pozice prstu). Poziční váhy jsou: prsty 1–2 = 16, 3–4 = 8, 5–6 = 4, 7–8 = 2, 9–10 = 1.
 
-Schéma:
+Schéma výpočtu:
 
 ::: math
 \text{Henry primary} = \frac{(P_2 + P_4 + P_6 + P_8 + P_{10}) + 1}{(P_1 + P_3 + P_5 + P_7 + P_9) + 1}
 :::
 
 * $P_i = 0$ pro arch/loop, $= 2^{\lfloor (10-i)/2 \rfloor}$ pro whorl.
-* Result: zlomek mezi 1/32 a 32/1.
+* Výsledkem je zlomek mezi hodnotami 1/32 a 32/1.
 
-* 1 024 *primary classes* — significant reduction search space.
+* Vzniká tak 1 024 *primárních tříd* (primary classes) — což výrazně zmenšuje prohledávaný prostor.
 
-V *modern AFIS* systémech je Henry classification *automatizovaná* — počítač detekuje pattern.
+V *moderních systémech AFIS* je Henryho klasifikace *automatizovaná* — počítač detekuje vzor sám.
 
-## Ridge count
+## Počítání papilárních linií (ridge count)
 
-**Ridge count** je *počet ridges* mezi *core* a *delta*.
+**Počítání papilárních linií (ridge count)** je *počet papilárních linií* mezi *jádrem (core)* a *deltou*.
 
-* Pro každý prst: spočítej ridges *protínané* přímkou mezi core a delta.
-* **Standardizovaná** metoda; výsledné číslo používáno pro *sub-classification*.
+* Pro každý prst: spočítej papilární linie *protnuté* přímkou vedenou mezi jádrem a deltou.
+* Jde o **standardizovanou** metodu; výsledné číslo se používá pro *doplňkové třídění* (sub-classification).
 
 ### Použití
 
-* Druhý úrovní fragment Henry classification.
-* AFIS *uses ridge count* jako secondary attribute pro candidate ranking.
+* Slouží jako druhá úroveň zjemnění Henryho klasifikace.
+* AFIS *používá počet papilárních linií* jako sekundární atribut pro pořadí kandidátů (candidate ranking).
 
 ## Markanty (minutiae) — viz [[markanty]]
 
-Vedle globálního vzoru existují *lokální* charakteristiky — **markanty** (minutiae), což jsou specifické body kde ridges *začínají*, *končí*, *rozdvojují* atd. Markanty jsou *primary* feature pro detailní matching.
+Vedle globálního vzoru existují *lokální* charakteristiky — **markanty (minutiae)**, což jsou specifické body, kde papilární linie *začínají*, *končí*, *rozdvojují se* atd. Markanty jsou *hlavní* charakteristikou pro detailní porovnávání (matching).
 
 ## Klasifikace v AFIS
 
-Automatic Fingerprint Identification System (AFIS) provádí:
+Automatický systém identifikace otisků prstů (Automatic Fingerprint Identification System, AFIS) provádí tyto kroky:
 
-1. **Image acquisition** + preprocessing.
-2. **Pattern classification** (Henry global type) — *coarse filter*.
-3. **Minutiae extraction** ([[markanty]]).
-4. **Search v databázi** v *přibližně 1/3 - 1/10* records (díky classification).
-5. **Detailní matching** přes minutiae.
+1. **Pořízení obrazu (image acquisition)** a předzpracování.
+2. **Klasifikace vzoru (pattern classification)** podle globálního typu dle Henryho — funguje jako *hrubý filtr*.
+3. **Extrakce markantů** ([[markanty]]).
+4. **Vyhledávání v databázi** *přibližně v 1/3 až 1/10* záznamů (díky předchozí klasifikaci).
+5. **Detailní porovnání** přes markanty.
 
-Pro databázi $10^9$ otisků (FBI NGI), classification redukuje search z $10^9$ na ~$10^8$ candidates.
+Pro databázi $10^9$ otisků (FBI NGI) klasifikace zmenší vyhledávání z $10^9$ na ~$10^8$ kandidátů.
 
 ## Limity klasifikace
 
-* **~3–5 % otisků** je *ambiguous* (na hranici mezi typy). Manuální posouzení vyžadováno.
-* **Latent prints** (partial otisky) — *nelze* jednoznačně klasifikovat. AFIS jede *bez* classification.
-* **Children's prints** — nevyzrálé vzory.
-* **Damaged prints** — jizvy překryjí globální pattern.
+* **~3–5 % otisků** je *nejednoznačných* (na hranici mezi typy). Je nutné manuální posouzení.
+* **Latentní otisky (latent prints)** (částečné otisky) — *nelze* je jednoznačně klasifikovat. AFIS běží *bez* klasifikace.
+* **Otisky dětí** — nevyzrálé vzory.
+* **Poškozené otisky** — jizvy překryjí globální vzor.
 
 ## Moderní AFIS bez klasifikace
 
-S rostoucími computational resources některé systémy *opustily* Henry classification:
+S rostoucími výpočetními prostředky (computational resources) některé systémy od Henryho klasifikace *upustily*:
 
-* **DL-based AFIS** — Deep learning embeddings; *no manual* classification.
-* **Indexing přes minutiae triplets** — Z. Cao et al., RANSAC-based matching s LSH (locality-sensitive hashing).
+* **AFIS založené na hlubokém učení (DL-based AFIS)** — využívají vektorové reprezentace (embeddings) z hlubokého učení; *žádná manuální* klasifikace.
+* **Indexování přes trojice markantů (minutiae triplets)** — Z. Cao et al., porovnávání založené na metodě RANSAC s LSH (locality-sensitive hashing).
 
-Klasifikace zůstává *užitečná* pro *forenzní* identification (lidský expert poskytuje classification jako *priori*).
+Klasifikace zůstává *užitečná* pro *forenzní* identifikaci (lidský expert poskytuje klasifikaci jako *apriorní* informaci).
 
 ---
 

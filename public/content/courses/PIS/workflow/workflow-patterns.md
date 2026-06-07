@@ -1,30 +1,30 @@
 # Workflow patterns — vzory řízení toku
 
-Když máme BPMN notaci ([[bpmn-notace]]) s aktivitami, branami a událostmi, vyvstává otázka: *jaké kanonické vzory řízení toku se v procesech vlastně objevují?* Tuto otázku zodpověděla skupina kolem **Wil van der Aalsta** ve výzkumu *Workflow Patterns* (TU Eindhoven & QUT, 1999–dnes). Katalog na [workflowpatterns.com](http://workflowpatterns.com) obsahuje desítky vzorů; přednáška se soustřeďuje na **sedm základních** vzorů řízení toku.
+Když máme BPMN notaci ([[bpmn-notace]]) s aktivitami, branami a událostmi, vyvstává otázka: *jaké kanonické vzory řízení toku (workflow patterns) se v procesech vlastně objevují?* Tuto otázku zodpověděla skupina kolem **Wil van der Aalsta** ve výzkumu *Workflow Patterns* (TU Eindhoven & QUT, od roku 1999 dodnes). Katalog na [workflowpatterns.com](http://workflowpatterns.com) obsahuje desítky vzorů; přednáška se soustřeďuje na **sedm základních** vzorů řízení toku.
 
-## Split, Join, Merge — terminologie
+## Rozdělení, spojení, sloučení (Split, Join, Merge) — terminologie
 
 Kromě konkrétních vzorů zavádí přednáška obecnou terminologii:
 
-- **Split** — *rozdělení* toku na více větví.
-- **Join / Merge** — *sloučení* více větví do jedné.
-- Typy bran: **XOR** (vzájemné vyloučení), **AND** (paralelní), **OR** (inkluzivní).
+- **Rozdělení (Split)** — rozdělení toku na více větví.
+- **Spojení / sloučení (Join / Merge)** — sloučení více větví do jedné.
+- Typy bran: **XOR** (vzájemné vyloučení větví), **AND** (paralelní zpracování), **OR** (inkluzivní, tedy „jedna nebo více").
 
-Jednotlivé vzory pak odpovídají kombinacím split/merge a typů bran.
+Jednotlivé vzory pak odpovídají kombinacím rozdělení/sloučení (split/merge) a typů bran.
 
 ## 7 základních vzorů
 
-### 1. Sekvence
+### 1. Sekvence (Sequence)
 
-Pracovní úkol je povolen, *až je dokončen předcházející úkol*. Nejzákladnější vzor, *základ všech procesů*.
+Pracovní úkol je povolen teprve tehdy, *až je dokončen předcházející úkol*. Je to nejzákladnější vzor a tvoří *základ všech procesů*.
 
 ```
 A → B → C
 ```
 
-### 2. Parallel Split (AND-split)
+### 2. Paralelní rozdělení (Parallel Split, AND-split)
 
-Rozděluje tok do **dvou a více paralelních vláken**. Všechny větve jsou spuštěny *současně*. Tři BPMN varianty zápisu — nekontrolovaný tok ze start event, nekontrolovaný tok z aktivity, nebo explicitní brána **+**.
+Rozděluje tok do **dvou a více paralelních vláken**. Všechny větve jsou spuštěny *současně*. V BPMN existují tři varianty zápisu — nekontrolovaný tok ze startovní události (start event), nekontrolovaný tok z aktivity, nebo explicitní brána **+**.
 
 ```
         ┌→ B
@@ -32,9 +32,9 @@ A → AND ┤
         └→ C
 ```
 
-### 3. Synchronizace (AND-join)
+### 3. Synchronizace (Synchronization, AND-join)
 
-Navazující úkol začne, *až jsou dokončena všechna* předchozí vlákna. **Párový vzor k AND-split**.
+Navazující úkol začne teprve tehdy, *až jsou dokončena všechna* předchozí vlákna. Jde o **párový vzor k paralelnímu rozdělení (AND-split)** — tedy o jeho protějšek, který paralelní větve opět spojí.
 
 ```
 B ─┐
@@ -42,9 +42,9 @@ B ─┐
 C ─┘
 ```
 
-### 4. Výlučné rozhodnutí (XOR-split)
+### 4. Výlučné rozhodnutí (Exclusive Choice, XOR-split)
 
-Rozděluje tok na větve **vzájemně výlučné**. Na základě podmínky se vstupuje do *právě jedné* z větví. V BPMN se kreslí jako brána s **X**.
+Rozděluje tok na **vzájemně výlučné** větve. Na základě podmínky se vstupuje do *právě jedné* z nich. V BPMN se kreslí jako brána s **X**.
 
 ```
         ┌ [a < 100] → B
@@ -52,7 +52,7 @@ A → XOR ┤
         └ [a ≥ 100] → C
 ```
 
-### 5. Jednoduché spojení (XOR-merge)
+### 5. Jednoduché spojení (Simple Merge, XOR-merge)
 
 Spojení dvou nebo více *nezávislých* větví do jedné. Navazující aktivita začne *okamžitě, jakmile **jedno** vlákno dosáhne konce* — **nemusí čekat** na ostatní větve.
 
@@ -62,21 +62,21 @@ A ─┐
 B ─┘
 ```
 
-XOR-merge je párový vzor k XOR-split: pokud po XOR-split běží *právě jedna* větev, XOR-merge dostane *právě jeden* token a okamžitě pokračuje dále.
+Jednoduché spojení (XOR-merge) je párový vzor k výlučnému rozhodnutí (XOR-split): pokud po výlučném rozhodnutí běží *právě jedna* větev, jednoduché spojení dostane *právě jeden* token (značku procházející sítí) a okamžitě pokračuje dále.
 
-### 6. Vícenásobná volba (OR-split)
+### 6. Vícenásobná volba (Multi-Choice, OR-split)
 
-Rozdělení toku do **jedné nebo více** větví. Výběr na základě podmínek (**neexkluzivně** — může se splnit více podmínek najednou).
+Rozdělení toku do **jedné nebo více** větví. Výběr probíhá na základě podmínek, a to **neexkluzivně** — může se splnit více podmínek najednou.
 
-V BPMN se kreslí jako brána s **O** (Inclusive Decision Gate).
+V BPMN se kreslí jako brána s **O** (inkluzivní rozhodovací brána, Inclusive Decision Gate).
 
-### 7. Synchronizující sloučení (OR-join)
+### 7. Synchronizující sloučení (Synchronizing Merge, OR-join)
 
-Čeká na ukončení **všech větví, které byly spuštěny** (ne nutně všech *možných*). Párový vzor k OR-split — *„skončí vše, co začalo".*
+Čeká na ukončení **všech větví, které byly spuštěny** (ne nutně všech *možných*). Jde o párový vzor k vícenásobné volbě (OR-split) — platí pro něj pravidlo *„skončí vše, co začalo".*
 
-Implementace je netriviální — engine musí vědět, *které větve byly aktivovány*, aby věděl, na které čekat. Toto je důvod, proč některé starší enginy OR-join řádně nepodporují a doporučují místo něj kombinace XOR a AND.
+Implementace je netriviální — vykonávací engine (běhové jádro procesu) musí vědět, *které větve byly aktivovány*, aby věděl, na které z nich má čekat. Právě proto některé starší enginy synchronizující sloučení (OR-join) řádně nepodporují a místo něj doporučují kombinaci bran XOR a AND.
 
-::: viz workflow-patterns "Vyber pattern, pak klikni na zvýrazněný obdélník nebo tlačítko ▶ pro „fire transition\". Sleduj, jak se tokeny pohybují."
+::: viz workflow-patterns "Vyber vzor, pak klikni na zvýrazněný obdélník nebo tlačítko ▶ pro spuštění přechodu (fire transition). Sleduj, jak se tokeny pohybují."
 :::
 
 ## Souhrnná tabulka
@@ -93,14 +93,14 @@ Implementace je netriviální — engine musí vědět, *které větve byly akti
 
 ## Sémantika tokenů — Petriho sítě
 
-Formálně se sémantika BPMN modelů popisuje pomocí **Petriho sítí**. Každá aktivita drží *tokeny*; přechod (brána) se *aktivuje*, když má dost vstupních tokenů, a vyrábí výstupní tokeny podle pravidla brány.
+Formálně se sémantika BPMN modelů popisuje pomocí **Petriho sítí**. Každá aktivita drží *tokeny* (značky, které procházejí sítí). Přechod (brána) se *aktivuje*, jakmile má dostatek vstupních tokenů, a podle pravidla dané brány vyrobí výstupní tokeny.
 
-- **AND-split** vyrobí *tokeny pro každou výstupní větev*.
-- **AND-join** spotřebuje *po jednom tokenu z každé vstupní větve* a vyrobí jeden výstupní.
-- **XOR-split** vyrobí *jeden token do jedné větve* podle podmínky.
-- **XOR-merge** *přepošle* token z libovolné vstupní větve.
+- **Paralelní rozdělení (AND-split)** vyrobí *tokeny pro každou výstupní větev*.
+- **Synchronizace (AND-join)** spotřebuje *po jednom tokenu z každé vstupní větve* a vyrobí jeden výstupní.
+- **Výlučné rozhodnutí (XOR-split)** vyrobí *jeden token do jedné větve* podle podmínky.
+- **Jednoduché spojení (XOR-merge)** *přepošle* token z libovolné vstupní větve.
 
-Tato Petri-síťová sémantika je teoretický základ **verifikace** workflow modelů — viz [[flexibilita-workflow]].
+Tato sémantika založená na Petriho sítích je teoretickým základem **verifikace** workflow modelů — viz [[flexibilita-workflow]].
 
 ---
 

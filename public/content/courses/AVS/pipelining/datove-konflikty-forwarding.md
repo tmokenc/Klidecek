@@ -4,23 +4,23 @@ title: Datové konflikty a forwarding
 
 # Datové konflikty (RAW, WAR, WAW) a předávání dat (forwarding)
 
-Pipeline má ideální CPI = 1, *pokud* sousední instrukce na sebe nezávisí. V reálném kódu závisí *velmi často*. Datové konflikty zpomalují pipeline o **stall** cykly. Forwarding (bypass) většinu z nich neutralizuje bez stall — *za cenu* hardware (multiplexory, drátování).
+Zřetězené zpracování (pipeline) má ideální CPI (počet taktů na instrukci, cycles per instruction) rovné 1, *pokud* na sebe sousední instrukce nezávisí. V reálném kódu na sebe ale závisí *velmi často*. Datové konflikty (data hazards) zpomalují pipeline o pozastavovací cykly (stall) — tedy takty, kdy pipeline „stojí“ a nic užitečného nedokončí. Předávání dat (forwarding, někdy též bypass) většinu těchto konfliktů odstraní bez jediného stallu — ovšem *za cenu* dalšího hardwaru (multiplexory, propojovací vodiče).
 
 ## Tři druhy datových závislostí
 
-Závislost mezi instrukcí $i$ a pozdější instrukcí $j$:
+Mluvíme o závislosti mezi instrukcí $i$ a pozdější instrukcí $j$:
 
-- **RAW** *(Read After Write)* — *pravá* závislost. $j$ čte registr, který $i$ právě píše. Vyžaduje *čekání* nebo *forwarding*. Vyplývá z toku dat — nelze obejít přejmenováním.
-- **WAR** *(Write After Read)* — *protiproud* (anti-dependence). $j$ píše do registru, ze kterého $i$ ještě čte. Vzniká jen při změně pořadí. Odstranitelná **přejmenováním**.
-- **WAW** *(Write After Write)* — *výstupní*. $j$ píše do stejného registru jako $i$. Při změně pořadí by výsledek byl špatný. Také odstranitelná přejmenováním.
+- **RAW** *(Read After Write, čtení po zápisu)* — *pravá* závislost. Instrukce $j$ čte registr, do kterého $i$ právě zapisuje. Vyžaduje *čekání* nebo *forwarding*. Vyplývá ze skutečného toku dat — nelze ji obejít přejmenováním.
+- **WAR** *(Write After Read, zápis po čtení)* — *protisměrná* závislost (anti-dependence). Instrukce $j$ zapisuje do registru, ze kterého $i$ ještě čte. Vzniká jen při změně pořadí instrukcí. Lze ji odstranit **přejmenováním**.
+- **WAW** *(Write After Write, zápis po zápisu)* — *výstupní* závislost. Instrukce $j$ zapisuje do stejného registru jako $i$. Při změně pořadí by byl výsledek špatný. Také ji lze odstranit přejmenováním.
 
-| Konflikt | Příčina | Řešitelný |
+| Konflikt | Příčina | Řešení |
 | :--- | :--- | :--- |
-| RAW | tok dat | forwarding, čekání, kompilátor |
-| WAR | konflikt jmen | přejmenováním ([[renaming-rob]]) |
-| WAW | konflikt jmen | přejmenováním |
+| RAW | tok dat | forwarding, čekání, překladač (compiler) |
+| WAR | konflikt jmen | přejmenování ([[renaming-rob]]) |
+| WAW | konflikt jmen | přejmenování |
 
-V *klasické 5-stupňové* in-order pipeline FX WAW a WAR *vzniknout nemohou* — instrukce dokončují v pořadí vydávání. V FP pipeline s vícetaktovým EX a v OoO ([[scoreboard]]) už vznikají.
+V *klasické 5stupňové* celočíselné pipeline zpracovávající instrukce v pořadí (in-order) konflikty WAW a WAR *vzniknout nemohou* — instrukce totiž dokončují v pořadí, v jakém byly vydány. V pipeline pro operace v pohyblivé řádové čárce (FP, floating-point) s vícetaktovým stupněm EX a u procesorů zpracovávajících instrukce mimo pořadí (OoO, out-of-order; viz [[scoreboard]]) už ale tyto konflikty vznikají.
 
 ## RAW bez forwardingu — stall
 
@@ -38,13 +38,13 @@ sub r5,r1:      IF  ID  ID  ID  EX  MA  WB
                     ^^^ stall 2 cykly ^^^
 ```
 
-Proč 2 cykly? `add` zapíše `r1` *na začátku* WB (takt 5). `sub` chce `r1` číst v ID — takt 5 nejdřív. Pipeline pozastaví `sub` ve fázi ID 2 takty.
+Proč právě 2 cykly? Instrukce `add` zapíše `r1` *na začátku* fáze WB (takt 5). Instrukce `sub` přitom chce `r1` číst ve fázi ID, což jí nejdříve umožní až takt 5. Pipeline proto musí `sub` ve fázi ID pozastavit o 2 takty.
 
-Pokuta: **2 stall cykly na RAW závislost (ALU→ALU bez forwardingu)** ⇒ CPI pro tuto dvojici = 3. To je rychle drahé — RAW závislosti tvoří podstatnou část typického kódu.
+Cena tohoto čekání: **2 stall cykly na jednu RAW závislost (ALU→ALU bez forwardingu)** ⇒ CPI této dvojice instrukcí je 3. To se velmi rychle prodraží — RAW závislosti tvoří podstatnou část typického kódu.
 
 ## Forwarding (bypass)
 
-Klíčový postřeh: výsledek `add` je *hotový* už na konci EX (takt 3), jen *není zapsaný* do register file. Stačí ho **přímo poslat** z výstupu EX zpět na vstup EX další instrukce.
+Klíčový postřeh: výsledek instrukce `add` je *hotový* už na konci fáze EX (takt 3), jen ještě *není zapsaný* do registrového pole (register file). Stačí ho tedy **rovnou poslat** z výstupu EX zpět na vstup EX následující instrukce — tj. obejít zápis do registrů a načtení z nich.
 
 ```
 takt:        1   2   3   4   5   6
@@ -54,7 +54,7 @@ sub r5,r1:      IF  ID  EX  MA  WB
                         ↑ EX→EX bypass
 ```
 
-CPI této dvojice = **1** — žádný stall. Hardware: **multiplexor před ALU**, který volí mezi výstupem register file a vstupem z EX/MA registru.
+CPI této dvojice je **1** — žádný stall. Co je k tomu potřeba v hardwaru: **multiplexor před ALU**, který vybírá mezi hodnotou z registrového pole (register file) a hodnotou předanou z mezistupňového registru EX/MA.
 
 ::: svg "Forwarding předá výsledek dopředu v čase — do EX pozdější instrukce (zpět to nejde)"
 <svg viewBox="0 0 372 226" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -123,15 +123,15 @@ CPI této dvojice = **1** — žádný stall. Hardware: **multiplexor před ALU*
 
 ### Typy bypass cest
 
-V 5-stupňové pipeline jsou tři praktické bypass cesty:
+V 5stupňové pipeline existují tři prakticky používané cesty pro forwarding (bypass cesty):
 
-| Bypass | Z fáze | Do fáze | Užití |
+| Bypass | Z fáze | Do fáze | Použití |
 | :--- | :--- | :--- | :--- |
 | EX → EX | po ALU | další ALU | `add r1,...` → `sub _, r1, _` (CPI = 1) |
-| MA → EX | po MA | další ALU | RAW na vzdálenost 2 (1 nezávislá mezi nimi) nebo `lw` po 1 stallu — hodnota čeká v latchi MA/WB |
-| MA → MA | po MA | další store | `lw r4,..` → `sw r4,...` (kopírování) |
+| MA → EX | po MA | další ALU | RAW závislost na vzdálenost 2 (mezi instrukcemi je 1 nezávislá) nebo `lw` po 1 stallu — hodnota čeká v mezistupňovém registru MA/WB |
+| MA → MA | po MA | další store (zápis do paměti) | `lw r4,..` → `sw r4,...` (kopírování hodnoty) |
 
-Bypass zpět *do minulého taktu* **nelze** — kauzalita. Pokud `lw` načte v MA, ALU instrukce po něm v EX *minulý takt* nemůže výsledek dostat.
+Předat hodnotu *zpět do minulého taktu* **nelze** — bránila by tomu kauzalita (příčina musí předcházet následku). Pokud `lw` načte hodnotu až ve fázi MA, instrukce ALU, která je za ním a byla ve fázi EX už *o takt dříve*, tuto hodnotu prostě dostat nemůže.
 
 ## Load-use stall — jediný stall i s forwardingem
 
@@ -148,39 +148,39 @@ add r5,r4:      IF  ID  ID  EX  MA  WB
                         ↑ 1 stall, pak MA→EX bypass
 ```
 
-`r4` je k dispozici až *na konci MA* (takt 4). Bypass MA → EX je možný, ale `add` musí být v *taktu 5* v EX, ne v taktu 4. ⇒ **1 stall**.
+Hodnota `r4` je k dispozici až *na konci fáze MA* (takt 4). Bypass MA → EX je sice možný, ale `add` musí být ve fázi EX až v *taktu 5*, nikoli už v taktu 4. Z toho plyne **1 stall**.
 
-Tomuhle se říká **load-use delay** a je *neodstranitelný* na 5-stupňové pipeline. Kompilátor se snaží vložit *jinou* nezávislou instrukci mezi `lw` a `use`.
+Tomuto zpoždění se říká **load-use delay** (zdržení při použití právě načtené hodnoty) a v 5stupňové pipeline je *neodstranitelné*. Překladač (compiler) se proto snaží vložit mezi `lw` a instrukci, která načtenou hodnotu používá, nějakou *jinou*, nezávislou instrukci, aby prázdný takt zaplnil užitečnou prací.
 
 ::: viz pipeline-hazards "Vyber program (bez konfliktů / RAW / load-use) a zapni/vypni forwarding — sleduj, jak stall cykly zvedají CPI."
 :::
 
 ### Latence FP operací
 
-V FP pipeline s vícetaktovým EX:
+V FP pipeline (operace v pohyblivé řádové čárce) s vícetaktovým stupněm EX platí tyto nutné pauzy mezi instrukcí, která hodnotu vyrábí (producent), a instrukcí, která ji spotřebovává (konzument):
 
 | Producent | Konzument | Pauza (cykly) |
 | :--- | :--- | :---: |
 | FP ALU op | další FP ALU op | 3 |
-| FP ALU op | store double | 2 |
-| Load double | FP ALU op | 1 |
+| FP ALU op | store double (zápis do paměti) | 2 |
+| Load double (načtení z paměti) | FP ALU op | 1 |
 | Load double | store double | 0 |
 
-V příkladu inkrementace prvků vektoru ve FP s naivním vkládáním NOP jsou výsledné 9 taktů/prvek; po **rozbalení smyčky** (loop unrolling, 4 iterace prolnuté) klesne pauza na 3,5 taktů/prvek — kompilátor *přesměruje* nezávislé instrukce do prázdných slotů.
+V příkladu, kdy ve FP inkrementujeme prvky vektoru a pauzy zaplňujeme naivně instrukcemi NOP (prázdná operace), vychází 9 taktů na prvek. Po **rozbalení smyčky** (loop unrolling — kdy se tělo smyčky rozkopíruje, zde 4 iterace prolnuté dohromady) klesne pauza na 3,5 taktu na prvek, protože překladač (compiler) má prostor *přesunout* nezávislé instrukce do prázdných slotů.
 
-## WAR a WAW v 5-stupňové pipeline
+## WAR a WAW v 5stupňové pipeline
 
-V klasické MIPS 5-stupňové pipeline *nevznikají*, protože:
+V klasické 5stupňové pipeline MIPS tyto konflikty *nevznikají*, a to protože:
 
-- Zápis do registr file je *vždy* v WB (stupeň 5) — pořadí WB respektuje pořadí vydávání.
-- Čtení registru je *vždy* v ID — předchází WB pozdější instrukce.
+- Zápis do registrového pole (register file) probíhá *vždy* ve fázi WB (stupeň 5) — pořadí zápisů WB tedy přesně kopíruje pořadí, v jakém byly instrukce vydány.
+- Čtení registru probíhá *vždy* ve fázi ID, která předchází fázi WB jakékoli pozdější instrukce.
 
 Vznikají *až*:
 
-- V FP pipeline s vícetaktovým EX, kde `fmul` (delší EX latence) dokončí WB až po později vydaném `fadd`.
-- V OoO superskaláru, kde instrukce vydávají *out-of-order*.
+- V FP pipeline s vícetaktovým stupněm EX, kde instrukce `fmul` (delší latence ve fázi EX) dokončí svůj zápis WB až po později vydané instrukci `fadd`.
+- V superskalárním procesoru zpracovávajícím instrukce mimo pořadí (OoO), kde se instrukce vydávají *out-of-order*.
 
-Řešení v obou případech: **přejmenování registrů** ([[renaming-rob]]).
+Řešení je v obou případech stejné: **přejmenování registrů** ([[renaming-rob]]).
 
 ```
 i1: fmul f1, f2, f3    ; pomalý
@@ -188,28 +188,28 @@ i2: fadd f1, f4, f5    ; rychlý, WAW na f1
                         ; přejmenování: i2 zapíše do f1' místo f1
 ```
 
-## Co řeší kompilátor a co hardware
+## Co řeší překladač a co hardware
 
-Kompilátor:
+Překladač (compiler):
 
-- **Reordering** — vloží nezávislou instrukci mezi producent a konzument.
-- **Loop unrolling** — rozbalí smyčku, aby měl prostor pro reordering.
-- **Software pipelining** — promíchá fáze sousedních iterací.
+- **Přeskupení instrukcí** (reordering) — vloží mezi producenta a konzumenta nějakou nezávislou instrukci.
+- **Rozbalení smyčky** (loop unrolling) — rozkopíruje tělo smyčky, aby získal prostor pro přeskupování instrukcí.
+- **Softwarové zřetězení** (software pipelining) — promíchá fáze sousedních iterací smyčky.
 
-Hardware (in-order, jednoduchý):
+Hardware (jednoduchý, zpracovávající instrukce v pořadí, in-order):
 
-- **Detekce konfliktu** v ID — kontroluje, zda zdrojový registr není cíl předchozí instrukce v EX/MA.
-- **Stall** — pozastavení IF + ID, dokud konflikt nezmizí.
-- **Forwarding** — multiplexory pro bypass cesty.
+- **Detekce konfliktu** ve fázi ID — kontroluje, zda zdrojový registr není zároveň cílem předchozí instrukce nacházející se ve fázi EX nebo MA.
+- **Stall** — pozastavení fází IF a ID, dokud konflikt nepomine.
+- **Forwarding** — multiplexory tvořící bypass cesty.
 
-Hardware (OoO):
+Hardware (zpracovávající instrukce mimo pořadí, OoO):
 
 - **Scoreboard** ([[scoreboard]]) — sleduje konflikty pomocí tabulky.
-- **Tomasulo** ([[tomasulo]]) — rezervační stanice + přejmenování.
+- **Tomasulův algoritmus** ([[tomasulo]]) — rezervační stanice společně s přejmenováním registrů.
 
 ## Co dál
 
-Datové konflikty řeší forwarding (RAW) a přejmenování (WAR/WAW). [[ridici-konflikty-skoky]] řeší *řídicí* konflikty — skoky, které pipeline neumí předpovědět. [[superpipelining-vykon]] shrne, jak stally celkově ovlivňují speedup.
+Datové konflikty řeší forwarding (u RAW) a přejmenování registrů (u WAR a WAW). Stránka [[ridici-konflikty-skoky]] se věnuje *řídicím* konfliktům — tedy skokům, jejichž cíl pipeline neumí předem předpovědět. Stránka [[superpipelining-vykon]] pak shrnuje, jak stally celkově ovlivňují zrychlení (speedup).
 
 ---
 

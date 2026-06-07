@@ -1,44 +1,44 @@
 ---
-title: Bell-LaPadula model — confidentiality
+title: Model Bell-LaPadula — důvěrnost
 ---
 
-# Bell-LaPadula (BLP) — formal model důvěrnosti
+# Bell-LaPadula (BLP) — formální model důvěrnosti
 
-**Bell-LaPadula** (David Elliott Bell, Leonard LaPadula, 1973) je *první formální* security model — určen pro vojenské systémy klasifikace dat. Cíl: **prevent flow of high-classified information to low-clearance subjects**.
+**Bell-LaPadula** (David Elliott Bell, Leonard LaPadula, 1973) je *první formální* bezpečnostní model (security model) — navržený pro vojenské systémy klasifikace dat. Jeho cílem je **zabránit toku vysoce utajovaných informací k subjektům s nízkým oprávněním**.
 
-## Klasifikace a clearance
+## Klasifikace a oprávnění (clearance)
 
-### Levels (totally ordered)
+### Úrovně utajení (úplně uspořádané)
 
-| Level | Symbol | Order |
+| Úroveň | Symbol | Pořadí |
 | :--- | :---: | :---: |
-| Unclassified | U | 0 |
-| Confidential | C | 1 |
-| Secret | S | 2 |
-| Top Secret | TS | 3 |
+| Neutajované (Unclassified) | U | 0 |
+| Důvěrné (Confidential) | C | 1 |
+| Tajné (Secret) | S | 2 |
+| Přísně tajné (Top Secret) | TS | 3 |
 
-Hierarchical: TS > S > C > U.
+Úrovně jsou hierarchické: TS > S > C > U.
 
-### Categories (compartments)
+### Kategorie (compartments)
 
-*Lattice* (partially ordered). Examples:
+Kategorie tvoří *svaz* (lattice, částečně uspořádanou množinu). To znamená, že na rozdíl od úrovní spolu nemusí být porovnatelné každá s každou. Příklady kategorií:
 
 ```
 {NUCLEAR, CRYPTO, EUROPEAN, ASIAN}
 ```
 
-User clearance / Object label = `(Level, Categories)`.
+Oprávnění uživatele (clearance) i štítek (label) objektu mají tvar `(Úroveň, Kategorie)`.
 
-### Dominance relation
+### Relace dominance
 
-`L1 dom L2` iff:
+Platí `L1 dom L2` (čteme „L1 dominuje L2") právě tehdy, když:
 
-- `Level(L1) >= Level(L2)`, AND
-- `Categories(L1) ⊇ Categories(L2)`.
+- `Úroveň(L1) >= Úroveň(L2)`, A ZÁROVEŇ
+- `Kategorie(L1) ⊇ Kategorie(L2)` (kategorie L1 jsou nadmnožinou kategorií L2).
 
-Formally: `L1 dom L2 ↔ L1 ≽ L2` in lattice.
+Formálně: `L1 dom L2 ↔ L1 ≽ L2` ve svazu.
 
-::: svg "BLP lattice — levels × categories"
+::: svg "Svaz BLP — úrovně × kategorie"
 <svg viewBox="0 0 540 246" font-family="ui-sans-serif, system-ui" font-size="10">
   <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.5">
     <circle cx="270" cy="40" r="22"/>
@@ -71,25 +71,25 @@ Formally: `L1 dom L2 ↔ L1 ≽ L2` in lattice.
 </svg>
 :::
 
-## BLP Rules
+## Pravidla BLP
 
-### Simple Security Property — "no read up"
+### Simple Security Property — „no read up" (nečíst nahoru)
 
-Subject `s` can *read* object `o` iff `clearance(s) dom label(o)`.
+Subjekt `s` smí *číst* objekt `o` právě tehdy, když `clearance(s) dom label(o)`.
 
-Subject TS can read TS, S, C, U. But Secret can NOT read TS.
+Subjekt s oprávněním TS smí číst TS, S, C i U. Subjekt Secret ale NESMÍ číst TS.
 
-⇒ Prevents *reading higher-classified*.
+⇒ Toto pravidlo brání *čtení informací s vyšším utajením*.
 
-### *-Property (star property) — "no write down"
+### *-Property (hvězdičkové pravidlo) — „no write down" (nezapisovat dolů)
 
-Subject `s` can *write* object `o` iff `label(o) dom clearance(s)`.
+Subjekt `s` smí *zapisovat* do objektu `o` právě tehdy, když `label(o) dom clearance(s)`.
 
-TS subject can write TS, *not* S, C, U.
+Subjekt TS smí zapisovat do objektů TS, ale *nikoli* do S, C, U.
 
-⇒ Prevents *leakage* — TS subject cannot copy TS info to S file.
+⇒ Toto pravidlo brání *úniku informací* — subjekt TS nemůže zkopírovat informaci utajenou jako TS do souboru klasifikovaného jako S.
 
-::: svg "BLP rules — no read up, no write down"
+::: svg "Pravidla BLP — no read up, no write down"
 <svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="11">
   <g fill="var(--bg-inset)" stroke="var(--line)">
     <rect x="20" y="20" width="100" height="30" rx="3"/>
@@ -106,27 +106,27 @@ TS subject can write TS, *not* S, C, U.
   <g fill="var(--accent)" opacity="0.2">
     <rect x="200" y="60" width="100" height="50" rx="3" stroke="var(--accent)" stroke-width="1" fill-opacity="0.2"/>
   </g>
-  <text x="250" y="80" text-anchor="middle" fill="var(--text)" font-weight="600">Secret subject</text>
-  <text x="250" y="95" text-anchor="middle" fill="var(--text-muted)" font-size="9">read + write</text>
+  <text x="250" y="80" text-anchor="middle" fill="var(--text)" font-weight="600">subjekt Secret</text>
+  <text x="250" y="95" text-anchor="middle" fill="var(--text-muted)" font-size="9">čtení + zápis</text>
   <g stroke="var(--accent)" stroke-width="1.5" fill="none">
     <path d="M250,60 L130,40" marker-end="url(#bx-ar)"/>
   </g>
-  <text x="148" y="30" fill="var(--accent-line)" font-size="9.5" font-weight="600">✗ read up (write up ✓)</text>
+  <text x="148" y="30" fill="var(--accent-line)" font-size="9.5" font-weight="600">✗ čtení nahoru (zápis nahoru ✓)</text>
   <g stroke="var(--accent)" stroke-width="1.5" fill="none">
     <path d="M250,80 L130,80" marker-end="url(#bx-ar)"/>
   </g>
-  <text x="152" y="78" fill="var(--text)" font-size="10">R+W ✓</text>
+  <text x="152" y="78" fill="var(--text)" font-size="10">Č+Z ✓</text>
   <g stroke="var(--accent)" stroke-width="1.5" fill="none">
     <path d="M250,100 L130,120" marker-end="url(#bx-ar)"/>
   </g>
-  <text x="148" y="120" fill="var(--text)" font-size="9.5">read down ✓ (write down ✗)</text>
+  <text x="148" y="120" fill="var(--text)" font-size="9.5">čtení dolů ✓ (zápis dolů ✗)</text>
   <g stroke="var(--accent-line)" stroke-width="1.5" fill="none">
     <path d="M250,110 L130,160" marker-end="url(#bx-ar)"/>
   </g>
-  <text x="150" y="155" fill="var(--accent-line)" font-size="9.5" font-weight="600">✗ write down (read down ✓)</text>
-  <text x="380" y="100" text-anchor="middle" fill="var(--text-faint)" font-size="9">Secret subject:</text>
-  <text x="380" y="115" text-anchor="middle" fill="var(--text-faint)" font-size="9">• read Secret + Confidential + Unclassified ✓</text>
-  <text x="380" y="130" text-anchor="middle" fill="var(--text-faint)" font-size="9">• write Secret + Top Secret ✓</text>
+  <text x="150" y="155" fill="var(--accent-line)" font-size="9.5" font-weight="600">✗ zápis dolů (čtení dolů ✓)</text>
+  <text x="380" y="100" text-anchor="middle" fill="var(--text-faint)" font-size="9">subjekt Secret:</text>
+  <text x="380" y="115" text-anchor="middle" fill="var(--text-faint)" font-size="9">• čte Secret + Confidential + Unclassified ✓</text>
+  <text x="380" y="130" text-anchor="middle" fill="var(--text-faint)" font-size="9">• zapisuje Secret + Top Secret ✓</text>
   <defs>
     <marker id="bx-ar" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
       <path d="M0,0 L5,3 L0,6 z" fill="var(--accent)"/>
@@ -137,80 +137,80 @@ TS subject can write TS, *not* S, C, U.
 
 ### Discretionary Security Property
 
-DAC component — also need owner's permission. BLP just *adds* MAC layer on top of DAC.
+Toto je složka volitelného řízení přístupu (DAC) — potřebujeme tedy také svolení vlastníka. BLP pouze *přidává* vrstvu povinného řízení přístupu (MAC layer) nad DAC.
 
-## Trusted subjects
+## Důvěryhodné subjekty (trusted subjects)
 
-Některé subjekty *jsou důvěryhodné* a mohou *break* BLP rules controlled way:
+Některé subjekty *jsou důvěryhodné* a smějí kontrolovaným způsobem *porušit* pravidla BLP:
 
-- **TS auditor** může write logs to U file (controlled write-down).
-- **Crypto officer** může declassify under formal review.
+- **Auditor TS** smí zapisovat protokoly (logy) do souboru U (řízený zápis dolů, controlled write-down).
+- **Kryptografický důstojník** smí po formálním přezkoumání odtajnit data (declassify).
 
-Trusted subjects mají *zvláštní* clearance ("trusted" bit).
+Důvěryhodné subjekty mají *zvláštní* oprávnění (příznak „trusted").
 
-## Strong vs Weak Tranquility
+## Silná vs. slabá nehybnost (tranquility)
 
-- **Strong tranquility** — labels *never* change after assignment.
-- **Weak tranquility** — labels can change *if* policy allows.
+- **Silná nehybnost (strong tranquility)** — štítky se po přiřazení *nikdy* nemění.
+- **Slabá nehybnost (weak tranquility)** — štítky se mohou změnit, *pokud* to politika dovoluje.
 
-Most systems weak — necessary for re-classification, declassification.
+Většina systémů používá slabou nehybnost — je totiž nezbytná pro přeřazení (re-classification) a odtajnění (declassification).
 
-## Příklad — TS spy {tier=example}
+## Příklad — špion TS {tier=example}
 
-Spy klasifikován jako TS. Wants to leak TS document to unclassified email.
+Špion je klasifikován jako TS. Chce vynést dokument TS do neutajovaného e-mailu.
 
-1. Read TS document (BLP allows, dom relationship OK).
-2. Try write to U email — BLP denies "no write down".
+1. Přečte dokument TS (BLP to dovolí, relace dominance je v pořádku).
+2. Pokusí se zapsat do e-mailu U — BLP to odmítne podle pravidla „no write down".
 
-Even if spy *malicious*, BLP *prevents* the leak architecturally.
+I když je špion *zákeřný*, BLP úniku *zabrání* už svou architekturou.
 
-But: covert channels (timing, output magnitude) can leak — BLP doesn't cover.
+Ovšem: skryté kanály (covert channels) — například časování nebo objem výstupu — mohou informaci přesto vynést, a ty BLP nepokrývá.
 
 ::: viz blp-access-checker "Nastav clearance subjektu a label objektu; sleduj read/write verdict. 'No read up' brání čtení vyšších; 'no write down' brání leakage do nižších."
 :::
 
-## Limity BLP
+## Omezení BLP
 
-- **Confidentiality only** — žádné integrity (low-clearance subject can modify their own data, even if high-classified relies on it).
-- **No availability**.
-- **High labels accumulate** — subject reads lots of data, accumulates classifications.
-- **Awkward in practice** — many real workflows need *occasional* declassification.
-- **Covert channels** — timing, storage covert channels bypass MAC.
+- **Pouze důvěrnost** — žádná integrita (subjekt s nízkým oprávněním může upravovat svá vlastní data, i když na nich závisí vysoce utajovaný subjekt).
+- **Žádná dostupnost (availability)**.
+- **Hromadění vysokých štítků** — subjekt postupně čte mnoho dat a hromadí klasifikace.
+- **Nešikovné v praxi** — mnoho reálných pracovních postupů potřebuje *občasné* odtajnění.
+- **Skryté kanály (covert channels)** — časové i úložné skryté kanály obcházejí MAC.
 
 ## Bell-LaPadula v praxi {tier=practice}
 
-- **Trusted Solaris (1993)** — MLS Solaris.
+- **Trusted Solaris (1993)** — víceúrovňový (MLS) Solaris.
 - **HP-UX BLS** (B-Level Security).
-- **SELinux MLS** — optional Multi-Level Security policy.
-- **Trusted Extensions** (Oracle Solaris) — current MLS for OS.
+- **SELinux MLS** — volitelná politika víceúrovňového zabezpečení (Multi-Level Security).
+- **Trusted Extensions** (Oracle Solaris) — současné MLS pro operační systém.
 
-Commercial *general-purpose* OS *don't* implement BLP. Vojenské + intelligence sítě (SIPRNet, JWICS) do.
+Komerční operační systémy pro *běžné použití* BLP *neimplementují*. Vojenské a zpravodajské sítě (SIPRNet, JWICS) ano.
 
-## BLP vs reality {tier=practice}
+## BLP vs. realita {tier=practice}
 
-Most enterprise data is *not* tagged with sensitivity labels.
+Většina podnikových dat *není* označena štítky citlivosti.
 
-V skutečnosti modern security uses:
+Ve skutečnosti moderní zabezpečení používá:
 
-- **RBAC** ([[rbac-abac]]) — role-based.
-- **ABAC** — attribute-based.
-- **Data Loss Prevention** (DLP) — content-aware controls.
+- **RBAC** ([[rbac-abac]]) — řízení založené na rolích.
+- **ABAC** — řízení založené na atributech.
+- **Data Loss Prevention** (DLP) — kontroly s ohledem na obsah.
 
-BLP zůstává *theoretical foundation* — mnohem real systems *inspired by* BLP without strict implementation.
+BLP zůstává *teoretickým základem* — mnoho reálných systémů je BLP *inspirováno*, aniž by jej striktně implementovaly.
 
-## Vztah k Biba
+## Vztah k modelu Biba
 
-Biba ([[biba-clark-wilson]]) je *dual* — pro integrity. Rules *opposite*:
+Biba ([[biba-clark-wilson]]) je *duální* model — pro integritu. Jeho pravidla jsou *opačná*:
 
-- **No read down** (don't contaminate from low-integrity).
-- **No write up** (don't promote bad data).
+- **No read down** (nečíst dolů — neznečistit se daty s nízkou integritou).
+- **No write up** (nezapisovat nahoru — nepovýšit špatná data).
 
-Real system needs *both* — confidentiality + integrity:
+Reálný systém potřebuje *obojí* — důvěrnost i integritu:
 
-- **Dual-label** — every object has BLP label + Biba label.
-- **Lattice product** — combined model.
+- **Dvojitý štítek (dual-label)** — každý objekt má štítek BLP i štítek Biba.
+- **Součin svazů (lattice product)** — kombinovaný model.
 
-Implementace komplexní, rarely deployed.
+Implementace je složitá a nasazuje se jen zřídka.
 
 ---
 

@@ -2,288 +2,288 @@
 title: GDPR, NIS2 a NÚKIB
 ---
 
-# GDPR, NIS2 a NÚKIB — regulatory landscape
+# GDPR, NIS2 a NÚKIB — regulatorní prostředí
 
-Bezpečnost IS *není* jen technický + manažerský problém. Je to také **regulatorní** povinnost. Tato sekce popisuje hlavní evropská a česká regulace.
+Bezpečnost informačních systémů *není* jen technický a manažerský problém. Je to také **regulatorní** povinnost daná zákonem. Tato sekce popisuje hlavní evropské a české regulace.
 
-## GDPR — General Data Protection Regulation
+## GDPR — obecné nařízení o ochraně osobních údajů (General Data Protection Regulation)
 
-EU Regulation 2016/679. V účinnosti od **25. května 2018**. Reguluje zpracování *osobních údajů*.
+Nařízení EU 2016/679. Účinné od **25. května 2018**. Reguluje zpracování *osobních údajů*.
 
-### Aplikovatelnost
+### Použitelnost
 
 Vztahuje se na *libovolnou* organizaci, která:
 
-- Zpracovává údaje *EU rezidentů*.
-- Bez ohledu na *kde* organizace sídlí.
+- Zpracovává údaje *rezidentů EU*.
+- A to bez ohledu na to, *kde* sama sídlí.
 
-Příklady: US company selling to EU customers → GDPR applies.
+Příklad: americká firma prodávající zákazníkům v EU → GDPR se na ni vztahuje.
 
-### Klíčové principy (čl. 5)
+### Klíčové zásady (čl. 5)
 
-1. **Lawfulness, fairness, transparency**.
-2. **Purpose limitation** — data collected for specified purpose; not repurposed.
-3. **Data minimization** — collect only necessary.
-4. **Accuracy** — keep up to date.
-5. **Storage limitation** — retain only as long as needed.
-6. **Integrity + confidentiality** — security controls.
-7. **Accountability** — controller demonstrates compliance.
+1. **Zákonnost, korektnost, transparentnost** (lawfulness, fairness, transparency).
+2. **Účelové omezení** (purpose limitation) — údaje se sbírají pro určený účel a nepoužívají se k jiným účelům.
+3. **Minimalizace údajů** (data minimization) — shromažďuj pouze to, co je nezbytně nutné.
+4. **Přesnost** (accuracy) — udržuj údaje aktuální.
+5. **Omezení uložení** (storage limitation) — uchovávej je jen po dobu, po kterou jsou potřeba.
+6. **Integrita a důvěrnost** (integrity + confidentiality) — zaveď bezpečnostní opatření.
+7. **Odpovědnost** (accountability) — správce musí umět prokázat soulad s pravidly.
 
-### Right of data subjects (čl. 12-23)
+### Práva subjektů údajů (čl. 12–23)
 
-Data subjects (people) have rights:
+Subjekty údajů (tedy konkrétní lidé) mají tato práva:
 
-- **Right of access** — get copy of their data.
-- **Right to rectification** — correct inaccuracies.
-- **Right to erasure** ("right to be forgotten") — delete.
-- **Right to restrict processing**.
-- **Right to data portability** — get machine-readable copy.
-- **Right to object** — to direct marketing, profiling.
-- **Right not to be subject** to automated decisions including profiling.
+- **Právo na přístup** (right of access) — získat kopii svých údajů.
+- **Právo na opravu** (right to rectification) — opravit nepřesnosti.
+- **Právo na výmaz** (right to erasure, „právo být zapomenut") — nechat údaje smazat.
+- **Právo na omezení zpracování** (right to restrict processing).
+- **Právo na přenositelnost údajů** (right to data portability) — získat kopii ve strojově čitelné podobě.
+- **Právo vznést námitku** (right to object) — proti přímému marketingu nebo profilování.
+- **Právo nebýt předmětem** automatizovaného rozhodování včetně profilování.
 
-### Lawful basis (čl. 6)
+### Právní základ zpracování (čl. 6)
 
-Processing requires *one* of 6 lawful bases:
+Zpracování vyžaduje *alespoň jeden* z šesti právních základů:
 
-1. **Consent** — explicit, granular, withdrawable.
-2. **Contract** — necessary to fulfill contract.
-3. **Legal obligation** — required by law.
-4. **Vital interests** — life-threatening.
-5. **Public task** — official authority.
-6. **Legitimate interests** — balancing test required.
+1. **Souhlas** (consent) — výslovný, podrobný (granulární) a kdykoli odvolatelný.
+2. **Smlouva** (contract) — zpracování je nezbytné pro plnění smlouvy.
+3. **Právní povinnost** (legal obligation) — vyžaduje ji zákon.
+4. **Životně důležité zájmy** (vital interests) — jde o ohrožení života.
+5. **Veřejný úkol** (public task) — výkon úřední pravomoci.
+6. **Oprávněné zájmy** (legitimate interests) — vyžaduje se test vyvážení zájmů.
 
-Most companies: combination.
+Většina firem využívá kombinaci těchto základů.
 
-### Special category data (čl. 9)
+### Zvláštní kategorie údajů (čl. 9)
 
-Higher protection for:
+Vyšší ochranu mají citlivé údaje:
 
-- Race / ethnicity.
-- Political opinions.
-- Religious / philosophical beliefs.
-- Trade union membership.
-- Genetic / biometric / health data.
-- Sex life / orientation.
+- Rasa nebo etnický původ.
+- Politické názory.
+- Náboženské nebo filozofické přesvědčení.
+- Členství v odborech.
+- Genetické, biometrické nebo zdravotní údaje.
+- Sexuální život nebo orientace.
 
-Requires explicit consent or specific legal basis.
+Jejich zpracování vyžaduje výslovný souhlas nebo zvláštní právní základ.
 
-### Data Protection Impact Assessment (DPIA)
+### Posouzení vlivu na ochranu osobních údajů (DPIA)
 
-Required for *high-risk* processing:
+Posouzení vlivu na ochranu osobních údajů (Data Protection Impact Assessment, DPIA) je povinné u *vysoce rizikového* zpracování:
 
-- Systematic monitoring (CCTV, web tracking).
-- Large-scale special category data.
-- Public area surveillance.
+- Systematické monitorování (kamerové systémy, sledování na webu).
+- Rozsáhlé zpracování zvláštních kategorií údajů.
+- Sledování veřejných prostranství.
 
-DPIA documents risks + mitigations *before* processing starts.
+DPIA zdokumentuje rizika a opatření k jejich zmírnění *ještě před* zahájením zpracování.
 
-### Data Protection Officer (DPO)
+### Pověřenec pro ochranu osobních údajů (DPO)
 
-Required for:
+Pověřenec pro ochranu osobních údajů (Data Protection Officer, DPO) je povinný pro:
 
-- Public authorities.
-- Large-scale monitoring.
-- Large-scale special category processing.
+- Orgány veřejné moci.
+- Rozsáhlé monitorování.
+- Rozsáhlé zpracování zvláštních kategorií údajů.
 
-DPO is *independent* — reports to highest management. Contact info public.
+DPO je *nezávislý* — odpovídá se nejvyššímu vedení. Jeho kontaktní údaje musí být veřejné.
 
-### Breach notification
+### Ohlašování porušení zabezpečení
 
-**72 hours** to notify supervisory authority of personal data breach.
+Na ohlášení porušení zabezpečení osobních údajů dozorovému úřadu máte **72 hodin**.
 
-If high risk to individuals → notify *individuals* too.
+Pokud porušení znamená vysoké riziko pro dotčené osoby → je třeba informovat *i tyto osoby*.
 
-Famous example: British Airways 2018 breach. £20M fine (originally £183M, reduced due to COVID).
+Známý příklad: únik dat u British Airways v roce 2018. Pokuta 20 milionů liber (původně 183 milionů liber, snížena kvůli pandemii COVID).
 
-### Penalties
+### Sankce
 
-Tiered:
+Pokuty jsou odstupňované:
 
-- Up to €10M or 2% global annual turnover (technical violations).
-- Up to €20M or 4% global annual turnover (principle violations).
+- Až 10 milionů eur nebo 2 % celosvětového ročního obratu (technická porušení).
+- Až 20 milionů eur nebo 4 % celosvětového ročního obratu (porušení základních zásad).
 
-Whichever higher.
+Platí vždy ta vyšší z obou hodnot.
 
-Major fines:
+Významné pokuty:
 
-- Amazon — €746M (2021).
-- WhatsApp — €225M (2021).
-- Google — €90M (France, 2022).
-- Meta — €1.2B (2023).
+- Amazon — 746 milionů eur (2021).
+- WhatsApp — 225 milionů eur (2021).
+- Google — 90 milionů eur (Francie, 2022).
+- Meta — 1,2 miliardy eur (2023).
 
-::: viz gdpr-rights-flow "Vyber typ žádosti (access / rectify / erase / portability / object); step skrz fáze. Vidíš legal grounds, akce, timeline 30+60 dní, grounds for refusal."
+::: viz gdpr-rights-flow "Vyber typ žádosti (přístup / oprava / výmaz / přenositelnost / námitka); projdi krok za krokem jednotlivými fázemi. Uvidíš právní základ, akci, lhůtu 30+60 dní i důvody pro odmítnutí."
 :::
 
-### Cross-border transfers
+### Předávání údajů přes hranice
 
-Data leaving EU requires safeguard:
+Předání údajů mimo EU vyžaduje záruku ochrany:
 
-- **Adequacy decision** — EU recognizes destination's protection (US Privacy Framework, UK, Japan, others).
-- **Standard Contractual Clauses (SCC)** — vendor contract.
-- **Binding Corporate Rules (BCR)** — for intra-group.
-- **Code of Conduct, Certification**.
+- **Rozhodnutí o odpovídající ochraně** (adequacy decision) — EU uzná úroveň ochrany v cílové zemi (rámec US Privacy Framework, Spojené království, Japonsko a další).
+- **Standardní smluvní doložky** (Standard Contractual Clauses, SCC) — součást smlouvy s dodavatelem.
+- **Závazná podniková pravidla** (Binding Corporate Rules, BCR) — pro předávání v rámci skupiny firem.
+- **Kodex chování, certifikace** (Code of Conduct, Certification).
 
-US transfers complicated — Privacy Shield invalidated by Schrems II (2020). New Data Privacy Framework (2023).
+Předávání do USA je komplikované — rámec Privacy Shield byl zneplatněn rozsudkem Schrems II (2020). Nově jej nahradil Data Privacy Framework (2023).
 
-## NIS2 — Network and Information Security Directive
+## NIS2 — směrnice o bezpečnosti sítí a informací (Network and Information Security Directive)
 
-EU Directive 2022/2555. Transposition deadline **October 2024**. Replaces NIS (2016).
+Směrnice EU 2022/2555. Lhůta pro transpozici do národního práva byla **říjen 2024**. Nahrazuje původní směrnici NIS (2016).
 
-### Scope
+### Rozsah působnosti
 
-Applies to *essential* and *important* entities:
+Vztahuje se na *základní* (essential) a *důležité* (important) subjekty:
 
-**Essential** (Annex I):
+**Základní subjekty** (příloha I):
 
-- Energy.
-- Transport.
-- Banking.
-- Financial market infrastructure.
-- Health.
-- Drinking water.
-- Wastewater.
-- Digital infrastructure.
-- ICT service management.
-- Public administration.
-- Space.
+- Energetika.
+- Doprava.
+- Bankovnictví.
+- Infrastruktura finančních trhů.
+- Zdravotnictví.
+- Pitná voda.
+- Odpadní vody.
+- Digitální infrastruktura.
+- Správa služeb ICT.
+- Veřejná správa.
+- Kosmický prostor.
 
-**Important** (Annex II):
+**Důležité subjekty** (příloha II):
 
-- Postal services.
-- Waste management.
-- Manufacture of chemicals.
-- Food production.
-- Manufacturing — medical devices, machinery, vehicles.
-- Digital providers — online marketplaces, search engines, social networks.
-- Research.
+- Poštovní služby.
+- Nakládání s odpady.
+- Výroba chemických látek.
+- Výroba potravin.
+- Výroba — zdravotnické prostředky, strojírenství, vozidla.
+- Poskytovatelé digitálních služeb — online tržiště, vyhledávače, sociální sítě.
+- Výzkum.
 
-Threshold: medium + large enterprises (>50 employees / >€10M turnover).
+Práh: střední a velké podniky (více než 50 zaměstnanců nebo obrat nad 10 milionů eur).
 
-### Requirements
+### Požadavky
 
-- **Risk management measures**.
-- **Incident reporting** — early warning 24h, notification 72h, final report 1 month.
-- **Cybersecurity policies**.
-- **Multi-factor authentication, encryption**.
-- **Supply chain security**.
-- **Vulnerability disclosure**.
+- **Opatření pro řízení rizik** (risk management measures).
+- **Hlášení incidentů** (incident reporting) — včasné varování do 24 hodin, oznámení do 72 hodin, závěrečná zpráva do 1 měsíce.
+- **Politiky kybernetické bezpečnosti** (cybersecurity policies).
+- **Vícefaktorová autentizace (multi-factor authentication) a šifrování (encryption)**.
+- **Bezpečnost dodavatelského řetězce** (supply chain security).
+- **Zveřejňování zranitelností** (vulnerability disclosure).
 
-### Sanctions
+### Sankce
 
-Up to €10M or 2% annual turnover (essential entities).
+Až 10 milionů eur nebo 2 % ročního obratu (základní subjekty).
 
-Up to €7M or 1.4% (important).
+Až 7 milionů eur nebo 1,4 % obratu (důležité subjekty).
 
-Management *personally liable* for violations.
+Vedení firmy nese za porušení *osobní odpovědnost*.
 
 ## NÚKIB — Národní úřad pro kybernetickou a informační bezpečnost
 
-Czech national cybersecurity authority. Established 2017 (split from NBÚ).
+Český národní úřad pro kybernetickou bezpečnost. Vznikl v roce 2017 (oddělením od NBÚ).
 
-### Mandate
+### Působnost
 
-- **National cybersecurity strategy**.
-- **CSIRT** — Computer Security Incident Response Team.
-- **Certification** — IS security products + services.
-- **Education** — public awareness.
-- **Cooperation** — with EU (ENISA), NATO, other states.
+- **Národní strategie kybernetické bezpečnosti**.
+- **CSIRT** — tým pro reakci na bezpečnostní incidenty (Computer Security Incident Response Team).
+- **Certifikace** — produkty a služby zabezpečení informačních systémů.
+- **Vzdělávání** — osvěta veřejnosti.
+- **Spolupráce** — s EU (ENISA), NATO a dalšími státy.
 
-### Czech Cybersecurity Act
+### Český zákon o kybernetické bezpečnosti
 
 **Zákon č. 181/2014 Sb.** o kybernetické bezpečnosti.
 
-Implements NIS Directive (and now NIS2). Defines:
+Provádí směrnici NIS (a nově i NIS2). Definuje:
 
-- **Critical infrastructure** — energy, banking, healthcare.
-- **Important information systems** — government, finance.
-- **Notifying obligation** — incidents to NÚKIB.
-- **Security measures** — mandatory controls.
+- **Kritickou infrastrukturu** (critical infrastructure) — energetika, bankovnictví, zdravotnictví.
+- **Významné informační systémy** (important information systems) — státní správa, finance.
+- **Oznamovací povinnost** — hlášení incidentů úřadu NÚKIB.
+- **Bezpečnostní opatření** — povinná opatření, která je nutné zavést.
 
-Sanctions: up to 5M CZK ($230k).
+Sankce: až 5 milionů Kč (přibližně 230 tisíc dolarů).
 
-### Czech regulations
+### České předpisy
 
-- **GDPR** transposed via **Zákon č. 110/2019 Sb.** o zpracování osobních údajů.
-- **Czech ÚOOÚ** (Úřad pro ochranu osobních údajů) supervises GDPR compliance.
-- **NIS2** transposition in progress.
+- **GDPR** je transponováno **zákonem č. 110/2019 Sb.** o zpracování osobních údajů.
+- **Český ÚOOÚ** (Úřad pro ochranu osobních údajů) dohlíží na dodržování GDPR.
+- **Transpozice NIS2** zatím probíhá.
 
 ## ENISA
 
-European Union Agency for Cybersecurity. Provides:
+Agentura Evropské unie pro kybernetickou bezpečnost (European Union Agency for Cybersecurity). Poskytuje:
 
-- Threat intelligence.
-- Best practices guides.
-- Capacity building.
-- Certification schemes coordination.
+- Zpravodajství o hrozbách (threat intelligence).
+- Příručky s osvědčenými postupy.
+- Budování schopností a kapacit.
+- Koordinaci certifikačních schémat.
 
-## Other major regulations
+## Další významné regulace
 
-### US
+### USA
 
-- **HIPAA** — healthcare data.
-- **SOX** — financial controls.
-- **GLBA** — financial privacy.
-- **CCPA / CPRA** — California consumer privacy.
-- **State breach notification laws** — all 50 states.
-- **CISA reporting** — federal incident reporting.
+- **HIPAA** — zdravotnická data.
+- **SOX** — finanční kontroly.
+- **GLBA** — soukromí ve finanční oblasti.
+- **CCPA / CPRA** — ochrana soukromí spotřebitelů v Kalifornii.
+- **Zákony o oznamování úniků dat** — ve všech 50 státech.
+- **Hlášení agentuře CISA** — federální hlášení incidentů.
 
-### Sectoral
+### Odvětvové
 
-- **PCI DSS** — payment cards (industry, not law but contractually required).
-- **CIP (NERC)** — energy grid.
-- **CMMC** — DoD contractors.
+- **PCI DSS** — platební karty (oborový standard, není to zákon, ale je smluvně vyžadován).
+- **CIP (NERC)** — energetická síť.
+- **CMMC** — dodavatelé ministerstva obrany USA.
 
-### Privacy laws globally
+### Zákony o ochraně soukromí ve světě
 
-- **LGPD** — Brazil.
-- **PIPEDA** — Canada.
-- **APPI** — Japan.
-- **PDPA** — Singapore.
-- **POPIA** — South Africa.
+- **LGPD** — Brazílie.
+- **PIPEDA** — Kanada.
+- **APPI** — Japonsko.
+- **PDPA** — Singapur.
+- **POPIA** — Jihoafrická republika.
 
-## Compliance vs Security
+## Soulad s předpisy versus skutečná bezpečnost
 
-Important distinction:
+Důležité rozlišení:
 
-- **Compliance** — meeting *regulatory* checkboxes.
-- **Security** — actually being *secure*.
+- **Soulad s předpisy** (compliance) — splnění *regulatorních* požadavků „odškrtnutím políček".
+- **Bezpečnost** (security) — skutečné zabezpečení systému.
 
-These overlap but *not equal*:
+Tyto pojmy se překrývají, ale *nejsou totožné*:
 
-- Compliant but insecure: meeting minimum requirements while real threats unmitigated.
-- Secure but non-compliant: strong security but documentation incomplete.
+- Soulad bez bezpečnosti: organizace plní minimální požadavky, ale reálné hrozby zůstávají nezmírněné.
+- Bezpečnost bez souladu: silné zabezpečení, ale neúplná dokumentace.
 
-Goal: *both*. Compliance forces *baseline*. Security drives beyond.
+Cílem je dosáhnout *obojího*. Soulad s předpisy vynucuje *základní úroveň* a bezpečnost ji posouvá ještě dál.
 
-## DPO + CISO
+## DPO a CISO
 
-Different roles:
+Jde o dvě různé role:
 
-- **DPO** (Data Protection Officer) — privacy, GDPR. Reports independently.
-- **CISO** (Chief Information Security Officer) — security. Reports to CEO / CIO.
+- **DPO** (Data Protection Officer, pověřenec pro ochranu osobních údajů) — soukromí, GDPR. Odpovídá se nezávisle.
+- **CISO** (Chief Information Security Officer, ředitel pro informační bezpečnost) — bezpečnost. Odpovídá se generálnímu řediteli (CEO) nebo řediteli IT (CIO).
 
-Many companies have both. Coordination via Privacy/Security committee.
+Mnoho firem má obě role. Koordinují se prostřednictvím výboru pro soukromí a bezpečnost.
 
-## Compliance technology
+## Technologie pro řízení souladu
 
-- **GRC platforms** — Archer, ServiceNow GRC, OneTrust.
-- **Privacy management** — OneTrust, TrustArc, BigID.
-- **Audit logging** — SIEM ([[siem-monitoring]]).
-- **Data discovery** — find PII across systems.
+- **GRC platformy** (správa řízení, rizik a souladu) — Archer, ServiceNow GRC, OneTrust.
+- **Správa soukromí** — OneTrust, TrustArc, BigID.
+- **Auditní logování** — SIEM ([[siem-monitoring]]).
+- **Vyhledávání dat** (data discovery) — nalezení osobních údajů (PII) napříč systémy.
 
-## Future trends
+## Budoucí trendy
 
-- **AI Act** (EU 2024) — regulation of AI systems. High-risk AI (biometric ID, hiring) heavily regulated.
-- **Cyber Resilience Act** (EU) — connected products security.
-- **Digital Services Act** (DSA), Digital Markets Act (DMA) — Big Tech.
-- **NIS3** — likely next iteration.
-- **Quantum-safe migration** — regulatory pressure.
+- **AI Act** (EU 2024) — regulace systémů umělé inteligence. Vysoce rizikové AI (biometrická identifikace, nábor zaměstnanců) jsou silně regulovány.
+- **Cyber Resilience Act** (EU) — bezpečnost připojených produktů.
+- **Digital Services Act** (DSA) a Digital Markets Act (DMA) — regulace velkých technologických firem.
+- **NIS3** — pravděpodobná příští verze směrnice.
+- **Přechod na kvantově odolnou kryptografii** (quantum-safe migration) — pod regulatorním tlakem.
 
-Compliance landscape continually evolves. Continuous monitoring required.
+Regulatorní prostředí se neustále vyvíjí. Vyžaduje proto průběžné sledování.
 
 ## Bezpečnost jako systém
 
-Bezpečnost je *systém* — žádný jediný control sufficient. Vrstvená obrana, continuous improvement, accept residual risk.
+Bezpečnost je *systém* — žádné jediné opatření nestačí samo o sobě. Spoléhej na vrstvenou obranu, neustálé zlepšování a smiř se s tím, že vždy zůstane určité zbytkové riziko.
 
 ---
 

@@ -2,11 +2,11 @@
 title: Datová prostředí — private, shared, reduction
 ---
 
-# Data sharing v OpenMP — private, shared, reduction
+# Sdílení dat v OpenMP — private, shared, reduction
 
-V parallel regionu musí *každá* proměnná mít jasnou *sharing semantiku*: je *sdílená* (všechna vlákna vidí stejnou paměť) nebo *privátní* (každé vlákno má vlastní kopii)? Špatný choice = race condition nebo *nesprávný výsledek*.
+V paralelní oblasti (parallel region) musí mít *každá* proměnná jasně určenou sémantiku sdílení (sharing): buď je *sdílená* (shared) — všechna vlákna vidí stejnou paměť — nebo je *privátní* (private), tedy každé vlákno má vlastní kopii. Špatná volba znamená souběh (race condition), nebo *nesprávný výsledek*.
 
-## Default rules
+## Výchozí pravidla
 
 ```c
 int a = 1, b = 2, c = 3;
@@ -18,13 +18,13 @@ int a = 1, b = 2, c = 3;
 }
 ```
 
-Default `default(shared)`:
+Při výchozím nastavení `default(shared)` platí:
 
-- Proměnné *declared inside* parallel = **private**.
-- Proměnné *declared outside* a *referenced inside* = **shared**.
-- Loop indices `i` v `parallel for` = **private** automaticky.
+- Proměnné *deklarované uvnitř* paralelní oblasti = **private** (privátní).
+- Proměnné *deklarované venku* a *použité uvnitř* = **shared** (sdílené).
+- Indexy smyčky `i` v `parallel for` jsou **private** automaticky.
 
-Programátor *měl* by **explicitně** určit:
+Programátor *by měl* sdílení proměnných určovat **explicitně**:
 
 ```c
 #pragma omp parallel default(none) shared(a, b) private(c)
@@ -33,13 +33,13 @@ Programátor *měl* by **explicitně** určit:
 }
 ```
 
-`default(none)` force explicit declaration — *bug prevention*. Doporučováno.
+`default(none)` vynutí explicitní deklaraci u každé proměnné — *předchází chybám*. Tento postup je doporučovaný.
 
 ## Klauzule
 
 ### shared(var)
 
-Variable shared mezi všemi threads. Změny *viditelné* všem.
+Proměnná je sdílená mezi všemi vlákny (threads). Změny jsou *viditelné* všem.
 
 ```c
 int sum = 0;
@@ -49,11 +49,11 @@ int sum = 0;
 }
 ```
 
-⚠ Race condition! Musí být *chráněno* atomic/critical, nebo použít `reduction`.
+⚠ Vznikne souběh (race condition)! Přístup musí být *chráněn* pomocí `atomic` nebo `critical`, případně použijte `reduction`.
 
 ### private(var)
 
-Každé vlákno má *vlastní* kopii. **Uninitialized** at start (pozor — *neimplicit* copy z outer value).
+Každé vlákno má *vlastní* kopii. Na začátku je **neinicializovaná** (pozor — *neproběhne* implicitní kopie hodnoty z vnější proměnné).
 
 ```c
 int x = 5;
@@ -68,7 +68,7 @@ printf("%d\n", x);       // 5 (outer x unchanged)
 
 ### firstprivate(var)
 
-Jako `private`, ale initialized *outer value*.
+Jako `private`, ale kopie je inicializována *hodnotou z vnější proměnné*.
 
 ```c
 int x = 5;
@@ -82,7 +82,7 @@ printf("%d\n", x);       // 5 (outer unchanged)
 
 ### lastprivate(var)
 
-Jako `private`, ale po skončení parallel region *outer* dostane hodnotu *posledně iterace* (in serial order).
+Jako `private`, ale po skončení paralelní oblasti *vnější* proměnná dostane hodnotu *poslední iterace* (v sériovém pořadí).
 
 ```c
 int last = 0;
@@ -93,11 +93,11 @@ for (int i = 0; i < N; i++) {
 // Now outer 'last' = compute(N-1), even if thread T didn't run it
 ```
 
-Funguje *jen* s `for` directive.
+Funguje *jen* s direktivou `for`.
 
 ### reduction(op:var)
 
-Speciální: kombinace `private` + *implicit* reduction operation.
+Zvláštní klauzule: kombinuje `private` s *implicitní* redukční operací.
 
 ```c
 int sum = 0;
@@ -109,30 +109,30 @@ for (int i = 0; i < N; i++)
 
 Mechanismus:
 
-1. Každé vlákno má `private` kopii `sum`, initialized to **identity** (`0` for `+`, `1` for `*`, `INT_MIN` for `max`, atd.).
+1. Každé vlákno má `private` kopii proměnné `sum`, inicializovanou na **neutrální prvek** (identity) dané operace (`0` pro `+`, `1` pro `*`, `INT_MIN` pro `max` atd.).
 2. Vlákno akumuluje do své kopie.
 3. Na konci se *kopie spojí* operací `+`.
 
-⇒ Žádný race, žádný critical section. **Best practice for accumulators.**
+⇒ Žádný souběh, žádná kritická sekce. **Osvědčený postup pro akumulátory.**
 
-| Operation | Identity | Příklad |
+| Operace | Neutrální prvek | Příklad |
 | :--- | :--- | :--- |
-| `+` | 0 | sum |
-| `*` | 1 | product |
-| `-` | 0 | sum (same as +) |
-| `&` | ~0 | bitwise AND |
-| `\|` | 0 | bitwise OR |
-| `^` | 0 | bitwise XOR |
-| `&&` | 1 | logical AND |
-| `\|\|` | 0 | logical OR |
-| `max` | smallest possible | max element |
-| `min` | largest possible | min element |
+| `+` | 0 | součet |
+| `*` | 1 | součin |
+| `-` | 0 | součet (stejné jako +) |
+| `&` | ~0 | bitové AND |
+| `\|` | 0 | bitové OR |
+| `^` | 0 | bitové XOR |
+| `&&` | 1 | logické AND |
+| `\|\|` | 0 | logické OR |
+| `max` | nejmenší možná hodnota | maximální prvek |
+| `min` | největší možná hodnota | minimální prvek |
 
-OpenMP 4.0+ podporuje *user-defined reduction* (UDR) pro vlastní operace.
+OpenMP 4.0+ podporuje *uživatelsky definované redukce* (user-defined reduction, UDR) pro vlastní operace.
 
-## Příklad bez vs s reduction {tier=example}
+## Příklad bez redukce a s redukcí {tier=example}
 
-### Špatně: race
+### Špatně: souběh
 
 ```c
 int count = 0;
@@ -141,9 +141,9 @@ for (int i = 0; i < N; i++)
     if (a[i] == 0) count++;        // RACE
 ```
 
-Výsledek random, less than expected (lost updates).
+Výsledek je náhodný a menší, než se očekávalo (ztracené aktualizace, lost updates).
 
-### Špatně: critical (works but slow)
+### Špatně: critical (funguje, ale je pomalé)
 
 ```c
 int count = 0;
@@ -155,7 +155,7 @@ for (int i = 0; i < N; i++)
     }
 ```
 
-Funguje, ale **serializovaný** — *žádný* parallel speedup. Critical = bottleneck.
+Funguje, ale je **serializované** — *žádné* paralelní zrychlení. Kritická sekce se stává úzkým hrdlem (bottleneck).
 
 ### Správně: reduction
 
@@ -166,11 +166,11 @@ for (int i = 0; i < N; i++)
     if (a[i] == 0) count++;
 ```
 
-Race-free, plně parallel. Per-thread partial counts sjednoceny *automaticky*.
+Bez souběhu, plně paralelní. Dílčí počty jednotlivých vláken (per-thread partial counts) jsou sjednoceny *automaticky*.
 
 ## threadprivate
 
-Globální variable, ale *per-thread* persistence (přes parallel regions):
+Globální proměnná, ale s *trvalostí pro každé vlákno* (persistence napříč paralelními oblastmi):
 
 ```c
 int counter;
@@ -188,17 +188,17 @@ void f() {
 // Each thread's counter = 2
 ```
 
-`threadprivate` je rare — typicky pro thread-local state, např. random generator state.
+`threadprivate` se používá vzácně — typicky pro stav lokální vůči vláknu (thread-local state), například stav generátoru náhodných čísel.
 
-## Memory model
+## Paměťový model
 
-OpenMP poskytuje **relaxed consistency**:
+OpenMP poskytuje **uvolněnou konzistenci** (relaxed consistency):
 
-- Zápis `a = 1` v thread T1 *nemusí* být *okamžitě* viditelný T2.
-- **Flush** operace (`#pragma omp flush`) vynutí *synchronization point*.
-- Implicit flush u: barrier, critical, atomic, lock, parallel entry/exit.
+- Zápis `a = 1` ve vlákně T1 *nemusí* být *okamžitě* viditelný vláknu T2.
+- Operace **flush** (`#pragma omp flush`) vynutí *synchronizační bod* (synchronization point).
+- Implicitní flush nastává u: bariéry, kritické sekce, atomic, zámku (lock) a při vstupu do paralelní oblasti i výstupu z ní.
 
-V praxi: pokud používáte `critical` / `atomic` / `barrier` / reduction, *nemusíte se starat*. Pokud používáte direct shared variable updates, **explicit flush** nebo `atomic`.
+V praxi: pokud používáte `critical` / `atomic` / `barrier` / redukci, *nemusíte se o nic starat*. Pokud aktualizujete sdílené proměnné přímo, použijte **explicitní flush** nebo `atomic`.
 
 ```c
 shared int ready = 0;
@@ -218,7 +218,7 @@ while (ready == 0) {
 use(data);
 ```
 
-Tohle je *pattern producer-consumer* bez critical. Komplikovaný — typicky lepší použít `omp_lock`.
+Tohle je *vzor producent-konzument* (producer-consumer) bez kritické sekce. Je komplikovaný — obvykle je lepší použít `omp_lock`.
 
 ## False sharing
 
@@ -232,9 +232,9 @@ for (int i = 0; i < N; i++) {
 }
 ```
 
-Vypadá clean. **Problem**: `counts[0..7]` jsou na *jedné* cache line (64 B / 4 B = 16 ints per line). Každé incrementoval různý thread → **cache line ping-pong**.
+Vypadá to čistě. **Problém**: `counts[0..7]` leží na *jedné* cache line (64 B / 4 B = 16 intů na řádek). Každý prvek inkrementuje jiné vlákno → **přehazování cache line tam a zpět** (cache line ping-pong).
 
-Fix: padding to cache line:
+Náprava: zarovnání na velikost cache line (padding):
 
 ```c
 struct {
@@ -243,29 +243,29 @@ struct {
 } counts[8];
 ```
 
-Nebo *thread-local accumulators* sjednocené reduction.
+Nebo použít *akumulátory lokální pro vlákno* (thread-local accumulators) sjednocené redukcí.
 
-Detaily v [[false-sharing-races]] (Topic 8).
+Podrobnosti v [[false-sharing-races]] (Téma 8).
 
 ## Atomic vs critical vs reduction
 
-| Mechanism | Granularity | Performance | Use case |
+| Mechanismus | Granularita | Výkon | Použití |
 | :--- | :--- | :--- | :--- |
-| atomic | single op | best (HW instr) | inc, add, swap on one var |
-| critical | block | moderate (mutex) | complex update sequence |
-| reduction | implicit | best (per-thread accum) | accumulation patterns |
-| locks | block | manual control | fine-grained locking |
+| atomic | jedna operace | nejlepší (HW instrukce) | inkrementace, sčítání, výměna na jedné proměnné |
+| critical | blok | střední (mutex) | složitější sekvence aktualizací |
+| reduction | implicitní | nejlepší (akumulace po vláknech) | akumulační vzory |
+| locks | blok | ruční řízení | jemně zrnité zamykání (fine-grained locking) |
 
-Decision:
+Rozhodování:
 
-1. **Accumulating into scalar/array?** → reduction (or partial sums + manual merge).
-2. **Single atomic op (inc, add)?** → atomic.
-3. **Multi-step update needs invariant?** → critical (or lock).
-4. **Need bool/flag?** → atomic (or volatile + flush).
+1. **Akumulujete do skaláru nebo pole?** → reduction (nebo dílčí součty a ruční sloučení).
+2. **Jediná atomická operace (inkrementace, sčítání)?** → atomic.
+3. **Vícekroková aktualizace, která musí zachovat invariant?** → critical (nebo zámek).
+4. **Potřebujete logickou hodnotu nebo příznak (flag)?** → atomic (nebo volatile + flush).
 
 ## Co dál
 
-Topic 7 končí. Topic 8 ([[sections-single-master]]) přechází na *task model*, *synchronization primitives*, a *false sharing* — pokročilé OpenMP konstrukty pro irregular paralelní práci.
+Téma 7 zde končí. Téma 8 ([[sections-single-master]]) přechází na *model úloh* (task model), *synchronizační primitiva* a *false sharing* — pokročilé konstrukty OpenMP pro nepravidelnou paralelní práci.
 
 ---
 

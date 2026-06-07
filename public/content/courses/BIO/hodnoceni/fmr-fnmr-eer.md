@@ -4,22 +4,22 @@ title: FMR, FNMR, EER a další míry
 
 # FMR, FNMR, EER a další míry
 
-Vedle základních [[far-frr|FAR/FRR]] má biometrie celou rodinu **specializovaných** chybových měr. Některé pracují na úrovni *single comparison* (FMR/FNMR), jiné agregují přes celou operating curve (EER, ZeroFMR). Znalost rozdílů je klíčová pro správnou interpretaci výsledků.
+Vedle základních [[far-frr|FAR/FRR]] má biometrie celou rodinu **specializovaných** chybových měr. Některé pracují na úrovni jednoho porovnání (single comparison) — tedy posuzují jediné srovnání dvou šablon (FMR/FNMR), jiné agregují přes celou pracovní křivku (operating curve), tj. přes všechny možné prahy najednou (EER, ZeroFMR). Znalost těchto rozdílů je klíčová pro správnou interpretaci výsledků.
 
 ## FMR — False Match Rate
 
-**Míra chybné shody** — pravděpodobnost, že porovnání *dvou různých* osob *náhodou* vyjde jako *match*.
+**Míra chybné shody (False Match Rate)** — pravděpodobnost, že porovnání *dvou různých* osob *náhodou* vyjde jako shoda (match).
 
 ::: math
 \text{FMR} = \frac{\text{počet shodných impostor comparisonů}}{\text{celkový počet impostor comparisonů}}
 :::
 
-* **Pracovní úroveň:** *single comparison* (1:1 porovnání dvou šablon).
-* **Rozdíl od FAR:** FAR pracuje s celým *transakčním* procesem (more retries, multiple modalities); FMR jen na úrovni jednotlivého matching.
+* **Pracovní úroveň:** jedno porovnání (single comparison), tedy srovnání 1:1 dvou šablon.
+* **Rozdíl od FAR:** FAR pracuje s celým *transakčním* procesem (více pokusů, více modalit dohromady), zatímco FMR se týká jen úrovně jediného porovnání (matching).
 
 ## FNMR — False Non-Match Rate
 
-**Míra chybné neshody** — pravděpodobnost, že porovnání *stejné* osoby *náhodou* vyjde jako *no match*.
+**Míra chybné neshody (False Non-Match Rate)** — pravděpodobnost, že porovnání *stejné* osoby *náhodou* vyjde jako neshoda (no match).
 
 ::: math
 \text{FNMR} = \frac{\text{počet neshodných genuine comparisonů}}{\text{celkový počet genuine comparisonů}}
@@ -27,12 +27,12 @@ Vedle základních [[far-frr|FAR/FRR]] má biometrie celou rodinu **specializova
 
 ## TMR a TNMR
 
-* **TMR** (True Match Rate) = $1 - \text{FNMR}$ — správně rozpoznané genuine.
-* **TNMR** (True Non-Match Rate) = $1 - \text{FMR}$ — správně odmítnuté impostor.
+* **TMR** (True Match Rate) = $1 - \text{FNMR}$ — podíl správně rozpoznaných pravých porovnání (genuine).
+* **TNMR** (True Non-Match Rate) = $1 - \text{FMR}$ — podíl správně odmítnutých podvodných porovnání (impostor).
 
 ## FAR/FRR vs. FMR/FNMR
 
-Vztah:
+Vztah mezi nimi:
 
 ::: math
 \begin{aligned}
@@ -41,17 +41,17 @@ Vztah:
 \end{aligned}
 :::
 
-* **Pro 1:1 verifikaci** s jedním pokusem: FAR ≈ FMR, FRR ≈ FNMR.
-* **Pro 1:N identifikaci**: FAR roste lineárně s velikostí databáze.
-* **Pro vícero pokusů** (retry policy): FRR klesá (víc šancí), ale FAR roste.
+* **Pro verifikaci 1:1** s jediným pokusem platí: FAR ≈ FMR, FRR ≈ FNMR.
+* **Pro identifikaci 1:N** roste FAR lineárně s velikostí databáze.
+* **Pro více pokusů** (politika opakování, retry policy) FRR klesá (uživatel má více šancí), ale FAR zároveň roste.
 
-Praktický důsledek: pro large-scale systémy (Aadhaar) je nutné velmi nízké FMR ($10^{-9}$+).
+Praktický důsledek: u rozsáhlých systémů (large-scale, např. Aadhaar) je nutné dosáhnout velmi nízkého FMR ($10^{-9}$ a méně).
 
 ## EER — Equal Error Rate
 
-**Míra vyrovnání chyb** — bod, ve kterém *FAR = FRR*.
+**Míra vyrovnání chyb (Equal Error Rate)** — bod, ve kterém platí *FAR = FRR*.
 
-::: svg "EER bod: kde FAR křivka (rostoucí s threshold) protíná FRR křivku (klesající)."
+::: svg "EER bod: kde křivka FAR (rostoucí s prahem) protíná křivku FRR (klesající)."
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
   <g stroke="var(--text)" stroke-width="1" fill="none">
     <path d="M40,180 L500,180"/>
@@ -78,9 +78,9 @@ Praktický důsledek: pro large-scale systémy (Aadhaar) je nutné velmi nízké
 </svg>
 :::
 
-* **Vlastnost:** *jediná* skalární hodnota charakterizující systém.
-* **Výhoda:** snadná comparison mezi systémy ("System A má 0.1 % EER, System B má 0.5 % EER").
-* **Nevýhoda:** *abstrahuje* od konkrétního operating point; reálné nasazení obvykle neprovádí na EER (typicky high-security = low FAR).
+* **Vlastnost:** jde o *jedinou* skalární hodnotu, která charakterizuje celý systém.
+* **Výhoda:** umožňuje snadné porovnání mezi systémy („Systém A má EER 0,1 %, systém B má EER 0,5 %“).
+* **Nevýhoda:** *odhlíží* od konkrétního pracovního bodu (operating point); reálné nasazení obvykle neběží na úrovni EER (typicky se u vysoce zabezpečených aplikací volí nízké FAR).
 
 ### Typická EER
 
@@ -95,24 +95,24 @@ Praktický důsledek: pro large-scale systémy (Aadhaar) je nutné velmi nízké
 
 ## ZeroFMR a ZeroFNMR
 
-* **ZeroFMR** — FNMR při FMR = 0 (zero false matches).
-* **ZeroFNMR** — FMR při FNMR = 0 (zero false non-matches).
+* **ZeroFMR** — hodnota FNMR při FMR = 0 (žádné chybné shody).
+* **ZeroFNMR** — hodnota FMR při FNMR = 0 (žádné chybné neshody).
 
-Použití: scenarios, kde *jedna* chyba je nepřípustná.
+Použití: situace, kdy je *jediná* chyba nepřípustná.
 
-* **High-security access** — FMR = 0; ZeroFMR udává, jak často legitimní uživatel selže.
-* **Forensic identification** — FNMR = 0; ZeroFNMR udává, jak často je false positive.
+* **Vysoce zabezpečený přístup (high-security access)** — požaduje FMR = 0; ZeroFMR pak udává, jak často selže legitimní uživatel.
+* **Forenzní identifikace (forensic identification)** — požaduje FNMR = 0; ZeroFNMR udává, jak často dojde k chybné shodě (false positive).
 
 ## d' (d-prime) — index oddělitelnosti (signal-detection sensitivity index)
 
-Měří **separovatelnost** distribucí genuine a impostor scores:
+Měří **oddělitelnost (separovatelnost)** rozdělení pravých (genuine) a podvodných (impostor) skóre:
 
 ::: math
 d' = \frac{|\mu_{\text{genuine}} - \mu_{\text{impostor}}|}{\sqrt{(\sigma_{\text{genuine}}^2 + \sigma_{\text{impostor}}^2) / 2}}
 :::
 
-* **Vyšší d'** = lépe separované distribuce = lepší rozlišování.
-* Pro **iris**: $d' > 12$. *Extrémně* vysoké.
+* **Vyšší d'** = lépe oddělená rozdělení = lepší rozlišování.
+* Pro **iris**: $d' > 12$. To je *extrémně* vysoká hodnota.
 * Pro **face** (DL): $d' \approx 6 - 8$.
 * Pro **voice**: $d' \approx 3 - 5$.
 
@@ -124,43 +124,43 @@ Statistická míra:
 F = \frac{\sigma^2_{\text{between-class}}}{\sigma^2_{\text{within-class}}}
 :::
 
-* **Vyšší F** = lepší discriminability.
-* Standardní pro **feature selection** v ML pipelines.
+* **Vyšší F** = lepší rozlišovací schopnost (discriminability).
+* Standardně se používá pro **výběr příznaků (feature selection)** ve zpracovatelských řetězcích strojového učení (ML pipelines).
 
 ## Míry pro forenzní identifikaci
 
-V kontextu identifikace (1:N), kde záleží na *rank* správné odpovědi:
+V kontextu identifikace (1:N), kde záleží na *pořadí (rank)* správné odpovědi:
 
 ### Rank-k Rate
 
 * **Rank-1 rate** — pravděpodobnost, že **správná** osoba je *na prvním místě* seznamu kandidátů.
-* **Rank-5 rate** — že je *mezi prvními 5*.
+* **Rank-5 rate** — že je *mezi prvními pěti*.
 * **Rank-k rate** — že je *mezi prvními k*.
 
 ### CMC — Cumulative Match Characteristic
 
-* Křivka: rank vs. cumulative recognition rate.
-* Použití: forenzní AFIS, watchlist identification.
-* Zarovnání: ROC pro verifikaci, CMC pro identifikaci.
+* Křivka: pořadí (rank) vs. kumulativní míra rozpoznání (cumulative recognition rate).
+* Použití: forenzní AFIS, identifikace proti seznamu hledaných (watchlist identification).
+* Pro srovnání: ROC slouží pro verifikaci, CMC pro identifikaci.
 
-## Slovníček: trade-off
+## Slovníček: kompromis (trade-off)
 
-* **Trade-off** mezi *bezpečností* (low FAR) a *uživatelským pohodlím* (low FRR).
-* Není možné mít *zároveň* nízké oba — distribuce skóre se *fyzikálně překrývají*.
-* Jediná cesta ke snížení obou současně je **lepší biometrika** (vyšší d', lépe separované distribuce) — vyžaduje *lepší senzor*, *lepší algoritmus*, *multimodální fusion*.
+* **Kompromis (trade-off)** mezi *bezpečností* (nízké FAR) a *uživatelským pohodlím* (nízké FRR).
+* Není možné mít *zároveň* nízké obě hodnoty — rozdělení skóre se *fyzicky překrývají*.
+* Jediná cesta, jak snížit obě míry současně, je **lepší biometrika** (vyšší d', lépe oddělená rozdělení) — to vyžaduje *lepší senzor*, *lepší algoritmus* a *multimodální fúzi (fusion)*.
 
 ## Důležité pravidlo
 
-> **Nepřibližujte chybové míry napříč různými datasety / podmínkami.** EER 0.1 % na *ideal lab data* neznamená EER 0.1 % v *real-world deployment*.
+> **Neporovnávejte chybové míry napříč různými datovými sadami či podmínkami.** EER 0,1 % na *ideálních laboratorních datech* neznamená EER 0,1 % v *reálném nasazení*.
 
-Pro fair comparison se používají standardní benchmarks:
+Pro spravedlivé porovnání (fair comparison) se používají standardní srovnávací testy (benchmarks):
 
 * **NIST FpVTE** (Fingerprint Vendor Technology Evaluation).
 * **NIST FRVT** (Face Recognition Vendor Test).
 * **NIST IREX** (Iris Exchange).
 * **NIST SRE** (Speaker Recognition Evaluation).
 
-Pro detaily testing methodology viz [[testovani-eval]].
+Pro podrobnosti k metodice testování viz [[testovani-eval]].
 
 ---
 

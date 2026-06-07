@@ -1,20 +1,20 @@
 ---
-title: Prolog — základy (legacy)
+title: Prolog — základy (zastaralý materiál)
 ---
 
-# Prolog — základy (legacy)
+# Prolog — základy (zastaralý materiál)
 
-> **POZOR — LEGACY MATERIÁL:** Tato problematika *není zařazena* do kurzu FLP od **akademického roku 2026/27**. Prolog byl ve výuce *nahrazen* jazykem **[[rust-ownership|Rust]]** jako moderní multi-paradigmové alternativa. Materiály zde slouží *pro historický kontext* a studenty *zapsané do předchozích semestrů*.
+> **POZOR — ZASTARALÝ MATERIÁL:** Tato problematika *není zařazena* do kurzu FLP od **akademického roku 2026/27**. Prolog byl ve výuce *nahrazen* jazykem **[[rust-ownership|Rust]]** jako moderní multiparadigmatická alternativa. Materiály zde slouží *pro historický kontext* a studentům *zapsaným do předchozích semestrů*.
 
-**Prolog** (Programming in Logic) je *deklarativní* logický programovací jazyk vyvinutý v r. 1972 (Alain Colmerauer, Robert Kowalski). Místo *popisu jak* věci dělat (imperativní) Prolog *popisuje co* hledáme (relace, fakta, pravidla) — *engine* odvozuje odpověď.
+**Prolog** (Programming in Logic) je *deklarativní* logický programovací jazyk vyvinutý v r. 1972 (Alain Colmerauer, Robert Kowalski). Místo *popisu, jak* věci dělat (imperativní přístup) Prolog *popisuje, co* hledáme (relace, fakta, pravidla) — vyhodnocovací jádro (engine) odvodí odpověď samo.
 
 ## Filosofie
 
-Imperativní jazyk: "Vezmi seznam, projdi ho, najdi prvek X."
+Imperativní jazyk: „Vezmi seznam, projdi ho, najdi prvek X."
 
-Prolog: "Existuje takový X, který je v seznamu?"
+Prolog: „Existuje takový X, který je v seznamu?"
 
-Engine řeší *jak* odpověď najít — používá **unifikaci** + **backtracking** ([[unifikace-backtrack]]).
+Jádro řeší *jak* odpověď najít — používá k tomu **unifikaci** a **backtracking** (návrat se zpětným prohledáváním), viz [[unifikace-backtrack]].
 
 ## Základní stavební prvky
 
@@ -53,7 +53,7 @@ sibling(X, Y) :- parent(P, X), parent(P, Y), X \= Y.
 aunt(X, Y) :- female(X), sibling(X, Z), parent(Z, Y).
 ```
 
-**Pravidlo:** `Hlava :- Tělo.` znamená "Hlava je pravdivá, pokud Tělo je pravdivé."
+**Pravidlo:** `Hlava :- Tělo.` znamená „Hlava je pravdivá, pokud je pravdivé Tělo."
 
 `,` = AND (konjunkce). `;` = OR (disjunkce).
 
@@ -88,7 +88,7 @@ head ::= predicate(args)
 body ::= goal | goal,body | goal;body
 ```
 
-Atomy + termy:
+Atomy a termy:
 
 ```
 atom(args).
@@ -99,14 +99,14 @@ term ::= atom | variable | number | atom(term1, ..., termN) | [term1, ..., termN
 
 ### Atomy
 
-* Strings začínající *malým písmenem*: `tom`, `bob`, `apple`.
-* Strings v jednoduchých uvozovkách: `'Hello World'`.
+* Řetězce začínající *malým písmenem*: `tom`, `bob`, `apple`.
+* Řetězce v jednoduchých uvozovkách: `'Hello World'`.
 * Čísla: `42`, `3.14`, `-5`.
 
 ### Proměnné
 
-* Strings začínající *velkým písmenem* nebo `_`: `X`, `Result`, `_Temp`.
-* `_` = anonymous (don't care).
+* Řetězce začínající *velkým písmenem* nebo `_`: `X`, `Result`, `_Temp`.
+* `_` = anonymní proměnná („na hodnotě nezáleží").
 
 ### Složené termy
 
@@ -157,7 +157,7 @@ true.
 true.
 ```
 
-Pozor: `X = 5` je **unification**, ne assignment! `X is 5` je *evaluation*.
+Pozor: `X = 5` je **unifikace**, nikoli přiřazení! `X is 5` *vyhodnotí* pravou stranu.
 
 ## Operátory
 
@@ -228,67 +228,67 @@ maplist(Pred, List).
 
 ## Implementace
 
-* **SWI-Prolog** — most popular, free, open-source. [swi-prolog.org](https://www.swi-prolog.org/)
-* **GNU Prolog** — free, ISO standard.
-* **YAP Prolog** — fast, used in research.
-* **SICStus Prolog** — commercial, performance.
-* **Tau Prolog** — JavaScript implementation.
+* **SWI-Prolog** — nejrozšířenější, zdarma, open-source. [swi-prolog.org](https://www.swi-prolog.org/)
+* **GNU Prolog** — zdarma, podle normy ISO.
+* **YAP Prolog** — rychlý, používaný ve výzkumu.
+* **SICStus Prolog** — komerční, zaměřený na výkon (performance).
+* **Tau Prolog** — implementace v JavaScriptu.
 
 ## Použití
 
 ### Klasické
 
-* **Expert systems** — medical diagnosis (MYCIN), legal reasoning.
-* **Natural Language Processing** — parsing, semantic analysis.
-* **Theorem proving** — automated deduction.
-* **Knowledge representation** — semantic web.
-* **Database querying** — Datalog (subset of Prolog).
+* **Expertní systémy (expert systems)** — lékařská diagnostika (MYCIN), právní usuzování.
+* **Zpracování přirozeného jazyka (Natural Language Processing)** — syntaktická analýza (parsing), sémantická analýza.
+* **Dokazování vět (theorem proving)** — automatická dedukce.
+* **Reprezentace znalostí (knowledge representation)** — sémantický web.
+* **Dotazování nad databázemi** — Datalog (podmnožina Prologu).
 
 ### Moderní
 
-* **Symbolic AI** — pre-DL era, still relevant for hybrid AI.
-* **Constraint Programming** (Prolog + CLP extensions).
-* **Logic puzzles** — Sudoku, n-queens.
-* **Verification** — Bedrock theorem prover.
+* **Symbolická umělá inteligence (symbolic AI)** — z doby před hlubokým učením, stále relevantní pro hybridní AI.
+* **Programování s omezeními (Constraint Programming)** (Prolog s rozšířeními CLP).
+* **Logické hádanky** — Sudoku, problém n dam.
+* **Verifikace** — dokazovač vět Bedrock.
 
 ## Klady
 
-* **Declarative** — describe problem, not solution.
-* **Pattern matching** + unification natural.
-* **Backtracking** automatic — explore solutions.
-* **Reversibility** — predicates work both ways.
-* **Compact** code for symbolic problems.
+* **Deklarativnost** — popisujete problém, nikoli jeho řešení.
+* **Porovnávání vzorů (pattern matching)** a unifikace jsou přirozenou součástí jazyka.
+* **Backtracking** probíhá automaticky — jazyk sám prozkoumává možná řešení.
+* **Reverzibilita** — predikáty fungují oběma směry.
+* **Kompaktní** kód pro symbolické úlohy.
 
 ## Zápory
 
-* **Performance** — slower than imperative for many tasks.
-* **Side effects** awkward (`assert`, `retract`).
-* **Cut (!)** breaks declarative semantics.
-* **Hard to debug** — backtracking is invisible.
-* **Niche** — limited industry adoption.
-* **Learning curve** — paradigm shift.
+* **Výkon (performance)** — pro řadu úloh pomalejší než imperativní jazyky.
+* **Vedlejší efekty (side effects)** se ošetřují neohrabaně (`assert`, `retract`).
+* **Řez (cut, `!`)** narušuje deklarativní sémantiku.
+* **Obtížné ladění** — backtracking není při běhu vidět.
+* **Okrajové využití** — omezené nasazení v praxi.
+* **Strmá křivka učení** — vyžaduje změnu způsobu myšlení.
 
 ## Klíčové ponaučení
 
-Prolog je *fundamentálně odlišný* paradigma:
+Prolog představuje *zásadně odlišné* paradigma:
 
-* **Imperative:** *what to do, step by step.*
-* **Functional:** *what value to compute.*
-* **Logic:** *what relations hold.*
+* **Imperativní:** *co dělat, krok za krokem.*
+* **Funkcionální:** *jakou hodnotu vypočítat.*
+* **Logické:** *jaké relace platí.*
 
-Toto rozšiřuje *způsob myšlení* o programování — i pokud nebudete psát Prolog v produkci, *know it* enriches your CS knowledge.
+To rozšiřuje *způsob myšlení* o programování — i když nebudete psát Prolog v produkci, jeho znalost obohatí váš celkový rozhled v informatice.
 
 ## Proč Rust nahradil Prolog v osnově 2026/27
 
-Důvody change:
+Důvody změny:
 
-* **Industry relevance** — Rust roste, Prolog stagnuje.
-* **Multi-paradigm** — Rust pokrývá víc FP konceptů než klasický OOP.
-* **Memory safety** — unique focus.
-* **Performance** — competitive with C.
-* **Job market** — Rust pozice rostou exponenciálně.
+* **Uplatnění v praxi** — Rust roste, Prolog stagnuje.
+* **Multiparadigmatičnost** — Rust pokrývá více konceptů funkcionálního programování (FP) než klasické OOP.
+* **Paměťová bezpečnost (memory safety)** — jedinečné zaměření jazyka.
+* **Výkon** — srovnatelný s jazykem C.
+* **Trh práce** — počet pozic pro Rust roste exponenciálně.
 
-Prolog *zůstává* hodnotný akademicky, ale praktická aplikace v moderním industry je *omezena*.
+Prolog *zůstává* akademicky hodnotný, ale jeho praktické uplatnění v moderní praxi je *omezené*.
 
 ---
 

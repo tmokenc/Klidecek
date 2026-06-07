@@ -1,41 +1,43 @@
 ---
-title: Gather, scatter, masking a non-stride access
+title: Gather, scatter, maskování a nesouvislý přístup
 ---
 
-# Gather, scatter, masking — non-stride vektorizace
+# Gather, scatter, maskování — vektorizace bez konstantního kroku
 
-Reálné kódy mají často *neuniformní* paměťový přístup: hash table lookup, sparse matrix, indirect indexing. Bez **gather/scatter** by takový kód nešel vektorizovat. AVX-512 a SVE mají *first-class* gather/scatter; AVX2 jen gather.
+Reálné programy mají často *neuniformní* paměťový přístup: vyhledávání v hashovací tabulce (hash table lookup), řídké matice (sparse matrix) nebo nepřímé indexování (indirect indexing). Bez instrukcí **gather/scatter** (rozesbírání a rozeslání dat) by takový kód nešlo vektorizovat. AVX-512 a SVE mají gather/scatter jako plnohodnotné (first-class) operace; AVX2 má jen gather.
 
-## Stride a gather
+Co to znamená: gather načte do jednoho vektoru hodnoty z míst, která spolu v paměti nesousedí (podle pole indexů), a scatter naopak hodnoty z vektoru na taková rozházená místa zapíše.
 
-### Unit stride (best case)
+## Krok (stride) a gather
+
+### Jednotkový krok (unit stride — nejlepší případ)
 
 ```c
 for (i = 0; i < N; i++)
     a[i] = b[i] + c[i];
 ```
 
-`b[0], b[1], b[2], ...` jsou *sousední*. Vektorový load `_mm256_load_ps(&b[i])` = jeden cache line read. **Ideal**.
+`b[0], b[1], b[2], ...` leží v paměti *vedle sebe*. Vektorový load `_mm256_load_ps(&b[i])` odpovídá jedinému čtení cache line. To je **ideální** stav.
 
-### Constant stride (acceptable)
+### Konstantní krok (constant stride — přijatelný)
 
 ```c
 for (i = 0; i < N; i++)
     a[i] = matrix[i * row_size];   // every row_size-th element
 ```
 
-Vektorové CPU (SVE, RISC-V V) mají strided load (`vlse.v`). x86 SIMD nemá — *musíte* gather.
+Vektorová CPU (SVE, RISC-V V) mají load s konstantním krokem (`vlse.v`). SIMD na x86 jej nemá — tam *musíte* použít gather.
 
-### Indirect (gather needed)
+### Nepřímý přístup (potřeba gather)
 
 ```c
 for (i = 0; i < N; i++)
     a[i] = b[indices[i]];          // arbitrary indices
 ```
 
-`b[indices[0]], b[indices[1]], ...` jsou *nekoherentní*. Bez gather: 8 separate scalar loads. S gather: 1 instrukce, ale stále *N* cache accesses.
+`b[indices[0]], b[indices[1]], ...` leží *nesouvisle* v paměti. Bez gather: 8 samostatných skalárních loadů. S gather: jediná instrukce, ale paměť se stejně musí číst *N*-krát.
 
-## AVX2 gather
+## Gather v AVX2
 
 ```c
 __m256i indices = _mm256_loadu_si256(&idx[i]);
@@ -43,28 +45,28 @@ __m256 result = _mm256_i32gather_ps(b, indices, 4);  // scale = 4 (sizeof float)
 // result[j] = b[indices[j]]
 ```
 
-Gather na *jedno* base array + vector indices.
+Gather pracuje nad *jedním* základním polem (base array) a vektorem indexů.
 
-Performance:
+Výkon (performance):
 
-- Best case (indices hit *same line*): jako 1 load.
-- Worst case (8 different cache lines): 8 cycles minimum.
-- Typical: 3-6 cycles per gather.
+- Nejlepší případ (všechny indexy míří do *téže* cache line): jako jeden load.
+- Nejhorší případ (8 různých cache line): minimálně 8 cyklů.
+- Typicky: 3-6 cyklů na jeden gather.
 
-AVX2 gather je **2-3× pomalejší** než stride load. AVX-512 gather je *lepší* díky lepší L/S parallelism — ale stále drahá.
+Gather v AVX2 je **2-3× pomalejší** než load s konstantním krokem. Gather v AVX-512 je *lepší* díky vyšší paralelitě load/store jednotek — ale stále je drahý.
 
-## Scatter (write side)
+## Scatter (zápisová strana)
 
 ```c
 for (i = 0; i < N; i++)
     b[indices[i]] = a[i];          // scatter
 ```
 
-AVX-512 (no AVX2): `_mm512_i32scatter_ps`. Pomalá — N writes, no merging.
+AVX-512 (nikoli AVX2): `_mm512_i32scatter_ps`. Je pomalý — N zápisů, žádné slučování (merging).
 
-Hazard: pokud *dva indices se shodují*, scatter race. Definované chování závisí na ISA (AVX-512 says serialized — performance hit).
+Riziko: pokud se *dva indexy shodují*, vzniká při scatteru souběh (race). Definované chování závisí na konkrétní instrukční sadě (ISA) — AVX-512 zápisy serializuje, což sráží výkon.
 
-## Conflict detection (AVX-512)
+## Detekce konfliktů (AVX-512)
 
 Histogram:
 
@@ -73,9 +75,9 @@ for (i = 0; i < N; i++)
     histogram[bin[i]]++;            // RAW if bin[j] == bin[k]
 ```
 
-Vektorizace by selhala — pokud `bin[0] == bin[1]`, RAW na histogram entry.
+Vektorizace by selhala — pokud `bin[0] == bin[1]`, vznikne závislost typu RAW (čtení po zápisu) na téže položce histogramu.
 
-AVX-512 `_mm512_conflict_epi32`:
+AVX-512 instrukce `_mm512_conflict_epi32`:
 
 ```c
 __m512i bins = _mm512_loadu_si512(&bin[i]);
@@ -85,21 +87,21 @@ __m512i counts = _mm512_loadu_si512(&histogram[0]);   // gather
 // ... process conflicts with masking
 ```
 
-Hardware detekuje duplicates. Software pak resolves bez race.
+Hardware sám detekuje duplicity. Software pak konflikty vyřeší bez souběhu (race).
 
-Reálně: ~3-5× speedup pro histograms, ale jen na AVX-512 CPU.
+V praxi: zhruba 3-5× zrychlení u histogramů, ale jen na CPU s AVX-512.
 
-## Masked loads & stores
+## Maskované loady a story (masked loads & stores)
 
-AVX-512 `_mm512_maskz_loadu_ps(mask, addr)`:
+AVX-512 instrukce `_mm512_maskz_loadu_ps(mask, addr)`:
 
-- Pro každý lane `i`: pokud `mask[i] = 1`, load `addr[i]`. Pokud `0`, zero (nebo merge with original).
+- Pro každou pozici (lane) `i`: pokud `mask[i] = 1`, načte `addr[i]`. Pokud je `0`, vloží nulu (nebo ponechá původní hodnotu — merge).
 
 Použití:
 
-1. **Tail handling** — last partial vector.
-2. **Conditional store** — `if (cond) a[i] = ...`.
-3. **Sparse matrix** — load only valid entries.
+1. **Zpracování konce pole (tail handling)** — poslední, neúplný vektor.
+2. **Podmíněný zápis (conditional store)** — `if (cond) a[i] = ...`.
+3. **Řídká matice (sparse matrix)** — načtení jen platných položek.
 
 ```c
 for (int i = 0; i < n; i += 16) {
@@ -111,41 +113,41 @@ for (int i = 0; i < n; i += 16) {
 }
 ```
 
-*Jeden* loop pro celé pole, žádný tail cleanup.
+*Jeden* cyklus pro celé pole, žádné dočišťování konce (tail cleanup).
 
 ## Predikované instrukce
 
-AVX-512 přidává mask version *všech* arithmetic instrukcí:
+AVX-512 přidává maskovanou variantu *všech* aritmetických instrukcí:
 
 ```c
 __mmask16 m = _mm512_cmp_ps_mask(a, b, _CMP_GT_OQ);
 __m512 r = _mm512_mask_add_ps(orig, m, x, y);   // r[i] = m[i] ? x[i]+y[i] : orig[i]
 ```
 
-`mask_add` provede `add` jen kde maskovaný; jinak ponechá `orig` value. *No branching* in vector code.
+`mask_add` provede sčítání `add` jen tam, kde je maska nastavená; jinde ponechá hodnotu `orig`. Ve vektorovém kódu tedy *žádné větvení (skoky)*.
 
-To je *fundamentální* výhoda AVX-512 nad AVX2. AVX2 emuluje masking přes blend (extra instrukce).
+To je *zásadní* výhoda AVX-512 oproti AVX2. AVX2 maskování pouze emuluje pomocí prolínání (blend), což stojí instrukce navíc.
 
-## Tabulka srovnání
+## Srovnávací tabulka
 
 | Operace | SSE | AVX2 | AVX-512 | SVE / RISC-V V |
 | :--- | :---: | :---: | :---: | :---: |
-| Unit stride load | ✓ | ✓ | ✓ | ✓ |
-| Constant stride load | — | — | — | ✓ (vlse.v) |
-| Gather | — | ✓ (slow) | ✓ | ✓ |
+| Load s jednotkovým krokem | ✓ | ✓ | ✓ | ✓ |
+| Load s konstantním krokem | — | — | — | ✓ (vlse.v) |
+| Gather | — | ✓ (pomalý) | ✓ | ✓ |
 | Scatter | — | — | ✓ | ✓ |
-| Masking | (blend) | (blend) | ✓ first-class | ✓ |
-| Conflict detect | — | — | ✓ | — (yet) |
-| Reduce (sum, max) | (shuffle tree) | (shuffle tree) | ✓ `_reduce_*` | ✓ |
-| Variable VL | — | — | — | ✓ |
+| Maskování | (blend) | (blend) | ✓ plnohodnotné | ✓ |
+| Detekce konfliktů | — | — | ✓ | — (zatím) |
+| Redukce (sum, max) | (strom shuffle) | (strom shuffle) | ✓ `_reduce_*` | ✓ |
+| Proměnná délka vektoru | — | — | — | ✓ |
 
-⇒ **AVX-512 = AVX2 + masking + scatter + conflict + reductions**. Pro real-world code (databáze, ML, codec) podstatný skok.
+⇒ **AVX-512 = AVX2 + maskování + scatter + detekce konfliktů + redukce**. Pro reálný kód (databáze, strojové učení, kodeky) jde o podstatný skok.
 
-## Sparse data: AoS vs SoA
+## Řídká data: AoS vs SoA
 
-Pro structured data, layout dramatic effect:
+U strukturovaných dat má způsob uložení (layout) dramatický dopad:
 
-### AoS (Array of Structures)
+### AoS (pole struktur, Array of Structures)
 
 ```c
 struct Particle { float x, y, z, vx, vy, vz; };
@@ -155,9 +157,9 @@ for (i = 0; i < N; i++)
     ps[i].x += ps[i].vx;            // strided/gather access
 ```
 
-Update `ps[i].x` pro každé `i` znamená přístup *strided* (sizeof(struct) = 24 byte, stride > 1). Vektorové load *nezachytí* sousední `x` values v jednom vektoru.
+Aktualizace `ps[i].x` pro každé `i` znamená přístup s konstantním krokem (sizeof(struct) = 24 bajtů, krok > 1). Vektorový load tak *nezachytí* sousední hodnoty `x` do jednoho vektoru.
 
-### SoA (Structure of Arrays)
+### SoA (struktura polí, Structure of Arrays)
 
 ```c
 struct ParticleData {
@@ -168,13 +170,13 @@ for (i = 0; i < N; i++)
     particles.x[i] += particles.vx[i];
 ```
 
-`x[i]` jsou sousední → unit stride load. Vektorizace **triviální**, *2-4× rychlejší*.
+Hodnoty `x[i]` leží vedle sebe → load s jednotkovým krokem. Vektorizace je **triviální** a *2-4× rychlejší*.
 
-Trade-off: SoA méně přirozená pro OOP / random access. Často kombinace **AoSoA** (Array of Structures of Arrays) — small struct of 8-element arrays.
+Kompromis: SoA je méně přirozená pro objektový návrh (OOP) a náhodný přístup (random access). Často se proto kombinuje **AoSoA** (Array of Structures of Arrays) — malá struktura s osmiprvkovými poli.
 
-## Sparse matrix-vector multiply (SpMV)
+## Násobení řídké matice vektorem (SpMV)
 
-Klasický kritický kernel:
+Klasický kritický výpočetní kernel:
 
 ```c
 for (i = 0; i < n; i++)
@@ -182,17 +184,17 @@ for (i = 0; i < n; i++)
         y[i] += value[j] * x[col_idx[j]];          // gather x via col_idx
 ```
 
-`x[col_idx[j]]` = gather. AVX-512 gather + FMA → vektorizovaná SpMV ~3× rychlejší než scalar.
+`x[col_idx[j]]` je gather. AVX-512 gather + FMA → vektorizovaná SpMV je zhruba 3× rychlejší než skalární varianta.
 
-Knihovny: Intel MKL, OpenBLAS, suiteSparse.
+Knihovny: Intel MKL, OpenBLAS, SuiteSparse.
 
-## Hash join (databáze)
+## Hashovací spojení (hash join, databáze)
 
 ```sql
 SELECT * FROM A JOIN B ON A.key = B.key
 ```
 
-Implementace: build hash table from B, probe hash table from A.
+Implementace: z tabulky B se postaví hashovací tabulka, kterou pak tabulka A prochází (probe).
 
 ```c
 for (i = 0; i < |A|; i++) {
@@ -203,13 +205,13 @@ for (i = 0; i < |A|; i++) {
 }
 ```
 
-Gather + conditional emit. AVX-512 maskovaná version 2-3× rychlejší než scalar.
+Gather + podmíněný výstup. Maskovaná varianta v AVX-512 je 2-3× rychlejší než skalární.
 
-Vector DB (DuckDB, ClickHouse, MonetDB) heavy AVX-512 / AVX2 use.
+Vektorové databáze (DuckDB, ClickHouse, MonetDB) využívají AVX-512 / AVX2 ve velkém.
 
 ## Co dál
 
-Topic 5 končí. Topic 6 ([[tlp-uvod]]) přechází k **vláknovému paralelismu** — SMT a Hyper-Threading. Po SIMD je další skok DLP → kombinace s TLP.
+Tématem 5 končíme. Téma 6 ([[tlp-uvod]]) přechází k **vláknovému paralelismu (thread)** — SMT a Hyper-Threading. Po SIMD je dalším skokem DLP → kombinace s TLP.
 
 ---
 

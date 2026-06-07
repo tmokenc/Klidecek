@@ -4,7 +4,7 @@ title: Podpis — dynamika a statika
 
 # Podpis — dynamika a statika
 
-**Podpis** je nejstarší formou autentizace v právním kontextu — dokumenty, smlouvy, šeky. V biometrii rozlišujeme **statický** (off-line) a **dynamický** (on-line) podpis. Dynamický podpis je mnohem přesnější díky *behaviorálním* informacím o procesu psaní.
+**Podpis** je nejstarší formou autentizace (authentication) v právním kontextu — používá se na dokumentech, smlouvách a šecích. V biometrii rozlišujeme **statický** (off-line) a **dynamický** (on-line) podpis. Dynamický podpis je mnohem přesnější díky *behaviorálním* informacím o tom, jak podpis vzniká, tedy o samotném procesu psaní.
 
 ## Statický vs. dynamický
 
@@ -40,194 +40,194 @@ title: Podpis — dynamika a statika
 </svg>
 :::
 
-### Statický (off-line, image-based)
+### Statický (off-line, na základě obrazu)
 
-* **Capture:** *hotový* podpis na papíru, scanned/photographed.
-* **Information:** jen *shape* / *image*.
-* **Difficulty:** *velmi* obtížné — skilled forger lze obtížně odlišit.
-* **Performance:** EER 5–15 %.
-* **Použití:** *forenzní* analýza (handwriting expert).
+* **Snímání:** *hotový* podpis na papíru, nasnímaný skenerem nebo vyfotografovaný.
+* **Informace:** jen *tvar* / *obraz*.
+* **Obtížnost rozpoznání padělku:** *velmi* vysoká — zkušeného padělatele lze jen těžko odlišit.
+* **Výkon (performance):** EER 5–15 %.
+* **Použití:** *forenzní* analýza (znalec rukopisu).
 
-### Dynamický (on-line, process-based)
+### Dynamický (on-line, na základě procesu)
 
-* **Capture:** během psaní; digitizer tablet (Wacom), styly na touchscreen.
-* **Information:**
-  * **(x, y)** pozice over time.
-  * **pressure** (z) — tlak na stylus.
-  * **pen angles** (azimuth, altitude).
-  * **velocity, acceleration** — derived.
-  * **pen-up moves** (in-air movements).
-* **Difficulty:** *much harder* to forge — even seeing the signature doesn't reveal *how* it was written.
-* **Performance:** EER 2–5 %.
-* **Použití:** banking, document signing.
+* **Snímání:** během psaní; digitizační tablet (Wacom), stylus na dotykovém displeji.
+* **Informace:**
+  * **(x, y)** poloha v čase.
+  * **tlak (pressure)** (z) — síla působící na stylus.
+  * **úhly pera** (azimut, sklon).
+  * **rychlost a zrychlení (velocity, acceleration)** — dopočítané.
+  * **pohyby se zdviženým perem** (pohyby ve vzduchu).
+* **Obtížnost padělání:** *mnohem vyšší* — i kdyby útočník (attacker) podpis viděl, neprozradí mu to, *jak* byl napsán.
+* **Výkon (performance):** EER 2–5 %.
+* **Použití:** bankovnictví, podepisování dokumentů.
 
-::: viz signature-dynamic "Playback (x,y,p,t); skilled forgery napodobí tvar, ale pressure a velocity profily prozradí podvrh."
+::: viz signature-dynamic "Přehrání (x,y,p,t); zkušený padělek napodobí tvar, ale profily tlaku a rychlosti podvrh prozradí."
 :::
 
-## Dynamic signature features
+## Příznaky dynamického podpisu
 
-Z time-series dat extrahujeme:
+Z časových řad (time-series) dat extrahujeme:
 
-* **Global features:**
-  * Total duration.
-  * Total path length.
-  * Average velocity.
-  * Max pressure.
-  * Number of pen lifts.
-* **Local features:**
-  * Velocity profile.
-  * Pressure profile.
-  * Trajectory shape.
-* **Stroke segmentation:**
-  * Identify *strokes* (continuous pen-down moves).
-  * Per-stroke features.
+* **Globální příznaky:**
+  * Celková doba psaní.
+  * Celková délka dráhy.
+  * Průměrná rychlost.
+  * Maximální tlak.
+  * Počet zvednutí pera.
+* **Lokální příznaky:**
+  * Profil rychlosti.
+  * Profil tlaku.
+  * Tvar trajektorie.
+* **Segmentace tahů (strokes):**
+  * Rozpoznání *tahů* (souvislých pohybů se spuštěným perem).
+  * Příznaky pro jednotlivé tahy.
 
 ## Snímání
 
-### Digitizer tablet (Wacom, Topaz)
+### Digitizační tablet (Wacom, Topaz)
 
-* **Pen tablet** s active stylus.
-* **Sampling rate:** 100–200 Hz typical.
-* **Pressure:** 256–2048 levels.
-* **Pen angles** measured by some models.
-* **High accuracy.**
+* **Tablet s perem** a aktivním stylusem.
+* **Vzorkovací frekvence (sampling rate):** typicky 100–200 Hz.
+* **Tlak:** 256–2048 úrovní.
+* **Úhly pera** měří některé modely.
+* **Vysoká přesnost.**
 
-### Touchscreen + stylus
+### Dotykový displej + stylus
 
-* **iPad + Apple Pencil**, Galaxy Note s S Pen.
-* **Sampling:** ~60–120 Hz.
-* **Pressure:** Apple Pencil 4096 levels.
-* **Mass-market** availability.
+* **iPad + Apple Pencil**, Galaxy Note s perem S Pen.
+* **Vzorkování:** přibližně 60–120 Hz.
+* **Tlak:** Apple Pencil 4096 úrovní.
+* **Dostupnost na masovém trhu.**
 
-### Finger on touchscreen
+### Prst na dotykovém displeji
 
-* No stylus, just finger.
-* No pressure, no angles.
-* **Limited information** → lower accuracy.
+* Bez stylusu, jen prst.
+* Bez tlaku, bez úhlů.
+* **Omezené množství informací** → nižší přesnost.
 
 ## Algoritmy
 
 ### DTW (Dynamic Time Warping)
 
-Standardní pro time-series matching:
+Standardní metoda pro porovnávání časových řad (time-series matching):
 
 ::: math
 DTW(s_1, s_2) = \min \sum_{i, j} d(s_1[i], s_2[j])
 :::
 
-* Aligns sequences of different lengths.
-* Robust to *speed variations*.
+* Zarovnává sekvence různé délky.
+* Odolná vůči *kolísání rychlosti psaní*.
 
-### Hidden Markov Models (HMM)
+### Skryté Markovovy modely (Hidden Markov Models, HMM)
 
-* Each user has HMM trained on their signature.
-* Test signature scored by HMM likelihood.
+* Každý uživatel má HMM natrénovaný na svém podpisu.
+* Testovaný podpis se ohodnotí pravděpodobností (likelihood) podle HMM.
 
-### Deep learning
+### Hluboké učení (deep learning)
 
-* LSTM, Transformer architectures.
-* Recent benchmarks dominated by DL.
+* Architektury LSTM a Transformer.
+* Nejnovějším srovnávacím testům (benchmarks) dominuje právě hluboké učení.
 
-### Feature-based + classifier
+### Příznakový přístup + klasifikátor
 
-* Extract global + local features.
+* Extrakce globálních a lokálních příznaků.
 * SVM, Random Forest, k-NN.
-* Faster than DTW for large databases.
+* Rychlejší než DTW u velkých databází.
 
-## Anti-spoofing
+## Ochrana proti podvržení (anti-spoofing)
 
-### Forgery types
+### Typy padělků
 
-* **Random forgery** — attacker doesn't know target signature; uses *own* signature.
-* **Skilled forgery (simple)** — attacker has *seen* target signature once.
-* **Skilled forgery (practiced)** — attacker had *time to practice*.
+* **Náhodný padělek (random forgery)** — útočník nezná cílový podpis; použije *vlastní* podpis.
+* **Zkušený padělek, jednoduchý (skilled forgery, simple)** — útočník cílový podpis jednou *viděl*.
+* **Zkušený padělek, nacvičený (skilled forgery, practiced)** — útočník měl *čas si jej nacvičit*.
 
-### Detection
+### Detekce
 
-* **Pressure patterns** — hard to mimic exactly.
-* **Velocity profiles** — harder than spatial shape.
-* **Temporal consistency** — multiple signatures from same person are consistent.
+* **Vzory tlaku** — přesně se napodobují jen velmi obtížně.
+* **Profily rychlosti** — obtížnější napodobit než samotný prostorový tvar.
+* **Časová konzistence** — opakované podpisy téhož člověka jsou konzistentní.
 
-### Limits
+### Limity
 
-* Practiced forgers can fool *static* systems easily.
-* **Dynamic** much harder — even skilled forgers struggle with timing.
+* Nacvičení padělatelé dokážou *statické* systémy snadno oklamat.
+* **Dynamické** systémy jsou mnohem odolnější — i zkušení padělatelé mají problém s časováním.
 
 ## Standardy
 
-* **ISO/IEC 19794-7:2014** — Signature/sign time series data.
-* **ISO/IEC 19794-11:2013** — Signature/sign processed dynamic data.
+* **ISO/IEC 19794-7:2014** — časové řady dat podpisu.
+* **ISO/IEC 19794-11:2013** — zpracovaná dynamická data podpisu.
 
 ## Aplikace {tier=practice}
 
-### Banking
+### Bankovnictví
 
-* **In-branch signature pads** — Wacom STU series.
-* **Mobile signing** — DocuSign, Adobe Sign with biometric capture.
-* **Check authorization** — declining, but still used.
+* **Podpisové podložky na pobočce** — řada Wacom STU.
+* **Mobilní podepisování** — DocuSign, Adobe Sign s biometrickým snímáním.
+* **Autorizace šeků** — na ústupu, ale stále se používá.
 
-### Document signing
+### Podepisování dokumentů
 
-* **PDF signing** with biometric data embedded.
-* **Legal frameworks:**
-  * **eIDAS** (EU) — Qualified Electronic Signatures.
-  * **ESIGN Act** (US) — electronic signatures legally binding.
+* **Podepisování PDF** s vloženými biometrickými daty.
+* **Právní rámce (frameworks):**
+  * **eIDAS** (EU) — kvalifikované elektronické podpisy.
+  * **ESIGN Act** (USA) — právní závaznost elektronických podpisů.
 
-### Tablet checkout
+### Pokladna s tabletem
 
-* Retail POS — credit card with signature on tablet.
-* Increasingly replaced by PIN or contactless.
+* Maloobchodní POS — platba kartou s podpisem na tabletu.
+* Stále častěji nahrazováno PINem nebo bezkontaktní platbou.
 
 ## Limity
 
 ### Variabilita
 
-* **Intra-class:** *velká* — even same person signs differently each time.
-* **Mood, emotion, position** affect signature.
-* **Aging:** signatures evolve over years.
+* **Vnitrotřídní (intra-class):** *velká* — i tentýž člověk se pokaždé podepíše trochu jinak.
+* **Nálada, emoce a poloha těla** ovlivňují podpis.
+* **Stárnutí:** podpisy se v průběhu let vyvíjejí.
 
-### Forgeability
+### Padělatelnost
 
-* **Skilled forgers** can fool static systems.
-* **Forensic experts** have higher accuracy than algorithms.
+* **Zkušení padělatelé** dokážou oklamat statické systémy.
+* **Forenzní znalci** dosahují vyšší přesnosti než algoritmy.
 
-### Cross-device
+### Mezi zařízeními (cross-device)
 
-* Signature on Wacom tablet ≠ same person's signature on iPad.
-* **Device-dependent enrollment** required.
+* Podpis na tabletu Wacom ≠ podpis téhož člověka na iPadu.
+* Vyžaduje se **registrace (enrollment) závislá na zařízení**.
 
-## Performance
+## Výkon (performance)
 
 **SVC2004** (First International Signature Verification Competition, organizovaná HKUST, ICBA 2004):
 
-* **Best systems:** EER ~3 % for skilled forgery.
-* **Random forgery:** EER < 0.5 %.
+* **Nejlepší systémy:** EER přibližně 3 % pro zkušený padělek.
+* **Náhodný padělek:** EER < 0,5 %.
 
-## Forensic handwriting analysis
+## Forenzní analýza rukopisu
 
-Vedle biometriky:
+Vedle biometrie existuje i forenzní přístup:
 
-* **Forensic Document Examiners (FDE)** — experts in handwriting comparison.
-* **Court testimony** in fraud, will disputes.
-* Method: ACE-V (Analysis, Comparison, Evaluation, Verification).
-* Controversies: subjective, no statistical basis (similar concerns as latent fingerprint analysis post-NAS 2009).
+* **Forenzní zkoumatelé dokumentů (Forensic Document Examiners, FDE)** — odborníci na porovnávání rukopisu.
+* **Svědectví u soudu** ve sporech o podvody či závěti.
+* Metoda: ACE-V (analýza, porovnání, vyhodnocení, ověření).
+* Kontroverze: subjektivnost, chybějící statistický základ (podobné výhrady jako u analýzy latentních otisků prstů po zprávě NAS 2009).
 
 ## Vztah k jiným biometrikám
 
-| | **Signature (dynamic)** | **Voice** | **Keystroke** |
+| | **Podpis (dynamický)** | **Hlas** | **Dynamika psaní na klávesnici** |
 | :--- | :---: | :---: | :---: |
-| Effort | active | passive | passive |
-| Privacy | high | medium | high |
-| Accuracy | medium | medium | low |
-| Liveness | implicit (active gesture) | requires checks | implicit |
-| Mass adoption | declining | growing | growing |
+| Aktivita uživatele | aktivní | pasivní | pasivní |
+| Soukromí | vysoké | střední | vysoké |
+| Přesnost | střední | střední | nízká |
+| Detekce živosti (liveness) | implicitní (aktivní gesto) | vyžaduje kontroly | implicitní |
+| Masové rozšíření | na ústupu | roste | roste |
 
-## Trends
+## Trendy
 
-* **eIDAS Qualified Electronic Signatures** — dynamic signature with PKI integration.
-* **Mobile-first** — Apple Pencil, S Pen for high-quality dynamic capture.
-* **DL-based** matching replacing traditional DTW.
-* **Cross-domain** — handwriting recognition + biometric ID.
+* **Kvalifikované elektronické podpisy podle eIDAS** — dynamický podpis s integrací PKI.
+* **Mobile-first** — Apple Pencil a S Pen pro kvalitní dynamické snímání.
+* **Porovnávání založené na hlubokém učení** nahrazuje tradiční DTW.
+* **Napříč doménami (cross-domain)** — rozpoznávání rukopisu + biometrická identifikace.
 
 ---
 

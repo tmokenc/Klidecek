@@ -9,9 +9,9 @@ title: Pojem biometrie
 ## Klíčové pojmy
 
 * **Biometrická charakteristika** (biometric characteristic) — biologická nebo behaviorální vlastnost jednotlivce, kterou lze *detekovat* a ze které lze získat *opakovatelné* biometrické rysy pro účely automatického rozpoznávání. Příklady: papilární linie, geometrie obličeje, vzor duhovky.
-* **Biometrický rys** (biometric feature) — *numerická* reprezentace charakteristiky vypočtená z naměřených dat. Např. souřadnice 50 markantů na otisku, 2048-bit kód duhovky (Daugman), 128-rozměrný embedding obličeje (FaceNet).
+* **Biometrický rys** (biometric feature) — *numerická* reprezentace charakteristiky vypočtená z naměřených dat. Např. souřadnice 50 markantů na otisku, 2048bitový kód duhovky (Daugman), 128rozměrný vektor příznaků obličeje (embedding, FaceNet).
 * **Biometrická šablona** (biometric template) — *uložená* sada rysů konkrétní osoby; používá se při ověřování porovnáním s aktuálně naměřenými rysy.
-* **Biometrický vzorek** (biometric sample) — naměřená data (obraz, zvuk, time series), z kterých se rysy extrahují.
+* **Biometrický vzorek** (biometric sample) — naměřená data (obraz, zvuk, časová řada), z nichž se rysy extrahují.
 
 ## Klasifikace biometrik
 
@@ -53,28 +53,28 @@ Vychází z **anatomie** — relativně stabilní v čase. Vyšší přesnost, a
 * **Duhovka, sítnice** — vzor barevné části oka, cévní struktura.
 * **Geometrie ruky, kosti** — antropometrické rozměry.
 * **Krevní řečiště** — žíly na dlani / prstu (Fujitsu PalmSecure).
-* **DNA** — *gold standard* identifikace, ale time-consuming.
-* **Termogram obličeje** — IR vzor cévního systému pod kůží.
+* **DNA** — zlatý standard (gold standard) identifikace, ale časově náročná.
+* **Termogram obličeje** — infračervený (IR) vzor cévního systému pod kůží.
 
 ### Behaviorální (dynamické)
 
 Vychází z **chování** — méně stabilní (mění se s emocemi, věkem, zdravím), ale obvykle *uživatelsky přívětivější*.
 
-* **Hlas / řeč** — spectral features, prosodie, intonace.
-* **Podpis (dynamika)** — tlak, rychlost, sklon, akcelerace (e-pen tablet).
-* **Chůze** (gait) — video pohybu těla, kostra-based.
-* **Dynamika klávesnice** (keystroke dynamics) — flight time, dwell time mezi keys.
-* **Mouse dynamics** — pohyb kurzoru, click patterns.
+* **Hlas / řeč** — spektrální příznaky (spectral features), prozodie, intonace.
+* **Podpis (dynamika)** — tlak, rychlost, sklon, zrychlení (digitální pero, e-pen tablet).
+* **Chůze** (gait) — video pohybu těla, založené na kostře (skeleton-based).
+* **Dynamika klávesnice** (keystroke dynamics) — doba přeletu mezi klávesami (flight time) a doba stisku klávesy (dwell time).
+* **Dynamika myši** (mouse dynamics) — pohyb kurzoru, vzory klikání (click patterns).
 
 ## Aplikace
 
-* **Spotřebitelská elektronika** — odemykání mobilů (Apple Touch ID, Face ID), notebook fingerprint sensors, smart home (Nest face recognition).
-* **Bankovnictví** — autorizace plateb (TPay, mobile banking Selfie pay), ATM s biometrií.
+* **Spotřebitelská elektronika** — odemykání mobilů (Apple Touch ID, Face ID), čtečky otisků prstů v noteboocích, chytrá domácnost (rozpoznávání obličeje v Nest).
+* **Bankovnictví** — autorizace (authorization) plateb (TPay, platba selfie v mobilním bankovnictví), bankomaty s biometrií.
 * **Identifikační dokumenty** — biometrické pasy ([[icao-9303]]), občanské průkazy s biometrií, vízum (US-VISIT).
 * **Zabezpečení kritické infrastruktury** — datacentra, jaderné elektrárny, vojenské objekty.
-* **Pohraniční kontrola** — letiště (eGates), Schengen vstup-výstup systém.
-* **Forenzní věda** — DNA, otisky prstů, voice (CIA, FBI, INTERPOL).
-* **Zdravotnictví** — pacient identification, prevence pojistných podvodů.
+* **Pohraniční kontrola** — letiště (eGates), schengenský systém vstupů a výstupů.
+* **Forenzní věda** — DNA, otisky prstů, hlas (CIA, FBI, INTERPOL).
+* **Zdravotnictví** — identifikace pacientů, prevence pojistných podvodů.
 * **Kontrola docházky** — firemní přístupové systémy.
 
 ## Vlastnosti dobré biometriky
@@ -87,9 +87,9 @@ Pro praktické nasazení musí biometrická charakteristika splňovat (Jain et a
 * **Měřitelnost** (collectability) — lze ji *snadno změřit*.
 * **Výkonnost** (performance) — *přesnost* a *rychlost* rozpoznávání.
 * **Akceptovatelnost** (acceptability) — *přijetí* uživatelem.
-* **Odolnost vůči obcházení** (circumvention) — *obtížnost* spoofingu ([[antispoofing-face]], [[liveness]]).
+* **Odolnost vůči obcházení** (circumvention) — *obtížnost* podvržení (spoofing) ([[antispoofing-face]], [[liveness]]).
 
-Žádná biometrika není perfect ve všech kategoriích. Praxe vyžaduje **kompromisy** — fingerprint je dostupný a stabilní, ale méně přesný než iris; obličej je akceptovatelný, ale snadno spoofable; DNA je *gold standard*, ale pomalá a kontroverzní.
+Žádná biometrika není dokonalá ve všech kategoriích. Praxe vyžaduje **kompromisy** — otisk prstu je dostupný a stabilní, ale méně přesný než duhovka; obličej je dobře akceptovatelný, ale snadno podvrhnutelný; DNA je zlatý standard, ale pomalá a kontroverzní.
 
 ## Biometrika ≠ kryptografie
 
@@ -98,25 +98,25 @@ Pro praktické nasazení musí biometrická charakteristika splňovat (Jain et a
 
 Z toho plynou specifické problémy ([[far-frr]], [[roc-det]]):
 
-* **False Accept** — neoprávněná osoba akceptována.
-* **False Reject** — oprávněná osoba odmítnuta.
-* **Trade-off** mezi oběma — vyšší bezpečnost = vyšší false reject.
+* **Falešné přijetí** (False Accept) — neoprávněná osoba je akceptována.
+* **Falešné odmítnutí** (False Reject) — oprávněná osoba je odmítnuta.
+* **Kompromis** (trade-off) mezi oběma — vyšší bezpečnost znamená vyšší míru falešných odmítnutí.
 
-Biometrická data **nelze prostě uložit jako hash** — fuzzy nature znamená, že hash by nedovolil rozpoznat *stejnou* osobu při různých měřeních. Místo toho se používá *fuzzy extractor* (Dodis et al.), *biometric cryptosystem* nebo *cancelable biometrics*.
+Biometrická data **nelze prostě uložit jako hash** — jejich neostrá (fuzzy) povaha znamená, že hash by nedovolil rozpoznat *stejnou* osobu při různých měřeních (každé měření se totiž mírně liší, takže by vznikl pokaždé jiný hash). Místo toho se používá *fuzzy extractor* (Dodis et al.), biometrický kryptosystém (biometric cryptosystem) nebo zrušitelná biometrika (cancelable biometrics).
 
-## Privacy considerations
+## Ochrana soukromí
 
-Biometrika je *neměnná* — pokud unikne, **nelze ji rotovat** jako heslo:
+Biometrika je *neměnná* — pokud unikne, **nelze ji vyměnit** jako heslo:
 
-* Heslo ukradnuté → změnit za 5 sekund.
-* Biometrický otisk uniknutý (např. **Office of Personnel Management hack 2015** — 5.6M federal employee fingerprints stolen by suspected China-linked actors) → *nelze* získat nové prsty.
+* Ukradené heslo → změníte je za 5 sekund.
+* Uniklý biometrický otisk (např. **útok na Office of Personnel Management v roce 2015** — odcizeno 5,6 milionu otisků prstů federálních zaměstnanců, podezření padlo na aktéry napojené na Čínu) → nové prsty si *nepořídíte*.
 
 Proto musí být biometrická data ukládána s **vyšší ochranou** než hesla:
 
-* **On-device storage** (Apple Secure Enclave) — *nikdy* neopustí zařízení.
-* **Encrypted templates** — AES-encrypted s key v hardware.
-* **Cancelable biometrics** — *transformované* šablony, kde transformaci lze vyměnit při kompromitaci.
-* **Biometric cryptosystem** — kombinace s kryptografickým klíčem.
+* **Uložení přímo v zařízení** (on-device storage, Apple Secure Enclave) — data *nikdy* neopustí zařízení.
+* **Šifrované šablony** (encrypted templates) — zašifrované algoritmem AES, přičemž klíč (key) je uložen v hardwaru.
+* **Zrušitelná biometrika** (cancelable biometrics) — *transformované* šablony, kde lze transformaci při kompromitaci vyměnit.
+* **Biometrický kryptosystém** (biometric cryptosystem) — kombinace s kryptografickým klíčem.
 
 Detailně v [[etika-gdpr]].
 

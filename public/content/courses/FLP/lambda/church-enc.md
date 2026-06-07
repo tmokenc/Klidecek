@@ -1,12 +1,12 @@
 ---
-title: Church encoding — booleans, čísla, struktury
+title: Churchovo kódování — pravdivostní hodnoty, čísla, struktury
 ---
 
-# Church encoding — booleans, čísla, struktury
+# Churchovo kódování — pravdivostní hodnoty, čísla, struktury
 
-V čistém λ-kalkulu máme **jen** funkce — žádná čísla, booleany, páry. **Church encoding** ukazuje, jak *reprezentovat* běžné datové typy *čistě* pomocí funkcí. Demonstruje, že λ-kalkul je *univerzální* — *nepotřebuje* primitivní typy.
+V čistém λ-kalkulu máme **jen** funkce — žádná čísla, žádné pravdivostní hodnoty (booleany), žádné páry. **Churchovo kódování (Church encoding)** ukazuje, jak *reprezentovat* běžné datové typy *čistě* pomocí funkcí. Tím se dokazuje, že λ-kalkul je *univerzální* — *nepotřebuje* žádné primitivní typy.
 
-## Booleans
+## Pravdivostní hodnoty (booleans)
 
 ::: math
 \begin{aligned}
@@ -31,7 +31,7 @@ AND = λp q. p q FALSE  -- if p then q else FALSE
 OR  = λp q. p TRUE q   -- if p then TRUE else q
 ```
 
-## Numerals (Church numbers)
+## Čísla (Churchova čísla, Church numerals)
 
 ::: math
 n \equiv \lambda f\ x.\ f^n(x) = \lambda f\ x.\ \underbrace{f\ (f\ \ldots\ (f\ x))}_{n\text{-krát}}
@@ -49,7 +49,7 @@ THREE = λ f x. f (f (f x))
 
 ### Operace
 
-**Successor** ($+1$):
+**Následník (successor)** ($+1$):
 
 ::: math
 \text{SUCC} = \lambda n\ f\ x.\ f\ (n\ f\ x)
@@ -87,7 +87,7 @@ SUCC TWO = (λ n f x. f (n f x)) TWO
 \text{POW} = \lambda m\ n.\ n\ m
 :::
 
-* $n\ m = m^n$ (m applied n times to itself).
+* $n\ m = m^n$ ($m$ aplikováno $n$-krát na sebe sama).
 
 **Test na nulu:**
 
@@ -98,23 +98,23 @@ SUCC TWO = (λ n f x. f (n f x)) TWO
 ::: viz church-numerals "Vyberte n a operaci (SUCC/ADD/MUL/POW/ISZERO); vizualizace n = λf x. f^n(x) + kroky redukce."
 :::
 
-* If $n = 0$: returns TRUE.
-* Otherwise: applies $(\lambda x.\ FALSE)$ at least once → FALSE.
+* Pokud $n = 0$: vrátí TRUE.
+* Jinak: aplikuje $(\lambda x.\ FALSE)$ alespoň jednou → FALSE.
 
 ### Předchůdce (PRED)
 
-Komplikovanější! Trick je z BZA prezentace:
+Tohle je složitější! Trik pochází z prezentace předmětu BZA:
 
 ```
 PREFN = λ f p. (FST p ? p : (FALSE, f (SND p)))
 PRED  = λ x g m. SND (x (PREFN g) (TRUE, m))
 ```
 
-PRED uses pair (boolean, value) — first time skip, then apply g repeatedly.
+PRED používá pár (boolean, hodnota) — první krok přeskočí, pak opakovaně aplikuje g.
 
-**Subtraction** then: $m - n = n\ \text{PRED}\ m$ (apply PRED $n$ times).
+**Odčítání** pak: $m - n = n\ \text{PRED}\ m$ (aplikuj PRED $n$-krát).
 
-## Pairs
+## Páry (pairs)
 
 ```
 PAIR = λ a b f. f a b
@@ -132,9 +132,9 @@ FST (PAIR 3 5) = (λ p. p (λ x y. x)) (λ f. f 3 5)
               = 3
 ```
 
-## Lists
+## Seznamy (lists)
 
-Lists via *cons* + *nil*:
+Seznamy pomocí *cons* + *nil*:
 
 ```
 NIL  = λ x. TRUE                 -- empty list
@@ -144,26 +144,26 @@ TAIL = λ l. l (λ h t. t)
 ISNIL = ???                       -- complicated
 ```
 
-Alternative: **fold encoding**:
+Alternativa: **kódování pomocí foldu (fold encoding)**:
 
 ```
 NIL   = λ f x. x
 CONS  = λ h t. λ f x. f h (t f x)
 ```
 
-Each list is its own *fold* function. Modern Haskell uses this in `foldr`.
+Každý seznam je sám o sobě svou vlastní *fold* funkcí. Moderní Haskell tento princip využívá ve funkci `foldr`.
 
-## Recursion — Y combinator
+## Rekurze — kombinátor Y
 
-Pro rekurzi *vůbec* (factorial, length, map) je třeba Y kombinátor:
+Pro rekurzi *obecně* (faktoriál, délka seznamu, map) je potřeba kombinátor Y:
 
 ```
 Y = λ f. (λ x. f (x x)) (λ x. f (x x))
 ```
 
-Vlastnost: $Y\ g = g\ (Y\ g)$ — fixed point.
+Jeho vlastnost: $Y\ g = g\ (Y\ g)$ — jde o pevný bod (fixed point).
 
-### Factorial
+### Faktoriál
 
 ```
 FACT_TEMPLATE = λ f n. ISZERO n ONE (MUL n (f (PRED n)))
@@ -176,32 +176,32 @@ Aplikace `FACT THREE`:
 3. ISZERO THREE = FALSE → vyber `(MUL THREE (FACT TWO))`.
 4. Rekurzivně: `FACT TWO` = `MUL TWO (FACT ONE)` = `MUL TWO (MUL ONE (FACT ZERO))`.
 5. `FACT ZERO` = `ISZERO ZERO ONE (...)` = `ONE`.
-6. Backsubstitution: `MUL ONE ONE = ONE`, `MUL TWO ONE = TWO`, `MUL THREE TWO = SIX`.
+6. Zpětné dosazení: `MUL ONE ONE = ONE`, `MUL TWO ONE = TWO`, `MUL THREE TWO = SIX`.
 
-## Performance
+## Výkon (performance)
 
-Church encoding je *theoretical* — *velmi* pomalé v praxi:
+Churchovo kódování je *teoretické* — v praxi *velmi* pomalé:
 
-* Číslo $n$ je *funkce* aplikující $f$ $n$-krát.
-* $1\,000\,000$ jako Church numeral = 1 million applications.
-* **OK pro malá čísla** v důkazech, nikoli pro real computation.
+* Číslo $n$ je *funkce*, která aplikuje $f$ $n$-krát.
+* $1\,000\,000$ jako Churchovo číslo = milion aplikací.
+* **Vhodné pro malá čísla** v důkazech, nikoli pro reálné výpočty.
 
-## Other encodings
+## Další způsoby kódování
 
-* **Scott encoding** — encodes constructors directly.
-* **Parigot encoding** — efficient recursive functions.
-* **GHC Core** uses **Data Constructors** (ADTs) directly, not Church encoding.
+* **Scottovo kódování (Scott encoding)** — kóduje přímo konstruktory.
+* **Parigotovo kódování (Parigot encoding)** — efektivní rekurzivní funkce.
+* **GHC Core** používá přímo **datové konstruktory** (algebraické datové typy, ADT), nikoli Churchovo kódování.
 
 ## Význam
 
-Pochopení Church encoding:
+Pochopení Churchova kódování přináší:
 
-1. **Foundations** — vidíme, že vše lze vyjádřit funkcemi.
-2. **Turing-completeness** — λ-kalkul je univerzální.
-3. **Insight** — funkční jazyky jsou *velmi* expresivní.
-4. **Practical** — některé techniky (CPS, defunctionalization) jsou inspirovány tímto.
+1. **Základy (foundations)** — vidíme, že vše lze vyjádřit funkcemi.
+2. **Turingovskou úplnost (Turing-completeness)** — λ-kalkul je univerzální.
+3. **Vhled (insight)** — funkcionální jazyky jsou *velmi* expresivní.
+4. **Praktický přesah (practical)** — některé techniky (CPS, defunkcionalizace) jsou tímto inspirovány.
 
-## Modern functional programming
+## Moderní funkcionální programování
 
 V Haskellu používáme:
 
@@ -213,18 +213,18 @@ data List a = Nil | Cons a (List a)
 data Pair a b = Pair a b
 ```
 
-To je *Algebraic Data Types* (ADTs) — *odlišný* approach, ale dosahuje téhož.
+Tomu se říká algebraické datové typy (Algebraic Data Types, ADT) — je to *odlišný* přístup, ale dosahuje téhož.
 
-Church encoding zůstává *konceptuálně* důležité — pomáhá pochopit *equivalenci* mezi types a functions.
+Churchovo kódování zůstává *konceptuálně* důležité — pomáhá pochopit *ekvivalenci* mezi typy (types) a funkcemi (functions).
 
 ## Spojení s typovou teorií
 
-* **System F** umožňuje *type abstraction* + *type application* → *parametric polymorphism*.
-* **Church encoding v typovaném λ-kalkulu:**
-  * Booleans: $\forall A.\ A \to A \to A$.
+* **Systém F (System F)** umožňuje *typovou abstrakci* (type abstraction) + *typovou aplikaci* (type application) → *parametrický polymorfismus* (parametric polymorphism).
+* **Churchovo kódování v typovaném λ-kalkulu:**
+  * Booleany: $\forall A.\ A \to A \to A$.
   * Nat: $\forall A.\ (A \to A) \to A \to A$.
-  * Pairs: $\forall A\ B.\ \forall C.\ (A \to B \to C) \to C$.
-* Tato čísla mají *type* a *struct* odpovídající Church encoding.
+  * Páry: $\forall A\ B.\ \forall C.\ (A \to B \to C) \to C$.
+* Tato čísla mají *typ* a *strukturu* odpovídající Churchovu kódování.
 
 ## Praktické příklady v Haskellu {tier=example}
 

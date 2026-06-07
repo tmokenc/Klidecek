@@ -1,248 +1,248 @@
 ---
-title: Liveness detection
+title: Detekce živosti
 ---
 
-# Liveness detection
+# Detekce živosti
 
-**Liveness detection** (detekce *živosti*) ověřuje, zda je před senzorem *živý člověk*, ne *podvrh* (photo, mask, recording, prosthetic). Je *kritickou* komponentou bezpečných biometric systémů — bez liveness check je *většina* biometrik *trivially* spoofable.
+**Detekce živosti (liveness detection)** ověřuje, zda je před senzorem *živý člověk*, a nikoli *podvrh* (fotografie, maska, nahrávka, protéza). Je *kritickou* součástí bezpečných biometrických systémů — bez kontroly živosti je *většina* biometrik *triviálně* podvrhnutelná (spoofable).
 
 ## Princip
 
-Liveness detection se snaží detekovat *signs of life*:
+Detekce živosti se snaží rozpoznat *projevy života*:
 
-* **Physiological** — heartbeat, blood flow, pupillary reflexes, skin temperature.
-* **Behavioral** — micro-expressions, blinking, head movements, voice naturalness.
-* **Anatomical** — 3D structure, internal anatomy (subdermal).
-* **Behavioral response** — reacts to stimuli (light, sound, instructions).
+* **Fyziologické** — tep, krevní oběh, pupilární reflexy (reakce zornice), teplota kůže.
+* **Behaviorální** — mikrovýrazy obličeje, mrkání, pohyby hlavy, přirozenost hlasu.
+* **Anatomické** — 3D struktura, vnitřní anatomie (pod kůží, subdermální).
+* **Behaviorální odezva** — reakce na podněty (světlo, zvuk, pokyny).
 
 ## Pasivní vs. aktivní liveness
 
 ### Pasivní liveness
 
-* **Detection happens automatically** — no user action needed.
-* **Smooth UX** — user doesn't know about liveness check.
-* **Algorithm analyzes** captured sample for liveness clues.
+* **Detekce probíhá automaticky** — uživatel nemusí nic dělat.
+* **Plynulý uživatelský zážitek (UX)** — uživatel o kontrole živosti ani neví.
+* **Algoritmus analyzuje** zachycený vzorek a hledá v něm známky živosti.
 
-Examples:
-* Texture analysis of fingerprint (smooth gummy bear vs. natural skin).
-* 3D depth analysis of face.
-* Spectral analysis for voice (recording vs. live).
+Příklady:
+* Analýza textury otisku prstu (hladký „gumový medvídek" vs. přirozená kůže).
+* Analýza hloubky obličeje (3D).
+* Spektrální analýza hlasu (nahrávka vs. živá řeč).
 
-### Aktivní liveness (challenge-response)
+### Aktivní liveness (výzva–odpověď, challenge-response)
 
-* **User performs action** triggered by system.
-* **Random challenges** prevent pre-recording.
-* **Slightly worse UX** but stronger security.
+* **Uživatel provede akci** vyvolanou systémem.
+* **Náhodné výzvy** zabraňují předem připravené nahrávce.
+* **Mírně horší UX**, ale silnější bezpečnost.
 
-Examples:
-* **Face:** "blink twice", "turn head left", "smile".
-* **Voice:** "read this random phrase".
-* **Fingerprint:** "press lightly, then firmly".
+Příklady:
+* **Obličej:** „dvakrát mrkni", „otoč hlavu doleva", „usměj se".
+* **Hlas:** „přečti tuto náhodnou frázi".
+* **Otisk prstu:** „přitlač zlehka, pak silněji".
 
-## Liveness pro fingerprint
+## Liveness pro otisk prstu
 
-### Anti-spoofing techniques
+### Techniky proti podvrhům (anti-spoofing)
 
-* **Skin elasticity** — gummy bear is more rigid than skin.
-* **Sweat pores** — natural skin has pores, fakes often don't.
-* **Pulse oximetry** — blood oxygenation in capillaries (some dedicated optical fingerprint scanners).
-* **Sub-dermal patterns** — ultrasonic sensors detect deeper layers.
-* **Temperature** — natural skin ~33°C.
-* **Conductivity** — galvanic skin response.
+* **Pružnost kůže** — gumový medvídek je tužší než kůže.
+* **Potní póry** — přirozená kůže má póry, falzifikáty často nikoli.
+* **Pulzní oxymetrie** — okysličení krve v kapilárách (některé specializované optické čtečky otisků).
+* **Subdermální (podkožní) vzory** — ultrazvukové senzory detekují hlubší vrstvy.
+* **Teplota** — přirozená kůže má kolem 33 °C.
+* **Vodivost** — galvanická kožní odezva.
 
-### Modern implementations
+### Moderní implementace
 
-* **Apple Touch ID** — capacitive + sub-dermal pattern detection.
-* **Samsung Ultrasonic** — 3D ridge structure.
-* **HID Lumidigm** — multispectral imaging.
+* **Apple Touch ID** — kapacitní snímání + detekce podkožního vzoru.
+* **Samsung Ultrasonic** — 3D struktura papilárních linií.
+* **HID Lumidigm** — multispektrální zobrazování.
 
-### Effective spoofing materials
+### Účinné materiály pro podvrhy
 
-* **Old:** gelatin, gummy bear, latex.
-* **Modern:** silicone with conductive coating.
-* Detection rate ~95–99 % for modern sensors against common spoofs.
+* **Starší:** želatina, gumový medvídek, latex.
+* **Moderní:** silikon s vodivou vrstvou.
+* Úspěšnost detekce je u moderních senzorů zhruba 95–99 % proti běžným podvrhům.
 
 ## Liveness pro obličej
 
 ### Pasivní
 
-* **Texture analysis** — printed photos have *different* texture from skin.
-* **Moire patterns** — visible when screen replayed.
-* **Color analysis** — printer color gamut limited.
-* **Sharpness analysis** — photos lack micro-detail of skin.
-* **3D depth** — flat photos vs. 3D face.
-* **IR sensing** — skin reflects/absorbs IR specifically.
-* **Pulse extraction** — remote photoplethysmography (rPPG) detects heartbeat from face video.
+* **Analýza textury** — tištěné fotografie mají *jinou* texturu než kůže.
+* **Moaré vzory** — viditelné při přehrávání z displeje.
+* **Analýza barev** — tiskárna má omezený barevný rozsah (gamut).
+* **Analýza ostrosti** — fotografiím chybí mikrodetaily kůže.
+* **3D hloubka** — plochá fotografie vs. prostorový obličej.
+* **Snímání v IR** — kůže odráží/pohlcuje infračervené světlo charakteristickým způsobem.
+* **Detekce tepu** — vzdálená fotopletysmografie (rPPG) detekuje tep ze záznamu obličeje.
 
 ### Aktivní
 
-* **Blink challenge** — "blink twice".
-* **Head movement** — "turn left, then right".
-* **Smile challenge** — "smile then return to neutral".
-* **Read random text** — speech + face sync.
-* **Random color flash** — face illuminates differently for screen vs. real skin.
-* **Eye gaze tracking** — "look at the dot".
+* **Výzva mrknutím** — „dvakrát mrkni".
+* **Pohyb hlavy** — „otoč se doleva, pak doprava".
+* **Výzva úsměvem** — „usměj se a vrať do neutrálního výrazu".
+* **Přečtení náhodného textu** — synchronizace řeči a pohybu obličeje.
+* **Náhodný záblesk barvy** — obličej se nasvítí jinak u displeje než u skutečné kůže.
+* **Sledování pohledu** — „dívej se na tečku".
 
-### Multi-modal liveness
+### Vícemodální (multi-modal) liveness
 
-* **3D depth (structured light)** + **IR** + **Visible** + **Eye gaze**.
-* Used by **Apple Face ID**.
+* **3D hloubka (strukturované světlo)** + **IR** + **viditelné světlo** + **sledování pohledu**.
+* Používá například **Apple Face ID**.
 
-### Deep learning liveness
+### Liveness s hlubokým učením (deep learning)
 
-* CNN trained on spoof + real face datasets.
-* **Datasets:** OULU-NPU, ROSE-Youtu, CASIA-MFSD.
-* **Challenge:** cross-dataset generalization.
+* Konvoluční síť (CNN) natrénovaná na datech podvrhů i skutečných obličejů.
+* **Datové sady:** OULU-NPU, ROSE-Youtu, CASIA-MFSD.
+* **Výzva:** zobecnění napříč datovými sadami (cross-dataset generalization).
 
-## Liveness pro iris
+## Liveness pro duhovku (iris)
 
 ### Pasivní
 
-* **Pupillary reflex** — pupil dynamics over time (natural movement).
-* **Spectral analysis** — natural iris has different spectrum than printed/contact lens.
-* **3D shape** — concave iris vs. flat photo.
+* **Pupilární reflex** — dynamika zornice v čase (přirozený pohyb).
+* **Spektrální analýza** — přirozená duhovka má jiné spektrum než tisk či kontaktní čočka.
+* **3D tvar** — konkávní duhovka vs. plochá fotografie.
 
 ### Aktivní
 
-* **Light response** — flash light, observe pupil constriction.
-* **Random gaze direction** — "look up, then down".
+* **Reakce na světlo** — záblesk světla a pozorování zúžení zornice.
+* **Náhodný směr pohledu** — „dívej se nahoru, pak dolů".
 
-### Specific issues
+### Specifické problémy
 
-* **Patterned contact lenses** — designed to look like iris.
-* **Spectral imaging** can distinguish.
+* **Vzorované kontaktní čočky** — navržené tak, aby vypadaly jako duhovka.
+* **Spektrální zobrazování** je dokáže rozlišit.
 
-## Liveness pro voice
+## Liveness pro hlas (voice)
 
 ### Pasivní
 
-* **Speech naturalness** — pre-recorded audio has artifacts (compression, room reverb).
-* **Codec analysis** — recorded → encoded → played has different spectrum.
-* **Microphone characteristics** — playback through speaker vs. direct speech.
+* **Přirozenost řeči** — předem nahrané audio nese artefakty (komprese, dozvuk místnosti).
+* **Analýza kodeku** — řetězec nahrání → zakódování → přehrání má jiné spektrum.
+* **Charakteristiky mikrofonu** — přehrávání z reproduktoru vs. přímá řeč.
 
 ### Aktivní
 
-* **Random phrase** — "say 'green elephant 47'".
-* **Conversation** — natural Q&A.
-* **Whisper challenge** — natural variation harder to fake.
+* **Náhodná fráze** — „řekni ‚zelený slon 47'".
+* **Konverzace** — přirozené otázky a odpovědi.
+* **Výzva šeptem** — přirozenou variabilitu je obtížnější zfalšovat.
 
 ### ASVspoof
 
-[ASVspoof Challenge](https://www.asvspoof.org/) biennial:
+[Výzva ASVspoof](https://www.asvspoof.org/) probíhá jednou za dva roky:
 
-* **Logical access (LA)** — synthesized speech detection.
-* **Physical access (PA)** — replay detection.
-* **Datasets, baselines, leaderboards.**
+* **Logický přístup (logical access, LA)** — detekce syntetizované řeči.
+* **Fyzický přístup (physical access, PA)** — detekce přehrávané nahrávky.
+* **Datové sady, referenční řešení (baselines) a žebříčky (leaderboards).**
 
-## Liveness pro vein biometrics
+## Liveness pro žilní biometriky (vein biometrics)
 
-* **Pulsatile blood flow** — natural variation in vein contrast.
-* **Body temperature** — IR sensing.
-* **NIR response** — fake hands lack hemoglobin absorption.
+* **Pulzující krevní tok** — přirozená proměnlivost kontrastu žil.
+* **Tělesná teplota** — snímání v IR.
+* **Odezva v blízkém infračerveném pásmu (NIR)** — falešným rukám chybí pohlcování světla hemoglobinem.
 
 ## Standardy
 
 ### ISO/IEC 30107
 
-* **Part 1** — framework + terminology.
-* **Part 2** — data formats.
-* **Part 3** — testing methodology.
+* **Část 1** — rámec (framework) a terminologie.
+* **Část 2** — datové formáty.
+* **Část 3** — metodika testování.
 
-::: viz liveness-pad-tradeoff "Threshold a attack mix mění APCER vs BPCER; iBeta Level 2 vyžaduje APCER&lt;1%, BPCER&lt;5%."
+::: viz liveness-pad-tradeoff "Práh a mix útoků mění APCER vs. BPCER; iBeta úroveň 2 vyžaduje APCER&lt;1 %, BPCER&lt;5 %."
 :::
 
 ### Metriky
 
-* **APCER** (Attack Presentation Classification Error Rate) — % spoofs accepted.
-* **BPCER** (Bona Fide Presentation Classification Error Rate) — % real users rejected.
+* **APCER** (Attack Presentation Classification Error Rate) — podíl přijatých podvrhů.
+* **BPCER** (Bona Fide Presentation Classification Error Rate) — podíl odmítnutých skutečných uživatelů.
 
-Goal:
-* **APCER < 1 %** (Level 2 iBeta).
-* **BPCER < 5 %** (acceptable UX).
+Cíl:
+* **APCER < 1 %** (úroveň 2 dle iBeta).
+* **BPCER < 5 %** (přijatelné UX).
 
-### Levels (iBeta)
+### Úrovně (iBeta)
 
-* **Level 1** — basic attacks (photo, video).
-* **Level 2** — sophisticated (3D mask, silicone).
-* **Level 3+** — state-level.
+* **Úroveň 1** — základní útoky (fotografie, video).
+* **Úroveň 2** — propracované útoky (3D maska, silikon).
+* **Úroveň 3+** — útoky na úrovni státních aktérů.
 
-## Spoofing competitions
+## Soutěže v podvrzích (spoofing)
 
 ### LivDet
 
-* **Fingerprint Liveness Detection Competition** since 2009.
-* Different materials, sensors.
-* Best detectors: ~95 % accuracy.
+* **Soutěž v detekci živosti otisku prstu (Fingerprint Liveness Detection Competition)** od roku 2009.
+* Různé materiály a senzory.
+* Nejlepší detektory dosahují přesnosti kolem 95 %.
 
-### Face liveness challenges
+### Soutěže v liveness obličeje
 
-* OULU-NPU dataset.
+* Datová sada OULU-NPU.
 * CASIA-SURF.
 * CelebA-Spoof.
 
 ### ASVspoof
 
-* Voice anti-spoofing.
-* Best systems: ~99 % accuracy on seen attacks.
-* **Cross-dataset:** much harder.
+* Detekce podvrhů hlasu (anti-spoofing).
+* Nejlepší systémy dosahují přesnosti kolem 99 % na známých útocích.
+* **Napříč datovými sadami (cross-dataset):** podstatně obtížnější.
 
-## Limity liveness detection
+## Limity detekce živosti
 
-### Generalization
+### Zobecnění (generalization)
 
-* Detectors trained on *known* spoofs fail on *novel* attacks.
-* **Adversarial training** helps but not solve.
+* Detektory natrénované na *známých* podvrzích selhávají na *nových* útocích.
+* **Adversariální trénink (adversarial training)** pomáhá, ale problém neřeší úplně.
 
-### Arms race
+### Závody ve zbrojení
 
-* Spoofing improves → detection improves → spoofing improves.
-* Continuous research investment needed.
+* Podvrhy se zlepšují → detekce se zlepšuje → podvrhy se zlepšují.
+* Je potřeba neustále investovat do výzkumu.
 
-### False positives
+### Falešně pozitivní výsledky
 
-* Real users with **unusual conditions** (heavy makeup, after surgery) may be flagged as spoofs.
-* **BPCER** must be kept low.
+* Skuteční uživatelé s **neobvyklými podmínkami** (výrazné líčení, stav po operaci) mohou být označeni za podvrh.
+* **BPCER** je nutné udržet nízké.
 
-### Computational cost
+### Výpočetní náročnost
 
-* Liveness analysis adds latency.
-* On mobile devices, efficient algorithms needed.
+* Analýza živosti přidává latenci (zpoždění).
+* Na mobilních zařízeních jsou potřeba efektivní algoritmy.
 
 ## Praktická doporučení
 
-### Pro deployment
+### Pro nasazení (deployment)
 
-1. **Multi-modal liveness** — combine techniques.
-2. **Active + passive** — both layers.
-3. **Continuous learning** — update against new attack types.
-4. **Certified solutions** (iBeta Level 2+).
-5. **Multi-factor authentication** — biometric + PIN.
-6. **Risk-based** — extra checks for high-value transactions.
+1. **Vícemodální liveness** — kombinuj techniky.
+2. **Aktivní + pasivní** — obě vrstvy.
+3. **Průběžné učení** — aktualizuj systém proti novým typům útoků.
+4. **Certifikovaná řešení** (iBeta úroveň 2+).
+5. **Vícefaktorová autentizace (authentication)** — biometrika + PIN.
+6. **Přístup podle míry rizika** — další kontroly u transakcí s vysokou hodnotou.
 
-### Pro developers
+### Pro vývojáře
 
-* Use **trusted libraries** — don't roll your own.
-* **Test against known attacks**.
-* **Monitor** for anomalies in production.
-* **Update** regularly.
+* Používej **ověřené knihovny** — nepiš si vlastní řešení od nuly.
+* **Testuj proti známým útokům.**
+* **Sleduj** anomálie v provozu (produkci).
+* **Aktualizuj** pravidelně.
 
-## Future trends
+## Budoucí trendy
 
-### AI-powered detection
+### Detekce poháněná umělou inteligencí (AI)
 
-* **Foundation models** for biometric liveness.
-* **Adversarial robustness** as default.
-* **Federated learning** for distributed training.
+* **Základové modely (foundation models)** pro biometrickou živost.
+* **Adversariální odolnost (adversarial robustness)** jako výchozí stav.
+* **Federované učení (federated learning)** pro distribuovaný trénink.
 
-### Hardware advances
+### Pokroky v hardwaru
 
-* **Better sensors** — multispectral, sub-dermal.
-* **Specialized chips** — neural processing units for liveness.
+* **Lepší senzory** — multispektrální, podkožní.
+* **Specializované čipy** — neuronové procesorové jednotky (NPU) pro liveness.
 
-### Continuous authentication
+### Průběžná autentizace
 
-* **Beyond initial unlock** — ongoing liveness monitoring during session.
-* **Behavioral biometrics** as continuous liveness signal.
+* **Mimo prvotní odemknutí** — průběžné sledování živosti během relace.
+* **Behaviorální biometriky** jako spojitý signál živosti.
 
 ---
 

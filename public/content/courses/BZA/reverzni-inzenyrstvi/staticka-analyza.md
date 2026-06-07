@@ -4,7 +4,7 @@ title: Statická analýza
 
 # Statická analýza
 
-**Statická analýza** zkoumá binární soubor *bez spuštění*. Disassembler překládá machine code na assembly; dekompilátor zpětně vytváří přiblížený zdrojový kód v C/C++; cross-references and pseudo-code views pomáhají reverz engineerovi porozumět struktuře. Klíčové výhody: žádné riziko spuštění malware, plná kontrola nad analýzou, deterministické výsledky.
+**Statická analýza** zkoumá binární soubor *bez spuštění*. Disassembler překládá strojový kód (machine code) na assembly; dekompilátor (decompiler) zpětně vytváří přibližný zdrojový kód v C/C++; křížové reference (cross-references) a náhledy na pseudokód pomáhají reverznímu inženýrovi porozumět struktuře programu. Klíčové výhody jsou: žádné riziko spuštění škodlivého kódu (malware), plná kontrola nad analýzou a deterministické výsledky.
 
 ## Workflow
 
@@ -47,54 +47,54 @@ title: Statická analýza
 
 ## Disassembly
 
-**Disassembler** převádí strojový kód (sekvence bytes) zpět na **assembly** instrukce. Není to perfektní mapování — existují *ambiguity* (where does code end and data begin, byte-aligned vs. shifted decoding).
+**Disassembler** převádí strojový kód (sekvenci bajtů) zpět na **assembly** instrukce. Nejde o dokonalé mapování — vznikají nejednoznačnosti (kde končí kód a začínají data, dekódování zarovnané na bajt versus posunuté).
 
-### Tools
+### Nástroje
 
 * **IDA Pro** (Interactive DisAssembler, Hex-Rays):
-  * **Gold standard.** Komerční, $500–10 000.
+  * **Zlatý standard.** Komerční, $500–10 000.
   * Podporuje cca 50+ procesorových architektur (x86, x86-64, ARM, AArch64, MIPS, PowerPC, RISC-V, SH, Motorola, ...).
-  * Auto-analysis: identifikuje funkce, cross-references, strings, switch statements.
-  * **Hex-Rays Decompiler** (oddělená licence, $1000+) — zpětně do C-like pseudo-code.
-  * Plugin ecosystem (FLIRT signatures, BinDiff, ...).
-* **Ghidra** (NSA, open-source od 2019):
-  * Free alternativa IDA s podobnou funkcionalitou.
-  * Java-based, scriptable Python (via Jython) a Java.
-  * Vlastní decompiler (P-code intermediate representation).
-  * Cross-platform (Win/Linux/macOS).
+  * Automatická analýza: identifikuje funkce, křížové reference (cross-references), řetězce a příkazy switch.
+  * **Hex-Rays Decompiler** (samostatná licence, $1000+) — zpětný převod do pseudokódu podobného jazyku C.
+  * Ekosystém pluginů (FLIRT signatury, BinDiff, ...).
+* **Ghidra** (NSA, open-source od roku 2019):
+  * Bezplatná alternativa k IDA s podobnou funkcionalitou.
+  * Postavená na Javě, skriptovatelná v Pythonu (přes Jython) i v Javě.
+  * Vlastní dekompilátor (mezireprezentace P-code).
+  * Multiplatformní (Win/Linux/macOS).
 * **Radare2 / Cutter:**
-  * Free, open-source. r2 je CLI, Cutter je Qt GUI.
-  * Velmi powerful, ale steep learning curve.
-  * Také *rizin* fork s lepší UX.
+  * Bezplatné, open-source. r2 je nástroj příkazové řádky (CLI), Cutter je grafické rozhraní v Qt.
+  * Velmi výkonné, ale s prudkou křivkou učení.
+  * Existuje i fork *rizin* s lepším uživatelským rozhraním.
 * **Binary Ninja:**
-  * Modern, $300+. Více architektur, lepší IL (Intermediate Language) workflow.
+  * Moderní, $300+. Více architektur, lepší workflow s mezijazykem IL (Intermediate Language).
 * **objdump** (binutils):
-  * Linux command line. Free, basic.
-  * `objdump -d -M intel binary` — quick check.
+  * Příkazová řádka v Linuxu. Bezplatný, základní.
+  * `objdump -d -M intel binary` — rychlá kontrola.
 
-### Příklad — IDA workflow
+### Příklad — workflow v IDA
 
-1. **Open binary** → IDA auto-analysis (může trvat minuty pro velký exe).
-2. **Function list** (F4) — seznam identifikovaných funkcí.
-3. **Strings view** (Shift+F12) — všechny printable strings v binárce.
-4. **Imports view** — DLL/SO imports — odhalí API closely.
-5. **Cross-references** (X) — pro funkci ukáže, kdo ji volá.
-6. **Graph view** — control flow graph.
-7. **Decompiler** (F5) — pseudo-C of current function.
+1. **Otevři binárku** → automatická analýza IDA (u velkého .exe může trvat několik minut).
+2. **Seznam funkcí** (F4) — výpis identifikovaných funkcí.
+3. **Náhled na řetězce** (Shift+F12) — všechny tisknutelné řetězce v binárce.
+4. **Náhled na importy** — importy z DLL/SO — odhalí použité API.
+5. **Křížové reference** (X) — pro danou funkci ukáže, kdo ji volá.
+6. **Náhled na graf** — graf toku řízení (control flow graph).
+7. **Dekompilátor** (F5) — pseudo-C aktuální funkce.
 
 ## Dekompilace
 
-**Decompiler** posune analýzu z assembly na vyšší úroveň — pseudo-C, který je snazší číst.
+**Dekompilátor (decompiler)** posune analýzu z assembly na vyšší úroveň — na pseudo-C, který se snáze čte.
 
 ### Limity dekompilace
 
-* **Inversion není perfect** — compiler optimization, inlining, register allocation způsobí, že generated source neodpovídá originálu.
-* **Typy proměnných** často heuristicky odhadnuté (sizeof = 4? int nebo float?).
-* **Struktury** vyžadují manuální identification a definitions.
-* **Class hierarchies** v C++ obtížné (vtables, RTTI).
-* **Compiler optimizations** (loop unrolling, function inlining) komplikují recovery.
+* **Zpětný převod není dokonalý** — optimalizace překladače (compiler), inlining a alokace registrů způsobí, že vygenerovaný zdrojový kód neodpovídá originálu.
+* **Typy proměnných** jsou často odhadnuty heuristicky (sizeof = 4? jde o int, nebo float?).
+* **Struktury** vyžadují ruční identifikaci a definici.
+* **Hierarchie tříd** v C++ jsou obtížné (vtables, RTTI).
+* **Optimalizace překladače** (rozbalení smyček, inlining funkcí) komplikují obnovu kódu.
 
-### IDA Hex-Rays příklad
+### Příklad IDA Hex-Rays
 
 Strojový kód:
 
@@ -110,7 +110,7 @@ leave
 retn
 ```
 
-Hex-Rays decompilation:
+Dekompilace v Hex-Rays:
 
 ```c
 int __cdecl sum(int a, int b)
@@ -121,88 +121,88 @@ int __cdecl sum(int a, int b)
 }
 ```
 
-Pro typický commercial software dekompilator dá 60–80 % readable kódu; zbytek vyžaduje manuální analýzu (zejména SIMD instructions, custom calling conventions, anti-RE tricks).
+U typického komerčního softwaru dá dekompilátor 60–80 % čitelného kódu; zbytek vyžaduje ruční analýzu (zejména SIMD instrukce, vlastní konvence volání a triky proti reverznímu inženýrství).
 
 ## Pattern matching
 
-* **FLIRT signatures** (IDA) — identifikuje *standardní knihovny* (libc, MSVCRT, OpenSSL) v binárce → tisíce funkcí auto-pojmenovaných.
-* **YARA rules** — string patterns + bytes pro malware classification. Klíčový nástroj v threat intelligence.
-* **BinDiff** (Google) — porovnání dvou binárek; identifikuje *which functions changed* mezi verzemi. Klíčové pro **patch diffing** (1-day exploit dev).
-* **Diaphora** (free alternativa k BinDiff) pro IDA.
+* **FLIRT signatury** (IDA) — identifikují *standardní knihovny* (libc, MSVCRT, OpenSSL) v binárce → tisíce funkcí se automaticky pojmenují.
+* **YARA pravidla** — vzory řetězců a bajtů pro klasifikaci malware. Klíčový nástroj v oblasti threat intelligence.
+* **BinDiff** (Google) — porovnání dvou binárek; identifikuje, *které funkce se změnily* mezi verzemi. Klíčové pro **patch diffing** (vývoj 1-day exploitů).
+* **Diaphora** (bezplatná alternativa k BinDiff) pro IDA.
 
-## Static analyzátory pro security
+## Statické analyzátory pro bezpečnost
 
-* **Cppcheck** — pro source code.
-* **Coverity, Klocwork, Fortify** — komerční SAST (Static Application Security Testing).
+* **Cppcheck** — pro zdrojový kód.
+* **Coverity, Klocwork, Fortify** — komerční SAST (Static Application Security Testing, statické testování bezpečnosti aplikací).
 * **GCC -fanalyzer** / **clang static analyzer** — open source.
-* **CodeQL** (GitHub) — semantic code analysis.
+* **CodeQL** (GitHub) — sémantická analýza kódu.
 
-Tyto cílí na *source code*; pro *binary* analýzu se používají IDA pluginy nebo Ghidra scripts.
+Tyto nástroje cílí na *zdrojový kód*; pro analýzu *binárky* se používají pluginy do IDA nebo skripty pro Ghidru.
 
-## Symbol resolution
+## Obnova symbolů
 
-* **Stripped binaries** — bez debug informací, symbols, function names. Standard pro commercial release.
-* **Debug builds** — s symbols (PDB on Windows, DWARF on Linux/macOS).
-* **Symbol recovery techniques:**
-  * **Library FLIRT signatures** — identifikuje známé funkce.
-  * **Type recovery** přes propagation (sizeof, usage patterns).
-  * **String references** → guess function names ("decryption_key", "auth_failed").
-  * **Trace through known API calls** — Windows API, POSIX system calls.
+* **Stripped binárky** — bez ladicích informací, symbolů a názvů funkcí. Standard pro komerční vydání.
+* **Debug buildy** — se symboly (PDB na Windows, DWARF na Linuxu/macOS).
+* **Techniky obnovy symbolů:**
+  * **FLIRT signatury knihoven** — identifikují známé funkce.
+  * **Obnova typů** přes propagaci (sizeof, vzory použití).
+  * **Reference na řetězce** → odhad názvů funkcí ("decryption_key", "auth_failed").
+  * **Sledování přes známá volání API** — Windows API, systémová volání POSIX.
 
-## File format
+## Formát souboru
 
-Reverz inženýr musí porozumět **binary file formats**:
+Reverzní inženýr musí porozumět **binárním formátům souborů**:
 
 * **PE** (Portable Executable) — Windows EXE/DLL.
 * **ELF** (Executable and Linkable Format) — Linux/Unix.
 * **Mach-O** — macOS/iOS.
 * **APK** / **DEX** — Android.
 * **IPA** — iOS.
-* **HEX / SREC** — Microcontroller firmware images.
+* **HEX / SREC** — obrazy firmwaru mikrokontrolérů.
 
 Klíčové sekce:
-* **`.text`** — code segment.
-* **`.data`** — initialized data.
-* **`.bss`** — uninitialized (zero) data.
-* **`.rodata`** — read-only data (strings, constants).
-* **`.plt` / `.got`** — Procedure Linkage Table, Global Offset Table (dynamic linking).
-* **`.dynsym` / `.dynstr`** — dynamic symbols (linked libraries).
+* **`.text`** — segment kódu.
+* **`.data`** — inicializovaná data.
+* **`.bss`** — neinicializovaná (nulová) data.
+* **`.rodata`** — data jen pro čtení (řetězce, konstanty).
+* **`.plt` / `.got`** — Procedure Linkage Table, Global Offset Table (dynamické linkování).
+* **`.dynsym` / `.dynstr`** — dynamické symboly (linkované knihovny).
 
-Tools:
-* **objdump -h** — section headers.
-* **readelf -a** — ELF analyzer.
-* **PE-Explorer** / **CFF Explorer** — PE format.
+Nástroje:
+* **objdump -h** — hlavičky sekcí.
+* **readelf -a** — analyzátor ELF.
+* **PE-Explorer** / **CFF Explorer** — formát PE.
 * **otool** — Mach-O.
 
-## Příklad — extrakce hardcoded klíčů {tier=example}
+## Příklad — extrakce natvrdo zakódovaných klíčů {tier=example}
 
-Klasická úloha: najít AES klíč v IoT firmware.
+Klasická úloha: najít AES klíč v IoT firmwaru.
 
-1. **objdump -d firmware.bin > disasm.txt** — disassemble.
-2. **strings firmware.bin | grep -iE "key|aes|secret"** — strings hint.
-3. V IDA: **Cross-references** k *AES function* (např. SubBytes operace s S-box konstanta).
-4. **Trace** key parameter zpět:
-   * Identifikuj `AES_KeySchedule(key)` call.
-   * **R0/RDI** parameter je pointer na klíč.
-   * Cross-reference: kdo volá tuto funkci.
-5. **String aliasing** — v `.rodata` sekci najdi byte sequence, která odpovídá key (typicky 16/32 bytes alignment).
+1. **objdump -d firmware.bin > disasm.txt** — disassembluj.
+2. **strings firmware.bin | grep -iE "key|aes|secret"** — nápověda z řetězců.
+3. V IDA: **křížové reference** na *AES funkci* (např. operace SubBytes s konstantou S-box).
+4. **Vystopuj** parametr s klíčem zpět:
+   * Identifikuj volání `AES_KeySchedule(key)`.
+   * Parametr **R0/RDI** je ukazatel (pointer) na klíč.
+   * Křížová reference: kdo tuto funkci volá.
+5. **Aliasing řetězců** — v sekci `.rodata` najdi sekvenci bajtů, která odpovídá klíči (typicky zarovnání na 16/32 bajtů).
 
-V open-source IoT firmware (router) lze najít AES klíče ve **flash dump** běžně.
+V open-source IoT firmwaru (router) lze AES klíče běžně najít ve **flash dumpu**.
 
-## Příklad — algoritmus reverz {tier=example}
+## Příklad — reverz algoritmu {tier=example}
 
 Klasická úloha: rekonstrukce **algoritmu** licenční validace.
 
-1. Najdi *registration check* funkci (X-ref na string "Invalid license").
-2. Vstupní parametr je user-entered key string.
+1. Najdi funkci *kontroly registrace* (X-ref na řetězec "Invalid license").
+2. Vstupním parametrem je řetězec klíče zadaný uživatelem.
 3. **Sledování instrukcí:**
-   * `strlen(input)` — vrací delku.
-   * Compare s konstantou (např. 16) → license keys jsou 16 chars.
-   * `for (i=0; i<16; i++) { sum += input[i] * (i+1); }` → checksum algorithm.
-   * `if (sum % 26 == expected)` → finální check.
-4. **Reverz checksum algorithm** → generate valid licenses (keygen).
+   * `strlen(input)` — vrací délku.
+   * Porovnání s konstantou (např. 16) → licenční klíče mají 16 znaků.
+   * `for (i=0; i<16; i++) { sum += input[i] * (i+1); }` → algoritmus výpočtu kontrolního součtu (checksum).
+   * `if (sum % 26 == expected)` → finální kontrola.
+4. **Reverz algoritmu kontrolního součtu** → generování platných licencí (keygen).
 
-V real-world software se používají complex algorithms (RSA signatures, certificate validation), které jsou *lépe* odolné.
+V reálném softwaru se používají složité algoritmy (RSA podpisy, validace certifikátů), které jsou *odolnější*.
 
 ## Statická vs. dynamická analýza
 
@@ -210,12 +210,12 @@ Statická analýza:
 
 | Pro | Proti |
 | :--- | :--- |
-| Žádné spuštění (no risk z malware) | Anti-RE techniky (packing, obfuscation) ztěžují |
-| Plná kontrola, opakovatelnost | Decompiler není perfect |
-| Coverage celého kódu (incl. unreachable) | Path explosion |
-| Detekce dead code | Žádná runtime info (skutečné hodnoty proměnných) |
+| Žádné spuštění (žádné riziko z malware) | Techniky proti reverznímu inženýrství (packing, obfuskace) ji ztěžují |
+| Plná kontrola, opakovatelnost | Dekompilátor není dokonalý |
+| Pokrytí celého kódu (vč. nedosažitelného) | Exploze cest (path explosion) |
+| Detekce mrtvého kódu (dead code) | Žádné informace za běhu (skutečné hodnoty proměnných) |
 
-Pro full understanding je nutné kombinovat s [[dynamicka-analyza]].
+Pro úplné porozumění je nutné kombinovat ji s [[dynamicka-analyza]].
 
 ---
 

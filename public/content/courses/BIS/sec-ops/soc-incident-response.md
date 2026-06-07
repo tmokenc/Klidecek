@@ -1,63 +1,63 @@
 ---
-title: SOC a incident response
+title: SOC a reakce na incidenty
 ---
 
-# SOC a Incident Response
+# SOC a reakce na incidenty
 
-**SOC** (Security Operations Center) je *organizační* + *technická* jednotka, která 24/7 monitoruje bezpečnostní stav. **Incident Response (IR)** je *proces* reagování na incidenty od detekce po obnovu.
+**SOC** (Security Operations Center) je *organizační* i *technická* jednotka, která 24/7 monitoruje bezpečnostní stav. **Reakce na incidenty (incident response, IR)** je *proces* reagování na incidenty od jejich detekce až po obnovu provozu.
 
 ## SOC — Security Operations Center
 
 ### Funkce
 
-- **Monitoring** — real-time analyzes alerts ([[siem-monitoring]], [[ids-ips]]).
-- **Triage** — categorize incidents.
-- **Response** — escalate, mitigate.
-- **Threat hunting** — proactive search for compromises.
-- **Forensics** — post-incident analysis.
-- **Reporting** — metrics, executive briefings.
+- **Monitoring** — analýza výstrah (alerts) v reálném čase ([[siem-monitoring]], [[ids-ips]]).
+- **Triáž (triage)** — zařazení incidentů do kategorií.
+- **Reakce (response)** — eskalace a zmírnění dopadů.
+- **Lov hrozeb (threat hunting)** — aktivní vyhledávání kompromitací.
+- **Forenzní analýza (forensics)** — rozbor po incidentu.
+- **Reporting** — metriky a brífinky pro vedení.
 
-### Levels of analysts
+### Úrovně analytiků
 
-**Tier 1 — Triage**: filter alerts, escalate suspicious.
+**Tier 1 — triáž**: filtruje výstrahy a eskaluje podezřelé případy.
 
-- Skills: log analysis, ticket management.
-- Salary: $40-70k US.
+- Dovednosti: analýza logů, správa tiketů.
+- Plat: 40–70 tis. USD (USA).
 
-**Tier 2 — Investigation**: deeper analysis, malware analysis, correlation.
+**Tier 2 — vyšetřování**: hlubší analýza, analýza škodlivého kódu (malware), korelace událostí.
 
-- Skills: threat hunting, scripting, IR procedures.
-- Salary: $70-120k.
+- Dovednosti: lov hrozeb, skriptování, postupy reakce na incidenty.
+- Plat: 70–120 tis. USD.
 
-**Tier 3 — Hunting + Response**: lead complex investigations, threat intel.
+**Tier 3 — lov hrozeb a reakce**: vede složitá vyšetřování a pracuje se zpravodajstvím o hrozbách (threat intel).
 
-- Skills: reverse engineering, advanced forensics.
-- Salary: $120-200k+.
+- Dovednosti: zpětné inženýrství (reverse engineering), pokročilá forenzní analýza.
+- Plat: 120–200 tis. USD a více.
 
-**SOC Manager**: process, metrics, coordination with other teams.
+**SOC manažer**: stará se o procesy, metriky a koordinaci s ostatními týmy.
 
-### Tools
+### Nástroje
 
 - **SIEM** ([[siem-monitoring]]) — Splunk, QRadar, Sentinel, Elastic.
-- **SOAR** — Security Orchestration, Automation, Response. Playbook automation.
+- **SOAR** — Security Orchestration, Automation, Response. Automatizace pomocí playbooků (předem připravených postupů).
 - **EDR/XDR** — CrowdStrike, SentinelOne, Microsoft Defender.
-- **Threat Intel platforms** — MISP, ThreatConnect.
-- **Network monitoring** — Zeek, Suricata.
+- **Platformy pro zpravodajství o hrozbách (threat intel platforms)** — MISP, ThreatConnect.
+- **Síťový monitoring (network monitoring)** — Zeek, Suricata.
 
-### Models
+### Modely
 
-- **In-house SOC** — fully staffed, owned.
-- **MSSP** (Managed Security Service Provider) — outsourced.
-- **Hybrid** — internal + MSSP for off-hours.
-- **MDR** (Managed Detection and Response) — vendor watches your tools.
+- **Vlastní SOC (in-house)** — plně obsazený a provozovaný interně.
+- **MSSP** (Managed Security Service Provider) — provoz zajišťuje externí dodavatel.
+- **Hybridní** — interní tým doplněný službou MSSP pro mimopracovní dobu.
+- **MDR** (Managed Detection and Response) — dodavatel sleduje vaše nástroje za vás.
 
-Choice depends on size, regulatory needs, budget.
+Volba modelu závisí na velikosti organizace, regulatorních požadavcích a rozpočtu.
 
-## Incident Response framework
+## Rámec reakce na incidenty
 
-NIST SP 800-61 — most cited framework.
+NIST SP 800-61 — nejčastěji citovaný rámec (framework).
 
-### IR phases
+### Fáze reakce na incidenty
 
 ::: svg "NIST IR — 4 phases"
 <svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -96,189 +96,189 @@ NIST SP 800-61 — most cited framework.
 </svg>
 :::
 
-#### 1. Preparation
+#### 1. Příprava (preparation)
 
-Before incident:
+Ještě před incidentem:
 
-- **IR plan** — documented procedures.
-- **IR team** — defined roles, contact info.
-- **Communication plans** — internal + external.
-- **Tools ready** — forensics workstation, backup, network capture.
-- **Training** — tabletop exercises, simulations.
-- **Threat intelligence** — relevant feeds.
+- **Plán reakce na incidenty (IR plan)** — zdokumentované postupy.
+- **IR tým** — definované role a kontaktní údaje.
+- **Komunikační plány** — interní i externí.
+- **Připravené nástroje** — forenzní pracovní stanice, zálohy, zachytávání síťového provozu.
+- **Trénink** — stolní cvičení (tabletop exercises) a simulace.
+- **Zpravodajství o hrozbách (threat intelligence)** — relevantní zdroje (feeds).
 
-Most important phase. Unprepared org → chaos when incident hits.
+Toto je nejdůležitější fáze. Nepřipravená organizace upadne ve chvíli incidentu do chaosu.
 
-#### 2. Detection + Analysis
+#### 2. Detekce a analýza
 
-- Alert from SIEM, IDS, user report, threat intel.
-- **Triage** — is it really an incident?
-- **Scoping** — what's affected?
-- **Classification** — severity (low/med/high/critical).
-- **Documentation** — start incident ticket.
+- Výstraha ze SIEM, IDS, hlášení od uživatele nebo ze zpravodajství o hrozbách.
+- **Triáž** — jde skutečně o incident?
+- **Stanovení rozsahu (scoping)** — co všechno je zasaženo?
+- **Klasifikace** — závažnost (nízká/střední/vysoká/kritická).
+- **Dokumentace** — založení incidentního tiketu.
 
-#### 3. Containment, Eradication, Recovery
+#### 3. Zadržení, eradikace a obnova
 
-**Containment**:
+**Zadržení (containment)**:
 
-- **Short-term** — isolate infected hosts. Network segmentation. Disable accounts.
-- **Long-term** — patch vulnerable systems while investigation continues.
+- **Krátkodobé** — izolace nakažených hostů, segmentace sítě, zablokování účtů.
+- **Dlouhodobé** — záplatování zranitelných systémů, zatímco vyšetřování pokračuje.
 
-**Eradication**:
+**Eradikace (eradication)**:
 
-- Remove malware.
-- Disable / change compromised accounts.
-- Rebuild compromised systems (don't trust cleanup — rebuild).
-- Address root cause.
+- Odstranění škodlivého kódu (malware).
+- Zablokování či změna kompromitovaných účtů.
+- Znovuvybudování kompromitovaných systémů (nespoléhejte na pouhé vyčištění — systém přeinstalujte).
+- Odstranění prvotní příčiny.
 
-**Recovery**:
+**Obnova (recovery)**:
 
-- Restore systems from clean backup.
-- Verify integrity.
-- Monitor for re-infection.
-- Restore normal operations.
+- Obnovení systémů z čisté zálohy.
+- Ověření integrity.
+- Sledování případné opětovné nákazy.
+- Obnovení běžného provozu.
 
-#### 4. Post-Incident
+#### 4. Po incidentu (post-incident)
 
-- **Lessons learned** meeting.
-- **Update** IR plan, playbooks, controls.
-- **Report** to management, regulators.
-- **Threat intel sharing** (ISAC, MISP).
+- Schůzka **získaných ponaučení (lessons learned)**.
+- **Aktualizace** plánu reakce na incidenty, playbooků a opatření.
+- **Reporting** vedení a regulátorům.
+- **Sdílení zpravodajství o hrozbách** (ISAC, MISP).
 
-## IR team — typical roles
+## IR tým — typické role
 
-- **IR Commander** — overall responsibility.
-- **Lead Investigator** — technical lead.
-- **Forensics analysts** — evidence handling.
-- **Malware analysts** — reverse engineering.
-- **Communications** — PR, customer comms.
-- **Legal** — regulatory, law enforcement.
-- **HR** — for insider threats.
-- **IT operations** — restore systems.
+- **Velitel incidentu (IR Commander)** — celková odpovědnost.
+- **Vedoucí vyšetřovatel (Lead Investigator)** — technické vedení.
+- **Forenzní analytici** — práce s důkazy.
+- **Analytici škodlivého kódu (malware)** — zpětné inženýrství.
+- **Komunikace** — vztahy s veřejností (PR) a komunikace se zákazníky.
+- **Právní oddělení** — regulace a orgány činné v trestním řízení.
+- **HR** — pro případy vnitřních hrozeb (insider threats).
+- **IT provoz** — obnova systémů.
 
-## Playbooks
+## Playbooky
 
-Pre-defined procedures for *common* incident types:
+Předem definované postupy pro *běžné* typy incidentů:
 
-- **Malware infection** playbook.
-- **Phishing** playbook.
-- **Data breach** playbook.
-- **DDoS** playbook.
-- **Account compromise** playbook.
+- Playbook pro **nákazu škodlivým kódem (malware infection)**.
+- Playbook pro **phishing**.
+- Playbook pro **únik dat (data breach)**.
+- Playbook pro **DDoS**.
+- Playbook pro **kompromitaci účtu (account compromise)**.
 
-Each: trigger conditions, steps, escalation criteria.
+Každý z nich obsahuje: spouštěcí podmínky, kroky a kritéria pro eskalaci.
 
-Modern SOC automate playbooks via **SOAR** platforms (Phantom, Demisto, Tines, Swimlane).
+Moderní SOC playbooky automatizují pomocí platforem **SOAR** (Phantom, Demisto, Tines, Swimlane).
 
-## Severity levels
+## Úrovně závažnosti
 
-Typical taxonomy:
+Typická taxonomie:
 
-| Level | Description | Response |
+| Úroveň | Popis | Reakce |
 | :--- | :--- | :--- |
-| **Critical** | Active breach, large impact | Immediate all-hands, exec briefing |
-| **High** | Suspected breach, moderate impact | IR team activated, hours |
-| **Medium** | Suspicious activity | Investigate within day |
-| **Low** | Minor anomaly | Investigate within week |
+| **Kritická** | Aktivní průnik s rozsáhlým dopadem | Okamžité nasazení všech, brífink pro vedení |
+| **Vysoká** | Podezření na průnik se středním dopadem | Aktivace IR týmu, řádově hodiny |
+| **Střední** | Podezřelá aktivita | Prošetřit do jednoho dne |
+| **Nízká** | Drobná anomálie | Prošetřit do jednoho týdne |
 
-Customer-data breach typically **Critical**.
+Únik zákaznických dat se obvykle klasifikuje jako **kritický**.
 
-## Communication
+## Komunikace
 
-### Internal
+### Interní
 
-- Status updates every X hours.
-- Bridge call for active incidents.
-- Executive updates.
+- Aktualizace stavu každých X hodin.
+- Konferenční hovor (bridge call) pro aktivní incidenty.
+- Aktualizace pro vedení.
 
-### External
+### Externí
 
-- **Regulators** — GDPR 72h notification, US state breach laws.
-- **Customers** — when notification required.
-- **Law enforcement** — FBI, local police.
-- **Press** — only via authorized spokesperson.
+- **Regulátoři** — oznámení do 72 h podle GDPR, americké zákony o ohlašování úniků dat.
+- **Zákazníci** — pokud je oznámení vyžadováno.
+- **Orgány činné v trestním řízení** — FBI, místní policie.
+- **Tisk** — výhradně prostřednictvím pověřeného mluvčího.
 
-### Do NOT
+### Co NEDĚLAT
 
-- Communicate over compromised channels (assume attacker monitors corporate email).
-- Speculate publicly before facts known.
-- Promise specifics before complete investigation.
+- Nekomunikovat přes kompromitované kanály (předpokládejte, že útočník (attacker) sleduje firemní e-mail).
+- Veřejně nespekulovat, dokud nejsou známa fakta.
+- Neslibovat konkrétní výsledky před dokončením vyšetřování.
 
-## Lessons learned
+## Získaná ponaučení
 
-Within 1-2 weeks post-incident:
+Do 1–2 týdnů po incidentu:
 
-1. **Timeline** of events.
-2. **Root cause analysis** (5 whys).
-3. **Detection effectiveness** — when did we detect?
-4. **Response effectiveness** — were procedures followed?
-5. **Improvements** — controls, training, tools.
+1. **Časová osa** událostí.
+2. **Analýza prvotní příčiny (root cause analysis)** (metoda 5 proč).
+3. **Účinnost detekce** — kdy jsme problém odhalili?
+4. **Účinnost reakce** — dodrželi jsme postupy?
+5. **Zlepšení** — opatření, trénink, nástroje.
 
-Output: action items with owners + deadlines. Track to closure.
+Výstupem jsou konkrétní úkoly s přiřazenými vlastníky a termíny. Sledujte je až do uzavření.
 
-## Metrics
+## Metriky
 
-SOC + IR metrics:
+Metriky pro SOC a reakci na incidenty:
 
-- **Mean Time to Detect (MTTD)** — alert → incident declared.
-- **Mean Time to Respond (MTTR)** — incident declared → contained.
-- **Mean Time to Recovery** — incident contained → operations normal.
-- **False positive rate** — alerts that weren't incidents.
-- **Detected via SOC vs. external** — ratio.
-- **Incidents by category, severity**.
+- **Střední doba do detekce (Mean Time to Detect, MTTD)** — od výstrahy po vyhlášení incidentu.
+- **Střední doba do reakce (Mean Time to Respond, MTTR)** — od vyhlášení incidentu po jeho zadržení.
+- **Střední doba do obnovy (Mean Time to Recovery)** — od zadržení incidentu po návrat k normálnímu provozu.
+- **Míra falešně pozitivních výstrah (false positive rate)** — výstrahy, které nebyly incidenty.
+- **Poměr detekce SOC vs. externě** — kolik incidentů odhalí SOC oproti tomu, kolik nahlásí někdo zvenčí.
+- **Incidenty podle kategorie a závažnosti**.
 
-Modern target: MTTD < 1 hour, MTTR < 24 hours. Many orgs miss.
+Moderní cíl: MTTD < 1 hodina, MTTR < 24 hodin. Mnoho organizací jej nesplňuje.
 
 ::: viz ir-timeline-metrics "Slidery posouvají timing fází (detection, contain, eradicate, recover). MTTD / MTTR / damage se přepočítají. Preset 'slow' = no IR; 'fast' = mature SOC."
 :::
 
-## Threat hunting
+## Lov hrozeb
 
-Proactive search for compromises *not* triggered by alerts.
+Aktivní vyhledávání kompromitací, které *nebyly* spuštěny žádnou výstrahou.
 
-### Hypothesis-driven
+### Řízený hypotézou
 
-"Attackers using Living-off-the-Land techniques (PowerShell, certutil) for evasion. Search for unusual PowerShell + network connection patterns."
+„Útočníci pro únik před detekcí používají techniky Living-off-the-Land (PowerShell, certutil). Hledejme neobvyklé vzorce PowerShellu spojené se síťovými spojeními."
 
-### IoC-based
+### Založený na IoC
 
-Threat intel publishes IoCs → search environment for matches.
+Zpravodajství o hrozbách zveřejní indikátory kompromitace (IoC) → v prostředí pak hledáme jejich výskyt.
 
-### TTPs
+### TTP
 
-Search by MITRE ATT&CK technique. "How would we detect T1003 (Credential Dumping)?"
+Vyhledávání podle techniky z MITRE ATT&CK. „Jak bychom detekovali T1003 (Credential Dumping, vykrádání přihlašovacích údajů)?"
 
-Tools: Sigma rules (SIEM-agnostic queries), Atomic Red Team (simulate attacks).
+Nástroje: pravidla Sigma (dotazy nezávislé na konkrétním SIEM), Atomic Red Team (simulace útoků).
 
-## Tabletop exercises
+## Stolní cvičení (tabletop exercises)
 
-Simulated incidents — discussion only, no real systems. Test:
+Simulované incidenty — pouze diskuse, žádné zásahy do reálných systémů. Ověřují:
 
-- IR plan completeness.
-- Team coordination.
-- Decision-making under pressure.
-- Communication chains.
+- Úplnost plánu reakce na incidenty.
+- Koordinaci týmu.
+- Rozhodování pod tlakem.
+- Komunikační řetězce.
 
-Examples:
+Příklady:
 
-- **Ransomware** scenario.
-- **Insider data theft**.
-- **DDoS attacking primary service**.
-- **CEO email impersonation**.
+- Scénář **ransomwaru**.
+- **Krádež dat zevnitř organizace**.
+- **DDoS na primární službu**.
+- **Podvržení (spoofing) e-mailu generálního ředitele**.
 
-Run quarterly for IR teams. Identify gaps.
+Pro IR týmy se spouští čtvrtletně. Cílem je odhalit slabá místa.
 
-## Major incident examples {tier=example}
+## Příklady velkých incidentů {tier=example}
 
-- **Target 2013** — POS malware via HVAC vendor. 40M cards stolen.
-- **Sony Pictures 2014** — North Korean attack, embarrassing email leak.
-- **Equifax 2017** — Apache Struts vuln, 147M consumer records.
-- **NotPetya 2017** — Maersk, Mondelez devastated. $10B+ damages globally.
-- **SolarWinds 2020** — supply chain attack, 18 000 organizations affected.
-- **Colonial Pipeline 2021** — ransomware, US East Coast fuel shortage.
-- **Uber 2022** — social engineered MFA fatigue, full internal access.
+- **Target 2013** — malware na pokladních terminálech (POS) přes dodavatele klimatizací (HVAC). Odcizeno 40 milionů platebních karet.
+- **Sony Pictures 2014** — útok přisuzovaný Severní Koreji, trapný únik interní e-mailové komunikace.
+- **Equifax 2017** — zranitelnost (vulnerability) v Apache Struts, 147 milionů záznamů o spotřebitelích.
+- **NotPetya 2017** — zdevastoval firmy Maersk a Mondelez. Celosvětové škody přes 10 miliard USD.
+- **SolarWinds 2020** — útok na dodavatelský řetězec (supply chain attack), zasaženo 18 000 organizací.
+- **Colonial Pipeline 2021** — ransomware, nedostatek paliva na východním pobřeží USA.
+- **Uber 2022** — sociální inženýrství metodou „MFA fatigue", útočník získal úplný interní přístup.
 
-Each: massive impact + lessons.
+U každého případu šlo o obrovský dopad a důležitá ponaučení.
 
 ---
 

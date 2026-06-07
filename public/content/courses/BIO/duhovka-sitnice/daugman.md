@@ -1,14 +1,14 @@
 ---
-title: Daugman algoritmus pro iris
+title: Daugmanův algoritmus pro duhovku
 ---
 
-# Daugman algoritmus pro iris
+# Daugmanův algoritmus pro duhovku
 
-**John Daugman** (Cambridge University, 1993) navrhl algoritmus pro **encoding duhovky** do *2048-bit iris code*. Tento algoritmus je dodnes *zlatým standardem* — používá ho většina komerčních iris recognition systémů (Iridian Technologies, IriTech, Aware, Tascent). Daugmanův algoritmus dovoluje *extrémně přesnou* identifikaci s jakkoli velkou databází.
+**John Daugman** (Cambridge University, 1993) navrhl algoritmus pro **zakódování duhovky (encoding)** do *2048bitového kódu duhovky (iris code)*. Tento algoritmus je dodnes *zlatým standardem* — používá ho většina komerčních systémů pro rozpoznávání podle duhovky (iris recognition), například Iridian Technologies, IriTech, Aware nebo Tascent. Daugmanův algoritmus umožňuje *extrémně přesnou* identifikaci i s libovolně velkou databází.
 
-## Pipeline algoritmu
+## Zpracovatelská linka (pipeline) algoritmu
 
-::: svg "Daugman pipeline: capture → lokalizace iris (integro-differenční operátor) → normalization (rubber sheet) → Gabor demodulace → iris code (2048 bit) → Hamming distance."
+::: svg "Daugman pipeline: snímání → lokalizace duhovky (integro-diferenční operátor) → normalizace (rubber sheet) → Gaborova demodulace → kód duhovky (2048 bitů) → Hammingova vzdálenost."
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="10">
   <defs>
     <marker id="aDG" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
@@ -43,41 +43,41 @@ title: Daugman algoritmus pro iris
 </svg>
 :::
 
-## 1. Capture
+## 1. Snímání (capture)
 
-* **NIR camera** (700–900 nm) — neviditelné, but reveals iris pattern even in *dark* irises.
-* **Resolution:** minimum 200 pixels across iris (640 × 480 image typically).
-* **Distance:** 10–60 cm (klassicky), nově až 5 m (extended-range).
+* **NIR kamera** (snímání v blízké infračervené oblasti, 700–900 nm) — světlo je pro člověka neviditelné, ale odhalí strukturu duhovky i u *tmavých* duhovek.
+* **Rozlišení:** minimálně 200 pixelů napříč duhovkou (typicky obraz 640 × 480).
+* **Vzdálenost:** 10–60 cm (klasicky), nově až 5 m (rozšířený dosah).
 
 ## 2. Lokalizace duhovky
 
-Cíl: najít *vnitřní* (pupila) a *vnější* (sclera) hranici iris.
+Cíl: najít *vnitřní* hranici (vůči zornici, pupile) a *vnější* hranici duhovky (vůči bělimě, scléře).
 
-### Integro-differential operator
+### Integro-diferenční operátor (integro-differential operator)
 
-Daugman key contribution. Hledá *kruhovou* hranici, kde je *radial gradient* maximální:
+Daugmanův klíčový přínos. Operátor hledá *kruhovou* hranici, kde je *radiální gradient* (změna jasu ve směru poloměru) maximální:
 
 ::: math
 \max_{(r, x_0, y_0)} \left| G_\sigma(r) * \frac{\partial}{\partial r} \oint_{r, x_0, y_0} \frac{I(x, y)}{2\pi r} ds \right|
 :::
 
-* $I(x, y)$ — image intensity.
-* Kontur integral $\oint$ je *kruhový* contour s centrem $(x_0, y_0)$ a radiem $r$.
-* Operator hledá *contour*, kde se průměr image rapidly changes s $r$.
-* $G_\sigma$ je Gaussian smoothing kernel.
+* $I(x, y)$ — intenzita (jas) obrazu.
+* Křivkový integrál $\oint$ je *kruhová* kontura se středem $(x_0, y_0)$ a poloměrem $r$.
+* Operátor hledá *konturu*, kde se průměrný jas obrazu prudce mění v závislosti na $r$.
+* $G_\sigma$ je Gaussovo vyhlazovací jádro (kernel).
 
-Dvě aplikace:
+Dvě použití:
 
-1. **Pupilární hranice** — *malý* radius, *high contrast*.
-2. **Sclerální hranice** — *velký* radius, *low contrast*.
+1. **Hranice zornice (pupilární hranice)** — *malý* poloměr, *vysoký kontrast*.
+2. **Hranice bělimy (sclerální hranice)** — *velký* poloměr, *nízký kontrast*.
 
 ### Detekce víček
 
-Také hledá *eyelids* (parabolic contours) → mask v okraji iris area.
+Operátor také hledá *víčka (eyelids)*, která mají tvar paraboly → ta se v oblasti duhovky maskují (vyřadí z dalšího zpracování).
 
-## 3. Normalizace — rubber-sheet model
+## 3. Normalizace — model pružné plachty (rubber-sheet model)
 
-::: svg "Rubber sheet: 2D iris area (Cartesian, x-y) → 1D radial profil (polar, r-θ), normalizovaný na fixed size."
+::: svg "Rubber sheet: 2D plocha duhovky (kartézské souřadnice x-y) → 1D radiální profil (polární souřadnice r-θ), normalizovaný na pevnou velikost."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
   <g fill="rgba(150,200,230,0.3)" stroke="var(--accent)" stroke-width="1.3">
     <circle cx="100" cy="100" r="60"/>
@@ -100,7 +100,7 @@ Také hledá *eyelids* (parabolic contours) → mask v okraji iris area.
 </svg>
 :::
 
-Iris se *unrolled* z 2D circular area do **1D polar coordinates**:
+Duhovka se *rozvine* z 2D kruhové plochy do **1D polárních souřadnic**:
 
 ::: math
 I(x, y) \to I(r, \theta)
@@ -108,123 +108,123 @@ I(x, y) \to I(r, \theta)
 
 kde:
 
-* $r \in [0, 1]$ je normalizovaný radius (0 = pupila, 1 = sclera).
+* $r \in [0, 1]$ je normalizovaný poloměr (0 = zornice, 1 = bělima).
 * $\theta \in [0, 2\pi)$ je úhel.
 
-Klíčová vlastnost **rubber sheet**:
+Klíčová vlastnost **modelu pružné plachty**:
 
-* **Pupil dilation** mění poměr $r_{\text{iris}} / r_{\text{pupil}}$ — ale **normalized polar** zůstává *stejné*.
-* To kompenzuje **pupillary deformation** automaticky.
+* **Rozšíření zornice (pupil dilation)** mění poměr $r_{\text{iris}} / r_{\text{pupil}}$ — ale **normalizovaný polární obraz** zůstává *stejný*.
+* Tím se automaticky kompenzuje **deformace způsobená změnou velikosti zornice (pupillary deformation)**.
 
-Output: **64 × 512 polar image** of iris.
+Výstup: **polární obraz duhovky o rozměru 64 × 512**.
 
-## 4. Gabor demodulation
+## 4. Gaborova demodulace (Gabor demodulation)
 
-Daugmanovo nejdůležitější contribution. Aplikuje **2D Gabor wavelets**:
+Daugmanův nejdůležitější přínos. Aplikuje **2D Gaborovy vlnky (wavelets)**:
 
 ::: math
 G(r, \theta) = \exp\left(-\frac{(r - r_0)^2}{\alpha^2}\right) \exp\left(-\frac{(\theta - \theta_0)^2}{\beta^2}\right) \exp(-i\omega(\theta - \theta_0))
 :::
 
-* Real part: $\cos(\omega \theta)$ — *even* component.
-* Imag part: $-\sin(\omega \theta)$ — *odd* component.
+* Reálná část: $\cos(\omega \theta)$ — *sudá* složka.
+* Imaginární část: $-\sin(\omega \theta)$ — *lichá* složka.
 
-Konvoluce s každým Gabor kernel → complex response $h$. **Quantize** podle phase:
+Konvoluce s každým Gaborovým jádrem (kernel) → komplexní odezva $h$. Ta se **kvantuje** podle fáze:
 
 ::: math
 \text{bit}_{Re} = \begin{cases} 1 & \text{if } \text{Re}(h) > 0 \\ 0 & \text{else} \end{cases}, \quad \text{bit}_{Im} = \begin{cases} 1 & \text{if } \text{Im}(h) > 0 \\ 0 & \text{else} \end{cases}
 :::
 
-Po 1024 Gabor kernels (různé pozice, frekvence) → **2048 bit iris code**.
+Po 1024 Gaborových jádrech (různé pozice a frekvence) vznikne **2048bitový kód duhovky**.
 
-Each bit je *robust*: small image variations nezmění *sign of phase* (only magnitude). To je důvod, proč Daugman code je *velmi* stabilní napříč různým snímáním.
+Každý bit je *robustní*: drobné změny v obraze nezmění *znaménko fáze* (mění jen velikost odezvy). Právě proto je Daugmanův kód *velmi* stabilní napříč různými snímáními.
 
-## 5. Matching — Hamming distance
+## 5. Porovnávání (matching) — Hammingova vzdálenost
 
-Pro porovnání dvou iris codes $a, b$:
+Pro porovnání dvou kódů duhovky $a, b$ slouží:
 
 ::: math
 HD = \frac{1}{N} \sum_{i=1}^N (a_i \oplus b_i) \cdot m_i
 :::
 
 * $\oplus$ — XOR.
-* $m_i$ — *mask bit* (1 if both codes have valid data at this position; 0 if masked due to eyelid, reflection, noise).
-* $N$ — number of valid bits.
+* $m_i$ — *maskovací bit (mask bit)* (1, pokud mají oba kódy na této pozici platná data; 0, pokud je pozice maskována kvůli víčku, odlesku nebo šumu).
+* $N$ — počet platných bitů.
 
-**Hamming distance** = % bits that differ:
+**Hammingova vzdálenost** = procento bitů, které se liší:
 
-* HD = 0 → identical (impossible in practice, even for same eye different captures).
-* HD = 0.5 → random (independent).
-* HD < 0.32 → *match* (standard threshold).
+* HD = 0 → totožné kódy (v praxi nemožné, dokonce ani u téhož oka při různých snímcích).
+* HD = 0,5 → náhodné kódy (nezávislé).
+* HD < 0,32 → *shoda (match)* (standardní prahová hodnota).
 
-### Genuine vs. impostor distribution
+### Rozložení pravých a podvržených shod (genuine vs. impostor)
 
-* **Genuine (same eye, different captures):** HD ~ 0.10 (mean), σ ~ 0.05.
-* **Impostor (different eyes):** HD ~ 0.50 (mean), σ ~ 0.032.
+* **Pravá shoda (stejné oko, různá snímání):** HD ~ 0,10 (průměr), σ ~ 0,05.
+* **Nepravá shoda (různá oči):** HD ~ 0,50 (průměr), σ ~ 0,032.
 
-**Extreme separation** — distribuce se prakticky *nepřekrývají*. Daugman ([*Probing the Uniqueness and Randomness of IrisCodes* 2006](https://www.cl.cam.ac.uk/~jgd1000/proceedings.pdf)) odhadl FAR < $10^{-12}$ pro HD < 0.30.
+**Extrémní oddělení** — obě rozdělení se prakticky *nepřekrývají*. Daugman ([*Probing the Uniqueness and Randomness of IrisCodes* 2006](https://www.cl.cam.ac.uk/~jgd1000/proceedings.pdf)) odhadl míru chybného přijetí (FAR) < $10^{-12}$ pro HD < 0,30.
 
-::: viz daugman-iris-code "Pět fází Daugman pipeline a Hamming distance pro genuine vs impostor."
+::: viz daugman-iris-code "Pět fází Daugmanovy pipeline a Hammingova vzdálenost pro pravé vs. podvržené shody."
 :::
 
-## Rotation handling
+## Ošetření rotace (rotation handling)
 
-Iris code se *vypočítává v polar coordinates*. Eye *rotation* (head tilt) = *circular shift* iris code.
+Kód duhovky se *počítá v polárních souřadnicích*. *Natočení* oka (náklon hlavy) odpovídá *cyklickému posunu (circular shift)* kódu duhovky.
 
-* Při matching se *opakovaně* zkouší shifts: $-8, -7, ..., +7, +8$ pixel shifts.
-* Min HD across all shifts → final score.
+* Při porovnávání se *opakovaně* zkoušejí různé posuny: $-8, -7, ..., +7, +8$ pixelů.
+* Minimální HD přes všechny posuny → konečné skóre.
 
-## Iris Code Standard
+## Standard kódu duhovky
 
-* **Daugman code** je *de facto* standard, ale ne ISO standard.
-* **ISO/IEC 19794-6:2011** — *Biometric data interchange formats — Part 6: Iris image data*. Standardizuje *image format*, ne iris code.
-* **Iridian / IriTech / Tascent** používají proprietary code formats; *interoperability* je omezená.
+* **Daugmanův kód** je *de facto* standard, ale není to standard ISO.
+* **ISO/IEC 19794-6:2011** — *Biometric data interchange formats — Part 6: Iris image data*. Standardizuje *formát obrazu*, nikoli samotný kód duhovky.
+* **Iridian / IriTech / Tascent** používají proprietární formáty kódu; *interoperabilita* je proto omezená.
 
-## Iris recognition systems
+## Systémy pro rozpoznávání podle duhovky
 
-### CASIA Iris Database
+### Databáze CASIA Iris
 
 * Chinese Academy of Sciences.
-* Multiple datasets (CASIA-Iris v1/v2/v3/v4/Thousand) — celkem desítky tisíc images.
-* *Standard* academic benchmark.
+* Více datových sad (CASIA-Iris v1/v2/v3/v4/Thousand) — celkem desítky tisíc snímků.
+* *Standardní* akademický benchmark.
 
-### IrisCode in real systems
+### Kód duhovky v reálných systémech
 
-* **UAE iris border control** (deployed 2002+) — 1 in 23M FAR.
-* **Indian Aadhaar** — uses iris pro mass enrollment.
-* **Bank of America ATM** — pilot 2019.
-* **Worldcoin** — 2022 controversial mass iris scanning.
+* **Hraniční kontrola v SAE (UAE iris border control)** (nasazeno od roku 2002) — FAR 1 ku 23 milionům.
+* **Indický systém Aadhaar** — využívá duhovku pro hromadnou registraci.
+* **Bankomaty Bank of America** — pilotní provoz 2019.
+* **Worldcoin** — kontroverzní hromadné skenování duhovek od roku 2022.
 
-## Performance benchmarks
+## Výkonnostní benchmarky
 
 NIST **IREX** (Iris Exchange):
 
-* **Best algorithms:** FRR < 0.1 % @ FAR = $10^{-5}$.
-* **Demographic effects:** minimal (no significant gender/race bias for iris, unlike face).
-* **Aging:** very stable.
+* **Nejlepší algoritmy:** FRR (míra chybného odmítnutí) < 0,1 % při FAR = $10^{-5}$.
+* **Demografické vlivy:** minimální (u duhovky na rozdíl od obličeje není významné zkreslení podle pohlaví ani rasy).
+* **Stárnutí:** velmi stabilní.
 
-## Limity Daugman algoritmu
+## Limity Daugmanova algoritmu
 
-* **Image quality** — out-of-focus, motion blur degrade code.
-* **Iris area** — small for some individuals; less bits → less accuracy.
-* **Pupil constriction** — extreme dilation/constriction may stretch rubber sheet outside model assumptions.
-* **Contact lenses** — patterned cosmetic lenses can completely block iris.
-* **Pathology** — diabetic retinopathy, glaucoma affect iris too.
+* **Kvalita obrazu** — rozostření nebo rozmazání pohybem zhoršuje kód.
+* **Plocha duhovky** — u některých lidí je malá; méně bitů → nižší přesnost.
+* **Stažení zornice (pupil constriction)** — extrémní rozšíření nebo stažení může protáhnout pružnou plachtu za hranice předpokladů modelu.
+* **Kontaktní čočky** — vzorované kosmetické čočky mohou duhovku zcela zakrýt.
+* **Patologie** — diabetická retinopatie či glaukom mohou ovlivnit i duhovku.
 
-## Alternative iris algorithms
+## Alternativní algoritmy pro duhovku
 
-* **Wildes 1997** — Hough transform for localization, multi-scale matching.
-* **Boles-Boashash 1998** — zero-crossings of wavelet representations.
-* **Ma et al. 2004** — texture-based local binary patterns.
-* **Modern DL** — CNN-based iris embeddings (used in some commercial systems but Daugman still dominant).
+* **Wildes 1997** — Houghova transformace pro lokalizaci, vícestupňové (multi-scale) porovnávání.
+* **Boles-Boashash 1998** — průchody nulou (zero-crossings) ve vlnkové (wavelet) reprezentaci.
+* **Ma a kol. 2004** — texturní lokální binární vzory (local binary patterns).
+* **Moderní hluboké učení (DL)** — vnoření duhovky (embeddings) založená na konvolučních sítích (CNN); používají se v některých komerčních systémech, ale Daugmanův přístup stále dominuje.
 
-## Co dělá Daugman tak dobrý
+## Čím je Daugmanův algoritmus tak dobrý
 
-* **Mathematical rigor** — clean formulation, statistical analysis backed by empirical evidence.
-* **Robustness** — phase-based encoding insensitive to noise.
-* **Speed** — single template comparison v *mikrosekundách*.
-* **Scalability** — billions of comparisons feasible.
-* **Decades of validation** — extensive deployment without false matches.
+* **Matematická preciznost** — čistá formulace a statistická analýza podložená empirickými daty.
+* **Robustnost** — kódování založené na fázi je necitlivé vůči šumu.
+* **Rychlost** — porovnání jedné šablony (template) v *mikrosekundách*.
+* **Škálovatelnost** — proveditelné jsou miliardy porovnání.
+* **Desítky let ověřování** — rozsáhlé nasazení bez chybných shod.
 
 ---
 

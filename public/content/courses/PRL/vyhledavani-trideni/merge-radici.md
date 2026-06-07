@@ -1,22 +1,22 @@
 ---
-title: Slučovací řadicí algoritmy — Bucket, Odd-Even Merge, Pipeline Merge
+title: Řadicí algoritmy slučováním — Bucket, Odd-Even Merge, Pipeline Merge
 ---
 
 # Řadicí algoritmy slučováním
 
-Předchozí kapitola ([[transposition-enumeration]]) ukázala přístupy *posuvných swapů* a *enumerace*, žádný z nich nebyl cost-optimal. Třída *řadicích algoritmů slučováním* (merge-based) je *kanonický* paralelní přístup k řazení — staví na opakovaném *slučování* malých seřazených posloupností do větších. Klíčové členy: **Bucket Sort** (strom procesorů s log-many listy, cena $O(n \log n)$), **Odd-Even Merge Sort** (Batcher 1968, pevná řadicí síť), **Pipeline Merge Sort** (lineární řetězec slučovacích jednotek). První a poslední jsou *cost-optimal*.
+Předchozí kapitola ([[transposition-enumeration]]) ukázala přístupy *posuvných výměn (swapů)* a *enumerace*, žádný z nich nebyl optimální z hlediska ceny (cost-optimal). Třída *řadicích algoritmů slučováním* (merge-based) je *kanonický* paralelní přístup k řazení — staví na opakovaném *slučování* malých seřazených posloupností do větších. Klíčoví zástupci: **Bucket Sort** (strom procesorů s logaritmicky mnoha listy, cena $O(n \log n)$), **Odd-Even Merge Sort** (Batcher 1968, pevná řadicí síť) a **Pipeline Merge Sort** (lineární řetězec slučovacích jednotek). První a poslední z nich jsou cost-optimal, tedy dosahují stejné celkové ceny jako nejlepší sekvenční řešení.
 
 ## Bucket Sort
 
 ### Topologie
 
-**Binární strom** procesorů s $m = \log n$ **listy** a $2m - 1$ uzly celkem. Každý list obsahuje $n/m = n/\log n$ prvků.
+**Binární strom** procesorů s $m = \log n$ **listy** a celkem $2m - 1$ uzly. Každý list obsahuje $n/m = n/\log n$ prvků.
 
 ### Princip
 
 1. **Distribuce**: vstupních $n$ prvků se rovnoměrně rozdělí mezi $m$ listů.
 2. **Lokální řazení**: každý list seřadí svou podposloupnost *optimálním sekvenčním* algoritmem.
-3. **Slučování stromem**: každý vnitřní uzel slučuje dvě seřazené posloupnosti svých synů (sekvenční merge v $O(\text{délka})$).
+3. **Slučování stromem**: každý vnitřní uzel slučuje dvě seřazené posloupnosti svých synů (sekvenční slučování (merge) v čase $O(\text{délka})$).
 4. **Výstup**: kořen ukládá seřazenou posloupnost na výstup.
 
 ```
@@ -74,9 +74,9 @@ procedure BUCKET_SORT(x[1..n])
 
 ### Analýza
 
-1. **Lokální sort** každého listu: $O(r \log r)$ pro $r = n / \log n$. Tj. $O((n/\log n) \cdot \log(n/\log n)) = O(n)$.
+1. **Lokální řazení** každého listu: $O(r \log r)$ pro $r = n / \log n$, tedy $O((n/\log n) \cdot \log(n/\log n)) = O(n)$.
 
-2. **Slučování** na úrovni $i$ (z 0 = listy nahoru): každý ze $2m / 2^i$ procesorů slučuje dvě posloupnosti délky $2^i n / m$. Trvá $k n / 2^i$ kroků. Suma přes všechny úrovně:
+2. **Slučování** na úrovni $i$ (počítáno od 0 = listy směrem nahoru): každý ze $2m / 2^i$ procesorů slučuje dvě posloupnosti délky $2^i n / m$. To trvá $k n / 2^i$ kroků. Součet přes všechny úrovně:
 
 ::: math
 \sum_{i=1}^{\log m - 1} \frac{kn}{2^i} = O(n)
@@ -88,21 +88,21 @@ procedure BUCKET_SORT(x[1..n])
 
 - $t(n) = O(n)$
 - $p(n) = 2 \log n - 1 \approx O(\log n)$ procesorů.
-- $c(n) = O(n \log n)$ — **cost-optimal** (sekv. $O(n \log n)$).
+- $c(n) = O(n \log n)$ — **cost-optimal** (sekvenční řazení je rovněž $O(n \log n)$).
 
 ### Diskuze
 
-- *Velmi efektivní* využití procesorů — jen $O(\log n)$.
-- *Lineární čas* — pomalejší než Enumeration ($O(\log n)$), ale s mnohem menším počtem procesorů.
-- Standard pro *embedded sorter* na FPGA/ASIC s log-many komparátorů.
+- *Velmi efektivní* využití procesorů — potřebuje jich jen $O(\log n)$.
+- *Lineární čas* — pomalejší než enumerace ($O(\log n)$), ale s mnohem menším počtem procesorů.
+- Standardní volba pro *vestavěné řadicí jednotky (embedded sorter)* na FPGA/ASIC s logaritmicky mnoha komparátory.
 
 ## Odd-Even Merge Sort (Batcher)
 
-### Idea — řadicí síť
+### Myšlenka — řadicí síť
 
-**Řadicí síť** = pevně zapojený obvod komparátorů (CE = Comparison Element). Vstupní hodnoty *teklou* skrz a vystupují seřazené. Známé z Batcherových publikací 1968.
+**Řadicí síť** = pevně zapojený obvod komparátorů (CE = Comparison Element, porovnávací prvek). Vstupní hodnoty jím *protékají* a vystupují seřazené. Pochází z Batcherových publikací z roku 1968.
 
-**Compare-Exchange (CE) jednotka**:
+**Jednotka Compare-Exchange (CE), tedy porovnej-a-vyměň**:
 
 ```
         ┌─────┐
@@ -114,19 +114,19 @@ procedure BUCKET_SORT(x[1..n])
 
 ### Sítě $1 \times 1$, $2 \times 2$, ..., $n \times n$
 
-**Síť $1 \times 1$**: jeden CE prvek (řadí dvě vstupní hodnoty).
+**Síť $1 \times 1$**: jediný prvek CE (seřadí dvě vstupní hodnoty).
 
-**Síť $2 \times 2$**: slučuje dvě seřazené dvojice ($a_1 \le a_2$, $b_1 \le b_2$) do seřazené čtveřice. Vyžaduje 3 CE.
+**Síť $2 \times 2$**: slučuje dvě seřazené dvojice ($a_1 \le a_2$, $b_1 \le b_2$) do seřazené čtveřice. Vyžaduje 3 prvky CE.
 
-**Síť $n \times n$**: rekurzivně z dvou sítí $n/2 \times n/2$ + $n - 1$ CE jednotek.
+**Síť $n \times n$**: sestaví se rekurzivně ze dvou sítí $n/2 \times n/2$ a dalších $n - 1$ jednotek CE.
 
 ### Princip slučování
 
 Vstup: dvě seřazené posloupnosti $\langle a_1, a_2, \dots, a_n\rangle$ a $\langle b_1, b_2, \dots, b_n\rangle$.
 
 1. Liché prvky $\{a_1, a_3, a_5, \dots\}$ a $\{b_1, b_3, b_5, \dots\}$ se sloučí *nezávislou* sítí $n/2 \times n/2$ → posloupnost $\{d_1, d_2, \dots, d_n\}$.
-2. Sudé prvky $\{a_2, a_4, \dots\}$ a $\{b_2, b_4, \dots\}$ podobně → $\{e_1, e_2, \dots, e_n\}$.
-3. Finální výstup: $c_1 = d_1$, $c_{2j} = \min(d_{j+1}, e_j)$, $c_{2j+1} = \max(d_{j+1}, e_j)$, $c_{2n} = e_n$. Toto vyžaduje $n - 1$ CE jednotek.
+2. Sudé prvky $\{a_2, a_4, \dots\}$ a $\{b_2, b_4, \dots\}$ se sloučí obdobně → $\{e_1, e_2, \dots, e_n\}$.
+3. Finální výstup: $c_1 = d_1$, $c_{2j} = \min(d_{j+1}, e_j)$, $c_{2j+1} = \max(d_{j+1}, e_j)$, $c_{2n} = e_n$. Tento závěrečný krok vyžaduje $n - 1$ jednotek CE.
 
 ::: svg "Odd-Even Merge — sloučení dvou seřazených sítí"
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -161,11 +161,11 @@ Vstup: dvě seřazené posloupnosti $\langle a_1, a_2, \dots, a_n\rangle$ a $\la
 </svg>
 :::
 
-### Struktura kompletního sortu
+### Struktura kompletního řazení
 
 Pro $n = 2^m$ prvků:
 
-- **Fáze 0**: $n/2$ CE jednotek (sítě $1 \times 1$) → $n/2$ seřazených párů.
+- **Fáze 0**: $n/2$ jednotek CE (sítě $1 \times 1$) → $n/2$ seřazených párů.
 - **Fáze 1**: $n/4$ sítí $2 \times 2$ → $n/4$ seřazených čtveřic.
 - **Fáze 2**: $n/8$ sítí $4 \times 4$ → ...
 - ...
@@ -173,36 +173,36 @@ Pro $n = 2^m$ prvků:
 
 ### Analýza
 
-**Počet CE jednotek** v síti $n \times n$: rekurence $p(2n) = 2p(n) + (n-1)$ s řešením $p(n) = 1 + n \log_2 n$.
+**Počet jednotek CE** v síti $n \times n$: rekurence $p(2n) = 2p(n) + (n-1)$ s řešením $p(n) = 1 + n \log_2 n$.
 
-Suma přes všechny fáze: $O(n \log^2 n)$ jednotek celkem.
+Součet přes všechny fáze: celkem $O(n \log^2 n)$ jednotek.
 
-**Hloubka sítě (čas)**: sítě $n \times n$ mají hloubku $\Theta(\log^2 n)$ — fáze $i$ má hloubku $i$, suma $1 + 2 + \dots + \log n = \Theta(\log^2 n)$.
+**Hloubka sítě (čas)**: sítě $n \times n$ mají hloubku $\Theta(\log^2 n)$ — fáze $i$ má hloubku $i$ a součet $1 + 2 + \dots + \log n = \Theta(\log^2 n)$.
 
 - $t(n) = O(\log^2 n)$ (hloubka sítě)
-- $p(n) = O(n \log^2 n)$ (počet CE = velikost sítě = vykonaná práce)
-- $c(n) = O(n \log^2 n)$ — **není cost-optimal** (sekv. $O(n \log n)$)
+- $p(n) = O(n \log^2 n)$ (počet jednotek CE = velikost sítě = vykonaná práce)
+- $c(n) = O(n \log^2 n)$ — **není cost-optimal** (sekvenční řazení je $O(n \log n)$)
 
 ### Význam
 
-I když není cost-optimal, je *velmi rychlý* ($O(\log^2 n)$) a *implementačně přímočarý* v hardware. Standardní řešení pro:
+I když není cost-optimal, je *velmi rychlý* ($O(\log^2 n)$) a *implementačně přímočarý* v hardwaru. Je standardním řešením pro:
 
-- **Sortovací sítě v FPGA/ASIC**.
-- **GPU bitonic merge sort** (varianta od Batcher) — používá se v knihovnách jako CUB, Thrust.
-- **AKS network** (Ajtai, Komlós, Szemerédi 1983) dosahuje $O(\log n)$, ale s tak velkou konstantou, že je nepraktická — Batcher je *prakticky lepší*.
+- **Řadicí sítě v FPGA/ASIC**.
+- **GPU bitonic merge sort** (varianta od Batchera) — používá se v knihovnách jako CUB nebo Thrust.
+- **Síť AKS** (Ajtai, Komlós, Szemerédi 1983) dosahuje času $O(\log n)$, ovšem s tak velkou konstantou, že je v praxi nepoužitelná — Batcherovo řešení je *prakticky lepší*.
 
-::: viz merge-radici "Přepni mezi Bucket Sortem (strom), Batcher Odd-Even Merge Sortem (řadicí síť) a Pipeline Merge Sortem (streamingový řetěz procesorů). U Pipeline sleduj cykly + paralelní aktivitu P_1, P_2, P_3."
+::: viz merge-radici "Přepni mezi Bucket Sortem (strom), Batcherovým Odd-Even Merge Sortem (řadicí síť) a Pipeline Merge Sortem (streamingový řetěz procesorů). U Pipeline sleduj cykly a paralelní aktivitu P_1, P_2, P_3."
 :::
 
 ## Pipeline Merge Sort
 
 ### Topologie
 
-**Lineární řetězec** $p = \log n + 1$ procesorů $P_1, P_2, \dots, P_{\log n + 1}$ propojených sousedsky.
+**Lineární řetězec** $p = \log n + 1$ procesorů $P_1, P_2, \dots, P_{\log n + 1}$ propojených se svými sousedy.
 
 ### Princip
 
-Každý procesor $P_i$ má dvě vstupní fronty a jednu výstupní. Slučuje dvě seřazené posloupnosti délky $2^{i-1}$ do seřazené délky $2^i$ (postupně, *pipeline* style).
+Každý procesor $P_i$ má dvě vstupní fronty a jednu výstupní. Slučuje dvě seřazené posloupnosti délky $2^{i-1}$ do seřazené posloupnosti délky $2^i$, a to postupně, *zřetězeným (pipeline) způsobem*.
 
 ### Algoritmus
 
@@ -216,7 +216,7 @@ procedure PIPELINE_MERGE_SORT(stream of n elements)
   P_log_n+1: produces final length-n sorted output
 ```
 
-Procesor $P_i$ začne pracovat, jakmile má na *jedné* z vstupních front posloupnost délky $2^{i-1}$ a na druhé alespoň 1 prvek. Tj. začne v cyklu $2^{i-1} + i - 1$.
+Procesor $P_i$ začne pracovat, jakmile má na *jedné* ze vstupních front posloupnost délky $2^{i-1}$ a na druhé alespoň 1 prvek. Tedy začne v cyklu $2^{i-1} + i - 1$.
 
 ### Analýza
 
@@ -231,10 +231,10 @@ Tedy:
 
 ### Diskuze
 
-- *Velmi malé množství procesorů* — jen $O(\log n)$.
+- *Velmi malý počet procesorů* — jen $O(\log n)$.
 - *Lineární propojení* — snadno realizovatelné.
-- *Pipeline* — vstupní stream lze zpracovávat *za běhu*, neuvažuje se „celý vstup je k dispozici".
-- Konstrukčně podobný **Bucket Sortu** — oba jsou *cost-optimal* pomocí slučování.
+- *Zřetězení (pipeline)* — vstupní proud (stream) lze zpracovávat *za běhu*, nepředpokládá se, že „celý vstup je k dispozici".
+- Konstrukčně podobný **Bucket Sortu** — oba jsou cost-optimal a obě řešení staví na slučování.
 
 ## Souhrn
 
@@ -246,16 +246,16 @@ Tedy:
 
 **Závěry**:
 
-- *Cost-optimal* dosáhneme s $O(\log n)$ procesory v lineárním nebo stromě uspořádaných.
-- *Rychlejší* než $O(n)$ vyžaduje *více* procesorů — Odd-Even Merge Sort potřebuje $O(n \log^2 n)$ pro $O(\log^2 n)$ čas.
+- *Cost-optimal* řešení dosáhneme s $O(\log n)$ procesory uspořádanými do lineárního řetězce nebo do stromu.
+- Pro řazení *rychlejší* než $O(n)$ je potřeba *více* procesorů — Odd-Even Merge Sort potřebuje $O(n \log^2 n)$ procesorů pro čas $O(\log^2 n)$.
 - *Praktická volba*:
   - **Cluster**: Bucket Sort + sample sort (varianta).
-  - **GPU**: bitonic merge (varianta Batcher).
+  - **GPU**: bitonic merge (varianta od Batchera).
   - **FPGA**: Odd-Even Merge Sort jako pevná síť.
 
 ## Co dál
 
-[[radici-vyber]] dokončí přehled paralelních řadicích algoritmů: **Minimum Extraction Sort** (strom, vybírá iterativně minimum) a **Median Finding and Splitting** — *paralelní quicksort* postavený na PAR_SELECT + PARALLEL_SPLITTING z [[splitting-select]]. Median Finding and Splitting je rovněž *cost-optimal*.
+[[radici-vyber]] dokončí přehled paralelních řadicích algoritmů: **Minimum Extraction Sort** (strom, který iterativně vybírá minimum) a **Median Finding and Splitting** — *paralelní quicksort* postavený na PAR_SELECT + PARALLEL_SPLITTING z [[splitting-select]]. Median Finding and Splitting je rovněž *cost-optimal*.
 
 ---
 

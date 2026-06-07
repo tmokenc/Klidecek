@@ -1,77 +1,77 @@
 ---
-title: IDS, IPS — detection a prevention
+title: IDS, IPS — detekce a prevence
 ---
 
-# IDS / IPS — Intrusion Detection / Prevention Systems
+# IDS / IPS — systémy pro detekci a prevenci průniků
 
-**IDS** (Intrusion Detection System) *detekuje* podezřelou aktivitu a *upozorní*. **IPS** (Intrusion Prevention System) jde dál — *blokuje*. Doplňují firewall ([[firewall]]) — firewall *filtruje*, IDS/IPS *analyzuje* obsah.
+**IDS** (Intrusion Detection System, systém pro detekci průniků) *detekuje* podezřelou aktivitu a *upozorní* na ni. **IPS** (Intrusion Prevention System, systém pro prevenci průniků) jde o krok dál — podezřelý provoz rovnou *blokuje*. Oba doplňují firewall ([[firewall]]) — firewall provoz *filtruje*, zatímco IDS/IPS *analyzuje* jeho obsah.
 
-## IDS vs IPS
+## IDS vs. IPS
 
 | | IDS | IPS |
 | :--- | :--- | :--- |
-| Pozice | passive (out-of-band, span port) | inline (blocks) |
-| Action | alert | drop, reset, modify |
-| Failure mode | safe (alerts cease) | dangerous (network blocked) |
-| Latency | none | adds latency |
-| False positive cost | minor | service disruption |
+| Pozice | pasivní (mimo přímou cestu provozu, span port) | v cestě provozu (provoz blokuje) |
+| Akce | upozornění (alert) | zahození, reset spojení, úprava paketu |
+| Chování při selhání | bezpečné (přestanou jen upozornění) | nebezpečné (síť je zablokovaná) |
+| Latence (zpoždění) | žádná | přidává latenci |
+| Cena falešného poplachu | malá | výpadek služby |
 
-IPS = IDS + active response. Same detection engine, different action.
+IPS = IDS + aktivní reakce. Stejné detekční jádro, jen jiná akce.
 
-## Detekce přístupy
+## Přístupy k detekci
 
-### Signature-based
+### Detekce podle signatur (signature-based)
 
-Match traffic against *patterns* of known attacks.
+Provoz se porovnává s *vzory* (signaturami) známých útoků.
 
 ```
 alert tcp any any -> $HOME_NET 80 (msg:"SQL Injection"; content:"' OR 1=1"; sid:1001)
 ```
 
-Pros: low false positives for known threats.
+Výhody: u známých hrozeb málo falešných poplachů.
 
-Cons:
+Nevýhody:
 
-- **Zero-day blind** — no signature for unknown.
-- **Evasion** — encoding, fragmentation, encryption.
+- **Slepota vůči zero-day útokům** — pro neznámou hrozbu signatura neexistuje.
+- **Obcházení (evasion)** — pomocí kódování, fragmentace nebo šifrování (encryption).
 
-Most commercial IDS use mainly signatures.
+Většina komerčních IDS se opírá hlavně o signatury.
 
-### Anomaly-based
+### Detekce podle anomálií (anomaly-based)
 
-Build *baseline* of normal behavior. Alert on deviations.
+Vytvoří se *referenční profil (baseline)* normálního chování a systém pak upozorní na odchylky od něj.
 
-Examples:
+Příklady:
 
-- DNS query volume spike → exfiltration?
-- Unusual login time / location → compromised credentials?
-- Many SQL queries to one row → scraping?
+- Náhlý nárůst objemu DNS dotazů → možná exfiltrace dat?
+- Neobvyklý čas nebo místo přihlášení → kompromitované přihlašovací údaje?
+- Mnoho SQL dotazů směřujících na jeden řádek → stahování dat (scraping)?
 
-Pros: detects unknown attacks.
+Výhody: dokáže odhalit i neznámé útoky.
 
-Cons:
+Nevýhody:
 
-- **False positives** — legitimate anomalies (new feature, marketing campaign).
-- **Hard to tune**.
-- **Adversarial** — attacker mimics normal.
+- **Falešné poplachy** — i legitimní provoz může vypadat jako anomálie (nová funkce, marketingová kampaň).
+- **Obtížné ladění**.
+- **Náchylnost k cílenému obcházení** — útočník (attacker) se snaží napodobit normální chování.
 
-Modern IDS: ML-based, behavioral analytics.
+Moderní IDS používají strojové učení (ML) a behaviorální analytiku.
 
-### Stateful protocol analysis
+### Stavová analýza protokolu (stateful protocol analysis)
 
-Track protocol state. Alert on protocol violations:
+Sleduje se stav protokolu a systém upozorní na jeho porušení:
 
-- HTTP request without proper Host header.
-- TLS handshake with unusual extensions.
-- DNS request for blocked TLDs.
+- HTTP požadavek (request) bez správné hlavičky Host.
+- TLS handshake s neobvyklými rozšířeními.
+- DNS dotaz na zakázané domény nejvyššího řádu (TLD).
 
-Catches some evasion attempts.
+Tento přístup zachytí některé pokusy o obcházení.
 
-## Architectura nasazení
+## Architektura nasazení
 
-### Network IDS (NIDS)
+### Síťové IDS (NIDS — Network IDS)
 
-Monitor *network traffic*. Span port or tap.
+Monitoruje *síťový provoz* přes span port nebo odbočku (tap).
 
 ```
                        [Switch]
@@ -79,25 +79,25 @@ Monitor *network traffic*. Span port or tap.
                   [server][server][NIDS - span port]
 ```
 
-Tools: Snort, Suricata, Zeek (Bro).
+Nástroje: Snort, Suricata, Zeek (dříve Bro).
 
-### Host IDS (HIDS)
+### Hostitelské IDS (HIDS — Host IDS)
 
-Monitor *single host*. Logs, file integrity, process behavior.
+Monitoruje *jednoho hostitele* — jeho logy, integritu souborů a chování procesů (process).
 
-Tools: OSSEC, Wazuh, Tripwire (file integrity).
+Nástroje: OSSEC, Wazuh, Tripwire (kontrola integrity souborů).
 
-### Hybrid
+### Hybridní řešení
 
-Combine NIDS + HIDS. NIDS sees network-level, HIDS sees endpoint-level.
+Kombinuje NIDS i HIDS. NIDS vidí dění na úrovni sítě, HIDS na úrovni koncového zařízení (endpoint).
 
-### Distributed IDS
+### Distribuované IDS
 
-Multiple sensors → central analytics. Modern SIEM ([[siem-monitoring]]) architecture.
+Více senzorů → centrální analytika. Jde o architekturu moderních systémů SIEM ([[siem-monitoring]]).
 
-## Snort — Network IDS classic
+## Snort — klasické síťové IDS
 
-Open-source NIDS by Cisco/Sourcefire.
+Open-source NIDS od firmy Cisco/Sourcefire.
 
 ```
 # Detect SSH brute force
@@ -116,20 +116,20 @@ alert ip any any -> any any (
 )
 ```
 
-Rules: header (action proto src→dst) + body (options).
+Pravidla se skládají z hlavičky (akce, protokol, zdroj→cíl) a těla (volby).
 
-Snort 3 (2020+) — modern reactive event detection.
+Snort 3 (od roku 2020) — moderní detekce reagující na události.
 
 ## Suricata
 
-Multi-threaded NIDS (Snort single-threaded historically).
+Vícevláknové NIDS (Snort byl historicky jednovláknový — používal jen jedno vlákno, thread).
 
-Extension features:
+Rozšiřující vlastnosti (features):
 
-- TLS metadata extraction (SNI, certificate).
-- HTTP parsing.
-- File extraction (download/upload).
-- Lua scripting for complex logic.
+- Extrakce TLS metadat (SNI, certifikát).
+- Parsování HTTP.
+- Extrakce souborů (stahované i nahrávané).
+- Skriptování v jazyce Lua pro složitější logiku.
 
 ```
 alert http any any -> $HOME_NET any (
@@ -139,21 +139,21 @@ alert http any any -> $HOME_NET any (
 )
 ```
 
-Used by: OPNsense, pfSense, security distributions.
+Používá se v: OPNsense, pfSense a v bezpečnostních distribucích.
 
 ## Zeek (Bro)
 
-*Network analysis* framework. Not signature-focused.
+Framework pro *analýzu sítě*. Nezaměřuje se primárně na signatury.
 
-Generates rich logs:
+Generuje bohaté logy:
 
-- `conn.log` — every connection (5-tuple + bytes + duration).
-- `dns.log` — every DNS query/response.
-- `http.log` — request, response, headers.
-- `ssl.log` — certificate, SNI, version.
-- `files.log` — extracted files.
+- `conn.log` — každé spojení (5-tice + počet bajtů + doba trvání).
+- `dns.log` — každý DNS dotaz i odpověď (response).
+- `http.log` — požadavek, odpověď, hlavičky.
+- `ssl.log` — certifikát, SNI, verze.
+- `files.log` — extrahované soubory.
 
-Powerful for forensics + threat hunting.
+Mocný nástroj pro forenzní analýzu i aktivní vyhledávání hrozeb (threat hunting).
 
 ```
 event new_connection(c: connection) {
@@ -164,77 +164,77 @@ event new_connection(c: connection) {
 }
 ```
 
-Scripting language for complex analyses.
+Vlastní skriptovací jazyk umožňuje psát složité analýzy.
 
-## EDR — Endpoint Detection & Response
+## EDR — detekce a reakce na koncových zařízeních (Endpoint Detection & Response)
 
-Modern HIDS+. Beyond simple log monitoring:
+Moderní vylepšení HIDS. Jde nad rámec prostého sledování logů:
 
-- Process tree tracking.
-- Behavior detection (e.g., unusual parent/child process).
-- Memory inspection.
-- Live response (kill process, isolate host).
+- Sledování stromu procesů.
+- Detekce podle chování (např. neobvyklý vztah rodičovského a potomního procesu).
+- Inspekce paměti.
+- Reakce v reálném čase (ukončit proces, izolovat hostitele).
 
-Vendors: CrowdStrike Falcon, Microsoft Defender ATP, SentinelOne, Carbon Black.
+Dodavatelé: CrowdStrike Falcon, Microsoft Defender ATP, SentinelOne, Carbon Black.
 
-EDR has become *standard* enterprise control. Often replaces traditional AV.
+EDR se stalo *standardním* podnikovým bezpečnostním prvkem. Často nahrazuje klasický antivirus (AV).
 
-### MITRE ATT&CK alignment
+### Provázání s MITRE ATT&CK
 
-Modern EDR maps detections to MITRE ATT&CK techniques. Defenders see which techniques are detected vs gaps.
+Moderní EDR mapuje detekce na techniky z frameworku MITRE ATT&CK. Obránci tak vidí, které techniky dokážou detekovat a kde mají mezery.
 
-## XDR — Extended Detection & Response
+## XDR — rozšířená detekce a reakce (Extended Detection & Response)
 
-EDR + NDR (Network) + cloud + identity. Unified platform.
+EDR + NDR (síťová detekce) + cloud + identity. Jedna sjednocená platforma.
 
-Trend toward consolidation: vendor-managed XDR replacing siloed tools.
+Trend směřuje ke konsolidaci: dodavatelem spravované XDR nahrazuje izolované, oddělené nástroje.
 
 ## NGFW + IPS
 
-Modern firewalls *include* IPS engine. Palo Alto, Fortinet, Check Point all bundle IPS.
+Moderní firewally už *obsahují* IPS jádro. Palo Alto, Fortinet i Check Point ho mají standardně součástí.
 
-Performance tradeoff: deep packet inspection slows throughput. Some sites use:
+Daní za to je kompromis ve výkonu (performance): hloubková inspekce paketů snižuje propustnost. Některá pracoviště proto používají:
 
-- **NGFW with IPS** for north-south traffic.
-- **Inline IDS** for east-west (passive).
+- **NGFW s IPS** pro provoz mezi sítí a okolím (north-south).
+- **IDS v cestě provozu** pro provoz uvnitř sítě (east-west, pasivně).
 
-## Evasion techniques {tier=practice}
+## Techniky obcházení (evasion) {tier=practice}
 
-Attackers try to bypass IDS:
+Útočníci se snaží IDS obejít:
 
-### Fragmentation
+### Fragmentace
 
-Split attack across IP fragments. IDS may not reassemble correctly. Linux RFC behavior may differ.
+Útok rozdělí napříč více IP fragmentů. IDS je nemusí složit (reassembly) správně. Chování podle RFC se navíc může u různých systémů (např. Linux) lišit.
 
-Modern IDS: full reassembly, but slow.
+Moderní IDS provádějí úplné složení fragmentů, ale je to pomalé.
 
-### Encoding
+### Kódování
 
-URL encoding, Unicode normalization, MIME encoding, double encoding. Multiple representations of same payload.
+URL kódování, normalizace Unicode, MIME kódování, dvojité kódování. Stejný škodlivý obsah (payload) lze vyjádřit mnoha různými způsoby.
 
 ```
 %27 = '   →   ' OR 1=1
 ```
 
-IDS must *normalize* before signature match.
+IDS proto musí obsah před porovnáním se signaturou *normalizovat*.
 
-### Encryption
+### Šifrování
 
-TLS hides payload. IDS sees metadata only (SNI, certificate, JA3 fingerprint).
+TLS skryje obsah. IDS pak vidí jen metadata (SNI, certifikát, otisk JA3).
 
-Defense: TLS interception (privacy concerns), behavioral detection from metadata.
+Obrana: rozšifrování TLS na cestě (TLS interception, ale s dopady na soukromí) a behaviorální detekce z metadat.
 
-### Timing
+### Časování
 
-Slowloris-style attacks send data so slowly that session times out before complete signature visible.
+Útoky typu Slowloris posílají data tak pomalu, že spojení vyprší dřív, než je vidět celá signatura.
 
-### Polymorphism
+### Polymorfismus (polymorphism)
 
-Each attack instance differs. Same logic, different bytes. Signatures fail.
+Každá instance útoku vypadá jinak. Stejná logika, ale jiné bajty. Signatury proto selhávají.
 
-ML-based detection more resilient.
+Detekce založená na strojovém učení je vůči tomu odolnější.
 
-## False positive / negative tradeoff
+## Kompromis mezi falešnými poplachy a propuštěnými útoky
 
 ```
                    Reality
@@ -247,44 +247,44 @@ IDS    +--------+---------+---------+
        +--------+---------+---------+
 ```
 
-- **False positive (FP)** — alert on normal traffic. Wastes analyst time.
-- **False negative (FN)** — miss real attack. Worse for security.
+- **Falešně pozitivní (False positive, FP)** — poplach na normálním provozu. Plýtvá časem analytika.
+- **Falešně negativní (False negative, FN)** — přehlédnutý skutečný útok. To je z hlediska bezpečnosti horší.
 
-ROC curve trades off. Default: optimize for low FP (analysts overwhelmed otherwise), at cost of some FN.
+ROC křivka vyjadřuje tento kompromis. Výchozí volba: optimalizovat na nízký počet FP (jinak by byli analytici zahlceni), a to za cenu několika FN.
 
-::: viz ids-roc-tuner "Slidi threshold — sleduj, jak se mění TP/FP/FN/TN, ROC point, a alerts/day. Nízký threshold → alert fatigue; vysoký → propuštěné útoky."
+::: viz ids-roc-tuner "Posouvej threshold — sleduj, jak se mění TP/FP/FN/TN, bod na ROC křivce a počet alertů za den. Nízký threshold → zahlcení poplachy (alert fatigue); vysoký → propuštěné útoky."
 :::
 
-Tuning:
+Ladění:
 
-- **Add rule exceptions** — whitelist legit patterns.
-- **Tighten rules** — reduce broad matches.
-- **Use threat intel** — only alert if matches known IoC.
-- **Risk-based prioritization** — high-asset traffic gets more rules.
+- **Přidání výjimek do pravidel** — povolit legitimní vzory (whitelist).
+- **Zpřísnění pravidel** — omezit příliš široké shody.
+- **Využití threat intelligence** — upozornit jen na shodu se známým indikátorem kompromitace (IoC).
+- **Prioritizace podle rizika** — provoz k cenným aktivům dostane víc pravidel.
 
-## Alert fatigue
+## Zahlcení poplachy (alert fatigue)
 
-Too many alerts → analysts ignore. Real incidents missed.
+Příliš mnoho poplachů → analytici je začnou ignorovat. Skutečné incidenty pak uniknou.
 
-Defense:
+Obrana:
 
-- **Tune** rules — fewer FP.
-- **Aggregate** — group related alerts.
-- **Prioritize** — score by asset value, technique severity.
-- **Playbooks** — standard response, reduce decision burden.
-- **SOAR** — Security Orchestration, Automation, Response. Auto-handle common alerts.
+- **Vyladit** pravidla — méně falešných poplachů.
+- **Agregovat** — seskupit související poplachy.
+- **Prioritizovat** — bodovat podle hodnoty aktiva a závažnosti techniky.
+- **Playbooky** — standardizovaný postup reakce snižuje zátěž z rozhodování.
+- **SOAR** (Security Orchestration, Automation, Response) — orchestrace, automatizace a reakce v bezpečnosti. Automaticky zpracuje běžné poplachy.
 
-## Honeypots
+## Honeypoty (honeypots)
 
-Decoy systems pretending to be valuable. Any access = malicious.
+Návnadové systémy, které předstírají, že jsou cenné. Jakýkoli přístup k nim = škodlivá aktivita.
 
-- **Honeypot** — single decoy.
-- **Honeynet** — network of decoys.
-- **Canary tokens** — fake credentials, files. Alert when used.
+- **Honeypot** — jediná návnada.
+- **Honeynet** — celá síť návnad.
+- **Canary tokeny** — falešné přihlašovací údaje nebo soubory. Upozorní, jakmile je někdo použije.
 
-Tools: Cowrie, Honeyd, Canary by Thinkst.
+Nástroje: Cowrie, Honeyd, Canary od firmy Thinkst.
 
-Pure-detection — no false positives possible (no one *should* touch honeypot).
+Jde o čistou detekci — falešný poplach prakticky nehrozí (k honeypotu by se *nikdo* legitimní neměl dostat).
 
 ---
 

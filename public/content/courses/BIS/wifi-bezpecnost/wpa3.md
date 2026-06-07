@@ -1,92 +1,92 @@
 ---
-title: WPA3 — SAE a moderní WiFi bezpečnost
+title: WPA3 — SAE a moderní zabezpečení WiFi
 ---
 
 # WPA3 — Wi-Fi Protected Access 3
 
-Wi-Fi Alliance (2018) odpověděl na **WPA2 weaknesses** (KRACK, offline PSK brute-force) novým standardem. WPA3 zlepšuje *všechny* aspekty.
+Wi-Fi Alliance v roce 2018 reagovala na slabiny WPA2 (útok KRACK, offline prolamování PSK hrubou silou) novým standardem. WPA3 vylepšuje *všechny* aspekty zabezpečení.
 
-## WPA3 features
+## Vlastnosti WPA3
 
 ### SAE — Simultaneous Authentication of Equals
 
-Nahrazuje **PSK 4-way handshake** WPA2. **Dragonfly** key exchange (RFC 7664).
+Nahrazuje 4cestné navázání spojení (4-way handshake) s předsdíleným klíčem (PSK) z WPA2. Jádrem je výměna klíčů Dragonfly (RFC 7664).
 
-### Forward secrecy
+### Dopředná bezpečnost (forward secrecy)
 
-Even if PSK leaked *later*, *past* sessions remain secure. WPA2 didn't have this.
+I když heslo (PSK) unikne *později*, *dříve* proběhlé relace zůstávají v bezpečí. WPA2 tuto vlastnost nemělo. To znamená, že odposlechnutá data ze staré relace nelze zpětně dešifrovat, ani když útočník později získá heslo k síti.
 
-### Protected Management Frames (PMF)
+### Chráněné správové rámce (Protected Management Frames, PMF)
 
-Mandatory. Prevents deauthentication attacks (forced disconnect).
+Povinné. Brání útokům na odpojení (deauthentication), tedy vynucenému odpojení klientů od sítě.
 
-### 192-bit security mode
+### Bezpečnostní režim 192 bitů
 
-For Enterprise. Aligns with CNSA Suite (Commercial National Security Algorithm).
+Určen pro firemní (Enterprise) nasazení. Odpovídá sadě CNSA (Commercial National Security Algorithm).
 
 ### Easy Connect (DPP)
 
-QR code-based setup for IoT devices. No password required.
+Nastavení zařízení internetu věcí (IoT) pomocí QR kódu. Není potřeba žádné heslo.
 
-## SAE — Dragonfly key exchange
+## SAE — výměna klíčů Dragonfly
 
-Authenticated Diffie-Hellman based on password.
+Jde o autentizovanou výměnu Diffie-Hellman odvozenou z hesla.
 
-### Protocol
+### Protokol
 
-1. Client + AP know **password**.
-2. Each generates random.
-3. Derive shared secret via PAKE (password-authenticated key exchange).
-4. Verify mutual knowledge of password.
-5. Derive session keys.
+1. Klient i přístupový bod (AP) znají **heslo**.
+2. Každá strana vygeneruje náhodné číslo.
+3. Odvodí se sdílené tajemství pomocí PAKE (password-authenticated key exchange — výměna klíčů autentizovaná heslem).
+4. Obě strany si vzájemně ověří znalost hesla.
+5. Odvodí se klíče relace.
 
-Mathematically:
+Matematicky řečeno:
 
-- Map password → curve point P.
-- Each side: random r_i, send commit_i = mask_i * P + r_i * G.
-- Exchange and combine.
+- Heslo se zobrazí na bod P na eliptické křivce.
+- Každá strana zvolí náhodné r_i a odešle závazek commit_i = mask_i * P + r_i * G.
+- Strany si závazky vymění a zkombinují je.
 
-(Simplified; actual SAE more complex.)
+(Jde o zjednodušení; skutečné SAE je složitější.)
 
-### Resists offline brute-force
+### Odolnost vůči offline útoku hrubou silou
 
-Attacker can capture handshake → cannot brute-force password offline.
+Útočník může odposlechnout navázání spojení (handshake), ale **nemůže** prolomit heslo offline.
 
-Why: each attempt requires *online* interaction with AP. AP rate-limits → 1 guess/sec instead of 1 billion/sec.
+Proč: každý pokus vyžaduje *online* interakci s přístupovým bodem. AP navíc omezuje rychlost pokusů (rate-limiting), takže útočník zvládne jeden pokus za sekundu místo miliardy pokusů za sekundu.
 
-**Offline brute-force eliminated.** Major win.
+**Offline prolamování hrubou silou je tím odstraněno.** Zásadní zlepšení.
 
 ::: viz wpa3-sae-vs-psk-brute "Vyber délku hesla a charset; sleduj čas-do-prolomení pro WPA2 (offline, ~1 MH/s GPU) vs WPA3-SAE (online, 1 attempt/s). Krátká hesla stále zranitelná, ale jen online → infeasible v praxi."
 :::
 
-### Resists dictionary
+### Odolnost vůči slovníkovému útoku
 
-Even weak passwords harder to crack — attacker must connect for each guess.
+I slabá hesla se prolamují obtížněji — útočník se totiž musí pro každý pokus k síti připojit.
 
-## Forward secrecy
+## Dopředná bezpečnost (forward secrecy)
 
-Each session derives *fresh* keys from Diffie-Hellman.
+Každá relace si odvozuje *čerstvé* klíče z výměny Diffie-Hellman.
 
-Pokud PMK leaked future:
+Pokud párový hlavní klíč (PMK) v budoucnu unikne:
 
-- WPA2 — *all* past sessions decryptable (PMK same).
-- WPA3 — past sessions *safe* (per-session DH-derived keys).
+- WPA2 — *všechny* dřívější relace lze dešifrovat (PMK je stále stejný).
+- WPA3 — dřívější relace jsou *v bezpečí* (každá relace má vlastní klíče odvozené přes DH).
 
-## Protected Management Frames
+## Chráněné správové rámce (Protected Management Frames)
 
-WPA2 (optional 802.11w) signed authentication-related frames. WPA3 *requires* it.
+WPA2 (volitelný doplněk 802.11w) podepisovalo rámce související s autentizací. WPA3 je *vyžaduje* povinně.
 
-Defense against:
+Obrana proti:
 
-- **Deauthentication flood** — attacker forges deauth frame → kicks clients off network.
-- **Disassociation attacks**.
-- **Beacon spoofing**.
+- **Záplava odpojovacích rámců (deauthentication flood)** — útočník podvrhne odpojovací rámec a vyhodí klienty ze sítě.
+- **Útoky na rozpojení asociace (disassociation attacks)**.
+- **Podvržení beaconů (beacon spoofing)**.
 
-Modern WiFi cards support PMF natively.
+Moderní WiFi karty podporují PMF nativně.
 
 ## Easy Connect (DPP)
 
-Device Provisioning Protocol. IoT setup via QR code.
+Device Provisioning Protocol (protokol pro zprovoznění zařízení). Nastavení IoT zařízení pomocí QR kódu.
 
 ```
 1. Read QR code → device's public key.
@@ -94,106 +94,106 @@ Device Provisioning Protocol. IoT setup via QR code.
 3. Device decrypts → joins network.
 ```
 
-No password typing, no WPS PIN. Better for IoT devices without keyboards.
+Žádné psaní hesla, žádný PIN pro WPS. Vhodnější pro IoT zařízení bez klávesnice.
 
-## Enterprise 192-bit
+## Firemní režim 192 bitů (Enterprise)
 
-WPA3-Enterprise has optional 192-bit "suite B" mode:
+WPA3-Enterprise nabízí volitelný 192bitový režim „suite B":
 
-- ECDH with P-384.
-- ECDSA with P-384.
+- ECDH s křivkou P-384.
+- ECDSA s křivkou P-384.
 - AES-256-GCM.
 - HMAC-SHA384.
 
-Matches **CNSA** (Commercial National Security Algorithm) Suite — US government standard for SECRET-level systems.
+Odpovídá sadě **CNSA** (Commercial National Security Algorithm) — standardu vlády USA pro systémy se stupněm utajení SECRET.
 
-Use case: government, military, defense contractors.
+Případ použití: státní správa, armáda, dodavatelé v obranném sektoru.
 
-## Backward compatibility
+## Zpětná kompatibilita
 
-**Transition mode** — AP accepts both WPA2-PSK and WPA3-SAE.
+**Přechodový režim (transition mode)** — přístupový bod přijímá současně WPA2-PSK i WPA3-SAE.
 
-Allows mixed networks during migration. *But*: WPA2 weaknesses still exploitable on those clients.
+Umožňuje provoz smíšených sítí během migrace. *Pozor však*: na klientech s WPA2 jsou slabiny WPA2 stále zneužitelné.
 
-Best practice: **WPA3-only** when feasible.
+Osvědčený postup: nasadit **pouze WPA3 (WPA3-only)**, pokud je to možné.
 
-## WPA3 attacks {tier=practice}
+## Útoky na WPA3 {tier=practice}
 
 ### Dragonblood (2019)
 
-Mathy Vanhoef + Eyal Ronen. Multiple attacks on early SAE implementations.
+Mathy Vanhoef a Eyal Ronen. Několik útoků na rané implementace SAE.
 
-- **Downgrade attacks** — force fallback to WPA2 in transition mode.
-- **Side-channel timing attacks** — leak password info via timing.
-- **DoS attacks** — exhaust CPU computing Dragonfly.
+- **Útoky degradací (downgrade attacks)** — vynutí v přechodovém režimu návrat zpět k WPA2.
+- **Postranní časové útoky (side-channel timing attacks)** — z časování unikají informace o hesle.
+- **Útoky na dostupnost (DoS attacks)** — vyčerpají procesor výpočty Dragonfly.
 
-Patches deployed. Modern implementations fixed.
+Záplaty byly nasazeny. Moderní implementace jsou opravené.
 
 ### FragAttacks (2021)
 
-Vanhoef again. Fragmentation and aggregation attacks — design flaws in 802.11 frame fragmentation/aggregation affecting Wi-Fi devices (including WPA3).
+Opět Vanhoef. Útoky na fragmentaci a agregaci rámců — návrhové chyby ve fragmentaci a agregaci rámců 802.11, které postihují Wi-Fi zařízení (včetně WPA3).
 
-Specific vulnerabilities in specific implementations.
+Jde o konkrétní zranitelnosti v konkrétních implementacích.
 
-### Implementation bugs
+### Implementační chyby
 
-WPA3 *protocol* sound. *Implementations* still vulnerable to bugs (memory corruption in WPA3 supplicant, etc.).
+*Protokol* WPA3 je sám o sobě v pořádku. Jeho *implementace* však stále trpí chybami (například poškození paměti v žadateli o připojení WPA3 a podobně).
 
-Vanhoef's research shows ongoing vulnerabilities in wpa_supplicant, hostapd.
+Vanhoefův výzkum ukazuje, že zranitelnosti se i nadále objevují v nástrojích wpa_supplicant a hostapd.
 
-## Adoption
+## Rozšíření (adopce)
 
-| Vendor | WPA3 adoption |
+| Výrobce | Podpora WPA3 |
 | :--- | :--- |
-| iOS 13+ | Yes |
-| Android 10+ | Yes |
-| Windows 10 1903+ | Yes |
-| Linux (wpa_supplicant 2.7+) | Yes |
-| New routers (2019+) | Mostly yes |
-| Old routers | Firmware update may add |
+| iOS 13+ | Ano |
+| Android 10+ | Ano |
+| Windows 10 1903+ | Ano |
+| Linux (wpa_supplicant 2.7+) | Ano |
+| Nové routery (od 2019) | Většinou ano |
+| Staré routery | Může přibýt aktualizací firmwaru |
 
-Modern devices speak WPA3. Adoption growing. Many networks still WPA2 due to inertia.
+Moderní zařízení WPA3 zvládají. Rozšíření roste. Mnoho sítí ale stále běží na WPA2 ze setrvačnosti.
 
 ## Wi-Fi 6 + WPA3
 
-Wi-Fi 6 (802.11ax, 2019) *requires* WPA3 for *new* devices. Mandatory.
+Wi-Fi 6 (802.11ax, 2019) *vyžaduje* WPA3 pro *nová* zařízení. Je to povinné.
 
-Wi-Fi 7 (802.11be, 2024) continues. WPA3 here to stay.
+Wi-Fi 7 (802.11be, 2024) v tom pokračuje. WPA3 tu zůstane natrvalo.
 
-## Recommendations
+## Doporučení
 
-### Home / small business
+### Domácnost / malá firma
 
-- Use **WPA3-Personal** (SAE).
-- Strong passphrase (still important — defends against insider, future cracking).
-- Disable WPS.
-- Enable PMF.
-- Update firmware regularly.
+- Použijte **WPA3-Personal** (SAE).
+- Silné heslo (stále důležité — chrání před zákeřným insiderem i budoucím prolomením).
+- Vypněte WPS.
+- Zapněte PMF.
+- Pravidelně aktualizujte firmware.
 
-### Corporate
+### Firemní prostředí
 
-- **WPA3-Enterprise** with EAP-TLS (certificates).
-- 192-bit mode for sensitive data.
-- RADIUS server with proper user management.
-- Network access control (NAC).
+- **WPA3-Enterprise** s EAP-TLS (certifikáty).
+- 192bitový režim pro citlivá data.
+- RADIUS server s řádnou správou uživatelů.
+- Řízení přístupu k síti (network access control, NAC).
 
-### IoT
+### Internet věcí (IoT)
 
-- Use **Easy Connect (DPP)** when possible.
-- Dedicated *IoT VLAN* — isolate from main network.
-- Network segmentation.
+- Pokud to jde, využijte **Easy Connect (DPP)**.
+- Vyhrazená *IoT VLAN* — oddělte ji od hlavní sítě.
+- Segmentace sítě.
 
-### Legacy
+### Starší zařízení (legacy)
 
-- WPA2 *transition mode* if must support old devices.
-- Plan migration to WPA3.
+- Pokud musíte podporovat stará zařízení, použijte *přechodový režim* WPA2.
+- Naplánujte migraci na WPA3.
 
-## Public Wi-Fi
+## Veřejná Wi-Fi
 
-Coffee shop, airport, hotel:
+Kavárna, letiště, hotel:
 
-- **OWE** (Opportunistic Wireless Encryption, 802.11 + WPA3) — encrypts even open networks.
-- Otherwise: assume traffic visible. Use **VPN** ([[vpn-ipsec]]) for sensitive activities.
+- **OWE** (Opportunistic Wireless Encryption — oportunistické bezdrátové šifrování, 802.11 + WPA3) — šifruje provoz i u otevřených sítí.
+- Jinak: počítejte s tím, že provoz je viditelný. Pro citlivé aktivity použijte **VPN** ([[vpn-ipsec]]).
 
 ---
 

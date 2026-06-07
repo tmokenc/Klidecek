@@ -1,231 +1,231 @@
 ---
-title: DVFS, clock/power gating, C-states
+title: DVFS, hradlování hodin a napájení, C-stavy
 ---
 
-# DVFS a power management
+# DVFS a správa napájení
 
-CPU dynamic adjustment power consumption v reálném čase. Klíčové techniky:
+CPU dynamicky upravuje spotřebu (power consumption) v reálném čase. Klíčové techniky:
 
-- **DVFS** — Dynamic Voltage and Frequency Scaling. Tune f + V podle zátěže.
-- **Clock gating** — disable clock pro idle bloky (immediate, no power saving for leakage).
-- **Power gating** — disconnect power supply pro idle bloky (slow but eliminates leakage).
-- **C-states** — OS-controlled CPU sleep levels.
+- **DVFS** — Dynamic Voltage and Frequency Scaling, tedy dynamické škálování napětí a frekvence. Ladí frekvenci $f$ a napětí $V$ podle zátěže.
+- **Hradlování hodin (clock gating)** — vypne hodinový signál pro nečinné (idle) bloky. Účinkuje okamžitě, ale neušetří svodový proud (leakage).
+- **Hradlování napájení (power gating)** — zcela odpojí napájení od nečinných bloků. Je pomalejší, ale úplně odstraní i svodový proud.
+- **C-stavy (C-states)** — úrovně uspání CPU řízené operačním systémem.
 
-## DVFS — frekvence + napětí škálování
+## DVFS — škálování frekvence a napětí
 
-Princip: $P \propto V^2 f$. Snížit f → snížit V → cubicky lower power.
+Princip: $P \propto V^2 f$. Snížením frekvence lze snížit i napětí, což sníží příkon kubicky.
 
-Hardware Tabulka *operating points*:
+Hardware má tabulku tzv. pracovních bodů (operating points):
 
-| State | Frequency | Voltage | Power |
+| Stav | Frekvence | Napětí | Příkon |
 | :--- | :---: | :---: | :---: |
-| P0 (turbo) | 4.5 GHz | 1.35 V | 100 W |
-| P1 | 3.5 GHz | 1.1 V | 50 W |
-| P2 | 2.5 GHz | 0.9 V | 25 W |
-| P3 | 1.5 GHz | 0.7 V | 10 W |
-| C1 (idle) | 0 | 0.6 V | 3 W |
-| C6 (deep sleep) | 0 | 0 V | <0.5 W |
+| P0 (turbo) | 4,5 GHz | 1,35 V | 100 W |
+| P1 | 3,5 GHz | 1,1 V | 50 W |
+| P2 | 2,5 GHz | 0,9 V | 25 W |
+| P3 | 1,5 GHz | 0,7 V | 10 W |
+| C1 (nečinné) | 0 | 0,6 V | 3 W |
+| C6 (hluboký spánek) | 0 | 0 V | <0,5 W |
 
-OS scheduler decides P-state per core podle utilization. *Lightweight* threads → low P-state. *Hot* compute → P0.
+Plánovač (scheduler) operačního systému rozhoduje o P-stavu pro každé jádro podle jeho vytížení. Lehká vlákna (threads) dostanou nízký P-stav, náročný výpočet stav P0.
 
-### Time to switch
+### Doba přepnutí
 
-P-state switch: ~10-100 μs. Není instantaneous.
+Přepnutí P-stavu trvá zhruba 10–100 μs. Není tedy okamžité.
 
-⇒ Pro *very short* tasks (< 100 μs) DVFS *late* — task finished before frequency reached. Pro long-running, DVFS skvělý.
+⇒ U velmi krátkých úloh (kratších než 100 μs) přijde DVFS pozdě — úloha skončí dříve, než se cílová frekvence vůbec ustaví. Pro dlouho běžící úlohy je DVFS naopak skvělé.
 
 ## Intel Turbo Boost
 
-Intel Nehalem (2008): pokud *jedno* jádro plný load + ostatní idle, lze *zvýšit frekvenci* daného jádra nad nominal.
+Intel Nehalem (2008): pokud je jedno jádro plně zatížené a ostatní jsou nečinná, lze frekvenci daného jádra zvýšit nad nominální hodnotu.
 
 Mechanismus:
 
-1. Sleep ostatních cores → power headroom.
-2. Allocate headroom k aktivnímu core.
-3. Boost f + V → up to "max turbo" (typically 1-2 GHz over base).
+1. Uspání ostatních jader uvolní rezervu příkonu (power headroom).
+2. Tato rezerva se přidělí aktivnímu jádru.
+3. Zvýšení $f$ a $V$ až na „maximální turbo" (typicky o 1–2 GHz nad základní frekvenci).
 
-Limit: thermal, package power budget. CPU automatically backs off pokud temperature too high.
+Omezení: teplota a limit příkonu pouzdra (package). CPU automaticky frekvenci sníží, pokud je teplota příliš vysoká.
 
 Použití:
 
-- Single-thread latency-sensitive code (gaming, single-thread benchmarks).
-- Burst response v server (sudden incoming request).
+- Jednovláknový kód citlivý na latenci (hry, jednovláknové benchmarky).
+- Rychlá odezva na nárazovou zátěž (burst) na serveru (náhle příchozí požadavek).
 
 ### AMD Precision Boost
 
-Stejný princip pro AMD. AMD ladí algoritmus *jemněji* — frekvence per-core different, podle zátěže. Intel Boost has 2-3 levels; AMD has continuous.
+Stejný princip u procesorů AMD. AMD ladí svůj algoritmus jemněji — frekvence se liší jádro od jádra podle zátěže. Intel Boost má 2–3 úrovně, AMD je řídí spojitě.
 
-## Clock gating
+## Hradlování hodin (clock gating)
 
-Když ALU idle, *clock signál* k registers se *vypne*. Tranzistory *nepřepínají* → no dynamic power.
+Když je jednotka ALU nečinná, hodinový signál do jejích registrů se vypne. Tranzistory se nepřepínají, a tudíž neodebírají žádný dynamický příkon.
 
-Implementace: gating cell před clock input. AND gate with enable.
+Implementace: hradlovací buňka (gating cell) před vstupem hodin — hradlo AND s povolovacím signálem (enable).
 
 Granularita:
 
-- **Coarse** — celé jádro (gate global clock).
-- **Fine** — per FU (ALU, FPU, L/S).
-- **Very fine** — per pipeline stage.
+- **Hrubá (coarse)** — celé jádro (hradlování globálních hodin).
+- **Jemná (fine)** — pro jednotlivé funkční jednotky (ALU, FPU, load/store).
+- **Velmi jemná (very fine)** — pro jednotlivé stupně pipeline.
 
-Moderní CPU: thousands of clock gates. Save 20-30 % dynamic power.
+Moderní CPU mají tisíce hradel hodin a ušetří 20–30 % dynamického příkonu.
 
-Cost: hardware overhead. Power savings dramatic.
+Cena: dodatečná hardwarová režie. Úspora příkonu je ale dramatická.
 
-### Pipeline gating
+### Hradlování pipeline
 
-V *spekulativní* OoO: pokud branch misprediction, *za* mispredicted branch instrukce zbytečné. Hardware *zastaví pipeline* (gating) dokud recovery → no work, no power.
+Ve spekulativním procesoru s neuspořádaným vykonáváním (OoO): při chybné predikci skoku (branch misprediction) jsou instrukce za špatně predikovaným skokem zbytečné. Hardware proto pipeline zastaví (hradlováním), dokud se neobnoví správný stav — žádná práce, žádný příkon.
 
-Také **throttling** — pokud temperature high, *záměrně* insert NOPs nebo gate pipeline → reduce power.
+Existuje také **omezování výkonu (throttling)** — pokud je teplota vysoká, hardware záměrně vkládá instrukce NOP nebo hradluje pipeline, čímž sníží příkon.
 
-## Power gating
+## Hradlování napájení (power gating)
 
-*Kompletně* odpojí napájení od neaktivního bloku → no leakage.
+Kompletně odpojí napájení od neaktivního bloku, takže nevzniká žádný svodový proud.
 
-Implementace: header switches (PMOS) mezi VDD a block power rail.
+Implementace: hradlovací spínače v napájecí větvi (header switches, tranzistory PMOS) mezi VDD a napájecí kolejnicí bloku.
 
-Trade-offs:
+Kompromisy:
 
-- **Benefit**: leakage 0 → significant pro long idle.
-- **Cost**: 
-  - Wake-up latency (~1 μs to restore voltage).
-  - State loss (registers reset) → must save state před gate.
-  - Voltage transients při wake-up.
+- **Přínos**: nulový svodový proud, což je významné při dlouhé nečinnosti.
+- **Cena**: 
+  - Latence probuzení (~1 μs na obnovení napětí).
+  - Ztráta stavu (registry se vynulují) → stav je nutné před hradlováním uložit.
+  - Přechodové jevy napětí při probuzení (voltage transients).
 
-Granularita coarse — typically per core, per cache slice. Per-ALU gating *too fine* (latency too high).
+Granularita je hrubá — typicky na úrovni jádra nebo řezu cache. Hradlování po jednotlivých ALU je příliš jemné (latence by byla příliš vysoká).
 
-Intel "Power gating" v Sandy Bridge+ — idle cores have power 100% gated. AMD same since Athlon X4.
+Intel „Power gating" od architektury Sandy Bridge dále: nečinná jádra mají napájení 100% odpojené. AMD totéž od Athlonu X4.
 
-## C-states (CPU sleep levels)
+## C-stavy (úrovně uspání CPU)
 
-OS controls CPU power-down levels via C-states (Intel terminology, AMD similar):
+Operační systém řídí úrovně uspání CPU pomocí C-stavů (terminologie Intelu, AMD má obdobné):
 
-| State | Frequency | Voltage | Wake latency | Notes |
+| Stav | Frekvence | Napětí | Latence probuzení | Poznámky |
 | :--- | :---: | :---: | :---: | :--- |
-| C0 | full | full | 0 | active |
-| C1 (HALT) | 0 | full | ~1 μs | clock gating only |
-| C1E | 0 | low | ~10 μs | + voltage drop |
-| C3 | 0 | low | ~50 μs | flush L1, L2 |
-| C6 | 0 | 0 | ~200 μs | flush all, power gate |
-| C7 | 0 | 0 | ~500 μs | + LLC gate |
-| C8-C10 | 0 | 0 | ~1 ms | + uncore gate |
+| C0 | plná | plné | 0 | aktivní |
+| C1 (HALT) | 0 | plné | ~1 μs | jen hradlování hodin |
+| C1E | 0 | nízké | ~10 μs | + pokles napětí |
+| C3 | 0 | nízké | ~50 μs | vyprázdnění L1, L2 |
+| C6 | 0 | 0 | ~200 μs | vyprázdnění všeho, hradlování napájení |
+| C7 | 0 | 0 | ~500 μs | + hradlování LLC |
+| C8–C10 | 0 | 0 | ~1 ms | + hradlování uncore |
 
-OS picks C-state based on *predicted* idle time:
+Operační systém volí C-stav podle předpokládané doby nečinnosti:
 
-- Very short idle (1 μs) → C1.
-- Medium (10 ms) → C3.
-- Long (100 ms+) → C6 or deeper.
+- Velmi krátká nečinnost (1 μs) → C1.
+- Střední (10 ms) → C3.
+- Dlouhá (100 ms a více) → C6 nebo hlubší.
 
-Wake latency matters — pokud OS *over-predikuje* idle → CPU goes too deep → *slow* response.
+Latence probuzení je důležitá — pokud OS dobu nečinnosti přecení, CPU usne příliš hluboko, a odezva pak bude pomalá.
 
-Linux `cpuidle` driver tunes — `intel_idle.max_cstate=3` může omezit pro latency-critical workloads.
+Ovladač `cpuidle` v Linuxu toto chování ladí — parametrem `intel_idle.max_cstate=3` lze omezit hloubku uspání pro úlohy citlivé na latenci.
 
-## P-states vs C-states
+## P-stavy vs. C-stavy
 
-- **P-states** — CPU is *active*, just slower (DVFS).
-- **C-states** — CPU is *idle*, sleeping at various depths.
+- **P-stavy** — CPU je aktivní, jen běží pomaleji (DVFS).
+- **C-stavy** — CPU je nečinné a spí v různých hloubkách.
 
-Při task arrival:
+Při příchodu úlohy:
 
-1. C-state wake-up (return to C0).
-2. P-state ramp (frequency increase from base to turbo).
+1. Probuzení z C-stavu (návrat do C0).
+2. Náběh P-stavu (zvyšování frekvence ze základní na turbo).
 
-Total response time = wake-up latency + frequency ramp.
+Celková doba odezvy = latence probuzení + doba náběhu frekvence.
 
-For real-time systems: keep C-state low + P-state high → predictable latency.
+U systémů reálného času: udržuj nízký C-stav a vysoký P-stav, dosáhneš tak předvídatelné latence.
 
 ::: viz dvfs-pstate-cstate-timeline "Vyber strategii (race-to-idle / run-slow / balanced). Sleduj f, V a P křivky během workloadu — integrál P·dt = energie."
 :::
 
-## Thermal throttling
+## Tepelné omezování výkonu (thermal throttling)
 
-If temperature exceeds limit:
+Pokud teplota překročí limit:
 
-1. **Throttle** — insert NOPs in pipeline (reduce activity).
-2. **Reduce frequency** — DVFS to lower P-state.
-3. **Reduce voltage**.
-4. **Park cores** — disable some.
+1. **Omezení výkonu (throttle)** — vkládání instrukcí NOP do pipeline (sníží aktivitu).
+2. **Snížení frekvence** — DVFS přepne na nižší P-stav.
+3. **Snížení napětí**.
+4. **Zaparkování jader (park cores)** — některá jádra se vypnou.
 
-OS sees suddenly slower performance. Workload throughput drops.
+Operační systém najednou vidí pomalejší výkon. Propustnost (throughput) zátěže klesá.
 
-Modern CPUs have *thermal velocity boost* — Intel exposes that CPU can boost beyond Tcase briefly (until thermal capacity saturates).
+Moderní procesory mají funkci tzv. tepelně řízeného boostu (thermal velocity boost) — Intel umožňuje, aby CPU krátce zvýšilo frekvenci i nad teplotu pouzdra $T_{\text{case}}$ (než se vyčerpá tepelná kapacita).
 
 ## RAPL — Running Average Power Limit
 
-Intel Sandy Bridge+ exposes power counters:
+Intel od architektury Sandy Bridge dále zpřístupňuje čítače příkonu:
 
 ```bash
 sudo perf stat -e power/energy-pkg/ ./app
 ```
 
-Measure *exactly* how much energy package consumed. Useful for:
+Změří se přesně, kolik energie pouzdro spotřebovalo. Hodí se to pro:
 
-- Power-efficiency profiling.
-- Energy-aware scheduling research.
-- Datacenter billing per-VM energy.
+- Profilování energetické účinnosti.
+- Výzkum energeticky uvědomělého plánování (energy-aware scheduling).
+- Účtování energie v datovém centru po jednotlivých virtuálních strojích (VM).
 
-AMD has equivalent. ARM has *PMU.energy* counters.
+AMD má ekvivalent. ARM má čítače *PMU.energy*.
 
-## Race-to-idle vs run-slow
+## Race-to-idle vs. run-slow
 
-Two extreme strategies:
+Dvě krajní strategie:
 
-### Race-to-idle
+### Race-to-idle (dorazit do nečinnosti)
 
-Run at *max* frequency to finish task ASAP → then deep C-state.
+Běžet na maximální frekvenci, aby se úloha dokončila co nejdříve, a pak přejít do hlubokého C-stavu.
 
 $$
 E = P_{\text{high}} \cdot T_{\text{short}} + P_{\text{idle}} \cdot T_{\text{remaining}}
 $$
 
-### Run-slow
+### Run-slow (běžet pomalu)
 
-Run at *lower* frequency throughout → never enter deep sleep.
+Běžet po celou dobu na nižší frekvenci a nikdy nevstoupit do hlubokého spánku.
 
 $$
 E = P_{\text{low}} \cdot T_{\text{long}}
 $$
 
-Math: which wins?
+Spočítejme, která strategie vyhraje:
 
-Pokud $P_{\text{idle}}$ much smaller than $P_{\text{low}}$ — race-to-idle wins.
+Pokud je $P_{\text{idle}}$ mnohem menší než $P_{\text{low}}$ — vyhrává race-to-idle.
 
-Pokud $P_{\text{idle}}$ není dramatically smaller (leakage dominates) — run-slow wins.
+Pokud $P_{\text{idle}}$ není výrazně menší (převažuje svodový proud) — vyhrává run-slow.
 
-**For modern CPU with low-leakage process**: race-to-idle generally wins (Apple M1, mobile ARM).
+**U moderních CPU s nízkosvodovou technologií** obvykle vyhrává race-to-idle (Apple M1, mobilní ARM).
 
-**For older or high-leakage process**: run-slow may win.
+**U starších nebo vysokosvodových technologií** může vyhrát run-slow.
 
 ## ARM big.LITTLE
 
-Different *type* of power management — heterogeneous cores:
+Odlišný druh správy napájení — heterogenní jádra:
 
-- **Big cores** — fast OoO, high power.
-- **LITTLE cores** — small in-order, low power.
+- **Velká jádra (big)** — rychlá, neuspořádaná (OoO), s vysokým příkonem.
+- **Malá jádra (LITTLE)** — malá, uspořádaná (in-order), s nízkým příkonem.
 
-OS scheduler migrates threads:
+Plánovač operačního systému přesouvá vlákna:
 
-- Light work (background, sleep) → LITTLE.
-- Heavy work (game, video) → big.
+- Lehká práce (procesy na pozadí, spánek) → malá jádra.
+- Náročná práce (hra, video) → velká jádra.
 
-Apple M1: 4 P-cores (~5 W each) + 4 E-cores (~0.5 W each). Mixed workload uses both.
+Apple M1: 4 výkonná jádra (P-cores, ~5 W každé) + 4 úsporná jádra (E-cores, ~0,5 W každé). Smíšená zátěž využívá obojí.
 
-Intel Alder Lake (2021) brings same to x86: P-cores + E-cores.
+Intel Alder Lake (2021) přináší totéž na platformu x86: P-jádra a E-jádra.
 
 Detaily v [[nizkoprikon-arch]].
 
-## Datacenter power awareness
+## Energetická uvědomělost datových center
 
-Cloud providers measure energy per workload:
+Poskytovatelé cloudu měří energii spotřebovanou jednotlivými úlohami:
 
-- AWS spotreba per EC2 instance reported.
-- Google publishes per-DC PUE (Power Usage Effectiveness).
-- Microsoft Azure carbon-aware scheduling — defer non-urgent jobs to low-carbon hours.
+- AWS vykazuje spotřebu pro každou instanci EC2.
+- Google zveřejňuje hodnotu PUE (Power Usage Effectiveness, účinnost využití energie) pro každé datové centrum.
+- Microsoft Azure plánuje s ohledem na uhlíkovou stopu (carbon-aware scheduling) — neurgentní úlohy odkládá na hodiny s nízkou uhlíkovou náročností.
 
-Energy-aware scheduling is *emerging* — picking workload-CPU pairings to minimize energy. Mostly research, some production (Google Borg).
+Energeticky uvědomělé plánování se teprve rozvíjí — jde o výběr dvojic úloha–CPU tak, aby se minimalizovala energie. Většinou je to zatím výzkum, někde už i nasazení v praxi (Google Borg).
 
 ## Co dál
 
-[[nizkoprikon-arch]] popisuje *architectural* choices for low power: VLIW (compiler-driven, simpler HW), RISC-V (extensible, embedded), ARM big.LITTLE (heterogeneous). [[gpu-architektura]] uzavře *jinou* paradigma — throughput-optimized GPGPU.
+[[nizkoprikon-arch]] popisuje architektonické volby pro nízký příkon: VLIW (řízené překladačem, jednodušší hardware), RISC-V (rozšiřitelné, vestavěné systémy), ARM big.LITTLE (heterogenní). [[gpu-architektura]] uzavře téma jiným paradigmatem — GPGPU optimalizovaným na propustnost.
 
 ---
 

@@ -4,7 +4,7 @@ title: Lambda kalkul — syntaxe a sémantika
 
 # Lambda kalkul — syntaxe a sémantika
 
-**Lambda kalkul** (λ-kalkul) je *formální systém* pro popis výpočtů pomocí *funkcí*. Alonzo Church ho navrhl v 30. letech 20. století jako základ matematické logiky. V r. 1930 ukázal Haskell Curry ekvivalenci s teorií kombinátorů (Moses Schönfinkel); v r. 1936 Kleene + Church prokázali, že λ-kalkul je *univerzální výpočetní systém* (Turing-úplný). McCarthy se inspiroval λ-kalkulem při tvorbě jazyka LISP (1950s). Dnes je λ-kalkul *teoretickým základem* všech funkcionálních jazyků — Haskell, ML, Scala, OCaml, F# — a inspirací i pro mainstream jazyky (Java lambdas, C++ lambdas, Python lambdas).
+**Lambda kalkul** (λ-kalkul) je *formální systém* pro popis výpočtů pomocí *funkcí*. Alonzo Church ho navrhl ve 30. letech 20. století jako základ matematické logiky. V roce 1930 ukázal Haskell Curry jeho ekvivalenci s teorií kombinátorů (Moses Schönfinkel); v roce 1936 Kleene a Church prokázali, že λ-kalkul je *univerzální výpočetní systém* (turingovsky úplný). John McCarthy se λ-kalkulem inspiroval při tvorbě jazyka LISP (v 50. letech). Dnes je λ-kalkul *teoretickým základem* všech funkcionálních jazyků — Haskell, ML, Scala, OCaml, F# — a inspiroval i jazyky hlavního proudu (lambda výrazy v Javě, C++ i Pythonu).
 
 ## Syntaxe
 
@@ -20,7 +20,7 @@ E ::= V \mid (E_1\ E_2) \mid (\lambda V.\ E)
 
 ### Komponenty abstrakce
 
-V $\lambda x.\ E$:
+Ve výrazu $\lambda x.\ E$:
 
 * **Hlavička** — $\lambda x.$ — *vázaná proměnná* $x$.
 * **Tělo** — $E$ — výraz, který může obsahovat $x$.
@@ -29,7 +29,7 @@ V $\lambda x.\ E$:
 
 Pro pohodlí se zavedly konvence, které **vynechávají** zbytečné závorky:
 
-* **Left associativita aplikace:**
+* **Levá asociativita aplikace:**
 
 ::: math
 ((\ldots ((E_1\ E_2)\ E_3) \ldots)\ E_n) \equiv E_1\ E_2\ E_3 \ldots E_n
@@ -47,7 +47,7 @@ Pro pohodlí se zavedly konvence, které **vynechávají** zbytečné závorky:
 (\lambda V_1.\ (\ldots\ (\lambda V_n.\ E)\ \ldots)) \equiv \lambda V_1\ \ldots\ V_n.\ E
 :::
 
-Tedy $\lambda x y z.\ E$ je zkratka pro $\lambda x.\ \lambda y.\ \lambda z.\ E$ — *curried* funkce s třemi parametry.
+Zápis $\lambda x y z.\ E$ je tedy zkratka pro $\lambda x.\ \lambda y.\ \lambda z.\ E$ — *curryovaná* (curried) funkce se třemi parametry.
 
 ## Příklady {tier=example}
 
@@ -65,7 +65,7 @@ Aplikace na něco: $I\ y = (\lambda x.\ x)\ y = y$.
 K = \lambda x y.\ x
 :::
 
-$K\ a\ b = a$ — vrátí první argument, ignoruje druhý.
+$K\ a\ b = a$ — vrátí první argument, druhý ignoruje.
 
 ### Aplikace dvou funkcí
 
@@ -79,14 +79,14 @@ $S\ f\ g\ x = (f\ x)\ (g\ x)$.
 
 Klasický fakt: $S\ K\ K\ x = K\ x\ (K\ x) = x$, takže $S\ K\ K = I$.
 
-::: viz lambda-reducer "Step-through β-redukce; vyberte preset nebo zadejte vlastní výraz; normal-order vs applicative."
+::: viz lambda-reducer "Krokování β-redukce; vyberte přednastavený výraz nebo zadejte vlastní; normální pořadí (normal-order) vs. aplikativní (applicative)."
 :::
 
 ## Volné a vázané proměnné
 
-V $\lambda x.\ E$ je $x$ **vázaná** v $E$. Ostatní proměnné v $E$ jsou *volné*.
+Ve výrazu $\lambda x.\ E$ je $x$ **vázaná** v $E$. Ostatní proměnné v $E$ jsou *volné*.
 
-### Free Variables (FV)
+### Volné proměnné (free variables, FV)
 
 ::: math
 \begin{aligned}
@@ -96,7 +96,7 @@ FV(\lambda x.\ E) &= FV(E) \setminus \{x\}
 \end{aligned}
 :::
 
-### Bound Variables (BV)
+### Vázané proměnné (bound variables, BV)
 
 ::: math
 \begin{aligned}
@@ -108,11 +108,11 @@ BV(\lambda x.\ E) &= BV(E) \cup \{x\}
 
 ### Příklad
 
-V $\lambda x.\ x\ y$:
+Ve výrazu $\lambda x.\ x\ y$:
 * $FV = \{y\}$ (y je volná).
 * $BV = \{x\}$ (x je vázaná).
 
-## Alpha-konverze (α-equivalence)
+## Alfa-konverze (α-ekvivalence)
 
 **Přejmenování** vázané proměnné nezmění význam:
 
@@ -124,23 +124,23 @@ pokud $y \notin FV(E)$.
 
 **Příklad:** $\lambda x.\ x = \lambda y.\ y = \lambda z.\ z$ — vše je *identita*.
 
-> **Klíčová věc:** vázané proměnné jsou jen *štítky* — jméno *nezáleží*.
+> **Klíčová věc:** vázané proměnné jsou jen *štítky* — na jejich jménu *nezáleží*.
 
 ## Substituce
 
-$E[V \to E']$ znamená "v $E$ nahraď *volné* výskyty $V$ za $E'$":
+Zápis $E[V \to E']$ znamená „v $E$ nahraď *volné* výskyty $V$ za $E'$":
 
 ::: math
 \begin{aligned}
 V[V \to E'] &= E' \\
 V'[V \to E'] &= V' \quad \text{kde } V \neq V' \\
 (E_1\ E_2)[V \to E'] &= (E_1[V \to E'])\ (E_2[V \to E']) \\
-(\lambda V.\ E)[V \to E'] &= \lambda V.\ E \quad \text{(žádná free V)} \\
+(\lambda V.\ E)[V \to E'] &= \lambda V.\ E \quad \text{(žádné volné V)} \\
 (\lambda V'.\ E)[V \to E'] &= \lambda V'.\ E[V \to E'] \quad \text{kde } V \neq V', V' \notin FV(E')
 \end{aligned}
 :::
 
-Posledí pravidlo: pokud $V' \in FV(E')$, musíme nejprve α-přejmenovat $V'$ aby nedošlo k *captures* (zachycení) volné proměnné.
+Poslední pravidlo: pokud $V' \in FV(E')$, musíme nejprve provést α-přejmenování $V'$, aby nedošlo k zachycení (capture) volné proměnné.
 
 ## Příklady substituce
 
@@ -148,30 +148,30 @@ Posledí pravidlo: pokud $V' \in FV(E')$, musíme nejprve α-přejmenovat $V'$ a
 * $z[x \to y] = z$.
 * $(\lambda x.\ x)[x \to y] = \lambda x.\ x$ (x je vázaná, beze změny).
 * $(\lambda z.\ x)[x \to y] = \lambda z.\ y$.
-* $(\lambda y.\ x)[x \to y]$ → α-rename $\lambda y$ na $\lambda y'$: $\lambda y'.\ y$.
+* $(\lambda y.\ x)[x \to y]$ → α-přejmenování $\lambda y$ na $\lambda y'$: $\lambda y'.\ y$.
 
 ## Význam
 
 Lambda kalkul tvoří **základ** pro:
 
 * **Beta redukci** — *výpočet* aplikací — viz [[lambda-redukce]].
-* **Reprezentaci dat** — booleans, čísla, páry — viz [[church-enc]].
-* **Rekurzí přes kombinátory** — Y combinator, fixed-point — viz [[lambda-redukce]].
-* **Typové systémy** — simply typed λ-calculus (STLC), polymorphic types (System F), dependent types.
-* **Sémantika programovacích jazyků** — denotational, operational.
+* **Reprezentaci dat** — pravdivostní hodnoty (booleans), čísla, páry — viz [[church-enc]].
+* **Rekurzi přes kombinátory** — Y kombinátor, pevný bod (fixed-point) — viz [[lambda-redukce]].
+* **Typové systémy** — jednoduše typovaný λ-kalkul (simply typed λ-calculus, STLC), polymorfní typy (System F), závislé typy (dependent types).
+* **Sémantiku programovacích jazyků** — denotační, operační.
 
-Praktický význam: **každý funkcionální jazyk** je nakonec *překládán* (nebo redukovatelný) na λ-kalkul. Pochopení λ-kalkulu je *fundamentální* pro porozumění FP.
+Praktický význam: **každý funkcionální jazyk** je nakonec *přeložen* (nebo redukovatelný) na λ-kalkul. Pochopení λ-kalkulu je *fundamentální* pro porozumění funkcionálnímu programování.
 
 ## Historický kontext
 
-* **20. léta:** Alonzo Church studuje *foundations of mathematics*.
-* **1932-1936:** Church publishes λ-calculus, Church-Turing thesis.
-* **1936:** Kleene + Church prove λ-calculus is universal (Turing equivalence).
-* **1958:** McCarthy creates **LISP** (List Processing) inspired by λ-calculus.
-* **1985:** **ML** (Meta Language) — typed FP.
-* **1990:** **Haskell** standardized — pure functional language.
-* **2003:** **Scala** — functional + object-oriented on JVM.
-* **2010s:** Mainstream adoption — Java 8 lambdas, C++11 lambdas, Python lambdas, JavaScript arrow functions.
+* **20. léta:** Alonzo Church studuje *základy matematiky*.
+* **1932–1936:** Church publikuje λ-kalkul, vzniká Church-Turingova teze.
+* **1936:** Kleene a Church dokazují, že λ-kalkul je univerzální (ekvivalentní Turingovu stroji).
+* **1958:** McCarthy vytváří **LISP** (List Processing) inspirovaný λ-kalkulem.
+* **1985:** **ML** (Meta Language) — typované funkcionální programování.
+* **1990:** standardizace jazyka **Haskell** — čistě funkcionální jazyk.
+* **2003:** **Scala** — funkcionální a objektové programování na JVM.
+* **2010. léta:** rozšíření do hlavního proudu — lambda výrazy v Javě 8, lambda výrazy v C++11, lambda výrazy v Pythonu, šipkové funkce (arrow functions) v JavaScriptu.
 
 ---
 

@@ -1,19 +1,19 @@
 ---
-title: BHT, 2-bit saturated counter a BTB
+title: BHT, 2-bitový saturující čítač a BTB
 ---
 
-# BHT, 2-bit saturated counter a BTB — dynamic branch prediction
+# BHT, 2-bitový saturující čítač a BTB — dynamická predikce skoků
 
-Statická predikce ([[staticka-predikce]]) dosáhne ~70 %. Pro hluboké pipeline a wide OoO je třeba ~95 %. **Dynamický prediktor** sleduje *historii* a předpovídá podle ní. Klasická základní jednotka: **2-bit saturated counter** v **Branch History Table (BHT)**.
+Statická predikce ([[staticka-predikce]]) dosáhne přesnosti zhruba 70 %. Pro hluboké pipeline a široké procesory s přeskupením instrukcí (wide OoO) je ovšem potřeba kolem 95 %. **Dynamický prediktor** sleduje *historii* chování skoků a předpovídá podle ní. Klasickou základní stavební jednotkou je **2-bitový saturující čítač (2-bit saturated counter)** uložený v **tabulce historie skoků (Branch History Table, BHT)**.
 
-## 1-bit predictor
+## 1-bitový prediktor
 
-Nejjednodušší: 1 bit per branch říká "naposledy taken / not-taken". Při skoku:
+Nejjednodušší varianta: jeden bit na každý skok říká, jestli byl skok „naposledy proveden (taken) / neproveden (not-taken)". Při skoku se postupuje takto:
 
-1. Look up bit, predikuj podle něj.
-2. Po vyhodnocení skoku: updatuj bit.
+1. Vyhledej bit a predikuj podle něj.
+2. Po vyhodnocení skoku aktualizuj bit.
 
-Problém: **smyčka s exit** mění bit dvakrát:
+Problém: **smyčka s výstupem (exit)** mění bit dvakrát:
 
 ```c
 for (i = 0; i < 1000; i++) {
@@ -21,16 +21,16 @@ for (i = 0; i < 1000; i++) {
 }
 ```
 
-Branch `i < 1000`:
-- 999× taken (predict T → správně, T → správně, ...)
-- Naposledy: **not-taken** (predict T → špatně, set N)
-- Při dalším vstupu do smyčky (např. outer loop): **taken**, ale predictor má N → **špatně**.
+Skok `i < 1000`:
+- 999× proveden (predikce T → správně, T → správně, ...)
+- Naposledy: **neproveden** (predikce T → špatně, nastav N)
+- Při dalším vstupu do smyčky (například ve vnější smyčce, outer loop): skok je **proveden**, ale prediktor má N → **špatně**.
 
-⇒ **2 mispredict na exit** smyčky. Pro malou smyčku v outer loopu to bolí.
+⇒ **2 chybné predikce (mispredict) na každý výstup** ze smyčky. Pro malou smyčku uvnitř vnější smyčky to bolí.
 
-## 2-bit saturated counter (Smith 1981)
+## 2-bitový saturující čítač (Smith 1981)
 
-Princip: vyžadovat **2 misses za sebou** než změnit predikci. State machine:
+Princip: vyžadovat **2 chyby za sebou**, než se predikce změní. Stavový automat (state machine) vypadá takto:
 
 ::: svg "2-bit saturated counter — state machine"
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -88,32 +88,32 @@ Princip: vyžadovat **2 misses za sebou** než změnit predikci. State machine:
 </svg>
 :::
 
-Update pravidla:
+Pravidla aktualizace:
 
-- Skok **TAKEN** → counter += 1 (saturate at 11).
-- Skok **NOT TAKEN** → counter -= 1 (saturate at 00).
+- Skok **PROVEDEN (TAKEN)** → čítač += 1 (saturuje na 11).
+- Skok **NEPROVEDEN (NOT TAKEN)** → čítač -= 1 (saturuje na 00).
 
-Predict:
+Predikce:
 
-- 11, 10 (MSB = 1) → predict TAKEN.
-- 01, 00 (MSB = 0) → predict NOT TAKEN.
+- 11, 10 (nejvyšší bit MSB = 1) → predikuj PROVEDEN (TAKEN).
+- 01, 00 (nejvyšší bit MSB = 0) → predikuj NEPROVEDEN (NOT TAKEN).
 
-Pro for-loop:
+Pro smyčku for:
 
-- 999× taken: counter "11" rapidly → stable predict T.
-- Exit (1× not-taken): "11" → "10". Predict zůstává T → 1 mispredict.
-- Při dalším vstupu (outer loop): taken → "10" → "11" → predict T → correct.
+- 999× proveden: čítač se rychle dostane na „11" → stabilní predikce T.
+- Výstup (1× neproveden): „11" → „10". Predikce zůstává T → 1 chybná predikce.
+- Při dalším vstupu (vnější smyčka): proveden → „10" → „11" → predikce T → správně.
 
-⇒ **1 mispredict** per loop exit (ne 2). Pro tight outer loop velký rozdíl.
+⇒ **1 chybná predikce** na každý výstup ze smyčky (ne 2). Pro těsnou vnější smyčku je to velký rozdíl.
 
-Smith 1981 ukázal, že 2-bit accuracy je ~85-90 % na typickém kódu, vs 1-bit ~75 %.
+Smith v roce 1981 ukázal, že přesnost 2-bitového čítače je zhruba 85–90 % na typickém kódu, oproti přibližně 75 % u 1-bitového.
 
-::: viz branch-2bit-counter "Klikni 'TAKEN' / 'NOT' nebo spusť pattern (smyčka, alternating, ZZ). State machine se pohne; přesnost 2-bit vs 1-bit se aktualizuje live."
+::: viz branch-2bit-counter "Klikni 'TAKEN' / 'NOT' nebo spusť vzor (smyčka, střídání, ZZ). Stavový automat se pohne; přesnost 2bitového vs. 1bitového prediktoru se aktualizuje živě."
 :::
 
-## Branch History Table (BHT)
+## Tabulka historie skoků (Branch History Table, BHT)
 
-BHT je *tabulka 2-bit counterů*. Index = nějaké PC bity (typicky 10-14 LSB).
+BHT je *tabulka 2-bitových čítačů*. Index tvoří některé bity adresy instrukce PC (typicky 10–14 nejnižších bitů, LSB).
 
 ```
 PC = 0xDEADBEEF
@@ -124,25 +124,25 @@ predict = counter[MSB]
 
 | Velikost BHT | Konfliktů |
 | :---: | :--- |
-| 1024 (2 kB) | hodně, ~10 % aliasing |
-| 4096 (8 kB) | ~3 % |
-| 16384 (32 kB) | <1 % |
+| 1024 (2 kB) | hodně, aliasing kolem 10 % |
+| 4096 (8 kB) | kolem 3 % |
+| 16384 (32 kB) | méně než 1 % |
 
-**Aliasing**: dvě různá PC se stejným hash kódem sdílí counter. Při disjoint branch behavior to nemá vliv (konvergují). Při *correlated* branches: může se navzájem rušit.
+**Aliasing** (sdílení záznamu): dvě různé adresy PC se stejným hashem sdílejí jeden čítač. Pokud se skoky chovají nezávisle (disjoint behavior), nemá to vliv (čítače se k sobě nepletou). Pokud jsou ale skoky *korelované* (correlated), mohou se navzájem rušit.
 
-Moderní CPU mají BHT desítky kB s velmi nízkým aliasingem.
+Moderní procesory mají BHT o velikosti desítek kB s velmi nízkým aliasingem.
 
-## Branch Target Buffer (BTB)
+## Vyrovnávací paměť cílů skoků (Branch Target Buffer, BTB)
 
-BHT řeší jen *direction*. Cílovou adresu pro PC-relativní lze spočítat z opcode. Ale pro **indirect jumps** (`jr r1`, `ret`, virtual calls) target není v opcode.
+BHT řeší jen *směr* skoku. Cílovou adresu pro skok relativní k PC lze spočítat přímo z operačního kódu (opcode). Ale u **nepřímých skoků (indirect jumps)** (`jr r1`, `ret`, volání virtuálních metod) cíl v opcode není.
 
-**BTB** je cache (PC → target) — *malá set-associative tabulka* uchovávající:
+**BTB** je cache (mapování PC → cíl) — *malá množinově asociativní tabulka (set-associative)*, která uchovává:
 
-- PC (key/tag).
-- Last seen target address.
-- Direction prediction (sometimes co-located with BTB, sometimes BHT separate).
+- PC (klíč/tag).
+- Naposledy viděnou cílovou adresu.
+- Predikci směru (někdy je uložena přímo v BTB, jindy je BHT oddělená).
 
-Lookup paralelně s fetch:
+Vyhledání probíhá paralelně s načítáním instrukce (fetch):
 
 ```
 fetch_pc = current PC
@@ -153,7 +153,7 @@ if (btb_entry.tag == fetch_pc) {
 }
 ```
 
-Velikost: 256-4096 entries typicky. Apple M1 má 4096.
+Velikost: typicky 256–4096 záznamů. Apple M1 jich má 4096.
 
 ::: svg "BHT + BTB v B1 stupni fetch"
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="10">
@@ -194,45 +194,45 @@ Velikost: 256-4096 entries typicky. Apple M1 má 4096.
 </svg>
 :::
 
-## Return Address Stack (RAS)
+## Zásobník návratových adres (Return Address Stack, RAS)
 
-`call / ret` páry mají strukturovaný pattern. **RAS** je malý LIFO stack:
+Dvojice `call / ret` mají strukturovaný vzor (pattern). **RAS** je malý zásobník typu LIFO:
 
-- `call` instruction → push next PC.
-- `ret` instruction → pop top of stack, predikuj target.
+- Instrukce `call` → vlož (push) následující PC.
+- Instrukce `ret` → vyzvedni (pop) vrchol zásobníku a predikuj cíl.
 
-Velikost 16-32 entries (= max call depth simultaneously without stale).
+Velikost je 16–32 záznamů (odpovídá maximální hloubce volání, kterou lze současně podržet bez zastarání záznamů).
 
-Accuracy: ~99 % pro normální kód. Selhání:
+Přesnost: zhruba 99 % pro běžný kód. Selhává v těchto případech:
 
-- **Recursion deeper than RAS** — stack přejede.
-- **Tail call** (`jmp` instead of `call`) — RAS by potřeboval *nepushovat*. Modern compilers někdy *vyhýbají* tail call optimization, aby nezhoršili RAS.
-- **setjmp/longjmp** — non-local jumps RAS překvapí.
+- **Rekurze hlubší než RAS** — zásobník přeteče.
+- **Koncové volání (tail call)** (`jmp` místo `call`) — RAS by zde potřeboval *nevkládat* záznam. Moderní překladače se proto někdy *vyhýbají* optimalizaci koncových volání (tail call optimization), aby nezhoršily chování RAS.
+- **setjmp/longjmp** — nelokální skoky RAS překvapí.
 
-::: viz btb-ras-traversal "Vyber scénář (normální call/ret, hluboká rekurze přes RAS=8, tail-call, longjmp) a krokuj. Sleduj stack push/pop a počet mispredictů."
+::: viz btb-ras-traversal "Vyber scénář (normální call/ret, hluboká rekurze přes RAS=8, koncové volání, longjmp) a krokuj. Sleduj vkládání a vyzvedávání ze zásobníku a počet chybných predikcí."
 :::
 
-## Hit-rate moderních CPU
+## Úspěšnost predikce u moderních procesorů
 
-| Workload | Branch direction accuracy |
+| Zátěž | Přesnost predikce směru skoku |
 | :--- | :---: |
-| SPECCPU integer | 92-96 % |
-| Crypto, DSP | 99 %+ (predictable) |
-| Interpreter loop, JIT'd JavaScript | 80-90 % |
-| Network packet routing | 70-85 % |
-| Database B-tree traversal | 75-85 % |
+| SPECCPU integer | 92–96 % |
+| Kryptografie, DSP | přes 99 % (předvídatelné) |
+| Smyčka interpretu, JIT překládaný JavaScript | 80–90 % |
+| Směrování síťových paketů | 70–85 % |
+| Procházení B-stromu v databázi | 75–85 % |
 
-Pro nejhorší zátěž (interpreter dispatcher) je accuracy *kritická* — Python, V8, JVM mají sofistikované techniky (computed goto, threaded code) *právě proto*, aby zlepšily branch prediction.
+Pro nejhorší zátěže (dispatcher interpretu) je přesnost *kritická* — Python, V8 i JVM mají sofistikované techniky (computed goto, threaded code) *právě proto*, aby predikci skoků zlepšily.
 
-## Trénink: cold-start
+## Trénink: studený start (cold-start)
 
-Při startu programu BHT/BTB *prázdné* → first 1000+ branches řízeny static fallback. Cold-start CPI je vyšší než steady-state.
+Při startu programu jsou BHT i BTB *prázdné* → prvních 1000+ skoků řídí statická záloha (static fallback). CPI při studeném startu je vyšší než v ustáleném stavu.
 
-OS pri context switch: některá CPU *flushují* BTB (kvůli Spectre v2 mitigace), což znamená cold-start *po každém scheduling tick*. Pokuta často 10-20 % v cloud workloads.
+Operační systém při přepnutí kontextu (context switch): některé procesory BTB *vyprázdní (flush)* (kvůli zmírnění zranitelnosti Spectre v2), což znamená studený start *po každém plánovacím tiku (scheduling tick)*. Pokuta v cloudových zátěžích bývá často 10–20 %.
 
 ## Co dál
 
-2-bit counter je *base*. [[pokrocile-prediktory]] popisuje korelační prediktory (gshare), neural network-based (perceptron), a TAGE — *state-of-the-art* s 97-99 % accuracy. [[prefetching]] rozšíří dynamiku na *data*.
+2-bitový čítač je *základ*. Stránka [[pokrocile-prediktory]] popisuje korelační prediktory (gshare), prediktory založené na neuronových sítích (perceptron) a TAGE — *špičku oboru (state-of-the-art)* s přesností 97–99 %. Stránka [[prefetching]] rozšíří dynamiku na *data*.
 
 ---
 

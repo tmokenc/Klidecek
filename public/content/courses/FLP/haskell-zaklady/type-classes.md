@@ -4,7 +4,7 @@ title: Typové třídy (type classes)
 
 # Typové třídy (type classes)
 
-**Type classes** jsou Haskellův mechanismus pro **ad-hoc polymorphism** — definice operací, které pracují pro *více typů*, ale s *různými* implementacemi. Analogické *interfaces* v Javě nebo *traits* v Rustu, ale mocnější a flexibilnější. Inspirovaly Rust traits, Scala implicits, Swift protocols.
+**Typové třídy (type classes)** jsou Haskellův mechanismus pro **ad-hoc polymorfismus (ad-hoc polymorphism)** — tedy způsob, jak definovat operace, které pracují pro *více typů*, ale s *různými* implementacemi. Zjednodušeně řečeno: pod jedním názvem (například `==`) se skrývá pro každý typ jiný kód. Jsou obdobou *rozhraní (interface)* v Javě nebo *traitů (trait)* v Rustu, ale jsou mocnější a flexibilnější. Samy inspirovaly traity v Rustu, implicits ve Scale i protokoly ve Swiftu.
 
 ## Princip
 
@@ -17,7 +17,7 @@ class Eq a where
     x /= y = not (x == y)
 ```
 
-**Definuje** type class `Eq` s metodami `==`, `/=`.
+Tento zápis **definuje** typovou třídu `Eq` s metodami `==` a `/=`.
 
 ### Instance
 
@@ -50,7 +50,7 @@ nodup [1,2,3,1,2]      -- [1,2,3]
 nodup ["a","b","a"]    -- ["a","b"]
 ```
 
-## Standardní type classes
+## Standardní typové třídy
 
 ### Eq — rovnost
 
@@ -71,21 +71,21 @@ class Eq a => Ord a where
 data Ordering = LT | EQ | GT
 ```
 
-### Show — to string
+### Show — převod na řetězec
 
 ```haskell
 class Show a where
     show :: a -> String
 ```
 
-### Read — from string
+### Read — převod z řetězce
 
 ```haskell
 class Read a where
     read :: String -> a
 ```
 
-### Num — numerical
+### Num — číselné typy
 
 ```haskell
 class Num a where
@@ -96,7 +96,7 @@ class Num a where
     fromInteger :: Integer -> a
 ```
 
-### Enum — enumerable
+### Enum — vyjmenovatelné typy
 
 ```haskell
 class Enum a where
@@ -105,18 +105,18 @@ class Enum a where
     fromEnum :: a -> Int
 ```
 
-### Bounded — bounded
+### Bounded — typy s mezemi
 
 ```haskell
 class Bounded a where
     minBound, maxBound :: a
 ```
 
-### Functor — mappable
+### Functor — typy, nad kterými lze mapovat
 
-Definice viz [Functor a Monad — preview](#functor-a-monad--preview) níže.
+Definici viz [Functor a Monad — náhled](#functor-a-monad--náhled) níže.
 
-### Monad — monadic
+### Monad — monadické typy
 
 ```haskell
 class Monad m where
@@ -124,11 +124,11 @@ class Monad m where
     (>>=) :: m a -> (a -> m b) -> m b
 ```
 
-Detailně [[monady-io]].
+Podrobně viz [[monady-io]].
 
-## Deriving
+## Odvozování instancí (deriving)
 
-Mnoho typeclass lze *automaticky* odvodit:
+Mnoho typových tříd lze *automaticky* odvodit:
 
 ```haskell
 data Color = Red | Green | Blue
@@ -142,7 +142,7 @@ data Color = Red | Green | Blue
 -- maxBound :: Color :: Blue
 ```
 
-### Newer: GeneralizedNewtypeDeriving, DeriveFunctor, DeriveTraversable
+### Novější rozšíření: GeneralizedNewtypeDeriving, DeriveFunctor, DeriveTraversable
 
 ```haskell
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
@@ -155,16 +155,16 @@ data MyList a = MyNil | MyCons a (MyList a)
     deriving Functor
 ```
 
-## Constraints
+## Omezení (constraints)
 
-### Single constraint
+### Jednoduché omezení
 
 ```haskell
 showAndAdd :: (Show a, Num a) => a -> String
 showAndAdd x = show (x + 1)
 ```
 
-### Constraint propagation
+### Šíření omezení
 
 ```haskell
 elem :: Eq a => a -> [a] -> Bool
@@ -175,7 +175,7 @@ uniqueElems :: Eq a => [a] -> Int
 uniqueElems = length . removeDuplicates  -- propagates Eq
 ```
 
-### Numeric hierarchy
+### Hierarchie číselných typů
 
 ```
 Num <- (Real, Fractional)
@@ -184,7 +184,7 @@ Integral <- (Int, Integer)
 Fractional <- (Float, Double)
 ```
 
-## Type class hierarchy
+## Hierarchie typových tříd
 
 ```haskell
 class Eq a where ...
@@ -198,33 +198,33 @@ class (Show a, Eq a) => Printable a where ...
 -- Printable requires both Show and Eq
 ```
 
-## Polymorphism types
+## Druhy polymorfismu
 
-### Parametric polymorphism
+### Parametrický polymorfismus
 
 ```haskell
 id :: a -> a
 id x = x
 ```
 
-Works for *any* type `a` *uniformly* — *identity* function doesn't care about type.
+Funguje pro *libovolný* typ `a` *jednotně* — funkce *identity* se o typ vůbec nezajímá.
 
-### Ad-hoc polymorphism (via type classes)
+### Ad-hoc polymorfismus (přes typové třídy)
 
 ```haskell
 class Num a where
     (+) :: a -> a -> a
 ```
 
-`(+)` is *different* for `Int`, `Double`, complex numbers, etc.
+Operace `(+)` je *jiná* pro `Int`, `Double`, komplexní čísla atd.
 
-### Subtype polymorphism (OOP)
+### Podtypový polymorfismus (OOP)
 
-Haskell *doesn't have* — relies on type classes instead.
+Haskell jej *nemá* — místo něj se spoléhá na typové třídy.
 
-## Type class — class implementation
+## Typová třída — implementace v překladači
 
-GHC implementuje type classes via **dictionary passing**:
+GHC implementuje typové třídy pomocí **předávání slovníků (dictionary passing)**:
 
 ```haskell
 elem :: Eq a => a -> [a] -> Bool
@@ -235,14 +235,14 @@ elem :: Dict_Eq_a -> a -> [a] -> Bool
 elem dict x ys = ...
 ```
 
-Dictionary obsahuje pointers na functions implementations.
+Slovník obsahuje ukazatele (pointer) na implementace funkcí. Jinými slovy: omezení `Eq a` se při překladu změní na další skrytý argument, kterým je tabulka konkrétních funkcí pro daný typ.
 
-Performance: small overhead but **compile-time** dispatch when type is known (specialization).
+Výkon (performance): režie je malá, a navíc se při znalosti typu volání rozhoduje již **při překladu (compile-time)**, nikoli za běhu (specializace).
 
 ::: viz type-class-dispatch "Eq a => ... dictionary-passing po desugaringu; klikněte typ a vidíte, který slovník se použije."
 :::
 
-## Functor a Monad — preview
+## Functor a Monad — náhled
 
 ### Functor
 
@@ -261,21 +261,21 @@ instance Functor IO where
     -- IO is a functor too!
 ```
 
-### Functor laws
+### Zákony functoru
 
 ```haskell
 fmap id      = id              -- identity
 fmap (f . g) = fmap f . fmap g -- composition
 ```
 
-Each instance *must* satisfy these (not enforced by compiler, but expected).
+Každá instance je *musí* splňovat (překladač to nevynucuje, ale očekává se to).
 
 ::: viz functor-applicative-monad "Hierarchie Functor ⊂ Applicative ⊂ Monad; přepněte typ (Maybe/List/Either/IO) a vidíte všechny tři operace."
 :::
 
-## Type class extensions
+## Rozšíření typových tříd
 
-### Multi-parameter type classes (MPTC)
+### Víceparametrové typové třídy (MPTC)
 
 ```haskell
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -290,7 +290,7 @@ instance Convertible Int Double where
     convert = fromIntegral
 ```
 
-### Functional dependencies
+### Funkcionální závislosti
 
 ```haskell
 {-# LANGUAGE FunctionalDependencies #-}
@@ -301,7 +301,7 @@ class Collection c e | c -> e where
     insert :: e -> c -> c
 ```
 
-### Type families
+### Typové rodiny (type families)
 
 ```haskell
 {-# LANGUAGE TypeFamilies #-}
@@ -312,9 +312,9 @@ class Container c where
     insert :: Element c -> c -> c
 ```
 
-Used in `containers` library.
+Používá se v knihovně `containers`.
 
-### Constraint kinds
+### Omezení jako typy (constraint kinds)
 
 ```haskell
 {-# LANGUAGE ConstraintKinds #-}
@@ -322,22 +322,22 @@ Used in `containers` library.
 type Showable a = (Show a, Eq a)
 ```
 
-## Type class vs. Object-oriented
+## Typová třída vs. objektové programování
 
-| Aspect | Type class | OOP class |
+| Hledisko | Typová třída | Třída v OOP |
 | :--- | :--- | :--- |
-| Definition | separate from data | same as data |
-| Dispatch | type of arg | object identity (vtable) |
-| Method addition | new instance | modify class hierarchy |
-| Multi-parameter | yes (MPTC) | no |
-| Compile-time | yes | runtime (mostly) |
-| Subtyping | no | yes |
+| Definice | oddělená od dat | součást dat |
+| Výběr implementace (dispatch) | podle typu argumentu | podle identity objektu (vtable) |
+| Přidání metody | nová instance | úprava hierarchie tříd |
+| Více parametrů | ano (MPTC) | ne |
+| Při překladu (compile-time) | ano | za běhu (runtime), většinou |
+| Podtypy (subtyping) | ne | ano |
 
-> "Type classes provide ad-hoc polymorphism done right." — Wadler.
+> „Typové třídy poskytují ad-hoc polymorfismus udělaný správně." — Wadler.
 
-## Examples {tier=example}
+## Příklady {tier=example}
 
-### Functor instance for own type
+### Instance Functoru pro vlastní typ
 
 ```haskell
 data Tree a = Leaf | Node (Tree a) a (Tree a)
@@ -350,7 +350,7 @@ instance Functor Tree where
 doubled = fmap (*2) myTree
 ```
 
-### Custom Eq
+### Vlastní Eq
 
 ```haskell
 data Person = Person { name :: String, age :: Int }
@@ -360,7 +360,7 @@ instance Eq Person where
     p1 == p2 = name p1 == name p2
 ```
 
-### Show instance
+### Instance Show
 
 ```haskell
 data Vector = Vector Double Double
@@ -371,9 +371,9 @@ instance Show Vector where
 -- show (Vector 1.5 2.7) = "(1.5, 2.7)"
 ```
 
-## Common patterns
+## Časté vzory
 
-### Bounded enum cycle
+### Cyklení přes omezený výčet
 
 ```haskell
 nextColor :: Color -> Color
@@ -382,7 +382,7 @@ nextColor c
   | otherwise = succ c
 ```
 
-### Generic algorithms
+### Generické algoritmy
 
 ```haskell
 quicksort :: Ord a => [a] -> [a]
@@ -393,9 +393,9 @@ quicksort (x:xs) = quicksort smaller ++ [x] ++ quicksort larger
     larger  = filter (>= x) xs
 ```
 
-`quicksort` works for *any* `Ord` type: Int, Double, String, custom data.
+`quicksort` funguje pro *libovolný* typ s instancí `Ord`: Int, Double, String i vlastní datové typy.
 
-### Convertible
+### Převody (Convertible)
 
 ```haskell
 parse :: Read a => String -> a
@@ -405,31 +405,31 @@ formatted :: Show a => a -> String
 formatted = show
 ```
 
-## Limity type classes
+## Limity typových tříd
 
-### Open world assumption
+### Předpoklad otevřeného světa (open world assumption)
 
-* Instances can be added by *anyone*.
-* Cannot define "no instance" — *closed* set isn't directly expressible.
-* Solution: phantom types, restricted classes.
+* Instance může přidat *kdokoli*.
+* Nelze definovat „žádná instance" — *uzavřenou* množinu nelze přímo vyjádřit.
+* Řešením jsou phantom typy nebo omezené (restricted) třídy.
 
-### Orphan instances
+### Sirotčí instance (orphan instances)
 
-* Instance defined in *different* module than data + class.
-* Considered bad practice (can cause conflicts).
-* Compiler warning.
+* Instance je definovaná v *jiném* modulu než data i třída.
+* Považuje se to za špatný postup (může způsobit konflikty).
+* Překladač na to upozorní varováním.
 
-### Diamond problem
+### Problém diamantu (diamond problem)
 
-* Multiple inheritance paths can cause ambiguity.
-* Haskell prevents most issues via single-class-per-instance rule.
+* Více cest dědičnosti může vést k nejednoznačnosti.
+* Haskell většině problémů předchází pravidlem jedna třída na jednu instanci.
 
-## Trends
+## Trendy
 
-* **Generic programming** (Generic, Data.Generics).
-* **Type-level programming** (DataKinds, type families).
-* **Dependent types** (Idris, Agda inspired).
-* **Effects systems** (mtl, transformers, polysemy).
+* **Generické programování** (Generic, Data.Generics).
+* **Programování na úrovni typů** (DataKinds, typové rodiny).
+* **Závislé typy (dependent types)** (inspirováno jazyky Idris a Agda).
+* **Systémy efektů** (mtl, transformers, polysemy).
 
 ---
 

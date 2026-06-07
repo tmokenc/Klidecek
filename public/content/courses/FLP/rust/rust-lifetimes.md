@@ -1,14 +1,14 @@
 ---
-title: Rust — Lifetimes
+title: Rust — doby života (lifetimes)
 ---
 
-# Rust — Lifetimes
+# Rust — doby života (lifetimes)
 
-**Lifetimes** jsou klíčová součást Rust *borrow checkeru* — *staticky* zajišťují, že reference nikdy nepřežijí svůj data. Pojmenovány jako lifetimes `'a`, `'b`, `'static`. Kombinace ownership ([[rust-ownership]]) + lifetimes je *unique* Rust feature, která eliminuje dangling pointers *compile-time*.
+**Doby života (lifetimes)** jsou klíčovou součástí Rustovského *borrow checkeru* (kontrolora vypůjčení) — *staticky* zajišťují, že žádná reference (reference) nikdy nepřežije data, na která odkazuje. Zapisují se jako `'a`, `'b`, `'static`. Kombinace vlastnictví ([[rust-ownership]]) a dob života je jedinečnou vlastností Rustu, která eliminuje neplatné ukazatele (dangling pointers) už při překladu (compile-time).
 
-## Problém — dangling references
+## Problém — neplatné reference (dangling references)
 
-V C/C++:
+V jazycích C/C++:
 
 ```c
 int* dangling_ref() {
@@ -17,7 +17,7 @@ int* dangling_ref() {
 }
 ```
 
-V Rust:
+V Rustu:
 
 ```rust
 fn dangling_ref() -> &i32 {
@@ -26,22 +26,22 @@ fn dangling_ref() -> &i32 {
 }
 ```
 
-Borrow checker odmítne kompilaci.
+Borrow checker takový kód odmítne přeložit.
 
-## Lifetime syntax
+## Zápis dob života
 
 ```rust
 &'a i32   // reference s lifetime 'a
 &'a mut i32  // mutable reference s lifetime 'a
 ```
 
-Typical lifetimes:
-* `'a`, `'b` — generic lifetimes.
-* `'static` — lives for entire program.
+Typické doby života:
+* `'a`, `'b` — generické (obecné) doby života.
+* `'static` — trvá po celou dobu běhu programu.
 
-## Lifetime v funkcích
+## Doby života ve funkcích
 
-Když funkce vrací referenci, *kompiler musí vědět*, k *které* vstupní referenci je vázána:
+Když funkce vrací referenci, *překladač (compiler) musí vědět*, ke *které* vstupní referenci je vázána:
 
 ```rust
 // ERROR — kompiler neví, jestli vrátí &x nebo &y
@@ -55,17 +55,17 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 }
 ```
 
-* `<'a>` — declares lifetime parameter.
-* `x: &'a str` — x has lifetime 'a.
-* `y: &'a str` — y also has lifetime 'a.
-* Return `&'a str` — output lives at least 'a.
+* `<'a>` — deklaruje parametr doby života.
+* `x: &'a str` — `x` má dobu života `'a`.
+* `y: &'a str` — `y` má rovněž dobu života `'a`.
+* Návratová hodnota `&'a str` — výstup žije alespoň po dobu `'a`.
 
-::: viz lifetime-visualizer "Časová osa lifetime bindingů; pohyb borrowů přes scope; mut/imm konflikty viditelné."
+::: viz lifetime-visualizer "Časová osa vazeb dob života; pohyb vypůjčení napříč rozsahy; viditelné konflikty měnitelných a neměnitelných referencí."
 :::
 
 ### Vlastnost
 
-Output lifetime = *kratší* z input lifetimes:
+Doba života výstupu = *kratší* ze vstupních dob života:
 
 ```rust
 fn main() {
@@ -81,17 +81,17 @@ fn main() {
 }
 ```
 
-## Lifetime elision
+## Vynechávání dob života (lifetime elision)
 
-Pro běžné případy *není* třeba explicitně psát lifetime — *kompiler* je odvodí:
+U běžných případů *není* třeba dobu života psát explicitně — *překladač* ji odvodí sám:
 
-### Pravidla elision
+### Pravidla vynechávání
 
-1. *Each input* reference gets *own* lifetime parameter.
-2. If *exactly one* input lifetime, it is *output* lifetime.
-3. If multiple inputs, but `&self` or `&mut self`, lifetime of *self* is output.
+1. *Každá vstupní* reference dostane *vlastní* parametr doby života.
+2. Je-li *právě jedna* vstupní doba života, použije se jako doba života *výstupu*.
+3. Je-li vstupů více, ale jeden z nich je `&self` nebo `&mut self`, použije se jako doba života výstupu doba života *self*.
 
-### Example
+### Příklad
 
 ```rust
 // Original
@@ -113,9 +113,9 @@ impl Foo {
 }
 ```
 
-Pokud elision nemůže odvodit, musíte uvést explicitně.
+Pokud vynechávání dobu života odvodit nedokáže, musíte ji uvést explicitně.
 
-## Static lifetime
+## Statická doba života (static lifetime)
 
 `'static` znamená *celý život programu*:
 
@@ -127,7 +127,7 @@ const PI: f64 = 3.14159;  // 'static implicitly
 static MAX: i32 = 1000;
 ```
 
-## Lifetimes ve strukturách
+## Doby života ve strukturách
 
 ```rust
 struct ImportantExcerpt<'a> {
@@ -156,9 +156,9 @@ fn main() {
 
 Struktura `ImportantExcerpt<'a>` *nemůže přežít* hodnoty, na které `part` ukazuje.
 
-## Lifetime constraints
+## Omezení dob života (lifetime constraints)
 
-### Multiple lifetimes
+### Více dob života (multiple lifetimes)
 
 ```rust
 fn longest<'a, 'b>(x: &'a str, y: &'b str) -> &'a str {
@@ -166,7 +166,7 @@ fn longest<'a, 'b>(x: &'a str, y: &'b str) -> &'a str {
 }
 ```
 
-### Lifetime bounds
+### Meze dob života (lifetime bounds)
 
 ```rust
 fn print<'a>(x: &'a str) where 'a: 'static {
@@ -174,9 +174,9 @@ fn print<'a>(x: &'a str) where 'a: 'static {
 }
 ```
 
-### Subtyping
+### Podtypování (subtyping)
 
-`'static : 'a` — `'static` is subtype of any lifetime.
+`'static : 'a` — `'static` je podtypem libovolné doby života.
 
 ```rust
 fn takes_static<'a>(x: &'a str) {
@@ -185,13 +185,13 @@ fn takes_static<'a>(x: &'a str) {
 }
 ```
 
-## Common patterns
+## Časté vzory (common patterns)
 
-### Function returning local
+### Funkce vracející lokální hodnotu
 
-**Cannot** return reference to local — viz „Common errors a fixes" níže (`cannot return reference to local variable`); řešením je vrátit *owned* type.
+Z funkce **nelze** vracet referenci na lokální proměnnou — viz „Časté chyby a jejich opravy" níže (`cannot return reference to local variable`); řešením je vrátit *vlastněný* (owned) typ.
 
-### Struct with reference
+### Struktura s referencí
 
 ```rust
 struct Parser<'input> {
@@ -212,7 +212,7 @@ fn main() {
 }
 ```
 
-### Generic with lifetime
+### Generika s dobou života
 
 ```rust
 fn longest_with_announcement<'a, T>(
@@ -228,9 +228,9 @@ where
 }
 ```
 
-## Higher-Ranked Trait Bounds (HRTB)
+## Trait bounds vyššího řádu (Higher-Ranked Trait Bounds, HRTB)
 
-For closures over generic lifetimes:
+Pro uzávěry (closures) pracující s obecnými dobami života:
 
 ```rust
 fn call_with_one<F>(f: F) -> i32
@@ -241,11 +241,11 @@ where
 }
 ```
 
-`for<'a>` = "for any lifetime 'a".
+`for<'a>` znamená „pro libovolnou dobu života `'a`".
 
-## Common errors a fixes
+## Časté chyby a jejich opravy
 
-### "cannot return reference to local variable"
+### „cannot return reference to local variable"
 
 ```rust
 // BAD
@@ -260,7 +260,7 @@ fn foo() -> String {
 }
 ```
 
-### "borrowed value does not live long enough"
+### „borrowed value does not live long enough"
 
 ```rust
 // BAD
@@ -277,7 +277,7 @@ let r = &x;
 println!("{}", r);
 ```
 
-### "cannot borrow as mutable"
+### „cannot borrow as mutable"
 
 ```rust
 // BAD
@@ -295,9 +295,9 @@ let r2 = &mut s;
 println!("{}", r2);
 ```
 
-## Non-Lexical Lifetimes (NLL)
+## Nelexikální doby života (Non-Lexical Lifetimes, NLL)
 
-Modern Rust (2018+) has **NLL** — borrow checker je *smarter*:
+Moderní Rust (verze 2018 a novější) má **NLL** — borrow checker je *chytřejší*:
 
 ```rust
 let mut s = String::from("hello");
@@ -307,12 +307,12 @@ let r2 = &mut s;  // OK now
 println!("{}", r2);
 ```
 
-Před NLL musely borrows žít *do konce* scope; nyní jen *do posledního* použití.
+Před zavedením NLL musela vypůjčení (borrows) žít *do konce* svého rozsahu (scope); nyní žijí jen *do posledního* použití.
 
-::: viz nll-borrow "Same code, before/after NLL — vidíte, kdy borrow končí a kdy je mut borrow OK."
+::: viz nll-borrow "Tentýž kód před zavedením NLL a po něm — vidíte, kdy vypůjčení končí a kdy je měnitelné vypůjčení v pořádku."
 :::
 
-## Reborrowing
+## Opětovné vypůjčení (reborrowing)
 
 ```rust
 fn modify(x: &mut i32) {
@@ -323,19 +323,19 @@ fn modify(x: &mut i32) {
 }
 ```
 
-## Lifetimes vs. ownership
+## Doby života vs. vlastnictví
 
-| | Ownership | Lifetimes |
+| | Vlastnictví (ownership) | Doby života (lifetimes) |
 | :--- | :--- | :--- |
-| Who tracks | compile-time | compile-time |
-| Concept | who owns value | how long ref lives |
-| Mistake → | move-after-use error | dangling reference error |
+| Co sleduje | při překladu (compile-time) | při překladu (compile-time) |
+| Princip | kdo hodnotu vlastní | jak dlouho reference žije |
+| Chyba → | chyba při použití po přesunu (move-after-use) | chyba neplatné reference (dangling reference) |
 
-Both are *enforced statically* by Rust compiler.
+Obojí Rustovský překladač *vynucuje staticky*.
 
-## Lifetime + Generics + Traits
+## Doby života + generika + traity
 
-Most general signatures:
+Nejobecnější signatury:
 
 ```rust
 fn parse<'input, T>(text: &'input str) -> Result<T, ParseError>
@@ -347,23 +347,23 @@ where
 }
 ```
 
-## Lifetime quirks
+## Zvláštnosti dob života
 
-### 'static doesn't mean infinite
+### `'static` neznamená nekonečno
 
 ```rust
 let s: &'static str = "hello";  // string literal
 // s lives forever (in static memory)
 ```
 
-### Implicit 'static
+### Implicitní `'static`
 
 ```rust
 const PI: f64 = 3.14;  // 'static implicit
 static MUTEX: Mutex<i32> = Mutex::new(0);  // 'static implicit
 ```
 
-### Trait object lifetime
+### Doba života trait objektu
 
 ```rust
 trait Draw {
@@ -382,22 +382,22 @@ fn draw_all<'a>(shapes: &[Box<dyn Draw + 'a>]) {
 
 ## Praktický význam
 
-Lifetimes umožňují *bezpečné* sdílení dat *bez GC*:
+Doby života umožňují *bezpečné* sdílení dat *bez garbage collectoru (GC)*:
 
-* **Iterators** — efficient lazy traversal.
-* **Slices** — zero-cost view into data.
-* **Async/await** — borrows across `.await` points.
-* **Database connections, file handles** — RAII with shared access.
+* **Iterátory (iterators)** — efektivní líné procházení (lazy traversal).
+* **Řezy (slices)** — pohled do dat s nulovou režií (zero-cost view).
+* **Async/await** — vypůjčení napříč body `.await`.
+* **Databázová spojení, popisovače souborů (file handles)** — RAII se sdíleným přístupem.
 
-> "Lifetime annotations don't change how long any of the references live. Rather, they describe the relationships of the lifetimes of multiple references." — The Rust Book.
+> „Anotace dob života nemění, jak dlouho která z referencí žije. Spíše popisují vztahy mezi dobami života několika referencí." — The Rust Book.
 
-## Best practices
+## Osvědčené postupy
 
-1. **Let compiler infer** when possible (elision rules).
-2. **Use 'a, 'b** for short, **'input** or descriptive names for clarity.
-3. **Avoid 'static** for non-literals; prefer specific lifetimes.
-4. **Use owned types** when complex lifetimes get tangled.
-5. **Spolehněte se na kompiler** — borrow checker hlásí lifetime/borrow chyby *compile-time* (nezávisle na debug/release); nechte se vést `cargo check`.
+1. **Nechte překladač odvozovat**, kdykoli to jde (pravidla vynechávání).
+2. **Používejte `'a`, `'b`** pro krátké zápisy, **`'input`** nebo popisné názvy pro lepší srozumitelnost.
+3. **Vyhněte se `'static`** u hodnot, které nejsou literály; dejte přednost konkrétním dobám života.
+4. **Použijte vlastněné (owned) typy**, když se složité doby života příliš zamotají.
+5. **Spolehněte se na překladač** — borrow checker hlásí chyby dob života i vypůjčení už *při překladu (compile-time)* (nezávisle na režimu debug/release); nechte se vést nástrojem `cargo check`.
 
 ---
 

@@ -1,43 +1,43 @@
 ---
-title: CNN architektury — LeNet, VGG, ResNet, Inception
+title: Architektury CNN — LeNet, VGG, ResNet, Inception
 ---
 
-# CNN architektury
+# Architektury CNN
 
-Vývoj CNN architektur od jednoduchého LeNetu (1998) po moderní transformery sleduje *exponenciální růst* hloubky, kapacity a sofistikace.
+Vývoj architektur konvolučních neuronových sítí (CNN) od jednoduchého LeNetu (1998) až po moderní transformery sleduje *exponenciální růst* hloubky, kapacity a propracovanosti.
 
 ## LeNet-5 (1998)
 
-**Yann LeCun et al.**, *Gradient-Based Learning Applied to Document Recognition*. Pro klasifikaci ručně psaných číslic (MNIST).
+**Yann LeCun a kol.**, *Gradient-Based Learning Applied to Document Recognition*. Síť určená pro klasifikaci ručně psaných číslic (datová sada MNIST).
 
 Architektura:
 * `Input 32×32` → `Conv 5×5, 6 filters` → `AvgPool 2×2` → `Conv 5×5, 16 filters` → `AvgPool 2×2` → `FC 120` → `FC 84` → `FC 10 (softmax)`.
 
 * `~60k` parametrů.
-* Tanh aktivace.
-* Nezávislé na ImageNet — mnoho let *jediná* praktická CNN aplikace.
+* Aktivační funkce tanh.
+* Nezávislé na datové sadě ImageNet — po mnoho let šlo o *jedinou* praktickou aplikaci CNN.
 
 ## AlexNet (2012) — průlom
 
-**Krizhevsky, Sutskever, Hinton**, *ImageNet Classification with Deep CNNs*. Vyhrála **ImageNet ILSVRC 2012** s top-5 error **15.3 %** (předchozí state-of-the-art: 26 %).
+**Krizhevsky, Sutskever, Hinton**, *ImageNet Classification with Deep CNNs*. Vyhrála soutěž **ImageNet ILSVRC 2012** s chybou top-5 **15,3 %** (předchozí nejlepší výsledek byl 26 %).
 
 Klíčové novinky:
 
 * **ReLU** místo tanh / sigmoid → rychlejší trénink.
-* **Dropout** v FC vrstvách → regularizace.
-* **Data augmentation** — rotation, flip, crop.
-* **GPU trénink** — *dva* GTX 580 GPU, 5-6 dní.
-* **Local Response Normalization** (dnes nahrazené BatchNorm).
-* **8 vrstev** — 5 conv + 3 FC, *miliony parametrů*.
+* **Dropout** v plně propojených (FC) vrstvách → regularizace.
+* **Rozšiřování dat (data augmentation)** — rotace, překlopení, ořez.
+* **Trénink na GPU** — *dvě* grafické karty GTX 580, 5–6 dní.
+* **Local Response Normalization** (dnes nahrazená normalizací BatchNorm).
+* **8 vrstev** — 5 konvolučních + 3 plně propojené, *miliony parametrů*.
 
-Toto bylo **WOW** — *deep learning revolution* začala. CNN se *přes noc* staly state-of-the-art v computer vision.
+To byl obrovský úspěch — odstartovala *revoluce hlubokého učení (deep learning)*. CNN se *přes noc* staly nejlepší dostupnou technikou v počítačovém vidění (computer vision).
 
 ## VGG (2014)
 
-**Simonyan & Zisserman** (Oxford), *Very Deep Convolutional Networks*. Maximální *jednoduchost*:
+**Simonyan & Zisserman** (Oxford), *Very Deep Convolutional Networks*. Cílem byla maximální *jednoduchost*:
 
-* **Pouze 3×3 konvoluce** + **2×2 max pooling**.
-* Hloubka **16-19 vrstev**.
+* **Pouze konvoluce 3×3** + **max pooling 2×2**.
+* Hloubka **16–19 vrstev**.
 
 ::: svg "VGG-16 architektura: bloky 3×3 konv → pool, postupně se kanály zvětšují, rozlišení snižuje."
 <svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -70,15 +70,15 @@ Toto bylo **WOW** — *deep learning revolution* začala. CNN se *přes noc* sta
 </svg>
 :::
 
-* **Insight**: dvě vrstvy `3×3` mají stejné receptive field jako jedna `5×5`, ale s *méně* parametry a *více* nelinearity.
-* **Top-5 error 7.3 %** na ImageNet 2014.
-* **138 M parametrů** — *obrovský* model. Pomalý, paměťově náročný.
+* **Klíčový postřeh**: dvě vrstvy `3×3` mají stejné receptivní pole (receptive field) jako jedna `5×5`, ale s *méně* parametry a *více* nelinearity.
+* **Chyba top-5 7,3 %** na ImageNet 2014.
+* **138 M parametrů** — *obrovský* model. Pomalý a paměťově náročný.
 
 ## GoogLeNet / Inception (2014)
 
-**Szegedy et al.** (Google), *Going Deeper with Convolutions*. Vyhrál ILSVRC 2014.
+**Szegedy a kol.** (Google), *Going Deeper with Convolutions*. Vyhrál ILSVRC 2014.
 
-Klíčová idea: **Inception module** — kombinace různých kernel sizes paralelně.
+Klíčová myšlenka: **Inception modul** — paralelní kombinace konvolučních jader (kernel) různých velikostí.
 
 ::: svg "Inception module: 1×1, 3×3, 5×5 conv + pooling paralelně, výstupy se zřetězí v channel dimension."
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -120,18 +120,18 @@ Klíčová idea: **Inception module** — kombinace různých kernel sizes paral
 </svg>
 :::
 
-* **1×1 konvoluce** — *dimension reduction* + nelinearita. Snížením počtu kanálů před drahou 3×3/5×5 konvolucí výrazně zlevní výpočet (bottleneck). (Lin, Chen & Yan, *Network in Network*, 2013.)
-* **Multi-scale features** — vstup vidíme různými „brýlemi".
-* **22 vrstev**, ale **jen 7M parametrů** (vs. 138M VGG).
-* **Auxiliary classifiers** — meziklasifikátory v hloubce sítě pomáhají gradientu.
+* **Konvoluce 1×1** — *redukce dimenze* (snížení počtu kanálů) + nelinearita. Snížením počtu kanálů před drahou konvolucí 3×3/5×5 výrazně zlevní výpočet (tzv. bottleneck, zúžení). (Lin, Chen & Yan, *Network in Network*, 2013.)
+* **Příznaky napříč měřítky (multi-scale features)** — vstup vidíme různými „brýlemi".
+* **22 vrstev**, ale **jen 7 M parametrů** (oproti 138 M u VGG).
+* **Pomocné klasifikátory (auxiliary classifiers)** — meziklasifikátory v hloubce sítě, které pomáhají gradientu.
 
-Inception v2, v3, v4 přidaly *factorized* konvoluce a další optimalizace.
+Verze Inception v2, v3 a v4 přidaly *faktorizované* konvoluce a další optimalizace.
 
 ## ResNet (2015)
 
-**He et al.** (Microsoft Research), *Deep Residual Learning for Image Recognition*. Vyhrál ImageNet 2015 s **top-5 error 3.6 %** — *překonal* lidský výkon (~5 %).
+**He a kol.** (Microsoft Research), *Deep Residual Learning for Image Recognition*. Vyhrál ImageNet 2015 s **chybou top-5 3,6 %** — *překonal* tak lidský výkon (~5 %).
 
-Klíčová idea: **residual / skip connection**:
+Klíčová myšlenka: **reziduální / přeskakovací spoj (residual / skip connection)**:
 
 ::: math
 y = F(x; W) + x
@@ -169,59 +169,59 @@ y = F(x; W) + x
 </svg>
 :::
 
-* **Pokud F = 0** (váhy → 0), blok je *identita* — síť se *vůbec nezhorší*.
-* **Gradient flow** — backprop má *přímou cestu* gradientem (`∂L/∂x = ∂L/∂y · (1 + ∂F/∂x)`). Vyhne se vanishing gradient.
+* **Pokud F = 0** (váhy → 0), blok se chová jako *identita* — síť se *vůbec nezhorší*.
+* **Tok gradientu (gradient flow)** — zpětné šíření chyby (backpropagation) má *přímou cestu* gradientem (`∂L/∂x = ∂L/∂y · (1 + ∂F/∂x)`). Tím se vyhne mizejícímu gradientu (vanishing gradient).
 * **Hloubka 152 vrstev** (ResNet-152), v některých variantách *přes 1000*.
-* **Identity blocks** + **bottleneck blocks** (1×1 → 3×3 → 1×1).
+* **Identitní bloky (identity blocks)** + **bloky se zúžením (bottleneck blocks)** (1×1 → 3×3 → 1×1).
 
-Po ResNet se „skip connection" stala *standardním* prvkem v deep learning (Transformer, U-Net, DenseNet, ...).
+Po ResNetu se „skip connection" stala *standardním* prvkem hlubokého učení (Transformer, U-Net, DenseNet, …).
 
 ::: viz cnn-architectures-stack "Stack vrstev pro LeNet/AlexNet/VGG/ResNet; rozměry feature map + počet parametrů na vrstvu (log barů)."
 :::
 
 ## DenseNet (2017)
 
-**Huang et al.**, *Densely Connected Convolutional Networks*. Místo *jednoho* skip connection má **všechny** předchozí vrstvy jako vstup.
+**Huang a kol.**, *Densely Connected Convolutional Networks*. Místo *jediného* přeskakovacího spoje bere jako vstup **všechny** předchozí vrstvy.
 
 ::: math
 x_l = H_l([x_0, x_1, \dots, x_{l-1}])
 :::
 
-Velmi parametr-efektivní — *žádné* redundanní reprezentace v hloubce.
+Velmi úsporná z hlediska parametrů — v hloubce nevznikají *žádné* redundantní reprezentace.
 
 ## EfficientNet (2019)
 
-**Tan & Le** (Google), *Rethinking Model Scaling for CNNs*. Místo náhodného škálování hloubky/šířky/rozlišení použít **compound scaling**:
+**Tan & Le** (Google), *Rethinking Model Scaling for CNNs*. Místo nahodilého škálování hloubky/šířky/rozlišení používá **složené škálování (compound scaling)**:
 
 ::: math
 \text{depth} = \alpha^\phi, \quad \text{width} = \beta^\phi, \quad \text{resolution} = \gamma^\phi
 :::
 
-Optimalizovaný kompromis mezi kapacitou a výpočtem.
+Jde o optimalizovaný kompromis mezi kapacitou a výpočetní náročností.
 
 ## Vision Transformer (ViT, 2020)
 
-**Dosovitskiy et al.**, *An Image is Worth 16x16 Words*. Aplikace *Transformer* architektury ([[transformer-bert]]) na obrázky:
+**Dosovitskiy a kol.**, *An Image is Worth 16x16 Words*. Aplikace architektury *Transformer* ([[transformer-bert]]) na obrázky:
 
-* Rozdělit obrázek na **patches** `16 × 16`.
-* Každý patch → embedding.
-* Sekvence patches → Transformer encoder.
-* Class token → klasifikace.
+* Rozdělit obrázek na **dlaždice (patches)** `16 × 16`.
+* Každou dlaždici převést na embedding (vektorovou reprezentaci).
+* Sekvenci dlaždic poslat do enkodéru Transformeru.
+* Třídicí token (class token) → klasifikace.
 
-Pro velké datasety (*JFT-300M*, *LAION-5B*) **překonává** CNN. Pro malé datasety zůstává CNN *lepší* — má *induktivní bias* lokality.
+Pro velké datové sady (*JFT-300M*, *LAION-5B*) **překonává** CNN. Pro malé datové sady zůstává CNN *lepší* — má *induktivní předpoklad (induktivní bias)* lokality, tedy přirozeně počítá s tím, že blízké body v obrázku spolu souvisí.
 
 ## Srovnání architektur
 
-| Architektura | Rok | Vrstev | Parametry | ImageNet top-5 err |
+| Architektura | Rok | Vrstev | Parametry | ImageNet chyba top-5 |
 | :-- | :--: | :--: | :--: | :--: |
 | LeNet-5 | 1998 | 7 | 60k | (MNIST) |
-| AlexNet | 2012 | 8 | 60M | 15.3 % |
-| VGG-16 | 2014 | 16 | 138M | 7.3 % |
-| GoogLeNet | 2014 | 22 | 7M | 6.7 % |
-| ResNet-152 | 2015 | 152 | 60M | 3.6 % |
-| DenseNet-201 | 2017 | 201 | 20M | 6.3 % |
-| EfficientNet-B7 | 2019 | 813 | 66M | 2.9 % |
-| ViT-L/16 | 2020 | 24 | 304M | 1.9 % (JFT pretrain) |
+| AlexNet | 2012 | 8 | 60M | 15,3 % |
+| VGG-16 | 2014 | 16 | 138M | 7,3 % |
+| GoogLeNet | 2014 | 22 | 7M | 6,7 % |
+| ResNet-152 | 2015 | 152 | 60M | 3,6 % |
+| DenseNet-201 | 2017 | 201 | 20M | 6,3 % |
+| EfficientNet-B7 | 2019 | 813 | 66M | 2,9 % |
+| ViT-L/16 | 2020 | 24 | 304M | 1,9 % (předtrénink na JFT) |
 
 ## Trénovací pipeline pro CNN
 
@@ -257,7 +257,7 @@ for epoch in range(epochs):
         optimizer.step()
 ```
 
-Detail v [[transfer-learning]].
+Podrobnosti v [[transfer-learning]].
 
 ::: link "He et al.: Deep Residual Learning for Image Recognition (CVPR, 2016)" "https://arxiv.org/abs/1512.03385"
 :::

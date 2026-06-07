@@ -8,7 +8,7 @@ title: Anatomie oka pro biometriku
 
 ## Struktura oka
 
-::: svg "Anatomie oka v řezu: rohovka, duhovka, pupila, čočka, sklivec, sítnice s slepou skvrnou."
+::: svg "Anatomie oka v řezu: rohovka, duhovka, pupila, čočka, sklivec, sítnice se slepou skvrnou."
 <svg viewBox="0 0 540 240" font-family="ui-sans-serif, system-ui" font-size="10">
   <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.3">
     <circle cx="270" cy="120" r="90"/>
@@ -51,146 +51,146 @@ title: Anatomie oka pro biometriku
 </svg>
 :::
 
-* **Rohovka (cornea)** — průhledná přední vrstva oka. Tvoří ~2/3 lomivosti.
-* **Duhovka (iris)** — *barevná část* oka mezi rohovkou a čočkou. Obsahuje pigment a vzor, který je *unique per person*.
-* **Pupila (zornice)** — *otvor* uprostřed duhovky; mění svou velikost reflexně podle osvětlení (musculus sphincter pupillae a dilatator pupillae).
+* **Rohovka (cornea)** — průhledná přední vrstva oka. Tvoří přibližně dvě třetiny lomivosti oka.
+* **Duhovka (iris)** — *barevná část* oka mezi rohovkou a čočkou. Obsahuje pigment a vzor, který je *u každého člověka jedinečný*.
+* **Pupila (zornice)** — *otvor* uprostřed duhovky; svou velikost mění reflexně podle osvětlení (díky svalům musculus sphincter pupillae a dilatator pupillae).
 * **Čočka (lens)** — průhledná čočka za duhovkou; mění svou křivost (akomodace) pro zaostření.
 * **Sklivec (vitreum)** — průhledná gelovitá náplň zadní komory oka.
-* **Sítnice (retina)** — *vnitřní* světločitlivá vrstva s fotoreceptory (tyčinky + čípky); detekuje světlo a vede signál do mozku.
+* **Sítnice (retina)** — *vnitřní* světločitlivá vrstva s fotoreceptory (tyčinky a čípky); detekuje světlo a vede signál do mozku.
 
 ## Duhovka (iris) — anatomie
 
-Duhovka je *plochá*, kruhová struktura tloušťky ~0.5 mm. Tvořena ze dvou vrstev:
+Duhovka je *plochá*, kruhová struktura tloušťky přibližně 0,5 mm. Je tvořena ze dvou vrstev:
 
-* **Stroma** — přední (viditelná) vrstva s pigment cells a *spletitými* vlákny — tvoří unique pattern. Obsah melaninu ve stromatu (a Rayleigho rozptyl) *určuje barvu* (nízký melanin → modrá, vysoký → hnědá).
-* **Pigment epithelium** — zadní vrstva, u všech lidí *rovnoměrně tmavá* (silně pigmentovaná melaninem).
+* **Stroma** — přední (viditelná) vrstva s pigmentovými buňkami a *spletitými* vlákny — právě ta tvoří jedinečný vzor. Obsah melaninu ve stromatu (spolu s Rayleighovým rozptylem) *určuje barvu* (málo melaninu → modrá, hodně → hnědá).
+* **Pigmentový epitel (pigment epithelium)** — zadní vrstva, u všech lidí *rovnoměrně tmavá* (silně pigmentovaná melaninem).
 
 Duhovka se dělí na **dvě oblasti**:
 
 * **Vnitřní (pupilární)** — okolo pupily.
-* **Vnější (řasová, ciliární)** — okolo perimeter.
+* **Vnější (řasová, ciliární)** — při vnějším okraji.
 
 ### Roztahovací svaly
 
 * **Musculus sphincter pupillae** — kruhový sval kolem pupily; *stahuje* ji při jasném světle.
 * **Musculus dilatator pupillae** — radiální vlákna; *roztahuje* pupilu v tmavém prostředí.
 
-Tato dynamika vytváří **variability v poloze duhovky** během snímání — *normalizace* musí kompenzovat změny.
+Tato dynamika způsobuje **proměnlivost polohy duhovky** během snímání — *normalizace* obrazu pak musí tyto změny kompenzovat.
 
-### Genetics vs. epigenetics
+### Genetika versus epigenetika
 
-* **Barva** je geneticky determinovaná (gen OCA2 + HERC2 a další).
-* **Vzor** je *epigeneticky* tvořen during fetal development (8-9 měsíc):
-  * **Identická dvojčata** mají *odlišné* iris pattern!
-  * Levé a pravé oko *jediné* osoby jsou také *odlišné*.
+* **Barva** je geneticky určená (geny OCA2, HERC2 a další).
+* **Vzor** vzniká *epigeneticky* během vývoje plodu (v 8. až 9. měsíci):
+  * **Jednovaječná dvojčata** mají *odlišný* vzor duhovky!
+  * Levé a pravé oko *jediné* osoby jsou navzájem také *odlišné*.
 
 ### Stálost
 
-* Po prvním roce života je iris **velmi stabilní** — *nejstabilnější* biometrika.
-* Excpetions:
+* Po prvním roce života je duhovka **velmi stabilní** — jde o *nejstálejší* biometriku.
+* Výjimky:
   * Trauma.
-  * Některé oční nemoci (např. *iris neoplasm*).
-  * Cataract surgery (lens replacement).
-  * Diabetes — *iridopatie* může mít subtle changes.
+  * Některé oční nemoci (např. *nádor duhovky*, iris neoplasm).
+  * Operace katarakty, tedy šedého zákalu (výměna čočky, lens replacement).
+  * Cukrovka (diabetes) — *iridopatie* může způsobit drobné, jemné změny.
 
 ## Sítnice — anatomie
 
-Sítnice je *vnitřní* vrstva oka, ~0.5 mm thick. Obsahuje:
+Sítnice je *vnitřní* vrstva oka o tloušťce přibližně 0,5 mm. Obsahuje:
 
 * **Fotoreceptory:**
-  * **Tyčinky (rods)** — ~120 milionů, detekce *jasu* (scotopic vision).
-  * **Čípky (cones)** — ~6 milionů, detekce *barvy* (photopic vision); tři typy (R, G, B).
-* **Optical disk** (slepá skvrna) — místo, kde optical nerve vstupuje; *žádné* fotoreceptory.
-* **Macula lutea** — central area s nejvyšší hustotou čípků; *fovea* uprostřed.
+  * **Tyčinky (rods)** — přibližně 120 milionů, detekce *jasu* (vidění za šera, scotopic vision).
+  * **Čípky (cones)** — přibližně 6 milionů, detekce *barvy* (vidění za denního světla, photopic vision); existují tři typy (R, G, B).
+* **Slepá skvrna (optic disk)** — místo, kde do oka vstupuje zrakový nerv (optic nerve); *nejsou* zde žádné fotoreceptory.
+* **Žlutá skvrna (macula lutea)** — centrální oblast s nejvyšší hustotou čípků; uprostřed se nachází *fovea* (jamka nejostřejšího vidění).
 
 ### Cévní systém
 
-Sítnice je *bohatě prokrvená* — *centrální* retinální arterie a venule + jejich větve. **Vzor cév** (vascular pattern) je *unique per person* a slouží jako biometric template.
+Sítnice je *bohatě prokrvená* — vede ji *centrální* retinální tepna a žíla i jejich větve. **Vzor cév (vascular pattern)** je *u každého člověka jedinečný* a slouží jako biometrická šablona (template).
 
 Rozpoznávání:
 
-* Sítnice je snímána přes pupilu *pomocí* IR camera + low-power laser.
-* Komplikované již samo o sobě — vyžaduje *cooperative subject* a precision alignment.
+* Sítnice se snímá přes pupilu *pomocí* infračervené (IR) kamery a slabého laseru.
+* Už samotné snímání je náročné — vyžaduje *spolupracujícího člověka* a přesné zarovnání optiky.
 
-## Klíčový rozdíl: duhovka vs. sítnice
+## Klíčový rozdíl: duhovka versus sítnice
 
 | | **Duhovka (iris)** | **Sítnice (retina)** |
 | :--- | :---: | :---: |
-| **Snímání** | externí (kamera + IR) | internal (přes pupilu) |
-| **User cooperation** | minimal | high |
-| **Snímací vzdálenost** | 0.1–1 m | 5 cm (close) |
-| **Vlastnost** | pigment + texture | cévní vzor |
-| **Stálost** | very high | extremely high |
-| **Unique** | very high | extremely high |
-| **Detekce nemocí** | partial | high (diabetes, glaucoma) |
-| **Praktické nasazení** | mass-scale | high-security only |
+| **Snímání** | externí (kamera + IR) | interní (přes pupilu) |
+| **Nutná spolupráce uživatele** | minimální | vysoká |
+| **Snímací vzdálenost** | 0,1–1 m | 5 cm (zblízka) |
+| **Sledovaná vlastnost** | pigment + textura | cévní vzor |
+| **Stálost** | velmi vysoká | mimořádně vysoká |
+| **Jedinečnost** | velmi vysoká | mimořádně vysoká |
+| **Detekce nemocí** | částečná | vysoká (cukrovka, zelený zákal) |
+| **Praktické nasazení** | hromadné | jen pro vysoké zabezpečení |
 
-Z důvodu lepšího user experience je **iris** dominantní v komerčních systémech; **retina** se používá hlavně v *high-security* / *medical* contextu.
+Kvůli lepšímu uživatelskému komfortu je **duhovka** dominantní v komerčních systémech; **sítnice** se používá hlavně v *vysoce zabezpečených* nebo *lékařských* prostředích.
 
-## Iris vs. retina rozlišení
+## Duhovka versus sítnice — rozlišení pojmů
 
-* **Iris** — *outside* of eye, externally visible.
-* **Retina** — *inside* of eye, requires sensor pointing into pupil.
+* **Duhovka (iris)** — je *na povrchu* oka, navenek viditelná.
+* **Sítnice (retina)** — je *uvnitř* oka, snímač musí mířit dovnitř přes pupilu.
 
-V *populárním* tisku se často zaměňuje. Korektní:
+V *populárním* tisku se oba pojmy často zaměňují. Správně:
 
-* "Iris scanning" — duhovka.
-* "Retinal scanning" — sítnice.
-* "Eye scanning" — vágní; obvykle iris.
+* „Iris scanning" — snímání duhovky.
+* „Retinal scanning" — snímání sítnice.
+* „Eye scanning" — vágní pojem; obvykle se jím myslí duhovka.
 
 ## Snímací technologie
 
-### Iris
+### Duhovka
 
-* **NIR camera** (700–900 nm).
-* **Standard:** ISO/IEC 19794-6 — *iris image data*.
-* **Best resolution:** ~640 × 480 pixels for iris area.
-* **Distance:** 10 cm – 1 m (extended in newer systems).
-* **Algorithm:** Daugman ([[daugman]]).
+* **Kamera v blízkém infračerveném pásmu (NIR camera)** (700–900 nm).
+* **Norma:** ISO/IEC 19794-6 — *iris image data* (formát dat o obrazu duhovky).
+* **Doporučené rozlišení:** přibližně 640 × 480 pixelů pro oblast duhovky.
+* **Vzdálenost:** 10 cm – 1 m (u novějších systémů i větší).
+* **Algoritmus:** Daugman ([[daugman]]).
 
-### Retina
+### Sítnice
 
-* **Visible + NIR illumination**.
-* **Fundus camera** — specialized ophthalmology equipment.
-* **Distance:** ~5 cm (very close).
-* **Algorithm:** vascular pattern matching ([[sitnice-cevy]]).
+* **Osvětlení ve viditelném i blízkém infračerveném pásmu (NIR)**.
+* **Fundus kamera** — specializované oftalmologické vybavení.
+* **Vzdálenost:** přibližně 5 cm (velmi zblízka).
+* **Algoritmus:** porovnávání cévního vzoru (vascular pattern matching) ([[sitnice-cevy]]).
 
 ## Specifika biometrického snímání
 
 ### Duhovka
 
-* **Pupil dilation** — pupila změní velikost; *iris area* se vlivem toho zmenší/zvětší → potřeba *normalization* (Daugman rubber-sheet model).
-* **Kontaktní čočky** — některé designs (especially patterned cosmetic lenses) ruší snímání.
-* **Interference světla** — odlesky na rohovce.
-* **Mrkání** — řasy a víčka mohou zakrýt iris.
+* **Rozšiřování pupily (pupil dilation)** — pupila mění velikost, a tím se *plocha duhovky* zmenší nebo zvětší → je potřeba *normalizace* (Daugmanův rubber-sheet model, tedy model „pružné plachetky", který duhovku rozvine do pravidelného obdélníku).
+* **Kontaktní čočky** — některé typy (zejména vzorované kosmetické čočky) snímání ruší.
+* **Odlesky světla** — odlesky na rohovce.
+* **Mrkání** — řasy a víčka mohou duhovku zakrýt.
 
 ### Sítnice
 
-* **Pohyb oka** — natural eye movement (saccades).
+* **Pohyb oka** — přirozené pohyby oka (sakády).
 * **Spektrální analýza tkání a cév**.
-* **Reflexe světla** — corneal reflection.
-* **Krevní průtok** — slow pulsatile changes.
-* **Mrkání na povel** — required for some protocols.
+* **Odraz světla** — odraz na rohovce (corneal reflection).
+* **Krevní průtok** — pomalé pulzující změny.
+* **Mrkání na povel** — některé protokoly jej vyžadují.
 * **Reakce na světlo** — pupilární reflex.
 
 ## Speciální zařízení — Eyrina
 
 Akademický projekt zařízení **Eyrina**:
 
-* *Téměř v jednom okamžiku* pořídí *oba snímky* (iris + retina).
+* *Téměř v jednom okamžiku* pořídí *oba snímky* (duhovku i sítnici).
 * Využití pro **biomedicínské** i **biometrické** účely.
-* Komplexní setup s precision optics.
+* Komplexní sestava s přesnou optikou.
 
-Detailně [[snimaci-systemy]].
+Podrobně viz [[snimaci-systemy]].
 
-## Klinické vs. biometrické snímání
+## Klinické versus biometrické snímání
 
-Mezi *medical* a *biometric* snímání jsou zásadní rozdíly:
+Mezi *lékařským* a *biometrickým* snímáním jsou zásadní rozdíly:
 
-* **Medical** — diagnostické cíle, *high resolution*, *full pathology assessment*. Drahé fundus cameras.
-* **Biometric** — *identification* cíl, *moderate resolution*, *quick scan*. Compact cameras, automatizované.
+* **Lékařské** — cílem je diagnostika, *vysoké rozlišení*, *úplné zhodnocení patologie*. Drahé fundus kamery.
+* **Biometrické** — cílem je *identifikace*, *střední rozlišení*, *rychlý sken*. Kompaktní kamery, automatizované.
 
-Some integration: **smart fundus cameras** kombinují diagnostiku diabetic retinopathy s biometric ID.
+Existuje i určité prolínání: **chytré fundus kamery** kombinují diagnostiku diabetické retinopatie s biometrickou identifikací.
 
 ---
 

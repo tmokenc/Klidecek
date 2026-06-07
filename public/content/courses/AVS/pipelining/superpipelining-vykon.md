@@ -4,31 +4,31 @@ title: Superpipelining a výpočet zrychlení
 
 # Superpipelining a výpočet zrychlení s pokutami
 
-S forwardingem a predikcí skoků dosahuje 5-stupňová pipeline reálné CPI ≈ 1,2-1,5. Otázka: jak ještě zrychlit? Dvě cesty — **hlubší** pipeline (více stupňů s kratším taktem) a **širší** pipeline (více instrukcí paralelně, viz [[ilp-superskalar]]).
+S forwardingem a predikcí skoků (branch) dosahuje 5stupňová pipeline reálného CPI ≈ 1,2–1,5. Nabízí se otázka: jak ji ještě zrychlit? Vedou k tomu dvě cesty — **hlubší** pipeline (více stupňů s kratším taktem) a **širší** pipeline (více instrukcí zpracovávaných paralelně, viz [[ilp-superskalar]]).
 
 ## Vzorec zrychlení k-stupňové synchronní linky
 
-Mějme **k**-stupňovou pipeline, dobu jednoho taktu $\tau$, zpoždění oddělovacího registru $t_d$, a *průměrnou pokutu* $q$ taktů na instrukci (stall, flush).
+Mějme **k**-stupňovou pipeline s dobou jednoho taktu $\tau$, zpožděním oddělovacího registru $t_d$ a *průměrnou pokutou* $q$ taktů na instrukci (tj. zdržení způsobená stally a flushy).
 
-Doba zpracování $N$ instrukcí:
+Doba zpracování $N$ instrukcí pak je:
 
 $$
 T_k = (k + N - 1)(\tau + t_d)(1 + q)
 $$
 
-- $k - 1$ taktů náběhu pipeline (než první instrukce dosáhne WB).
-- $N$ taktů ustáleného stavu (jedna instrukce per takt, pokud $q = 0$).
-- Násobitel $(1 + q)$ za pokuty.
+- $k - 1$ taktů zabere náběh pipeline (než první instrukce dorazí do fáze WB).
+- $N$ taktů trvá ustálený stav (jedna instrukce za takt, pokud $q = 0$).
+- Násobitel $(1 + q)$ přidává pokuty.
 
-Sub-skalární CPU bez pipeliningu provede 1 instrukci za $t_1 = k \cdot \tau$ (paralelu skládal sériově).
+Sub-skalární procesor bez pipeliningu provede jednu instrukci za $t_1 = k \cdot \tau$ (jednotlivé fáze totiž skládá sériově za sebe).
 
-**Zrychlení**:
+**Zrychlení** je proto:
 
 $$
 S_N = \frac{N \cdot t_1}{T_k} = \frac{N \cdot k}{(k + N - 1)(1 + q)}
 $$
 
-Limitní pro $N \to \infty$ (dlouhý běh):
+Pro $N \to \infty$ (tedy pro dlouhý běh) dostáváme limitní hodnotu:
 
 $$
 \boxed{S_\infty = \frac{k}{(\tau + t_d)(1 + q)/\tau} = \frac{k}{1 + q} = \frac{k}{\text{CPI}}}
@@ -40,9 +40,9 @@ kde **CPI = 1 + q** je průměrný počet taktů na instrukci v ustáleném stav
 
 Klasický příklad z přednášky (Týden 1):
 
-**Sub-skalární CPU**: $t_1 = 20$ ns ⇒ $R = 1/t_1 = 50$ MIPS.
+**Sub-skalární procesor**: $t_1 = 20$ ns ⇒ $R = 1/t_1 = 50$ MIPS.
 
-**Řetězená CPU**: 200 MHz, $\tau + t_d = 4 + 1 = 5$ ns, $k = 5$ stupňů, žádné stally (CPI = 1).
+**Řetězený procesor**: 200 MHz, $\tau + t_d = 4 + 1 = 5$ ns, $k = 5$ stupňů, žádné stally (CPI = 1).
 
 Pro $N = 100$:
 
@@ -54,14 +54,14 @@ $$
 S_{100} = \frac{N \cdot t_1}{T_5} = \frac{100 \cdot 20}{520} = 3{,}85
 $$
 
-Pro $N \to \infty$: $S_\infty = k = 5$ (ideálně, bez stallů).
+Pro $N \to \infty$ vychází $S_\infty = k = 5$ (ideálně, bez stallů).
 
 ## Zrychlení s pokutami — příklad
 
 Předpoklady:
 
-- Četnost `load` instrukcí: 25 %, vždy pokuta 1 takt (load-use).
-- Četnost skoků: 20 %, 2/3 se provedou s pokutou 3 takty.
+- Četnost instrukcí `load`: 25 %, vždy s pokutou 1 takt (load-use).
+- Četnost skoků: 20 %, z toho 2/3 se provedou s pokutou 3 takty.
 - $k = 5$, $N \to \infty$, $\tau \gg t_d$.
 
 Spočítáme průměrnou pokutu $q$:
@@ -74,19 +74,19 @@ $$
 \text{CPI} = 1 + q = 1{,}65, \quad S = \frac{k}{\text{CPI}} = \frac{5}{1{,}65} = 3{,}03
 $$
 
-⇒ Reálný 5-stupňový pipeline dosáhne ~3× zrychlení místo ideálních 5×.
+⇒ Reálná 5stupňová pipeline tedy dosáhne zhruba trojnásobného zrychlení místo ideálního pětinásobného.
 
-Možnosti, jak $q$ snížit:
+Pokutu $q$ můžeme snížit těmito způsoby:
 
-| Zdroj pokuty | Optimalizace | Efekt na $q$ |
+| Zdroj pokuty | Optimalizace | Vliv na $q$ |
 | :--- | :--- | :--- |
 | Load-use | forwarding MA→EX | $-0{,}1$ |
 | Skoky | predikce 95 % | $\times 0{,}05$ |
-| Strukturální (sdílené HW) | duplikace ALU | $\to 0$ |
+| Strukturální (sdílený hardware) | duplikace ALU | $\to 0$ |
 
 ## Superpipelining (hluboká pipeline)
 
-Superpipeline rozseká *každý* stupeň na **n** kratších částí. Doba taktu klesne $n$-krát, počet stupňů vzroste na $k \cdot n$.
+Superpipeline rozseká *každý* stupeň na **n** kratších částí. Doba taktu díky tomu klesne $n$-krát a počet stupňů vzroste na $k \cdot n$.
 
 ::: svg "Superpipelining vs superskalár — různé strategie"
 <svg viewBox="0 0 540 240" font-family="ui-sans-serif, system-ui" font-size="10">
@@ -144,19 +144,19 @@ Superpipeline rozseká *každý* stupeň na **n** kratších částí. Doba takt
 </svg>
 :::
 
-Zrychlení proti skalárnímu řetězení:
+Zrychlení proti skalárnímu řetězení je:
 
 $$
 S_{\text{super}} = \frac{k \cdot n}{1 + q'}
 $$
 
-ale $q'$ je *vyšší*, protože:
+pokuta $q'$ je ale *vyšší*, a to z těchto důvodů:
 
-- **Hlubší pipeline** → větší pokuta za špatnou predikci skoku (více instrukcí na flush).
-- **Latence operací** (násobičky, dělení) zůstává v ns, ale teď trvá *více* taktů → větší pokuta load-use.
-- **Datové konflikty** trvají déle (resolved later).
+- **Hlubší pipeline** → větší pokuta za špatnou predikci skoku (na flush jde více instrukcí).
+- **Latence operací** (násobičky, dělení) zůstává v ns, ale teď zabere *více* taktů → větší pokuta load-use.
+- **Datové konflikty** trvají déle (vyřeší se později v pipeline).
 
-Pentium 4 měl pipeline 31 stupňů. Pokuta špatné predikce ~30 taktů. Výsledek: nižší výkon než Pentium 3 v některých benchmarcích. Intel se v Core 2 vrátil k ~14 stupňům.
+Pentium 4 mělo pipeline o 31 stupních. Pokuta za špatnou predikci činila zhruba 30 taktů. Výsledkem byl v některých benchmarcích nižší výkon než u Pentia 3. Intel se proto v jádře Core 2 vrátil k přibližně 14 stupňům.
 
 ## Optimální hloubka pipeline
 
@@ -166,50 +166,50 @@ $$
 k_{\text{opt}} \approx \sqrt{\frac{t_1}{t_d}} \cdot f(q)
 $$
 
-Pro typický server kód: $k_{\text{opt}} \approx 8-12$. Pro velmi predictable kód (signal processing): $k_{\text{opt}} \approx 25-35$. Reálné CPU dnes: 14-20 stupňů — kompromis pro heterogenní zátěž.
+Pro typický serverový kód vychází $k_{\text{opt}} \approx 8-12$. Pro dobře předvídatelný kód (zpracování signálů) vychází $k_{\text{opt}} \approx 25-35$. Reálné procesory dnes mají 14–20 stupňů — jde o kompromis pro různorodou zátěž.
 
-::: viz superpipelining-depth "Slider pro hloubku pipeline + mispredict rate + branch frekvence. Křivka výkonu má vrchol (Hartstein-Puzak); Pentium 4 (31 stupňů) sedí daleko za peakem."
+::: viz superpipelining-depth "Posuvníky pro hloubku pipeline, míru chybných predikcí a četnost skoků. Křivka výkonu má vrchol (Hartstein-Puzak); Pentium 4 (31 stupňů) leží daleko za tímto vrcholem."
 :::
 
 ## Superskalár (širší pipeline)
 
-Druhá cesta: ne hlubší, ale *širší* — vícenásobné cesty fetch + ID + EX + WB. **m-cestný superskalární CPU** vydává až $m$ instrukcí za takt:
+Druhá cesta není hlubší, ale *širší* — vícenásobné cesty pro fetch, ID, EX i WB. **m-cestný superskalární procesor** vydává až $m$ instrukcí za takt:
 
 $$
 \text{IPC}_{\max} = m, \quad S_{\text{super}} = \frac{m \cdot k}{(1 + q)}
 $$
 
-Pro reálné kódy ale IPC < m kvůli závislostem. Intel Skylake fetchne až 6 instrukcí, vydává až 8 mikroinstrukcí, ale dosažený IPC v praxi je 2-3.
+U reálných kódů je ale IPC menší než m, a to kvůli závislostem mezi instrukcemi. Intel Skylake načte (fetch) až 6 instrukcí a vydá až 8 mikroinstrukcí, v praxi však dosažený IPC bývá 2–3.
 
-| Strategie | Páka | Limit | Reálný benefit |
+| Strategie | Páka | Limit | Reálný přínos |
 | :--- | :--- | :---: | :---: |
-| Hlubší pipeline | snížit takt | data + control hazardy | 2-3× nad in-order |
-| Širší pipeline | víc paralelních ALU | dependencies, fetch BW | 2-3× nad skalárním |
-| Out-of-order | dynamic reordering | RS, ROB velikost | +30-50 % |
-| SIMD | vektorizace | dopad jen na DLP kód | 4-16× nad skalárním |
+| Hlubší pipeline | snížit takt | datové a řídicí hazardy | 2–3× nad in-order |
+| Širší pipeline | více paralelních ALU | závislosti, propustnost fetche | 2–3× nad skalárním |
+| Out-of-order | dynamické přeskupování instrukcí | velikost RS a ROB | +30–50 % |
+| SIMD | vektorizace | týká se jen kódu s DLP | 4–16× nad skalárním |
 
 ## Modulární výkonová formule
 
-V praxi je **time-to-solution** dán:
+V praxi je **čas do získání výsledku** (time-to-solution) dán vztahem:
 
 $$
 T = \text{IC} \cdot \text{CPI} \cdot T_{\text{takt}}
 $$
 
-Pipelining + superskalár tlačí **CPI ↓**. Vyšší takt tlačí **T_takt ↓**. SIMD tlačí **IC ↓** (jedna vektorová instrukce nahradí 8 skalárních). Kompilátor a algoritmus tlačí **IC ↓**.
+Pipelining a superskalár tlačí dolů **CPI**. Vyšší takt tlačí dolů **T_takt**. SIMD tlačí dolů **IC** (jediná vektorová instrukce nahradí 8 skalárních). Také překladač (compiler) a algoritmus tlačí dolů **IC**.
 
-Žádná z těchto pák není zdarma:
+Žádná z těchto pák ale není zadarmo:
 
-- Hlubší pipeline → vyšší dynamic power $P \propto C V^2 f$ ([[spotreba-pcv2f]]).
-- Širší superskalár → exponenciální složitost OoO logiky (RS, ROB scan).
-- SIMD → požadavky na alignment, gather/scatter pokuty ([[gather-scatter]]).
-- Multi-core → koherence cache ([[koherence-uvod]]), synchronizace ([[synchronizace-bariery]]).
+- Hlubší pipeline → vyšší dynamický příkon $P \propto C V^2 f$ ([[spotreba-pcv2f]]).
+- Širší superskalár → exponenciální složitost OoO logiky (procházení RS a ROB).
+- SIMD → nároky na zarovnání dat (alignment) a pokuty za operace gather/scatter ([[gather-scatter]]).
+- Multi-core → koherence cache ([[koherence-uvod]]) a synchronizace ([[synchronizace-bariery]]).
 
-AVS prozkoumá *všechny* tyto kompromisy postupně.
+Předmět AVS si *všechny* tyto kompromisy postupně probere.
 
 ## Co dál
 
-Tím končí Topic 1. Dále [[ilp-superskalar]] otevírá širší pipeline a *dynamické plánování* ([[scoreboard]], [[tomasulo]], [[renaming-rob]]), které dosahuje IPC > 1.
+Tím končí Téma 1. Dále [[ilp-superskalar]] otevírá širší pipeline a *dynamické plánování* (scheduling) ([[scoreboard]], [[tomasulo]], [[renaming-rob]]), které dosahuje IPC > 1.
 
 ---
 

@@ -4,11 +4,11 @@ title: Markanty (minutiae) — detailní porovnání
 
 # Markanty (minutiae) — detailní porovnání
 
-**Markant** (minutia) je *lokální* singulární bod papilárních linií — místo, kde ridge nestandardně končí, dělí se, propojuje. Markanty jsou *primary feature* pro detailní porovnávání otisků prstů. Jediný otisk obsahuje 30–100 markantů; jejich *pozice* + *orientace* + *typ* dají *unique fingerprint signature*.
+**Markant** (minutia) je *lokální* singulární bod papilárních linií — místo, kde papilární linie (ridge) nestandardně končí, dělí se nebo se propojuje. Markanty jsou *primární rys* (primary feature) pro detailní porovnávání otisků prstů. Jediný otisk obsahuje 30–100 markantů; jejich *pozice*, *orientace* a *typ* dohromady tvoří *jedinečný podpis otisku* (unique fingerprint signature).
 
 ## Typy markantů
 
-::: svg "Typy markantů: ridge ending, bifurcation, continuous (no minutia), dot/island, lake (enclosure), lake closed, spur, crossover."
+::: svg "Typy markantů: zakončení linie, rozdvojení, spojitá linie (bez markantu), tečka/ostrov, jezírko (uzavřená oblast), uzavřené jezírko, ostruha, přemostění."
 <svg viewBox="0 0 540 240" font-family="ui-sans-serif, system-ui" font-size="11">
   <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1">
     <rect x="20" y="30" width="120" height="90" rx="4"/>
@@ -60,73 +60,73 @@ title: Markanty (minutiae) — detailní porovnání
 
 ### Klíčové markanty
 
-* **Ridge ending** (zakončení) — místo, kde *ridge končí*. Nejběžnější typ.
-* **Bifurcation** (rozdvojení) — ridge se *rozděluje na dvě*. Druhý nejčastější.
-* **Dot / Island** (ostrov) — *velmi krátký* ridge (1–3 dots) izolovaný.
-* **Lake / Enclosure** — ridge se *rozdělí a zase spojí*, vytvoří uzavřenou oblast.
-* **Spur (hook)** — krátký ridge *přidaný* k delším.
-* **Crossover (bridge)** — *propojení* dvou rovnoběžných ridges krátkou linkou.
-* **Compound minutia** — kombinace, např. *trifurcation* (rozdělení na tři).
+* **Zakončení linie** (ridge ending) — místo, kde papilární linie *končí*. Nejběžnější typ.
+* **Rozdvojení** (bifurcation) — papilární linie se *rozděluje na dvě*. Druhý nejčastější.
+* **Tečka / ostrov** (dot / island) — *velmi krátká* papilární linie (1–3 body) stojící izolovaně.
+* **Jezírko / uzavřená oblast** (lake / enclosure) — papilární linie se *rozdělí a opět spojí* a uzavře tak ohraničenou oblast.
+* **Ostruha** (spur, hook) — krátká papilární linie *připojená* k delší linii.
+* **Přemostění** (crossover, bridge) — *propojení* dvou rovnoběžných papilárních linií krátkou spojkou.
+* **Složený markant** (compound minutia) — kombinace více markantů, např. *trojení* (trifurcation, rozdělení na tři).
 
-### Forenzní vs. automatické
+### Forenzní vs. automatické rozpoznávání
 
 V **automatizovaných** systémech (AFIS) se obvykle používají jen dva typy:
 
-* **Ridge ending** (jednoduché zakončení).
-* **Bifurcation** (rozdvojení).
+* **Zakončení linie** (jednoduché ukončení papilární linie).
+* **Rozdvojení** (bifurcation).
 
-Důvod: ostatní markanty jsou *vzácnější* a často *nejednoznačné* po image processing.
+Důvod: ostatní markanty jsou *vzácnější* a po zpracování obrazu (image processing) bývají často *nejednoznačné*.
 
-V **forenzním** kontextu (manual examination) examinator rozpoznává *všechny* typy + pravidla.
+Ve **forenzním** kontextu (manuální zkoumání odborníkem) examinátor rozpoznává *všechny* typy markantů a uplatňuje příslušná pravidla.
 
 ## Reprezentace markantu
 
-Standard ISO/IEC 19794-2 ukládá markant jako *tuple*:
+Standard ISO/IEC 19794-2 ukládá markant jako *n-tici* (tuple):
 
 ::: math
 m = (x, y, \theta, t, q)
 :::
 
-* $x, y$ — souřadnice v obrazu.
-* $\theta$ — orientace (úhel směru ridge, 0–360°).
-* $t$ — typ (ridge ending = 0, bifurcation = 1).
-* $q$ — quality / confidence (0–100).
+* $x, y$ — souřadnice v obraze.
+* $\theta$ — orientace (úhel směru papilární linie, 0–360°).
+* $t$ — typ (zakončení linie = 0, rozdvojení = 1).
+* $q$ — kvalita / míra jistoty (quality / confidence, 0–100).
 
-Typický otisk: **30–100 markantů**. ISO format ukládá ~$100 \times 6 \text{ B} = 600 \text{ B}$ per template.
+Typický otisk obsahuje **30–100 markantů**. Formát ISO uloží přibližně $100 \times 6 \text{ B} = 600 \text{ B}$ na jednu šablonu (template).
 
 ## Orientace markantů
 
-Důležité pro alignment:
+Orientace je důležitá pro zarovnání otisků (alignment):
 
-* **Ridge ending:** směr *ridge* na koncovém bodě (úhel tečny).
-* **Bifurcation:** směr *centrálního ridge* (středního ze tří).
+* **Zakončení linie:** směr *papilární linie* v jejím koncovém bodě (úhel tečny).
+* **Rozdvojení:** směr *centrální papilární linie* (prostřední ze tří).
 
-Standardní zavedení: orientace **v stupních od 0 do 360**, kde 0 = horizontální vpravo, rostoucí counter-clockwise.
+Standardní zavedení: orientace se udává **ve stupních od 0 do 360**, kde 0 znamená vodorovně doprava a hodnota roste proti směru hodinových ručiček.
 
 ## Extrakce markantů — algoritmus
 
-Klasický pipeline (Maltoni-Maio 1997):
+Klasický postup zpracování (pipeline, Maltoni-Maio 1997):
 
-1. **Image acquisition** — raw grayscale image.
-2. **Image enhancement** — Gabor filter banks, FFT-based enhancement.
-3. **Binarization** — black ridges, white valleys.
-4. **Thinning** — *skeletonization* ridges to 1-pixel width lines.
-5. **Minutiae detection** — for each pixel:
-   * Compute *crossing number* (Q. Liu 1996) — počet 0→1 přechodů v 3×3 okolí.
-   * CN = 1 → *ridge ending*.
-   * CN = 3 → *bifurcation*.
-   * CN = 2 → *continuous ridge* (no minutia).
-6. **Post-processing** — filter false minutiae:
-   * Minutiae *too close together* (< 10 pixels) → spurious from noise.
-   * Minutiae *near image border* → unreliable.
-   * Minutiae *near edge of ridge mask* → image processing artifact.
-7. **Quality assessment** — *quality score* per minutia.
+1. **Pořízení obrazu** (image acquisition) — surový obraz ve stupních šedi.
+2. **Vylepšení obrazu** (image enhancement) — banky Gaborových filtrů, vylepšení založené na FFT.
+3. **Binarizace** (binarization) — černé papilární linie, bílé prohlubně.
+4. **Ztenčení** (thinning) — *skeletonizace* papilárních linií na čáry o šířce 1 pixelu.
+5. **Detekce markantů** (minutiae detection) — pro každý pixel:
+   * Spočítej *číslo křížení* (crossing number, Q. Liu 1996) — počet přechodů 0→1 v okolí 3×3.
+   * CN = 1 → *zakončení linie*.
+   * CN = 3 → *rozdvojení*.
+   * CN = 2 → *spojitá papilární linie* (žádný markant).
+6. **Následné zpracování** (post-processing) — odfiltrování falešných markantů:
+   * Markanty *příliš blízko u sebe* (< 10 pixelů) → pravděpodobně vznikly ze šumu.
+   * Markanty *u okraje obrazu* → nespolehlivé.
+   * Markanty *u okraje masky papilárních linií* → artefakt zpracování obrazu.
+7. **Hodnocení kvality** (quality assessment) — *skóre kvality* pro každý markant.
 
 ## Daktyloskopické porovnání (matching)
 
 ### Princip
 
-Mějme dvě sady markantů $T = \{t_1, ..., t_n\}$ (template) a $I = \{i_1, ..., i_m\}$ (input). Cíl: najít *maximum počet matchů*.
+Mějme dvě sady markantů $T = \{t_1, ..., t_n\}$ (šablona, template) a $I = \{i_1, ..., i_m\}$ (vstup, input). Cílem je najít *maximální počet shod* (matchů).
 
 ::: math
 \text{match}(t, i) = 1 \iff \begin{cases}
@@ -136,7 +136,7 @@ Mějme dvě sady markantů $T = \{t_1, ..., t_n\}$ (template) a $I = \{i_1, ...,
 \end{cases}
 :::
 
-Pro daný *alignment* (translation $T_x, T_y$ + rotation $R$):
+Pro dané *zarovnání* (alignment — posun $T_x, T_y$ a rotace $R$):
 
 ::: math
 N_{\text{matches}} = \sum_{t \in T} \mathbb{1}\left[\exists i \in I : \text{match}(R \cdot t + T, i)\right]
@@ -144,61 +144,61 @@ N_{\text{matches}} = \sum_{t \in T} \mathbb{1}\left[\exists i \in I : \text{matc
 
 ### Algoritmus
 
-1. **Alignment** — najdi *optimum* translation + rotation, který maximalizuje matches.
-   * Standardní: **RANSAC** pro robust estimation.
-   * Alternativně: Hough transform, ICP (Iterative Closest Point).
-2. **Match score** — *normalizovaná* hodnota:
+1. **Zarovnání** (alignment) — najdi *optimální* posun a rotaci, které maximalizují počet shod.
+   * Standardní přístup: **RANSAC** pro robustní odhad.
+   * Alternativně: Houghova transformace, ICP (Iterative Closest Point, iterativní hledání nejbližšího bodu).
+2. **Skóre shody** (match score) — *normalizovaná* hodnota:
 
 ::: math
 S = \frac{N_{\text{matches}}^2}{|T| \cdot |I|}
 :::
 
-3. **Decision** — $S > \tau$ → match (typically $\tau \in [0.3, 0.5]$).
+3. **Rozhodnutí** (decision) — $S > \tau$ → shoda (typicky $\tau \in [0.3, 0.5]$).
 
-### Computational complexity
+### Výpočetní složitost
 
-* **Naive:** $O(n \cdot m)$ per alignment hypothesis.
-* **Pro $k$ alignment hypotheses:** $O(k \cdot n \cdot m)$.
-* **Optimization:** index-based search, k-D trees, locality-sensitive hashing.
+* **Naivní přístup:** $O(n \cdot m)$ na jednu hypotézu o zarovnání.
+* **Pro $k$ hypotéz o zarovnání:** $O(k \cdot n \cdot m)$.
+* **Optimalizace:** indexované vyhledávání, k-D stromy, locality-sensitive hashing (hashování zachovávající blízkost).
 
-Modern AFIS dělá **~1 000 000** comparisons / sekundu na single CPU core.
+Moderní AFIS zvládne **~1 000 000** porovnání za sekundu na jednom jádře procesoru (single CPU core).
 
-::: viz minutiae-matching "Posuňte translation/rotation, sledujte počet sparovaných minutií a score N²/(|T|·|I|)."
+::: viz minutiae-matching "Posuňte posunem/rotací a sledujte počet spárovaných markantů a skóre N²/(|T|·|I|)."
 :::
 
-## "12 markantů" pravidlo
+## Pravidlo „12 markantů"
 
-V mnoha jurisdikcích (US, UK, Germany) je **minimum 12 matching minutiae** required pro *positive identification* v soudním řízení (rule of *12 ridge characteristics*).
+V mnoha jurisdikcích (USA, Velká Británie, Německo) se v soudním řízení vyžaduje **minimálně 12 shodujících se markantů** pro *pozitivní identifikaci* (pravidlo *12 charakteristik papilárních linií*).
 
-* Toto je *konvence*, ne *empirický fakt*. Galton 1892 odhadoval, že 12 minutiae dává FAR ~$10^{-13}$.
-* **Modern AFIS** používá *statistical scoring*, ne fixed threshold.
+* Jde o *konvenci*, nikoli o *empiricky doložený fakt*. Galton roku 1892 odhadoval, že 12 markantů dává míru chybného přijetí (FAR) okolo $10^{-13}$.
+* **Moderní AFIS** používá *statistické skórování*, nikoli pevně danou mez.
 
-## Likelihood ratio
+## Věrohodnostní poměr (likelihood ratio)
 
-V *forenzní statistice* se používá *likelihood ratio* (LR):
+Ve *forenzní statistice* se používá *věrohodnostní poměr* (likelihood ratio, LR):
 
 ::: math
 LR = \frac{P(\text{evidence} | H_p)}{P(\text{evidence} | H_d)}
 :::
 
-* $H_p$ — *prosecution hypothesis* (suspect zanechal otisk).
-* $H_d$ — *defense hypothesis* (random osoba zanechala otisk).
-* **LR > 10⁶** = silný důkaz pro $H_p$.
+* $H_p$ — *hypotéza obžaloby* (prosecution hypothesis — otisk zanechal podezřelý).
+* $H_d$ — *hypotéza obhajoby* (defense hypothesis — otisk zanechala náhodná osoba).
+* **LR > 10⁶** = silný důkaz ve prospěch hypotézy $H_p$.
 
-Modern forensic reporting: *"The probability of observing this fingerprint match if the suspect did not leave the print is approximately 1 in N"*.
+Moderní forenzní zpráva se formuluje takto: *„Pravděpodobnost, že bychom pozorovali tuto shodu otisků, kdyby otisk nezanechal podezřelý, je přibližně 1 ku N."*
 
 ## Limity markantů
 
-* **Poor quality images** — málo extrahovaných minutiae → nízká přesnost.
-* **Latent prints** — *partial* otisk; jen ~30 % markantů available.
-* **Distortion** — non-rigid skin deformation způsobí *false negatives*.
-* **Spoofing** — fake fingers s replikováním markantů.
+* **Obrazy nízké kvality** — málo extrahovaných markantů → nízká přesnost.
+* **Latentní otisky** (latent prints) — *částečný* otisk; k dispozici je jen ~30 % markantů.
+* **Zkreslení** (distortion) — nepravidelná deformace kůže způsobí *chybná zamítnutí* (false negatives).
+* **Podvržení** (spoofing) — falešné prsty s replikovanými markanty.
 
-## ANSI/NIST-ITL standard
+## Standard ANSI/NIST-ITL
 
-* **ANSI/NIST-ITL 1-2011** — standardizovaný format pro fingerprint data exchange.
-* *Record Type 9* obsahuje minutiae data.
-* Format: konkrétní layout binary + ASCII fields.
+* **ANSI/NIST-ITL 1-2011** — standardizovaný formát pro výměnu daktyloskopických dat.
+* *Záznam typu 9* (Record Type 9) obsahuje data o markantech.
+* Formát: konkrétní binární rozložení doplněné o ASCII pole.
 * Použití: FBI NGI, INTERPOL AFIS, Eurodac.
 
 ---

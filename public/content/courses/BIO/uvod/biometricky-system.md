@@ -4,11 +4,11 @@ title: Biometrický systém
 
 # Biometrický systém
 
-**Biometrický systém** je *celý technický stack* — od senzoru, který naměří fyzikální veličinu, přes algoritmy extrahující rysy, až po porovnávací engine, který rozhodne *match / no-match*. Tento stack má **specifické komponenty**, **typické útočné body** a **dva základní operační režimy** (verifikace + identifikace).
+**Biometrický systém** je *celý technický řetězec (stack)* — od senzoru, který naměří fyzikální veličinu, přes algoritmy extrahující rysy, až po porovnávací engine, který rozhodne o shodě (*match / no-match*). Tento řetězec má **specifické komponenty**, **typické útočné body** a **dva základní operační režimy** (verifikaci a identifikaci).
 
 ## Architektura
 
-::: svg "Biometrický systém: snímání → preprocessing → feature extraction → matching → decision. Enrollment (zapsání) vs. recognition (rozpoznání)."
+::: svg "Biometrický systém: snímání → předzpracování (preprocessing) → extrakce rysů (feature extraction) → porovnávání (matching) → rozhodnutí (decision). Zapsání (enrollment) vs. rozpoznání (recognition)."
 <svg viewBox="0 0 540 240" font-family="ui-sans-serif, system-ui" font-size="11">
   <defs>
     <marker id="aBS1" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
@@ -56,59 +56,59 @@ title: Biometrický systém
 
 ### 1. Snímač (sensor)
 
-* **Otisky prstů:** capacitive (smartphone), optical (police), ultrasonic (under-display), thermal.
-* **Obličej:** kamera RGB, IR (Face ID), depth (TrueDepth, ToF), 3D scanner.
-* **Duhovka:** NIR kamera (700–900 nm), kde je melanin duhovky téměř průhledný, takže vzor je čitelný i u tmavých očí.
-* **Hlas:** mikrofon (vyšší kvalita = lepší výsledky).
-* **Podpis:** digitizer tablet (Wacom, capacitive screens).
+* **Otisky prstů:** kapacitní (smartphone), optický (policie), ultrazvukový (pod displejem) a termální.
+* **Obličej:** RGB kamera, infračervená (IR) kamera (Face ID), hloubková kamera (TrueDepth, ToF) a 3D skener.
+* **Duhovka:** kamera v blízkém infračerveném pásmu (NIR, 700–900 nm), kde je melanin duhovky téměř průhledný, takže vzor je čitelný i u tmavých očí.
+* **Hlas:** mikrofon (čím vyšší kvalita, tím lepší výsledky).
+* **Podpis:** digitizační tablet (Wacom, kapacitní obrazovky).
 * **DNA:** chemická analýza ([[dna-struktura]]).
 
-Kvalita senzoru určuje **horní mez** přesnosti celého systému — neopravitelná pomocí algoritmu.
+Kvalita senzoru určuje **horní mez** přesnosti celého systému — tu už žádný algoritmus dodatečně neopraví.
 
-### 2. Preprocessing
+### 2. Předzpracování (preprocessing)
 
-Příprava raw data pro feature extraction:
+Příprava surových dat (raw data) pro extrakci rysů:
 
-* **Noise filtering** — gaussian blur, median filter, denoising.
-* **Normalization** — jas, kontrast, scale, rotation.
-* **Segmentation** — oddělení biometrického objektu od pozadí (např. obličej v scéně).
-* **Quality assessment** — *je* obrázek dostatečně dobrý? (NFIQ pro fingerprints, Sharpness/Pose pro face).
+* **Filtrování šumu (noise filtering)** — gaussovské rozostření (gaussian blur), mediánový filtr, odšumování (denoising).
+* **Normalizace** — jasu, kontrastu, měřítka i natočení.
+* **Segmentace** — oddělení biometrického objektu od pozadí (např. obličeje ve scéně).
+* **Posouzení kvality (quality assessment)** — *je* obrázek dostatečně dobrý? (NFIQ pro otisky prstů, ostrost a natočení pro obličej).
 
-Pokud kvalita nedostatečná → odmítnutí enrollment / recognition s žádostí o opakování.
+Pokud je kvalita nedostatečná, systém zapsání nebo rozpoznání odmítne a požádá o opakování.
 
-### 3. Feature extraction
+### 3. Extrakce rysů (feature extraction)
 
 Z naměřených dat se vypočte **kompaktní reprezentace** (vektor rysů):
 
-* **Otisky prstů:** seznam markantů (souřadnice + orientace + typ), ~30–100 markantů.
-* **Duhovka:** Daugman iris code, 2048 bitů ([[daugman]]).
-* **Obličej:** embedding vector 128–512 dim (FaceNet, ArcFace).
-* **Hlas:** MFCC features + i-vectors / x-vectors.
+* **Otisky prstů:** seznam markantů (souřadnice + orientace + typ), přibližně 30–100 markantů.
+* **Duhovka:** Daugmanův iris code, 2048 bitů ([[daugman]]).
+* **Obličej:** vektor příznaků (embedding) o 128–512 dimenzích (FaceNet, ArcFace).
+* **Hlas:** příznaky MFCC + i-vektory / x-vektory.
 
-Vektor rysů je *podstatně menší* než raw data (kompaktní storage, fast matching).
+Vektor rysů je *podstatně menší* než surová data, takže umožňuje kompaktní uložení a rychlé porovnávání.
 
-### 4. Matching / Comparison
+### 4. Porovnávání (matching / comparison)
 
-Porovnání aktuálního vzorku se *šablonou*:
+Porovnání aktuálního vzorku s *šablonou*:
 
-* **Distance-based:** Euclidean, Hamming, cosine distance mezi vektory.
-* **Geometric:** alignment markantů + scoring (fingerprints).
-* **Score:** vyšší = lepší shoda.
+* **Na základě vzdálenosti (distance-based):** euklidovská, Hammingova nebo kosinová vzdálenost mezi vektory.
+* **Geometrické:** zarovnání (alignment) markantů a bodové ohodnocení (otisky prstů).
+* **Skóre (score):** čím vyšší, tím lepší shoda.
 
-### 5. Decision
+### 5. Rozhodnutí (decision)
 
-Porovnání score s **prahem** (threshold) $\tau$:
+Porovnání skóre s **prahem** (threshold) $\tau$:
 
-* Score > $\tau$ → **match**.
-* Score < $\tau$ → **no match**.
+* Skóre > $\tau$ → **shoda (match)**.
+* Skóre < $\tau$ → **bez shody (no match)**.
 
-Threshold určuje **trade-off** mezi false accept rate (FAR) a false reject rate (FRR) — viz [[far-frr]].
+Práh určuje **kompromis (trade-off)** mezi mírou chybného přijetí (false accept rate, FAR) a mírou chybného odmítnutí (false reject rate, FRR) — viz [[far-frr]].
 
 ## Dva režimy systému
 
 ### Verifikační režim (1:1)
 
-::: svg "Verifikační režim: claimed identity → fetch template → compare with sample → match / no-match."
+::: svg "Verifikační režim: deklarovaná identita (claimed identity) → načtení šablony → porovnání se vzorkem → shoda / bez shody (match / no-match)."
 <svg viewBox="0 0 540 160" font-family="ui-sans-serif, system-ui" font-size="11">
   <defs>
     <marker id="aBSV" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
@@ -144,47 +144,47 @@ Threshold určuje **trade-off** mezi false accept rate (FAR) a false reject rate
 
 * Uživatel **deklaruje** svou identitu (PIN, login, karta).
 * Systém *načte* uloženou šablonu pro tuto identitu.
-* *Porovná* aktuální naměřený vzorek se *jednou* šablonou.
-* Computational complexity: $O(1)$ comparison.
+* *Porovná* aktuální naměřený vzorek s *jednou* šablonou.
+* Výpočetní složitost: jedno porovnání, tedy $O(1)$.
 
 ### Identifikační režim (1:N)
 
 * Uživatel *neuvádí* identitu.
 * Systém *porovná* aktuální vzorek se **všemi** šablonami v databázi.
-* Najde *nejbližší* šablonu (nebo *no match*).
-* Computational complexity: $O(N)$ comparisons.
-* Vyžaduje *indexing* pro velké databáze (např. K-D tree, locality-sensitive hashing).
+* Najde *nejbližší* šablonu (nebo žádnou shodu, *no match*).
+* Výpočetní složitost: $N$ porovnání, tedy $O(N)$.
+* Pro velké databáze vyžaduje *indexování* (např. K-D strom, locality-sensitive hashing).
 
 ## Životní cyklus uživatele
 
-### Enrollment (zapsání)
+### Zapsání (enrollment)
 
 Inicializace uživatele v systému:
 
-1. **Snímání** kvalitního biometrického vzorku (typicky více vzorků pro průměr).
-2. **Quality check** — pokud nedostatečné, požaduje opakování.
-3. **Feature extraction** + **template generation**.
-4. **Storage** šablony v DB (cipher-text, on-device storage).
-5. *Associace* s identitou (user ID, claim).
+1. **Snímání** kvalitního biometrického vzorku (typicky více vzorků pro zprůměrování).
+2. **Kontrola kvality (quality check)** — pokud je nedostatečná, vyžádá si opakování.
+3. **Extrakce rysů** a **vygenerování šablony (template generation)**.
+4. **Uložení (storage)** šablony v databázi (v zašifrované podobě, tedy jako cipher-text, případně na zařízení uživatele, on-device storage).
+5. *Přiřazení* k identitě (uživatelské ID, deklarovaná identita).
 
-### Recognition (rozpoznání)
+### Rozpoznání (recognition)
 
 Standardní operace:
 
 1. **Snímání** aktuálního vzorku.
-2. **Feature extraction**.
-3. **Matching** s šablonou(ami).
-4. **Decision**.
+2. **Extrakce rysů (feature extraction)**.
+3. **Porovnání (matching)** se šablonou (či šablonami).
+4. **Rozhodnutí (decision)**.
 
-### Update
+### Aktualizace (update)
 
-* Šablony se mohou s časem zhoršovat (aging, životní změny).
-* **Adaptive enrollment** — periodická aktualizace šablony.
-* **Re-enrollment** — explicit obnovení (např. po operaci ruky).
+* Šablony se mohou v čase zhoršovat (stárnutí, životní změny).
+* **Adaptivní zapsání (adaptive enrollment)** — periodická aktualizace šablony.
+* **Opětovné zapsání (re-enrollment)** — explicitní obnovení (např. po operaci ruky).
 
 ## Možnosti útoků na biometrický systém
 
-::: svg "Útočné body (Ratha 2001): 1 senzor (spoof), 2 kanál sensor→extractor (replay), 3 feature extraction (substitute), 4 kanál extractor→matcher (replay), 5 template DB (steal), 6 matcher (override), 7 decision (modify); 8 channel blocking (jam, DoS) navíc mimo taxonomii."
+::: svg "Útočné body (Ratha 2001): 1 senzor (podvržení, spoof), 2 kanál senzor→extraktor (přehrání, replay), 3 extrakce rysů (záměna, substitute), 4 kanál extraktor→matcher (přehrání, replay), 5 databáze šablon (krádež, steal), 6 matcher (přepsání, override), 7 rozhodnutí (úprava, modify); 8 blokování kanálu (zahlcení, jam, DoS) navíc mimo taxonomii."
 <svg viewBox="0 0 540 228" font-family="ui-sans-serif, system-ui" font-size="11">
   <defs>
     <marker id="aBSA" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
@@ -230,50 +230,50 @@ Standardní operace:
 </svg>
 :::
 
-Sedm typických útoků (Ratha-Connell-Bolle 2001) + DoS navíc:
+Sedm typických útoků (Ratha-Connell-Bolle 2001) a navíc útok na dostupnost (DoS):
 
-1. **Sensor spoofing** — fake finger, mask, contact lens, deepfake video.
-2. **Replay (kanál sensor→extractor)** — záznam legitimní transakce + opakování.
-3. **Override feature extractor** — útočník nahradí extracted features.
-4. **Replay (kanál extractor→matcher)** — odposlech + přehrání mezi extraktorem a matcherem.
-5. **Steal template database** — copy šablon, mass impersonation.
-6. **Override matcher** — útočník přiměje matcher vždy vrátit "match".
-7. **Modify decision** — final stage; bit flip.
-8. **Channel blocking** — DoS jammingem komunikačního kanálu (availability útok, mimo Ratha taxonomii).
+1. **Podvržení senzoru (sensor spoofing)** — falešný prst, maska, kontaktní čočka, deepfake video.
+2. **Přehrání, kanál senzor→extraktor (replay)** — záznam legitimní transakce a její opakované přehrání.
+3. **Přepsání extraktoru rysů (override feature extractor)** — útočník (attacker) nahradí extrahované rysy svými.
+4. **Přehrání, kanál extraktor→matcher (replay)** — odposlech a přehrání komunikace mezi extraktorem a matcherem.
+5. **Krádež databáze šablon (steal template database)** — zkopírování šablon a hromadné vydávání se za jiné osoby (mass impersonation).
+6. **Přepsání matcheru (override matcher)** — útočník přiměje matcher, aby vždy vrátil „shodu" (match).
+7. **Úprava rozhodnutí (modify decision)** — poslední fáze; převrácení jednoho bitu výsledku (bit flip).
+8. **Blokování kanálu (channel blocking)** — útok typu DoS zahlcením (jamming) komunikačního kanálu (útok na dostupnost, availability, mimo Rathovu taxonomii).
 
-Detailně v [[typy-utoku]].
+Podrobně v [[typy-utoku]].
 
 ## Specifické problémy
 
 ### Mezitřídní a vnitrotřídní variabilita
 
-* **Mezitřídní variabilita** (inter-class) — *jak rozdílní* jsou různí lidé. Vysoká = dobré.
-* **Vnitrotřídní variabilita** (intra-class) — *jak rozdílná* jsou různá měření *téhož* člověka. Nízká = dobré.
+* **Mezitřídní variabilita (inter-class)** — *jak rozdílní* jsou různí lidé. Vysoká je žádoucí.
+* **Vnitrotřídní variabilita (intra-class)** — *jak rozdílná* jsou různá měření *téhož* člověka. Nízká je žádoucí.
 
-Detailně [[variabilita]].
+Podrobně [[variabilita]].
 
 ### Stárnutí (aging)
 
 * Biometrické rysy se *mění s časem*:
   * Obličej: vrásky, hubnutí, vousy.
-  * Hlas: hloubka, prosodie (puberta, věk).
-  * Otisky prstů: relativně stabilní, ale opotřebení (pracovníci s rukama, stárnutí).
-  * Duhovka: relativně velmi stabilní (nejstabilnější).
-* Vyžaduje **re-enrollment** každých N let nebo *adaptive* algoritmy.
+  * Hlas: hloubka, prozodie (puberta, věk).
+  * Otisky prstů: relativně stabilní, ale podléhají opotřebení (lidé pracující rukama, stárnutí).
+  * Duhovka: relativně velmi stabilní (vůbec nejstabilnější).
+* Vyžaduje **opětovné zapsání (re-enrollment)** každých N let nebo *adaptivní* algoritmy.
 
 ### Dvojčata
 
-* **Identická dvojčata** mají *velmi* podobnou DNA — sdílení 99.99 % DNA.
-* Otisky prstů jsou **odlišné** (vznikají *epigeneticky* během vývoje fetuse).
-* Iris **odlišné**.
-* Obličej, hlas — velmi podobné; biometric systems často chybují u dvojčat.
+* **Jednovaječná dvojčata** mají *velmi* podobnou DNA — sdílejí 99,99 % DNA.
+* Otisky prstů jsou **odlišné** (vznikají *epigeneticky* během vývoje plodu).
+* Duhovka je **odlišná**.
+* Obličej a hlas jsou velmi podobné; biometrické systémy proto u dvojčat často chybují.
 
 ### Děti
 
-* Biometrika se v dětství *mění rychle* (obličej, výška, váha).
-* Otisky prstů jsou *velmi malé* — obtížné snímání u dětí.
-* US-VISIT vyžaduje fingerprint enrollment **od 14 let**.
-* Děti vyžadují periodický re-enrollment.
+* Biometrické rysy se v dětství *mění rychle* (obličej, výška, váha).
+* Otisky prstů jsou *velmi malé* — snímání u dětí je obtížné.
+* US-VISIT vyžaduje snímání otisků prstů (fingerprint enrollment) **od 14 let**.
+* Děti vyžadují periodické opětovné zapsání (re-enrollment).
 
 ---
 

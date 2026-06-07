@@ -4,186 +4,186 @@ title: WiFi útoky — KRACK, FragAttacks, evil twin, deauth
 
 # WiFi útoky — KRACK, FragAttacks, evil twin a další
 
-I s WPA3 ([[wpa3]]) WiFi sítě *zranitelné*. Útoky kombinují *protocol weaknesses*, *implementation bugs*, a *social engineering*. Tato sekce katalogizuje hlavní moderní útoky.
+I s WPA3 ([[wpa3]]) zůstávají WiFi sítě *zranitelné*. Útoky kombinují slabiny protokolu (protocol weaknesses), chyby v implementaci (implementation bugs) a sociální inženýrství (social engineering). Tato sekce katalogizuje hlavní moderní útoky (attack).
 
 ## KRACK (2017)
 
-Already mentioned [[wpa-wpa2]]. Recap:
+Už jsme se o něm zmínili v [[wpa-wpa2]]. Stručné připomenutí:
 
-- Mathy Vanhoef discovered WPA2 4-way handshake replay attack.
-- Replay Msg 3 → client reinstalls PTK → nonce reuse → keystream reuse → decrypt.
-- Affected basically every WPA2 client.
+- Mathy Vanhoef objevil útok přehráním (replay attack) na čtyřcestný handshake (4-way handshake) protokolu WPA2.
+- Přehrání zprávy Msg 3 přiměje klienta znovu nainstalovat klíč PTK → opakované použití nonce (nonce reuse) → opakované použití klíčového proudu (keystream reuse) → možnost dešifrování.
+- Zasaženi byli prakticky všichni WPA2 klienti.
 
-Patched widely. Modern devices fixed.
+Záplata (patch) byla nasazena plošně. Moderní zařízení mají problém opravený.
 
 ## FragAttacks (2021)
 
-Mathy Vanhoef again. **Fragmentation and Aggregation Attacks**.
+Opět dílo Mathyho Vanhoefa. Jde o **útoky na fragmentaci a agregaci (Fragmentation and Aggregation Attacks)**.
 
-3 design flaws + 9 implementation bugs in 802.11 standard.
+Celkem 3 koncepční nedostatky v návrhu (design flaws) a 9 implementačních chyb (implementation bugs) ve standardu 802.11.
 
-### Design flaws
+### Koncepční nedostatky v návrhu
 
-- **Fragment reassembly** — fragments from different keys treated as same packet.
-- **Aggregation** — A-MSDU subframe header not authenticated.
-- **Cache poisoning** — fragments persist across (re)associations.
+- **Skládání fragmentů (fragment reassembly)** — fragmenty zašifrované různými klíči (key) jsou považovány za jeden a tentýž paket.
+- **Agregace (aggregation)** — hlavička podrámce A-MSDU není autentizovaná.
+- **Otrava cache (cache poisoning)** — fragmenty zůstávají uložené i napříč opakovanými asociacemi (reassociation) klienta k síti.
 
-### Example: A-MSDU injection
+### Příklad: injektáž A-MSDU
 
-Attacker injects A-MSDU subframe header into legitimate fragment → packet routed to attacker's destination.
+Útočník (attacker) vloží do legitimního fragmentu hlavičku podrámce A-MSDU, čímž paket přesměruje na cíl, který si zvolí. Jinými slovy: zneužije nedostatečné ověření hlavičky k tomu, aby provoz odklonil k sobě.
 
-Affected most Wi-Fi devices. Patched widely.
+Zasaženo bylo téměř každé Wi-Fi zařízení. Záplaty byly vydány plošně.
 
-## Deauthentication attacks
+## Deautentizační útoky
 
-Forged management frame disconnects client.
+Podvržený (spoofing) řídicí rámec (management frame) odpojí klienta od sítě.
 
 ```bash
 aireplay-ng -0 5 -a TARGET_BSSID -c TARGET_CLIENT wlan0mon
 ```
 
-Until WPA3 mandatory PMF, deauth attacks *trivial*. Used in:
+Dokud nebyla ochrana řídicích rámců (PMF) povinná až ve WPA3, byly deautentizační útoky *triviální*. Využívají se k:
 
-- **DoS** — kick users off.
-- **Force re-authentication** — capture handshake for offline crack.
-- **Phishing setup** — kick from legit AP, hope to reconnect to evil twin.
+- **Odepření služby (DoS)** — vyhození uživatelů ze sítě.
+- **Vynucení opětovné autentizace (authentication)** — zachycení handshake pro pozdější offline prolomení (crack) hesla.
+- **Přípravě phishingu (phishing)** — vyhození klienta z legitimního AP s nadějí, že se připojí k podvrženému evil twin.
 
-Defense: **802.11w (Protected Management Frames)** — required in WPA3, optional in WPA2.
+Obrana: **802.11w (Protected Management Frames, ochrana řídicích rámců)** — ve WPA3 povinná, ve WPA2 volitelná.
 
 ## Evil Twin
 
-Attacker sets up rogue AP with same SSID as legit network. Clients auto-connect if signal stronger or legit AP unavailable.
+Útočník zprovozní podvržený přístupový bod (rogue AP) se stejným SSID jako legitimní síť. Klienti se k němu připojí automaticky, pokud má silnější signál nebo pokud je legitimní AP nedostupné.
 
-### Tools
+### Nástroje
 
-- **Wifiphisher** — automated evil twin + phishing.
-- **hostapd-wpe** — hostile AP for capturing credentials.
+- **Wifiphisher** — automatizovaný evil twin spolu s phishingem.
+- **hostapd-wpe** — nepřátelský AP určený k odchytávání přihlašovacích údajů.
 
-### Process
+### Postup
 
-1. Deauth users from legit AP.
-2. Run rogue AP with same SSID, *open* or with captured creds.
-3. Users reconnect to rogue.
-4. Attacker: MITM, credentials harvest, malware injection.
+1. Deautentizace uživatelů z legitimního AP.
+2. Spuštění podvrženého AP se stejným SSID, buď jako *otevřené* sítě, nebo s odchycenými přihlašovacími údaji.
+3. Uživatelé se připojí k podvrženému AP.
+4. Útočník provádí útok muže uprostřed (MITM), sběr přihlašovacích údajů a injektáž malwaru.
 
-### Defense
+### Obrana
 
-- **Client certificate** validation (Enterprise EAP-TLS).
-- **HSTS** — browsers refuse downgrade to HTTP.
-- **VPN** — encrypts even on rogue network.
-- **Don't auto-connect** to open networks.
+- **Ověření klientského certifikátu** (Enterprise EAP-TLS).
+- **HSTS** — prohlížeče odmítnou degradaci spojení (downgrade) zpět na HTTP.
+- **VPN** — šifruje (encryption) provoz i v podvržené síti.
+- **Nepřipojovat se automaticky** k otevřeným sítím.
 
-## Captive Portal abuse
+## Zneužití captive portálu
 
-Coffee shop / hotel WiFi: open network, redirect to login page.
+WiFi v kavárně nebo hotelu: otevřená síť, která přesměruje uživatele na přihlašovací stránku.
 
-Attacks:
+Útoky:
 
-- **Cred harvest** — fake portal looks like legit.
-- **Malware push** — fake "update your software".
-- **MITM** — once connected, attacker sniffs.
+- **Sběr přihlašovacích údajů** — falešný portál vypadá jako ten legitimní.
+- **Šíření malwaru** — falešná výzva „aktualizujte si software".
+- **MITM** — jakmile je klient připojen, útočník odposlouchává provoz.
 
-Defense: VPN before browsing.
+Obrana: zapnout VPN ještě před zahájením prohlížení.
 
-## Karma attack
+## Karma útok
 
-Modern WiFi clients periodically probe for *known* SSIDs ("Probe Request" frame).
+Moderní WiFi klienti pravidelně vyhledávají *známé* SSID pomocí rámce „Probe Request".
 
-Attacker captures probe requests → sees networks client knows.
+Útočník tyto požadavky (request) zachytí, a tím zjistí, které sítě klient zná.
 
-Rogue AP responds to *any* probe ("yes, I'm 'HomeWiFi'"). Client connects.
+Podvržený AP pak odpoví na *jakýkoli* požadavek („ano, jsem 'HomeWiFi'") a klient se k němu připojí.
 
-Defense: don't auto-connect to known networks (mostly mitigated in modern OS).
+Obrana: nepřipojovat se automaticky ke známým sítím (v moderních operačních systémech je to z velké části ošetřeno).
 
-## WPS PIN brute force
+## Útok hrubou silou na PIN WPS
 
-WPS PIN = 8 digits. *Should* be 10^8 = 100M combinations. *Design flaw* splits PIN — brute force in *11 000* attempts.
+PIN u WPS má 8 číslic. *Mělo by* tedy existovat 10^8 = 100 milionů kombinací. Jenže *chyba v návrhu* PIN rozdělí na dvě části, takže ho lze prolomit hrubou silou (brute force) už za *11 000* pokusů.
 
-Tool: **Reaver, Bully**.
+Nástroje: **Reaver, Bully**.
 
-Time: hours to days depending on AP.
+Doba prolomení: hodiny až dny podle konkrétního AP.
 
-Defense: disable WPS. Most modern APs allow disabling.
+Obrana: vypnout WPS. Většina moderních AP jeho vypnutí umožňuje.
 
-## Bluetooth attacks
+## Útoky na Bluetooth
 
-Related wireless tech. Brief overview:
+Příbuzná bezdrátová technologie. Stručný přehled:
 
-- **Bluejacking** — send unsolicited messages.
-- **Bluesnarfing** — unauthorized access to data.
-- **KNOB attack** (2019) — reduce Bluetooth encryption strength to 1 byte → trivial crack.
-- **BlueBorne** (2017) — RCE via Bluetooth.
-- **BLE traffic capture** — sniff BLE pairing.
+- **Bluejacking** — odesílání nevyžádaných zpráv.
+- **Bluesnarfing** — neoprávněný přístup k datům.
+- **KNOB útok** (2019) — snížení síly šifrování Bluetooth na pouhý 1 bajt, což umožní triviální prolomení.
+- **BlueBorne** (2017) — vzdálené spuštění kódu (RCE) přes Bluetooth.
+- **Odchyt provozu BLE** — odposlech párování BLE.
 
-Modern Bluetooth (5.x) hardened.
+Moderní Bluetooth (verze 5.x) je proti těmto útokům odolnější.
 
-## Beacon manipulation
+## Manipulace s beacon rámci
 
-WiFi APs broadcast Beacon frames advertising SSID, capabilities.
+WiFi přístupové body vysílají beacon rámce, které inzerují SSID a schopnosti sítě.
 
-Attacker can:
+Útočník může:
 
-- **Spoof beacon** — claim to be different AP.
-- **Hide SSID** — APs that hide SSID still respond to *known* probes.
+- **Podvrhnout beacon (spoof beacon)** — vydávat se za jiné AP.
+- **Skrýt SSID** — i AP, která skrývají SSID, stále odpovídají na *známé* požadavky.
 
-## WiFi protocol fuzzing
+## Fuzzing WiFi protokolu
 
-Recent research: fuzzing 802.11 protocol stack → crash drivers, RCE in kernel.
+Aktuální výzkum: fuzzing protokolového zásobníku (stack) 802.11 vede k pádům ovladačů a vzdálenému spuštění kódu (RCE) v jádře.
 
-- **Linux iwlwifi** CVEs.
-- **macOS AirPort** CVEs.
-- **Broadcom WiFi** chip RCEs (Project Zero 2017).
+- **CVE v ovladači Linux iwlwifi**.
+- **CVE v macOS AirPort**.
+- **RCE v čipech Broadcom WiFi** (Project Zero, 2017).
 
-Defense: keep drivers + firmware patched.
+Obrana: udržovat ovladače i firmware aktualizované záplatami.
 
-## Defense summary
+## Souhrn obranných opatření
 
-### Network-level
+### Na úrovni sítě
 
-- **WPA3** preferred. WPA2 with strong password if needed.
-- **PMF** enabled.
-- **Disable WPS**.
-- **Strong PSK** (12+ random chars).
-- **Guest network** separate from main.
-- **Firmware updates** — apply promptly.
+- **WPA3** je upřednostňované. V případě potřeby WPA2 se silným heslem.
+- **PMF** povolené.
+- **WPS vypnuté**.
+- **Silný PSK** (12 a více náhodných znaků).
+- **Síť pro hosty** oddělená od hlavní sítě.
+- **Aktualizace firmwaru** — nasazovat bez prodlení.
 
-### Enterprise
+### Pro podnikové prostředí
 
-- **802.1X with EAP-TLS** — certificate authentication.
-- **WIDS** (Wireless IDS) — detect rogue APs, evil twins.
-- **WIPS** (Wireless IPS) — auto-disconnect rogue clients.
-- **Site survey** — identify rogue access points.
+- **802.1X s EAP-TLS** — autentizace pomocí certifikátu.
+- **WIDS** (Wireless IDS, bezdrátový systém detekce průniku) — odhalování podvržených AP a evil twins.
+- **WIPS** (Wireless IPS, bezdrátový systém prevence průniku) — automatické odpojování podvržených klientů.
+- **Průzkum lokality (site survey)** — identifikace podvržených přístupových bodů.
 
-### Client-level
+### Na úrovni klienta
 
-- **VPN** for sensitive traffic.
-- **Don't auto-connect** to unknown networks.
-- **Manage saved networks** — remove old.
-- **Use HTTPS** — HSTS-enabled sites resist some MITM.
-- **Disable unused interfaces** — Bluetooth when not used.
+- **VPN** pro citlivý provoz.
+- **Nepřipojovat se automaticky** k neznámým sítím.
+- **Spravovat uložené sítě** — odebrat staré.
+- **Používat HTTPS** — weby s HSTS odolávají některým MITM útokům.
+- **Vypnout nepoužívaná rozhraní** — například Bluetooth, když se nevyužívá.
 
-### Monitoring
+### Monitorování
 
-- **Kismet** — wireless detection.
-- **Airodump-ng** — passive monitoring.
-- **WiFi Pineapple** — pen test tool (Hak5).
+- **Kismet** — detekce bezdrátových sítí.
+- **Airodump-ng** — pasivní monitorování.
+- **WiFi Pineapple** — nástroj pro penetrační testování (Hak5).
 
-## Real-world incidents {tier=example}
+## Případy z praxe {tier=example}
 
-- **2007 TJX hack** — WEP exploited, 45M credit cards stolen.
-- **2015 Ashley Madison** — internal WiFi compromise contributed to leak.
-- **2019 Mar-a-Lago network** — open WiFi, security concerns.
-- **Hotel WiFi network** breaches — multiple chains.
+- **Útok na TJX (2007)** — zneužití (exploit) WEP, odcizeno 45 milionů údajů o platebních kartách.
+- **Ashley Madison (2015)** — k úniku dat přispělo kompromitování interní WiFi.
+- **Síť v Mar-a-Lago (2019)** — otevřená WiFi a bezpečnostní obavy.
+- **Průniky do hotelových WiFi sítí** — postiženo více řetězců.
 
-WiFi remains *high-impact* attack vector. Modern crypto + PMF + EDR + monitoring reduces but doesn't eliminate.
+WiFi zůstává vektorem útoku s *velkým dopadem*. Moderní kryptografie spolu s PMF, EDR a monitorováním riziko snižují, ale neeliminují.
 
-## Future of WiFi security
+## Budoucnost zabezpečení WiFi
 
-- **Wi-Fi 7** (802.11be, 2024) — WPA3 mandatory, OFDMA improves robustness.
-- **Pre-Shared Key 2.0** (PSK2) — research direction, improve home WiFi security beyond SAE.
-- **OWE** — Opportunistic Wireless Encryption — encrypts even *open* networks.
+- **Wi-Fi 7** (802.11be, 2024) — WPA3 povinné, technika OFDMA zlepšuje odolnost.
+- **Pre-Shared Key 2.0** (PSK2) — směr výzkumu usilující o zvýšení bezpečnosti domácí WiFi nad rámec SAE.
+- **OWE** (Opportunistic Wireless Encryption) — šifruje i *otevřené* sítě.
 
-Standards evolve. Implementation lags.
+Standardy se vyvíjejí. Implementace za nimi zaostává.
 
 ---
 

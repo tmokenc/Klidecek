@@ -1,18 +1,18 @@
 ---
-title: RBAC a ABAC — enterprise access control
+title: RBAC a ABAC — podnikové řízení přístupu
 ---
 
-# RBAC a ABAC — moderní enterprise access control
+# RBAC a ABAC — moderní podnikové řízení přístupu (access control)
 
-DAC ([[dac-mac]]) je *too granular* — managing thousands of users × thousands of objects = unmanageable. MAC je *too rigid* pro business. **RBAC** (Role-Based Access Control, NIST 1992) řeší managability. **ABAC** (Attribute-Based Access Control) jde dál — context-aware decisions.
+DAC ([[dac-mac]]) je *příliš jemnozrnné* — spravovat tisíce uživatelů × tisíce objektů je neudržitelné. MAC je zase *příliš rigidní* pro firemní prostředí. **RBAC** (Role-Based Access Control, NIST 1992) řeší spravovatelnost. **ABAC** (Attribute-Based Access Control) jde ještě dál — umožňuje rozhodování podle kontextu (context-aware decisions).
 
-## RBAC — Role-Based Access Control
+## RBAC — řízení přístupu podle rolí (Role-Based Access Control)
 
-Users → Roles → Permissions.
+Uživatelé → role → oprávnění.
 
-Princip: *role* je *abstraction* mezi user + permissions. Permissions připisuje roli, ne user. User assignuje k roli.
+Princip: *role* je vrstva abstrakce mezi uživateli a oprávněními (permissions). Oprávnění se přiřazují roli, nikoli přímo uživateli. Uživatel se pak přiřadí k roli.
 
-::: svg "RBAC — Users → Roles → Permissions"
+::: svg "RBAC — uživatelé → role → oprávnění"
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="10">
   <text x="80" y="25" text-anchor="middle" fill="var(--text)" font-weight="600">Users</text>
   <text x="270" y="25" text-anchor="middle" fill="var(--text)" font-weight="600">Roles</text>
@@ -60,16 +60,16 @@ Princip: *role* je *abstraction* mezi user + permissions. Permissions připisuje
 </svg>
 :::
 
-### NIST RBAC model (1992, 2000)
+### Model NIST RBAC (1992, 2000)
 
-4 levels:
+Skládá se ze 4 úrovní:
 
-1. **RBAC-0 / Core** — Users, Roles, Permissions, Sessions.
-2. **RBAC-1 / Hierarchical** — Role inheritance (manager inherits developer's perms).
-3. **RBAC-2 / Constrained** — Constraints (mutual exclusion, cardinality, separation of duties).
-4. **RBAC-3 / Combined** — RBAC-1 + RBAC-2.
+1. **RBAC-0 / Core** — uživatelé, role, oprávnění a relace (sessions).
+2. **RBAC-1 / Hierarchical** — dědičnost rolí (manager dědí oprávnění role developer).
+3. **RBAC-2 / Constrained** — omezení (vzájemné vyloučení, kardinalita, oddělení povinností).
+4. **RBAC-3 / Combined** — kombinace RBAC-1 a RBAC-2.
 
-### Role hierarchy
+### Hierarchie rolí
 
 ```
         Admin
@@ -81,42 +81,42 @@ Princip: *role* je *abstraction* mezi user + permissions. Permissions připisuje
         Reader
 ```
 
-Manager inherits Developer permissions + own. Admin inherits everything.
+Manager dědí oprávnění role Developer plus svá vlastní. Admin dědí úplně všechno.
 
-Hierarchical RBAC reduces *role explosion*.
+Hierarchická varianta RBAC omezuje takzvanou *explozi rolí* (role explosion) — tedy stav, kdy rolí přibývá tolik, že se ztrácí přehled.
 
-### Constraints
+### Omezení (constraints)
 
-- **Mutually exclusive roles** — user can't have both `cashier` and `auditor`.
-- **Cardinality** — only 2 users can have `senior_admin` role.
-- **Separation of duties** — `initiate_payment` user ≠ `approve_payment` user.
+- **Vzájemně se vylučující role** — uživatel nemůže mít současně roli `cashier` i `auditor`.
+- **Kardinalita** — roli `senior_admin` mohou mít nejvýše 2 uživatelé.
+- **Oddělení povinností (separation of duties)** — uživatel, který spustí platbu (`initiate_payment`), nesmí být týž, kdo ji schvaluje (`approve_payment`).
 
-### Practical RBAC
+### RBAC v praxi
 
-- **Active Directory** — groups = roles.
+- **Active Directory** — skupiny fungují jako role.
 - **Linux** — `groups`, `sudoers`.
-- **AWS IAM** — roles + policies.
-- **Kubernetes** — RBAC for cluster resources.
-- **Databases** — roles, GRANT/REVOKE.
+- **AWS IAM** — role a politiky (policies).
+- **Kubernetes** — RBAC pro prostředky clusteru.
+- **Databáze** — role, příkazy GRANT/REVOKE.
 
-### RBAC limitations
+### Omezení RBAC
 
-- **Role explosion** — too many roles (per department × per project × per region).
-- **Static** — doesn't adapt to context (time of day, location, risk).
-- **Permission inheritance** — hard to debug "who can do X".
+- **Exploze rolí** — příliš mnoho rolí (podle oddělení × podle projektu × podle regionu).
+- **Statičnost** — model se nepřizpůsobuje kontextu (denní době, poloze, míře rizika).
+- **Dědičnost oprávnění** — bývá těžké zjistit, „kdo vlastně smí udělat X".
 
-⇒ ABAC fixes these.
+⇒ Tyto nedostatky odstraňuje ABAC.
 
-## ABAC — Attribute-Based Access Control
+## ABAC — řízení přístupu podle atributů (Attribute-Based Access Control)
 
-Decisions based on **attributes** of:
+Rozhodování se opírá o **atributy** těchto entit:
 
-- **Subject** — role, department, clearance, location, device.
-- **Object** — sensitivity, owner, type.
-- **Environment** — time, network zone, threat level.
-- **Action** — read, write, delete.
+- **Subjekt** — role, oddělení, prověření (clearance), poloha, zařízení.
+- **Objekt** — citlivost, vlastník, typ.
+- **Prostředí (environment)** — čas, síťová zóna, úroveň hrozby (threat level).
+- **Akce** — čtení, zápis, smazání.
 
-### Policy expression
+### Vyjádření politiky
 
 ```
 Allow if:
@@ -127,44 +127,44 @@ Allow if:
    action IN {read, write_notes}
 ```
 
-vs RBAC:
+oproti RBAC:
 
 ```
 Role "doctor" has permissions: read_patient, write_notes
 ```
 
-ABAC *condition* more flexible. RBAC *static role* doesn't capture time, location, etc.
+Podmínka v ABAC je pružnější. Statická role v RBAC nedokáže zachytit čas, polohu a podobné okolnosti.
 
 ### XACML — eXtensible Access Control Markup Language
 
-OASIS standard for ABAC policy expression + enforcement. XML-based.
+Standard organizace OASIS pro vyjadřování a vynucování politik ABAC. Je založen na XML.
 
-Components:
+Skládá se z těchto komponent:
 
-- **PEP** (Policy Enforcement Point) — guards resource.
-- **PDP** (Policy Decision Point) — evaluates policy.
-- **PIP** (Policy Information Point) — provides attributes.
-- **PAP** (Policy Administration Point) — manages policies.
+- **PEP** (Policy Enforcement Point) — střeží přístup ke zdroji.
+- **PDP** (Policy Decision Point) — vyhodnocuje politiku.
+- **PIP** (Policy Information Point) — dodává atributy.
+- **PAP** (Policy Administration Point) — spravuje politiky.
 
-Flow:
+Průběh rozhodování:
 
-1. Subject requests access at PEP.
-2. PEP queries PDP with subject + object + action.
-3. PDP retrieves attributes from PIPs.
-4. PDP evaluates policy.
-5. Returns: Permit / Deny / Not Applicable / Indeterminate.
+1. Subjekt si vyžádá přístup u PEP.
+2. PEP se dotáže PDP s údaji o subjektu, objektu a akci.
+3. PDP si vyžádá atributy od PIP.
+4. PDP vyhodnotí politiku.
+5. Vrátí výsledek: Permit / Deny / Not Applicable / Indeterminate (povolit / zamítnout / nepoužitelné / neurčité).
 
-Complex to deploy. *Conceptual* model widely used; XACML XML *not popular*.
+Nasazení je složité. *Koncepční* model se používá široce, samotná XML podoba XACML *populární není*.
 
-### Modern ABAC tools
+### Moderní nástroje pro ABAC
 
-- **AWS IAM with conditions** — partial ABAC.
-- **Azure RBAC + conditions** — ABAC on Azure.
-- **Open Policy Agent (OPA)** — modern policy engine, Rego language.
-- **Cedar** (AWS, 2023) — purpose-built policy language.
-- **Casbin** — multi-language policy library.
+- **AWS IAM s podmínkami** — částečná podpora ABAC.
+- **Azure RBAC s podmínkami** — ABAC v prostředí Azure.
+- **Open Policy Agent (OPA)** — moderní rozhodovací stroj pro politiky, jazyk Rego.
+- **Cedar** (AWS, 2023) — jazyk pro politiky navržený přímo k tomuto účelu.
+- **Casbin** — knihovna politik pro více programovacích jazyků.
 
-### OPA Rego example
+### Příklad OPA Rego
 
 ```rego
 package authz
@@ -185,29 +185,29 @@ business_hours(t) {
 }
 ```
 
-OPA evaluates Rego, returns allow/deny.
+OPA vyhodnotí kód v jazyce Rego a vrátí povolení, nebo zamítnutí.
 
-## RBAC vs ABAC
+## RBAC vs. ABAC
 
 | | RBAC | ABAC |
 | :--- | :--- | :--- |
-| Decision factor | Role | Attributes |
-| Context-aware | No | Yes |
-| Granularity | Coarse | Fine |
-| Implementation | Simple | Complex |
-| Debug | Easy | Hard |
-| Adoption | High | Growing |
+| Rozhodovací faktor | role | atributy |
+| Zohlednění kontextu | ne | ano |
+| Granularita | hrubá | jemná |
+| Implementace | jednoduchá | složitá |
+| Ladění | snadné | obtížné |
+| Rozšíření | vysoké | rostoucí |
 
-Many organizations *start* RBAC, *evolve* to RBAC+ABAC hybrid.
+Mnoho organizací *začíná* s RBAC a postupně *přechází* k hybridu RBAC + ABAC.
 
-## Hybrid — Policy-Based
+## Hybridní přístup — politikami řízené (Policy-Based)
 
-Modern systems combine:
+Moderní systémy obě varianty kombinují:
 
-- **RBAC** for *coarse* decisions (which role).
-- **ABAC** for *fine-grained* + context (when, where, what).
+- **RBAC** pro *hrubá* rozhodnutí (jakou má uživatel roli).
+- **ABAC** pro *jemnozrnná* rozhodnutí a kontext (kdy, kde, co).
 
-Example AWS IAM:
+Příklad AWS IAM:
 
 ```json
 {
@@ -222,14 +222,14 @@ Example AWS IAM:
 }
 ```
 
-Role-based action + ABAC conditions.
+Akce řízená rolí v kombinaci s podmínkami ABAC.
 
-::: viz rbac-abac-evaluator "Změň user role, dept, čas dne, on-site flag, akci → uvidíš RBAC verdict (jen role) vs ABAC (role + kontext). ABAC dovolí výjimky / restrictions, které RBAC nezvládá."
+::: viz rbac-abac-evaluator "Změň roli uživatele, oddělení, denní dobu, příznak přítomnosti na místě (on-site) a akci → uvidíš verdikt RBAC (jen podle role) vs. ABAC (role + kontext). ABAC dovolí výjimky a omezení, která RBAC nezvládá."
 :::
 
 ## Identity-Aware Proxy
 
-Google IAP, Cloudflare Access — *route* requests through identity check.
+Google IAP, Cloudflare Access — požadavky *vedou* přes ověření identity.
 
 ```
 client → IAP → app
@@ -237,18 +237,18 @@ client → IAP → app
        Verify identity, check policy, allow/deny
 ```
 
-Modern zero-trust pattern. ABAC policies on top.
+Moderní vzor nulové důvěry (zero-trust). Nad ním pak běží politiky ABAC.
 
-## ReBAC — Relationship-Based Access Control
+## ReBAC — řízení přístupu podle vztahů (Relationship-Based Access Control)
 
-Newest paradigm. Permissions based on *relationships* (graph).
+Nejnovější přístup. Oprávnění se odvozují ze *vztahů* (modelovaných jako graf).
 
-- "Alice can edit document IF Alice owns document OR Alice's team owns document."
-- "User can view photo IF user is in photo OR follows photo's owner."
+- „Alice smí upravit dokument, POKUD ho Alice vlastní NEBO ho vlastní Alicin tým."
+- „Uživatel smí zobrazit fotku, POKUD je na ní zachycen NEBO sleduje jejího vlastníka."
 
-Used by: Google Zanzibar (paper 2019), social networks, modern SaaS.
+Využívají to: Google Zanzibar (publikace 2019), sociální sítě a moderní SaaS.
 
-Tools: **OpenFGA**, **SpiceDB**, Google Zanzibar (internal).
+Nástroje: **OpenFGA**, **SpiceDB**, Google Zanzibar (interní).
 
 ---
 

@@ -2,277 +2,277 @@
 title: Síťové útoky — scanning, MITM, ARP, DDoS
 ---
 
-# Síťové útoky — od sniffing po DDoS
+# Síťové útoky — od odposlechu po DDoS
 
-Síť je *zaznamenané* místo IS — *sdílené médium*. Útoky na síťovou vrstvu jsou *fundamentální*. Tato sekce katalogizuje hlavní typy.
+Síť je *exponované* místo informačního systému — je to *sdílené médium*. Útoky na síťovou vrstvu (layer) jsou proto *zásadní*. Tato sekce přináší přehled (overview) jejich hlavních typů.
 
-## Reconnaissance — passive
+## Průzkum (reconnaissance) — pasivní
 
 ### OSINT
 
-Sběr veřejných info — already covered v [[social-engineering]].
+Sběr veřejně dostupných informací — toto téma už je probrané v [[social-engineering]].
 
-### Port scanning
+### Skenování portů (port scanning)
 
-Identifikuj otevřené porty na cíli.
+Cílem je zjistit, které porty jsou na cílovém stroji otevřené.
 
 ```
 nmap -sS 192.168.1.0/24
 ```
 
-- **SYN scan** — fast, hard to detect (doesn't complete connection).
-- **Connect scan** — full TCP handshake (slower, more reliable, logged).
-- **UDP scan** — slower, less reliable.
-- **Stealth techniques** — slow scans, randomized order, decoys.
+- **SYN scan** — rychlý a obtížně odhalitelný (nedokončuje navázání spojení).
+- **Connect scan** — provede plný TCP handshake (pomalejší, spolehlivější, ale zaznamenává se do logů).
+- **UDP scan** — pomalejší a méně spolehlivý.
+- **Stealth techniky** — pomalé skenování, náhodné pořadí portů a falešné cíle (decoys), aby se útok skryl.
 
-### Service detection
+### Detekce služeb (service detection)
 
 ```
 nmap -sV target
 ```
 
-Banner grabbing — identify SW version. Knowing version → look up CVEs.
+Banner grabbing — odečtení tzv. banneru služby, které prozradí verzi softwaru. Když útočník zná verzi, může si dohledat příslušné zranitelnosti (CVE).
 
-### OS fingerprinting
+### Identifikace operačního systému (OS fingerprinting)
 
-TCP/IP stack quirks reveal OS:
+Drobné zvláštnosti v implementaci TCP/IP zásobníku (stack) prozradí, o jaký operační systém jde:
 
 ```
 nmap -O target
 ```
 
-Windows / Linux / macOS / specific distro all leave subtle signatures.
+Windows, Linux, macOS i konkrétní distribuce — každý zanechává jemné, ale rozpoznatelné stopy.
 
-## Active attacks
+## Aktivní útoky
 
-### Sniffing
+### Odposlech (sniffing)
 
-Passive monitoring. Tools: tcpdump, Wireshark.
+Jde o pasivní monitorování provozu. Nástroje: tcpdump, Wireshark.
 
 ```bash
 sudo tcpdump -i eth0 port 80
 ```
 
-V switched network neviděl by trafik *jiných*. Útočník may use:
+V přepínané (switched) síti by útočník normálně neviděl provoz *ostatních* stanic. Může ovšem využít:
 
-- **Promiscuous mode** — capture all packets on interface (broadcast domain).
-- **Span port** / port mirror — admin-configured copy of traffic.
-- **Compromised switch** — span all ports.
-- **WiFi monitor mode** — capture all wireless frames.
+- **Promiscuous mode** — režim, ve kterém síťová karta zachytí všechny pakety na rozhraní (v rámci broadcast domény).
+- **Span port** / port mirror — kopii provozu nakonfigurovanou administrátorem.
+- **Kompromitovaný switch** — přes nějž lze zrcadlit všechny porty.
+- **WiFi monitor mode** — režim pro zachycení všech bezdrátových rámců.
 
-### ARP poisoning
+### ARP poisoning (otrávení ARP)
 
-ARP = Address Resolution Protocol. Maps IP → MAC. *No authentication*.
+ARP (Address Resolution Protocol) překládá IP adresu na MAC adresu. Protokol *nemá žádnou autentizaci (authentication)*.
 
-Attacker sends *fake* ARP reply: "I am 192.168.1.1, my MAC is XX:XX:XX:XX:XX:XX".
+Útočník (attacker) pošle *podvrženou* ARP odpověď: „Já jsem 192.168.1.1 a moje MAC je XX:XX:XX:XX:XX:XX.“
 
-Victim's ARP table updated. Future packets to 192.168.1.1 go to attacker. **MITM**.
+Tím se aktualizuje ARP tabulka oběti. Budoucí pakety směřující na 192.168.1.1 pak putují k útočníkovi. Vzniká tak **MITM** (útok typu člověk uprostřed).
 
 ```bash
 arpspoof -i eth0 -t victim_ip gateway_ip
 ```
 
-### MAC flooding
+### MAC flooding (zahlcení MAC adresami)
 
-Send many random MAC addresses to switch. Switch CAM table fills. Switch *falls back* to *flooding* — broadcasts all packets to all ports.
+Útočník zasílá switchi velké množství náhodných MAC adres. Tím se zaplní jeho CAM tabulka. Switch poté *přejde do nouzového režimu* a začne *zaplavovat* síť — všechny pakety rozesílá (broadcast) na všechny porty.
 
-Attacker can sniff *all* traffic in broadcast domain.
+Útočník tak může odposlouchávat *veškerý* provoz v dané broadcast doméně.
 
-### DHCP spoofing
+### DHCP spoofing (podvržení DHCP)
 
-Run rogue DHCP server. Clients get attacker's gateway IP → MITM.
+Útočník spustí podvodný (rogue) DHCP server. Klienti od něj dostanou IP adresu jeho brány → vzniká MITM.
 
-### DNS spoofing
+### DNS spoofing (podvržení DNS)
 
-Viz dedikovaná sekce **## DNS attacks** níže.
+Viz samostatná sekce **## Útoky na DNS** níže.
 
-### MITM (Man-In-The-Middle)
+### MITM (Man-In-The-Middle, člověk uprostřed)
 
-Attacker *between* two parties. Reads, modifies, replays traffic.
+Útočník se vloží *mezi* dvě komunikující strany. Provoz čte, upravuje i přehrává (replay).
 
-Established via ARP poison, DHCP spoof, rogue WiFi AP, ISP-level (state actors).
+Tento útok lze ustanovit pomocí ARP poisoningu, DHCP spoofingu, podvodného WiFi přístupového bodu (AP) nebo přímo na úrovni poskytovatele připojení (ISP), což si mohou dovolit státní aktéři.
 
-### Defense
+### Obrana
 
-- **HTTPS / TLS** — encrypts data; certificate validation detects MITM (unless attacker has CA).
-- **HSTS** — HTTP Strict Transport Security. Browser refuses to downgrade to HTTP.
-- **DNSSEC** — DNS integrity.
-- **Switch security** — dynamic ARP inspection, DHCP snooping, port security.
-- **VPN** — encrypted tunnel, bypasses local MITM.
+- **HTTPS / TLS** — šifruje (encryption) data; ověření certifikátu odhalí MITM (pokud útočník neovládá certifikační autoritu, CA).
+- **HSTS** (HTTP Strict Transport Security) — prohlížeč odmítne sestoupit zpět na nešifrované HTTP.
+- **DNSSEC** — zajišťuje integritu DNS.
+- **Zabezpečení switche** — dynamic ARP inspection, DHCP snooping, port security.
+- **VPN** — šifrovaný tunel, který lokální MITM obejde.
 
-::: viz arp-poison-mitm "Klikni 'send fake ARP reply' — victim's ARP table updatuje na attacker MAC. Pošli paket → routing přes attackera. Toggle DAI: switch validuje a blokuje."
+::: viz arp-poison-mitm "Klikni 'send fake ARP reply' — ARP tabulka oběti se aktualizuje na MAC útočníka. Pošli paket → směruje se přes útočníka. Přepni DAI: switch ověří a zablokuje."
 :::
 
-## TCP-level attacks
+## Útoky na úrovni TCP
 
-### TCP SYN flood
+### TCP SYN flood (záplava SYN pakety)
 
-Attacker sends many SYN packets *without* completing handshake. Server allocates per-connection state. Eventually:
+Útočník posílá množství SYN paketů, *aniž by* dokončil navazování spojení. Server přitom pro každé spojení vyhrazuje stavové informace. Nakonec nastane:
 
-- Server's connection table fills → legitimate connections refused (DoS).
+- Tabulka spojení na serveru se zaplní → legitimní spojení jsou odmítána (DoS, odepření služby).
 
-### Defense
+### Obrana
 
-- **SYN cookies** — server doesn't allocate state until ACK received. Decode SYN cookie to validate.
-- **Rate limiting** — drop SYN above threshold per source.
+- **SYN cookies** — server nevyhrazuje stav, dokud nepřijde ACK. Z přijaté SYN cookie pak ověří platnost spojení.
+- **Rate limiting** (omezení rychlosti) — zahazování SYN paketů nad stanovenou hranicí z jednoho zdroje.
 
-### TCP reset injection
+### TCP reset injection (vstříknutí RST)
 
-Attacker injects RST packet with forged sequence number → close legitimate connection.
+Útočník vstříkne RST paket s podvrženým sekvenčním číslem → tím ukončí legitimní spojení.
 
-Used by:
+Tuto techniku používá:
 
-- **Great Firewall of China** — censorship (reset HTTP connections to blocked content).
-- **Network operators** — bandwidth shaping (RST P2P connections).
+- **Velký čínský firewall (Great Firewall of China)** — k cenzuře (resetuje HTTP spojení na blokovaný obsah).
+- **Síťoví operátoři** — k tvarování šířky pásma (resetují P2P spojení).
 
-### Defense
+### Obrana
 
-- **TLS** — RST forgery requires control of cryptographic state, impossible without keys.
-- **IPsec** — authenticated packets.
+- **TLS** — podvržení RST by vyžadovalo kontrolu nad kryptografickým stavem, což je bez klíčů (key) nemožné.
+- **IPsec** — pakety jsou autentizované.
 
-## Routing attacks
+## Útoky na směrování (routing)
 
-### BGP hijacking
+### BGP hijacking (únos BGP)
 
-Attacker (ISP or compromised router) announces *routes* to IP space they don't own. Internet routes traffic to them.
+Útočník (poskytovatel připojení nebo kompromitovaný router) ohlásí *cesty (routes)* k IP rozsahu, který mu nepatří. Internet pak směruje provoz k němu.
 
-Famous:
+Známé případy:
 
-- **YouTube 2008** — Pakistan accidentally hijacked YouTube globally.
-- **Russian Telecom 2017** — hijacked Visa, MasterCard, banks.
+- **YouTube 2008** — Pákistán nedopatřením unesl YouTube v celosvětovém měřítku.
+- **Russian Telecom 2017** — únos provozu Visy, MasterCard a bank.
 
-### Defense
+### Obrana
 
-- **RPKI** (Resource Public Key Infrastructure) — sign route announcements. Mostly deployed (~50 % of routes).
-- **Route filtering** — peers validate.
-- **Monitoring** — services like BGPmon, NLNOG RING detect anomalies.
+- **RPKI** (Resource Public Key Infrastructure) — podepisování ohlášených cest. Z velké části nasazeno (~50 % cest).
+- **Filtrování cest (route filtering)** — sousední uzly (peers) cesty ověřují.
+- **Monitorování** — služby jako BGPmon nebo NLNOG RING detekují anomálie.
 
-### Smurf attack (deprecated)
+### Smurf útok (zastaralý)
 
-Send ICMP echo request to *broadcast address* with spoofed source = victim. All hosts respond to victim → DoS.
+Útočník pošle ICMP echo request na *broadcast adresu* s podvrženým zdrojem nastaveným na oběť. Všechny stanice pak odpoví oběti → DoS.
 
-Modern routers don't forward to broadcast. Eliminated by default config since 2000s.
+Moderní routery už na broadcast nepřeposílají. Útok je ve výchozí konfiguraci eliminován od počátku 21. století.
 
 ## DoS / DDoS
 
-**Denial of Service** — make service unavailable.
+**Denial of Service (odepření služby)** — cílem je znepřístupnit službu.
 
-**Distributed DoS (DDoS)** — many attacker sources (botnet, amplification).
+**Distributed DoS (DDoS, distribuované odepření služby)** — útok z mnoha zdrojů útočníka (botnet, amplifikace).
 
-### Volume-based
+### Objemové útoky (volume-based)
 
-Flood network with traffic:
+Zaplaví síť provozem:
 
-- **UDP flood** — random ports.
+- **UDP flood** — na náhodné porty.
 - **ICMP flood**.
-- **Protocol amplification** — small request → big response. NTP, DNS, Memcached used.
+- **Amplifikace protokolu (protocol amplification)** — malý požadavek (request) vyvolá velkou odpověď (response). Zneužívají se protokoly NTP, DNS a Memcached.
 
-Memcached útok 2018: 51 000× amplifikace. GitHub zasažen 1.35 Tbps (28. 2. 2018); o týden později samostatný 1.7 Tbps útok na zákazníka US poskytovatele (NETSCOUT).
+Memcached útok 2018: 51 000× amplifikace. GitHub zasažen 1,35 Tb/s (28. 2. 2018); o týden později samostatný 1,7 Tb/s útok na zákazníka US poskytovatele (NETSCOUT).
 
-### Protocol-based
+### Protokolové útoky (protocol-based)
 
-Exhaust protocol state machines:
+Vyčerpávají stavové automaty protokolů:
 
-- **TCP SYN flood** (above).
-- **TCP fragment** flood.
-- **Ping of death** (legacy).
+- **TCP SYN flood** (viz výše).
+- Záplava **TCP fragmenty**.
+- **Ping of death** (historický).
 
-### Application layer
+### Útoky na aplikační vrstvě
 
-Slow / expensive HTTP requests:
+Pomalé nebo náročné HTTP požadavky:
 
-- **Slowloris** — many connections, send headers very slowly.
-- **HTTP GET flood** — many requests for expensive pages.
-- **Application logic** — exploit slow queries.
+- **Slowloris** — mnoho spojení, přes která se hlavičky posílají velmi pomalu.
+- **HTTP GET flood** — mnoho požadavků na výpočetně náročné stránky.
+- **Aplikační logika** — zneužití (exploit) pomalých dotazů.
 
-### Defense
+### Obrana
 
-- **Cloud-based DDoS protection** — Cloudflare, AWS Shield, Akamai. Scrub traffic before reaching origin.
-- **Rate limiting**.
-- **Anycast** — distribute traffic to multiple PoPs.
-- **CDN** — absorb static traffic.
-- **Black-hole routing** — null-route attack target IP (last resort).
+- **Cloudová ochrana proti DDoS** — Cloudflare, AWS Shield, Akamai. Provoz pročistí (scrub) ještě dříve, než dorazí na původní server.
+- **Rate limiting** (omezení rychlosti).
+- **Anycast** — rozprostře provoz na více přístupových bodů (PoP).
+- **CDN** — pohltí statický provoz.
+- **Black-hole routing** — odsměrování provozu cílové IP do prázdna (null-route), jako poslední možnost.
 
-### DDoS examples
+### Příklady DDoS
 
-- **Mirai 2016** — IoT botnet, 1 Tbps attacks (Dyn DNS — affected Twitter, Netflix).
-- **GitHub 2018** — 1.35 Tbps Memcached amplification.
-- **AWS 2020** — 2.3 Tbps mitigated.
-- **Cloudflare 2022** — 26M req/s HTTPS flood.
+- **Mirai 2016** — IoT botnet, útoky o 1 Tb/s (Dyn DNS — zasáhlo Twitter, Netflix).
+- **GitHub 2018** — 1,35 Tb/s, Memcached amplifikace.
+- **AWS 2020** — zmírněno 2,3 Tb/s.
+- **Cloudflare 2022** — HTTPS záplava o 26 mil. požadavků/s.
 
-Modern attacks: hundreds of Gbps now common, Tbps possible.
+Moderní útoky: stovky Gb/s jsou dnes běžné, dosažitelné jsou i Tb/s.
 
 ::: viz ddos-amplification "Vyber reflector protocol (DNS 28×, NTP 556×, memcached 51000×) + velikost botnetu. Spočte celkový reflected bandwidth + srovná s historickými útoky (Mirai 1 Tbps, GitHub 1.35 Tbps)."
 :::
 
-## DNS attacks
+## Útoky na DNS
 
-### DNS spoofing / poisoning
+### DNS spoofing / poisoning (podvržení / otrávení DNS)
 
-Insert false records into DNS cache. Used in:
+Vložení falešných záznamů do DNS cache. Využívá se při:
 
-- **MITM** — redirect bank.com to attacker.
-- **Censorship** — Great Firewall, ISPs.
+- **MITM** — přesměrování bank.com na útočníka.
+- **Cenzuře** — Velký čínský firewall, poskytovatelé připojení.
 
 ### DNS rebinding
 
-Attacker.com resolves to attacker IP initially. Browser loads JS from attacker.com. Later DNS lookup returns *internal IP* (192.168.1.1). JS now talks to internal device with attacker.com origin (same-origin policy bypassed).
+Doména attacker.com se zpočátku přeloží na IP útočníka. Prohlížeč z attacker.com načte JavaScript. Při pozdějším DNS dotazu se ovšem vrátí *interní IP* (192.168.1.1). JavaScript pak komunikuje s interním zařízením, přitom má stále původ (origin) attacker.com — politika stejného původu (same-origin policy) je tím obejita.
 
-### Defense
+### Obrana
 
-- **DNSSEC** — cryptographic signatures.
-- **DoH/DoT** (DNS over HTTPS/TLS) — encrypted DNS, harder to MITM.
-- **DNS rebinding protection** — browsers/router filter private IPs.
+- **DNSSEC** — kryptografické podpisy.
+- **DoH/DoT** (DNS over HTTPS/TLS) — šifrovaný DNS, který se obtížněji odposlouchává (MITM).
+- **Ochrana proti DNS rebindingu** — prohlížeče a routery filtrují privátní IP adresy.
 
-## VPN attacks
+## Útoky na VPN
 
-VPN gateway compromise:
+Kompromitace VPN brány:
 
-- **Pulse Connect Secure** CVE-2019-11510 — RCE.
-- **Cisco ASA** CVE-2018-0101 — VPN feature RCE.
-- **Fortinet** multiple.
+- **Pulse Connect Secure** CVE-2019-11510 — vzdálené spuštění kódu (RCE).
+- **Cisco ASA** CVE-2018-0101 — RCE ve VPN funkci.
+- **Fortinet** — více zranitelností.
 
-VPN gateways highly valuable — entry to internal network. Patching critical.
+VPN brány jsou mimořádně cenné — představují vstup do interní sítě. Jejich záplatování (patching) je proto kritické.
 
-## Wireless attacks
+## Útoky na bezdrátové sítě
 
-Detail v [[wifi-utoky]]. Quick preview:
+Podrobně v [[wifi-utoky]]. Stručná ochutnávka:
 
-- **Evil twin** — fake AP.
-- **WEP cracking** — RC4 weakness (aircrack-ng).
-- **WPA2 KRACK** — replay attack.
-- **WPS PIN brute force**.
+- **Evil twin** — falešný přístupový bod (AP).
+- **Prolomení WEP** — slabina šifry RC4 (aircrack-ng).
+- **WPA2 KRACK** — replay útok (přehrání).
+- **WPS PIN brute force** — útok hrubou silou na PIN.
 
 ## Detekce a obrana {tier=practice}
 
-### Network monitoring
+### Monitorování sítě (network monitoring)
 
-- **NetFlow / IPFIX** — traffic accounting from routers.
-- **Packet capture** — full pcap or selective.
-- **DNS monitoring** — queries, responses.
+- **NetFlow / IPFIX** — účtování provozu získané z routerů.
+- **Packet capture** — kompletní pcap, nebo výběrový odposlech.
+- **Monitorování DNS** — dotazů a odpovědí.
 
 ### IDS / IPS
 
-[[ids-ips]] detailně.
+Detailně v [[ids-ips]].
 
 ### SIEM
 
-[[siem-monitoring]] correlates from logs across systems.
+[[siem-monitoring]] koreluje informace z logů napříč systémy.
 
 ### Threat intelligence
 
-Subscribe to feeds (commercial + open). Block known-bad IPs, domains.
+Odebírej zpravodajské zdroje (feeds) — komerční i otevřené. Blokuj známé škodlivé IP adresy a domény.
 
 ## Segmentace
 
-Network segmentation = *layer of defense*:
+Síťová segmentace je *jednou z vrstev obrany*:
 
-- **DMZ** — public-facing systems in separate zone.
-- **VLAN** — Layer 2 separation.
-- **Microsegmentation** — *very* granular per-app.
-- **Zero Trust** — no implicit trust based on network location.
+- **DMZ** — veřejně přístupné systémy v oddělené zóně.
+- **VLAN** — oddělení na úrovni vrstvy 2 (Layer 2).
+- **Mikrosegmentace** — *velmi* jemné dělení na úrovni jednotlivých aplikací.
+- **Zero Trust** — žádná implicitní důvěra založená jen na umístění v síti.
 
-Compromise of one zone → limited blast radius.
+Kompromitace jedné zóny → omezený dosah škod (blast radius).
 
 ---
 

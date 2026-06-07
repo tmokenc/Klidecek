@@ -4,27 +4,27 @@ title: Role kryptografie v IS
 
 # Role kryptografie v IS — přehled
 
-Kryptografie je *fundamentální* nástroj pro zajištění CIA + AAA v IS. Tato sekce shrnuje *roli* kryptografie v kontextu IS — technické detaily algoritmů jsou v navazujících kapitolách kryptografie.
+Kryptografie je *fundamentální* nástroj pro zajištění CIA + AAA v IS. Tato sekce shrnuje *roli* kryptografie v kontextu IS — technické detaily algoritmů najdete v navazujících kapitolách o kryptografii.
 
 ## Co kryptografie poskytuje
 
 | Cíl bezpečnosti | Kryptografická technika | Technický detail |
 | :--- | :--- | :--- |
-| **Confidentiality** | symetrické + asymetrické šifrování | [[blok-vs-proud]], [[principy]] |
-| **Integrity** | hash funkce, MAC | [[hash-funkce]], [[mac-hmac]] |
-| **Authentication** | digitální podpis, MAC, challenge-response | [[el-podpis]], [[mac-hmac]] |
-| **Non-repudiation** | digitální podpis | [[el-podpis]] |
-| **Key exchange** | DH, ECDH, hybridní KEM | [[dh-elgamal]], [[hybridni]] |
-| **Random number generation** | DRBG, TRNG | viz postranní kanály |
+| **Důvěrnost (confidentiality)** | symetrické + asymetrické šifrování (encryption) | [[blok-vs-proud]], [[principy]] |
+| **Integrita (integrity)** | hash funkce, MAC | [[hash-funkce]], [[mac-hmac]] |
+| **Autentizace (authentication)** | digitální podpis, MAC, výzva–odpověď (challenge-response) | [[el-podpis]], [[mac-hmac]] |
+| **Nepopiratelnost (non-repudiation)** | digitální podpis | [[el-podpis]] |
+| **Výměna klíčů (key exchange)** | DH, ECDH, hybridní KEM | [[dh-elgamal]], [[hybridni]] |
+| **Generování náhodných čísel (random number generation)** | DRBG, TRNG | viz postranní kanály |
 
-⇒ Kryptografie pokrývá *všechny* CIA + AAA. Bez kryptografie není IT bezpečnost možná.
+⇒ Kryptografie pokrývá *všechny* cíle CIA + AAA. Bez kryptografie není IT bezpečnost možná.
 
 ## Klasifikace algoritmů
 
 | Třída | Princip | Příklady |
 | :--- | :--- | :--- |
-| **Symetrické** | sdílený klíč | AES, ChaCha20 |
-| **Asymetrické** | pár veřejný/soukromý | RSA, ECC, EdDSA |
+| **Symetrické** | sdílený klíč (key) | AES, ChaCha20 |
+| **Asymetrické** | pár veřejný/soukromý klíč | RSA, ECC, EdDSA |
 | **Hash** | bezklíčové, jednosměrné | SHA-256, SHA-3 |
 | **MAC** | klíčový hash | HMAC-SHA256, Poly1305 |
 
@@ -32,75 +32,75 @@ Pro detailní taxonomii viz [[terminologie]] a [[klasifikace]].
 
 ## Útoky a modely
 
-Kryptoanalýza dělí útoky podle *dostupných informací* útočníka. Klasické modely (detail v [[utoky-modely]]):
+Kryptoanalýza dělí útoky (attack) podle *informací dostupných* útočníkovi (attacker). Klasické modely (detail v [[utoky-modely]]):
 
-- **COA** (Ciphertext-Only Attack).
-- **KPA** (Known Plaintext Attack).
-- **CPA** (Chosen Plaintext Attack).
-- **CCA** (Chosen Ciphertext Attack).
+- **COA** (Ciphertext-Only Attack) — útok pouze se znalostí šifrového textu.
+- **KPA** (Known Plaintext Attack) — útok se znalostí dvojic otevřený/šifrový text.
+- **CPA** (Chosen Plaintext Attack) — útok s možností volby otevřeného textu.
+- **CCA** (Chosen Ciphertext Attack) — útok s možností volby šifrového textu.
 
-Moderní bezpečnost vyžaduje odolnost proti *všem* (IND-CCA2 security).
+Moderní bezpečnost vyžaduje odolnost proti *všem* těmto modelům (bezpečnost typu IND-CCA2).
 
 ## Kerckhoffův princip
 
-"*Bezpečnost závisí pouze na klíči, ne na utajení algoritmu.*" (Auguste Kerckhoff, 1883)
+„*Bezpečnost závisí pouze na klíči, ne na utajení algoritmu.*" (Auguste Kerckhoff, 1883)
 
-Důsledek: používejte *veřejně známé* algoritmy (AES, SHA-2/3), které byly *peer-reviewed*. *Nevyvíjejte* vlastní "tajné" šifry — security through obscurity nefunguje.
+Důsledek: používejte *veřejně známé* algoritmy (AES, SHA-2/3), které prošly nezávislou recenzí odborníků (peer-reviewed). *Nevyvíjejte* vlastní „tajné" šifry — bezpečnost spoléhající na utajení (security through obscurity) nefunguje.
 
 Detail [[kerckhoff]].
 
 ## Shannonovy principy
 
-Claude Shannon (1949) formalizoval:
+Claude Shannon (1949) formalizoval dva pojmy:
 
-- **Confusion** — vztah mezi ciphertext + key musí být *complex* (substitution).
-- **Diffusion** — *malá* změna v plaintext = *velká* změna v ciphertext (permutation).
+- **Confusion (zmatení)** — vztah mezi šifrovým textem a klíčem musí být *složitý* (zajišťuje substituce). Jinými slovy: z šifrového textu nesmí jít snadno odvodit klíč.
+- **Diffusion (rozptyl)** — *malá* změna v otevřeném textu musí způsobit *velkou* změnu v šifrovém textu (zajišťuje permutace). Tím se vliv jednoho bitu rozptýlí do celého výstupu.
 
-Moderní šifry kombinují confusion (S-boxes) + diffusion (P-boxes) → SPN ([[feistel-spn]]).
+Moderní šifry kombinují confusion (S-boxy) a diffusion (P-boxy) → struktura SPN ([[feistel-spn]]).
 
 ## Kryptografie z pohledu IS
 
-Z pohledu IS jde o *jak* kryptografii **používat**:
+Z pohledu IS jde o to, *jak* kryptografii **používat**:
 
-- **Transport security**: TLS ([[tls-aplikace]]), IPsec ([[vpn-ipsec]]).
-- **Storage security**: full-disk encryption (BitLocker, LUKS, FileVault).
-- **Authentication**: passwords (hashed [[kdf]]), tokens, certificates.
-- **PKI**: X.509 certificates ([[x509]]), CA hierarchy ([[pki-uvod]]).
-- **Code signing**: digital signatures ([[el-podpis]]) for software integrity.
-- **Email security**: S/MIME, PGP.
+- **Zabezpečení přenosu (transport security)**: TLS ([[tls-aplikace]]), IPsec ([[vpn-ipsec]]).
+- **Zabezpečení uložených dat (storage security)**: šifrování celého disku (full-disk encryption) — BitLocker, LUKS, FileVault.
+- **Autentizace (authentication)**: hesla (uložená jako hash [[kdf]]), tokeny, certifikáty.
+- **PKI**: certifikáty X.509 ([[x509]]), hierarchie certifikačních autorit (CA) ([[pki-uvod]]).
+- **Podepisování kódu (code signing)**: digitální podpisy ([[el-podpis]]) pro integritu softwaru.
+- **Zabezpečení e-mailu (email security)**: S/MIME, PGP.
 
-Rozsah pohledu: nepíšeme *implementaci* AES — to spadá do kryptografického základu. Zde *navrhujeme*, kdy AES *použít* (storage encryption), s kterými parametry (256-bit klíč, GCM mode), a *jak* spravovat klíče.
+Rozsah tohoto pohledu: nepíšeme *implementaci* AES — to spadá do kryptografického základu. Zde *navrhujeme*, kdy AES *použít* (šifrování úložiště), s jakými parametry (256bitový klíč, režim GCM) a *jak* spravovat klíče.
 
-## Krypto-agility
+## Krypto-agilita
 
-*Nezávisíme* na *jedné* šifře. Designujeme tak, aby šifra šla *vyměnit*, když praskne:
+*Nezávisíme* na *jediné* šifře. Navrhujeme systém tak, aby šlo šifru *vyměnit*, když je prolomena:
 
-- TLS negotiation — server + client *vyjednají* algorithm.
-- Crypto Suite headers — version + suite identifiers.
-- Migrate path — pokud SHA-1 prasklý, *přeschvalujte* certifikáty s SHA-256.
+- Vyjednávání v TLS (TLS negotiation) — server a klient se *dohodnou* na algoritmu.
+- Hlavičky kryptografické sady (crypto suite headers) — identifikátory verze a sady.
+- Migrační cesta (migrate path) — pokud je prolomeno SHA-1, *přeschvalte* certifikáty na SHA-256.
 
-Důležité od `RSA-MD5-RC4` (90s) → `RSA-SHA1-3DES` (00s) → `ECDHE-RSA-SHA256-AES-GCM` (10s) → `EdDSA-Kyber-SHA3-ChaCha20-Poly1305` (20s+).
+Příkladem je vývoj od `RSA-MD5-RC4` (90. léta) → `RSA-SHA1-3DES` (00. léta) → `ECDHE-RSA-SHA256-AES-GCM` (10. léta) → `EdDSA-Kyber-SHA3-ChaCha20-Poly1305` (20. léta a dále).
 
-Post-quantum migration ([[postkvantova]]) je aktuální *velký* krypto-agility challenge.
+Přechod na postkvantovou kryptografii (post-quantum migration, [[postkvantova]]) je aktuálně *největší* výzvou pro krypto-agilitu.
 
 ## Místo kryptografie v IS architektuře
 
-Kryptografie *není* silver bullet. Funguje *jako součást* většího systému:
+Kryptografie *není* všelék (silver bullet). Funguje *jako součást* většího systému:
 
-- **Krypto primitives** (AES, SHA, RSA) — *building blocks*.
-- **Protokoly** (TLS, SSH, Kerberos) — *composition* primitives.
-- **Infrastructure** (PKI, KMS, HSM) — *operations*.
-- **Policy** (key rotation, algorithm selection) — *governance*.
+- **Kryptografické primitivy** (AES, SHA, RSA) — *stavební prvky*.
+- **Protokoly** (TLS, SSH, Kerberos) — *skládají* dohromady primitivy.
+- **Infrastruktura** (PKI, KMS, HSM) — *provoz*.
+- **Politika** (rotace klíčů, výběr algoritmu) — *řízení a správa (governance)*.
 
 Mnoho útoků nevychází z prolomení šifry, ale ze *špatného použití*:
 
-- **Misconfigured TLS** — staré protokoly, slabé suite.
-- **Hardcoded keys** — v binárce, accessible přes reverse engineering.
-- **Bad random** — implementační chyby (Debian OpenSSL 2008, Sony PS3 ECDSA).
-- **Side channels** — timing, cache, EM (detaily v [[spa-dpa|postranní kanály]]).
-- **Operational mistakes** — log keys, leak via debug output.
+- **Špatně nakonfigurované TLS (misconfigured TLS)** — staré protokoly, slabé sady.
+- **Natvrdo zapsané klíče (hardcoded keys)** — uložené přímo v binárce, přístupné přes reverzní inženýrství (reverse engineering).
+- **Špatná náhodnost (bad random)** — implementační chyby (Debian OpenSSL 2008, Sony PS3 ECDSA).
+- **Postranní kanály (side channels)** — časování, cache, elektromagnetické vyzařování (detaily v [[spa-dpa|postranní kanály]]).
+- **Provozní chyby (operational mistakes)** — zalogování klíčů, únik přes ladicí výstup.
 
-Defense: *secure-by-default* libraries (libsodium, age, BoringSSL), audit code, threat modeling.
+Obrana: knihovny *bezpečné už ve výchozím nastavení* (secure-by-default) — libsodium, age, BoringSSL, audit kódu a modelování hrozeb (threat modeling).
 
 ---
 

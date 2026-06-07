@@ -4,11 +4,11 @@ title: Geometrie ruky
 
 # Geometrie ruky
 
-**Hand geometry** je biometrika založená na *fyzických rozměrech* ruky — délka prstů, šířka, tloušťka, obvody. Patří k *nejstarším* praktickým biometrikám (od 70. let 20. století); přestože *není* mezi nejpřesnějšími, má specifické výhody: *non-invasive*, *user-friendly*, *robust* vůči mírnému zranění.
+Geometrie ruky (hand geometry) je biometrika založená na *fyzických rozměrech* ruky — délka prstů, šířka, tloušťka a obvody. Patří k *nejstarším* prakticky používaným biometrikám (od 70. let 20. století). Přestože *nepatří* mezi nejpřesnější, má specifické výhody: je neinvazivní (non-invasive), uživatelsky příjemná (user-friendly) a odolná (robust) vůči mírnému zranění.
 
 ## Princip
 
-Měření *makrofyzické* anatomie ruky:
+Měří se *makrofyzická* anatomie ruky, tedy její celkové vnější rozměry (nikoli jemné detaily jako otisky):
 
 ::: svg "Hand geometry — měřené dimenze: length fingers (5), palm width (3 levels), palm thickness (2 places), finger thickness (5)."
 <svg viewBox="0 0 540 240" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -37,146 +37,146 @@ Měření *makrofyzické* anatomie ruky:
 </svg>
 :::
 
-Typická feature vektor:
+Typický vektor příznaků (feature vector) obsahuje:
 
 * **5× délka prstů** (palec, ukazovák, prostředníček, prsteník, malíček).
 * **2–3× šířka dlaně** (na různých výškách).
-* **5× šířka prstů** (na proximální falanze).
-* **2× tloušťka ruky** (z boku, palec down).
-* **Obvodu** (perimeter) ruky.
+* **5× šířka prstů** (na proximální falanze, tedy na článku nejblíže dlani).
+* **2× tloušťka ruky** (z boku, palec dolů).
+* **Obvod (perimeter) ruky.**
 
-Total: ~14–30 rozměrů — *kompaktní* feature vector.
+Celkem tedy zhruba 14–30 rozměrů — jde o *kompaktní* vektor příznaků.
 
 ## Snímání
 
 ### Tradiční hardware
 
-* **Komerční:** specializovaný snímač s *pegs* (kolíky) pro position guides.
-* **Camera + light:** RGB camera nad rukou; markers na ruce naznačují keypoints.
-* **Side mirror** — capture *thickness* (depth perpendicular to camera).
+* **Komerční:** specializovaný snímač s vodicími kolíky (pegs), které ruku navedou do správné polohy.
+* **Kamera a osvětlení:** RGB kamera nad rukou; značky (markers) na ruce vyznačují klíčové body (keypoints).
+* **Boční zrcadlo (side mirror)** — umožní zachytit *tloušťku* (hloubku kolmou ke kameře).
 
-Klasický systém **Recognition Systems ID3D** (1990s+) — first commercial hand geometry, deploying tisíce devices.
+Klasickým systémem byl **Recognition Systems ID3D** (od 90. let) — první komerční systém pro geometrii ruky, nasazený v tisících zařízení.
 
 ### Moderní
 
-* **Smartphone-based** — RGB camera + ML for hand detection + measurement.
-* **3D depth sensing** — Kinect, RealSense, ToF.
-* **Touchless** — preferred post-COVID.
+* **Řešení založená na smartphonu** — RGB kamera plus strojové učení (ML) pro detekci ruky a změření rozměrů.
+* **3D snímání hloubky** — Kinect, RealSense, ToF (time-of-flight, měření doby letu světla).
+* **Bezkontaktní (touchless)** — preferované po pandemii COVID.
 
 ## Snímací protokol
 
-1. Subject places hand on **flat surface** with pegs / markers.
-2. Camera captures **top view** + optional **side view**.
-3. Image processing:
-   * **Background subtraction** — segment hand.
-   * **Keypoint detection** — finger tips, valley points.
-   * **Measurement extraction** — distances.
-4. **Feature vector** stored as template (~30 floats).
+1. Subjekt položí ruku na **rovnou plochu** s kolíky či značkami.
+2. Kamera zachytí **pohled shora** a volitelně i **pohled z boku**.
+3. Zpracování obrazu:
+   * **Odečtení pozadí (background subtraction)** — segmentace ruky.
+   * **Detekce klíčových bodů (keypoint detection)** — špičky prstů a body v zářezech mezi prsty.
+   * **Extrakce měření** — výpočet vzdáleností.
+4. **Vektor příznaků** se uloží jako šablona (template, zhruba 30 čísel s plovoucí desetinnou čárkou).
 
-## Matching
+## Porovnávání (matching)
 
-* **Euclidean distance** between feature vectors.
-* **Threshold** decides match / no-match.
-* **Simple, fast** — O(D) for D-dim vector.
+* **Eukleidovská vzdálenost** mezi vektory příznaků.
+* O shodě či neshodě rozhoduje **práh (threshold)**.
+* Metoda je **jednoduchá a rychlá** — složitost O(D) pro D-rozměrný vektor.
 
 ## Vlastnosti
 
 ### Pro
 
-* **Non-invasive** — comfortable, no contact with sensitive zones (eyes, mouth).
-* **Quick** — capture < 1 sec.
-* **Robust to dirt** — light scratches, small cuts neovlivní matching.
-* **Easy enrollment** — single capture or few.
-* **Low computational cost** — embedded systems feasible.
-* **Cultural acceptability** — many regions where face / iris scanning is taboo.
-* **Affordable** — sensor $200, system $1000.
+* **Neinvazivní** — pohodlné, bez kontaktu s citlivými zónami (oči, ústa).
+* **Rychlé** — snímání trvá méně než 1 sekundu.
+* **Odolné vůči nečistotám** — lehké škrábance a malé řezné rány porovnávání neovlivní.
+* **Snadná registrace (enrollment)** — stačí jediné nebo několik málo snímání.
+* **Nízká výpočetní náročnost** — proveditelné i na vestavěných (embedded) systémech.
+* **Kulturní přijatelnost** — vhodné pro mnoho oblastí, kde je snímání obličeje či duhovky tabu.
+* **Cenová dostupnost** — senzor kolem 200 USD, celý systém kolem 1000 USD.
 
 ### Proti
 
-* **Lower accuracy** než fingerprint, iris, face DL.
-  * Typical EER: 1–5 % (vs. iris < 0.001 %).
-* **Stable but not unique** — feature space is *limited*.
-  * Some studies suggest geometry alone *cannot* uniquely identify in databases > 10 000.
-* **Aging** — children grow, adults change moderately.
-* **Vulnerable to spoofing** — wax casts, fake hands.
-* **Pose sensitive** — small rotation = large measurement error.
+* **Nižší přesnost** než otisk prstu, duhovka nebo obličej zpracovaný hlubokým učením (DL).
+  * Typická EER (chyba ve vyrovnaném bodě): 1–5 % (oproti duhovce s méně než 0,001 %).
+* **Stabilní, ale ne jedinečná** — prostor příznaků je *omezený*.
+  * Některé studie naznačují, že samotná geometrie ruky *neumí* jednoznačně identifikovat osobu v databázích nad 10 000 záznamů.
+* **Stárnutí** — děti rostou, u dospělých se ruka mění mírněji.
+* **Zranitelnost vůči podvržení (spoofing)** — voskové odlitky, falešné ruce.
+* **Citlivost na polohu** — i malé pootočení ruky vede k velké chybě měření.
 
 ## Praktická nasazení {tier=practice}
 
-### Workforce attendance
+### Evidence docházky
 
-* **Time & attendance systems** — workplace clock-in/out.
-* **ID3D** (Recognition Systems) — deployed in 1000s of companies, prisons, schools.
+* **Systémy pro evidenci pracovní doby a docházky** — odpíchnutí příchodu a odchodu na pracovišti.
+* **ID3D** (Recognition Systems) — nasazený v tisících firem, věznic a škol.
 
-### Border control
+### Hraniční kontrola
 
-* **INSPASS** (US 1993–2002) — Immigration and Naturalization Service Passenger Accelerated Service System. Replaced by 2D barcode + face.
+* **INSPASS** (USA, 1993–2002) — Immigration and Naturalization Service Passenger Accelerated Service System. Nahrazen 2D čárovým kódem a snímáním obličeje.
 
-### School lunch programs
+### Školní programy obědů
 
-* **US K-12 schools** — hand geometry for cafeteria payment. Controversial (privacy, children).
+* **Americké školy K-12** — geometrie ruky jako platba ve školní jídelně. Kontroverzní (soukromí, děti).
 
-### Construction sites
+### Stavby
 
-* Workers check in/out, *rugged* environments.
-* Tolerable to dirt, gloves removed.
+* Pracovníci se odhlašují a přihlašují v *náročném* (rugged) prostředí.
+* Snáší nečistoty, rukavice se sundavají.
 
-### Prisons
+### Věznice
 
-* **California Department of Corrections** — inmate identification via hand geometry.
-* Robust v context, where fingerprint sensors may fail.
+* **California Department of Corrections** — identifikace vězňů pomocí geometrie ruky.
+* Odolné v prostředí, kde mohou senzory otisků prstů selhávat.
 
 ## Klasifikace dle rozsahu
 
-### Single peg-based scanner
+### Snímač s jedním uchycením na kolíky (single peg-based scanner)
 
-* User pre-positioned by pegs.
-* High precision.
-* Used in workforce applications.
+* Uživatel je předem napolohován kolíky.
+* Vysoká přesnost.
+* Používá se v aplikacích pro evidenci pracovní síly.
 
-### Peg-less (free-form)
+### Bez kolíků (peg-less, free-form)
 
-* No physical guides.
-* Image processing aligns hand.
-* More user-friendly.
+* Bez fyzických vodítek.
+* Ruku zarovná zpracování obrazu.
+* Uživatelsky příjemnější.
 
-### Touchless
+### Bezkontaktní (touchless)
 
-* Camera-based, no contact.
-* COVID-driven adoption.
-* Lower accuracy than peg-based.
+* Založené na kameře, bez kontaktu.
+* Rozšíření vyvolané pandemií COVID.
+* Nižší přesnost než varianta s kolíky.
 
 ## Standardy
 
-* **ANSI INCITS 396-2005** — Hand Geometry Interchange Format.
-* **ISO/IEC 19794-10:2007** — Hand geometry silhouette data.
+* **ANSI INCITS 396-2005** — Hand Geometry Interchange Format (formát výměny dat geometrie ruky).
+* **ISO/IEC 19794-10:2007** — data siluety geometrie ruky.
 
-## Performance benchmarks
+## Měření výkonu (performance benchmarks)
 
-* **FAR @ 0.01 %**: FRR ~ 5 % (typical).
-* **EER**: 1–3 % (best systems).
-* **Throughput**: 100+ identifications/sec.
+* **FAR (míra chybného přijetí) při 0,01 %**: FRR (míra chybného odmítnutí) zhruba 5 % (typicky).
+* **EER**: 1–3 % (u nejlepších systémů).
+* **Propustnost (throughput)**: více než 100 identifikací za sekundu.
 
-Méně přesné než iris ($10^{-12}$ FAR) nebo modern DL face ($10^{-6}$ FAR), ale *adequate* pro low-to-medium security applications.
+Geometrie ruky je méně přesná než duhovka ($10^{-12}$ FAR) nebo moderní obličejové systémy s hlubokým učením (DL, $10^{-6}$ FAR), ale je *dostatečná* pro aplikace s nízkou až střední úrovní zabezpečení.
 
-## Hand geometry vs. palmprint
+## Geometrie ruky vs. otisk dlaně (palmprint)
 
-Pozor:
+Pozor na rozdíl:
 
-* **Hand geometry** — *macro* features (dimensions).
-* **Palmprint** — *micro* features (lines, ridges on palm) → analogous to fingerprint but on palm. *Much higher* uniqueness.
+* **Geometrie ruky** — *makroskopické* příznaky (rozměry).
+* **Otisk dlaně (palmprint)** — *mikroskopické* příznaky (čáry a papilární linie na dlani), analogie k otisku prstu, ale na dlani. Má *mnohem vyšší* jedinečnost.
 
-Both can be combined in **palm biometrics**:
+Obojí lze zkombinovat do **biometriky dlaně (palm biometrics)**:
 
-* Palm vein + palm geometry + palmprint.
-* Used by some banks (Fujitsu PalmSecure — vein-based).
+* Žíly dlaně (palm vein) plus geometrie dlaně plus otisk dlaně.
+* Používají to některé banky (Fujitsu PalmSecure — založené na žilním řečišti).
 
-## Trends
+## Trendy
 
-* **Decline** in pure hand geometry.
-* **Replaced by** fingerprint (smartphone) or face (kiosks).
-* **Survives** in *specialized* environments (construction, prisons).
-* **Hybrid** with palmprint, palm vein — better accuracy.
+* **Úpadek** čisté geometrie ruky.
+* **Nahrazování** otiskem prstu (smartphone) nebo obličejem (kiosky).
+* **Přežívá** ve *specializovaných* prostředích (stavby, věznice).
+* **Hybridní řešení** s otiskem dlaně a žilami dlaně dosahují lepší přesnosti.
 
 ---
 

@@ -4,103 +4,103 @@ title: Asymetrická kryptografie v IS
 
 # Asymetrická kryptografie v IS — přehled
 
-Asymetrická (public-key) kryptografie řeší *key exchange problem* a poskytuje *digital signatures*. Tato sekce shrnuje použití v IS. Pro algoritmické detaily viz KRY.
+Asymetrická kryptografie (public-key) řeší problém výměny klíčů (key exchange problem) a poskytuje digitální podpisy (digital signatures). Tato sekce shrnuje použití v informačních systémech. Pro algoritmické detaily viz KRY.
 
 ## Princip — viz KRY
 
-Detail: [[principy]] (basics), [[matematika]] (number theory), [[problemy]] (hard problems), [[hybridni]] (KEM/DEM).
+Detail: [[principy]] (základy), [[matematika]] (teorie čísel), [[problemy]] (těžké problémy), [[hybridni]] (KEM/DEM).
 
-Stručně: každá strana má **dva** klíče — *veřejný* (publishable) + *soukromý* (secret). Co je šifrováno *veřejným*, *dešifruje* jen soukromý. Co je podepsáno *soukromým*, ověří se *veřejným*.
+Stručně: každá strana má **dva** klíče — *veřejný* (lze ho zveřejnit) a *soukromý* (zůstává v tajnosti). Co je zašifrováno *veřejným* klíčem, *dešifruje* jen klíč soukromý. Co je podepsáno *soukromým* klíčem, ověří se klíčem *veřejným*.
 
 ## Algoritmy
 
 ### RSA ([[rsa]])
 
-Klasický asymetrický algoritmus. Založen na *integer factorization*. 2048-bit minimum dnes, 3072-bit pro long-term.
+Klasický asymetrický algoritmus. Je založen na faktorizaci celých čísel (integer factorization). Dnes je minimem délka klíče 2048 bitů, pro dlouhodobé použití 3072 bitů.
 
 Použití:
 
-- **Encryption** (RSA-OAEP) — pomalá, omezená délka. Wrappuje *symmetric* klíč.
-- **Signing** (RSA-PSS, RSA-PKCS#1 v1.5) — signing hash.
+- **Šifrování (encryption)** (RSA-OAEP) — pomalé, s omezenou délkou zprávy. Slouží k zabalení (wrap) symetrického klíče.
+- **Podepisování (signing)** (RSA-PSS, RSA-PKCS#1 v1.5) — podepisuje se hash zprávy.
 
-Pomalá pro bulk operace. Pro 4096-bit RSA single sign ~ms.
+Pro hromadné (bulk) operace je pomalý. Jeden podpis u 4096bitového RSA trvá řádově milisekundy.
 
-### ECC — Elliptic Curve Cryptography ([[elipticke]])
+### ECC — eliptická kryptografie (Elliptic Curve Cryptography) ([[elipticke]])
 
-Modern preference. Stejná bezpečnost s *kratším* klíčem:
+Moderní volba. Nabízí stejnou bezpečnost při *kratším* klíči:
 
-- ECC-256 ≈ RSA-3072 ≈ 128-bit symmetric security.
-- ECC-384 ≈ RSA-7680 ≈ 192-bit.
+- ECC-256 ≈ RSA-3072 ≈ 128bitová bezpečnost symetrické šifry.
+- ECC-384 ≈ RSA-7680 ≈ 192 bitů.
 
-Curves:
+Křivky:
 
-- **P-256** (NIST) — most widely supported.
-- **Curve25519** (Bernstein) — popular for new applications (Signal, WireGuard, OpenSSH).
-- **P-384, P-521** — extra security.
+- **P-256** (NIST) — nejšířeji podporovaná.
+- **Curve25519** (Bernstein) — oblíbená v nových aplikacích (Signal, WireGuard, OpenSSH).
+- **P-384, P-521** — vyšší bezpečnost.
 
-ECC pro signing (ECDSA, EdDSA) i key exchange (ECDH).
+ECC se používá pro podepisování (ECDSA, EdDSA) i pro výměnu klíčů (ECDH).
 
-### Post-Quantum ([[postkvantova]])
+### Postkvantová kryptografie (Post-Quantum) ([[postkvantova]])
 
-RSA + ECC *zranitelné* k quantum computer (Shor algoritmus). Migration v progress:
+RSA i ECC jsou *zranitelné* vůči kvantovému počítači (Shorův algoritmus). Migrace na odolné algoritmy právě probíhá:
 
-- **CRYSTALS-Kyber** — KEM (key encapsulation). NIST PQC winner 2022.
-- **CRYSTALS-Dilithium** — signature.
-- **SPHINCS+** — stateless hash-based signature (backup).
-- **FALCON** — lattice-based signature.
+- **CRYSTALS-Kyber** — KEM (zapouzdření klíče, key encapsulation). Vítěz soutěže NIST PQC z roku 2022.
+- **CRYSTALS-Dilithium** — podpis.
+- **SPHINCS+** — bezstavový podpis založený na hashích (záložní varianta).
+- **FALCON** — podpis založený na mřížkách (lattice-based).
 
-NIST PQC Standards finalized 2024. Adoption in TLS 1.3 hybrid mode (X25519 + Kyber) already in Chrome, Cloudflare.
+Standardy NIST PQC byly dokončeny v roce 2024. Nasazení v hybridním režimu TLS 1.3 (X25519 + Kyber) je už součástí prohlížeče Chrome a sítě Cloudflare.
 
 ## Použití v IS {tier=practice}
 
-### Key exchange
+### Výměna klíčů (key exchange)
 
-Bob a Alice se *poprvé* setkávají. Nemají sdílený klíč. Jak ho ustavit?
+Bob a Alice se *poprvé* setkávají. Nemají žádný sdílený klíč. Jak ho ustavit?
 
-- **Diffie-Hellman** ([[dh-elgamal]]) — original 1976. Vulnerable to MITM bez authentication.
-- **ECDH** — efficient version using elliptic curves.
-- **Kyber** — post-quantum.
+- **Diffie-Hellman** ([[dh-elgamal]]) — původní z roku 1976. Bez autentizace je zranitelný vůči útoku typu man-in-the-middle (MITM).
+- **ECDH** — efektivní varianta využívající eliptické křivky.
+- **Kyber** — postkvantová varianta.
 
-DH/ECDH/Kyber říkají *jak* dva ustaví sdílený symmetric key. Po DH následuje symetrické šifrování ([[symetrika-v-is]]).
+DH/ECDH/Kyber popisují, *jak* dvě strany ustaví sdílený symetrický klíč. Po DH následuje symetrické šifrování ([[symetrika-v-is]]).
 
-### Digital signature
+### Digitální podpis (digital signature)
 
-Alice podepíše dokument svým privát klíčem. Bob (a kdokoli) ověří veřejným.
+Alice podepíše dokument svým soukromým klíčem. Bob (a kdokoli další) jej ověří klíčem veřejným.
 
-| Algorithm | Curve / Key | Speed | Security level |
+| Algoritmus | Křivka / klíč | Rychlost | Úroveň bezpečnosti |
 | :--- | :--- | :--- | :--- |
-| RSA-2048 | 2048-bit | slow | 112-bit |
-| RSA-3072 | 3072-bit | slow | 128-bit |
-| ECDSA-P256 | NIST P-256 | medium | 128-bit |
-| EdDSA-Ed25519 | Curve25519 | fast | 128-bit |
-| Dilithium-2 | lattice | medium | 128-bit post-quantum |
+| RSA-2048 | 2048 bitů | pomalý | 112 bitů |
+| RSA-3072 | 3072 bitů | pomalý | 128 bitů |
+| ECDSA-P256 | NIST P-256 | střední | 128 bitů |
+| EdDSA-Ed25519 | Curve25519 | rychlý | 128 bitů |
+| Dilithium-2 | mřížka | střední | 128 bitů, postkvantová |
 
 Detail [[el-podpis]].
 
-Use case:
+Typické použití:
 
-- **Code signing** — Apple notarization, Microsoft Authenticode, Linux package signatures.
-- **Document signing** — eIDAS qualified signatures.
-- **Software updates** — verify integrity + authenticity.
-- **TLS server authentication** — server signs handshake with private key.
-- **Cryptocurrency** — Bitcoin, Ethereum transactions = ECDSA signatures.
+- **Podepisování kódu (code signing)** — Apple notarization, Microsoft Authenticode, podpisy linuxových balíčků.
+- **Podepisování dokumentů (document signing)** — kvalifikované podpisy podle eIDAS.
+- **Aktualizace softwaru** — ověření integrity i autenticity.
+- **Autentizace TLS serveru** — server podepisuje handshake svým soukromým klíčem.
+- **Kryptoměny** — transakce v Bitcoinu a Ethereu jsou podpisy ECDSA.
 
-### Certificate-based authentication
+### Autentizace pomocí certifikátů (certificate-based authentication)
 
-PKI ([[pki-uvod]]) infrastructure builds trust hierarchy:
+Infrastruktura PKI ([[pki-uvod]]) buduje hierarchii důvěry:
 
-- **CA** (Certification Authority) signs certificates.
-- **Certificate** ([[x509]]) binds public key to identity.
-- **TLS handshake** uses certificate to authenticate server.
+- **CA** (certifikační autorita, Certification Authority) podepisuje certifikáty.
+- **Certifikát** ([[x509]]) váže veřejný klíč k identitě.
+- **TLS handshake** používá certifikát k autentizaci serveru.
 
 Detaily v [[tls-aplikace]].
 
 ## Hybridní šifrování (KEM/DEM)
 
-Asymmetric je *pomalá* na bulk encryption. Hybrid pattern:
+Asymetrické šifrování je na hromadné (bulk) šifrování *pomalé*. Proto se používá hybridní vzor:
 
-1. **Asymmetric** ustaví *random* symmetric key (KEM = Key Encapsulation Mechanism).
-2. **Symmetric** šifruje *vlastní* data (DEM = Data Encapsulation Mechanism).
+1. **Asymetrická část** ustaví *náhodný* symetrický klíč (KEM = mechanismus zapouzdření klíče, Key Encapsulation Mechanism).
+2. **Symetrická část** šifruje *vlastní* data (DEM = mechanismus zapouzdření dat, Data Encapsulation Mechanism).
 
 ```
 Sender:
@@ -113,41 +113,41 @@ Receiver:
    data = D_K(ciphertext)        ← decrypt data via symmetric
 ```
 
-Every modern protocol (TLS, PGP, SSH, Signal) uses hybrid. Detaily [[hybridni]].
+Hybridní přístup používá každý moderní protokol (TLS, PGP, SSH, Signal). Detaily [[hybridni]].
 
-## RSA útoky a misconfigurace
+## Útoky na RSA a chybné konfigurace
 
-RSA má historii implementation bugs:
+RSA má bohatou historii chyb v implementacích:
 
-- **Bleichenbacher** (1998) — PKCS#1 v1.5 padding oracle ([[rsa-utoky]]).
-- **ROBOT** (2017) — Bleichenbacher revival.
-- **Coppersmith** — small exponents (`e=3` bez padding).
-- **Common modulus** — share modulus, different exponents.
-- **Faulty implementations** — Sony PS3 ECDSA fixed nonce (2010).
+- **Bleichenbacher** (1998) — padding oracle u PKCS#1 v1.5 ([[rsa-utoky]]).
+- **ROBOT** (2017) — oživení Bleichenbacherova útoku.
+- **Coppersmith** — malé exponenty (`e=3` bez paddingu).
+- **Společný modul (common modulus)** — sdílený modul při různých exponentech.
+- **Chybné implementace** — pevně daný nonce u ECDSA v Sony PS3 (2010).
 
-Detail v [[rsa-utoky]] + [[el-podpis]].
+Detail v [[rsa-utoky]] a [[el-podpis]].
 
-Defense: use **RSA-OAEP** (not PKCS#1 v1.5), **RSA-PSS** for signing (not PKCS#1 v1.5).
+Obrana: používejte **RSA-OAEP** (nikoli PKCS#1 v1.5) a pro podepisování **RSA-PSS** (nikoli PKCS#1 v1.5).
 
 ## PKI v IS
 
-**Public Key Infrastructure** ([[pki-uvod]]) je institutional framework pro publishing + revoking certificates.
+**Infrastruktura veřejných klíčů (Public Key Infrastructure)** ([[pki-uvod]]) je institucionální rámec (framework) pro vydávání a odvolávání certifikátů.
 
 Hierarchie:
 
-- **Root CA** — top-level, self-signed.
-- **Intermediate CA** — signed by root, signs leaf certs.
-- **Leaf cert** — server, person, device.
+- **Kořenová CA (Root CA)** — nejvyšší úroveň, podepsaná sama sebou.
+- **Mezilehlá CA (Intermediate CA)** — podepsaná kořenovou CA, podepisuje koncové (leaf) certifikáty.
+- **Koncový certifikát (leaf cert)** — server, osoba, zařízení.
 
-Browser-trusted root CAs ~150 globálně. Compromised root → all signed certificates *suspicious*.
+Prohlížeče celosvětově důvěřují zhruba 150 kořenovým CA. Kompromitace kořenové CA způsobí, že všechny jí podepsané certifikáty jsou *podezřelé*.
 
-[[revokace]] popisuje CRL, OCSP, Certificate Transparency.
+[[revokace]] popisuje CRL, OCSP a Certificate Transparency.
 
 ## Web of Trust
 
-Alternativa hierarchické PKI: každý sign certificates jiných lidí (PGP, OpenPGP). Trust *peer-to-peer*.
+Alternativa k hierarchické PKI: každý podepisuje certifikáty druhých lidí (PGP, OpenPGP). Důvěra vzniká *peer-to-peer*.
 
-Nepoužívá se v enterprise — hierarchická CA dominantní. Web of Trust v PGP community pro decentralized email signing.
+V podnikovém prostředí se nepoužívá — dominantní je hierarchická CA. Web of Trust žije v PGP komunitě pro decentralizované podepisování e-mailů.
 
 ---
 

@@ -4,122 +4,122 @@ title: Symetrická kryptografie v IS
 
 # Symetrická kryptografie v IS — přehled
 
-Symetrická kryptografie (jeden sdílený klíč) je *workhorse* pro *bulk* encryption. AES je standardní volba. Tato sekce shrnuje *jak* IS používá symetrickou kryptografii. Pro algoritmické detaily viz KRY.
+Symetrická kryptografie (jeden sdílený klíč) je tažný kůň pro hromadné šifrování (bulk encryption) velkých objemů dat. Standardní volbou je AES. Tato sekce shrnuje, *jak* informační systémy (IS) symetrickou kryptografii používají. Algoritmické detaily najdete v KRY.
 
 ## Princip — viz KRY
 
-Detail: [[blok-vs-proud]] (block vs stream), [[feistel-spn]] (struktury), [[delka-klice]] (key length), [[rezimy]] (CBC/CTR/GCM), [[padding-aead]] (AEAD).
+Podrobnosti: [[blok-vs-proud]] (blokové vs. proudové šifry), [[feistel-spn]] (struktury), [[delka-klice]] (délka klíče, key length), [[rezimy]] (CBC/CTR/GCM), [[padding-aead]] (AEAD).
 
-Stručně: Alice + Bob sdílí klíč `K`. Encrypt: `C = E_K(M)`. Decrypt: `M = D_K(C)`.
+Stručně: Alice a Bob sdílí klíč `K`. Šifrování (encryption): `C = E_K(M)`. Dešifrování: `M = D_K(C)`.
 
 ## Použití v IS {tier=practice}
 
-### Storage encryption
+### Šifrování úložiště
 
-Encrypt data na disku.
+Šifruje data uložená na disku.
 
-| Use case | Algorithm | Mode |
+| Případ použití | Algoritmus | Režim |
 | :--- | :--- | :--- |
-| Full disk (BitLocker, LUKS) | AES-128/256 | XTS |
-| File-level | AES-256 | GCM |
-| Database fields | AES-256 | GCM, deterministic |
-| Cloud storage | AES-256 | GCM-SIV |
+| Celý disk (BitLocker, LUKS) | AES-128/256 | XTS |
+| Na úrovni souborů | AES-256 | GCM |
+| Pole v databázi | AES-256 | GCM, deterministický |
+| Cloudové úložiště | AES-256 | GCM-SIV |
 
-**XTS** (XEX-based Tweaked codebook with ciphertext Stealing) je specifický pro disk sectors — deterministic, no IV per block, but tweak from sector number.
+**XTS** (XEX-based Tweaked codebook with ciphertext Stealing) je specifický pro diskové sektory — je deterministický, nemá inicializační vektor (IV) pro každý blok, ale tzv. *tweak* odvozuje z čísla sektoru.
 
-**Klíč management** — klíč není v cloud storage, ale v HSM/TPM/Secure Enclave.
+**Správa klíčů** — klíč není uložen v samotném cloudovém úložišti, ale v HSM/TPM/Secure Enclave.
 
-### Transport encryption
+### Šifrování přenosu
 
-TLS, SSH, IPsec — *bulk data* po handshake. Detail v [[tls-aplikace]], [[vpn-ipsec]].
+TLS, SSH, IPsec — šifrují hromadná data poté, co proběhne ustanovení spojení (handshake). Podrobnosti v [[tls-aplikace]], [[vpn-ipsec]].
 
-Session keys derived from Diffie-Hellman → AES-GCM nebo ChaCha20-Poly1305 pro data.
+Relační klíče (session keys) se odvozují z výměny Diffie-Hellman → pro samotná data se pak používá AES-GCM nebo ChaCha20-Poly1305.
 
-| Protokol | Bulk cipher (modern) |
+| Protokol | Šifra pro hromadná data (moderní) |
 | :--- | :--- |
 | TLS 1.3 | AES-128-GCM, AES-256-GCM, ChaCha20-Poly1305 |
 | SSH | AES-256-GCM, ChaCha20-Poly1305 |
 | IPsec | AES-256-GCM (RFC 4106) |
 | WireGuard | ChaCha20-Poly1305 |
 
-### Authentication tokens
+### Autentizační tokeny
 
-JWT (JSON Web Tokens) often used symmetric HMAC for integrity. *Nicméně* asymmetric ([[el-podpis]]) lepší pro multi-party.
+JWT (JSON Web Tokens) často používá symetrický HMAC pro zajištění integrity. Pro scénáře s více stranami je nicméně vhodnější asymetrický přístup ([[el-podpis]]).
 
-Pokud token shared mezi servers in same trust domain → symmetric HMAC-SHA256. Pokud cross-domain → JWS (asymmetric).
+Pokud je token sdílen mezi servery ve stejné doméně důvěry (trust domain), použije se symetrický HMAC-SHA256. Pokud jde napříč doménami, použije se JWS (asymetrický podpis).
 
-### Database encryption
+### Šifrování databází
 
-- **Application-level** — encrypt sensitive fields (PII, credit card) před storage.
-- **Transparent Data Encryption (TDE)** — DB sám encrypt-decrypt; transparent pro app.
-- **Format-Preserving Encryption (FPE)** — encrypted output má *stejný format* (credit card → 16 digits). Useful pro legacy DB schemas. AES-FF1 standard.
+- **Na úrovni aplikace** — citlivá pole (osobní údaje, čísla platebních karet) se šifrují ještě před uložením.
+- **Transparentní šifrování dat (Transparent Data Encryption, TDE)** — databáze šifruje a dešifruje sama; pro aplikaci je to transparentní.
+- **Šifrování zachovávající formát (Format-Preserving Encryption, FPE)** — zašifrovaný výstup má *stejný formát* jako vstup (z čísla karty se stane opět 16 číslic). Hodí se pro starší databázová schémata. Standardem je AES-FF1.
 
-### Backup encryption
+### Šifrování záloh
 
-Encrypted backup tapes/disks. Disconnect from network → physical theft mitigated.
+Šifrované zálohovací pásky a disky. Po odpojení od sítě je riziko fyzické krádeže omezeno.
 
-### Tokenization
+### Tokenizace
 
-Replace sensitive value (CC number) by *token*. Mapping in secure DB. Token encrypted nebo not at all — secure DB protects.
+Nahrazuje citlivou hodnotu (např. číslo karty) náhradním *tokenem*. Mapování mezi tokenem a původní hodnotou je uloženo v zabezpečené databázi. Token může, ale nemusí být šifrovaný — chrání jej právě zabezpečená databáze.
 
-PCI DSS compliance often uses tokenization to *avoid* storing actual CC numbers.
+Kvůli souladu s PCI DSS se tokenizace často používá k tomu, aby se skutečná čísla karet vůbec nemusela ukládat.
 
 ## Algoritmy v IS dnes
 
-### Recommended
+### Doporučené
 
-- **AES** ([[3des-aes]]) — universal, hardware-accelerated (AES-NI, ARM Crypto Extensions).
-- **ChaCha20** ([[proudove-sifry]]) — software-friendly, no AES-NI needed. WireGuard, mobile.
-- **AES-GCM, ChaCha20-Poly1305** — AEAD (authenticated encryption).
+- **AES** ([[3des-aes]]) — univerzální, hardwarově akcelerovaný (AES-NI, ARM Crypto Extensions).
+- **ChaCha20** ([[proudove-sifry]]) — vhodný pro softwarovou implementaci, nepotřebuje AES-NI. Používá ho WireGuard a mobilní zařízení.
+- **AES-GCM, ChaCha20-Poly1305** — AEAD (autentizované šifrování, authenticated encryption).
 
-### Deprecated (don't use)
+### Zastaralé (nepoužívat)
 
-- **DES** — 56-bit key broken in 90s. [[des]].
-- **3DES** — 168-bit nominal but ~112-bit security; end of life 2023 per NIST.
-- **RC4** — biased output ([[proudove-sifry]]), banned in TLS 1.3.
-- **AES-CBC + HMAC** — not AEAD, padding oracle attacks. Use AES-GCM místo.
-- **AES-ECB** ([[rezimy]]) — leaks patterns. Visible Tux image classic.
+- **DES** — 56bitový klíč prolomen v 90. letech. [[des]].
+- **3DES** — nominálně 168 bitů, ale ve skutečnosti jen ~112bitová bezpečnost; podle NIST je od roku 2023 na konci životnosti.
+- **RC4** — výstup s odchylkami od náhodnosti ([[proudove-sifry]]), v TLS 1.3 zakázán.
+- **AES-CBC + HMAC** — není AEAD, hrozí útoky typu padding oracle. Místo toho použijte AES-GCM.
+- **AES-ECB** ([[rezimy]]) — prozrazuje vzory v datech. Klasickou ukázkou je dosud rozeznatelný obrázek tučňáka Tuxe.
 
-## Symetrické správa klíčů
+## Správa symetrických klíčů
 
-Symetrické šifrování má *fundamentální problém*: oba *musí* mít *stejný* klíč. Jak ho distribuovat?
+Symetrické šifrování má *zásadní problém*: obě strany *musí* mít *stejný* klíč. Jak ho ale bezpečně distribuovat?
 
-- **Pre-shared keys (PSK)** — out-of-band setup. Manuální. Used in WPA2-Personal, VPN PSK.
-- **Key derivation** — z password ([[kdf]]) — Argon2, PBKDF2, scrypt.
-- **Key Distribution Center** ([[kdc-needham]]) — třetí strana (KDC) generuje session keys.
-- **Kerberos** ([[kerberos]]) — KDC-based, distributed authentication. Used in Microsoft AD.
-- **Hybrid** — asymmetric DH/RSA exchanges *symmetric* key → bulk symmetric encryption.
+- **Předsdílené klíče (Pre-shared keys, PSK)** — nastavují se mimo komunikační kanál (out-of-band), ručně. Používá se ve WPA2-Personal nebo u VPN s PSK.
+- **Odvození klíče (key derivation)** — z hesla ([[kdf]]) pomocí Argon2, PBKDF2 nebo scrypt.
+- **Distribuční centrum klíčů (Key Distribution Center)** ([[kdc-needham]]) — relační klíče generuje třetí strana (KDC).
+- **Kerberos** ([[kerberos]]) — distribuovaná autentizace založená na KDC. Používá se v Microsoft AD.
+- **Hybridní přístup** — asymetrickou výměnou (DH/RSA) se domluví *symetrický* klíč → ten se pak použije pro hromadné symetrické šifrování.
 
-Hybrid je *standard* (TLS, SSH, IPsec). Detail v [[hybridni]].
+Hybridní přístup je *standardem* (TLS, SSH, IPsec). Podrobnosti v [[hybridni]].
 
 ## Délka klíče — postačující
 
-Pro modern threat:
+Pro současné hrozby (threat) platí:
 
-- **AES-128** — minimum for new deployment. $2^{128}$ keys → brute force computationally infeasible ($>10^{13}$ years even with an extreme global cracking effort).
-- **AES-192** — extra margin.
-- **AES-256** — for crypto-agility (post-quantum, paranoia). NIST SP 800-131 recommends 256 by 2030.
+- **AES-128** — minimum pro nová nasazení. $2^{128}$ klíčů → útok hrubou silou je výpočetně neproveditelný ($>10^{13}$ let, i kdyby se na lámání vrhly všechny počítače světa).
+- **AES-192** — větší rezerva.
+- **AES-256** — pro kryptografickou pružnost (crypto-agility) — odolnost vůči kvantovým počítačům i čistá opatrnost. NIST SP 800-131 doporučuje přejít na 256 bitů do roku 2030.
 
-Pre-quantum: AES-128 safe. Post-quantum: Grover algorithm halves effective security → AES-128 → ~64-bit (broken). AES-256 → 128-bit (still safe).
+Před nástupem kvantových počítačů je AES-128 bezpečný. Po jejich nástupu Groverův algoritmus efektivní bezpečnost půlí → z AES-128 zbude ~64 bitů (prolomeno), z AES-256 zbude 128 bitů (stále bezpečné).
 
-⇒ Move to **AES-256** pro long-term confidentiality.
+⇒ Pro dlouhodobou důvěrnost přejděte na **AES-256**.
 
-Detaily v [[delka-klice]], [[postkvantova]].
+Podrobnosti v [[delka-klice]], [[postkvantova]].
 
-## Modes — pick the right one
+## Režimy — vyberte ten správný
 
-| Mode | Use | Notes |
+| Režim | Použití | Poznámky |
 | :--- | :--- | :--- |
-| ECB | NEVER (textbook only) | leaks patterns |
-| CBC | legacy, paired with HMAC | not AEAD, careful with padding |
-| CTR | streaming | needs unique IV |
-| GCM | **modern default** | authenticated encryption |
-| GCM-SIV | nonce-reuse misuse-resistant | RFC 8452, uses POLYVAL (not GHASH); AES still AES-NI accelerated, MAC via PCLMULQDQ |
-| XTS | disk encryption | tweak from sector |
+| ECB | NIKDY (jen jako učebnicový příklad) | prozrazuje vzory |
+| CBC | starší systémy, v kombinaci s HMAC | není AEAD, opatrně s paddingem |
+| CTR | streamování | vyžaduje jedinečný IV |
+| GCM | **moderní výchozí volba** | autentizované šifrování |
+| GCM-SIV | odolný vůči chybnému opakování nonce | RFC 8452, používá POLYVAL (ne GHASH); AES je stále akcelerován přes AES-NI, MAC přes PCLMULQDQ |
+| XTS | šifrování disku | tweak z čísla sektoru |
 
-Default: **AES-256-GCM** pro most use cases. **ChaCha20-Poly1305** for software / mobile.
+Výchozí volba: **AES-256-GCM** pro většinu případů použití. **ChaCha20-Poly1305** pro softwarová a mobilní řešení.
 
-Detail [[rezimy]], [[padding-aead]].
+Podrobnosti [[rezimy]], [[padding-aead]].
 
 ---
 

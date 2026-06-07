@@ -1,33 +1,33 @@
 ---
-title: DAC vs MAC — access control models
+title: DAC vs MAC — modely řízení přístupu
 ---
 
-# DAC vs MAC — discretionary vs mandatory access control
+# DAC vs MAC — volné vs povinné řízení přístupu
 
-Access control rozhoduje, *kdo* může *co* s *jakým objektem*. Dvě klasické paradigma: **DAC** (Discretionary) — owner decides, **MAC** (Mandatory) — system enforces labels.
+Řízení přístupu (access control) rozhoduje, *kdo* může *co* dělat s *jakým objektem*. Existují dvě klasická paradigmata: **DAC** (Discretionary Access Control, volné řízení přístupu) — o přístupu rozhoduje vlastník objektu, a **MAC** (Mandatory Access Control, povinné řízení přístupu) — pravidla vynucuje systém na základě bezpečnostních štítků (labels).
 
-## DAC — Discretionary Access Control
+## DAC — volné řízení přístupu (Discretionary Access Control)
 
 Vlastník objektu *rozhoduje* o přístupových právech. Vlastník může:
 
 - Udělit přístup jiným uživatelům.
 - Změnit oprávnění.
-- Předat ownership.
+- Předat vlastnictví (ownership) objektu.
 
-Typický model pro **Unix file permissions**, **Windows NTFS ACL**, **databáze GRANT/REVOKE**.
+Tento model je typický pro **přístupová práva souborů v Unixu (Unix file permissions)**, **seznamy řízení přístupu NTFS ve Windows (Windows NTFS ACL)** a **databázové příkazy GRANT/REVOKE**.
 
-### Unix DAC
+### DAC v Unixu
 
 ```
 $ ls -l file.txt
 -rw-r----- 1 alice marketing 1024 file.txt
 ```
 
-- Owner = alice (rw-).
-- Group = marketing (r--).
-- Other = (---).
+- Vlastník (owner) = alice (rw-).
+- Skupina (group) = marketing (r--).
+- Ostatní (other) = (---).
 
-Alice (owner) může:
+Alice jako vlastník může:
 
 ```
 $ chmod g+w file.txt        # add write for group
@@ -45,92 +45,92 @@ File: report.docx
   ACE 4: everyone (none)
 ```
 
-ACE = Access Control Entry. Více granular than Unix.
+ACE = Access Control Entry (položka seznamu řízení přístupu). Tento přístup nabízí jemnější rozlišení oprávnění než Unix.
 
-### Database GRANT
+### Databázový příkaz GRANT
 
 ```sql
 GRANT SELECT, INSERT ON customers TO bob;
 GRANT ALL ON orders TO managers WITH GRANT OPTION;
 ```
 
-`WITH GRANT OPTION` = bob can further grant. Owner cascading.
+`WITH GRANT OPTION` znamená, že bob může práva dál udělovat jiným. Oprávnění se tak kaskádovitě šíří od vlastníka.
 
 ### Problémy DAC
 
-- **Trojan horse** — user runs malicious program; program inherits user's permissions; can access user's files.
-- **No central control** — admin can't *globally* enforce policy. Users delegate freely.
-- **Hard to revoke** — once shared, hard to undo.
-- **No information flow control** — alice reads file, copies content, gives to bob (no longer covered by original permission).
+- **Trojský kůň (Trojan horse)** — uživatel spustí škodlivý program; program zdědí oprávnění uživatele a může přistupovat k jeho souborům.
+- **Chybí centrální kontrola** — administrátor nedokáže *globálně* vynutit politiku. Uživatelé volně předávají práva dalším.
+- **Obtížné odebrání práv** — jakmile je něco jednou sdílené, je těžké to vzít zpět.
+- **Chybí řízení toku informací (information flow control)** — alice přečte soubor, zkopíruje jeho obsah a předá ho bobovi (kopie už nespadá pod původní oprávnění).
 
-DAC vhodný pro *cooperative* environments (corporate, academic). *Nevhodný* pro *high-security* (military, intelligence).
+DAC je vhodný pro *spolupracující* prostředí (firemní, akademická). *Nevhodný* je pro prostředí s *vysokými nároky na bezpečnost* (armáda, zpravodajské služby).
 
-## MAC — Mandatory Access Control
+## MAC — povinné řízení přístupu (Mandatory Access Control)
 
-*System* enforces access decisions based on **labels** (clearance levels, categories). Users *can't* override.
+*Systém* vynucuje rozhodnutí o přístupu na základě **štítků (labels)** — úrovní prověření (clearance levels) a kategorií. Uživatelé tato rozhodnutí *nemohou* obejít.
 
-### Sensitivity labels
+### Štítky citlivosti (sensitivity labels)
 
-Typical military classification:
+Typická vojenská klasifikace:
 
-| Level | Label |
+| Úroveň | Štítek |
 | :--- | :--- |
-| Top Secret | TS |
-| Secret | S |
-| Confidential | C |
-| Unclassified | U |
+| Top Secret (přísně tajné) | TS |
+| Secret (tajné) | S |
+| Confidential (důvěrné) | C |
+| Unclassified (neutajované) | U |
 
-Plus *categories* (compartments): NUCLEAR, CRYPTO, EUROPEAN, ASIAN.
+K tomu se přidávají *kategorie* (compartments, oddělené oblasti): NUCLEAR, CRYPTO, EUROPEAN, ASIAN.
 
-User clearance = level + categories. Object label = level + categories.
+Prověření uživatele = úroveň + kategorie. Štítek objektu = úroveň + kategorie.
 
-### Access decision
+### Rozhodnutí o přístupu
 
-Access granted *only if*:
+Přístup je udělen *pouze tehdy*, když:
 
-- User's level >= object's level (no read up).
-- User's categories ⊇ object's categories.
+- Úroveň uživatele >= úroveň objektu (žádné čtení směrem nahoru, no read up).
+- Kategorie uživatele ⊇ kategorie objektu.
 
-Plus *additional rules* depending on model (Bell-LaPadula, Biba, ...).
+Podle konkrétního modelu (Bell-LaPadula, Biba, …) platí navíc *další pravidla*.
 
-### Bell-LaPadula (BLP) — confidentiality
+### Bell-LaPadula (BLP) — důvěrnost
 
-Detail v [[bell-lapadula]]. Rules:
+Detail v [[bell-lapadula]]. Pravidla:
 
-- **No read up** — Secret user can't read Top Secret.
-- **No write down** — Top Secret user can't write to Secret (prevent leakage).
+- **Žádné čtení nahoru (no read up)** — uživatel s úrovní Secret nesmí číst dokument Top Secret.
+- **Žádný zápis dolů (no write down)** — uživatel s úrovní Top Secret nesmí zapisovat do dokumentu Secret (zabraňuje úniku utajené informace).
 
-### Biba — integrity
+### Biba — integrita
 
-Detail v [[biba-clark-wilson]]. Dual to BLP:
+Detail v [[biba-clark-wilson]]. Duální (zrcadlový) protějšek BLP:
 
-- **No read down** — high-integrity user shouldn't read low-integrity (prevents contamination).
-- **No write up** — low-integrity shouldn't modify high-integrity.
+- **Žádné čtení dolů (no read down)** — uživatel s vysokou integritou by neměl číst data s nízkou integritou (zabraňuje to kontaminaci důvěryhodných dat).
+- **Žádný zápis nahoru (no write up)** — data s nízkou integritou nesmějí měnit data s vysokou integritou.
 
 ### SELinux
 
-**Security-Enhanced Linux** — MAC implementation v Linux kernel (NSA, since 2003).
+**Security-Enhanced Linux** — implementace MAC v jádře (kernel) Linuxu (od NSA, od roku 2003).
 
-Each process + file labeled with *security context*: `user:role:type:level`.
+Každý proces i soubor dostane *bezpečnostní kontext (security context)*: `user:role:type:level`.
 
 ```
 $ ls -Z file.txt
 -rw-r--r-- 1 alice marketing system_u:object_r:user_home_t:s0 file.txt
 ```
 
-Type Enforcement (TE) is *primary* SELinux mechanism. Policy defines which types can access which.
+Vynucování podle typu, Type Enforcement (TE), je *hlavní* mechanismus SELinuxu. Politika definuje, které typy smějí přistupovat ke kterým.
 
 ```
 allow httpd_t  user_content_t : file { read getattr };
 ```
 
-Process running httpd_t can read user_content_t files.
+Proces běžící s typem httpd_t smí číst soubory typu user_content_t.
 
-Plus optional **MLS** (Multi-Level Security) for true MAC.
+K tomu volitelně přistupuje **MLS (Multi-Level Security, víceúrovňová bezpečnost)** pro skutečný MAC.
 
 ### AppArmor
 
-Alternative MAC for Linux. *Path-based* (vs SELinux *label-based*). Simpler but less flexible.
+Alternativní MAC pro Linux. Je založený na *cestách k souborům* (path-based), na rozdíl od SELinuxu, který je založený na *štítcích* (label-based). Je jednodušší, ale méně flexibilní.
 
 ```
 /usr/sbin/nginx {
@@ -139,49 +139,49 @@ Alternative MAC for Linux. *Path-based* (vs SELinux *label-based*). Simpler but 
 }
 ```
 
-Used in Ubuntu, openSUSE.
+Používá se v Ubuntu a openSUSE.
 
-## DAC vs MAC srovnání
+## Srovnání DAC vs MAC
 
 | | DAC | MAC |
 | :--- | :--- | :--- |
-| Decision maker | object owner | system / policy |
-| Flexibility | high | low |
-| Central control | weak | strong |
-| User override | yes | no |
-| Implementation | ACL | labels + rules |
-| Use case | corporate, academic | military, intelligence |
-| Examples | Unix, NTFS, DB GRANT | SELinux MLS, Trusted Solaris |
+| Kdo rozhoduje | vlastník objektu | systém / politika |
+| Flexibilita | vysoká | nízká |
+| Centrální kontrola | slabá | silná |
+| Obejití uživatelem | ano | ne |
+| Implementace | ACL | štítky + pravidla |
+| Typické nasazení | firmy, akademie | armáda, zpravodajství |
+| Příklady | Unix, NTFS, DB GRANT | SELinux MLS, Trusted Solaris |
 
-## Hybrid
+## Hybridní přístup
 
-Modern OS use *both*:
+Moderní operační systémy používají *oba* modely:
 
-- **DAC** as primary (user-friendly).
-- **MAC** as additional layer (SELinux, AppArmor).
+- **DAC** jako hlavní (uživatelsky přívětivý).
+- **MAC** jako další vrstvu (layer) ochrany navíc (SELinux, AppArmor).
 
-Linux: file owner sets perm (DAC). SELinux policy *further* restricts. Both must allow → access granted.
+V Linuxu: vlastník souboru nastaví oprávnění (DAC). Politika SELinuxu přístup *ještě dál* omezí. Přístup je udělen, jen když ho povolí *oba* mechanismy.
 
-Pokud either denies → access denied.
+Pokud kterýkoli z nich přístup zamítne, je přístup zamítnut.
 
-⇒ Defense in depth at OS level.
+⇒ Tím vzniká obrana do hloubky (defense in depth) na úrovni operačního systému.
 
 ## RBAC + ABAC
 
-Detail v [[rbac-abac]]. Quick preview:
+Detail v [[rbac-abac]]. Stručný náhled:
 
-- **RBAC** — Role-Based. Users → Roles → Permissions. Standard enterprise.
-- **ABAC** — Attribute-Based. Access based on subject + object + environment attributes (context-aware).
+- **RBAC** — řízení podle rolí (Role-Based). Uživatelé → role → oprávnění. Standard v podnikovém prostředí.
+- **ABAC** — řízení podle atributů (Attribute-Based). Přístup se rozhoduje podle atributů subjektu, objektu a prostředí (zohledňuje kontext).
 
-Not really DAC or MAC — orthogonal axis. *Implementace* může být DAC- or MAC-style.
+Nejde tak úplně o DAC ani MAC — jsou to nezávislé osy. *Implementace* může být ve stylu DAC, nebo MAC.
 
 ## Capability vs ACL {tier=extra}
 
-Two ways to implement access control:
+Řízení přístupu lze implementovat dvěma způsoby:
 
-### ACL (Access Control List)
+### ACL (Access Control List, seznam řízení přístupu)
 
-Each *object* lists *who* can access.
+Každý *objekt* obsahuje seznam toho, *kdo* k němu smí přistupovat.
 
 ```
 file.txt:
@@ -189,11 +189,11 @@ file.txt:
    bob: r
 ```
 
-Most OS, databases. Easy to revoke (modify ACL).
+Používá většina operačních systémů a databází. Práva se snadno odebírají (stačí upravit ACL).
 
-### Capability
+### Capability (oprávnění jako přenosný token)
 
-Each *subject* has *tokens* (capabilities) granting access.
+Každý *subjekt* drží *tokeny* (capabilities), které mu udělují přístup.
 
 ```
 alice's capabilities:
@@ -201,23 +201,23 @@ alice's capabilities:
    - report.pdf: r
 ```
 
-Used in KeyKOS, EROS/CapROS, seL4, Plan 9.
+Tento přístup používají KeyKOS, EROS/CapROS, seL4 a Plan 9.
 
-Capability advantage: explicit transfer; finer control over what subject has.
+Výhoda capabilities: oprávnění lze explicitně předávat a lépe se řídí, co přesně subjekt drží.
 
-Capability disadvantage: revocation harder.
+Nevýhoda capabilities: hůře se odebírají (revokace je složitější).
 
-Most systems use *ACL*. Capability systems esoteric but secure.
+Většina systémů používá *ACL*. Systémy postavené na capabilities jsou spíše okrajové, zato bezpečné.
 
-## Reference monitor
+## Referenční monitor (reference monitor)
 
-Both DAC and MAC require *reference monitor* — component that *intermediates* all access:
+DAC i MAC vyžadují *referenční monitor* — komponentu, která *zprostředkovává* každý přístup:
 
-- **Tamper-proof** — cannot be bypassed.
-- **Always invoked** — for every access.
-- **Verifiable** — small enough to audit.
+- **Odolný proti manipulaci (tamper-proof)** — nelze ho obejít.
+- **Vždy vyvolaný (always invoked)** — pro každý přístup.
+- **Ověřitelný (verifiable)** — dostatečně malý na to, aby šel prověřit (audit).
 
-In Linux: LSM (Linux Security Modules) hooks. SELinux, AppArmor implement on top.
+V Linuxu jde o háky LSM (Linux Security Modules). SELinux i AppArmor jsou postaveny nad nimi.
 
 ---
 

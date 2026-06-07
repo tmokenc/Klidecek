@@ -1,21 +1,21 @@
 ---
-title: Firewall — packet filtering a stateful inspection
+title: Firewall — filtrování paketů a stavová inspekce
 ---
 
-# Firewall — packet filtering a stateful inspection
+# Firewall — filtrování paketů a stavová inspekce
 
-**Firewall** filtruje síťový provoz podle pravidel — *allow* nebo *deny*. Klíčový perimeter control. Evolved from simple packet filters (1990s) to next-generation firewalls (NGFW) with application awareness.
+**Firewall** filtruje síťový provoz podle pravidel — provoz buď povolí (*allow*), nebo zamítne (*deny*). Je to klíčový prvek ochrany perimetru (perimeter control), tedy hranice mezi vnitřní sítí a okolním světem. Firewally se vyvinuly od jednoduchých paketových filtrů (90. léta) až po firewally nové generace (next-generation firewalls, NGFW), které rozumějí i obsahu aplikací.
 
 ## Typy firewallů
 
-### Packet filter (stateless)
+### Paketový filtr (stateless)
 
-Inspect *each packet independently*. Based on:
+Zkoumá *každý paket samostatně* (nezávisle na ostatních). Rozhoduje se podle:
 
-- Source / destination IP.
-- Source / destination port.
-- Protocol (TCP, UDP, ICMP).
-- Direction (in / out).
+- Zdrojové / cílové IP adresy.
+- Zdrojového / cílového portu.
+- Protokolu (TCP, UDP, ICMP).
+- Směru (příchozí / odchozí).
 
 ```
 # Allow HTTP from any to webserver
@@ -25,17 +25,17 @@ allow tcp from any to 192.168.1.10 port 80
 deny in tcp from any to any
 ```
 
-Pros: fast, simple.
+Výhody: je rychlý a jednoduchý.
 
-Cons:
+Nevýhody:
 
-- **No connection awareness** — can't tell if return traffic is for legit outbound.
-- **Hard to handle dynamic protocols** — FTP uses random data port.
-- **Easy to bypass** — fragment IP packets to confuse.
+- **Nezná souvislosti spojení** — nepozná, zda je příchozí provoz odpovědí na náš legitimní odchozí požadavek (request).
+- **Špatně zvládá dynamické protokoly** — například FTP používá náhodně zvolený datový port.
+- **Snadno se obejde** — útočník (attacker) může IP pakety fragmentovat a tím filtr zmást.
 
-### Stateful firewall
+### Stavový firewall (stateful)
 
-Maintains **connection state table**. Knows which connections are "established".
+Udržuje si **tabulku stavů spojení** (connection state table). Ví, která spojení jsou „navázaná" (established).
 
 ```
 # Allow outbound new + established
@@ -46,19 +46,19 @@ allow in tcp from any to internal state established
 deny in tcp from any to internal state new
 ```
 
-Stateful tracking:
+Sledování stavů (stateful tracking):
 
-- TCP — SYN, ACK, ESTABLISHED, FIN states.
-- UDP — pseudo-states based on first packet (since UDP is connectionless).
-- ICMP — request/reply pairing.
+- TCP — stavy SYN, ACK, ESTABLISHED, FIN.
+- UDP — pseudostavy odvozené z prvního paketu (UDP je totiž bezstavový, nespojový protokol).
+- ICMP — párování dotazu (request) a odpovědi (response).
 
-Stateful checks:
+Stavové kontroly:
 
-- Return packets *match* outbound connection.
-- TCP sequence numbers in valid range.
-- Detect TCP anomalies (SYN flood, scan).
+- Příchozí pakety *odpovídají* nějakému odchozímu spojení.
+- Sekvenční čísla TCP jsou v platném rozsahu.
+- Detekce anomálií TCP (záplava SYN paketů, skenování).
 
-Linux: **netfilter** (`iptables`, modern `nftables`).
+V Linuxu se o to stará **netfilter** (`iptables`, v moderní podobě `nftables`).
 
 ```bash
 # Allow incoming SSH
@@ -67,50 +67,50 @@ iptables -A INPUT -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
 iptables -A OUTPUT -p tcp -m state --state ESTABLISHED -j ACCEPT
 ```
 
-### Application-layer firewall (proxy)
+### Firewall na aplikační vrstvě (proxy)
 
-Operates at *application layer*. Understands protocols:
+Pracuje na *aplikační vrstvě* (application layer). Rozumí konkrétním protokolům:
 
 - **HTTP/HTTPS proxy** — squid, ZAP.
-- **SMTP relay** — block based on content.
+- **SMTP relay** — blokování podle obsahu zprávy.
 - **DNS proxy**.
 
-Proxy *terminates* connection on both sides. Sees full content (HTTPS may MITM with internal CA).
+Proxy spojení *ukončí* na obou stranách (vystupuje jako prostředník). Vidí proto celý obsah (u HTTPS to může znamenat útok typu man-in-the-middle pomocí interní certifikační autority).
 
-Pros: deep inspection, application logic.
+Výhody: hloubková inspekce a znalost aplikační logiky.
 
-Cons: latency, throughput overhead, complex.
+Nevýhody: zpoždění, snížení propustnosti a celková složitost.
 
-### Next-Generation Firewall (NGFW)
+### Firewall nové generace (Next-Generation Firewall, NGFW)
 
-Modern enterprise FW. Combines:
+Moderní firewall pro podnikové prostředí. Kombinuje:
 
-- Stateful inspection.
-- Application identification (signature-based, layer 7).
-- IDS / IPS integration.
-- TLS inspection (with internal CA installed on clients).
-- User identity (LDAP integration).
-- Threat intelligence feeds.
+- Stavovou inspekci.
+- Identifikaci aplikací (na základě signatur, na 7. vrstvě).
+- Integraci s IDS / IPS.
+- Inspekci TLS (s interní certifikační autoritou nainstalovanou na klientech).
+- Identitu uživatele (integrace s LDAP).
+- Zdroje informací o hrozbách (threat intelligence feeds).
 
-Vendors: Palo Alto, Fortinet, Check Point, Cisco, Sophos.
+Výrobci: Palo Alto, Fortinet, Check Point, Cisco, Sophos.
 
 ## Linux iptables / nftables
 
-`iptables` (older) and `nftables` (modern Linux 3.13+).
+`iptables` (starší) a `nftables` (moderní, od Linuxu 3.13+).
 
-### Tables and chains
+### Tabulky a řetězce
 
-`iptables` has 5 tables:
+`iptables` má 5 tabulek:
 
-- **filter** — default, drop / accept.
-- **nat** — network address translation.
-- **mangle** — packet modification.
-- **raw** — connection tracking bypass.
-- **security** — SELinux integration.
+- **filter** — výchozí, zahazuje (drop) / přijímá (accept) pakety.
+- **nat** — překlad síťových adres (network address translation).
+- **mangle** — úprava paketů.
+- **raw** — obejití sledování spojení (connection tracking).
+- **security** — integrace se SELinuxem.
 
-Each table has chains: INPUT, OUTPUT, FORWARD (filter table).
+Každá tabulka má řetězce (chains): INPUT, OUTPUT, FORWARD (tabulka filter).
 
-### Example ruleset
+### Příklad sady pravidel
 
 ```bash
 # Flush existing
@@ -154,7 +154,7 @@ table inet filter {
 }
 ```
 
-More expressive, atomic ruleset updates.
+Je výraznější (lze stručněji vyjádřit pravidla) a umožňuje atomické aktualizace celé sady pravidel naráz.
 
 ## Cisco ACL
 
@@ -164,23 +164,23 @@ access-list 100 permit tcp 10.0.0.0 0.0.0.255 host 192.168.1.10 eq 443
 access-list 100 deny ip any any
 ```
 
-Wildcard masks (inverse of subnet mask). Numbered or named ACLs.
+Používají se zástupné masky (wildcard masks, inverzní k masce podsítě). ACL mohou být číslované, nebo pojmenované.
 
-## Firewall topologies
+## Topologie firewallů
 
-### Dual-homed gateway
+### Dvoudomá brána (dual-homed gateway)
 
-Single firewall with 2 interfaces (external, internal).
+Jeden firewall se dvěma rozhraními (vnější a vnitřní).
 
 ```
 Internet --- [FW] --- Internal Network
 ```
 
-Single point. All traffic crosses.
+Jediný bod, kterým prochází veškerý provoz.
 
-### Screened subnet / DMZ
+### Oddělená podsíť / DMZ (screened subnet / DMZ)
 
-3-interface FW. Separate zones for internet, DMZ, internal.
+Firewall se třemi rozhraními. Odděluje zóny pro internet, DMZ a vnitřní síť.
 
 ```
 Internet --- [FW] --- Internal
@@ -188,97 +188,97 @@ Internet --- [FW] --- Internal
               DMZ (web, mail servers)
 ```
 
-DMZ servers reachable from internet but isolated from internal. Internal accesses DMZ; not vice versa.
+Servery v DMZ jsou dosažitelné z internetu, ale izolované od vnitřní sítě. Vnitřní síť do DMZ přistupovat může, opačně ne.
 
-### Two-tier
+### Dvouúrovňová topologie (two-tier)
 
-Two firewalls in series:
+Dva firewally zapojené za sebou:
 
 ```
 Internet --- [FW1] --- DMZ --- [FW2] --- Internal
 ```
 
-Different vendor firewalls — defense in depth. Bypass requires defeating both.
+Firewally od různých výrobců zajišťují obranu do hloubky (defense in depth). K obejití je nutné prolomit oba.
 
-## Stateful inspection details
+## Podrobnosti stavové inspekce
 
-Per connection: tuple `(src_ip, src_port, dst_ip, dst_port, protocol)`.
+Pro každé spojení se ukládá pětice `(src_ip, src_port, dst_ip, dst_port, protocol)`.
 
-State machine for TCP:
+Stavový automat pro TCP:
 
 ```
 SYN_SENT → SYN_RECV → ESTABLISHED → FIN_WAIT → TIME_WAIT → CLOSED
 ```
 
-Firewall transitions states on observed packets. Aged out after timeout.
+Firewall přechází mezi stavy podle pozorovaných paketů. Po vypršení časového limitu se záznam ze stavu odstraní (aged out).
 
-State table size matters — large environments: millions of connections.
+Záleží na velikosti tabulky stavů — ve velkých prostředích jde o miliony spojení.
 
-::: viz firewall-stateful-trace "Pusť paket-by-paket scénář (DNS dotaz + attacker probe). Vidíš souběžně stateless verdict (per-packet rule) a stateful (kontrola state table); attacker pakety bez stavu → DENY."
+::: viz firewall-stateful-trace "Spusť scénář paket po paketu (DNS dotaz + sonda útočníka). Vidíš souběžně verdikt bezstavového filtru (stateless, pravidlo na každý paket zvlášť) i stavového filtru (stateful, kontrola proti tabulce stavů); pakety útočníka bez navázaného stavu → DENY."
 :::
 
-## Modern challenges
+## Moderní výzvy
 
-### TLS encryption
+### Šifrování TLS
 
-Most traffic now HTTPS. Firewall can't inspect content without:
+Většina provozu dnes běží přes HTTPS. Firewall nemůže zkoumat obsah bez:
 
-- **TLS inspection** — internal CA, decrypt + re-encrypt. Privacy + perf concerns.
-- **JA3 fingerprinting** — match TLS client hello pattern.
-- **SNI** — Server Name Indication (cleartext) reveals destination.
+- **Inspekce TLS** — s interní certifikační autoritou se provoz dešifruje a znovu zašifruje. Vznikají obavy o soukromí a výkon (performance).
+- **Otisků JA3 (JA3 fingerprinting)** — porovnání vzoru zprávy „client hello" v rámci TLS.
+- **SNI** — Server Name Indication (přenášené v otevřené podobě) prozrazuje cíl spojení.
 
-Modern protocols (ECH — Encrypted Client Hello, TLS 1.3) hide SNI. Reducing visibility.
+Moderní protokoly (ECH — Encrypted Client Hello, TLS 1.3) SNI skrývají, čímž viditelnost provozu snižují.
 
-### Encapsulation / Tunneling
+### Zapouzdření / tunelování (encapsulation / tunneling)
 
-Attackers can tunnel:
+Útočníci mohou data tunelovat:
 
-- HTTPS — covers most.
-- DNS-over-HTTPS — DNS exfil.
-- ICMP / IPv6 — covert channels.
+- HTTPS — pokryje většinu případů.
+- DNS-over-HTTPS — odčerpávání dat (exfil) skrze DNS.
+- ICMP / IPv6 — skryté kanály.
 
-Application-aware FW + threat intel feeds help.
+Pomáhají firewally rozumějící aplikacím a zdroje informací o hrozbách (threat intel feeds).
 
-### Cloud / Containerization
+### Cloud / kontejnerizace
 
-Traditional perimeter FW less relevant. Cloud:
+Tradiční firewall na perimetru ztrácí význam. V cloudu se používá:
 
-- **Security Groups** (AWS) — instance-level firewall.
-- **NSGs** (Azure) — network security groups.
+- **Security Groups** (AWS) — firewall na úrovni instance.
+- **NSGs** (Azure) — bezpečnostní skupiny sítě (network security groups).
 - **Cloud Armor** (GCP).
 - **Network policies** (Kubernetes).
 
-Microservice mesh: **service mesh** (Istio, Linkerd) provides identity-aware mTLS + policy.
+Síť mikroslužeb: **service mesh** (Istio, Linkerd) poskytuje vzájemné TLS (mTLS) s ověřením identity a politiky řízení přístupu.
 
 ### Zero Trust
 
-"Never trust, always verify." No perimeter. Every connection authenticated + authorized.
+„Nikdy nedůvěřuj, vždy ověřuj." Žádný perimeter neexistuje. Každé spojení se autentizuje (authentication) a autorizuje (authorization).
 
-- **BeyondCorp** (Google) — open-source / commercial implementations.
+- **BeyondCorp** (Google) — open-source i komerční implementace.
 - **Identity-Aware Proxy** (Cloudflare Access, AWS IAP).
 
-NIST SP 800-207 standardizuje.
+Standardizuje to NIST SP 800-207.
 
-## Firewall best practices
+## Osvědčené postupy pro firewally
 
-1. **Default deny** — explicit allow rules; deny rest.
-2. **Least privilege** — only required ports/protocols.
-3. **Document** — every rule has reason.
-4. **Review** — quarterly cleanup of stale rules.
-5. **Logging** — log denied + sample of allowed.
-6. **Backup** — rule sets versioned, recoverable.
-7. **Monitor** — connection tables, rule hits.
-8. **Test** — penetration testing, verify rules.
+1. **Výchozí zákaz (default deny)** — explicitní pravidla povolení, zbytek zakaž.
+2. **Princip nejnižších oprávnění (least privilege)** — jen nezbytné porty a protokoly.
+3. **Dokumentuj** — každé pravidlo má svůj důvod.
+4. **Revize** — čtvrtletní úklid zastaralých pravidel.
+5. **Logování** — zaznamenávej zamítnutý provoz a vzorek povoleného.
+6. **Zálohuj** — sady pravidel verzuj a měj je obnovitelné.
+7. **Monitoruj** — tabulky spojení a počty zásahů jednotlivých pravidel.
+8. **Testuj** — penetrační testování, ověření funkčnosti pravidel.
 
-## Firewall ne-řeší
+## Co firewall neřeší
 
-- **Insider threats** — once inside, firewall irrelevant.
-- **Application vulnerabilities** — XSS, SQLi pass through firewall.
-- **Encrypted attacks** — if encryption bypasses inspection.
-- **Lateral movement** — east-west traffic typically not filtered (without microsegmentation).
-- **DDoS** — typically requires upstream provider.
+- **Vnitřní hrozby (insider threats)** — jakmile je útočník uvnitř, firewall je mu lhostejný.
+- **Zranitelnosti aplikací (application vulnerabilities)** — útoky jako XSS či SQLi firewallem volně projdou.
+- **Šifrované útoky** — pokud šifrování obejde inspekci.
+- **Boční pohyb (lateral movement)** — provoz mezi servery (východ-západ) se obvykle nefiltruje (pokud není zavedena mikrosegmentace).
+- **DDoS** — typicky vyžaduje zásah nadřazeného poskytovatele.
 
-⇒ Firewall is *one layer* of defense in depth, not silver bullet.
+⇒ Firewall je *jen jednou vrstvou* obrany do hloubky, nikoli zázračné řešení všeho.
 
 ---
 

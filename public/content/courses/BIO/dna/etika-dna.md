@@ -4,235 +4,235 @@ title: Etika DNA biometrie
 
 # Etika DNA biometrie
 
-DNA biometrika přináší **nejmocnější** identifikační schopnosti, ale také **nejvážnější** etické otázky. Na rozdíl od jiných biometrik DNA odhaluje *víc* než jen identitu — *zdravotní predispozice*, *ancestry*, *rodinné vazby*. Tyto rozšířené implikace vyžadují *zvláštní* právní a etický rámec.
+DNA biometrika přináší **nejmocnější** identifikační schopnosti, ale také **nejvážnější** etické otázky. Na rozdíl od jiných biometrik DNA odhaluje *víc* než jen identitu — *zdravotní predispozice*, *původ a etnický původ (ancestry)*, *rodinné vazby*. Tyto rozšířené dopady vyžadují *zvláštní* právní a etický rámec.
 
 ## Klíčové etické otázky
 
-### 1. Privacy
+### 1. Soukromí (privacy)
 
 DNA *odhaluje*:
 
-* **Identita** osoby.
-* **Rodinné vazby** — všichni rodičovsé linie, sourozenci, děti.
-* **Ancestry** — geographic origins, ethnic backgrounds.
-* **Genetic predispositions** — vědecký pokrok stále odhaluje korelace s nemocemi (rakovina, srdeční choroby, mental illness).
-* **Phenotypic predictions** — barva očí, vlasů (DNA phenotyping).
+* **Identitu** osoby.
+* **Rodinné vazby** — všechny rodičovské linie, sourozence i děti.
+* **Původ (ancestry)** — geografický původ a etnické zázemí.
+* **Genetické predispozice** — vědecký pokrok stále odhaluje souvislosti s nemocemi (rakovina, srdeční choroby, duševní onemocnění).
+* **Předpovědi vzhledu (phenotypic predictions)** — barvu očí a vlasů (tzv. DNA phenotyping).
 
-Pokud osobní DNA unikne, *nelze* ji *odvolat* nebo *změnit*. **Trvalý** privacy breach.
+Pokud osobní DNA unikne, *nelze* ji *odvolat* ani *změnit*. Jde o **trvalé** narušení soukromí (privacy breach).
 
-### 2. Genetic discrimination
+### 2. Genetická diskriminace
 
-* **Insurance companies** — vyšší premia pro osoby s "high-risk" genes.
-* **Employers** — preferential hiring based on health prognosis.
-* **Banks** — risk assessment for loans.
+* **Pojišťovny** — vyšší pojistné pro osoby s „rizikovými“ geny.
+* **Zaměstnavatelé** — zvýhodňování při náboru podle zdravotní prognózy.
+* **Banky** — hodnocení rizika u úvěrů.
 
-Legislative odpovědi:
+Legislativní reakce:
 
-* **US GINA Act (2008)** — Genetic Information Nondiscrimination Act. Forbids health insurance + employment discrimination based on genetics.
-* **EU GDPR Article 9** — genetic data is *special category*; explicit consent + legal basis required.
-* **CZ:** GDPR + Zákon o ochraně osobních údajů.
+* **US GINA Act (2008)** — Genetic Information Nondiscrimination Act. Zakazuje diskriminaci na základě genetiky ve zdravotním pojištění i v zaměstnání.
+* **EU GDPR, článek 9** — genetické údaje jsou *zvláštní kategorií*; vyžadují výslovný souhlas a právní základ pro zpracování.
+* **ČR:** GDPR + Zákon o ochraně osobních údajů.
 
-### 3. Familial implications
+### 3. Dopady na rodinu (familial implications)
 
-DNA *jedné* osoby reveals information about *family members*:
+DNA *jediné* osoby vypovídá o *jejích rodinných příslušnících*:
 
-* Brothers, sisters, parents, children share alleles.
-* **Distant relatives** identifiable via DNA databases.
-* **Genetic genealogy** investigations — relatives become *de facto* suspects.
+* Bratři, sestry, rodiče i děti sdílejí alely.
+* **Vzdálení příbuzní** jsou identifikovatelní přes DNA databáze.
+* **Genetická genealogie (genetic genealogy)** ve vyšetřování — příbuzní se stávají *de facto* podezřelými.
 
-This is **collective consent problem** — one person's decision affects entire family lineage.
+Jde o **problém kolektivního souhlasu** — rozhodnutí jednoho člověka ovlivní celou rodinnou linii.
 
-### 4. Government surveillance
+### 4. Vládní sledování (government surveillance)
 
-* **National DNA databases** — broad scope (offenders, arrestees, sometimes general population).
-* **UK NDNAD** — until *Marper v. UK* (ECHR 2008), held DNA of *all arrestees* including acquitted. Court ruled disproportionate.
-* **China:** mass DNA collection in Xinjiang (Uyghur surveillance).
-* **Czech Republic:** more limited but still controversial.
+* **Národní DNA databáze** — široký záběr (odsouzení, zadržení, někdy i běžná populace).
+* **UK NDNAD** — až do rozsudku *Marper v. UK* (ESLP 2008) uchovávala DNA *všech zadržených* včetně osvobozených. Soud rozhodl, že to bylo nepřiměřené.
+* **Čína:** hromadný odběr DNA v Sin-ťiangu (sledování Ujgurů).
+* **Česká republika:** rozsah je omezenější, ale stále kontroverzní.
 
-### 5. Consent in mass screenings
+### 5. Souhlas u hromadných screeningů
 
-* **Mass DNA screenings** (Pitchfork, 5000+ men in Leicestershire).
-* **Pressure to comply** — "if innocent, why refuse?" implies guilt of refusers.
-* **Voluntariness questionable** when alternative is suspicion.
+* **Hromadné DNA screeningy** (případ Pitchfork, přes 5000 mužů v Leicestershire).
+* **Tlak na účast** — postoj „když jsi nevinný, proč odmítáš?“ naznačuje vinu těch, kdo odmítnou.
+* **Dobrovolnost je sporná**, pokud je alternativou podezření.
 
-### 6. Investigative Genetic Genealogy (IGG)
+### 6. Vyšetřovací genetická genealogie (Investigative Genetic Genealogy, IGG)
 
-* **Consumer DNA databases** (GEDmatch, FTDNA) used by law enforcement.
-* Users *consented* for genealogy, not forensic.
-* Even **opt-in** policies (GEDmatch post-2019) — *non-uploaders* still identifiable via cousins.
+* **Spotřebitelské DNA databáze** (GEDmatch, FTDNA) využívané orgány činnými v trestním řízení.
+* Uživatelé *udělili souhlas* pro genealogii, nikoli pro forenzní účely.
+* I při zásadě *přihlášení (opt-in)* (GEDmatch po roce 2019) zůstávají *ti, kdo své údaje nenahráli*, identifikovatelní přes své bratrance a sestřenice.
 
-### 7. Wrongful conviction concerns
+### 7. Obavy z neoprávněného odsouzení (wrongful conviction)
 
-* **Junk science** — early DNA cases sometimes overstated certainty.
-* **Lab errors** — contamination, mishandling.
-* **Probabilistic interpretation** — different software give different likelihood ratios for mixed samples.
-* **Innocence Project:** 375+ DNA exonerations show prior convictions were wrong.
+* **Pseudověda (junk science)** — v raných DNA případech byla jistota někdy přeceňována.
+* **Laboratorní chyby** — kontaminace, nesprávná manipulace se vzorky.
+* **Pravděpodobnostní interpretace** — různé softwarové nástroje udávají u smíšených vzorků různé poměry věrohodnosti.
+* **Innocence Project:** více než 375 očištění pomocí DNA ukazuje, že předchozí odsouzení byla chybná.
 
-## Legal frameworks
+## Právní rámce
 
 ### EU GDPR (2018)
 
-* **Article 9** — biometric data + health data + genetic data are *special category*.
-* Processing requires:
-  * Explicit consent, OR
-  * Public health/research, OR
-  * Substantial public interest with appropriate safeguards.
-* **Right to be forgotten** for genetic data (subject to limits).
+* **Článek 9** — biometrické údaje, zdravotní údaje i genetické údaje jsou *zvláštní kategorií*.
+* Zpracování vyžaduje:
+  * výslovný souhlas, NEBO
+  * veřejné zdraví / výzkum, NEBO
+  * podstatný veřejný zájem s odpovídajícími zárukami.
+* **Právo být zapomenut** u genetických údajů (s určitými omezeními).
 
-### Czech Republic
+### Česká republika
 
-* **Zákon o policii (273/2008 Sb.)** — police DNA collection regulated.
-* **Zákon o ochraně osobních údajů** — implements GDPR.
-* **DNA retention:** convicted criminals long-term, acquitted persons deletion.
+* **Zákon o policii (273/2008 Sb.)** — upravuje odběr DNA policií.
+* **Zákon o ochraně osobních údajů** — provádí GDPR.
+* **Uchovávání DNA:** u odsouzených pachatelů dlouhodobě, u osvobozených osob výmaz.
 
-### US
+### USA
 
-* **GINA Act (2008)** — protects against genetic discrimination.
-* **State laws vary** — California Genetic Information Privacy Act (2021) extends beyond GINA.
-* **Fourth Amendment** — *Carpenter v. United States* (2018) implications for DNA.
+* **GINA Act (2008)** — chrání před genetickou diskriminací.
+* **Zákony jednotlivých států se liší** — kalifornský Genetic Information Privacy Act (2021) jde nad rámec GINA.
+* **Čtvrtý dodatek (Fourth Amendment)** — rozsudek *Carpenter v. United States* (2018) má dopady i na oblast DNA.
 
 ### EU Prüm (2005)
 
-* **Automated DNA exchange** between EU member states.
-* Cross-border searches for serious crime.
-* **Privacy advocates** concerned about lack of oversight.
+* **Automatizovaná výměna DNA** mezi členskými státy EU.
+* Přeshraniční vyhledávání u závažné trestné činnosti.
+* **Zastánci soukromí** mají obavy z nedostatečného dohledu.
 
-## Specific ethical scenarios
+## Konkrétní etické scénáře
 
-### Crime scene without suspect
+### Místo činu bez podezřelého
 
-* OK to upload to database (no individual's privacy violated).
-* Match found → investigative lead.
+* Nahrání do databáze je v pořádku (nedochází k narušení soukromí žádné konkrétní osoby).
+* Nalezená shoda → vyšetřovací stopa.
 
-### Mass screening
+### Hromadný screening
 
-* **Voluntary participation** essential.
-* **Geographic + age limits** — minimize scope.
-* **Destroy excluded samples** — don't retain non-matches.
+* **Dobrovolná účast** je zásadní.
+* **Geografická a věková omezení** — minimalizace rozsahu.
+* **Zničení vyloučených vzorků** — neuchovávat vzorky, které neodpovídají.
 
-### Familial searching
+### Příbuzenské vyhledávání (familial searching)
 
-* **Crime DNA** matches *family member* in database.
-* Family member not the perpetrator, but related.
-* **Used** in many jurisdictions; **controversial** in others.
+* **DNA z místa činu** se shoduje s *rodinným příslušníkem* v databázi.
+* Tento příbuzný není pachatel, ale je s ním spřízněn.
+* **Používá se** v mnoha jurisdikcích; v jiných je **kontroverzní**.
 
-### Phenotyping
+### Predikce vzhledu (phenotyping)
 
-* Predict eye color, hair color, ancestry from DNA.
-* **Pros:** narrow suspect pool, generate composite sketch.
-* **Cons:** racial profiling concerns, stigmatization.
+* Předpověď barvy očí, barvy vlasů a původu z DNA.
+* **Výhody:** zúžení okruhu podezřelých, vytvoření orientačního portrétu.
+* **Nevýhody:** obavy z rasového profilování a stigmatizace.
 
-### Cold case DNA from consumer databases
+### Odložené případy a DNA ze spotřebitelských databází
 
-* **GEDmatch / FTDNA** — uploaded by users for genealogy.
-* **Forensic upload** controversial (post-Golden State Killer 2018).
-* **Opt-in policy** at GEDmatch from 2019.
-* But: even opt-out users identifiable via cousins (who opted in).
+* **GEDmatch / FTDNA** — údaje nahrané uživateli pro genealogii.
+* **Forenzní nahrání** je kontroverzní (po případu Golden State Killer 2018).
+* **Zásada přihlášení (opt-in)** platí na GEDmatch od roku 2019.
+* Ale: i odhlášení (opt-out) uživatelé jsou identifikovatelní přes své bratrance a sestřenice, kteří se přihlásili.
 
-### Newborn screening
+### Screening novorozenců (newborn screening)
 
-* **Heel-prick blood spots** collected from all newborns for genetic disease screening.
-* **Retention** — many states keep blood spots for decades.
-* **Forensic use** in some cases (NJ baby Hope, 2016).
-* **Parents often unaware** of retention/use.
+* **Krevní kapky z patičky (heel-prick blood spots)** se odebírají všem novorozencům kvůli screeningu genetických onemocnění.
+* **Uchovávání** — mnoho států uchovává krevní vzorky po desetiletí.
+* **Forenzní využití** v některých případech (případ NJ baby Hope, 2016).
+* **Rodiče si často nejsou vědomi** uchovávání ani využití těchto vzorků.
 
-## DNA and reidentification
+## DNA a reidentifikace
 
-### Anonymized DNA isn't really anonymous
+### Anonymizovaná DNA ve skutečnosti anonymní není
 
-* **Sweeney et al.** demonstrated re-identification of supposed-anonymous genomic data.
-* Combined with public information (age, gender, ancestry, surname), genomic data is *highly identifying*.
+* **Sweeney et al.** prokázali reidentifikaci údajně anonymních genomických dat.
+* V kombinaci s veřejnými informacemi (věk, pohlaví, původ, příjmení) jsou genomická data *vysoce identifikující*.
 
-### Surname inference
+### Odvození příjmení (surname inference)
 
-* **Y-chromosome STRs** + public genealogy databases → predict *surname* of male DNA donor.
-* Demonstrated by **Gymrek et al. 2013** — *Science* — identified ~50 % of male donors from "anonymized" 1000 Genomes data.
+* **STR markery na chromozomu Y** + veřejné genealogické databáze → předpověď *příjmení* mužského dárce DNA.
+* Prokázáno v práci **Gymrek et al. 2013** — *Science* — z „anonymizovaných“ dat projektu 1000 Genomes bylo identifikováno přibližně 50 % mužských dárců.
 
-## Ethical research guidelines
+## Etické zásady pro výzkum
 
-* **Helsinki Declaration** — medical research ethics.
-* **GINA-compliant protocols** in US.
-* **GDPR-compliant** for EU.
-* **Institutional Review Boards (IRBs) / Ethics Committees** — research approval.
+* **Helsinská deklarace** — etika lékařského výzkumu.
+* **Protokoly v souladu s GINA** v USA.
+* **Soulad s GDPR** v EU.
+* **Etické komise (Institutional Review Boards, IRB)** — schvalování výzkumu.
 
-### Informed consent best practices
+### Osvědčené postupy pro informovaný souhlas
 
-* **Specific purpose** stated.
-* **Retention period** stated.
-* **Right to withdraw** explained.
-* **Onward sharing** disclosed.
-* **Family implications** mentioned.
+* **Uvedení konkrétního účelu.**
+* **Uvedení doby uchovávání.**
+* **Vysvětlení práva odstoupit od souhlasu.**
+* **Zveřejnění dalšího sdílení** údajů.
+* **Zmínění dopadů na rodinu.**
 
-## Worldwide perspectives
+## Pohledy ze světa
 
-### China — concerns
+### Čína — obavy
 
-* Mass DNA collection in Xinjiang, Tibet.
-* **Genome editing** (CRISPR He Jiankui case 2018).
-* **Use** for surveillance + ethnic profiling.
-* International condemnation.
+* Hromadný odběr DNA v Sin-ťiangu a Tibetu.
+* **Editace genomu (genome editing)** (případ CRISPR He Jiankui 2018).
+* **Využití** ke sledování a etnickému profilování.
+* Mezinárodní odsouzení.
 
-### India Aadhaar
+### Indický systém Aadhaar
 
-* National biometric ID with iris, fingerprint.
-* DNA *not* primary component.
-* Concerns over function creep (originally welfare, expanded to taxation, finance).
+* Národní biometrický průkaz s duhovkou a otiskem prstu.
+* DNA *není* jeho primární součástí.
+* Obavy z rozšiřování funkcí (function creep) — původně sociální dávky, později rozšířeno na daně a finance.
 
-### Western Europe
+### Západní Evropa
 
-* GDPR-restricted.
-* **Family reunification** sometimes requires DNA.
-* **Forensic** use regulated.
+* Omezena GDPR.
+* **Sloučení rodiny (family reunification)** někdy vyžaduje DNA.
+* **Forenzní** využití je regulováno.
 
-## Direct-to-Consumer (DTC) genetic testing
+## Spotřebitelské genetické testování (Direct-to-Consumer, DTC)
 
-### Companies
+### Společnosti
 
-* **23andMe** — 12M+ users.
-* **AncestryDNA** — 21M+ users.
-* **MyHeritage** — 6M+ users.
-* **FTDNA** — 2M+ users.
+* **23andMe** — přes 12 milionů uživatelů.
+* **AncestryDNA** — přes 21 milionů uživatelů.
+* **MyHeritage** — přes 6 milionů uživatelů.
+* **FTDNA** — přes 2 miliony uživatelů.
 
-### Privacy concerns
+### Obavy o soukromí
 
-* **Data ownership** — what does the company own vs. user.
-* **Sharing** — sold to pharma (GSK partnership with 23andMe).
-* **Hacking** — DNA data breaches (23andMe 2023 breach affected 6.9M users).
-* **Insurance/employer use** — restricted by GINA but enforcement varies.
+* **Vlastnictví dat** — co vlastní společnost a co uživatel.
+* **Sdílení** — prodej farmaceutickým firmám (partnerství GSK s 23andMe).
+* **Hacking** — úniky DNA dat (únik z 23andMe v roce 2023 zasáhl 6,9 milionu uživatelů).
+* **Využití pojišťovnami či zaměstnavateli** — omezeno zákonem GINA, ale vymáhání se různí.
 
-### Recommendation
+### Doporučení
 
-* Read **Terms of Service** carefully.
-* Consider implications for **family members**.
-* Use **privacy-focused** services (don't share unnecessarily).
-* Consider **declining** if not needed.
+* Pečlivě si přečtěte **podmínky služby (Terms of Service)**.
+* Zvažte dopady na **rodinné příslušníky**.
+* Používejte služby **zaměřené na soukromí** (nesdílejte zbytečně).
+* Zvažte **odmítnutí** testu, pokud jej nepotřebujete.
 
-## Czech ethical framework
+## Český etický rámec
 
-* **GDPR-aligned.**
-* **Bioetické komise** at hospitals and research institutions.
-* **Zákon o specifických zdravotních službách** — regulates genetic testing in healthcare.
+* **V souladu s GDPR.**
+* **Bioetické komise** v nemocnicích a výzkumných institucích.
+* **Zákon o specifických zdravotních službách** — upravuje genetické testování ve zdravotnictví.
 
-## Trends 2025
+## Trendy roku 2025
 
-* **Whole genome sequencing** mass adoption (cost dropped to $100).
-* **Polygenic risk scores** — increasing accuracy for disease prediction.
-* **Genetic privacy laws** — California's law strengthened 2024.
-* **Forensic IGG** — wider adoption, more regulation.
-* **Anti-discrimination** — ongoing legal cases.
+* **Sekvenování celého genomu (whole genome sequencing)** — masové rozšíření (cena klesla na 100 dolarů).
+* **Polygenní rizikové skóre (polygenic risk scores)** — rostoucí přesnost při predikci nemocí.
+* **Zákony o genetickém soukromí** — kalifornský zákon byl v roce 2024 zpřísněn.
+* **Forenzní IGG** — širší adopce a více regulace.
+* **Antidiskriminace** — probíhající soudní spory.
 
 ## Klíčové ponaučení
 
-> DNA je *nejvýkonnější* biometrický nástroj a *nejprivátnější* osobní data. *Vyžaduje* zvláštní právní + etické zacházení, převyšující standard pro jiné biometriky.
+> DNA je *nejvýkonnější* biometrický nástroj a *nejprivátnější* osobní data. *Vyžaduje* zvláštní právní a etické zacházení, které převyšuje standard pro jiné biometriky.
 
 Praktická doporučení:
 
-* **Minimize collection** — only when truly necessary.
-* **Minimize retention** — delete when purpose served.
-* **Protect via strong cryptography**.
-* **Audit access** — log every query.
-* **User control** — ability to withdraw, view, delete.
-* **Transparency** — clear policies, public reporting.
+* **Minimalizujte sběr** — odebírejte DNA jen tehdy, když je to skutečně nutné.
+* **Minimalizujte uchovávání** — smažte data, jakmile splnila svůj účel.
+* **Chraňte data silnou kryptografií**.
+* **Auditujte přístupy** — zaznamenávejte každý dotaz.
+* **Kontrola uživatelem** — možnost odstoupit od souhlasu, nahlédnout do dat a smazat je.
+* **Transparentnost** — jasná pravidla a veřejné výkaznictví.
 
 ---
 

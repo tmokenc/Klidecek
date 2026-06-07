@@ -1,14 +1,14 @@
 ---
-title: Anti-RE techniky a obfuscation
+title: Techniky proti reverznímu inženýrství a obfuskace
 ---
 
-# Anti-RE techniky a obfuscation
+# Techniky proti reverznímu inženýrství a obfuskace
 
-Útočník reverz inženýruje. Designér se brání. **Anti-reverse engineering** techniky jsou *defensive* opatření zaměřená na *zpomalení a zdražení* analýzy. Bruce Schneierovo motto *"if your computer can see the instructions, you can see them too"* platí — anti-RE *nezabrání* RE, jen ho *prodraží*. Cílem je posunout cost útoku za hranici ekonomické únosnosti.
+Útočník provádí reverzní inženýrství (reverse engineering, RE). Návrhář se brání. **Techniky proti reverznímu inženýrství (anti-reverse engineering)** jsou obranná (defensive) opatření zaměřená na to, aby analýzu zpomalila a prodražila. Platí motto Bruce Schneiera *„if your computer can see the instructions, you can see them too“* (pokud instrukce vidí váš počítač, uvidíte je i vy) — anti-RE reverznímu inženýrství *nezabrání*, jen ho *prodraží*. Cílem je posunout cenu útoku za hranici ekonomické únosnosti.
 
 ## Defenzivní strategie
 
-::: svg "Anti-RE vrstvy: source obfuscation → compiler obfuscation → packing/encryption → anti-debug → environmental checks. Každá vrstva zvyšuje cost útoku."
+::: svg "Vrstvy anti-RE: obfuskace zdrojového kódu → obfuskace překladačem → balení/šifrování → anti-debug → kontroly prostředí. Každá vrstva zvyšuje cenu útoku."
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
   <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.3">
     <rect x="40" y="30" width="460" height="30" rx="4"/>
@@ -27,16 +27,16 @@ title: Anti-RE techniky a obfuscation
 </svg>
 :::
 
-## Vrstva 1 — Source-level obfuscation
+## Vrstva 1 — obfuskace na úrovni zdrojového kódu
 
-### Renaming
+### Přejmenování (renaming)
 
-* **Strip symbol names** — z funkce `verify_license` udělej `func_0x1A4B0`.
-* **Identifier scrambling** — random char sequences (Tigress tool, [O-LLVM](https://github.com/heroims/obfuscator)).
+* **Odstranění názvů symbolů (strip symbol names)** — z funkce `verify_license` se stane `func_0x1A4B0`.
+* **Zamíchání identifikátorů (identifier scrambling)** — náhodné sekvence znaků (nástroj Tigress, [O-LLVM](https://github.com/heroims/obfuscator)).
 
-### Dead code insertion
+### Vkládání mrtvého kódu (dead code insertion)
 
-Vsunutí *unused* kódu:
+Vsunutí *nepoužitého* kódu:
 
 ```c
 int verify(char *input) {
@@ -48,11 +48,11 @@ int verify(char *input) {
 }
 ```
 
-Reverz inženýr ztrácí čas analýzou *fake* paths.
+Reverzní inženýr ztrácí čas analýzou *falešných* cest.
 
-### Control flow flattening
+### Zploštění toku řízení (control flow flattening)
 
-Transformuje strukturovaný kód na *switch-based dispatcher*:
+Převede strukturovaný kód na *dispečer řízený přepínačem (switch-based dispatcher)*:
 
 ```c
 // Original
@@ -72,14 +72,14 @@ while (true) {
 }
 ```
 
-Disassembler ukazuje *spaghetti* — control flow graph je *plochý* a *zamotán*.
+Disassembler ukáže *špagety* — graf toku řízení (control flow graph) je *plochý* a *zamotaný*.
 
-::: viz cfg-flatten "Klikni na blok v originalu — odpovidajici case ve flatten verzi se zvyrazni. Vsechny prechody jdou pres switch dispatcher, struktura originalu je 'spaghetti'."
+::: viz cfg-flatten "Klikni na blok v originálu — odpovídající case ve zploštěné verzi se zvýrazní. Všechny přechody jdou přes switch dispatcher, struktura originálu je 'špagety'."
 :::
 
-### Opaque predicates
+### Neprůhledné predikáty (opaque predicates)
 
-Predikáty, které jsou *vždy true* (nebo false), ale obtížně to dokázat:
+Predikáty, které jsou *vždy pravdivé* (nebo vždy nepravdivé), ale je obtížné to dokázat:
 
 ```c
 if ((x * x * (x + 1)) % 2 == 0) {  // always true: x²(x+1) je vždy even
@@ -89,170 +89,170 @@ if ((x * x * (x + 1)) % 2 == 0) {  // always true: x²(x+1) je vždy even
 }
 ```
 
-Reverz inženýr nemůže staticky určit, že fake_work je dead.
+Reverzní inženýr nedokáže staticky určit, že `fake_work` je mrtvý kód.
 
-## Vrstva 2 — Compiler-level obfuscation
+## Vrstva 2 — obfuskace na úrovni překladače (compiler)
 
-* **`-fno-stack-protector`** — odstraní stack canaries (které jinak nesou information).
-* **`-fno-pie -no-pie`** — fixed addresses; ale na druhou stranu method-obfuscation friendly.
-* **`-fomit-frame-pointer`** — bez EBP/RBP; debugger má problém s backtrace.
-* **`-fvisibility=hidden`** — internal symbols *not* in dynamic symbol table.
-* **`strip --strip-all`** — odstraní *všechny* symbols z ELF.
+* **`-fno-stack-protector`** — odstraní ochranné hodnoty na zásobníku (stack canaries), které by jinak nesly informaci.
+* **`-fno-pie -no-pie`** — pevné adresy; na druhou stranu to ale usnadňuje obfuskaci metod.
+* **`-fomit-frame-pointer`** — bez registrů EBP/RBP; debugger má problém s výpisem zásobníku volání (backtrace).
+* **`-fvisibility=hidden`** — interní symboly se *nedostanou* do tabulky dynamických symbolů.
+* **`strip --strip-all`** — odstraní *všechny* symboly z ELF souboru.
 
-### LLVM obfuscation (O-LLVM)
+### Obfuskace v LLVM (O-LLVM)
 
-Klasické extensions:
+Klasická rozšíření:
 
-* **Instructions Substitution** — `a + b` → `a - (-b)`, `x ^ y` → `(x | y) & ~(x & y)`.
-* **Bogus Control Flow** — vsunutí random branches s opaque predicates.
-* **Control Flow Flattening** — viz výše.
+* **Substituce instrukcí (instruction substitution)** — `a + b` → `a - (-b)`, `x ^ y` → `(x | y) & ~(x & y)`.
+* **Falešný tok řízení (bogus control flow)** — vsunutí náhodných skoků (branches) s neprůhlednými predikáty.
+* **Zploštění toku řízení (control flow flattening)** — viz výše.
 
 ### MOVfuscator
 
-[Christopher Domas 2015](https://github.com/xoreaxeaxeax/movfuscator) — *extrémní* obfuscation, compile C code do **pouze `mov` instrukcí**:
+[Christopher Domas 2015](https://github.com/xoreaxeaxeax/movfuscator) — *extrémní* obfuskace, která přeloží kód v jazyce C do **pouze instrukcí `mov`**:
 
-* Vše: arithmetic, branches, function calls — implementováno *jen* přes data movements.
-* Disassembly je *prakticky* nečitelný; každý normální algoritmus zhubne na *miliony* mov.
-* Klasická joke / proof-of-concept: kompletní *Brainfuck interpreter* v movs.
+* Vše — aritmetika, skoky, volání funkcí — je implementováno *jen* pomocí přesunů dat.
+* Disassembly je *prakticky* nečitelný; každý běžný algoritmus se rozroste na *miliony* instrukcí `mov`.
+* Klasický žert / důkaz konceptu (proof-of-concept): kompletní *interpret jazyka Brainfuck* napsaný v instrukcích `mov`.
 
-## Vrstva 3 — Packing a runtime encryption
+## Vrstva 3 — balení (packing) a šifrování za běhu (runtime encryption)
 
 **Packer** je nástroj, který:
 
-1. Vezme original binárku.
-2. **Zašifruje / komprimuje** original code.
-3. Vloží *unpacker stub* — code, který za běhu *rozbalí* a *spustí* original.
-4. Output: nová binárka, která je *malá* + *unreadable*.
+1. Vezme původní binárku.
+2. **Zašifruje / zkomprimuje** původní kód.
+3. Vloží *rozbalovací stub (unpacker stub)* — kód, který za běhu *rozbalí* a *spustí* originál.
+4. Výstupem je nová binárka, která je *malá* a *nečitelná*.
 
-Při spuštění unpacker decode-uje original do paměti a předá control.
+Při spuštění unpacker dekóduje originál do paměti a předá mu řízení.
 
-### Common packers
+### Běžné packery
 
-* **UPX** (Ultimate Packer for eXecutables) — open source, free. Komprese, ne *šifrování*. Velmi snadno *unpackable* (UPX má `-d` decompress option!) — *nezpomalí* serious RE.
-* **Themida** (Oreans) — commercial, $200+. Anti-debug, anti-VM, virtualization, code mutation. Hodně používaný v gaming anti-cheat (Easy Anti-Cheat, BattlEye).
-* **VMProtect** — virtualizes code do *custom virtual machine* (každý protected binary má vlastní VM ISA). Reverz inženýr musí *nejprve* zreverz VM, *pak* program. Velmi efektivní.
-* **Enigma Protector**, **Obsidium**, **Code Virtualizer** — alternatives.
+* **UPX** (Ultimate Packer for eXecutables) — open source, zdarma. Provádí kompresi, ne *šifrování*. Velmi snadno se rozbaluje (UPX má volbu `-d` pro dekompresi!) — vážnější reverzní inženýrství *nezpomalí*.
+* **Themida** (Oreans) — komerční, od 200 USD. Anti-debug, anti-VM, virtualizace, mutace kódu. Hojně používaná v herních systémech proti podvádění (anti-cheat: Easy Anti-Cheat, BattlEye).
+* **VMProtect** — virtualizuje kód do *vlastního virtuálního stroje (custom virtual machine)*; každá chráněná binárka má vlastní instrukční sadu (ISA) virtuálního stroje. Reverzní inženýr musí *nejprve* zreverzovat virtuální stroj a *teprve pak* samotný program. Velmi účinné.
+* **Enigma Protector**, **Obsidium**, **Code Virtualizer** — alternativy.
 
 ### Crypter
 
-* **Crypter** = packer + (typically) anti-AV evasion.
-* Často používán v malware k obcházení signatures.
+* **Crypter** = packer + (typicky) obcházení antivirů (anti-AV evasion).
+* Často se používá ve škodlivém kódu (malware) k obcházení signatur.
 
-### Counters pro reverz inženýra
+### Protiopatření pro reverzního inženýra
 
-* **Identify packer** pomocí PEiD, Detect It Easy (DIE), CFF Explorer.
-* **Auto-unpack** s tools: x64dbg + Scylla, IDA Pro + Universal Extractor.
-* **Manual unpack** přes tracing až *Original Entry Point* (OEP) of unpacked code.
-* **Memory dump** — once unpacked v paměti, dump RAM image.
+* **Identifikace packeru** pomocí nástrojů PEiD, Detect It Easy (DIE), CFF Explorer.
+* **Automatické rozbalení** nástroji: x64dbg + Scylla, IDA Pro + Universal Extractor.
+* **Ruční rozbalení** trasováním (tracing) až po *původní vstupní bod (Original Entry Point, OEP)* rozbaleného kódu.
+* **Výpis paměti (memory dump)** — jakmile je kód rozbalený v paměti, pořídí se obraz RAM.
 
-## Vrstva 4 — Anti-debug
+## Vrstva 4 — anti-debug
 
-Viz [[dynamicka-analyza]]. Common techniques:
+Viz [[dynamicka-analyza]]. Běžné techniky:
 
 * `IsDebuggerPresent()`, `CheckRemoteDebuggerPresent()`.
 * `NtQueryInformationProcess(ProcessDebugPort)`.
-* **RDTSC timing** — měří dobu, debugger zpomalí.
-* **INT 3 detection** — Software breakpoint je `0xCC`; binary scans paměť pro neočekávané 0xCC.
-* **Hardware breakpoint check** — DR0–DR3 registry.
-* **Self-modifying code** — kód, který modifikuje sám sebe; debugger v některých implementacích panicuje.
+* **Časování RDTSC (RDTSC timing)** — měří dobu běhu, debugger ji zpomalí.
+* **Detekce INT 3** — softwarový breakpoint je `0xCC`; binárka prohledává paměť, jestli v ní nejsou neočekávané hodnoty `0xCC`.
+* **Kontrola hardwarových breakpointů** — registry DR0–DR3.
+* **Samomodifikující se kód (self-modifying code)** — kód, který upravuje sám sebe; debugger v některých implementacích zhavaruje.
 
-### Příklad — Stuxnet anti-debug
+### Příklad — anti-debug ve Stuxnetu
 
-Stuxnet ([[iot-realne-utoky]]) měl rozsáhlé anti-debug:
+Stuxnet ([[iot-realne-utoky]]) měl rozsáhlou anti-debug ochranu:
 
-* Detection of `OllyDbg.exe`, `IDA.exe`, `Wireshark.exe`, `SysInternals` tools.
-* Kvalifikované VM detection (CPU instructions, registry).
-* Custom encryption layers — *5 vrstev*.
-* Spustí malicious code *jen* v target environment (Siemens WinCC, specific PLC frequencies).
+* Detekce nástrojů `OllyDbg.exe`, `IDA.exe`, `Wireshark.exe` a `SysInternals`.
+* Sofistikovanou detekci virtuálních strojů (CPU instrukce, registry).
+* Vlastní vrstvy šifrování — *5 vrstev*.
+* Spustil škodlivý kód *jen* v cílovém prostředí (Siemens WinCC, konkrétní frekvence PLC).
 
-## Vrstva 5 — Anti-VM / Anti-sandbox
+## Vrstva 5 — anti-VM / anti-sandbox
 
-* **CPU manufacturer string** — `cpuid` instrukce v VM často vrátí *VMware* nebo *VirtualBox* string.
-* **Hardware vendors** — MAC addresses, registry keys.
-* **Process list** — `vmtoolsd.exe`, `VBoxService.exe`, `vboxservice.exe`.
-* **Disk size** — VM často má *malý* disk (~50 GB); production server *velký*.
-* **Mouse movement** — sandboxes nemají uživatele = no mouse activity for hours.
-* **Process count** — sandbox má jen *target binary*; real system má 100+ processes.
-* **Time bomb** — malware spustí malicious code až *po dlouhé době* (např. 24h sleep), aby sandbox time-out vypršel.
+* **Řetězec výrobce CPU** — instrukce `cpuid` ve virtuálním stroji často vrátí řetězec *VMware* nebo *VirtualBox*.
+* **Hardwaroví výrobci** — MAC adresy, klíče v registru.
+* **Seznam procesů** — `vmtoolsd.exe`, `VBoxService.exe`, `vboxservice.exe`.
+* **Velikost disku** — virtuální stroj má často *malý* disk (~50 GB); produkční server *velký*.
+* **Pohyb myši** — sandboxy nemají uživatele = žádná aktivita myši po celé hodiny.
+* **Počet procesů** — sandbox má jen *cílovou binárku*; reálný systém má 100+ procesů.
+* **Časovaná nálož (time bomb)** — malware spustí škodlivý kód až *po dlouhé době* (např. 24h spánku), aby mezitím vypršel časový limit sandboxu.
 
-## Whitebox cryptography
+## Whitebox kryptografie (whitebox cryptography)
 
-Specializovaná obrana proti RE — pro situations, kde *attacker has full debugger access*:
+Specializovaná obrana proti reverznímu inženýrství — pro situace, kdy *útočník má plný přístup přes debugger*:
 
-* **Tradiční crypto** předpokládá *black-box* attacker — implementace OK, *key* secret.
-* **Whitebox crypto** — *implementation* je secret. AES klíč je *embedded* do velkých lookup tables (lambda tables), které jsou *neoddělitelné* od algoritmu.
-* Used in: DRM (Netflix Widevine, FairPlay, PlayReady), mobile payment (HCE), banking apps na nezabezpečených mobilech.
+* **Tradiční kryptografie** předpokládá útočníka v režimu *černé skříňky (black-box)* — implementace je veřejná, tajný je jen *klíč (key)*.
+* **Whitebox kryptografie** — tajná je *samotná implementace*. AES klíč je *zapečen (embedded)* do velkých vyhledávacích tabulek (lookup tables, tzv. lambda tables), které jsou *neoddělitelné* od algoritmu.
+* Používá se v: DRM (Netflix Widevine, FairPlay, PlayReady), mobilních platbách (HCE), bankovních aplikacích na nezabezpečených mobilech.
 
-**Akademická situace:** Většina publikovaných WB AES implementací byla *prolomena* během 1–5 let. State-of-the-art (proprietary) trvá obvykle 2–6 měsíců profesionálnímu reverz týmu.
+**Akademická situace:** Většina publikovaných whitebox implementací AES byla *prolomena* během 1–5 let. Stav techniky (proprietární řešení) vydrží profesionálnímu reverznímu týmu obvykle 2–6 měsíců.
 
-## Code virtualization (deep dive)
+## Virtualizace kódu (code virtualization) — do hloubky
 
-Klasický high-end anti-RE — *virtualizace* hot funkcí:
+Klasická špičková (high-end) ochrana proti reverznímu inženýrství — *virtualizace* nejvytíženějších (hot) funkcí:
 
-1. Kritické funkce (license check, crypto operations) jsou *přeloženy* do **custom bytecode**.
-2. Compiler generuje **interpretátor** tohoto bytecode jako součást binárky.
-3. Při run-time interpretátor dispatchne instrukce.
-4. Reverz inženýr musí: (a) identifikovat interpreter, (b) zreverz instrukční sadu, (c) zreverz bytecode protected functions.
+1. Kritické funkce (kontrola licence, kryptografické operace) se *přeloží* do **vlastního bytecode**.
+2. Překladač vygeneruje **interpret** tohoto bytecode jako součást binárky.
+3. Za běhu interpret jednotlivé instrukce dispatchuje (předává ke zpracování).
+4. Reverzní inženýr musí: (a) identifikovat interpret, (b) zreverzovat instrukční sadu, (c) zreverzovat bytecode chráněných funkcí.
 
 Příklady:
 
-* **VMProtect** — komerční, very popular.
+* **VMProtect** — komerční, velmi populární.
 * **Themida VM**.
-* **Custom VMs** vyvíjené malware authors (Stuxnet, Equation Group tools).
+* **Vlastní virtuální stroje** vyvíjené autory malwaru (Stuxnet, nástroje Equation Group).
 
-Klíčová metrika: **size factor** — protected code 10–100× větší než original. Slowdown 10–1000×.
+Klíčová metrika: **faktor zvětšení (size factor)** — chráněný kód je 10–100× větší než originál. Zpomalení je 10–1000×.
 
-## Tamper detection (software)
+## Detekce manipulace (tamper detection) — softwarová
 
-Software-side tamper detection:
+Detekce manipulace na softwarové straně:
 
-* **Self-checksum** — code computes its own CRC and aborts if changed.
-* **Code introspection** — *kontrolní funkce* iterates over `.text` section a verifikuje integrity.
-* **Self-modifying code** — code modifies itself, ale s precomputed hashes.
+* **Vlastní kontrolní součet (self-checksum)** — kód si spočítá vlastní CRC a při změně se ukončí.
+* **Introspekce kódu (code introspection)** — *kontrolní funkce* prochází sekci `.text` a ověřuje její integritu.
+* **Samomodifikující se kód (self-modifying code)** — kód upravuje sám sebe, ale s předpočítanými hashi.
 
-Limit: hardware-level patching obtížně detekovatelný (např. patch v RAM after load).
+Omezení: úpravu na úrovni hardwaru lze obtížně detekovat (např. záplata v RAM po načtení).
 
-## Honey tokens
+## Honey tokeny (honey tokens)
 
-* Embed *false* sensitive data (fake API keys, fake passwords).
-* Pokud útočník extrahuje a *použije*, detekuje se = honey alarm.
-* Útočník nemůže odlišit fake od real bez additional intel.
+* Vloží se *falešná* citlivá data (falešné API klíče, falešná hesla).
+* Pokud je útočník extrahuje a *použije*, dojde k detekci = spustí se „medový“ poplach (honey alarm).
+* Útočník nedokáže odlišit falešné údaje od pravých bez dodatečných informací.
 
 ## Limity anti-RE
 
-* **Determined attacker s dostatkem času** *vždy* uspěje. Schneier's law platí.
+* **Odhodlaný útočník s dostatkem času** *vždy* uspěje. Platí Schneierův zákon.
 * **Anti-RE** = *zpomalení*, ne *prevence*.
-* **Compromise mezi performance a security** — heavy obfuscation makes code 10–100× slower.
-* **Compatibility issues** — anti-debug často triggers AV false-positives.
+* **Kompromis mezi výkonem (performance) a bezpečností** — důkladná obfuskace zpomalí kód 10–100×.
+* **Problémy s kompatibilitou** — anti-debug často spouští falešné poplachy antivirů (AV false-positives).
 
-### Economic model
+### Ekonomický model
 
-Cílem je *překročit threshold* economic viability:
+Cílem je *překročit práh* ekonomické únosnosti:
 
-* Pokud cracking software trvá 1 týden + $1000 vybavení + $50/hod čas → $4 000.
-* A *crack* prodá za $50 → break-even nedosáhnut → most attackers se odradí.
+* Pokud prolomení softwaru trvá 1 týden + 1000 USD na vybavení + 50 USD/hod za čas → 4 000 USD.
+* A *crack* se prodá za 50 USD → bod zvratu (break-even) se nedosáhne → většina útočníků se odradí.
 
-Pro **state-level adversary** (NSA, FSB) je threshold *velmi vysoký* — anti-RE *neprotektuje*. Pro **commercial cracking** ano.
+Pro **státního protivníka (state-level adversary)** (NSA, FSB) je tento práh *velmi vysoký* — anti-RE ho *neochrání*. Pro **komerční prolamování (cracking)** ano.
 
 ## Praktická volba {tier=practice}
 
-Pro většinu commercial products:
+Pro většinu komerčních produktů:
 
-* **Strip symbols** + **standard optimization** (already significant defense).
-* **Minor obfuscation** (encrypt strings, anti-debug basics).
-* **Online activation** — license check běhěm spojení s server (server nemusí být lock-stepped s binárkou).
-* **Server-side validation** of critical operations.
+* **Odstranění symbolů (strip symbols)** + **standardní optimalizace** (už samo o sobě představuje výraznou obranu).
+* **Drobná obfuskace (minor obfuscation)** (šifrování řetězců, základní anti-debug).
+* **Online aktivace** — kontrola licence během spojení se serverem (server nemusí být svázán krok za krokem s binárkou).
+* **Validace na straně serveru** u kritických operací.
 
-Pro **high-value** applications (DRM, banking):
+Pro **vysoce hodnotné (high-value)** aplikace (DRM, bankovnictví):
 
-* **VMProtect / Themida / custom code virtualization**.
-* **Whitebox crypto** kde possible.
-* **Periodic update cycle** — útok je expirován za hodiny / dny rotation.
+* **VMProtect / Themida / vlastní virtualizace kódu**.
+* **Whitebox kryptografie** tam, kde je to možné.
+* **Pravidelný cyklus aktualizací** — útok pozbude platnosti během hodin / dní díky rotaci.
 
-Pro **safety-critical** systems (medical, automotive):
+Pro **bezpečnostně kritické (safety-critical)** systémy (zdravotnictví, automotive):
 
-* Reverz inženýrství je *legitimní bezpečnostní research* — anti-RE může ztížit *security research* a *vulnerability discovery*.
-* Mnoho výrobců dnes *odebírá* heavy anti-RE z bezpečnostní compliance důvodů.
+* Reverzní inženýrství je zde *legitimní bezpečnostní výzkum* — anti-RE může ztížit *bezpečnostní výzkum* a *odhalování zranitelností*.
+* Mnoho výrobců dnes z důvodů bezpečnostní compliance silnou anti-RE ochranu *odstraňuje*.
 
 ---
 

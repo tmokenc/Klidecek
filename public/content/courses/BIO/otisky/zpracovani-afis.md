@@ -4,7 +4,7 @@ title: Zpracování otisku a AFIS
 
 # Zpracování otisku a AFIS
 
-Plně automatizovaný workflow rozpoznání otisku — od *raw* image ze senzoru až po *match decision* v databázi miliónů otisků. **AFIS** (Automated Fingerprint Identification System) je *kompletní systém* zahrnující senzory, image processing, matching engine, databáze a workflow management.
+Plně automatizovaný pracovní postup (workflow) rozpoznání otisku — od surového snímku (raw image) ze senzoru až po rozhodnutí o shodě (match decision) v databázi miliónů otisků. **AFIS** (Automated Fingerprint Identification System) je *kompletní systém* zahrnující senzory, zpracování obrazu (image processing), srovnávací jádro (matching engine), databáze a správu celého procesu (workflow management).
 
 ## Pipeline zpracování
 
@@ -44,161 +44,161 @@ Plně automatizovaný workflow rozpoznání otisku — od *raw* image ze senzoru
 </svg>
 :::
 
-## 1. Image enhancement
+## 1. Vylepšení obrazu (image enhancement)
 
-Raw image ze senzoru je *nekvalitní*: low contrast, noise, gaps in ridges.
+Surový snímek ze senzoru má *nízkou kvalitu*: malý kontrast, šum a přerušené hřebeny papilárních linií (gaps in ridges).
 
-### Gabor filter
+### Gaborův filtr (Gabor filter)
 
-Standard pro fingerprint enhancement. **Gabor filter** je směrový bandpass filter:
+Standardní nástroj pro vylepšení snímku otisku. **Gaborův filtr** je směrový pásmový filtr (bandpass filter), tedy filtr, který propouští jen určité prostorové frekvence v určitém směru:
 
 ::: math
 G(x, y; \theta, f) = \exp\left(-\frac{x'^2 + y'^2}{2\sigma^2}\right) \cdot \cos(2\pi f x')
 :::
 
-* $\theta$ — orientace filtru (matches local ridge orientation).
-* $f$ — frekvence (matches local ridge density).
-* $\sigma$ — sigma Gaussian envelope.
+* $\theta$ — orientace filtru (odpovídá lokální orientaci hřebenů).
+* $f$ — frekvence (odpovídá lokální hustotě hřebenů).
+* $\sigma$ — sigma Gaussovy obálky (Gaussian envelope).
 
-Aplikace:
+Postup aplikace:
 
-1. **Compute orientation field** — pro každý pixel odhadni *local ridge orientation* (gradient analysis).
-2. **Compute frequency field** — local ridge frequency (typically 7–15 pixels per ridge).
-3. **Apply Gabor filter** — *direction-specific*; filtr přizpůsoben *local* parameters.
+1. **Výpočet pole orientací (orientation field)** — pro každý pixel odhadni *lokální orientaci hřebene* pomocí analýzy gradientu.
+2. **Výpočet pole frekvencí (frequency field)** — lokální frekvence hřebenů (typicky 7–15 pixelů na jeden hřeben).
+3. **Aplikace Gaborova filtru** — *směrově specifická*; filtr je přizpůsoben *lokálním* parametrům.
 
-Výsledek: dramatic improvement of ridge clarity, gap filling.
+Výsledek: výrazné zlepšení čitelnosti hřebenů a zaplnění přerušených míst.
 
-::: viz gabor-ridge-enhance "Nastavte orientaci a frekvenci Gabor filtru a sledujte, jak zostří ridge image."
+::: viz gabor-ridge-enhance "Nastavte orientaci a frekvenci Gaborova filtru a sledujte, jak zostří obraz hřebenů."
 :::
 
-### FFT-based enhancement
+### Vylepšení ve frekvenční oblasti (FFT-based enhancement)
 
-Alternativně: *frequency domain* enhancement.
+Alternativní přístup: vylepšení ve *frekvenční oblasti* (frequency domain).
 
-* FFT image → high-pass filter → inverse FFT.
-* Less direction-aware than Gabor, but faster.
+* FFT snímku → horní propust (high-pass filter) → inverzní FFT.
+* Méně zohledňuje směr hřebenů než Gaborův filtr, zato je rychlejší.
 
-## 2. Segmentation
+## 2. Segmentace (segmentation)
 
-Identifikace *fingerprint region* (foreground) vs. *background* (skin off-finger, noise).
+Identifikace *oblasti otisku* (popředí, foreground) oproti *pozadí* (background) — tedy plochy mimo prst a šumu.
 
-* **Variance-based** — high variance = foreground (ridges); low variance = background (smooth).
-* **Coherence-based** — well-defined orientation = foreground.
+* **Na základě rozptylu (variance-based)** — vysoký rozptyl = popředí (hřebeny); nízký rozptyl = pozadí (hladká plocha).
+* **Na základě koherence (coherence-based)** — dobře definovaná orientace = popředí.
 
-Output: *binary mask* ridges-only.
+Výstup: *binární maska* pouze s hřebeny.
 
-## 3. Binarization
+## 3. Binarizace (binarization)
 
-Převod grayscale → binary (black ridges, white valleys).
+Převod z odstínů šedi (grayscale) na binární obraz (černé hřebeny, bílá údolí mezi nimi).
 
-* **Adaptive thresholding** — Otsu's method per local block.
-* **Mean filter + threshold** — simple but works.
+* **Adaptivní prahování (adaptive thresholding)** — Otsuova metoda počítaná pro každý lokální blok.
+* **Průměrovací filtr a práh (mean filter + threshold)** — jednoduché, ale funkční.
 
-## 4. Thinning (skeletonization)
+## 4. Ztenčování / skeletonizace (thinning / skeletonization)
 
-Redukce *every ridge* na *1-pixel-wide* line (skeleton).
+Redukce *každého hřebene* na linii *širokou jeden pixel* (kostru, skeleton).
 
-* **Algoritmus:** iterative deletion of boundary pixels (Zhang-Suen 1984).
-* Standard preprocessing for minutiae extraction.
+* **Algoritmus:** iterativní mazání hraničních pixelů (Zhang-Suen 1984).
+* Standardní předzpracování pro extrakci markantů (minutiae).
 
-## 5. Minutiae extraction
+## 5. Extrakce markantů (minutiae extraction)
 
 Viz [[markanty]]. Stručně:
 
-* Pro každý pixel na skeletonu spočti **crossing number (CN)**.
-* CN = 1 → ridge ending. CN = 3 → bifurcation.
-* Post-process: filter false minutiae (border effects, noise artifacts).
+* Pro každý pixel na kostře spočti **číslo křížení (crossing number, CN)**.
+* CN = 1 → ukončení hřebene (ridge ending). CN = 3 → větvení (bifurcation).
+* Následné zpracování: odfiltrování nepravých markantů (falešné kvůli okrajovým efektům a šumovým artefaktům).
 
-## 6. Matching
+## 6. Srovnávání (matching)
 
-Viz [[markanty]]. Algoritmus alignment + minutiae correspondence.
+Viz [[markanty]]. Algoritmus zarovnání (alignment) a hledání odpovídajících si markantů (minutiae correspondence).
 
-## 7. Decision
+## 7. Rozhodnutí (decision)
 
-Score > threshold → match.
+Skóre > práh → shoda.
 
-## AFIS — large-scale architecture
+## AFIS — architektura pro velký rozsah (large-scale)
 
-**Automated Fingerprint Identification System** je systémová implementace pro *large-scale* deployment.
+**Automated Fingerprint Identification System** je systémová implementace pro nasazení ve *velkém rozsahu* (large-scale).
 
 ### Komponenty
 
-* **Enrollment workstation** — captures 10-fingers + photo, links to identity.
-* **Database** — centralized storage of templates.
-* **Matcher engine** — high-throughput matching (1000+ comparisons/sec).
-* **Examiner workstation** — for *human review* of AFIS candidates.
-* **Latent fingerprint workstation** — for forensic latent search.
+* **Pracoviště pro registraci (enrollment workstation)** — sejme všech 10 prstů a fotografii a propojí je s identitou osoby.
+* **Databáze** — centralizované úložiště šablon.
+* **Srovnávací jádro (matcher engine)** — srovnávání s vysokou propustností (1000+ porovnání za sekundu).
+* **Pracoviště odborníka (examiner workstation)** — pro *lidskou kontrolu* kandidátů navržených systémem AFIS.
+* **Pracoviště pro latentní otisky (latent fingerprint workstation)** — pro forenzní vyhledávání latentních otisků.
 
-### Operational modes
+### Provozní režimy (operational modes)
 
-* **Tenprint search** — full 10-finger enrollment against database. Used for *background checks*, criminal records.
-* **Latent search** — *partial single* finger from crime scene against database. Used in forensic investigations.
-* **Verification** — 1:1 fingerprint check (e.g., border control entry).
-* **Identification** — 1:N (e.g., suspect identification).
+* **Vyhledávání podle deseti prstů (tenprint search)** — kompletní registrace 10 prstů proti databázi. Používá se pro *prověrky osob* (background checks) a kriminální záznamy.
+* **Latentní vyhledávání (latent search)** — *částečný jeden* otisk z místa činu proti databázi. Používá se ve forenzním vyšetřování.
+* **Verifikace (verification)** — kontrola otisku 1:1 (např. vstup při hraniční kontrole).
+* **Identifikace (identification)** — porovnání 1:N (např. identifikace podezřelého).
 
-### Major AFIS deployments
+### Významná nasazení AFIS
 
 | Systém | Region | Velikost |
 | :--- | :--- | :---: |
-| **FBI NGI** | USA | 150+ million |
-| **Aadhaar UIDAI** | Indie | 1.3 mld (s iris + face) |
-| **EU Eurodac** | EU | ~6 million (asylum applicants) |
+| **FBI NGI** | USA | 150+ miliónů |
+| **Aadhaar UIDAI** | Indie | 1,3 mld (s duhovkou + obličejem) |
+| **EU Eurodac** | EU | ~6 miliónů (žadatelé o azyl) |
 | **INTERPOL AFIS** | Mezinárodní | 200 000+ |
-| **UK IDENT1** | UK | 8 million |
-| **DPMB** (police CZ) | ČR | ~1 million |
+| **UK IDENT1** | UK | 8 miliónů |
+| **DPMB** (policie ČR) | ČR | ~1 milión |
 
-## Latent fingerprint processing
+## Zpracování latentních otisků (latent fingerprint processing)
 
-Forenzní use case — *partial, low-quality* otisk z crime scene.
+Forenzní případ užití — *částečný, nekvalitní* otisk z místa činu.
 
-### Workflow
+### Pracovní postup
 
-1. **Crime scene capture** — police technicians develop latent print (powder, chemical).
-2. **Digital scan** — 1000 dpi, high-resolution camera.
-3. **Manual quality assessment** — examiner posoudí, zda použitelné.
-4. **Feature extraction** (often manual) — examiner *označí* minutiae.
-5. **Search AFIS** — automated candidate list (top 20).
-6. **Manual comparison** — examiner *side-by-side* compare s každým kandidátem.
-7. **Decision** — *identification* / *exclusion* / *inconclusive*.
+1. **Snímání na místě činu (crime scene capture)** — policejní technici vyvolají latentní otisk (práškem nebo chemicky).
+2. **Digitalizace** — sken 1000 dpi, kamera s vysokým rozlišením.
+3. **Ruční posouzení kvality** — odborník posoudí, zda je otisk použitelný.
+4. **Extrakce příznaků (feature extraction)** (často ruční) — odborník *označí* markanty.
+5. **Vyhledání v AFIS** — automaticky vytvořený seznam kandidátů (top 20).
+6. **Ruční porovnání** — odborník porovná otisk *vedle sebe* (side-by-side) s každým kandidátem.
+7. **Rozhodnutí** — *identifikace* / *vyloučení* / *neprůkazné*.
 
 ### Limity
 
-* **Partial coverage** — typicky < 50 % full finger.
-* **Distortion** — pressure, surface curvature.
-* **Background patterns** — substrate (wood grain, fabric) interferes.
-* **Subjective bias** — examiner's *expectation* může ovlivnit decision (NAS 2009 report).
+* **Částečné pokrytí (partial coverage)** — typicky < 50 % celého prstu.
+* **Zkreslení (distortion)** — vlivem přítlaku a zakřivení povrchu.
+* **Vzory pozadí (background patterns)** — podklad (kresba dřeva, textilie) ruší obraz.
+* **Subjektivní zkreslení (subjective bias)** — *očekávání* odborníka může ovlivnit rozhodnutí (zpráva NAS 2009).
 
 ## NGI — Next Generation Identification
 
-FBI's modernized AFIS (2011+):
+Modernizovaný AFIS od FBI (od roku 2011):
 
-* **IAFIS** (1999) replaced with **NGI** (2011).
-* Adds:
-  * **Face recognition** (FRVT-tested algorithms).
-  * **Iris recognition** (limited).
-  * **Palmprints** — increased recognition capability.
-* **Repository of Individuals of Special Concern** (RISC) — fast lookup against known terrorists.
+* **IAFIS** (1999) nahrazen systémem **NGI** (2011).
+* Přidává:
+  * **Rozpoznávání obličeje** (algoritmy testované v rámci FRVT).
+  * **Rozpoznávání duhovky** (omezeně).
+  * **Otisky dlaní (palmprints)** — zvýšená rozpoznávací schopnost.
+* **Repository of Individuals of Special Concern** (RISC) — rychlé vyhledávání proti seznamu známých teroristů.
 
-## Standards
+## Standardy
 
-* **ANSI/NIST-ITL 1-2011** — data exchange format.
-* **ISO/IEC 19794-2:2011** — minutiae interchange.
-* **EBTS** (FBI Electronic Biometric Transmission Specification) — protocol for FBI-state-county communication.
-* **ENFSI** (European Network of Forensic Science Institutes) — guidelines.
+* **ANSI/NIST-ITL 1-2011** — formát pro výměnu dat.
+* **ISO/IEC 19794-2:2011** — výměna markantů (minutiae interchange).
+* **EBTS** (FBI Electronic Biometric Transmission Specification) — protokol pro komunikaci mezi FBI a státy a okresy.
+* **ENFSI** (European Network of Forensic Science Institutes) — směrnice.
 
-## Performance metrics
+## Metriky výkonu (performance metrics)
 
-NIST FpVTE 2023 benchmark:
+Benchmark NIST FpVTE 2023:
 
-* **Vendor leader:** ~0.05 % FNMR @ FMR = 0.01 % for *tenprint search* against 100M database.
-* **Latent matching:** ~50–70 % rank-1 hit rate (depends heavily on print quality).
+* **Vedoucí dodavatel:** ~0,05 % FNMR při FMR = 0,01 % pro *vyhledávání podle deseti prstů (tenprint search)* proti databázi 100 miliónů záznamů.
+* **Srovnávání latentních otisků:** ~50–70 % úspěšnost zásahu na první pozici (rank-1 hit rate), silně závisí na kvalitě otisku.
 
-## Trends 2025
+## Trendy 2025
 
-* **Deep learning** features replacing minutiae-based matching for some applications.
-* **Touchless capture** for higher-quality, hygienic enrollment.
-* **Mobile AFIS** — handheld devices for field operations.
-* **Privacy-preserving AFIS** — cancelable biometrics, fully homomorphic encryption.
+* **Hluboké učení (deep learning)** — příznaky z hlubokého učení nahrazují u některých aplikací srovnávání založené na markantech.
+* **Bezdotykové snímání (touchless capture)** — kvalitnější a hygieničtější registrace.
+* **Mobilní AFIS** — příruční zařízení pro nasazení v terénu.
+* **AFIS chránící soukromí (privacy-preserving AFIS)** — zrušitelné biometriky (cancelable biometrics) a plně homomorfní šifrování (fully homomorphic encryption).
 
 ---
 

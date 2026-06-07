@@ -1,46 +1,46 @@
 ---
-title: Intel UPI, AMD Infinity Fabric a inter-socket interconnect
+title: Intel UPI, AMD Infinity Fabric a propojení mezi sockety
 ---
 
-# Inter-socket interconnect — Intel UPI, AMD Infinity Fabric
+# Propojení mezi sockety (inter-socket interconnect) — Intel UPI, AMD Infinity Fabric
 
-Multi-socket servery potřebují *fyzickou* sběrnici mezi sockety. Intel: **QPI** (Quick Path Interconnect, 2008) → **UPI** (Ultra Path Interconnect, 2017). AMD: **HyperTransport** (2003) → **Infinity Fabric** (2017).
+Víceprocesorové (multi-socket) servery potřebují *fyzickou* sběrnici mezi jednotlivými sockety. U Intelu vedla cesta od **QPI** (Quick Path Interconnect, 2008) k **UPI** (Ultra Path Interconnect, 2017). U AMD od **HyperTransportu** (2003) k **Infinity Fabricu** (2017).
 
-Klíčové funkce:
+Klíčové funkce tohoto propojení:
 
-- Cross-socket coherence traffic.
-- Remote memory access.
-- I/O traffic (PCIe roots are typically on one socket).
+- Provoz spojený s koherencí mezi sockety (cross-socket coherence traffic).
+- Přístup do vzdálené paměti (remote memory access).
+- Vstupně-výstupní provoz (I/O traffic) — kořeny PCIe (PCIe roots) bývají typicky umístěny jen na jednom socketu.
 
 ## Intel QPI (Quick Path Interconnect, 2008)
 
-První Intel point-to-point inter-socket od Nehalem (2008). Nahradila FSB (Front-Side Bus), který byl shared a contended.
+První propojení Intelu typu bod-bod (point-to-point) mezi sockety, použité od architektury Nehalem (2008). Nahradilo sběrnici FSB (Front-Side Bus), která byla sdílená a tím pádem trpěla soupeřením o přístup (contention).
 
-Specifications:
+Specifikace:
 
-- 6.4 GT/s (gigatransfers/s), 20 lanes → ~25.6 GB/s bidirectional (~12.8 GB/s per direction).
-- Latence ~50 ns přes 1 hop.
-- Coherence protocol: MESIF na linku.
+- 6,4 GT/s (gigatransferů za sekundu), 20 linek → ~25,6 GB/s obousměrně (~12,8 GB/s v jednom směru).
+- Latence ~50 ns přes 1 skok (hop).
+- Protokol koherence: MESIF na lince.
 
-Topology: full mesh do 4 sockets. Pro 8 sockets: hybrid mesh + routing.
+Topologie: úplná mřížka (full mesh) až do 4 socketů. Pro 8 socketů: hybridní mřížka s routováním.
 
 ## Intel UPI (Ultra Path Interconnect, 2017)
 
-Replaced QPI s Skylake-SP. Vyšší frequency, lower power, better protocol.
+Nahradilo QPI s architekturou Skylake-SP. Přineslo vyšší frekvenci, nižší spotřebu a lepší protokol.
 
-Specifications:
+Specifikace:
 
-- 10.4 GT/s → ~41.6 GB/s bidirectional (~20.8 GB/s per direction, link width 20).
-- Latence ~60-80 ns.
-- Up to 3 UPI links per socket (Platinum), 2 (Gold), 1 (Silver).
+- 10,4 GT/s → ~41,6 GB/s obousměrně (~20,8 GB/s v jednom směru, šířka linky 20).
+- Latence ~60–80 ns.
+- Až 3 UPI linky na socket (Platinum), 2 (Gold), 1 (Silver).
 
 Sapphire Rapids (2023): UPI 2.0, 16 GT/s, 64 GB/s.
 
-### Topology
+### Topologie
 
-Dvou-socket: 2-3 UPI links full bandwidth.
+Dvousocketová sestava: 2–3 UPI linky na plné šířce pásma.
 
-Čtyř-socket: *full mesh* (3 UPI per socket, Platinum) → každý socket 1 hop od ostatních; levnější SKU s 2 UPI per socket tvoří *ring* (2 hops pro protilehlé sockety). Pro 8-socket: hybrid mesh + routing.
+Čtyřsocketová sestava: *úplná mřížka* (full mesh, 3 UPI na socket u řady Platinum) → každý socket je jeden skok od ostatních; levnější varianty (SKU) se 2 UPI na socket tvoří *kruh* (ring), takže protilehlé sockety dělí 2 skoky. Pro 8 socketů: hybridní mřížka s routováním.
 
 ::: svg "Intel 4-socket UPI full mesh"
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="10">
@@ -75,105 +75,105 @@ Dvou-socket: 2-3 UPI links full bandwidth.
 </svg>
 :::
 
-### Coherence over UPI
+### Koherence přes UPI
 
-UPI implementuje **MESIF** + directory-based:
+UPI implementuje protokol **MESIF** v kombinaci s adresářovým přístupem (directory-based). Příklad postupu:
 
 1. P0 (Socket 0) chce cache line A.
-2. Socket 0 home directory: A je na Socket 1 (its NUMA).
-3. P0 → UPI message → Socket 1 home.
-4. Socket 1 directory: kdo má kopii? Pokud P2 (Socket 2) dirty → forward request přes UPI.
-5. P2 sends data → P0 + memory write-back.
+2. Domovský adresář (home directory) pro Socket 0 zjistí, že A leží na Socketu 1 (jeho NUMA uzel).
+3. P0 → zpráva po UPI → domovský uzel Socketu 1.
+4. Adresář Socketu 1 zjišťuje, kdo má kopii. Pokud ji má P2 (Socket 2) ve stavu dirty (znečištěná, tj. změněná) → požadavek je přeposlán (forward) přes UPI.
+5. P2 pošle data → P0 a zároveň proběhne zpětný zápis do paměti (write-back).
 
-Multi-hop: latence sčítá. Cross-socket data ~200 cyklů.
+U více skoků se latence sčítá. Data přes sockety stojí ~200 cyklů.
 
 ## AMD Infinity Fabric
 
-AMD chiplet-based EPYC (Zen+, Zen 2, Zen 3, Zen 4) používá **Infinity Fabric** pro *vše*:
+Procesory AMD EPYC postavené z chipletů (Zen+, Zen 2, Zen 3, Zen 4) používají **Infinity Fabric** pro *vše*:
 
-- Inter-chiplet (uvnitř socket): CCD ↔ IO die.
-- Inter-socket: socket ↔ socket (přes IO die).
-- Inter-GPU (with AMD Instinct GPUs).
+- Mezi chiplety (uvnitř socketu): CCD ↔ IO die.
+- Mezi sockety: socket ↔ socket (přes IO die).
+- Mezi GPU (u akcelerátorů AMD Instinct).
 
-Single unified fabric protocol — žádný separate IO + coherence + GPU bus.
+Jde o jeden sjednocený protokol sběrnice — neexistuje tedy oddělená sběrnice zvlášť pro I/O, zvlášť pro koherenci a zvlášť pro GPU.
 
-Specifications:
+Specifikace:
 
-- IF 1 (Zen 1, 2017): 38.4 GB/s per link.
-- IF 2 (Zen 2/3, 2019-20): 50 GB/s.
+- IF 1 (Zen 1, 2017): 38,4 GB/s na linku.
+- IF 2 (Zen 2/3, 2019–20): 50 GB/s.
 - IF 3 (Zen 4, 2022): 96 GB/s.
 
-### Chiplet architecture
+### Architektura chipletů
 
-EPYC 9654 (Zen 4, 2022) — 96 cores:
+EPYC 9654 (Zen 4, 2022) — 96 jader:
 
-- 12 CCDs (8 cores each).
-- 1 I/O die (12 channel DDR5, 128 PCIe Gen5 lanes).
-- IF mezi each CCD ↔ IO die.
+- 12 CCD (po 8 jádrech).
+- 1 I/O die (12 kanálů DDR5, 128 linek PCIe Gen5).
+- Infinity Fabric mezi každým CCD ↔ IO die.
 
-Topology: každý CCD má fixed bandwidth k IO die. Memory access *vždy* přes IO die (CCD nemá vlastní memory controller).
+Topologie: každý CCD má pevně danou šířku pásma k IO die. Přístup do paměti vede *vždy* přes IO die (samotný CCD nemá vlastní paměťový řadič, memory controller).
 
-⇒ AMD design má *jednotnou* memory latency napříč chiplet — bonus pro NUMA programovatelnost.
+⇒ Návrh AMD má díky tomu *jednotnou* latenci přístupu do paměti napříč chiplety — což je výhoda pro programovatelnost vzhledem k NUMA.
 
-### NUMA modes
+### Režimy NUMA
 
-EPYC umožňuje BIOS nastavení (NPS — NUMA Per Socket):
+EPYC umožňuje nastavení v BIOSu (NPS — NUMA Per Socket):
 
-- **NPS1** — 1 NUMA node celý socket. Best for share-everything workloads.
-- **NPS2** — 2 NUMA nodes. Local memory each ½.
-- **NPS4** — 4 NUMA nodes. Best granularity.
+- **NPS1** — 1 NUMA uzel pro celý socket. Vhodné pro úlohy, kde všechna jádra sdílejí vše (share-everything).
+- **NPS2** — 2 NUMA uzly. Lokální paměť tvoří každému polovinu.
+- **NPS4** — 4 NUMA uzly. Nejjemnější granularita.
 
-Pro HPC: NPS4 typically. Pro databases (data sharing across cores): NPS1.
+Pro HPC se typicky volí NPS4. Pro databáze (kde se data sdílejí napříč jádry) spíše NPS1.
 
-## Cross-socket bandwidth limit
+## Omezení šířky pásma mezi sockety
 
-Intel Xeon Gold (Skylake-SP, dual-socket): 
+Intel Xeon Gold (Skylake-SP, dvousocketový):
 
-- Per-socket DRAM bandwidth: ~100 GB/s.
-- UPI cross-socket: 41 GB/s per link, 3 links = 123 GB/s aggregate.
+- Šířka pásma DRAM na jeden socket: ~100 GB/s.
+- UPI mezi sockety: 41 GB/s na linku, 3 linky = 123 GB/s souhrnně.
 
-Pro memory-bound apps na 2 sockety: bandwidth scaling 2× *jen* pokud data fits *each socket separately* (NUMA-aware). Pokud data je *velký* a každý CPU sahá *všude* → cross-socket UPI je bottleneck (less than 1.5× scaling).
+U aplikací omezených pamětí (memory-bound) na 2 socketech platí 2× škálování šířky pásma *jen tehdy*, když se data vejdou *do každého socketu samostatně* (tedy při NUMA-aware přístupu). Pokud jsou data *velká* a každý procesor sahá *všude* → propojení UPI mezi sockety se stane úzkým hrdlem (bottleneck) a škálování klesne pod 1,5×.
 
-## Real cluster topology
+## Topologie reálného clusteru
 
-Datacentrum HPC node:
+HPC uzel v datacentru:
 
-- 2 sockets × 28 cores = 56 cores total.
-- Inside node: UPI / IF mezi sockets.
-- Inside socket: mesh / chiplet IF.
-- Inter-node: InfiniBand (200 Gbit/s) or RoCE.
+- 2 sockety × 28 jader = celkem 56 jader.
+- Uvnitř uzlu: UPI / IF mezi sockety.
+- Uvnitř socketu: mřížka (mesh) / chipletové IF.
+- Mezi uzly: InfiniBand (200 Gbit/s) nebo RoCE.
 
-Latency hierarchy:
+Hierarchie latencí:
 
-| Hop | Latence |
+| Skok | Latence |
 | :--- | :---: |
-| L1 same core | 1 ns |
-| L3 same socket | 15 ns |
-| L3 remote socket (UPI/IF) | 100 ns |
+| L1, totéž jádro | 1 ns |
+| L3, tentýž socket | 15 ns |
+| L3, vzdálený socket (UPI/IF) | 100 ns |
 | RDMA InfiniBand | 1 μs |
 | Internet | 10+ ms |
 
-Each layer 10-1000× *slower*. Algoritmy adaptují podle topologie.
+Každá vrstva je 10–1000× *pomalejší*. Algoritmy se proto přizpůsobují topologii.
 
-## Foreshadow / NUMA security
+## Foreshadow a bezpečnost NUMA
 
-Cross-socket attacks — *spekulativní side-channel* může leak across socket via cache coherence.
+Útoky napříč sockety — *spekulativní postranní kanál* (speculative side-channel) může unést data napříč sockety prostřednictvím provozu pro koherenci cache.
 
-Foreshadow-NG (2018) ukazuje, že SGX enclaves mohou být kompromitovány přes coherence traffic.
+Foreshadow-NG (2018) ukazuje, že enklávy SGX (SGX enclaves) lze kompromitovat právě přes provoz pro koherenci.
 
-Mitigation: HW patches + microcode + careful workload partitioning.
+Obrana (mitigation): hardwarové záplaty (patches) + mikrokód (microcode) + pečlivé rozdělení úloh (workload partitioning).
 
-## Cluster-on-die a future
+## Cluster-on-die a budoucnost
 
-Trend: *více small chiplets* propojených fast fabric. AMD EPYC chiplet design je *předchůdce* "disaggregated" CPU.
+Trend směřuje k *většímu počtu malých chipletů* propojených rychlou fabric. Chipletový návrh AMD EPYC je *předchůdcem* takzvaně rozloženého (disaggregated) procesoru.
 
-Intel od Sapphire Rapids (2023) → chiplet-based (XCC dies + I/O dies).
+Intel od Sapphire Rapids (2023) → návrh založený na chipletech (XCC dies + I/O dies).
 
-Future (CXL — Compute Express Link 3.0, 2023+): coherent memory přes PCIe-like links. Multi-host shared memory pool. *Coherence napříč* serverem.
+Budoucnost (CXL — Compute Express Link 3.0, 2023+): koherentní paměť přes linky podobné PCIe. Sdílený paměťový fond (memory pool) napříč více hostiteli. *Koherence napříč* celým serverem.
 
 ## Co dál
 
-Topic 9 končí. Topic 10 ([[spotreba-pcv2f]]) přechází k *spotřebě* — fundamentální constraint pro každý další design. Pak [[gpu-architektura]] uzavře jako *jiná* paradigma — SIMT, mnoho jader, optimalizováno pro throughput.
+Okruh 9 končí. Okruh 10 ([[spotreba-pcv2f]]) přechází ke *spotřebě* — což je zásadní omezení pro každý další návrh. Poté [[gpu-architektura]] uzavře téma jako *jiné* paradigma — SIMT, mnoho jader, optimalizováno pro propustnost (throughput).
 
 ---
 

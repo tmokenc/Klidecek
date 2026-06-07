@@ -4,7 +4,7 @@ title: Odd-Even Transposition Sort a Enumeration Sort
 
 # Odd-Even Transposition Sort a Enumeration Sort
 
-Předchozí kapitola ([[splitting-select]]) probrala stavební bloky. Začneme s konkrétními *řadicími algoritmy*. Tato kapitola probírá dva *fyzicky orientované* algoritmy, které využívají *tuhou* propojovací topologii: **Odd-Even Transposition Sort** na *lineárním poli* (řetězec procesorů) a **Enumeration Sort** na *mřížce* nebo *lineárním poli se sběrnicí*. Algoritmy ilustrují *jak* topologie omezuje (a někdy obohacuje) algoritmický návrh.
+Předchozí kapitola ([[splitting-select]]) probrala stavební bloky. Nyní se pustíme do konkrétních *řadicích algoritmů*. Tato kapitola probírá dva *fyzicky orientované* algoritmy, které využívají *pevně danou* propojovací topologii: **Odd-Even Transposition Sort** (řazení sudo-lichými výměnami) na *lineárním poli* (řetězec procesorů) a **Enumeration Sort** (řazení výčtem) na *mřížce* nebo na *lineárním poli se sběrnicí*. Oba algoritmy hezky ukazují, *jak* propojovací topologie omezuje (a někdy i obohacuje) algoritmický návrh.
 
 ## Odd-Even Transposition Sort
 
@@ -115,16 +115,16 @@ počátek:   4   3   1   2
 
 - $t(n) = O(n)$ — *dolní mez* pro lineární topologii. Kvůli průměru $\Omega(n)$ se hodnota z konce *musí přesunout* přes $n$ uzlů.
 - $p(n) = n$ procesorů.
-- $c(n) = O(n^2)$ — *není* cost-optimal (sekvenční merge sort: $O(n \log n)$).
+- $c(n) = O(n^2)$ — *není* nákladově optimální (cost-optimal); pro srovnání sekvenční slučovací řazení (merge sort) má $O(n \log n)$.
 
 ::: viz transposition-enumeration "Vyber reverzní preset a krokuj — uvidíš, proč nejhorší případ [n, n-1, …, 1] potřebuje přesně n/2 iterací: každá inverze se posune nanejvýš o 1 pozici za pár fází."
 :::
 
 ### Korektnost — proč $n/2$ iterací stačí
 
-Po jedné iteraci liché + jedné sudé se každá *inverze* může posunout nanejvýš o 1 v dobrém směru. Maximální vzdálenost inverze v $n$-prvkové permutaci je $n - 1$. Tedy $\lceil n/2 \rceil$ iterací (každá liché + sudé) stačí.
+Po jedné liché a jedné sudé iteraci se každá *inverze* (dvojice prvků ve špatném pořadí) může posunout nanejvýš o 1 pozici v dobrém směru. Maximální vzdálenost inverze v $n$-prvkové permutaci je $n - 1$. Postačí tedy $\lceil n/2 \rceil$ iterací, kde každá iterace zahrnuje jeden lichý a jeden sudý krok.
 
-Algoritmus je *paralelní obdoba bubble sortu* (původně Habermann, 1972; znám též jako *brick sort* / *parity sort*). Pro hardware orientované řadicí sítě je *standardní* (snadno implementovatelný v silikonu).
+Algoritmus je *paralelní obdobou bublinkového řazení (bubble sort)* — původně jej popsal Habermann roku 1972, znám je i pod názvy *brick sort* nebo *parity sort*. Pro hardwarově orientované řadicí sítě (sorting networks) je *standardem*, protože se snadno implementuje přímo v křemíku.
 
 ## Enumeration Sort
 
@@ -136,16 +136,16 @@ Pozice $k$-tého prvku v *seřazeném* výstupu = počet menších prvků + 1.
 RANK(x_i) = 1 + |{x_j : x_j < x_i, j ≠ i}|
 ```
 
-Pokud spočítáme $\text{RANK}$ pro každý prvek, můžeme každý *přímo* umístit na svou pozici.
+Spočítáme-li pořadí $\text{RANK}$ pro každý prvek, můžeme každý prvek *rovnou* umístit na jeho výslednou pozici.
 
-Sekvenčně $O(n^2)$ (porovnání každého s každým). Paralelně lze toho dosáhnout v *velmi krátkém* čase, ale s *velkým* počtem procesorů.
+Sekvenčně to vyžaduje $O(n^2)$ operací (porovnání každého s každým). Paralelně lze téhož dosáhnout ve *velmi krátkém* čase, ovšem za cenu *velkého* počtu procesorů.
 
 ::: viz enumeration-sort "Vyber mřížku n×n nebo lineární+sběrnici. Sleduj 4 fáze: distribuce, porovnání (RANK_ij), redukce řádků, přesun na cílovou pozici. Klíčová idea: pozice = počet menších + 1."
 :::
 
 ### Varianta A: Enumeration Sort na 2D mřížce
 
-**Topologie**: $n \times n$ mřížka procesorů $P_{i,j}$, *řádky i sloupce* propojené *binárním stromem* pro broadcast a redukci.
+**Topologie**: mřížka $n \times n$ procesorů $P_{i,j}$, kde jsou *řádky i sloupce* propojeny *binárním stromem* pro rozesílání hodnot (broadcast) a pro redukci.
 
 **Algoritmus**:
 
@@ -195,30 +195,30 @@ Prvek:  3   5   6   8   9
 
 ### Analýza Enumeration Sort (mřížka)
 
-- **Fáze 1**: distribuce trvá $O(\log n)$ přes binární strom propojení.
-- **Fáze 2**: redukce řádky $O(\log n)$.
-- **Fáze 3**: přesun v $O(\log n)$ (skrz strom).
+- **Fáze 1**: distribuce trvá $O(\log n)$ díky propojení binárním stromem.
+- **Fáze 2**: redukce po řádcích trvá $O(\log n)$.
+- **Fáze 3**: přesun trvá $O(\log n)$ (opět skrz strom).
 
 **Celkem**: $t(n) = O(\log n)$. **Extrémně rychlé.**
 
 - $p(n) = n^2$ procesorů.
-- $c(n) = O(n^2 \log n)$ — *velmi neoptimální* (sekv. $O(n \log n)$).
+- $c(n) = O(n^2 \log n)$ — *velmi neoptimální z hlediska ceny* (sekvenční řešení má $O(n \log n)$).
 
 ### Diskuze
 
-- Algoritmus je *jeden z nejrychlejších* paralelních řadicích — $O(\log n)$.
-- *Žádný* paralelní algoritmus pro „rozumný" model nemůže být asymptoticky rychlejší.
-- *Plýtvá procesory* — $n^2$ je na hranici praktické přijatelnosti.
-- **Omezení**: vstupní posloupnost *nesmí obsahovat stejné prvky* (jinak by RANK pro stejné prvky byl stejný a algoritmus by je dal na *stejnou* pozici). Workaround: použít *(hodnota, index)* páry s lexikografickým porovnáním.
+- Algoritmus patří mezi *nejrychlejší* paralelní řadicí algoritmy — dosahuje času $O(\log n)$.
+- *Žádný* paralelní algoritmus na „rozumném" výpočetním modelu nemůže být asymptoticky rychlejší.
+- *Plýtvá procesory* — počet $n^2$ je už na hranici praktické přijatelnosti.
+- **Omezení**: vstupní posloupnost *nesmí obsahovat stejné prvky*. Jinak by pro shodné prvky vyšlo stejné pořadí RANK a algoritmus by je chtěl umístit na *tutéž* pozici. Řešení tohoto problému (workaround): použít dvojice *(hodnota, index)* a porovnávat je lexikograficky.
 
 ### Varianta B: Enumeration Sort na lineárním poli se sběrnicí
 
-**Topologie**: $n$ procesorů lineárně propojených (každý se sousedem) **+ globální sběrnice**.
+**Topologie**: $n$ lineárně propojených procesorů (každý se svým sousedem) **+ globální sběrnice**.
 
-**Princip**: hodnoty *prochází* polem ve dvou směrech:
+**Princip**: hodnoty *procházejí* polem ve dvou směrech:
 
-- **Vstupní fáze**: hodnoty vstupují postupně do registru $X$ skrz sběrnici a posouvají se zleva doprava po registrech $Y$ skrz lineární propojení. Každý uzel počítá *kolik prvků viděl menších* než *jeho* hodnota → registr $C$.
-- **Výstupní fáze**: po vyčerpání vstupu se každá hodnota odsune sběrnicí na pozici, kterou ukazuje její $C$.
+- **Vstupní fáze**: hodnoty postupně vstupují do registru $X$ přes sběrnici a posouvají se zleva doprava po registrech $Y$ skrze lineární propojení. Každý uzel počítá, *kolik menších prvků už viděl* oproti *své* hodnotě, a výsledek ukládá do registru $C$.
+- **Výstupní fáze**: po vyčerpání vstupu se každá hodnota přesune sběrnicí na pozici, kterou udává její registr $C$.
 
 ```
 procedure ENUMERATION_SORT_LINEAR(x[1..n])
@@ -234,18 +234,18 @@ procedure ENUMERATION_SORT_LINEAR(x[1..n])
 
 ### Analýza Enumeration Sort (lineární)
 
-- $t(n) = O(n)$ (krok 2 trvá $2n$ + krok 3 trvá $n$ cyklů).
+- $t(n) = O(n)$ (krok 2 trvá $2n$ cyklů a krok 3 dalších $n$ cyklů).
 - $p(n) = n$ procesorů.
-- $c(n) = O(n^2)$ — *neoptimální*.
+- $c(n) = O(n^2)$ — *nákladově neoptimální*.
 
 **Předpoklady**:
 
-- Sběrnice umí přenést hodnotu mezi libovolnými dvěma procesory v *konstantním* čase (idealizace).
-- Vstup nesmí obsahovat stejné hodnoty (stejné omezení jako u mřížky).
+- Sběrnice dokáže přenést hodnotu mezi libovolnými dvěma procesory v *konstantním* čase (jde o idealizaci).
+- Vstup nesmí obsahovat stejné hodnoty (totéž omezení jako u mřížky).
 
 ## Porovnání
 
-| Algoritmus | Topologie | Čas | Procesory | Cena | Cost-optimal? |
+| Algoritmus | Topologie | Čas | Procesory | Cena | Nákladově optimální? |
 | :--- | :--- | :---: | :---: | :---: | :---: |
 | Sekv. merge sort | — | $O(n \log n)$ | 1 | $O(n \log n)$ | ✓ (referenční) |
 | Odd-Even Transposition | lineární | $O(n)$ | $n$ | $O(n^2)$ | ✗ |
@@ -254,14 +254,14 @@ procedure ENUMERATION_SORT_LINEAR(x[1..n])
 
 **Závěr**:
 
-- *Žádný* z těchto tří algoritmů není **cost-optimal**.
-- *Enumeration na mřížce* dává *nejrychlejší* čas $O(\log n)$ — ale za cenu $n^2$ procesorů.
-- *Odd-Even Transposition* je *jednoduchý* na implementaci v hardware (řadicí sítě).
-- Optimální cost dosáhneme jen s pokročilejšími algoritmy: [[merge-radici]] (Pipeline Merge Sort, Bucket Sort), [[radici-vyber]] (Median Finding and Splitting).
+- *Žádný* z těchto tří algoritmů není **nákladově optimální (cost-optimal)** — tedy součin počtu procesorů a času u žádného z nich nedosahuje optimálního $O(n \log n)$.
+- *Enumeration na mřížce* nabízí *nejrychlejší* čas $O(\log n)$ — ovšem za cenu $n^2$ procesorů.
+- *Odd-Even Transposition* se *snadno* implementuje v hardwaru (řadicí sítě).
+- Nákladové optimality dosáhneme až s pokročilejšími algoritmy: [[merge-radici]] (Pipeline Merge Sort, Bucket Sort), [[radici-vyber]] (Median Finding and Splitting).
 
 ## Co dál
 
-[[merge-radici]] probere řadicí algoritmy *založené na slučování*: **Bucket Sort** (strom s log-listy, $O(n)$ čas, $O(n \log n)$ cena — *cost-optimal*), **Odd-Even Merge Sort** (Batcher network), **Pipeline Merge Sort** (lineární řetězec slučovacích jednotek — *cost-optimal*). [[radici-vyber]] probere *Minimum Extraction Sort* a *Median Finding and Splitting* (paralelní quicksort).
+[[merge-radici]] probere řadicí algoritmy *založené na slučování*: **Bucket Sort** (strom s logaritmickým počtem listů, čas $O(n)$, cena $O(n \log n)$ — *nákladově optimální*), **Odd-Even Merge Sort** (Batcherova řadicí síť) a **Pipeline Merge Sort** (lineární řetězec slučovacích jednotek — opět *nákladově optimální*). [[radici-vyber]] probere algoritmy *Minimum Extraction Sort* a *Median Finding and Splitting* (paralelní quicksort).
 
 ---
 

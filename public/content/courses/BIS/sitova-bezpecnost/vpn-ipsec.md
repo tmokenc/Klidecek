@@ -1,26 +1,26 @@
 ---
-title: VPN, IPsec, WireGuard a TLS tunnely
+title: VPN, IPsec, WireGuard a TLS tunely
 ---
 
-# VPN — IPsec, OpenVPN, WireGuard a TLS tunneling
+# VPN — IPsec, OpenVPN, WireGuard a TLS tunely
 
-**VPN** (Virtual Private Network) vytváří *encrypted tunnel* mezi sítěmi nebo hosty. Použití: remote work, site-to-site connectivity, privacy. Tato sekce porovnává hlavní VPN technologie.
+**VPN** (Virtual Private Network) vytváří šifrovaný tunel (encrypted tunnel) mezi sítěmi nebo mezi jednotlivými hosty. Používá se pro práci na dálku (remote work), propojení poboček (site-to-site) a soukromí (privacy). Tato sekce porovnává hlavní VPN technologie.
 
 ## IPsec — IP Security
 
-IETF standard pro layer 3 encryption. Komplexní — multiple protocols, modes.
+Jde o standard organizace IETF pro šifrování (encryption) na síťové vrstvě (layer 3). Je poměrně komplexní — zahrnuje více protokolů a více provozních režimů.
 
 ### Komponenty
 
-- **AH** (Authentication Header) — integrity + authentication. *Žádná* confidentiality.
-- **ESP** (Encapsulating Security Payload) — confidentiality + integrity.
-- **IKE** (Internet Key Exchange) — negotiation of keys + parameters.
-- **IKEv2** (RFC 7296) — current standard.
+- **AH** (Authentication Header) — zajišťuje integritu a autentizaci (authentication). *Nezajišťuje* důvěrnost (confidentiality).
+- **ESP** (Encapsulating Security Payload) — zajišťuje důvěrnost (confidentiality) i integritu.
+- **IKE** (Internet Key Exchange) — domlouvá klíče (keys) a parametry spojení.
+- **IKEv2** (RFC 7296) — aktuální standard.
 
 ### Módy
 
-- **Transport mode** — encrypts payload. Header + IP header visible.
-- **Tunnel mode** — encrypts *entire* IP packet, wraps in new IP header. Standard for VPN.
+- **Transport mode** (transportní režim) — šifruje pouze obsah (payload). Hlavička i IP hlavička zůstávají viditelné.
+- **Tunnel mode** (tunelovací režim) — šifruje *celý* IP paket a zabalí jej do nové IP hlavičky. Toto je standard pro VPN.
 
 ```
 Original:    [IP header][TCP][data]
@@ -30,29 +30,29 @@ Tunnel:      [new IP header][ESP][orig IP header][TCP][data + ESP trailer]
 
 ### IKE handshake
 
-IKEv2 uses named *exchanges* (not phases like IKEv1):
+IKEv2 používá pojmenované *výměny* (exchanges), nikoli fáze jako IKEv1:
 
-**IKE_SA_INIT**: negotiate IKE parameters, establish IKE SA.
+**IKE_SA_INIT**: domluví parametry IKE a ustaví IKE SA.
 
-**IKE_AUTH**: authenticate, establish the first Child SA for ESP.
+**IKE_AUTH**: provede autentizaci a ustaví první Child SA pro ESP.
 
-**CREATE_CHILD_SA**: separate exchange for additional / rekeyed Child SAs.
+**CREATE_CHILD_SA**: samostatná výměna pro další nebo obnovené (rekeyed) Child SA.
 
-Authentication options:
+Možnosti autentizace:
 
-- **PSK** (Pre-Shared Key).
-- **Certificate** ([[x509]]) — RSA / ECDSA.
-- **EAP** — extensible auth, for users.
+- **PSK** (Pre-Shared Key) — předsdílený klíč.
+- **Certificate** ([[x509]]) — certifikát, RSA / ECDSA.
+- **EAP** — rozšiřitelná autentizace, vhodná pro uživatele.
 
-### Algorithm suites
+### Sady algoritmů
 
-IKEv2 + ESP combinations:
+Kombinace IKEv2 + ESP:
 
-- **AES-256-GCM** + ECDH P-384 — modern.
-- **AES-256-CBC** + HMAC-SHA256 + DH 2048 — legacy.
-- **ChaCha20-Poly1305** + Curve25519 — high-perf software.
+- **AES-256-GCM** + ECDH P-384 — moderní volba.
+- **AES-256-CBC** + HMAC-SHA256 + DH 2048 — zastaralá (legacy) volba.
+- **ChaCha20-Poly1305** + Curve25519 — vysoký výkon (performance) v softwarové implementaci.
 
-### IPsec setup
+### Nastavení IPsec
 
 ```bash
 # strongSwan, /etc/ipsec.conf
@@ -69,29 +69,29 @@ conn corporate-vpn
     auto=start
 ```
 
-Complex to configure. Common issue: mismatched parameters between peers.
+Konfigurace je složitá. Častý problém: nesouhlasící parametry mezi protějšky (peers).
 
-### Pros
+### Výhody
 
-- Standard, broad support.
-- Network-layer (transparent to apps).
-- Strong crypto.
+- Standard se širokou podporou.
+- Pracuje na síťové vrstvě (je transparentní vůči aplikacím).
+- Silná kryptografie.
 
-### Cons
+### Nevýhody
 
-- Complex configuration.
-- NAT issues (especially older IKEv1).
-- Performance overhead (encryption + tunnel headers).
+- Složitá konfigurace.
+- Problémy s NAT (zejména u staršího IKEv1).
+- Výkonová zátěž (šifrování plus tunelovací hlavičky).
 
-### Real-world IPsec
+### IPsec v praxi
 
-- **Site-to-site** — connect branch offices to HQ.
-- **Remote access** — windows native, Cisco AnyConnect, Fortinet, Pulse Secure.
-- **Cloud connectivity** — AWS VPN, Azure VPN Gateway, Google Cloud VPN.
+- **Site-to-site** — propojení poboček s centrálou.
+- **Remote access** (vzdálený přístup) — nativní podpora ve Windows, Cisco AnyConnect, Fortinet, Pulse Secure.
+- **Připojení do cloudu** — AWS VPN, Azure VPN Gateway, Google Cloud VPN.
 
 ## OpenVPN
 
-Open-source TLS-based VPN. Less complex than IPsec.
+Open-source VPN postavená na TLS. Je méně složitá než IPsec.
 
 ```
 # /etc/openvpn/client.conf
@@ -107,33 +107,33 @@ cipher AES-256-GCM
 auth SHA256
 ```
 
-### Pros
+### Výhody
 
-- Simple to configure.
-- Cross-platform (Windows, Linux, macOS, mobile).
-- NAT-friendly (UDP or TCP).
-- Strong defaults.
+- Jednoduchá konfigurace.
+- Multiplatformní (Windows, Linux, macOS, mobilní zařízení).
+- Přátelská k NAT (běží přes UDP nebo TCP).
+- Bezpečné výchozí nastavení.
 
-### Cons
+### Nevýhody
 
-- Higher overhead vs IPsec/WireGuard.
-- Userspace process (less perf than kernel-level).
+- Vyšší zátěž oproti IPsec/WireGuard.
+- Běží v uživatelském prostoru (userspace), tedy s menším výkonem než řešení na úrovni jádra.
 
-Used by many commercial VPN providers (NordVPN, ExpressVPN).
+Používá ji řada komerčních poskytovatelů VPN (NordVPN, ExpressVPN).
 
 ## WireGuard
 
-Modern VPN. Designed by Jason Donenfeld (2017). Linux kernel default since 5.6.
+Moderní VPN. Navrhl ji Jason Donenfeld (2017). V linuxovém jádře je standardně od verze 5.6.
 
-### Design philosophy
+### Filozofie návrhu
 
-- **Minimal** — ~4000 lines kernel code (vs 100k+ for OpenVPN/IPsec).
-- **Modern crypto only** — Curve25519, ChaCha20, Poly1305, BLAKE2s, SipHash.
-- **No agility** — single ciphersuite, *if* broken, upgrade everything.
-- **Fast** — kernel implementation, simple state machine.
-- **Stateless server** — no per-connection state until packet arrives.
+- **Minimalismus** — přibližně 4000 řádků kódu v jádře (oproti 100 tisícům a více u OpenVPN/IPsec).
+- **Pouze moderní kryptografie** — Curve25519, ChaCha20, Poly1305, BLAKE2s, SipHash.
+- **Žádná volitelnost algoritmů** — jediná sada šifer; *kdyby* byla prolomena, aktualizuje se vše naráz.
+- **Rychlost** — implementace v jádře a jednoduchý stavový automat.
+- **Bezstavový server** — neudržuje žádný stav pro spojení, dokud nedorazí paket.
 
-### Configuration
+### Konfigurace
 
 ```ini
 [Interface]
@@ -148,54 +148,54 @@ AllowedIPs = 0.0.0.0/0
 PersistentKeepalive = 25
 ```
 
-Extremely simple. Static, declarative.
+Mimořádně jednoduché. Statické a deklarativní.
 
 ### Roaming
 
-WireGuard handles roaming clients seamlessly. Client IP changes (mobile move WiFi → cellular) — server sees new IP, packets still decrypted with public key.
+WireGuard zvládá přesouvající se klienty bez problémů. Pokud se klientovi změní IP adresa (například mobil přejde z WiFi na mobilní data), server uvidí novou IP a pakety stále úspěšně dešifruje pomocí veřejného klíče.
 
-### Pros
+### Výhody
 
-- Simple, fast, modern.
-- Kernel implementation (Linux).
-- Cross-platform.
+- Jednoduchý, rychlý, moderní.
+- Implementace v jádře (Linux).
+- Multiplatformní.
 
-### Cons
+### Nevýhody
 
-- No dynamic peer config (each peer pre-configured).
-- No certificate authentication (only public keys).
-- Newer, less enterprise adoption.
+- Žádná dynamická konfigurace protějšků (každý peer musí být předkonfigurován).
+- Žádná autentizace pomocí certifikátů (pouze veřejné klíče).
+- Novější řešení s menším rozšířením v podnikovém prostředí.
 
-Used by: Mullvad, ProtonVPN, Tailscale (built on WireGuard).
+Používají ji: Mullvad, ProtonVPN, Tailscale (postavený na WireGuard).
 
 ## Tailscale + zero-trust mesh
 
-**Tailscale** — commercial mesh VPN on WireGuard.
+**Tailscale** — komerční mesh VPN postavená na WireGuard.
 
-- Auto-configuration via identity provider (Google, Microsoft, Okta).
-- NAT traversal (DERP relays).
-- Peer-to-peer connections.
-- ACLs per user/role.
+- Automatická konfigurace přes poskytovatele identity (Google, Microsoft, Okta).
+- Průchod přes NAT (NAT traversal) pomocí DERP relé.
+- Spojení peer-to-peer (přímo mezi uzly).
+- ACL pravidla podle uživatele či role.
 
-Trend: mesh replaces hub-spoke for cloud-native orgs.
+Trend: pro cloudově orientované organizace mesh nahrazuje topologii hub-spoke (hvězda).
 
-Alternative: **Headscale** (open-source self-host), **Netbird**, **Nebula** (Slack).
+Alternativy: **Headscale** (open-source pro vlastní provoz), **Netbird**, **Nebula** (Slack).
 
-## TLS-based VPN
+## VPN založené na TLS
 
 ### SSTP
 
-Microsoft, uses HTTPS port 443 → passes through firewalls easily.
+Microsoft, využívá HTTPS port 443, takže snadno prochází firewally.
 
-### TLS tunnel
+### TLS tunel
 
-OpenVPN over TCP 443 looks like HTTPS. Stealth mode bypasses censorship.
+OpenVPN přes TCP port 443 vypadá jako běžné HTTPS. Tento režim utajení (stealth) obchází cenzuru.
 
-### WireGuard obfuscation
+### Obfuskace WireGuardu
 
-`udp2raw`, `wstunnel` wrap WireGuard in TCP/HTTP/WebSocket — bypass UDP-blocking firewalls.
+Nástroje `udp2raw` a `wstunnel` zabalí WireGuard do TCP/HTTP/WebSocket, čímž obejdou firewally blokující UDP.
 
-## SSH tunneling
+## SSH tunelování
 
 ```bash
 # Local port forward — local 8080 → remote 80
@@ -208,74 +208,74 @@ ssh -R 8080:localhost:80 user@gateway
 ssh -D 1080 user@gateway
 ```
 
-Lightweight ad-hoc tunneling. SSH transport secured (encrypts handshake + data).
+Odlehčené tunelování pro jednorázové potřeby. Přenosová vrstva SSH je zabezpečená (šifruje handshake i data).
 
-## TLS for application
+## TLS pro aplikace
 
-Not strictly VPN, but TLS provides similar:
+Není to v pravém slova smyslu VPN, ale TLS poskytuje podobné možnosti:
 
-- **HTTPS** — web encryption.
-- **mTLS** — mutual TLS, both endpoints authenticate.
+- **HTTPS** — šifrování webového provozu.
+- **mTLS** — vzájemné (mutual) TLS, kdy se autentizují oba koncové body.
 
-Detail [[tls-aplikace]].
+Podrobnosti viz [[tls-aplikace]].
 
-## Performance srovnání
+## Srovnání výkonu
 
-For raw throughput on modern HW:
+Pro hrubou propustnost na moderním hardwaru:
 
-| Solution | Speed | CPU usage |
+| Řešení | Rychlost | Vytížení CPU |
 | :--- | :---: | :---: |
-| WireGuard | ~1.5-3 Gbps | low |
-| IPsec (kernel) | ~1-2 Gbps | medium |
-| OpenVPN | ~300-800 Mbps | high |
-| TLS application | varies | medium |
+| WireGuard | ~1,5–3 Gbps | nízké |
+| IPsec (v jádře) | ~1–2 Gbps | střední |
+| OpenVPN | ~300–800 Mbps | vysoké |
+| TLS aplikace | proměnlivá | střední |
 
-WireGuard often 2-3× faster than OpenVPN for same security.
+WireGuard bývá při stejné úrovni zabezpečení 2–3× rychlejší než OpenVPN.
 
-## VPN attacks {tier=practice}
+## Útoky na VPN {tier=practice}
 
-### Tunnel split confusion
+### Záměna split tunelu
 
-If user has VPN + direct internet, DNS or IP leak can expose true location.
+Pokud má uživatel současně VPN i přímé připojení k internetu, může únik DNS nebo IP adresy prozradit jeho skutečnou polohu.
 
-Defense: **kill switch** — block all non-VPN traffic when VPN drops.
+Obrana: **kill switch** (pojistka) — při výpadku VPN zablokuje veškerý provoz mimo VPN.
 
-### VPN gateway compromise
+### Kompromitace VPN brány
 
-Pulse Connect Secure CVE-2019-11510, Fortinet CVE-2018-13379 — RCE on VPN gateway. Bad.
+Pulse Connect Secure CVE-2019-11510, Fortinet CVE-2018-13379 — vzdálené spuštění kódu (RCE) na VPN bráně. Závažný problém.
 
-Defense: patch gateways, MFA for VPN auth, log all VPN connections.
+Obrana: aktualizujte brány, používejte vícefaktorovou autentizaci (MFA) pro přihlášení do VPN a logujte všechna VPN spojení.
 
-### DNS leak
+### Únik DNS
 
-Browser resolves DNS via local resolver, bypassing VPN's DNS.
+Prohlížeč překládá DNS přes lokální resolver, čímž obchází DNS server VPN.
 
-Defense: force DNS via VPN (DNS-over-HTTPS to VPN-controlled DNS).
+Obrana: vynuťte překlad DNS přes VPN (DNS-over-HTTPS na DNS server řízený VPN).
 
-### WebRTC leak
+### Únik přes WebRTC
 
-Browser WebRTC reveals real IP (STUN protocol).
+WebRTC v prohlížeči prozradí skutečnou IP adresu (protokolem STUN).
 
-Defense: disable WebRTC, browser extensions to block.
+Obrana: vypněte WebRTC, použijte rozšíření prohlížeče, které jej blokuje.
 
 ## Zero Trust Network Access (ZTNA)
 
-Alternative to VPN. Per-application access, identity-based.
+Alternativa k VPN. Přístup se uděluje per aplikace a na základě identity.
 
-- No "inside the network" concept.
-- Each app published via reverse proxy.
-- Browser-based auth (SAML, OIDC).
-- ABAC policies ([[rbac-abac]]).
+- Neexistuje koncept „uvnitř sítě".
+- Každá aplikace je publikována přes reverzní proxy.
+- Autentizace probíhá v prohlížeči (SAML, OIDC).
+- Politiky typu ABAC ([[rbac-abac]]).
 
-Tools: Cloudflare Access, Zscaler Private Access, Google IAP.
+Nástroje: Cloudflare Access, Zscaler Private Access, Google IAP.
 
-Advantages over VPN:
+Výhody oproti VPN:
 
-- Granular per-app.
-- No client install.
-- Less network exposure.
+- Jemně odstupňovaný přístup per aplikace.
+- Není potřeba instalovat klienta.
+- Menší vystavení sítě útokům.
 
-ZTNA growing rapidly in enterprises.
+ZTNA se v podnicích rychle rozšiřuje.
 
 ---
 

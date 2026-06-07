@@ -4,7 +4,7 @@ title: Bezpečnost biometrického pasu
 
 # Bezpečnost biometrického pasu
 
-Bezpečnostní architektura biometrického pasu je *vícevrstvá*. ICAO 9303 specifikuje **PA, BAC, AA, EAC** protokoly, které dohromady zajišťují autenticitu, integritu, anti-skimming, anti-cloning a access control. Pochopení této architektury je nezbytné pro práci s eMRTD.
+Bezpečnostní architektura biometrického pasu je *vícevrstvá*. ICAO 9303 specifikuje protokoly **PA, BAC, AA a EAC**, které dohromady zajišťují autenticitu, integritu, ochranu proti tajnému odečtení (anti-skimming), ochranu proti klonování (anti-cloning) a řízení přístupu (access control). Pochopení této architektury je nezbytné pro práci s eMRTD (elektronický strojově čitelný cestovní doklad).
 
 ## Architektura bezpečnosti
 
@@ -25,60 +25,60 @@ Bezpečnostní architektura biometrického pasu je *vícevrstvá*. ICAO 9303 spe
 </svg>
 :::
 
-## PA — Passive Authentication
+## PA — pasivní autentizace (Passive Authentication)
 
-**Cíl:** ověřit, že data v pasu jsou *autentická* a *neměněná*.
+**Cíl:** ověřit, že data v pasu jsou *autentická* a *nezměněná*.
 
 ### Princip
 
-* **PKI hierarchy:**
-  * **CSCA** (Country Signing Certificate Authority) — *root* per země.
-  * **DSC** (Document Signing Certificate) — *krátkodobý* (3–6 měsíců).
+* **Hierarchie PKI (PKI hierarchy):**
+  * **CSCA** (Country Signing Certificate Authority) — kořenová (*root*) autorita každé země.
+  * **DSC** (Document Signing Certificate) — *krátkodobý* certifikát (3–6 měsíců).
 * CSCA podepisuje DSC.
-* DSC podepisuje **EF.SOD** (hash list všech DGs).
+* DSC podepisuje **EF.SOD** (seznam hashů všech datových skupin DG).
 
 ### Verifikace
 
-1. **Reader read** EF.SOD.
-2. Verify DSC signature using DSC public key.
-3. Verify DSC certificate using CSCA root (must be in PKD).
-4. Compute hash of each DG; compare with EF.SOD.
+1. **Čtečka přečte** EF.SOD.
+2. Ověří podpis DSC pomocí veřejného klíče DSC.
+3. Ověří certifikát DSC vůči kořenu CSCA (ten musí být v PKD).
+4. Spočítá hash každé datové skupiny (DG) a porovná jej s hodnotou v EF.SOD.
 
 ### ICAO PKD (Public Key Directory)
 
-* Central repository for CSCA certificates.
-* Member countries upload their CSCAs.
-* Border control terminals download regularly.
-* **CRL** (Certificate Revocation List) — updated daily.
+* Centrální úložiště certifikátů CSCA.
+* Členské země do něj nahrávají své certifikáty CSCA.
+* Terminály na hraniční kontrole je pravidelně stahují.
+* **CRL** (Certificate Revocation List, seznam odvolaných certifikátů) — aktualizován denně.
 
 ### Limity
 
-* **PA nedokáže detekovat klonování** — útočník může zkopírovat všechna data (DG + SOD) do *jiného* čipu a PA projde.
-* **Anti-cloning** vyžaduje *AA*.
+* **PA nedokáže detekovat klonování** — útočník (attacker) může zkopírovat všechna data (DG + SOD) do *jiného* čipu a PA stejně projde.
+* **Ochrana proti klonování (anti-cloning)** vyžaduje *AA*.
 
-## BAC — Basic Access Control
+## BAC — základní řízení přístupu (Basic Access Control)
 
-**Cíl:** zabránit *naivnímu* skimming.
+**Cíl:** zabránit *naivnímu* tajnému odečtení dat (skimming).
 
 ### Princip
 
-* Reader musí dokázat, že **vidí MRZ** (which is *physically* on passport).
-* Hash MRZ derive 2 × 3DES keys: $K_{ENC}$, $K_{MAC}$.
-* 3-pass mutual authentication via 3DES.
-* Session keys negotiated.
-* All chip communication encrypted + MAC'd (Secure Messaging).
+* Čtečka musí prokázat, že **vidí MRZ** (strojově čitelnou zónu, která je *fyzicky* vytištěna na pasu).
+* Z hashe MRZ se odvodí dva 3DES klíče: $K_{ENC}$ a $K_{MAC}$.
+* Probíhá třícestná vzájemná autentizace (mutual authentication) pomocí 3DES.
+* Dohodnou se relační (session) klíče.
+* Veškerá komunikace s čipem je následně šifrovaná a opatřená MAC (zabezpečené zasílání zpráv, Secure Messaging).
 
 ### Slabost
 
-* **MRZ entropy:** ~56 bits theoretical (passport number, DOB, expiry, check digits).
-* **Practical entropy:** *much lower* (passport numbers sequential, DOB/expiry guessable from age).
-* **Offline brute force:** if attacker skims encrypted traffic, can brute-force MRZ.
-* **30-40 bits in worst case** — hours on GPU.
+* **Entropie MRZ:** teoreticky ~56 bitů (číslo pasu, datum narození, datum platnosti, kontrolní číslice).
+* **Praktická entropie:** *mnohem nižší* (čísla pasů bývají sekvenční, datum narození i platnosti lze odhadnout z věku).
+* **Offline útok hrubou silou:** pokud útočník zachytí (odposlechne) zašifrovaný provoz, může MRZ prolomit hrubou silou.
+* **V nejhorším případě 30–40 bitů** — řádově hodiny na GPU.
 
-### Defenze
+### Obrana
 
-* **BAC is legacy** — replaced by PACE in modern e-pasy.
-* Still **required** for backwards compatibility (older readers).
+* **BAC je zastaralý (legacy)** — v moderních e-pasech jej nahrazuje PACE.
+* Stále je ale **vyžadován** kvůli zpětné kompatibilitě (starší čtečky).
 
 ## PACE — Password Authenticated Connection Establishment
 
@@ -86,82 +86,82 @@ Bezpečnostní architektura biometrického pasu je *vícevrstvá*. ICAO 9303 spe
 
 ### Princip
 
-* **Diffie-Hellman key agreement** with *password* derived from MRZ or CAN.
-* **CAN** (Card Access Number) — 6-digit number printed on passport.
-* **Brainpool curves** (e.g., brainpoolP256r1) — preferred.
-* **AES-128 + AES-CMAC** for Secure Messaging.
+* **Dohoda klíčů metodou Diffie-Hellman** s *heslem* odvozeným z MRZ nebo CAN.
+* **CAN** (Card Access Number) — šestimístné číslo vytištěné na pasu.
+* **Brainpool křivky** (např. brainpoolP256r1) — preferované.
+* **AES-128 + AES-CMAC** pro zabezpečené zasílání zpráv (Secure Messaging).
 
 ### Vlastnosti
 
-* **Forward secrecy** — even if MRZ leaks, past sessions remain secure.
-* **Strong key agreement** — DH keys per session.
-* **Stronger than BAC** even with low-entropy password.
+* **Dopředné utajení (forward secrecy)** — i kdyby MRZ uniklo, dřívější relace zůstanou v bezpečí.
+* **Silná dohoda klíčů** — DH klíče se vytvářejí pro každou relaci zvlášť.
+* **Silnější než BAC** i při hesle s nízkou entropií.
 
-### Adoption
+### Rozšíření
 
-* **Germany 2009** — first eIDs with PACE.
-* **EU mandate 2014** — all new e-pasy support PACE.
-* **Backward compatibility** — also supports BAC.
+* **Německo 2009** — první občanské průkazy (eID) s PACE.
+* **Nařízení EU 2014** — všechny nové e-pasy podporují PACE.
+* **Zpětná kompatibilita** — podporují zároveň i BAC.
 
-## AA — Active Authentication
+## AA — aktivní autentizace (Active Authentication)
 
 **Cíl:** zabránit *klonování* pasu.
 
 ### Princip
 
-* In passport: **private key** stored in tamper-resistant chip (never exported).
-* In DG15: **corresponding public key**, signed by DSC.
-* **Challenge-response:**
-  * Reader generates random nonce $r_R$.
-  * Passport signs $h(r_R \mathbin\Vert r_P)$ with private key, where $r_P$ is passport's random nonce.
-  * Reader verifies signature using DG15 public key.
+* V pasu je uložen **soukromý klíč** v čipu odolném proti neoprávněné manipulaci (nikdy se neexportuje ven).
+* V DG15 je uložen **odpovídající veřejný klíč**, podepsaný DSC.
+* **Výzva–odpověď (challenge-response):**
+  * Čtečka vygeneruje náhodný nonce $r_R$.
+  * Pas podepíše $h(r_R \mathbin\Vert r_P)$ soukromým klíčem, kde $r_P$ je náhodný nonce pasu.
+  * Čtečka ověří podpis pomocí veřejného klíče z DG15.
 
 ### Vlastnost
 
-* Klon, který má *kopii dat*, **neudělá podpis** — *nemá soukromý klíč*.
-* Klonování vyžaduje fyzickou extrakci klíče z čipu (very difficult).
+* Klon, který má jen *kopii dat*, **podpis nevytvoří** — *nemá totiž soukromý klíč*.
+* Klonování by vyžadovalo fyzické vytažení klíče z čipu (což je velmi obtížné).
 
-### Adoption
+### Rozšíření
 
-* **EU mandatory** since 2009 (Schengen 2nd gen).
-* **USA does NOT** require AA — relies on PA + visual + immigration database.
-* **Czech Republic:** mandatory since 2009.
+* **V EU povinná** od roku 2009 (druhá generace schengenských pasů).
+* **USA AA NEvyžaduje** — spoléhají na PA, vizuální kontrolu a imigrační databázi.
+* **Česká republika:** povinná od roku 2009.
 
 ### Slabost
 
-* **Relay attack** — útočník přeposílá komunikaci between far passport and far reader.
-* **Mitigace:** PACE+SM s timing constraints.
+* **Útok přeposláním (relay attack)** — útočník přeposílá komunikaci mezi vzdáleným pasem a vzdálenou čtečkou.
+* **Zmírnění:** PACE + zabezpečené zasílání zpráv (SM) s časovými omezeními.
 
-## EAC — Extended Access Control
+## EAC — rozšířené řízení přístupu (Extended Access Control)
 
-**Cíl:** chránit *citlivá* biometrická data (DG3 fingerprints, DG4 iris).
+**Cíl:** chránit *citlivá* biometrická data (DG3 otisky prstů, DG4 duhovka).
 
 ### Komponenty
 
-#### Terminal Authentication (TA)
+#### Autentizace terminálu (Terminal Authentication, TA)
 
-* Terminál musí dokázat *autoritu* ke čtení biometrik.
-* Terminal má *certifikát* podepsaný **Document Verifier (DV)**.
-* DV podepsán *Country Verifying CA (CVCA)*.
-* Pas verifies celý chain.
+* Terminál musí prokázat *oprávnění* ke čtení biometrik.
+* Terminál má *certifikát* podepsaný **ověřovatelem dokladu (Document Verifier, DV)**.
+* DV je podepsán autoritou *Country Verifying CA (CVCA)*.
+* Pas ověří celý řetězec certifikátů.
 
-#### Chip Authentication (CA)
+#### Autentizace čipu (Chip Authentication, CA)
 
-* Stronger verze AA + key exchange.
-* Pas + reader establish *new* session keys (oddělené od PACE).
-* Encrypted communication for DG3, DG4 data.
+* Silnější verze AA spojená s výměnou klíčů.
+* Pas a čtečka ustanoví *nové* relační klíče (oddělené od PACE).
+* Pro data DG3 a DG4 pak probíhá šifrovaná komunikace.
 
-### Adoption
+### Rozšíření
 
-* **EU mandatory** for biometric data (DG3, DG4).
+* **V EU povinná** pro biometrická data (DG3, DG4).
 * **Standard:** BSI TR-03110.
-* **Czech Republic:** implements CA + TA for fingerprints.
+* **Česká republika:** pro otisky prstů implementuje CA + TA.
 
-### Authorization model
+### Model autorizace
 
-* **Each terminal** has specific *authorization* (read DG3 only, read all, etc.).
-* **Certificates** specify access rights.
-* **Time-limited** — terminal certs typically valid 1 week.
+* **Každý terminál** má konkrétní *oprávnění* (číst pouze DG3, číst vše atd.).
+* **Certifikáty** specifikují přístupová práva.
+* **Časově omezené** — certifikáty terminálů typicky platí 1 týden.
 
 ::: viz epassport-handshake "Krok po kroku přes BAC/PACE → PA → AA → EAC; vidíte, kterou DG která vrstva zpřístupní."
 :::
@@ -171,72 +171,72 @@ Bezpečnostní architektura biometrického pasu je *vícevrstvá*. ICAO 9303 spe
 
 ## Útoky na biometrické pasy
 
-### BAC brute force (Laurie 2006)
+### Prolomení BAC hrubou silou (Laurie 2006)
 
 [Adam Laurie](https://www.dailytech.com/Cracking+the+BAC+Algorithm+Used+to+Secure+ePassports/article14127.htm):
 
-* Demonstroval skim + brute-force MRZ on US pasy.
-* Sequential numbering → ~30 bits entropy.
-* **Hours on commodity hardware.**
+* Předvedl tajné odečtení (skim) a prolomení MRZ hrubou silou na pasech USA.
+* Sekvenční číslování → ~30 bitů entropie.
+* **Řádově hodiny na běžném hardwaru.**
 
-Mitigace: passport numbers should be random; PACE replaces BAC.
+Zmírnění: čísla pasů by měla být náhodná; PACE nahrazuje BAC.
 
-### Cloning (Halderman et al. 2008)
+### Klonování (Halderman a kol. 2008)
 
-* Demonstrated cloning of US pas without AA.
-* Just copy all DGs + SOD to new chip.
-* PA passes.
-* **No AA = no anti-cloning.**
+* Předvedli naklonování pasu USA bez AA.
+* Stačí zkopírovat všechny datové skupiny (DG) a SOD do nového čipu.
+* PA projde.
+* **Žádné AA = žádná ochrana proti klonování.**
 
-Mitigace: AA implementation (EU since 2009).
+Zmírnění: implementace AA (v EU od roku 2009).
 
-### Relay attack
+### Útok přeposláním (relay attack)
 
-* MITM forwarding between passport and reader.
-* Defeats AA (passport signs whatever challenge is forwarded).
+* Útok typu man-in-the-middle (MITM), který přeposílá komunikaci mezi pasem a čtečkou.
+* Poráží AA (pas podepíše jakoukoli výzvu, která mu je přeposlána).
 
-Mitigace:
-* **Distance bounding** (research).
-* **Timing constraints** in PACE.
+Zmírnění:
+* **Omezování vzdálenosti (distance bounding)** (předmět výzkumu).
+* **Časová omezení** v PACE.
 
-### Side-channel attacks
+### Útoky postranními kanály (side-channel attacks)
 
-* **DPA** on chip during AA (signing operation).
-* Demonstrated on some older chip generations.
+* **DPA** (diferenciální výkonová analýza) na čip během AA (operace podepisování).
+* Předvedeno na některých starších generacích čipů.
 
-Mitigace: DPA-resistant cryptography (modern smart cards).
+Zmírnění: kryptografie odolná vůči DPA (moderní čipové karty).
 
-### Faraday cage / RF shielding
+### Faradayova klec / RF stínění
 
-* Block reading at distance.
-* **RFID-blocking sleeves** for paranoid travelers.
-* **Recommended** by some privacy advocates.
+* Blokuje čtení na dálku.
+* **Pouzdra blokující RFID** pro paranoidní cestovatele.
+* **Doporučováno** některými zastánci ochrany soukromí.
 
 ## Šifrovací algoritmy v pasu
 
-### Asymmetric
+### Asymetrické
 
-* **RSA-2048** or **RSA-3072** — common.
-* **ECDSA P-256, P-384** — increasing.
-* **Brainpool curves** — EU preference (P256r1, P384r1).
+* **RSA-2048** nebo **RSA-3072** — běžné.
+* **ECDSA P-256, P-384** — stále častější.
+* **Brainpool křivky** — preference EU (P256r1, P384r1).
 
-### Symmetric
+### Symetrické
 
-* **3DES** (legacy BAC).
+* **3DES** (zastaralý, BAC).
 * **AES-128, AES-256** (PACE, EAC).
 
 ### Hash
 
-* **SHA-1** (legacy).
-* **SHA-256** (current standard).
-* **SHA-384** (some EAC).
+* **SHA-1** (zastaralý).
+* **SHA-256** (současný standard).
+* **SHA-384** (některá EAC).
 
-### Post-quantum?
+### Postkvantová kryptografie?
 
-* Currently *no* PQ in pasy.
-* Future migration planned (ICAO discussion 2024+).
+* V současnosti v pasech *žádná* postkvantová (PQ) kryptografie není.
+* Budoucí migrace se plánuje (diskuze v ICAO od roku 2024).
 
-## eGate process
+## Průchod elektronickou bránou (eGate)
 
 ```
 1. Cestující vloží pas.
@@ -253,40 +253,40 @@ Mitigace: DPA-resistant cryptography (modern smart cards).
 
 ## Praktická bezpečnost
 
-### Pro travellers
+### Pro cestovatele
 
-* **Use RFID-blocking sleeve** if concerned about distant skimming.
-* **Don't show MRZ** publicly (e.g., posting passport photo online with MRZ visible).
-* **Report compromised pas** to issuing authority.
+* **Použijte pouzdro blokující RFID**, pokud se obáváte odečtení na dálku.
+* **Neukazujte MRZ** veřejně (např. zveřejněním fotografie pasu online s viditelnou MRZ).
+* **Nahlaste kompromitovaný pas** orgánu, který jej vydal.
 
-### Pro country issuers
+### Pro vydávající země
 
-* **Strong CSCA security** — offline root CA, M-of-N control.
-* **Regular CRL updates.**
-* **PACE + AA + EAC** for new pasy.
-* **Modern algorithms** (AES, ECDSA, SHA-256).
-* **PQ migration planning.**
+* **Silné zabezpečení CSCA** — offline kořenová CA, řízení principem M z N.
+* **Pravidelné aktualizace CRL.**
+* **PACE + AA + EAC** pro nové pasy.
+* **Moderní algoritmy** (AES, ECDSA, SHA-256).
+* **Plánování postkvantové migrace.**
 
-### Pro reader manufacturers
+### Pro výrobce čteček
 
-* **PKD synchronization** — daily.
-* **CRL checking.**
-* **PACE + AA + EAC** support.
-* **Hardware Security Module** for terminal certificates.
+* **Synchronizace PKD** — denně.
+* **Kontrola CRL.**
+* **Podpora PACE + AA + EAC.**
+* **Hardwarový bezpečnostní modul (Hardware Security Module)** pro certifikáty terminálu.
 
 ## Limity bezpečnosti
 
-* **Trust in CSCA** — corrupt issuing country = compromised pasy.
-* **PKD distribution** — not all countries participate fully.
-* **Physical pasy** still primary — chip is *complement*, ne *náhrada*.
-* **Human inspection** still critical at border (visual ID).
+* **Důvěra v CSCA** — zkorumpovaná vydávající země = kompromitované pasy.
+* **Distribuce PKD** — ne všechny země se účastní v plné míře.
+* **Fyzický pas** je stále primární — čip je *doplněk*, ne *náhrada*.
+* **Lidská kontrola** je na hranici stále zásadní (vizuální ověření totožnosti).
 
-## Trends 2025
+## Trendy 2025
 
-* **Mobile travel credentials** — pas on smartphone.
-* **EU EUDI Wallet** — digital identity with biometrics.
-* **Quantum-resistant** signatures in future.
-* **Cross-border biometric exchange** — Prüm extensions, EES.
+* **Mobilní cestovní doklady** — pas v chytrém telefonu.
+* **EU EUDI Wallet** — digitální identita s biometrií.
+* **Kvantově odolné** podpisy v budoucnu.
+* **Přeshraniční výměna biometrik** — rozšíření Prüm, EES.
 
 ---
 

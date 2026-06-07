@@ -4,11 +4,11 @@ title: Snímání otisků prstů — technologie senzorů
 
 # Snímání otisků prstů — technologie senzorů
 
-Kvalita biometrické šablony závisí *primárně* na kvalitě senzoru. Pro otisky prstů existuje 4 hlavní technologie senzorů — optical, capacitive, ultrasonic, thermal — každá s vlastními kompromisy mezi přesností, robustností, cenou a anti-spoofing odolností.
+Kvalita biometrické šablony závisí *především* na kvalitě senzoru (sensor). Pro otisky prstů existují čtyři hlavní technologie senzorů — optická, kapacitní, ultrazvuková a termální — a každá z nich má vlastní kompromisy mezi přesností, robustností, cenou a odolností proti podvržení (anti-spoofing).
 
 ## Klasifikace senzorů
 
-::: svg "Technologie fingerprint senzorů a jejich charakteristiky: optical (FTIR), capacitive, ultrasonic, thermal."
+::: svg "Technologie fingerprint senzorů a jejich charakteristiky: optický (FTIR), kapacitní, ultrazvukový, termální."
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
   <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.3">
     <rect x="20" y="30" width="120" height="180" rx="6"/>
@@ -60,142 +60,142 @@ Kvalita biometrické šablony závisí *primárně* na kvalitě senzoru. Pro oti
 
 ### FTIR (Frustrated Total Internal Reflection)
 
-Klasický mechanismus:
+Klasický princip funguje takto:
 
-1. **Skleněný prism**, prsten LED osvětlení.
-2. Při kontaktu **hřebeny** absorbují světlo (kvůli kontaktu se sklem).
-3. **Dna** zachycují *total internal reflection* (TIR) — světlo se *odráží* zpět k senzoru.
+1. **Skleněný hranol (prism)** a kruhové LED osvětlení.
+2. Při kontaktu **hřebeny (ridges)** světlo pohltí (kvůli dotyku se sklem).
+3. **Dna mezi hřebeny (valleys)** zachovají *úplný vnitřní odraz* (total internal reflection, TIR) — světlo se *odráží* zpět k senzoru.
 4. **CCD/CMOS kamera** zachytí výsledný *kontrastní obraz* — hřebeny tmavé, dna světlá.
 
 * **Rozlišení:** 500–1000 dpi (typicky 500).
 * **Velikost senzoru:** 25 × 25 mm.
-* **Použití:** forenzní readers, AFIS terminals, border control.
+* **Použití:** forenzní čtečky (readers), terminály AFIS, hraniční kontrola (border control).
 
-### Touch-less optical
+### Bezdotykové optické snímání
 
-* *Bezdotykové* snímání — prsten není v kontaktu.
-* **Camera + structured light** — projekce vzoru na prst, 3D reconstruction.
-* **Pro:** *higher hygiene* (relevantní covid era), žádné degradace povrchu senzoru.
-* **Proti:** *citlivý na osvětlení*, motion blur.
-* **Použití:** Mantra Touchless (India), pilotní projekty v hospital ID.
+* *Bezdotykové* snímání — prst se senzoru nedotýká.
+* **Kamera a strukturované světlo (structured light)** — na prst se promítne vzor a z něj se rekonstruuje 3D model.
+* **Pro:** *vyšší hygiena* (relevantní v době covidu), žádné opotřebení povrchu senzoru.
+* **Proti:** *citlivost na osvětlení*, rozmazání pohybem (motion blur).
+* **Použití:** Mantra Touchless (Indie), pilotní projekty pro identifikaci v nemocnicích.
 
 ## Kapacitní senzory
 
 Princip:
 
-* Pole malých **kapacitních plotter** v silicon array (~256 × 256 pixels).
-* Každý "plotter" měří *kapacitanci* mezi sebou a povrchem prstu.
+* Pole drobných **kapacitních destiček (plates)** v křemíkovém poli (silicon array, ~256 × 256 pixelů).
+* Každá destička měří *kapacitu (capacitance)* mezi sebou a povrchem prstu.
 * **Hřeben** (kontakt s pokožkou) → *vyšší* kapacita.
-* **Dno** (vzduchový mezera) → *nižší* kapacita.
-* Spojení do **grayscale image**.
+* **Dno** (vzduchová mezera) → *nižší* kapacita.
+* Jednotlivé hodnoty se spojí do **obrazu ve stupních šedi (grayscale image)**.
 
 ### Typy
 
-* **Active capacitive** — *driven* z chip, vyžaduje ground reference (typicky kovový rám okolo senzoru).
-* **Passive capacitive** — *parallel plate* model; menší robustnost.
+* **Aktivní kapacitní (active capacitive)** — *buzený* z čipu, vyžaduje vztažnou zem (ground reference), typicky kovový rám okolo senzoru.
+* **Pasivní kapacitní (passive capacitive)** — model *paralelních desek (parallel plate)*; menší robustnost.
 
 ### Použití
 
-* **Apple Touch ID** (iPhone 5s – iPhone 8, iPhone SE 2-3, iPad mini, MacBook Touch Bar).
-* **Samsung Galaxy** (pre-2018).
-* **Sensor area:** ~5 × 5 mm.
-* **Resolution:** ~500 dpi.
+* **Apple Touch ID** (iPhone 5s – iPhone 8, iPhone SE 2.–3. generace, iPad mini, MacBook Touch Bar).
+* **Samsung Galaxy** (před rokem 2018).
+* **Plocha senzoru:** ~5 × 5 mm.
+* **Rozlišení:** ~500 dpi.
 
 ### Limity
 
 * **Vlhkost / suchá kůže** — *dramaticky* zhorší přesnost.
-* **ESD risk** — elektrostatický náboj může destruovat tenkou izolační vrstvu.
-* **Spoofing risky** — silicon casts, conductive gummy bears.
+* **Riziko ESD (elektrostatického výboje)** — elektrostatický náboj může zničit tenkou izolační vrstvu.
+* **Riziko podvržení (spoofing)** — křemíkové (silikonové) odlitky, vodivé „gumové medvídky".
 
 ## Ultrazvukové senzory
 
-Nejnovější mass-market technologie:
+Nejnovější technologie pro masový trh:
 
-* **MEMS array** generuje *ultrasonic pulse* (~10 MHz).
-* Pulse *prochází* epidermis až k *dermis*.
-* Echos odražené *spodní vrstvou* skin (dermis-epidermis junction).
-* *Phase differences* → 3D image of ridge structure.
+* **Pole MEMS** generuje *ultrazvukový puls* (~10 MHz).
+* Puls *prochází* pokožkou (epidermis) až do *škáry (dermis)*.
+* Echa se odrážejí od *spodní vrstvy* kůže (rozhraní dermis–epidermis).
+* *Fázové rozdíly (phase differences)* → 3D obraz struktury hřebenů.
 
 ### Výhody
 
-* **Funguje s mokrou rukou, špínou, lotion** — ultrasonic prochází lépe než light/electricity.
-* **Under-display:** může být umístěn *pod* OLED display (no hole in glass).
-* **Anti-spoofing:** detekuje *3D* structure, *blood flow* (in research).
+* **Funguje s mokrou rukou, špínou i krémem** — ultrazvuk prochází lépe než světlo nebo elektřina.
+* **Pod displejem (under-display):** může být umístěn *pod* OLED displejem (bez otvoru ve skle).
+* **Odolnost proti podvržení (anti-spoofing):** detekuje *3D* strukturu a *průtok krve (blood flow)* (zatím ve výzkumu).
 
 ### Použití
 
 * **Qualcomm Sense ID** — Galaxy S10+ (2019), S20+, …
-* **Apple TouchID variants** — některé prototyp, ne produkce.
+* **Varianty Apple TouchID** — některé prototypy, ne sériová výroba.
 
 ### Limity
 
-* **Slower** než capacitive (~ 500 ms vs ~ 100 ms).
-* **More expensive** chip.
-* **Sensor degrades** s display longevity.
+* **Pomalejší** než kapacitní (~500 ms oproti ~100 ms).
+* **Dražší** čip.
+* **Senzor degraduje** spolu s životností displeje.
 
 ## Termální senzory
 
 Princip:
 
-* Senzor měří **rozdíl teploty** mezi *hřebeny* (kontakt s prstem ~30 °C) a *dna* (vzduch ~22 °C).
-* Pyroelectric detector → time-based signal.
-* **Sweep across** senzor — prst posouvá, obraz se "stitche".
+* Senzor měří **rozdíl teploty** mezi *hřebeny* (kontakt s prstem ~30 °C) a *dny* (vzduch ~22 °C).
+* Pyroelektrický detektor → časově proměnný signál (time-based signal).
+* **Přejetí přes senzor (sweep):** prst se po senzoru posouvá a obraz se postupně skládá (stitching).
 
 ### Výhody
 
-* **Anti-spoof** — vyžaduje *živý* prst s tělesnou teplotou.
-* **Tenké** (1D linear sensor stačí).
+* **Odolnost proti podvržení (anti-spoof)** — vyžaduje *živý* prst s tělesnou teplotou.
+* **Tenké provedení** — stačí jednorozměrný řádkový senzor (1D linear sensor).
 
 ### Nevýhody
 
-* **Sweep motion** required — uživatel musí posunout prst, ne jen přiložit.
-* **Temperature drift** — outdoor cold weather may not work.
-* **Small image** — obtížné zachycení velkých plochy.
+* **Vyžaduje pohyb (sweep motion)** — uživatel musí prst posunout, nestačí jen přiložit.
+* **Teplotní drift (temperature drift)** — venku v chladu nemusí fungovat.
+* **Malý obraz** — obtížně se zachytí velká plocha.
 
 ### Použití
 
-* Atmel/AuthenTec sensors v notebookech (2000s).
-* Dnes překonáno capacitive / ultrasonic.
+* Senzory Atmel/AuthenTec v noteboocích (kolem roku 2000).
+* Dnes překonáno kapacitními / ultrazvukovými senzory.
 
-## Anti-spoofing
+## Odolnost proti podvržení (anti-spoofing)
 
-Detailně [[liveness]]. Stručně pro fingerprints:
+Podrobně viz [[liveness]]. Stručně pro otisky prstů:
 
-* **Capacitive** — vyžaduje *conductive* materiál (silicon nestačí; gummy bears workují).
-* **Optical** — *static photo* nestačí; ale *high-quality silicone* může uspět.
-* **Ultrasonic** — *3D structure* detection; obtížnější spoofing.
-* **Thermal** — *temperature* detection; vyžaduje *heated* fake finger.
+* **Kapacitní** — vyžaduje *vodivý* materiál (samotný silikon nestačí; „gumoví medvídci" fungují).
+* **Optické** — *statická fotografie* nestačí, ale *kvalitní silikon* může uspět.
+* **Ultrazvukové** — detekce *3D struktury*; podvržení je obtížnější.
+* **Termální** — detekce *teploty*; vyžaduje *zahřátý* falešný prst.
 
-State-of-the-art: **multimodal liveness** — kombinace:
+Aktuální špička oboru (state-of-the-art): **multimodální detekce živosti (multimodal liveness)** — kombinace:
 
-* Temperature + pulse oximetry (blood flow).
-* Skin conductance (galvanic skin response).
-* Subdermal capacitance pattern.
+* Teplota a pulzní oxymetrie (průtok krve).
+* Kožní vodivost (galvanická kožní reakce, galvanic skin response).
+* Podkožní (subdermální) kapacitní vzor.
 
-## Mobile vs. desktop sensors
+## Mobilní vs. stolní senzory
 
-| | **Mobile** | **Desktop / forensic** |
+| | **Mobilní** | **Stolní / forenzní** |
 | :--- | :---: | :---: |
 | Velikost senzoru | 5 × 5 mm | 25 × 25 mm |
 | Rozlišení | 500 dpi | 500–1000 dpi |
-| Captured area | partial finger | full finger / rolled |
-| Cena | $1–$10 | $100+ |
-| Účel | unlock, payment | enrollment, AFIS |
+| Snímaná plocha | část prstu | celý prst / válený otisk |
+| Cena | 1–10 $ | 100 $ a více |
+| Účel | odemčení, platba | registrace (enrollment), AFIS |
 
 ## Standardy
 
-* **ANSI/NIST-ITL 1-2011** — fingerprint data format.
-* **ISO/IEC 19794-2:2011** — finger minutiae data.
-* **ISO/IEC 19794-4:2005** — finger image data.
-* **ISO/IEC 24745:2022** — biometric information protection.
-* **NIST SP 800-76-2** — biometric specifications for PIV.
+* **ANSI/NIST-ITL 1-2011** — formát dat otisků prstů.
+* **ISO/IEC 19794-2:2011** — data markantů (minutiae) prstu.
+* **ISO/IEC 19794-4:2005** — obrazová data prstu.
+* **ISO/IEC 24745:2022** — ochrana biometrických informací.
+* **NIST SP 800-76-2** — biometrické specifikace pro PIV.
 
 ## Trendy 2025
 
-* **Larger area sensors** — Apple ditched Touch ID, ale Android moves to *full-display* ultrasonic.
-* **In-display optical** — Samsung Galaxy ($300+ phones).
-* **Multimodal** — fingerprint + ECG (heart rhythm) — Apple Watch series.
-* **Touchless** — post-COVID interest, but quality still inferior.
+* **Senzory s větší plochou** — Apple od Touch ID upustil, ale Android směřuje k *celodisplejovým (full-display)* ultrazvukovým senzorům.
+* **Optické v displeji (in-display)** — Samsung Galaxy (telefony za 300 $ a více).
+* **Multimodální** — otisk prstu + EKG (srdeční rytmus) — řada Apple Watch.
+* **Bezdotykové (touchless)** — zájem po pandemii covidu, kvalita je ale stále nižší.
 
 ---
 

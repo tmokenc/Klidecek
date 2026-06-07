@@ -2,18 +2,18 @@
 title: SIEM a monitoring
 ---
 
-# SIEM a security monitoring
+# SIEM a bezpečnostní monitoring
 
-**SIEM** (Security Information and Event Management) je *centrální platforma* pro:
+**SIEM** (Security Information and Event Management) je *centrální platforma*, která zajišťuje:
 
-- **Collection** logs from all systems.
-- **Normalization** to common format.
-- **Correlation** events across sources.
-- **Detection** of suspicious patterns.
-- **Alerting** + dashboards.
-- **Compliance** reporting.
+- **Sběr (collection)** logů ze všech systémů.
+- **Normalizaci (normalization)** do společného formátu.
+- **Korelaci (correlation)** událostí napříč zdroji.
+- **Detekci (detection)** podezřelých vzorů (pattern).
+- **Upozornění (alerting)** a přehledové panely (dashboards).
+- **Reporting pro účely shody (compliance)** s předpisy.
 
-SIEM je nervová soustava SOC ([[soc-incident-response]]).
+SIEM je nervovou soustavou SOC ([[soc-incident-response]]).
 
 ## Architektura
 
@@ -79,65 +79,65 @@ SIEM je nervová soustava SOC ([[soc-incident-response]]).
 </svg>
 :::
 
-## Log sources
+## Zdroje logů
 
-Comprehensive monitoring covers:
+Komplexní monitoring pokrývá:
 
-### Infrastructure
+### Infrastruktura
 
-- **Firewalls** — connections, drops.
-- **Routers / switches** — interfaces, traffic stats.
-- **IDS / IPS** — security alerts.
-- **DNS server** — queries.
-- **Proxy** — HTTP/HTTPS requests.
+- **Firewally** — spojení a zahozené pakety.
+- **Routery / switche** — rozhraní a statistiky provozu.
+- **IDS / IPS** — bezpečnostní upozornění.
+- **DNS server** — dotazy.
+- **Proxy** — požadavky (request) HTTP/HTTPS.
 
-### Endpoints
+### Koncové stanice (endpoints)
 
-- **Operating system** — kernel events, security audit.
-- **EDR** — process tree, command line.
-- **Antivirus** — detection, quarantine.
+- **Operační systém** — události jádra a bezpečnostní audit.
+- **EDR** — strom procesů a příkazové řádky.
+- **Antivirus** — detekce a karanténa.
 
-### Application
+### Aplikace
 
-- **Web server** — access logs, error logs.
-- **Database** — query logs, login events.
-- **Application logs** — custom security events.
+- **Webový server** — přístupové logy (access logs) a chybové logy (error logs).
+- **Databáze** — logy dotazů a přihlašovacích událostí.
+- **Aplikační logy** — vlastní bezpečnostní události.
 
-### Identity
+### Identita
 
-- **Active Directory** — auth, group changes.
-- **VPN gateway** — connections.
-- **IAM** — token issuance, permission grants.
+- **Active Directory** — autentizace (authentication) a změny skupin.
+- **VPN brána** — spojení.
+- **IAM** — vydávání tokenů a udělování oprávnění.
 
 ### Cloud
 
-- **AWS CloudTrail** — API calls.
+- **AWS CloudTrail** — volání API.
 - **Azure Activity Log**.
 - **GCP Cloud Audit Logs**.
 
-Each log type provides *different* visibility. Combination → complete picture.
+Každý typ logu poskytuje *jiný* pohled. Jejich kombinace dává úplný obraz situace.
 
-## Log forwarding
+## Přeposílání logů (log forwarding)
 
 ### Syslog
 
-Standard protocol. Push logs to SIEM via UDP 514 or TLS-encrypted.
+Standardní protokol. Logy odesílá (push) do SIEM přes UDP 514 nebo šifrovaně přes TLS.
 
 ### Filebeat / Fluentd / Vector
 
-Agents read log files, forward to SIEM.
+Agenti čtou logovací soubory a přeposílají je do SIEM.
 
 ### Windows Event Forwarding
 
-Native Windows. Forwards to collector.
+Nativní mechanismus Windows. Přeposílá události do sběrače (collector).
 
-### API integrations
+### Integrace přes API
 
-Cloud services — SIEM pulls via API (AWS, Azure, Office 365).
+U cloudových služeb si SIEM data sám stahuje (pull) přes API (AWS, Azure, Office 365).
 
-## Normalization
+## Normalizace
 
-Different sources, different formats:
+Různé zdroje mají různé formáty:
 
 ```
 # Firewall log:
@@ -150,7 +150,7 @@ Aug 18 12:34:56 fw01 deny tcp 192.168.1.5:54321 -> 8.8.8.8:53
 Aug 18 12:34:56 server sshd[1234]: Failed password for alice from 192.168.1.5 port 54321 ssh2
 ```
 
-SIEM normalizes to **CEF** (Common Event Format) or **LEEF** or vendor-specific schema:
+SIEM je normalizuje do formátu **CEF** (Common Event Format), **LEEF** nebo do schématu specifického pro daného výrobce:
 
 ```json
 {
@@ -163,11 +163,11 @@ SIEM normalizes to **CEF** (Common Event Format) or **LEEF** or vendor-specific 
 }
 ```
 
-Now correlation possible across sources.
+Teprve nyní je možná korelace napříč zdroji.
 
-## Correlation
+## Korelace
 
-Connect events across sources:
+Korelace propojuje události z různých zdrojů:
 
 ```
 1. Failed login (Active Directory log) — alice@corp.com
@@ -179,12 +179,12 @@ Connect events across sources:
 = Account takeover incident
 ```
 
-Single events innocuous. Together: compromise.
+Jednotlivé události jsou samy o sobě neškodné. Dohromady ale ukazují na kompromitaci.
 
 ::: viz siem-correlation-trace "Pusť event-by-event scénář brute force → success → file access. Correlation rule sleduje sliding window (60 s, ≥10 fails); alert vystřelí, jen když celý vzor sedí."
 :::
 
-Correlation rules:
+Korelační pravidla:
 
 ```
 RULE: brute force then success
@@ -194,9 +194,9 @@ RULE: brute force then success
   THEN ALERT: Possible account takeover
 ```
 
-## Detection rules
+## Detekční pravidla
 
-### Signature
+### Signatura
 
 ```
 RULE: known malware C2
@@ -204,7 +204,7 @@ RULE: known malware C2
   THEN ALERT: C2 communication detected
 ```
 
-### Anomaly
+### Anomálie
 
 ```
 RULE: data exfiltration
@@ -213,7 +213,7 @@ RULE: data exfiltration
   THEN ALERT: Possible exfiltration
 ```
 
-### Behavior
+### Chování (behavior)
 
 ```
 RULE: privileged escalation
@@ -222,32 +222,32 @@ RULE: privileged escalation
   THEN ALERT: Privilege escalation
 ```
 
-## Major SIEM vendors
+## Hlavní výrobci SIEM
 
-| Vendor | Notes |
+| Výrobce | Poznámky |
 | :--- | :--- |
-| **Splunk** | Most popular, expensive |
-| **IBM QRadar** | Enterprise, established |
-| **Microsoft Sentinel** | Cloud-native, Azure |
-| **Elastic Security** | Open-core, scales |
-| **Sumo Logic** | Cloud-first |
-| **LogRhythm** | Mid-market |
-| **Wazuh** | Open-source, HIDS+SIEM |
+| **Splunk** | Nejrozšířenější, drahý |
+| **IBM QRadar** | Podnikové (enterprise) nasazení, zavedený produkt |
+| **Microsoft Sentinel** | Cloud-native, prostředí Azure |
+| **Elastic Security** | Otevřené jádro (open-core), dobře škáluje |
+| **Sumo Logic** | Primárně cloudový (cloud-first) |
+| **LogRhythm** | Pro střední trh (mid-market) |
+| **Wazuh** | Open-source, HIDS + SIEM |
 | **Graylog** | Open-source |
 
-Choice based on: budget, cloud vs on-prem, integration ecosystem, retention requirements.
+Volba závisí na: rozpočtu, nasazení v cloudu versus on-premises, ekosystému integrací a požadavcích na dobu uchovávání dat (retention).
 
 ## SOAR
 
-**Security Orchestration, Automation, and Response**. Sits on top of SIEM.
+**Security Orchestration, Automation, and Response** (orchestrace, automatizace a reakce v bezpečnosti). Sedí jako nadstavba nad SIEM.
 
-### Capabilities
+### Schopnosti
 
-- **Playbook automation** — execute response steps.
-- **API integration** — talk to firewalls, EDR, ticketing systems.
-- **Case management** — track investigations.
+- **Automatizace playbooků** — provádí kroky reakce.
+- **Integrace přes API** — komunikuje s firewally, EDR a systémy pro správu tiketů.
+- **Správa případů (case management)** — sleduje průběh vyšetřování.
 
-### Example playbook
+### Příklad playbooku
 
 ```
 TRIGGER: Phishing email reported
@@ -261,57 +261,57 @@ TRIGGER: Phishing email reported
 4. Create ticket for analyst review.
 ```
 
-Tools: Splunk Phantom, Palo Alto Cortex XSOAR, Tines, Swimlane.
+Nástroje: Splunk Phantom, Palo Alto Cortex XSOAR, Tines, Swimlane.
 
-## Log retention
+## Uchovávání logů (retention)
 
-Compliance + investigation needs:
+Vychází z potřeb shody (compliance) a vyšetřování:
 
-| Standard | Retention |
+| Standard | Doba uchovávání |
 | :--- | :--- |
-| PCI DSS | 1 year (online), 3 mo immediate access |
-| HIPAA | 6 years |
-| SOX | 7 years |
-| GDPR | minimum necessary, audit logs typically 6 mo+ |
-| Most: | 90 days hot, 1-7 years cold |
+| PCI DSS | 1 rok (online), 3 měsíce s okamžitým přístupem |
+| HIPAA | 6 let |
+| SOX | 7 let |
+| GDPR | po nezbytně nutnou dobu, auditní logy obvykle 6 měsíců a více |
+| Většinou: | 90 dní v rychlé vrstvě, 1–7 let v archivu |
 
-Hot = fast access. Cold = slower, cheaper (S3, archive).
+Hot = rychlý přístup. Cold = pomalejší, ale levnější (S3, archiv).
 
-## Cost considerations
+## Náklady
 
-SIEM is *expensive*. Costs scale with:
+SIEM je *drahý*. Náklady rostou s těmito faktory:
 
-- **Data volume** — Splunk licenses by GB/day.
-- **Compute** — correlation rules CPU-intensive.
-- **Storage** — long retention = lots of disk.
+- **Objem dat** — Splunk licencuje podle GB za den.
+- **Výpočetní výkon (compute)** — korelační pravidla jsou náročná na CPU.
+- **Úložiště** — dlouhá doba uchovávání znamená hodně diskového prostoru.
 
-Strategies:
+Strategie pro snížení nákladů:
 
-- **Log filtering** — drop noise at source.
-- **Tiered storage** — hot/warm/cold.
-- **Data reduction** — aggregate, sample non-security data.
-- **Open-source** — Elastic, Wazuh have free tiers.
+- **Filtrování logů** — zahazování šumu už u zdroje.
+- **Vrstvené úložiště (tiered storage)** — hot / warm / cold.
+- **Redukce dat** — agregace a vzorkování (sampling) dat, která se netýkají bezpečnosti.
+- **Open-source** — Elastic a Wazuh mají bezplatné varianty.
 
-Modern: cloud SIEM (Sentinel, Sumo Logic) pay-as-you-grow.
+Moderní přístup: cloudový SIEM (Sentinel, Sumo Logic) s modelem platby podle skutečného růstu (pay-as-you-grow).
 
-## XDR — convergence
+## XDR — sbližování přístupů
 
-**Extended Detection and Response** unifies:
+**Extended Detection and Response** (rozšířená detekce a reakce) sjednocuje:
 
-- EDR (endpoint).
-- NDR (network).
-- SIEM (logs).
-- Cloud detection.
+- EDR (koncové stanice).
+- NDR (síť).
+- SIEM (logy).
+- Detekci v cloudu.
 
-Single vendor. Single console. Pre-built integrations.
+Jeden výrobce. Jedna konzole. Předpřipravené integrace.
 
-Tradeoff: vendor lock-in vs ease of use.
+Kompromis: závislost na jednom výrobci (vendor lock-in) výměnou za snadné použití.
 
-Vendors: Microsoft Defender XDR, CrowdStrike Falcon, Palo Alto Cortex, SentinelOne Singularity.
+Výrobci: Microsoft Defender XDR, CrowdStrike Falcon, Palo Alto Cortex, SentinelOne Singularity.
 
-## Threat hunting v SIEM
+## Aktivní vyhledávání hrozeb (threat hunting) v SIEM
 
-Beyond rules, *interactive* analyst-driven search:
+Nad rámec automatických pravidel jde o *interaktivní* vyhledávání řízené analytikem:
 
 ```sql
 search index=auth EventCode=4625
@@ -320,19 +320,19 @@ search index=auth EventCode=4625
 | join src_ip [search index=geoip]
 ```
 
-(Splunk SPL example. Other SIEM use similar.)
+(Příklad v jazyce Splunk SPL. Ostatní SIEM používají obdobné nástroje.)
 
-Hunters look for *unusual* patterns based on hypotheses + IoCs.
+Hunteři hledají *neobvyklé* vzory na základě hypotéz a indikátorů kompromitace (IoCs).
 
-## Metrics monitoring
+## Monitoring metrik
 
-Beyond security:
+Nad rámec bezpečnosti:
 
-- **Service availability** — uptime monitoring (Pingdom, Datadog).
-- **Performance** — APM (New Relic, Datadog, Dynatrace).
-- **Capacity** — CPU, memory, disk trends.
+- **Dostupnost služeb** — monitoring uptime (Pingdom, Datadog).
+- **Výkon (performance)** — APM (New Relic, Datadog, Dynatrace).
+- **Kapacita** — trendy využití CPU, paměti a disku.
 
-SIEM may *also* include operational, but typically separate. **Observability platforms** (Datadog, Splunk Observability) unify.
+SIEM může zahrnovat *i* provozní monitoring, ten však bývá obvykle oddělený. Tyto oblasti sjednocují **platformy pro observabilitu** (Datadog, Splunk Observability).
 
 ---
 

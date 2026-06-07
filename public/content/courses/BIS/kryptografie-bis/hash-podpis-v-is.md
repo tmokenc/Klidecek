@@ -4,68 +4,68 @@ title: Hash, MAC a podpis v IS
 
 # Hash, MAC a digitální podpis v IS — přehled
 
-Hash funkce, MAC (Message Authentication Code) a digitální podpis poskytují *integrity* + *authentication* + *non-repudiation*. Tato sekce shrnuje použití v IS. Pro algoritmické detaily viz KRY.
+Hash funkce, MAC (Message Authentication Code) a digitální podpis zajišťují integritu (integrity), autentizaci (authentication) a nepopiratelnost (non-repudiation). Tato sekce shrnuje jejich použití v informačních systémech (IS). Pro algoritmické detaily viz KRY.
 
 ## Hash funkce — viz KRY
 
-Detail: [[hash-funkce]] (SHA-2/3), [[hash-utoky]] (collision, length-extension, birthday).
+Detail: [[hash-funkce]] (SHA-2/3), [[hash-utoky]] (kolize, length-extension, narozeninový útok).
 
-Stručně: `h = H(M)` — *deterministic*, *one-way*, *fixed-length output*, *collision-resistant*.
+Stručně: `h = H(M)` — výstup je deterministický (deterministic), funkce je jednosměrná (one-way), má pevnou délku výstupu (fixed-length output) a je odolná vůči kolizím (collision-resistant). Jednosměrnost znamená, že ze samotného hashe nelze zpětně zjistit vstup.
 
 ### Moderní hash funkce
 
-| Funkce | Output | Status |
+| Funkce | Výstup | Stav |
 | :--- | :---: | :--- |
-| MD5 | 128-bit | **broken** (collisions 2004) |
-| SHA-1 | 160-bit | **broken** (collisions 2017) |
-| SHA-256 | 256-bit | secure, mainstream |
-| SHA-384, SHA-512 | 384/512-bit | secure |
-| SHA-3 (Keccak) | 224-512-bit | secure, alternative |
-| BLAKE2, BLAKE3 | variable | fast, secure |
+| MD5 | 128 bitů | **prolomená** (kolize 2004) |
+| SHA-1 | 160 bitů | **prolomená** (kolize 2017) |
+| SHA-256 | 256 bitů | bezpečná, běžně používaná |
+| SHA-384, SHA-512 | 384/512 bitů | bezpečné |
+| SHA-3 (Keccak) | 224–512 bitů | bezpečná, alternativa |
+| BLAKE2, BLAKE3 | proměnný | rychlé, bezpečné |
 
-Use SHA-256 nebo better. Avoid MD5, SHA-1 except for legacy compatibility.
+Používejte SHA-256 nebo lepší. Vyhněte se MD5 a SHA-1, s výjimkou kompatibility se staršími systémy (legacy).
 
 ## Použití hashe v IS {tier=practice}
 
-### Password storage
+### Ukládání hesel
 
-**Never** store passwords plain. Always *hash* + *salt* + *slow KDF*.
+Hesla **nikdy** neukládejte v otevřené podobě. Vždy je nejprve zahashujte, přidejte sůl (salt) a použijte pomalou odvozovací funkci (slow KDF).
 
 ```
 stored = bcrypt(password, salt, work_factor=12)
 ```
 
-KDF (Key Derivation Functions, [[kdf]]):
+KDF (Key Derivation Functions — funkce pro odvození klíče, [[kdf]]):
 
-- **PBKDF2** — iterated SHA-256 (legacy, OK).
-- **bcrypt** — slow by design, 1999.
-- **scrypt** — memory-hard.
-- **Argon2** — current best, won Password Hashing Competition 2015.
+- **PBKDF2** — iterovaná SHA-256 (starší přístup, postačující).
+- **bcrypt** — záměrně pomalá, z roku 1999.
+- **scrypt** — náročná na paměť (memory-hard).
+- **Argon2** — současné nejlepší řešení, vítěz soutěže Password Hashing Competition 2015.
 
-Argon2id default for new applications.
+Pro nové aplikace volte ve výchozím nastavení Argon2id.
 
-### Data integrity
+### Integrita dat
 
-- **Software downloads** — publish SHA-256 hash; user verifies.
-- **Git** — uses SHA-1 for commits (despite collisions in adversarial settings, *practical* git collisions hard).
-- **Backup verification** — hash files, compare before/after.
-- **Hash chains** — blockchain, append-only log integrity.
+- **Stahování softwaru** — autor zveřejní hash SHA-256, uživatel si jej ověří.
+- **Git** — používá pro commity SHA-1 (přestože v nepřátelském prostředí kolize existují, v praxi je vyvolat kolizi v gitu obtížné).
+- **Ověřování záloh** — soubory se zahashují a porovnají před změnou a po ní.
+- **Hashovací řetězce (hash chains)** — blockchain, integrita logu, do kterého se jen přidává (append-only).
 
-### Deduplication
+### Deduplikace
 
-Cloud storage (Dropbox, OneDrive) hashes files. If hash matches existing, store *once* + reference.
+Cloudová úložiště (Dropbox, OneDrive) hashují soubory. Pokud se hash shoduje s již existujícím, soubor se uloží jen **jednou** a zbytek se na něj odkáže.
 
-Privacy concern: if attacker knows hash of file (publicly available), can prove if user uploaded it.
+Riziko pro soukromí: pokud útočník (attacker) zná hash veřejně dostupného souboru, dokáže prokázat, zda jej uživatel nahrál.
 
-### Bloom filters
+### Bloom filtry
 
-Probabilistic data structure for membership test. Hash functions map elements to bit positions.
+Pravděpodobnostní datová struktura pro test příslušnosti k množině. Hash funkce mapují prvky na pozice bitů.
 
-Used in: malware detection, DNS, antivirus databases.
+Používá se v: detekci malwaru, DNS, databázích antivirů.
 
 ## MAC — Message Authentication Code
 
-Hash + *secret key*. Provides *integrity* + *authentication* (sender had key).
+Hash doplněný o tajný klíč (secret key). Zajišťuje integritu (integrity) a autentizaci (authentication) — tedy že odesílatel měl klíč.
 
 Detail [[mac-hmac]].
 
@@ -73,99 +73,99 @@ Detail [[mac-hmac]].
 mac = MAC_K(M) = HMAC-SHA256(K, M)
 ```
 
-Reciever has K → recompute MAC → match. If matches: integrity OK, sender knew K.
+Příjemce má klíč K → znovu spočítá MAC → porovná. Pokud se shodují: integrita je v pořádku a odesílatel znal klíč K.
 
 ### Algoritmy
 
-| MAC | Princip | Use |
+| MAC | Princip | Použití |
 | :--- | :--- | :--- |
-| HMAC | hash with key (RFC 2104) | TLS, IPsec, JWT |
-| Poly1305 | polynomial-based | ChaCha20-Poly1305 |
-| CMAC | block cipher MAC | NIST SP 800-38B |
-| GMAC | GHASH from GCM | network |
+| HMAC | hash s klíčem (RFC 2104) | TLS, IPsec, JWT |
+| Poly1305 | založeno na polynomech | ChaCha20-Poly1305 |
+| CMAC | MAC nad blokovou šifrou | NIST SP 800-38B |
+| GMAC | GHASH z režimu GCM | sítě |
 
-HMAC-SHA256 is *standard* MAC. Library support universal.
+HMAC-SHA256 je standardní MAC. Podpora v knihovnách je univerzální.
 
 ### Použití
 
-- **API authentication** — HMAC of request + shared secret → API signature (AWS SigV4, GitHub webhooks).
-- **JWT integrity** — JWS uses HMAC for signed-with-secret tokens.
-- **Cookie signing** — Django, Rails sign cookie data.
-- **IPsec, TLS** — authentication of packets / records.
+- **Autentizace API** — HMAC z požadavku (request) a sdíleného tajemství → podpis API (AWS SigV4, GitHub webhooky).
+- **Integrita JWT** — JWS používá HMAC pro tokeny podepsané tajným klíčem.
+- **Podepisování cookies** — Django a Rails podepisují data v cookies.
+- **IPsec, TLS** — autentizace paketů a záznamů.
 
-### MAC vs Signature
+### MAC vs. podpis
 
-| | MAC | Digital Signature |
+| | MAC | Digitální podpis |
 | :--- | :--- | :--- |
-| Keys | symmetric | asymmetric (key pair) |
-| Verify | with same key | with public key |
-| Non-repudiation | NO | YES |
-| Speed | fast | slow |
-| Use | inside trust domain | cross-domain |
+| Klíče | symetrické | asymetrické (pár klíčů) |
+| Ověření | stejným klíčem | veřejným klíčem |
+| Nepopiratelnost | NE | ANO |
+| Rychlost | rychlý | pomalý |
+| Použití | uvnitř důvěryhodné domény | mezi doménami |
 
-Pokud Alice a Bob *sdílí* secret → MAC stačí. Pokud chceš důkaz pro *třetí stranu* → signature.
+Pokud Alice a Bob sdílejí tajemství → stačí MAC. Pokud chcete důkaz pro třetí stranu → použijte podpis.
 
-## Digital Signature {tier=practice}
+## Digitální podpis {tier=practice}
 
-*Asymmetric* — Alice signs with private, Bob verifies with public. Detail [[el-podpis]].
+Asymetrický — Alice podepisuje soukromým klíčem, Bob ověřuje veřejným klíčem. Detail [[el-podpis]].
 
 ```
 signature = Sign_SK_Alice(H(M))
 verify    = Verify_PK_Alice(M, signature)
 ```
 
-Hash M *před* podpisem — sign small fingerprint místo whole document.
+Zprávu M před podpisem zahashujeme — podepisuje se tak malý otisk (fingerprint) místo celého dokumentu.
 
 ### Algoritmy
 
-| Algorithm | Key | Speed | Use |
+| Algoritmus | Klíč | Rychlost | Použití |
 | :--- | :--- | :---: | :--- |
-| RSA-PSS | RSA-2048+ | slow | TLS, code signing |
-| ECDSA | ECC P-256+ | medium | TLS, Bitcoin |
-| EdDSA | Ed25519 | fast | SSH, WireGuard |
-| Dilithium | lattice | medium | PQC future |
+| RSA-PSS | RSA-2048+ | pomalý | TLS, podepisování kódu |
+| ECDSA | ECC P-256+ | střední | TLS, Bitcoin |
+| EdDSA | Ed25519 | rychlý | SSH, WireGuard |
+| Dilithium | mřížky (lattice) | střední | budoucnost PQC |
 
-EdDSA (Ed25519) je *current best* pro new applications — fast, no nonce reuse problem, deterministic.
+EdDSA (Ed25519) je v současnosti nejlepší volbou pro nové aplikace — je rychlý, nemá problém s opakovaným použitím nonce a je deterministický.
 
 ### Použití
 
-- **Code signing** — Apple notarization, Microsoft Authenticode, Linux RPM/DEB signatures.
-- **Document signing** — PDF signatures, eIDAS qualified signatures.
-- **TLS server authentication** — server signs handshake.
-- **Software updates** — Windows Update, Linux distros sign packages.
-- **Cryptocurrency** — Bitcoin, Ethereum transactions.
-- **Certificate hierarchy** — root CA signs intermediates, etc.
+- **Podepisování kódu (code signing)** — notarizace u Apple, Microsoft Authenticode, podpisy balíčků RPM/DEB v Linuxu.
+- **Podepisování dokumentů** — podpisy v PDF, kvalifikované podpisy podle eIDAS.
+- **Autentizace serveru v TLS** — server podepisuje handshake.
+- **Aktualizace softwaru** — Windows Update i linuxové distribuce podepisují balíčky.
+- **Kryptoměny** — transakce v Bitcoinu a Ethereu.
+- **Hierarchie certifikátů** — kořenová CA podepisuje mezilehlé certifikáty atd.
 
-### Non-repudiation
+### Nepopiratelnost
 
-Klíčový atribut: Alice *nemůže popřít*, že podepsala. Pokud signature *valid* a private key was hers, *prokazatelně* podepsala.
+Klíčová vlastnost: Alice nemůže popřít, že podepsala. Pokud je podpis platný a soukromý klíč byl její, prokazatelně podepsala.
 
-Caveat: pokud private key *unikl* (theft, malware), Alice *může* popřít. Defense: hardware tokens, HSM, secure enclaves.
+Výhrada: pokud soukromý klíč unikl (krádež, malware), Alice popřít může. Obrana: hardwarové tokeny, HSM, zabezpečené enklávy (secure enclaves).
 
-## Vlastnosti MAC + Signature
+## Vlastnosti MAC a podpisu
 
-Oba poskytují *integrity + authentication*. Použijte podle situation:
+Oba poskytují integritu a autentizaci. Volte podle situace:
 
-| Situation | Choice |
+| Situace | Volba |
 | :--- | :--- |
-| Two parties share secret (TLS, VPN session) | MAC |
-| Many readers, one writer | Signature |
-| Need non-repudiation | Signature |
-| Performance critical, low latency | MAC |
-| Public-facing, untrusted environment | Signature |
+| Dvě strany sdílejí tajemství (TLS, relace VPN) | MAC |
+| Mnoho čtenářů, jeden zapisovatel | podpis |
+| Je potřeba nepopiratelnost | podpis |
+| Kritický výkon, nízká latence | MAC |
+| Veřejně dostupné, nedůvěryhodné prostředí | podpis |
 
-V praxi *kombinujeme*: TLS handshake uses signature (server cert), session data uses MAC.
+V praxi je kombinujeme: TLS handshake používá podpis (certifikát serveru), data relace zabezpečuje MAC.
 
-## Útoky na hash + MAC + signature
+## Útoky na hash, MAC a podpis
 
-| Útok | Cíl | Defense |
+| Útok | Cíl | Obrana |
 | :--- | :--- | :--- |
-| Collision | hash | use SHA-256+ |
-| Pre-image | hash | use SHA-256+ |
-| Birthday | hash | 2^(n/2) work — pick n = 256 |
-| Length-extension | Merkle-Damgård (SHA-256) | use HMAC, not raw H(K \|\| M) |
-| Nonce reuse | DSA / ECDSA | use deterministic ECDSA (RFC 6979) or EdDSA |
-| Bleichenbacher | RSA PKCS#1 v1.5 | use RSA-OAEP / RSA-PSS |
+| Kolize (collision) | hash | použít SHA-256+ |
+| Předobraz (pre-image) | hash | použít SHA-256+ |
+| Narozeninový (birthday) | hash | náročnost 2^(n/2) — zvolit n = 256 |
+| Length-extension | Merkle-Damgård (SHA-256) | použít HMAC, ne syrové H(K \|\| M) |
+| Opakované použití nonce | DSA / ECDSA | použít deterministické ECDSA (RFC 6979) nebo EdDSA |
+| Bleichenbacher | RSA PKCS#1 v1.5 | použít RSA-OAEP / RSA-PSS |
 
 Detaily [[hash-utoky]], [[el-podpis]].
 

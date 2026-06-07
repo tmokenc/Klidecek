@@ -4,11 +4,11 @@ title: DNA — struktura a princip
 
 # DNA — struktura a princip
 
-**DNA** (deoxyribonukleová kyselina) je *gold standard* biometrické identifikace. Žádná jiná modalita nedosahuje její *jedinečnosti* (s výjimkou identických dvojčat) a *stability* (nemění se s časem). Cena: *pomalá* (hodiny-dny analýza, ne real-time), *invazivní* (vyžaduje fyzický vzorek), *etické* a *právní* problémy.
+**DNA** (deoxyribonukleová kyselina) je *zlatý standard* biometrické identifikace. Žádná jiná modalita nedosahuje její *jedinečnosti* (s výjimkou identických dvojčat) ani *stability* (v čase se nemění). Daní za to je, že je *pomalá* (analýza trvá hodiny až dny, nikoli v reálném čase), *invazivní* (vyžaduje fyzický vzorek) a přináší *etické* a *právní* problémy.
 
 ## Chemická struktura
 
-::: svg "DNA struktura: dvojitá šroubovice; cukr-fosfátové páteře, base pairs (A=T, G≡C) uvnitř."
+::: svg "DNA struktura: dvojitá šroubovice; cukr-fosfátové páteře, párování bází (A=T, G≡C) uvnitř."
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
   <g stroke="rgb(80,80,200)" stroke-width="2" fill="none">
     <path d="M150,40 C200,70 200,100 150,130 C100,160 100,190 150,220"/>
@@ -44,115 +44,115 @@ title: DNA — struktura a princip
 </svg>
 :::
 
-* **Dvojitá šroubovice** (double helix) — objev Watson + Crick 1953 (Nobel Prize 1962).
-* **Cukr-fosfátová páteř** (sugar-phosphate backbone) — *deoxyribose* sugar + phosphate groups.
+* **Dvojitá šroubovice** (double helix) — objevili ji Watson a Crick v roce 1953 (Nobelova cena 1962).
+* **Cukr-fosfátová páteř** (sugar-phosphate backbone) — tvoří ji cukr deoxyribóza a fosfátové skupiny.
 * **Báze (nucleobases):**
-  * **A (Adenin)** pairs with **T (Thymin)** — 2 vodíkové vazby.
-  * **G (Guanin)** pairs with **C (Cytosin)** — 3 vodíkové vazby.
-* **Komplementarita** — A=T, G=C. Each strand defines the other.
+  * **A (Adenin)** se páruje s **T (Thymin)** — dvěma vodíkovými vazbami.
+  * **G (Guanin)** se páruje s **C (Cytosin)** — třemi vodíkovými vazbami.
+* **Komplementarita** — A=T, G=C. Každé vlákno tak jednoznačně určuje to druhé.
 
 ## Lidský genom
 
-* **3.2 miliardy** base pairs.
-* **~20 000 genes** (kódujících proteiny).
-* **23 párů chromosomů** (22 *autosomes* + 1 sex chromosome pair, XX nebo XY).
-* **~99.9 % shoda** mezi všemi lidmi.
-* **~0.1 % variability** — odpovídá ~3 milionům bází.
+* **3,2 miliardy** párů bází.
+* **~20 000 genů** (kódujících proteiny).
+* **23 párů chromozomů** (22 *autozomů* a 1 pár pohlavních chromozomů, XX nebo XY).
+* **~99,9 % shoda** mezi všemi lidmi.
+* **~0,1 % variability** — což odpovídá přibližně 3 milionům bází.
 
-Pro biometriku stačí *velmi malá* část tohoto genomu — *highly polymorphic regions* (oblasti, kde se lidé výrazně liší).
+Pro biometriku stačí *velmi malá* část tohoto genomu — *vysoce polymorfní oblasti* (highly polymorphic regions), tedy místa, ve kterých se lidé výrazně liší.
 
-## DNA polymorphisms
+## Polymorfismy DNA
 
-### SNPs (Single Nucleotide Polymorphisms)
+### SNP (Single Nucleotide Polymorphisms)
 
-* **Jednotlivé báze** se liší mezi osobami.
-* **~10 milionů** SNPs v lidské populaci.
+* **Jednotlivé báze** se mezi osobami liší.
+* V lidské populaci je jich **~10 milionů**.
 * Některé jsou **velmi vzácné**, jiné běžné.
-* Použití: ancestry, genome-wide association studies (GWAS), some forensic.
+* Využití: zjišťování původu (ancestry), celogenomové asociační studie (GWAS, genome-wide association studies) a částečně i forenzní praxe.
 
-### STRs (Short Tandem Repeats)
+### STR (Short Tandem Repeats)
 
-* **Krátké sekvence (2–6 bp)**, které se *opakují* po sobě.
+* **Krátké sekvence (2–6 bp)**, které se *opakují* za sebou.
 * Příklad: `CATG-CATG-CATG-CATG` (4× opakování CATG).
-* **Počet opakování** se *liší* mezi osobami (1–50 typically).
-* **STR loci** (specific positions in genome) jsou *highly polymorphic*.
+* **Počet opakování** se mezi osobami *liší* (typicky 1–50).
+* **Lokusy STR** (konkrétní pozice v genomu) jsou *vysoce polymorfní*.
 
 ### CODIS — Combined DNA Index System
 
-FBI standard:
+Standard FBI:
 
-* **20 STR loci** (rozšířeno z 13 v 2017).
-* Pro identifikaci osoby v *forenzním* kontextu.
-* **Match probability:** ~$10^{-20}$ for unrelated persons.
-* Used in **NDIS** (National DNA Index System) — 14M+ profiles.
+* **20 lokusů STR** (v roce 2017 rozšířeno z původních 13).
+* Slouží k identifikaci osoby ve *forenzním* kontextu.
+* **Pravděpodobnost shody (match probability):** ~$10^{-20}$ u nepříbuzných osob.
+* Používá se v systému **NDIS** (National DNA Index System) — více než 14 milionů profilů.
 
 ### European Standard Set (ESS)
 
-* **12 STR loci** for EU forensic database integration.
-* **Eurodac**, **Prüm Treaty** — automated EU DNA database exchange.
+* **12 lokusů STR** pro propojení forenzních databází v rámci EU.
+* **Eurodac**, **Prümská smlouva (Prüm Treaty)** — automatizovaná výměna údajů mezi DNA databázemi EU.
 
 ## Klíčové vlastnosti DNA
 
 ### Unikátnost
 
-* **Žádné dva** non-identical-twin osoby nemají *stejný* CODIS profile.
-* Match probability for unrelated: ~$10^{-20}$ — far better than fingerprint or iris.
+* **Žádné dvě** osoby, které nejsou identická dvojčata, nemají *stejný* profil CODIS.
+* Pravděpodobnost shody u nepříbuzných osob: ~$10^{-20}$ — výrazně lepší než u otisku prstu nebo duhovky.
 
 ### Stálost
 
 * **Stejná** v každé buňce těla.
 * **Nemění se** s věkem.
-* **Stejná** během celého života.
-* **Stejná** po smrti — *post-mortem* identification.
+* **Stejná** po celý život.
+* **Stejná** i po smrti — umožňuje *posmrtnou (post-mortem)* identifikaci.
 
 ### Identická dvojčata
 
-* **Sdílí ~99.99 % DNA** (some random mutations during development).
-* CODIS profil je *prakticky identical* pro identical twins.
-* **Speciální markers** (epigenetic, specific SNPs) can sometimes distinguish.
+* **Sdílejí ~99,99 % DNA** (s několika náhodnými mutacemi vzniklými během vývoje).
+* Profil CODIS je u identických dvojčat *prakticky totožný*.
+* **Speciální markery** (epigenetické, konkrétní SNP) je někdy dokážou rozlišit.
 
-## Sběr DNA vzorků
+## Sběr vzorků DNA
 
-### Buccal swab (ústní stěr)
+### Bukální stěr (ústní stěr)
 
-* **Cotton swab** (bavlněný tampon), kterým se setře vnitřní strana tváře.
-* **Quick, non-invasive.**
-* **Painless.**
-* Standard pro voluntary enrollment.
+* **Bavlněný tampon** (cotton swab), kterým se setře vnitřní strana tváře.
+* **Rychlý a neinvazivní.**
+* **Bezbolestný.**
+* Standard pro dobrovolnou registraci (voluntary enrollment).
 
 ### Krev
 
-* **Venepuncture** — venous blood draw.
-* **Higher DNA yield**.
-* Více invasivní.
+* **Venepunkce (venepuncture)** — odběr žilní krve.
+* **Vyšší výtěžek DNA.**
+* Více invazivní.
 
 ### Sliny
 
-* **Saliva sample** — collected in tube.
-* DNA z bukálních cells in saliva.
+* **Vzorek slin** — odebírá se do zkumavky.
+* DNA pochází z bukálních buněk obsažených ve slinách.
 
 ### Tkáňové vzorky
 
-* **Body tissue** — z autopsy, biopsy.
-* **Hair root** (with follicle) — has DNA; cut hair shaft does NOT have nuclear DNA (only mitochondrial).
+* **Tělní tkáň** — z pitvy nebo biopsie.
+* **Vlasový kořínek** (i s folikulem) — obsahuje DNA; ustřižený stvol vlasu jadernou DNA NEobsahuje (pouze mitochondriální).
 
 ### Touch DNA
 
-* **Skin cells** left on touched objects.
-* **Very small amount** (~1 cell may have ~6 pg DNA).
-* Requires *low copy number* (LCN) analysis.
-* Used in forensic.
+* **Kožní buňky** zanechané na dotčených předmětech.
+* **Velmi malé množství** (jediná buňka obsahuje ~6 pg DNA).
+* Vyžaduje analýzu *nízkého počtu kopií* (LCN, low copy number).
+* Využívá se ve forenzní praxi.
 
 ### Forenzní stopy
 
 * **Krevní stopy.**
-* **Sperma** — male DNA, used in sexual assault investigations.
-* **Slina** — z cigarettes, glasses, envelopes.
-* **Vlasové cibule** (hair follicles).
-* **Tkáň pod nehty** — defensive scratching.
+* **Sperma** — mužská DNA, využívá se při vyšetřování sexuálního napadení.
+* **Slina** — z cigaret, sklenic, obálek.
+* **Vlasové cibulky** (hair follicles).
+* **Tkáň pod nehty** — z obranného poškrábání.
 * **Ostatní biologické stopy.**
 
-## DNA analýza — pipeline
+## Analýza DNA — pipeline
 
 ::: svg "DNA analýza pipeline: extrakce → kvantifikace → PCR amplifikace → CE elektroforéza → STR profil."
 <svg viewBox="0 0 540 160" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -191,84 +191,84 @@ FBI standard:
 
 ### 1. Extrakce DNA
 
-* **Cell lysis** — break cells.
-* **Protein digestion** — proteinase K.
-* **Phenol-chloroform** or **silica column** purification.
-* Output: clean DNA in solution.
+* **Rozrušení buněk (cell lysis)** — porušení buněčných stěn a membrán.
+* **Štěpení proteinů (protein digestion)** — pomocí proteinázy K.
+* Čištění metodou **fenol-chloroform** nebo přes **silikagelovou kolonu (silica column)**.
+* Výstup: čistá DNA v roztoku.
 
 ### 2. Kvantifikace
 
-* **qPCR** (quantitative PCR) — measures DNA concentration.
-* Required because PCR works best with known input quantity.
+* **qPCR** (kvantitativní PCR) — změří koncentraci DNA.
+* Je nutná proto, že PCR pracuje nejlépe se známým množstvím vstupní DNA.
 
 ### 3. PCR amplifikace
 
-* **Polymerase Chain Reaction** — amplify specific STR regions.
-* **Primers** flanking each STR locus.
-* **20-30 cycles** — exponential amplification.
-* Output: millions of copies of STR regions.
+* **Polymerázová řetězová reakce (Polymerase Chain Reaction)** — namnoží konkrétní oblasti STR.
+* **Primery** lemující každý lokus STR.
+* **20–30 cyklů** — exponenciální namnožení.
+* Výstup: miliony kopií oblastí STR.
 
-### 4. CE (Capillary Electrophoresis)
+### 4. CE (kapilární elektroforéza, Capillary Electrophoresis)
 
-* PCR products *separated by size* in capillary tube.
-* **Detection** via fluorescence (PCR primers are fluorescently labeled).
-* Each STR locus contributes peak(s) at specific size.
+* Produkty PCR se v kapiláře *rozdělí podle velikosti*.
+* **Detekce** probíhá pomocí fluorescence (primery PCR jsou fluorescenčně značené).
+* Každý lokus STR přispívá jedním nebo více vrcholy (peaks) na příslušné velikosti.
 
-::: viz dna-electropherogram "Elektroferogram s peaks na lokálních fluorescenčních kanálech; přepněte single vs směs vs LCN."
+::: viz dna-electropherogram "Elektroferogram s vrcholy na jednotlivých fluorescenčních kanálech; přepněte mezi jedním vzorkem, směsí a LCN."
 :::
 
-### 5. STR profile
+### 5. STR profil
 
-* Analysis software (GeneMapper, OSIRIS) — calls *alleles* (specific repeat counts).
-* Profile = vector of (locus, allele1, allele2) pro 20+ loci.
-* Compare with database / suspect profile.
+* Analytický software (GeneMapper, OSIRIS) — určuje *alely* (konkrétní počty opakování).
+* Profil = vektor trojic (lokus, alela 1, alela 2) pro více než 20 lokusů.
+* Porovná se s databází nebo s profilem podezřelého.
 
 ## Cena a čas
 
-* **Cena:** $50–$500 per analysis.
-* **Čas:** *standardně* 6–72 hodin lab work.
-* **Rapid DNA:** 90 minut, automated systems (deployed in some PD/border control).
+* **Cena:** 50–500 USD za analýzu.
+* **Čas:** *standardně* 6–72 hodin laboratorní práce.
+* **Rapid DNA:** 90 minut, automatizované systémy (nasazené na některých policejních odděleních a hraničních přechodech).
 
-## DNA databases
+## Databáze DNA
 
-| Database | Region | Velikost |
+| Databáze | Region | Velikost |
 | :--- | :--- | :---: |
-| **FBI NDIS / CODIS** | USA | 14M+ profiles |
-| **UK National DNA Database** | UK | 5.6M |
-| **GEDmatch / FTDNA** | civilní genealogy | 1M+ each |
-| **MyHeritage / 23andMe** | konsumer | 12M+ each |
+| **FBI NDIS / CODIS** | USA | 14M+ profilů |
+| **UK National DNA Database** | Velká Británie | 5,6M |
+| **GEDmatch / FTDNA** | civilní genealogie | po 1M+ |
+| **MyHeritage / 23andMe** | spotřebitelské | po 12M+ |
 | **Czech DNA databáze** | ČR | ~70 000 (policie) |
 
-Civilní databáze (genealogy) byly použity ve forenzních *investigative* contextech (Golden State Killer 2018) — controversial use.
+Civilní (genealogické) databáze už byly použity ve forenzním *vyšetřovacím* kontextu (případ Golden State Killer 2018) — jde o kontroverzní využití.
 
-## Limity DNA biometrics
+## Limity DNA biometrie
 
-### Identical twins
+### Identická dvojčata
 
-* **Cannot distinguish** with standard CODIS.
-* Need *specialized* SNPs or epigenetic analysis.
+* **Nelze je rozlišit** standardním systémem CODIS.
+* Je potřeba *specializovaná* analýza SNP nebo epigenetická analýza.
 
-### Mixed samples
+### Smíšené vzorky
 
-* **Multiple contributors** (crime scene).
-* **Probabilistic Genotyping** software (STRmix, TrueAllele) — likelihood ratios.
-* Court controversies — software validation.
+* **Více přispěvatelů** (např. na místě činu).
+* Software pro **pravděpodobnostní genotypizaci (probabilistic genotyping)** (STRmix, TrueAllele) — počítá poměry věrohodnosti (likelihood ratios).
+* U soudů vyvolává spory — kvůli validaci softwaru.
 
-### Contamination
+### Kontaminace
 
-* DNA contamination from lab personnel, environment.
-* Strict protocols, negative controls.
+* Kontaminace DNA od laboratorního personálu nebo z prostředí.
+* Řeší se přísnými protokoly a negativními kontrolami.
 
-### Degradation
+### Degradace
 
-* Old / damaged samples — partial profiles.
-* Touch DNA — low copy number issues.
+* Staré nebo poškozené vzorky — neúplné profily.
+* Touch DNA — problémy s nízkým počtem kopií.
 
-### Mitochondrial DNA (mtDNA)
+### Mitochondriální DNA (mtDNA)
 
-* From maternal lineage only.
-* Less unique than nuclear DNA.
-* Used when nuclear DNA unavailable (ancient remains, hair shaft).
+* Dědí se pouze po mateřské linii.
+* Je méně jedinečná než jaderná DNA.
+* Používá se tam, kde jaderná DNA není k dispozici (prastaré ostatky, stvol vlasu).
 
 ---
 

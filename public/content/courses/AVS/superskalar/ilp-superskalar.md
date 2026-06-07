@@ -2,9 +2,9 @@
 title: ILP a superskalární procesory
 ---
 
-# Instruction-Level Parallelism a superskalární CPU
+# Paralelismus na úrovni instrukcí (ILP) a superskalární procesory
 
-5-stupňová pipeline dosahuje teoretického **CPI = 1, IPC = 1**. Aby IPC stouplo nad 1, musí jádro **vydávat víc instrukcí za takt** — to je princip superskalárního CPU. Tato sekce nastiňuje, kde se ILP bere, jak ho hardware *najde*, a jaký je teoretický a praktický strop.
+Pětistupňová pipeline dosahuje teoreticky **CPI = 1, IPC = 1** (CPI je počet taktů na instrukci, IPC počet instrukcí za takt). Aby IPC stouplo nad 1, musí jádro **vydávat víc instrukcí za takt** — to je princip superskalárního procesoru. Tato sekce nastiňuje, kde se paralelismus na úrovni instrukcí (instruction-level parallelism, ILP) bere, jak ho hardware *najde* a jaký je teoretický i praktický strop.
 
 ## Dvě páky pro vyšší IPC
 
@@ -14,7 +14,7 @@ $$
 T_{\text{prog}} = \text{IC} \cdot \text{CPI} \cdot T_{\text{takt}}
 $$
 
-**Cesta 1 — snížit takt** (superpipelining). Víc stupňů, kratší takt, ale vyšší pokuty za hazardy. Praktický limit ~20 stupňů.
+**Cesta 1 — zkrátit takt** (superpipelining). Více stupňů znamená kratší takt, ale i vyšší pokuty za hazardy. Praktický limit je přibližně 20 stupňů.
 
 **Cesta 2 — snížit CPI pod 1** (superskalár). m-cestný procesor vydává paralelně **až m** instrukcí za takt:
 
@@ -22,9 +22,9 @@ $$
 \text{IPC}_{\max} = m, \quad \text{CPI}_{\min} = \frac{1}{m}
 $$
 
-Reálně se dosažený IPC drží **podstatně níž** než $m$ — typicky 2-3 i u 6-8-cestného back-endu.
+Reálně se dosažený IPC drží **podstatně níž** než $m$ — typicky 2-3, a to i u 6-8-cestného back-endu (výkonné části procesoru, která instrukce vykonává).
 
-| CPU | Šířka issue | Reálné IPC |
+| CPU | Šířka vydávání (issue) | Reálné IPC |
 | :--- | :---: | :---: |
 | Intel Pentium (1993) | 2 | 1,4 |
 | Intel Core 2 (2006) | 4 | 1,8 |
@@ -32,11 +32,11 @@ Reálně se dosažený IPC drží **podstatně níž** než $m$ — typicky 2-3 
 | Apple M1 Firestorm (2020) | 8 | 3,2 |
 | AMD Zen 4 (2022) | 6 | 2,7 |
 
-Proč ne plné $m$? Tři limity: **data dependencies**, **control flow**, **memory latency**.
+Proč ne plné $m$? Brání tomu tři limity: **datové závislosti (data dependencies)**, **tok řízení (control flow)** a **latence paměti (memory latency)**.
 
 ## Kde se ILP bere
 
-ILP je *implicitní paralelismus* v sekvenčním kódu. Sousední instrukce *můžou* běžet paralelně, pokud na sobě **nezávisí**.
+ILP je *implicitní paralelismus* skrytý v sekvenčním kódu. Sousední instrukce *mohou* běžet paralelně, pokud na sobě **nezávisí**.
 
 Příklad:
 
@@ -46,15 +46,15 @@ d = e + f;   // i2 — nezávisí na i1
 g = a + d;   // i3 — závisí na i1 i i2
 ```
 
-Sekvenčně 3 takty (RAW chain). Paralelně 2 takty (i1+i2 současně, pak i3). Speedup **1,5×**.
+Sekvenčně to trvá 3 takty (řetězec závislostí RAW). Paralelně stačí 2 takty (i1 a i2 současně, pak i3). Zrychlení (speedup) je **1,5×**.
 
-Reálný kód obsahuje **ILP průměrně 4-8** instrukcí (Wall 1991, infinite-window simulation). Realizovat všech 8 paralelně by chtělo nekonečné OoO okno a 100% predikci skoků. Reálné CPU dosáhne 2-3.
+Reálný kód obsahuje **ILP průměrně 4-8** instrukcí (Wall 1991, simulace s nekonečným oknem). Realizovat všech 8 paralelně by vyžadovalo nekonečné okno pro vykonávání mimo pořadí (out-of-order, OoO) a 100% predikci skoků. Reálné CPU dosáhne 2-3.
 
-## In-order vs out-of-order
+## Vykonávání v pořadí (in-order) vs. mimo pořadí (out-of-order)
 
-### In-order superskalár
+### Superskalár v pořadí (in-order)
 
-Issue okno = **paket sousedních instrukcí**. Pokud první nemůže vydat (závislost), *zatuhne i druhá* (a třetí, čtvrtá, ...).
+Okno pro vydávání (issue okno) tvoří **paket sousedních instrukcí**. Pokud první instrukce nemůže být vydána (kvůli závislosti), *zatuhne i druhá* (a třetí, čtvrtá, …).
 
 ```
 i1: lw r1, 0(r2)        ┐
@@ -65,13 +65,13 @@ i4: sub r8, r9, r10     │
                         ┘
 ```
 
-Pokud `i2` čeká na `i1` (load-use), **také `i3` a `i4` čekají**, i když by mohly běžet. ⇒ In-order plýtvá ILP.
+Pokud `i2` čeká na `i1` (situace load-use, tedy použití hodnoty hned po jejím načtení), **čekají i `i3` a `i4`**, přestože by mohly běžet. ⇒ Vykonávání v pořadí tedy ILP plýtvá.
 
-Příklady in-order superskalárů: ARM Cortex-A7, Intel Atom Bonnell. Levné, malý power, ale IPC < 1,5.
+Příklady in-order superskalárů: ARM Cortex-A7, Intel Atom Bonnell. Jsou levné a mají malý příkon, ale jejich IPC je menší než 1,5.
 
-### Out-of-order superskalár
+### Superskalár mimo pořadí (out-of-order)
 
-OoO udržuje **velké okno** (Reservation Stations, ROB — viz [[tomasulo]], [[renaming-rob]]) instrukcí připravených k vydání. *Hardware* hledá v okně instrukce **bez závislostí** a vydává je *out-of-order*.
+OoO udržuje **velké okno** instrukcí připravených k vydání (rezervační stanice — Reservation Stations, a buffer pro přeuspořádání — reorder buffer, ROB; viz [[tomasulo]], [[renaming-rob]]). *Hardware* v tomto okně hledá instrukce **bez závislostí** a vydává je *mimo pořadí (out-of-order)*.
 
 ```
 i1: lw r1, 0(r2)        čeká na D-cache miss
@@ -80,9 +80,9 @@ i3: mul r5, r6, r7      ★ vydáno paralelně s i4
 i4: sub r8, r9, r10     ★ vydáno paralelně s i3
 ```
 
-`i3, i4` se vydají před `i2`, zatímco `i1` čeká na paměť. ⇒ OoO překrývá memory latence a najde ILP daleko za první závislostí.
+Instrukce `i3` a `i4` se vydají před `i2`, zatímco `i1` čeká na paměť. ⇒ OoO tak překrývá latence paměti a najde ILP i daleko za první závislostí.
 
-Cena: enormní hardware (RS 50-100 položek, ROB 200-400 položek, register file dvojnásobný kvůli přejmenování). Ale OoO je dnes **standard** v každém high-performance CPU.
+Cena je obrovský hardware (rezervační stanice s 50-100 položkami, ROB s 200-400 položkami, dvojnásobný registrový soubor kvůli přejmenování). OoO je ale dnes **standardem** v každém vysoce výkonném CPU.
 
 ## Vydávání: front-end + back-end
 
@@ -128,53 +128,53 @@ Cena: enormní hardware (RS 50-100 položek, ROB 200-400 položek, register file
 
 ### Front-end (in-order)
 
-1. **Fetch** — z I-cache načte $m$ instrukcí za takt (typicky 4-6). Branch prediction ([[bht-2bit]]) určuje další PC.
-2. **Decode** — rozparsuje x86/RISC-V instrukce na *mikrooperace* (μops). Komplexní instrukce mohou expandovat na 2-4 μops.
-3. **Rename** — přejmenuje architektonické registry na **physical registers** ([[renaming-rob]]). Odstraní WAR + WAW.
-4. **Dispatch** — vloží μops do RS a ROB.
+1. **Fetch (načtení)** — z I-cache načte $m$ instrukcí za takt (typicky 4-6). Predikce skoků (branch prediction; [[bht-2bit]]) určuje další PC.
+2. **Decode (dekódování)** — rozparsuje instrukce x86/RISC-V na *mikrooperace* (μops). Komplexní instrukce se mohou rozpadnout na 2-4 μops.
+3. **Rename (přejmenování)** — přejmenuje architektonické registry na **fyzické registry (physical registers)** ([[renaming-rob]]). Tím odstraní falešné závislosti WAR a WAW.
+4. **Dispatch (rozeslání)** — vloží μops do rezervačních stanic a ROB.
 
 ### Back-end (OoO)
 
-- **Issue** — z RS posílá instrukce *připravené* (oba operandy ready) do funkčních jednotek.
-- **Execute** — funkční jednotky (multiple ALUs, FPUs, L/S, branch) provedou μops.
-- **Writeback** — výsledky se zapíší zpět do ROB přes Common Data Bus.
-- **Retire** — když je μop *commit*-ready (a nepředchází jí spekulativně načtená nesprávně predikovaná μop), zapíše se do architektonického registru/paměti **v původním pořadí**.
+- **Issue (vydání)** — z rezervačních stanic posílá do funkčních jednotek instrukce, které jsou *připravené* (mají oba operandy hotové).
+- **Execute (vykonání)** — funkční jednotky (více ALU, FPU, jednotky load/store, jednotka skoků) provedou μops.
+- **Writeback (zápis výsledku)** — výsledky se zapíší zpět do ROB přes sdílenou datovou sběrnici (Common Data Bus).
+- **Retire (dokončení)** — když je μop připravena k potvrzení (commit) a nepředchází jí spekulativně načtená, chybně predikovaná μop, zapíše se do architektonického registru/paměti **v původním pořadí**.
 
-In-order retire je klíčové pro **precise exceptions** ([[spekulace-vyjimky]]).
+Dokončování v pořadí (in-order retire) je klíčové pro **přesné výjimky (precise exceptions)** ([[spekulace-vyjimky]]).
 
 ## Limity ILP
 
-### Data dependencies
+### Datové závislosti
 
-RAW závislosti **nelze obejít** — pravý tok dat. WAR a WAW odstraní přejmenování, ale RAW chains v kódu jsou *fundamentální*. Hledání paralelních instrukcí mezi RAW chains = job for OoO.
+Závislosti RAW **nelze obejít** — jde o pravý tok dat. Závislosti WAR a WAW odstraní přejmenování, ale řetězce RAW v kódu jsou *zásadní*. Hledání paralelních instrukcí mezi řetězci RAW je práce pro OoO.
 
-### Branch misprediction
+### Chybná predikce skoku (branch misprediction)
 
-Spekulativně načtené μops po skoku se *všechny* vyhodí, pokud predikce selže. S 95% accuracy a hlubokým pipeline ~14 stupňů je ~5 % pokuta nad 10 taktů → CPI příspěvek 0,5.
+Spekulativně načtené μops za skokem se *všechny* zahodí, pokud predikce selže. Při 95% úspěšnosti a hluboké pipeline (~14 stupňů) způsobí přibližně 5 % chyb pokutu přes 10 taktů, což přidá k CPI zhruba 0,5.
 
-### Memory latency
+### Latence paměti
 
-L1 cache hit: 4 takty. L2: 12. L3: 35. DRAM: 200+. Při miss kompletní RS se zaplní čekajícími instrukcemi → IPC propadne. Prefetch ([[prefetching]]) a OoO **překryjí** latence, ale nikdy ne plně.
+Zásah do L1 cache (cache hit): 4 takty. L2: 12. L3: 35. DRAM: 200 a více. Při výpadku (miss) se rezervační stanice zaplní čekajícími instrukcemi → IPC propadne. Předběžné načítání (prefetch; [[prefetching]]) a OoO latence **překryjí**, ale nikdy ne úplně.
 
-### Issue-width vs back-end-width
+### Šířka vydávání vs. šířka back-endu
 
-Pokud front-end fetchne $m$ μops, ale back-end má jen $m/2$ ALU jednotek, IPC je $\le m/2$. Apple M1 má 8-issue front-end + 6 ALU + 4 FPU — dlouho byl nejširší back-end na trhu.
+Pokud front-end načte $m$ μops, ale back-end má jen $m/2$ jednotek ALU, IPC je nejvýše $m/2$. Apple M1 má front-end se šířkou vydávání 8 a back-end se 6 ALU a 4 FPU — dlouho šlo o nejširší back-end na trhu.
 
 ## Praktický limit ILP
 
-V praktickém kódu (SPECCPU, gcc, perl) je dosažitelný IPC kolem **3-4** i s nekonečným hardwarem. Důvod: *velikost základního bloku* (kód mezi skoky) je v průměru jen 5-7 instrukcí, ILP uvnitř bloku ~2.
+V praktickém kódu (SPECCPU, gcc, perl) je dosažitelné IPC kolem **3-4**, a to i s nekonečným hardwarem. Důvodem je *velikost základního bloku* (kódu mezi skoky), která je v průměru jen 5-7 instrukcí, takže ILP uvnitř bloku je přibližně 2.
 
-Dál cestou musí být:
+Cesta dál tedy musí vést přes:
 
-- **Větší okno** (spekulativní vykonávání přes skoky) — vyžaduje branch prediction.
-- **Vektorizace** ([[sse-avx]]) — překlopit do DLP, kde paralelismus je triviální.
-- **Multi-threading** ([[hyperthreading]], [[openmp-uvod]]) — překlopit do TLP.
+- **Větší okno** (spekulativní vykonávání přes skoky) — vyžaduje predikci skoků.
+- **Vektorizaci** ([[sse-avx]]) — překlopení do paralelismu na úrovni dat (DLP), kde je paralelismus triviální.
+- **Vícevláknové zpracování (multi-threading)** ([[hyperthreading]], [[openmp-uvod]]) — překlopení do paralelismu na úrovni vláken (TLP).
 
-ILP-only cesta narazila u IBM Power, Intel Itanium VLIW (selhalo komerčně), Pentium 4 (hluboká pipeline). Cesta dál vede vícejádry + SIMD + GPU.
+Cesta spoléhající jen na ILP narazila na své meze u IBM Power, u architektury VLIW v Intel Itanium (komerčně neúspěšné) i u Pentia 4 (hluboká pipeline). Cesta dál vede přes více jader, SIMD a GPU.
 
 ## Co dál
 
-Aby OoO vydával instrukce mimo pořadí, musí *sledovat závislosti*. [[scoreboard]] (Thornton 1964) je nejjednodušší schéma — *blokuje* konflikty bez přejmenování. [[tomasulo]] (1967) přidává rezervační stanice + přejmenování pro WAR/WAW. [[renaming-rob]] popisuje moderní podobu těchto myšlenek.
+Aby OoO mohlo vydávat instrukce mimo pořadí, musí *sledovat závislosti*. [[scoreboard]] (Thornton 1964) je nejjednodušší schéma — konflikty *blokuje* bez přejmenování. [[tomasulo]] (1967) přidává rezervační stanice a přejmenování pro WAR/WAW. [[renaming-rob]] popisuje moderní podobu těchto myšlenek.
 
 ---
 

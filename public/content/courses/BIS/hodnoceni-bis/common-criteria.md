@@ -4,55 +4,55 @@ title: Common Criteria a EAL
 
 # Common Criteria — ISO/IEC 15408
 
-**Common Criteria for Information Technology Security Evaluation** (CC, ISO/IEC 15408) je *globální* standard pro hodnocení bezpečnosti IT produktů. Sjednotil TCSEC, ITSEC a CTCPEC ([[tcsec-itsec]]) v 1999. Aktuální verze: **CC 3.1 R5** (2017), nová **CC 2022** v procesu adopce.
+**Common Criteria for Information Technology Security Evaluation** (CC, ISO/IEC 15408) je *globální* standard pro hodnocení bezpečnosti IT produktů. V roce 1999 sjednotil starší standardy TCSEC, ITSEC a CTCPEC ([[tcsec-itsec]]). Aktuální verzí je **CC 3.1 R5** (2017), nová **CC 2022** se postupně zavádí.
 
 ## Struktura CC
 
-CC má tři části (každá jako ISO dokument):
+CC se skládá ze tří částí (každá je samostatným dokumentem ISO):
 
-1. **Part 1: Introduction and General Model** — terminologie, koncepty.
-2. **Part 2: Security Functional Requirements (SFR)** — *co* IS dělá.
-3. **Part 3: Security Assurance Requirements (SAR)** — *jak dobře* je ověřeno.
+1. **Part 1: Introduction and General Model** — terminologie a koncepty.
+2. **Part 2: Security Functional Requirements (SFR)** — *co* daný systém dělá.
+3. **Part 3: Security Assurance Requirements (SAR)** — *jak dobře* je to ověřeno.
 
 ## Klíčové koncepty
 
 ### Target of Evaluation (TOE)
 
-*Co se hodnotí*. Může být:
+*Předmět hodnocení* — tedy to, co se hodnotí. Může to být:
 
-- Konkrétní produkt (Windows Server 2022, Cisco ASA firewall).
-- Systém (banking application).
-- Modul (kryptografická knihovna, smart card chip).
+- Konkrétní produkt (Windows Server 2022, firewall Cisco ASA).
+- Systém (například bankovní aplikace).
+- Modul (kryptografická knihovna, čip čipové karty).
 
 ### Security Target (ST)
 
-*Specifikace bezpečnosti* TOE. Obsahuje:
+*Specifikace bezpečnosti* daného TOE. Obsahuje:
 
-- TOE description.
-- Security objectives.
-- Security functional requirements (z Part 2).
-- Security assurance requirements (z Part 3).
-- TOE summary specification.
+- Popis TOE (TOE description).
+- Bezpečnostní cíle (security objectives).
+- Bezpečnostní funkční požadavky (security functional requirements, z Part 2).
+- Bezpečnostní požadavky na záruky (security assurance requirements, z Part 3).
+- Souhrnnou specifikaci TOE (TOE summary specification).
 
-ST = "tohle slibuje TOE delat".
+ST jednoduše říká „tohle TOE slibuje dělat".
 
 ### Protection Profile (PP)
 
-*Šablona* ST pro určitý typ produktu. Definuje *minimum* security requirements pro daný kategorii.
+*Šablona* dokumentu ST pro určitý typ produktu. Definuje *minimum* bezpečnostních požadavků (security requirements) pro danou kategorii.
 
 Příklady:
 
 - **PP_FIREWALL_V1.0** — pro firewally.
-- **PP_OS_V4.2** — pro operating systems.
-- **PP_SMARTCARD** — pro smart cards.
+- **PP_OS_V4.2** — pro operační systémy.
+- **PP_SMARTCARD** — pro čipové karty.
 
-PP umožňuje *standardizovat* hodnocení v dané kategorii. Customer může říct "potřebuji produkt vyhovující PP_FIREWALL" → multiple vendors poskytují kompatibilní produkty.
+PP umožňuje *standardizovat* hodnocení v dané kategorii. Zákazník může říct „potřebuji produkt vyhovující PP_FIREWALL" a více dodavatelů (vendors) mu pak nabídne vzájemně kompatibilní produkty.
 
 ### TOE Security Functions (TSF)
 
-*Implementace* security požadavků v TOE. Software + hardware components, které *prosazují* security policy.
+*Implementace* bezpečnostních požadavků v rámci TOE. Jde o softwarové a hardwarové komponenty, které *prosazují* bezpečnostní politiku (security policy).
 
-Analogie TCSEC TCB. CC použivá TSF (Target of Evaluation Security Functions).
+Je to obdoba pojmu TCB ze standardu TCSEC. CC pro totéž používá zkratku TSF (Target of Evaluation Security Functions).
 
 ## SFR — Security Functional Requirements
 
@@ -72,29 +72,29 @@ Part 2 definuje 11 *funkčních tříd*:
 | FTA | TOE Access |
 | FTP | Trusted Path/Channels |
 
-Každá třída obsahuje *families* a *components* — hierarchická struktura.
+Každá třída obsahuje *rodiny* (families) a *komponenty* (components) — jde tedy o hierarchickou strukturu.
 
-Příklad: `FCS_COP.1` = Cryptographic operation, component 1 (basic crypto algorithm).
+Příklad: `FCS_COP.1` = Cryptographic operation, komponenta 1 (základní kryptografický algoritmus).
 
-ST specifikuje, *které* SFRs TOE implementuje.
+Dokument ST určuje, *které* SFR dané TOE implementuje.
 
 ## SAR — Security Assurance Requirements
 
-Part 3 definuje 7 *assurance levels* (EAL 1-7):
+Part 3 definuje 7 *úrovní záruk* (assurance levels, EAL 1–7):
 
 | EAL | Anglicky | Co znamená |
 | :--- | :--- | :--- |
-| **EAL 1** | Functionally tested | basic correspondence, žádná hluboká analýza |
-| **EAL 2** | Structurally tested | low-level design info, vulnerability assessment |
-| **EAL 3** | Methodically tested and checked | architecture, security testing |
-| **EAL 4** | Methodically designed, tested, and reviewed | source code review (commercial products typicky) |
-| **EAL 5** | Semiformally designed and tested | semi-formal design, hidden channels analysis |
-| **EAL 6** | Semiformally verified design and tested | formal model |
-| **EAL 7** | Formally verified design and tested | formal verification (top secret) |
+| **EAL 1** | Functionally tested | základní shoda, žádná hluboká analýza |
+| **EAL 2** | Structurally tested | informace o návrhu na nízké úrovni, posouzení zranitelností (vulnerability assessment) |
+| **EAL 3** | Methodically tested and checked | architektura, bezpečnostní testování |
+| **EAL 4** | Methodically designed, tested, and reviewed | revize zdrojového kódu (typicky komerční produkty) |
+| **EAL 5** | Semiformally designed and tested | poloformální návrh, analýza skrytých kanálů |
+| **EAL 6** | Semiformally verified design and tested | formální model |
+| **EAL 7** | Formally verified design and tested | formální verifikace (přísně tajné systémy) |
 
-EAL 4 = praktický maximum pro mainstream products (Windows, Linux, Cisco). EAL 5+ pro smart cards, military.
+EAL 4 je praktické maximum pro běžné komerční produkty (Windows, Linux, Cisco). Úroveň EAL 5 a vyšší je určena pro čipové karty a vojenské nasazení.
 
-::: svg "EAL hierarchie — od basic po formal verification"
+::: svg "Hierarchie EAL — od základní úrovně po formální verifikaci"
 <svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="10">
   <g fill="var(--bg-inset)" stroke="var(--line)">
     <rect x="20" y="60" width="60" height="40" rx="3"/>
@@ -139,60 +139,60 @@ EAL 4 = praktický maximum pro mainstream products (Windows, Linux, Cisco). EAL 
 </svg>
 :::
 
-### EAL augmentation
+### Rozšíření EAL (augmentation)
 
-`EAL N+` znamená EAL N *plus* augmented assurance (více než minimum pro tu úroveň). Např. `EAL 4+` často znamená "EAL 4 plus AVA_VAN.5 (penetration testing s high attack potential)".
+Zápis `EAL N+` znamená EAL N *plus* rozšířené záruky (augmented assurance) — tedy více, než je pro danou úroveň minimum. Například `EAL 4+` často znamená „EAL 4 plus AVA_VAN.5 (penetrační testování s vysokým potenciálem útoku)".
 
-::: viz cc-eal-explorer "Posouvej EAL 1→7. Vidíš požadovanou evidence (informal → semiformal → formal), cost, dobu, typický produkt. EAL 4 je commercial maximum, EAL 7 vyžaduje formální matematický důkaz designu."
+::: viz cc-eal-explorer "Posouvej EAL 1→7. Vidíš požadované důkazy (informal → semiformal → formal), cenu, dobu a typický produkt. EAL 4 je komerční maximum, EAL 7 vyžaduje formální matematický důkaz návrhu."
 :::
 
-## Evaluation process
+## Průběh hodnocení
 
-1. **Vendor přípravy**: napsat ST, implementovat TOE, prepare evidence.
-2. **CB (Certification Body) selekce**: BSI (Germany), NIAP (USA), ANSSI (France), JCMVP (Japan), MoD (UK).
-3. **CCEF (Common Criteria Evaluation Facility) provádí evaluation**: hodnotitel kontroluje evidence.
-4. **CB vydává Certification Report**.
-5. **CC certifikát** vydán → produkt v list.
+1. **Příprava na straně dodavatele (vendor)**: napsat ST, implementovat TOE a připravit důkazy (evidence).
+2. **Výběr certifikačního orgánu (CB, Certification Body)**: BSI (Německo), NIAP (USA), ANSSI (Francie), JCMVP (Japonsko), MoD (Velká Británie).
+3. **Hodnocení provádí CCEF (Common Criteria Evaluation Facility)**: hodnotitel kontroluje předložené důkazy.
+4. **Certifikační orgán vydává Certification Report**.
+5. **Vydán je certifikát CC** a produkt se zařadí do seznamu.
 
-Trvání: 6-24 měsíců. Cena: $100k-$5M podle EAL.
+Doba trvání: 6–24 měsíců. Cena: 100 tisíc až 5 milionů dolarů podle úrovně EAL.
 
 ## CCRA — Common Criteria Recognition Arrangement
 
-Mezivládní dohoda — certifikát z jednoho státu uznán v jiných.
+Mezivládní dohoda — certifikát z jednoho státu je uznáván v ostatních.
 
-- **Authorising Members** (vydávají certifikáty): US, Canada, France, Germany, Japan, ...
-- **Consuming Members** (uznávají): další státy.
+- **Authorising Members** (vydávají certifikáty): USA, Kanada, Francie, Německo, Japonsko, ...
+- **Consuming Members** (uznávají certifikáty): další státy.
 
-⇒ Certifikát z Německa = uznán v USA. Snižuje regulatorní bariéry.
+Z toho plyne, že certifikát z Německa je uznán i v USA. Tím se snižují regulační bariéry.
 
-CCRA do EAL 4 (over EAL 4 jednotlivé státy specifically posuzují).
+CCRA platí do úrovně EAL 4 (nad EAL 4 si certifikaci posuzují jednotlivé státy samostatně).
 
 ## Limity CC
 
-- **Drahá** — $100k-$5M znamená, že jen velké produkty si můžou dovolit.
-- **Pomalá** — 1-2 roky, mezitím produkt evolvoval.
-- **Snapshot** — certifikuje *konkrétní verzi*. Patch breaks certification.
-- **Méně responsive** — neumí pružně reagovat na nové hrozby.
-- **Doesn't guarantee security** — formálně verifikovaný produkt může mít implementation bugs.
+- **Drahá** — náklady 100 tisíc až 5 milionů dolarů znamenají, že si ji můžou dovolit jen velké produkty.
+- **Pomalá** — trvá 1–2 roky, mezitím se produkt už dál vyvinul.
+- **Snímek stavu (snapshot)** — certifikuje se *konkrétní verze*. Záplata (patch) certifikaci ruší.
+- **Málo pružná** — neumí pružně reagovat na nové hrozby (threats).
+- **Nezaručuje bezpečnost** — i formálně verifikovaný produkt může obsahovat chyby v implementaci.
 
-Kritika: certifikace je "*compliance theater*" v některých případech — checkbox bez reálné jistoty.
+Kritika zní, že certifikace je v některých případech jen „*compliance theater*" — odškrtnutí kolonky bez skutečné jistoty.
 
-Despite limits, CC zůstává standardem pro government a critical infrastructure procurement.
+I přes tyto limity zůstává CC standardem pro nákupy ve veřejné správě a v kritické infrastruktuře.
 
-## Reálné CC certifikáty
+## Reálné certifikáty CC
 
 | Produkt | EAL | Použití |
 | :--- | :---: | :--- |
 | Windows Server 2019 | EAL 4+ | enterprise |
 | Red Hat Enterprise Linux 9 | EAL 4+ | enterprise |
-| Cisco ASA Firewall | EAL 4+ | network security |
-| MUSCLE smart card | EAL 5+ | smart card |
-| seL4 microkernel | formálně verifikován (assurance nad rámec CC EAL 7; není CC EAL certifikát) | high-assurance embedded |
-| Some military OS | EAL 7 | classified |
+| Cisco ASA Firewall | EAL 4+ | síťová bezpečnost |
+| MUSCLE smart card | EAL 5+ | čipová karta |
+| seL4 microkernel | formálně verifikován (záruky nad rámec CC EAL 7; není to certifikát CC EAL) | vestavěné systémy s vysokými zárukami |
+| Některý vojenský OS | EAL 7 | utajované nasazení |
 
 ## Vztah k FIPS 140
 
-FIPS 140-3 ([[fips-evaluation]]) cílí jen na *kryptografické moduly* — užší než CC. Pro krypto module je FIPS 140-3 *průmyslový standard*, CC EAL doplněk.
+FIPS 140-3 ([[fips-evaluation]]) cílí jen na *kryptografické moduly* — je tedy užší než CC. Pro kryptografický modul je FIPS 140-3 *průmyslovým standardem*, zatímco CC EAL je doplňkem.
 
 ---
 

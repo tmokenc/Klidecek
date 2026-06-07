@@ -4,11 +4,11 @@ title: VLIW, RISC-V, ARM big.LITTLE
 
 # Nízkopříkonové architektury — VLIW, RISC-V, ARM big.LITTLE
 
-OoO superskalár x86 ([[ilp-superskalar]]) je *power hungry* — 50-100 W per chip. Pro mobile / embedded / IoT to není akceptovatelné. Alternativní architektury *zjednodušují* HW (VLIW), *modularizují* (RISC-V), nebo *heterogenizují* (big.LITTLE).
+Mimořádně vykonávaný (out-of-order, OoO) superskalár x86 ([[ilp-superskalar]]) je energeticky náročný — spotřebuje 50–100 W na jeden čip. Pro mobilní zařízení, vestavěné (embedded) systémy a IoT je to nepřijatelné. Alternativní architektury proto hardware buď *zjednodušují* (VLIW), *modularizují* (RISC-V), nebo *zheterogenňují*, tedy kombinují různé typy jader (big.LITTLE).
 
 ## VLIW — Very Long Instruction Word
 
-Princip: *kompilátor* sestaví *paket* instrukcí, *všechny* běží paralelně v 1 cyklu. Bez OoO, bez dynamic scheduling.
+Princip: *překladač (compiler)* sestaví *paket (bundle)* instrukcí a *všechny* běží paralelně v jediném cyklu. Žádné mimořádné vykonávání (OoO), žádné dynamické plánování (dynamic scheduling) za běhu.
 
 ```
 VLIW instruction (256 bits = 4 × 64-bit slots):
@@ -16,183 +16,183 @@ VLIW instruction (256 bits = 4 × 64-bit slots):
 | add r1,r2 | mul r3,r4  | load r5   | store r6 |
 ```
 
-CPU prostě vykoná všechny 4 paralelně. Hardware: trivial — žádný scoreboard, žádné rezervační stanice.
+Procesor jednoduše vykoná všechny čtyři operace paralelně. Hardware je triviální — žádný scoreboard, žádné rezervační stanice.
 
-**Kompilátor je odpovědný za**:
+**Za co je odpovědný překladač**:
 
-- Detection paralelismu (statický ILP).
-- Scheduling (ensure no RAW within bundle).
-- Padding (NOP pokud nemůže najít 4 nezávislé).
+- Detekce paralelismu (statický paralelismus na úrovni instrukcí, ILP).
+- Plánování (scheduling) — musí zajistit, aby v rámci paketu nevznikla závislost typu RAW (čtení po zápisu).
+- Zarovnání (padding) — pokud nenajde čtyři nezávislé instrukce, doplní slot instrukcí NOP.
 
 ### Výhody
 
-- **Jednoduchá HW** — bez OoO logic. Lower power.
-- **Predictable performance** — žádný runtime variation.
-- **Compiler vidí celý program** — může lépe optimize than runtime HW.
+- **Jednoduchý hardware** — žádná logika pro mimořádné vykonávání. Nižší spotřeba.
+- **Předvídatelný výkon** — žádné kolísání za běhu (runtime).
+- **Překladač vidí celý program** — může optimalizovat lépe než hardware za běhu, který má jen omezený výhled.
 
 ### Nevýhody
 
-- **Compiler must be excellent** — pokud najde málo paralelismu, IPC < m.
-- **Code bloat** — NOPs vyplňují bundle slots.
-- **ISA inflexibilní** — change FU count = change ISA.
-- **No runtime adaptation** — cache miss zhroutí scheduling.
+- **Překladač musí být vynikající** — pokud najde málo paralelismu, klesne IPC (počet instrukcí na cyklus) pod m.
+- **Bobtnání kódu (code bloat)** — instrukce NOP zaplňují sloty paketu.
+- **Neflexibilní ISA** — změna počtu funkčních jednotek znamená změnu instrukční sady (ISA).
+- **Žádné přizpůsobení za běhu** — výpadek cache (cache miss) rozbije celé naplánování.
 
 ### Příklady
 
-- **Itanium (Intel + HP, 2001)** — major commercial flop. Compiler nezvládl predict cache misses.
-- **TI C6x DSP** — successful in signal processing (predictable, no caches).
-- **NVIDIA Tegra DSP**, Qualcomm Hexagon — DSP cores in mobile chips.
-- **Transmeta Crusoe** — x86 to VLIW translation, low-power x86 (2000).
+- **Itanium (Intel + HP, 2001)** — velký komerční propadák. Překladač nedokázal předvídat výpadky cache.
+- **TI C6x DSP** — úspěšný ve zpracování signálu (předvídatelný, bez cache).
+- **NVIDIA Tegra DSP**, Qualcomm Hexagon — DSP jádra v mobilních čipech.
+- **Transmeta Crusoe** — překlad x86 do VLIW, nízkopříkonový x86 (2000).
 
-Itanium failure killed VLIW as mainstream. DSP and accelerators still use it.
+Neúspěch Itania pohřbil VLIW jako mainstreamovou architekturu. V DSP a akcelerátorech se ale používá dál.
 
-## RISC-V — Open ISA
+## RISC-V — otevřená ISA
 
-RISC-V (Berkeley, 2010) — open-source ISA. Modular: base + extensions.
+RISC-V (Berkeley, 2010) je open-source instrukční sada (ISA). Je modulární: skládá se ze základu plus rozšíření.
 
-Base ISA (RV32I): ~47 instructions. Minimal. (RV64I rozšiřuje o *W word instrukce + LD/LWU/SD.)
+Základní ISA (RV32I): zhruba 47 instrukcí. Naprosté minimum. (RV64I ji rozšiřuje o *W* instrukce nad slovy a o LD/LWU/SD.)
 
-Extensions:
+Rozšíření:
 
-- **M** — multiplication, division.
-- **A** — atomic (LR/SC).
-- **F, D** — floating-point single/double.
-- **C** — compressed (16-bit RVC).
-- **V** — vector ([[vektorove-cpu]]).
-- **B** — bit manipulation.
+- **M** — násobení a dělení.
+- **A** — atomické operace (LR/SC).
+- **F, D** — pohyblivá řádová čárka, jednoduchá a dvojitá přesnost.
+- **C** — komprimované instrukce (16bitové RVC).
+- **V** — vektorové ([[vektorove-cpu]]).
+- **B** — bitové manipulace.
 
-Profile (RV64GC = I+M+A+F+D+C) = mainstream "Linux RISC-V" chip.
+Profil RV64GC (= I+M+A+F+D+C) je mainstreamový čip třídy „Linux RISC-V".
 
 ### Výhody
 
-- **No license fees** — open standard, free implementation.
-- **Modular** — only include needed extensions. Save area, power.
-- **Customizable** — domain-specific extensions (AI, crypto).
-- **Verifiable** — formal proofs of correctness possible.
+- **Žádné licenční poplatky** — otevřený standard, implementace zdarma.
+- **Modularita** — zahrnete jen potřebná rozšíření. Ušetříte plochu čipu i spotřebu.
+- **Možnost úprav** — rozšíření na míru dané doméně (umělá inteligence, kryptografie).
+- **Ověřitelnost** — jsou možné formální důkazy správnosti.
 
 ### Nevýhody
 
-- **Fragmented ecosystem** — different chips support different extensions.
-- **Tools immature compared to x86/ARM** — better every year.
-- **Less optimized commercial cores** — yet.
+- **Roztříštěný ekosystém** — různé čipy podporují různá rozšíření.
+- **Nástroje jsou méně vyzrálé než u x86/ARM** — každým rokem se to ale lepší.
+- **Méně optimalizovaná komerční jádra** — zatím.
 
-### Implementations
+### Implementace
 
-- **SiFive U7, P670** — high-end multicore, Linux-class.
-- **ALI T-Head C910** — server-class.
-- **Sophon SG2042** — 64-core RISC-V server CPU (2023).
+- **SiFive U7, P670** — výkonná vícejádrová jádra, třída Linuxu.
+- **ALI T-Head C910** — serverová třída.
+- **Sophon SG2042** — 64jádrový serverový procesor RISC-V (2023).
 
-RISC-V power efficiency *similar to ARM* — both clean RISC ISAs.
+Energetická efektivita RISC-V je *podobná jako u ARM* — obě jsou čisté RISC instrukční sady.
 
 ## ARM ISA
 
-ARM dominantní v mobile/embedded/server (cloud servers s Graviton/Ampere).
+ARM dominuje v mobilních, vestavěných i serverových zařízeních (cloudové servery s Graviton/Ampere).
 
 Klíčové vlastnosti:
 
-- **Multiple instruction encodings** — 16-bit Thumb + 32-bit ARM (A32) + 64-bit ARMv8 (A64) ISAs (variable-length encoding for code density).
-- **Conditional execution** — every instruction can be conditional (saves branches).
-- **Powerful addressing modes** — load/store offset, pre/post-increment.
+- **Více kódování instrukcí** — 16bitový Thumb, 32bitový ARM (A32) a 64bitový ARMv8 (A64). Kódování s proměnnou délkou zajišťuje vyšší hustotu kódu.
+- **Podmíněné vykonávání** — každá instrukce může být podmíněná, což šetří skoky (branches).
+- **Mocné adresní režimy** — offset u load/store, inkrementace před přístupem i po něm.
 
 ### big.LITTLE
 
-ARM IP koncept (2011): *heterogeneous* cores na *one* SoC.
+Koncept ARM IP (2011): *heterogenní* jádra na *jednom* čipu (SoC).
 
-- **big** (Cortex-A78, X2) — high-perf OoO, ~5 W per core at peak.
-- **LITTLE** (Cortex-A510) — small in-order, ~0.5 W per core.
+- **big** (Cortex-A78, X2) — výkonná OoO jádra, ~5 W na jádro ve špičce.
+- **LITTLE** (Cortex-A510) — malá jádra vykonávající instrukce v pořadí (in-order), ~0,5 W na jádro.
 
-OS scheduler:
+Plánovač operačního systému:
 
-- *Background tasks* → LITTLE.
-- *Latency-sensitive* (UI, app launch) → big.
+- *Úlohy na pozadí* → LITTLE.
+- *Úlohy citlivé na latenci* (uživatelské rozhraní, spuštění aplikace) → big.
 
-Mobile chips (Snapdragon, Mediatek Dimensity): 4 big + 4 LITTLE typical.
+Mobilní čipy (Snapdragon, Mediatek Dimensity): typicky 4 jádra big + 4 jádra LITTLE.
 
-Apple M1: 4 P-cores + 4 E-cores (Apple's terminology pro big.LITTLE).
+Apple M1: 4 P-jádra + 4 E-jádra (Apple takto označuje princip big.LITTLE).
 
-### big.LITTLE benefit
+### Přínos big.LITTLE
 
-Per Apple's measurement:
+Podle měření Applu:
 
-- LITTLE core perf: ~⅓ of big.
-- LITTLE core power: ~⅒ of big.
+- Výkon malého (LITTLE) jádra: zhruba ⅓ výkonu velkého.
+- Spotřeba malého (LITTLE) jádra: zhruba ⅒ spotřeby velkého.
 
-Background loads (notifications, sync, monitoring) run on LITTLE → save 90 % power vs running on big.
+Zátěž na pozadí (oznámení, synchronizace, monitorování) běží na jádrech LITTLE, takže oproti běhu na big ušetří 90 % spotřeby.
 
-For active workloads (game, video): big handles them. Total system stays cool.
+Aktivní zátěž (hra, video) zvládnou jádra big. Celý systém přitom zůstává chladný.
 
-⇒ **Mobile battery life 2× lepší** než pure big-only design.
+⇒ **Výdrž baterie mobilu je 2× lepší** než u návrhu jen s velkými jádry.
 
-## Apple M-series
+## Apple řady M
 
-Apple silicon (M1 → M3, 2020-2023):
+Apple silicon (M1 → M3, 2020–2023):
 
-- 4-12 P-cores (Firestorm / Avalanche / Everest) + 2-8 E-cores (Icestorm / Blizzard / Sawtooth).
-- Shared LLC (M1 P-cluster: 12 MB).
-- Unified memory architecture (CPU+GPU+NE share LPDDR memory pool).
-- Built-in neural engine, video encode/decode.
+- 4–12 P-jader (Firestorm / Avalanche / Everest) + 2–8 E-jader (Icestorm / Blizzard / Sawtooth).
+- Sdílená cache poslední úrovně (LLC) — u clusteru P-jader v M1 je to 12 MB.
+- Jednotná architektura paměti (CPU, GPU i neurální engine sdílejí jeden fond paměti LPDDR).
+- Vestavěný neurální engine, hardwarový enkodér i dekodér videa.
 
-Power efficiency: ~3× better than Intel x86 at equivalent perf. Reasons:
+Energetická efektivita: zhruba 3× lepší než u Intel x86 při srovnatelném výkonu. Důvody:
 
-- TSMC 5 nm process (vs Intel 7-10 nm).
+- Výrobní proces TSMC 5 nm (proti 7–10 nm u Intelu).
 - big.LITTLE.
-- Wide single-threaded design — fewer high-frequency clocks.
-- Custom ASICs for video, ML offload.
+- Široký návrh pro jednovláknový výkon — méně potřebných vysokých taktů.
+- Vyhrazené čipy (ASIC) pro video a odlehčení strojového učení (ML offload).
 
-M-series proved that **ARM can replace x86** for laptops/desktops if power-efficiency is priority.
+Řada M dokázala, že **ARM dokáže nahradit x86** v noteboocích i stolních počítačích, pokud je prioritou energetická efektivita.
 
-## Intel Alder Lake (P + E cores)
+## Intel Alder Lake (jádra P + E)
 
-2021: Intel přijal big.LITTLE pattern.
+V roce 2021 přijal Intel princip big.LITTLE.
 
-- **P-cores** (Golden Cove) — OoO, AVX-512, 8-wide.
-- **E-cores** (Gracemont) — smaller OoO, 4-wide, no AVX-512.
+- **P-jádra** (Golden Cove) — OoO, AVX-512, šířka 8.
+- **E-jádra** (Gracemont) — menší OoO, šířka 4, bez AVX-512.
 
-Hybrid scheduling — Intel Thread Director hardware tells OS which thread should go where.
+Hybridní plánování — hardware Intel Thread Director říká operačnímu systému, kam má které vlákno (thread) zařadit.
 
-Trade-off: AVX-512 *only* on P-cores. Linux schedulers must avoid AVX-512 threads on E-cores → migration overhead.
+Kompromis: AVX-512 je *jen* na P-jádrech. Linuxové plánovače proto musí zabránit tomu, aby se vlákna s AVX-512 dostala na E-jádra → vzniká režie na přesouvání (migration overhead).
 
-## RISC vs CISC v context
+## RISC vs. CISC v kontextu
 
-Klasický debate (1980s): RISC (simple instructions, fast pipeline) vs CISC (complex instructions, fewer in code).
+Klasická debata (80. léta): RISC (jednoduché instrukce, rychlý zřetězený běh) proti CISC (složité instrukce, kterých je v kódu méně).
 
-Real-world: x86 = CISC architecture *with* RISC-like microarchitecture (decode CISC → μops → run RISC-style pipeline). All modern x86 effectively RISC inside.
+V praxi: x86 je architektura CISC *s* mikroarchitekturou ve stylu RISC (dekóduje CISC → mikrooperace μops → běží na zřetězené lince ve stylu RISC). Všechny moderní x86 jsou uvnitř fakticky RISC.
 
-⇒ ISA matters less than implementation. Power efficiency comes from microarchitecture choices, not RISC vs CISC.
+⇒ Na samotné ISA záleží méně než na implementaci. Energetická efektivita pramení z rozhodnutí o mikroarchitektuře, ne z volby RISC vs. CISC.
 
 ## Dark silicon
 
-Esmaeilzadeh et al. 2011: at 8nm process, only ~50 % of chip can be *powered* simultaneously (TDP limit). Rest must be *dark* (off).
+Esmaeilzadeh a kol., 2011: u výrobního procesu 8 nm lze současně *napájet* jen zhruba 50 % čipu (limit TDP). Zbytek musí zůstat *temný (dark)*, tedy vypnutý.
 
-Implications:
+Důsledky:
 
-- Specialized accelerators (ML, codec, crypto) — turn on *when needed*, off otherwise.
-- Heterogeneous cores — only some types on at a time.
-- *Cores* are increasingly *fixed-function* (not general-purpose).
+- Specializované akcelerátory (ML, kodek, kryptografie) — zapnou se *jen když je potřeba*, jinak jsou vypnuté.
+- Heterogenní jádra — vždy je zapnuto jen několik jejich typů.
+- *Jádra* mají stále častěji *pevně danou funkci* (nejsou univerzální).
 
-Apple Silicon embodies this: NPU (neural engine), GPU, Video codec, Image signal processor — all specialized.
+Apple silicon je toho ztělesněním: NPU (neurální engine), GPU, videokodek, obrazový signálový procesor (ISP) — vše specializované.
 
-x86 + AVX-512: 1 part of chip for AVX-512, mostly idle.
+x86 + AVX-512: jedna část čipu slouží pro AVX-512 a většinou zahálí.
 
-⇒ Dark silicon drives architectural specialization.
+⇒ Dark silicon žene vývoj k architektonické specializaci.
 
-## Pareto frontier
+## Paretova hranice
 
-For each architecture, plot (performance, power) — Pareto frontier shows best designs.
+Pro každou architekturu vynesme dvojici (výkon, spotřeba) — Paretova hranice (Pareto frontier) ukazuje nejlepší návrhy.
 
-Vyobrazení (přibližně):
+Znázornění (přibližně):
 
-- **x86 desktop** — high perf, high power.
-- **ARM mobile** — moderate perf, low power.
-- **RISC-V embedded** — variable, customizable.
-- **Apple M-series** — high perf + moderate power (current best).
-- **GPGPU** — extreme throughput, but limited to data-parallel workloads.
+- **x86 pro stolní počítače** — vysoký výkon, vysoká spotřeba.
+- **ARM pro mobily** — střední výkon, nízká spotřeba.
+- **RISC-V pro vestavěné systémy** — proměnlivé, přizpůsobitelné.
+- **Apple řady M** — vysoký výkon a střední spotřeba (aktuálně nejlepší).
+- **GPGPU** — extrémní propustnost, ale omezená na datově paralelní úlohy.
 
-No single architecture dominates *all* points. Each occupies its niche.
+Žádná jediná architektura nedominuje *všem* bodům. Každá obsazuje svou niku.
 
 ## Co dál
 
-[[gpu-architektura]] popisuje *jinou* paradigma — GPGPU SIMT. Throughput-oriented, ne latency. Bývalý graphics accelerator → general compute platform (ML, HPC). [[cuda-divergence-occupancy]] uzavře praktickou stránku.
+[[gpu-architektura]] popisuje *jiné* paradigma — GPGPU model SIMT. Je orientované na propustnost (throughput), ne na latenci. Z někdejšího grafického akcelerátoru se stala univerzální výpočetní platforma (ML, HPC). [[cuda-divergence-occupancy]] uzavře praktickou stránku.
 
 ---
 

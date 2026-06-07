@@ -4,7 +4,7 @@ title: Rust — Traity a generika
 
 # Rust — Traity a generika
 
-**Traity** jsou Rust analogie *type classes* z Haskellu ([[type-classes]]) — definují *interface*, který typy mohou *implementovat*. Spolu s **generikou** umožňují *parametric* + *ad-hoc* polymorphism *compile-time* (zero-cost abstrakce).
+**Traity** jsou v Rustu obdobou typových tříd (type classes) z Haskellu ([[type-classes]]) — definují rozhraní (interface), které typy mohou implementovat. Rozhraní je tu míněno jako soupis metod, jež daný typ musí poskytnout. Spolu s **generikou** umožňují parametrický i ad-hoc polymorfismus (polymorphism) už při překladu (compile-time), a to jako abstrakci s nulovou cenou (zero-cost abstrakce) — tedy bez jakékoli režie navíc za běhu.
 
 ## Definice traitu
 
@@ -153,7 +153,7 @@ fn main() {
 
 ## Generika
 
-### Generic functions
+### Generické funkce
 
 ```rust
 fn largest<T: PartialOrd>(list: &[T]) -> &T {
@@ -175,7 +175,7 @@ fn main() {
 }
 ```
 
-### Generic structs
+### Generické struktury
 
 ```rust
 struct Pair<T, U> {
@@ -195,7 +195,7 @@ fn main() {
 }
 ```
 
-### Generic enums
+### Generické výčtové typy
 
 ```rust
 enum Option<T> {
@@ -209,9 +209,11 @@ enum Result<T, E> {
 }
 ```
 
-## Trait bounds
+## Omezení traitem (trait bounds)
 
-### Single bound
+Omezení traitem říká, že generický typ musí implementovat určitý trait — díky tomu uvnitř funkce smíme používat jeho metody.
+
+### Jediné omezení
 
 ```rust
 fn print_all<T: std::fmt::Display>(items: &[T]) {
@@ -221,7 +223,7 @@ fn print_all<T: std::fmt::Display>(items: &[T]) {
 }
 ```
 
-### Multiple bounds
+### Více omezení
 
 ```rust
 fn process<T: Clone + std::fmt::Debug>(x: T) -> T {
@@ -230,7 +232,7 @@ fn process<T: Clone + std::fmt::Debug>(x: T) -> T {
 }
 ```
 
-### where clause (cleaner for complex)
+### Klauzule `where` (přehlednější u složitějších případů)
 
 ```rust
 fn process<T, U>(x: T, y: U) -> String
@@ -242,7 +244,7 @@ where
 }
 ```
 
-### impl Trait (return type)
+### `impl Trait` (návratový typ)
 
 ```rust
 fn make_adder(n: i32) -> impl Fn(i32) -> i32 {
@@ -253,7 +255,7 @@ let add5 = make_adder(5);
 println!("{}", add5(3));  // 8
 ```
 
-## Trait objects (dynamic dispatch)
+## Trait objekty (dynamický dispatch)
 
 ### dyn Trait
 
@@ -285,11 +287,11 @@ fn main() {
 }
 ```
 
-* `Box<dyn Animal>` — pointer + vtable.
-* **Runtime** dispatch (slower than generic).
-* **Erased type** — useful for heterogeneous collections.
+* `Box<dyn Animal>` — ukazatel (pointer) plus tabulka virtuálních metod (vtable).
+* Výběr volané metody probíhá až za běhu (runtime), což je pomalejší než u generik.
+* **Smazaný typ** (erased type) — konkrétní typ se ztrácí, což se hodí pro heterogenní kolekce (kolekce míchající různé typy).
 
-### Generic vs. dyn
+### Generika vs. dyn
 
 ```rust
 // Generic — monomorphization (compile-time dispatch)
@@ -303,13 +305,13 @@ fn process(a: &dyn Animal) {
 }
 ```
 
-* **Generic:** zero overhead, but binary bigger (one copy per type).
-* **dyn:** runtime overhead, smaller binary.
+* **Generika:** nulová režie, ale větší výsledný binární soubor (vznikne jedna kopie funkce pro každý typ).
+* **dyn:** režie za běhu, zato menší binární soubor.
 
 ::: viz trait-monomorphization "Generic monomorfizace vs dyn vtable; vizualizace, kolik kopií funkce, kde je dispatch."
 :::
 
-## Associated types
+## Asociované typy (associated types)
 
 ```rust
 trait Iterator {
@@ -325,9 +327,9 @@ impl Iterator for Counter {
 }
 ```
 
-Alternative to generic parameter — *one* per impl.
+Jsou alternativou ke generickému parametru — na jednu implementaci připadá právě jeden asociovaný typ.
 
-## Higher-ranked trait bounds (HRTB)
+## Omezení traitem vyššího řádu (HRTB)
 
 ```rust
 fn apply<F: for<'a> Fn(&'a i32) -> i32>(f: F, x: i32) -> i32 {
@@ -335,11 +337,11 @@ fn apply<F: for<'a> Fn(&'a i32) -> i32>(f: F, x: i32) -> i32 {
 }
 ```
 
-`for<'a>` — for any lifetime 'a.
+Zápis `for<'a>` znamená „pro libovolnou dobu života (lifetime) 'a".
 
-## Operator overloading
+## Přetěžování operátorů
 
-Operators are traits:
+Operátory jsou traity:
 
 ```rust
 use std::ops::Add;
@@ -359,11 +361,11 @@ let p2 = Point { x: 3.0, y: 4.0 };
 let p3 = p1 + p2;  // Point { x: 4.0, y: 6.0 }
 ```
 
-Other ops: `Sub`, `Mul`, `Div`, `Index`, `IndexMut`, `Deref`, etc.
+Další operátory: `Sub`, `Mul`, `Div`, `Index`, `IndexMut`, `Deref` a podobně.
 
-## Iterator pattern
+## Vzor iterátoru
 
-Powerful HOF-style:
+Mocný styl v duchu funkcí vyššího řádu (higher-order function):
 
 ```rust
 let v = vec![1, 2, 3, 4, 5];
@@ -380,12 +382,12 @@ let result: Vec<i32> = v.iter()
 // [9, 16, 25]
 ```
 
-**Functional style** native to Rust.
+**Funkcionální styl** je v Rustu vlastní jádru jazyka.
 
 ::: viz rust-iterator-chain "Krok-po-kroku pull jednoho prvku přes filter/map/take; vidíte, že žádný mezikrok nealokuje."
 :::
 
-## Closures
+## Uzávěry (closures)
 
 ```rust
 let add = |a: i32, b: i32| a + b;
@@ -401,15 +403,15 @@ let add_n = |x| x + n;
 println!("{}", add_n(5));  // 15
 ```
 
-Closure traits:
-* **Fn** — immutable borrow of environment.
-* **FnMut** — mutable borrow.
-* **FnOnce** — takes ownership.
+Traity uzávěrů:
+* **Fn** — neměnné vypůjčení (borrowing) okolního prostředí.
+* **FnMut** — měnitelné vypůjčení.
+* **FnOnce** — přebírá vlastnictví (ownership).
 
 ::: viz closure-capture-modes "Vyberte Fn / FnMut / FnOnce; vidíte, co se captures a kolikrát lze volat."
 :::
 
-## Trait inheritance
+## Dědičnost traitů
 
 ```rust
 trait Greet {
@@ -424,9 +426,9 @@ trait FormalGreet: Greet {  // requires Greet
 }
 ```
 
-## Blanket implementations
+## Plošné implementace (blanket implementations)
 
-Implement trait *for many types* at once:
+Umožňují implementovat trait pro mnoho typů najednou:
 
 ```rust
 impl<T: Display> ToString for T {
@@ -436,20 +438,20 @@ impl<T: Display> ToString for T {
 }
 ```
 
-Standard library uses this extensively.
+Standardní knihovna tento postup hojně využívá.
 
-## Marker traits
+## Značkovací traity (marker traits)
 
-* **Copy** — automatic copy semantics.
-* **Sized** — known size at compile time.
-* **Send** — safe to send between threads.
-* **Sync** — safe to share between threads.
+* **Copy** — automatické kopírování (sémantika kopie).
+* **Sized** — velikost typu je známá už při překladu (compile-time).
+* **Send** — typ je bezpečné přenést mezi vlákny (thread).
+* **Sync** — typ je bezpečné sdílet mezi vlákny.
 
 ```rust
 fn process<T: Send + Sync>(t: T) { ... }  // thread-safe types
 ```
 
-## Příklad — sorting {tier=example}
+## Příklad — řazení {tier=example}
 
 ```rust
 use std::cmp::Ordering;
@@ -480,27 +482,27 @@ fn main() {
 }
 ```
 
-## Klíčové rozdíly oproti Haskell
+## Klíčové rozdíly oproti Haskellu
 
-| Aspect | Haskell | Rust |
+| Hledisko | Haskell | Rust |
 | :--- | :--- | :--- |
-| Type class | Eq, Ord, Show | trait |
-| Generic | parametric polymorphism | generic + trait bounds |
-| Dispatch | dictionary passing | monomorphization OR dyn |
-| Higher-kinded | yes | no (workarounds) |
-| Coherence | global | orphan rules |
+| Typová třída | Eq, Ord, Show | trait |
+| Generika | parametrický polymorfismus | generika + omezení traitem |
+| Dispatch | předávání slovníku | monomorfizace NEBO dyn |
+| Vyšší kindy | ano | ne (existují náhradní řešení) |
+| Koherence | globální | pravidla pro cizí implementace (orphan rules) |
 
-Rust *omezuje* některé features (no HKT) výměnou za *predictable* compile-time + memory management.
+Rust některé vlastnosti **omezuje** (žádné typy vyššího kindu, HKT) výměnou za předvídatelný překlad a správu paměti.
 
 ::: viz rust-vs-haskell "Side-by-side quicksort / fib / map v Haskellu vs Rustu; klíčové rozdíly anotovány."
 :::
 
-## Trends
+## Trendy
 
-* **GATs** (Generic Associated Types) — stabilized 2022.
-* **Async traits** — stabilized 2023.
-* **Specialization** — under development.
-* **Impl trait in return position** — improved 2024.
+* **GATs** (generické asociované typy) — stabilizováno v roce 2022.
+* **Asynchronní traity** — stabilizováno v roce 2023.
+* **Specializace** — ve vývoji.
+* **`impl Trait` v návratové pozici** — vylepšeno v roce 2024.
 
 ---
 

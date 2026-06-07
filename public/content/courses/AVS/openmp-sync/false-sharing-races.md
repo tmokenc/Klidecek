@@ -1,14 +1,14 @@
 ---
-title: False sharing, race conditions a NUMA effects
+title: False sharing, souběhy (race conditions) a NUMA efekty
 ---
 
 # False sharing — skrytá pokuta paralelního kódu
 
-False sharing je *cache-level* race condition. Vlákna píší do *různých* proměnných, které *náhodou* leží *na stejné cache line*. Hardware koherence cache je zaměnuje za skutečnou kolizi a vyvolává *cache line ping-pong* — line se opakovaně přenáší mezi jádry.
+False sharing je souběh (race condition) na úrovni cache. Vlákna (thread) zapisují do *různých* proměnných, které ovšem *náhodou* leží *na stejné cache line*. Hardwarová koherence cache (cache koherence) je zamění za skutečnou kolizi a vyvolá *ping-pong cache line* — tatáž line se opakovaně přenáší mezi jádry.
 
-Žádná race condition v *kódu*, ale dramatický slowdown.
+V *kódu* přitom žádný souběh není, a přesto dojde k dramatickému zpomalení.
 
-## Příklad — counts per thread
+## Příklad — počítadla na vlákno
 
 ```c
 int counts[8];   // 8 ints = 32 B, jedna cache line je 64 B
@@ -22,19 +22,19 @@ int counts[8];   // 8 ints = 32 B, jedna cache line je 64 B
 }
 ```
 
-Vypadá *naprosto bezpečně*. Každé vlákno updatuje *vlastní* slot — žádná logická kolize.
+Kód vypadá *naprosto bezpečně*. Každé vlákno aktualizuje svůj *vlastní* slot — žádná logická kolize tu není.
 
-Realita: `counts[0..7]` *všechny* na *jedné* cache line. Při T0 update `counts[0]`:
+Realita je ale taková, že `counts[0..7]` leží *všechna* na *jedné* cache line. Když vlákno T0 aktualizuje `counts[0]`, stane se následující:
 
-1. Line dirty na core 0's L1.
-2. Core 1 chce update `counts[1]` — *musí* dostat line *exclusive*.
-3. Cache koherence ([[koherence-uvod]]) *invaliduje* line z core 0, transferuje na core 1.
-4. T2 chce `counts[2]` → line jde na core 2.
+1. Line je „dirty" (změněná) v L1 jádra 0.
+2. Jádro 1 chce aktualizovat `counts[1]` — *musí* získat line ve výhradním (exclusive) režimu.
+3. Koherence cache ([[koherence-uvod]]) *invaliduje* line v jádru 0 a přenese ji na jádro 1.
+4. Vlákno T2 chce `counts[2]` → line putuje na jádro 2.
 5. ...
 
-Round-robin: každé update line jezdí mezi jádry. Single update = 50-100 cyklů (cache transfer) místo 1 cyklu (L1 hit).
+Vzniká kolotoč (round-robin): při každé aktualizaci line jezdí mezi jádry. Jediná aktualizace pak stojí 50–100 cyklů (přenos cache line) místo 1 cyklu (zásah v L1, tedy L1 hit).
 
-⇒ Performance **10-100× horší** než sériový kód.
+⇒ Výkon (performance) je **10–100× horší** než u sériového kódu.
 
 ::: svg "False sharing — cache line ping-pong"
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="10">
@@ -74,30 +74,30 @@ Round-robin: každé update line jezdí mezi jádry. Single update = 50-100 cykl
 </svg>
 :::
 
-::: viz false-sharing-pingpong "Spusť 4 jádra ťukající na counts[0..3]. Bez paddingu cache line ping-pongne (červené šipky); s paddingem každý core má vlastní line a throughput vyletí."
+::: viz false-sharing-pingpong "Spusť 4 jádra ťukající na counts[0..3]. Bez paddingu cache line ping-pongne (červené šipky); s paddingem má každé jádro vlastní line a propustnost vyletí."
 :::
 
 ## Detekce
 
-### Symptomy
+### Příznaky
 
-- Multi-thread *pomalejší* než single-thread, *bez* explicit lock.
-- Cache line transfer rate v perf counters extrémní.
-- L1D miss rate vysoký (50+ %), ne kvůli pracovní množině.
+- Vícevláknový běh je *pomalejší* než jednovláknový, a to *bez* explicitního zámku (lock).
+- Mimořádně vysoká četnost přenosů cache line ve výkonnostních čítačích (perf counters).
+- Vysoká míra výpadků v L1D (50+ %), která ovšem není způsobena velikostí pracovní množiny.
 
-### Perf counters
+### Výkonnostní čítače (perf counters)
 
 ```bash
 perf stat -e l1d.replacement,l2_rqsts.all_demand_miss,mem_inst_retired.lock_loads ...
 ```
 
-`mem_inst_retired.lock_loads` ukazuje atomic operations + cache line invalidations.
+Čítač `mem_inst_retired.lock_loads` ukazuje atomické operace (atomic) a invalidace cache line.
 
-Intel VTune ukazuje *exactly* problematic lines via "Memory access pattern" report.
+Intel VTune dokáže přes report „Memory access pattern" ukázat *přesně* ty problematické line.
 
 ## Řešení
 
-### 1. Padding to cache line
+### 1. Padding na velikost cache line
 
 ```c
 struct {
@@ -106,11 +106,11 @@ struct {
 } counts[8] __attribute__((aligned(64)));
 ```
 
-Každý `count` na vlastní line. False sharing zmizí.
+Každý `count` teď leží na vlastní line. False sharing zmizí.
 
-Cost: paměť (8× 64 B = 512 B místo 32 B). Pro malé arrays trivial.
+Cena je v paměti (8× 64 B = 512 B místo 32 B). Pro malá pole (array) je to ale zanedbatelné.
 
-### 2. Local accumulator + merge
+### 2. Lokální akumulátor a sloučení
 
 ```c
 int total_counts[8] = {0};
@@ -128,9 +128,9 @@ int total_counts[8] = {0};
 }
 ```
 
-Per-thread `local` (stack) → žádná shared. Merge once na konci — `total_counts[]` má sice stejný layout jako původní `counts[]`, ale dotýká se ho každé vlákno *jen jednou* mimo hot loop, takže ping-pong je zanedbatelný.
+Proměnná `local` je u každého vlákna na jeho zásobníku (stack), takže nic sdíleného nevzniká. Sloučení proběhne jen jednou na konci — pole `total_counts[]` má sice stejné rozložení jako původní `counts[]`, ale každé vlákno se ho dotkne *jen jednou* mimo horkou smyčku (hot loop), takže ping-pong je zanedbatelný.
 
-### 3. Reduction
+### 3. Redukce (reduction)
 
 ```c
 int count = 0;
@@ -139,11 +139,11 @@ for (int i = 0; i < N; i++)
     if (a[i] == 0) count++;
 ```
 
-Best for scalar accumulator. *Compiler-generated* per-thread accumulators, no false sharing.
+Nejvhodnější pro skalární akumulátor. Per-vláknové akumulátory generuje *překladač (compiler)* sám, takže k žádnému false sharingu nedochází.
 
-### 4. Re-design data structure
+### 4. Přepracování datové struktury
 
-Pokud máte struct s *concurrently accessed* fields:
+Pokud máte strukturu (struct) s položkami, k nimž se přistupuje *souběžně*:
 
 ```c
 // Bad:
@@ -166,9 +166,9 @@ struct WriteStats { int writes; };
 struct ErrorStats { int errors; };
 ```
 
-## Race conditions — classical
+## Souběhy (race conditions) — klasické
 
-False sharing je *performance* race. *Classical* race = *correctness* race:
+False sharing je souběh na úrovni *výkonu*. *Klasický* souběh je naproti tomu souběh na úrovni *správnosti*:
 
 ```c
 int counter = 0;
@@ -177,31 +177,31 @@ for (int i = 0; i < N; i++)
     counter++;        // RACE — lost updates
 ```
 
-Without `atomic` or `reduction`, výsledek **less than N** (lost updates).
+Bez direktivy `atomic` nebo `reduction` vyjde výsledek **menší než N** — některé aktualizace se ztratí (lost updates).
 
-### Race vs. false sharing
+### Souběh vs. false sharing
 
-| | Race | False sharing |
+| | Souběh (race) | False sharing |
 | :--- | :--- | :--- |
-| Affects | correctness | performance |
-| Detected by | wrong output | profiling |
-| Fix | atomic / lock | padding / split |
-| Synonyms | data race, lost update | cache line contention |
+| Ovlivňuje | správnost | výkon |
+| Pozná se podle | chybného výstupu | profilování |
+| Náprava | atomic / zámek (lock) | padding / rozdělení |
+| Synonyma | datový souběh (data race), lost update | soupeření o cache line (cache line contention) |
 
-Race může nastat *bez* false sharing (atomic single variable). False sharing může nastat *bez* race (each thread own slot).
+Souběh může nastat *bez* false sharingu (jediná atomická proměnná). A naopak false sharing může nastat *bez* souběhu (každé vlákno má vlastní slot).
 
-## NUMA effects
+## NUMA efekty
 
-V NUMA systému ([[uma-numa]]) memory access cost závisí na *fyzickém umístění*:
+V systému NUMA ([[uma-numa]]) závisí cena přístupu do paměti na *fyzickém umístění* dat:
 
-- Local NUMA node: 80 cyklů.
-- Remote NUMA node: 200-300 cyklů.
+- Lokální uzel NUMA (local NUMA node): 80 cyklů.
+- Vzdálený uzel NUMA (remote NUMA node): 200–300 cyklů.
 
-Pokud data alokovaná thread T0 na NUMA 0, ale T1 na NUMA 1 ji *čte/zapisuje* → 3× pomalejší. To je *NUMA penalty*.
+Pokud vlákno T0 alokuje data na uzlu NUMA 0, ale vlákno T1 z uzlu NUMA 1 je *čte/zapisuje*, je přístup až 3× pomalejší. Tomu se říká pokuta za NUMA (NUMA penalty).
 
-### First-touch policy
+### Politika first-touch
 
-Linux defaultně používá **first-touch**: stránka alokovaná na *NUMA node thread that first touches it*.
+Linux standardně používá politiku **first-touch**: stránka se alokuje na tom *uzlu NUMA, jehož vlákno se jí dotkne jako první*.
 
 ```c
 float *a = malloc(N * sizeof(float));
@@ -212,37 +212,37 @@ for (int i = 0; i < N; i++)
     a[i] = 0.0;          // first touch — page allocated on local NUMA
 ```
 
-Pokud `parallel for` rozdělí iterace mezi NUMA nodes, *každá stránka* je alokovaná na NUMA local k *jejímu* thread. Subsequent access fast.
+Pokud `parallel for` rozdělí iterace mezi uzly NUMA, *každá stránka* se alokuje na uzlu NUMA lokálním pro *své* vlákno. Následné přístupy jsou pak rychlé.
 
-**Bad pattern**: alokace + init *single-threaded*, then parallel use → vše na 1 NUMA → bottleneck.
+**Špatný vzor**: alokace a inicializace *v jednom vlákně*, teprve poté paralelní použití → vše skončí na 1 uzlu NUMA → vzniká úzké hrdlo (bottleneck).
 
-### NUMA-aware allocation
+### Alokace s ohledem na NUMA
 
 ```bash
 numactl --cpunodebind=0 --membind=0 ./prog
 ```
 
-Force allocation + execution na NUMA 0. Vyhne se cross-NUMA traffic.
+Vynutí alokaci i běh na uzlu NUMA 0. Tím se vyhnete provozu napříč uzly NUMA (cross-NUMA traffic).
 
-Pro programmable: `numa_alloc_local()`, `numa_alloc_onnode(size, node)`.
+Programově lze použít `numa_alloc_local()` nebo `numa_alloc_onnode(size, node)`.
 
-OpenMP 5.0+: `affinity` clause v tasks lze tunit pro NUMA locality.
+V OpenMP 5.0+ lze přes klauzuli `affinity` v úlohách (task) ladit lokalitu vůči NUMA.
 
-## Atomic instructions cost
+## Cena atomických instrukcí
 
-`#pragma omp atomic` vyžaduje cache line *exclusive* — koherence protocol musí line invalidovat z jiných cores.
+Direktiva `#pragma omp atomic` vyžaduje cache line ve výhradním (exclusive) režimu — koherenční protokol ji musí invalidovat z ostatních jader.
 
-Cost na typickém hardware:
+Cena na typickém hardwaru:
 
-- L1 hit + no other sharers: 5-10 cyklů.
-- Line shared with neighbors: 100-300 cyklů (invalidation broadcast).
-- Cross-NUMA: 500+ cyklů.
+- L1 hit a žádní další sdílející: 5–10 cyklů.
+- Line sdílená se sousedy: 100–300 cyklů (rozeslání invalidace, invalidation broadcast).
+- Napříč NUMA (cross-NUMA): 500+ cyklů.
 
-⇒ Atomic v hot loop *na shared variable* = bottleneck. Per-thread accumulator + merge je řád lepší.
+⇒ Atomická operace v horké smyčce (hot loop) *nad sdílenou proměnnou* znamená úzké hrdlo. Per-vláknový akumulátor se závěrečným sloučením je řádově lepší.
 
 ## Co dál
 
-Topic 8 končí. Topic 9 ([[koherence-uvod]]) přechází k *cache koherence* na *hardware* level — protokoly MESI/MOESI, snooping vs directory. Pak [[uma-numa]] popíše NUMA topologie v detailu.
+Téma 8 zde končí. Téma 9 ([[koherence-uvod]]) přechází ke *koherenci cache* na úrovni *hardwaru* — protokoly MESI/MOESI, snooping vs. directory. Poté [[uma-numa]] podrobně popíše topologie NUMA.
 
 ---
 

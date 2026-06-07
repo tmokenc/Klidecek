@@ -4,16 +4,16 @@ title: Rozpoznávání podle chůze (gait)
 
 # Rozpoznávání podle chůze (gait)
 
-**Gait recognition** identifikuje *osobu* podle *způsobu chůze*. Patří k *behaviorálním* biometrikám s jedinečnou výhodou: lze ho použít *vzdáleně*, *bez vědomí subjektu*, a *bez fyzického kontaktu*. To dělá gait recognition zajímavým pro *surveillance* aplikace, ale také kontroverzním z hlediska privacy.
+**Rozpoznávání podle chůze (gait recognition)** identifikuje *osobu* podle *způsobu chůze*. Patří mezi *behaviorální* biometriky a má jednu jedinečnou výhodu: lze ho použít *vzdáleně*, *bez vědomí dané osoby* a *bez fyzického kontaktu*. Díky tomu je zajímavé pro aplikace v oblasti sledování (surveillance), ale zároveň je kontroverzní z hlediska soukromí (privacy).
 
 ## Princip
 
-Lidská chůze je *komplexní* pohyb — pozice nohou, paží, trupu se *koordinovaně* mění v čase. Každý člověk má *unikátní* gait pattern, který odpovídá jeho:
+Lidská chůze je *komplexní* pohyb — pozice nohou, paží a trupu se *koordinovaně* mění v čase. Každý člověk má *unikátní* vzorec chůze (gait pattern), který odpovídá jeho:
 
 * **Anatomii** — výška, váha, délka končetin, postavení kloubů.
-* **Svalové síle** — distribution of strength.
-* **Neurologii** — motor control patterns.
-* **Habits** — naučené walking style.
+* **Svalové síle** — rozložení síly v těle.
+* **Neurologii** — vzorce řízení pohybu (motor control).
+* **Návykům** — naučený styl chůze.
 
 ::: svg "Stylizovaná chůze: stance fáze (noha na zemi) a swing fáze (noha ve vzduchu)."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -67,71 +67,71 @@ Lidská chůze je *komplexní* pohyb — pozice nohou, paží, trupu se *koordin
 </svg>
 :::
 
-## Gait cycle
+## Cyklus chůze (gait cycle)
 
-**Gait cycle** = jeden kompletní cyklus chůze (od heel strike jedné nohy zpět na heel strike téže nohy):
+**Cyklus chůze (gait cycle)** = jeden kompletní cyklus chůze (od dotyku paty jedné nohy o zem zpět po dotyk paty téže nohy):
 
-* **Stance phase** (~60 %) — noha v kontaktu s podlahou.
-* **Swing phase** (~40 %) — noha ve vzduchu.
-* **Double support** (~20 % celkem — 2× ~10 %, na začátku a konci stance fáze) — obě nohy na zemi (přechody).
+* **Stance fáze** (~60 %) — noha v kontaktu s podlahou.
+* **Swing fáze** (~40 %) — noha ve vzduchu.
+* **Dvojitá opora (double support)** (~20 % celkem — 2× ~10 %, na začátku a konci stance fáze) — obě nohy na zemi (přechody).
 
-Phases:
-1. **Heel strike** — pata dotkne podlahu.
-2. **Mid-stance** — full weight bearing.
-3. **Toe-off** — odraz palce.
-4. **Mid-swing** — noha v polovině pohybu vzduchem.
+Jednotlivé fáze:
+1. **Dotyk paty (heel strike)** — pata se dotkne podlahy.
+2. **Střed opory (mid-stance)** — celá váha těla spočívá na noze.
+3. **Odraz palce (toe-off)** — odraz špičkou nohy.
+4. **Střed kmitu (mid-swing)** — noha v polovině pohybu vzduchem.
 
 ::: viz gait-cycle-walker "Animovaná chůze: stance/swing fáze, GEI overlay a srovnání tří stylů (normal, fast, limp)."
 :::
 
-## Capture metody
+## Metody snímání
 
-### Video-based (vision)
+### Na bázi videa (vision)
 
-* **Standard surveillance camera** (CCTV).
-* **Distance:** 5–50 m.
-* **Resolution:** 640 × 480 minimum.
-* **Processing:** background subtraction, silhouette extraction, time-series analysis.
+* **Standardní sledovací kamera** (CCTV).
+* **Vzdálenost:** 5–50 m.
+* **Rozlišení:** minimálně 640 × 480.
+* **Zpracování:** odečtení pozadí (background subtraction), extrakce siluety, analýza časové řady.
 
-### Wearable sensors
+### Nositelné senzory (wearable sensors)
 
-* **Accelerometers** — phones, smart watches.
-* **Gyroscopes**.
-* **Pressure-sensitive insoles**.
-* **Higher accuracy** than video, but requires user cooperation.
+* **Akcelerometry** — telefony, chytré hodinky.
+* **Gyroskopy**.
+* **Tlakově citlivé vložky do bot**.
+* **Vyšší přesnost** než video, ale vyžaduje spolupráci uživatele.
 
-### Floor sensors
+### Podlahové senzory
 
-* **Pressure-sensitive floor** (vodítka, security checkpoint floors).
-* High-throughput but requires fixed installation.
-* MIT Media Lab demonstrations.
+* **Tlakově citlivá podlaha** (přístupové cesty, podlahy u bezpečnostních kontrol).
+* Vysoká propustnost, ale vyžaduje pevnou instalaci.
+* Ukázky z MIT Media Lab.
 
 ### Radar / LiDAR
 
-* **mmWave radar** — through-wall gait sensing.
-* **LiDAR** — point cloud sequences.
-* Privacy-preserving (no visual identification).
+* **mmWave radar** — snímání chůze skrz stěnu.
+* **LiDAR** — sekvence mračen bodů (point cloud).
+* Šetrné k soukromí (žádná vizuální identifikace).
 
-## Features
+## Příznaky (features)
 
-### Silhouette-based
+### Na bázi siluety
 
-* **Gait Energy Image (GEI)** — average silhouette over one gait cycle.
-* **Active Energy Image (AEI)** — variance.
-* **Period-based** statistics.
+* **Gait Energy Image (GEI)** — průměrná silueta za jeden cyklus chůze.
+* **Active Energy Image (AEI)** — rozptyl.
+* Statistiky **na základě periody** chůze.
 
-### Model-based
+### Na bázi modelu
 
-* **Skeleton extraction** — joint positions (OpenPose, AlphaPose).
-* **Joint angles over time** — hip, knee, ankle.
-* **Stride length, frequency**.
+* **Extrakce skeletu** — pozice kloubů (OpenPose, AlphaPose).
+* **Úhly kloubů v čase** — kyčel, koleno, kotník.
+* **Délka kroku, frekvence**.
 
-### Deep learning
+### Hluboké učení (deep learning)
 
-* **3D CNN** — spatiotemporal features from silhouette sequences.
-* **GaitSet, GaitGL** — current SOTA architectures.
+* **3D CNN** — prostorově-časové příznaky ze sekvencí siluet.
+* **GaitSet, GaitGL** — současné špičkové (SOTA) architektury.
 
-## Pipeline
+## Zpracovatelský řetězec (pipeline)
 
 ::: svg "Gait pipeline: video → silhouette segmentation → gait cycle detection → feature extraction → matching."
 <svg viewBox="0 0 540 160" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -170,83 +170,83 @@ Phases:
 
 ### Pro
 
-* **Distance:** identifies up to 50+ m.
-* **Non-contact:** no user cooperation needed.
-* **Low-resolution OK:** doesn't require HD face.
-* **Hard to disguise:** unconscious motor pattern, hard to fake consciously.
-* **Surveillance-friendly:** integrates with existing CCTV.
+* **Vzdálenost:** identifikuje až na 50+ m.
+* **Bezkontaktnost:** není potřeba žádná spolupráce uživatele.
+* **Stačí nízké rozlišení:** nevyžaduje obličej v HD kvalitě.
+* **Těžko maskovatelné:** jde o nevědomý pohybový vzorec, který se dá vědomě jen těžko předstírat.
+* **Vhodné pro sledování:** integruje se se stávajícími CCTV kamerami.
 
 ### Proti
 
-* **Variabilita:** clothing, footwear (heels vs. sneakers), surface, mood, injury, fatigue.
-* **Accuracy:** 5–10 % EER for video-based; better for wearable.
-* **Privacy concerns:** can identify in public spaces without consent.
-* **Camera angle dependent:** works best with side-view.
-* **Lighting:** outdoor better than indoor (consistent natural light).
+* **Variabilita:** oblečení, obuv (podpatky vs. tenisky), povrch, nálada, zranění, únava.
+* **Přesnost:** 5–10 % EER pro video; pro nositelné senzory lepší.
+* **Obavy o soukromí:** umožňuje identifikaci na veřejných prostranstvích bez souhlasu.
+* **Závislost na úhlu kamery:** funguje nejlépe z bočního pohledu.
+* **Osvětlení:** venku lépe než uvnitř (konzistentní přirozené světlo).
 
-## Performance
+## Výkon (performance)
 
-* **CASIA-B dataset** (largest gait dataset) — *cross-view* (different camera angles) is hard.
-* **Best DL systems** (GaitGL, 2021): ~95 % rank-1 accuracy on CASIA-B.
-* **Wearable sensors:** EER ~2–5 %.
+* **Dataset CASIA-B** (největší dataset chůze) — *napříč pohledy* (různé úhly kamery) je obtížné.
+* **Nejlepší systémy s hlubokým učením** (GaitGL, 2021): ~95 % přesnost rank-1 na CASIA-B.
+* **Nositelné senzory:** EER ~2–5 %.
 
 ## Aplikace {tier=practice}
 
-### Surveillance
+### Sledování (surveillance)
 
-* **Airport security** — UK Heathrow.
-* **City CCTV networks** — Chinese cities (controversial).
-* **Crime scene gait analysis** — UK courts admit gait evidence.
+* **Bezpečnost na letištích** — londýnské Heathrow.
+* **Městské sítě CCTV** — čínská města (kontroverzní).
+* **Analýza chůze z místa činu** — britské soudy připouštějí důkazy z chůze.
 
-### Forensic
+### Forenzní použití
 
-* **Crime scene video** + suspect gait comparison.
-* Court testimony by gait analysts.
-* Controversial — limited scientific basis.
+* **Video z místa činu** + srovnání chůze podezřelého.
+* Soudní svědectví analytiků chůze.
+* Kontroverzní — omezený vědecký základ.
 
-### Medical
+### Medicína
 
-* **Parkinsonism detection** — gait characteristics.
-* **Diabetic neuropathy assessment**.
-* **Fall prediction** for elderly.
-* Combined biometric + medical.
+* **Detekce parkinsonismu** — podle charakteristik chůze.
+* **Posouzení diabetické neuropatie**.
+* **Predikce pádů** u seniorů.
+* Kombinace biometrie a medicíny.
 
-### Continuous authentication
+### Průběžná autentizace (continuous authentication)
 
-* **Smartphone** with accelerometers — passive gait check.
-* Detects if device is being used by *unauthorized* person.
+* **Chytrý telefon** s akcelerometry — pasivní kontrola chůze.
+* Detekuje, zda zařízení používá *neoprávněná* osoba.
 
-### Smart home
+### Chytrá domácnost
 
-* **Floor pressure sensors** — identify household member.
-* **Privacy-friendly** alternative to cameras.
+* **Tlakové senzory v podlaze** — identifikují člena domácnosti.
+* **Šetrná k soukromí** alternativa ke kamerám.
 
-## Spoofing & evasion
+## Podvržení a obcházení (spoofing & evasion)
 
-### Evasion
+### Obcházení
 
-* **Backpacks, carrying objects** — changes gait.
-* **Different shoes** — significant impact.
-* **Walking unnaturally** — surprisingly hard to fool good systems consistently.
-* **Disguise** — limited effectiveness against DL systems.
+* **Batohy, nošení předmětů** — mění chůzi.
+* **Jiné boty** — významný vliv.
+* **Nepřirozená chůze** — kvalitní systémy je překvapivě těžké takto soustavně oklamat.
+* **Maskování** — proti systémům s hlubokým učením omezeně účinné.
 
-### Spoofing
+### Podvržení (spoofing)
 
-* **Mimicking someone else's gait** — *very difficult*.
-* **AI-generated walking videos** — possible but obvious to detect.
+* **Napodobení chůze někoho jiného** — *velmi obtížné*.
+* **Videa chůze generovaná umělou inteligencí** — možná, ale snadno odhalitelná.
 
-## Privacy a etika
+## Soukromí a etika
 
-* **Surveillance bez vědomí** — *velký* privacy issue.
-* **Cross-camera tracking** — building person re-identification.
-* **EU AI Act** — restrictions on biometric surveillance in public spaces.
+* **Sledování bez vědomí** — *velký* problém pro soukromí.
+* **Sledování napříč kamerami** — vytváření opětovné identifikace osob (person re-identification).
+* **EU AI Act** — omezení biometrického sledování na veřejných prostranstvích.
 
-## Trends
+## Trendy
 
-* **3D gait** — depth sensor based.
-* **Multi-modal** — gait + face + clothing.
-* **Federated learning** — privacy-preserving gait training.
-* **Adversarial robustness** — defense against intentional evasion.
+* **3D chůze** — na bázi hloubkových senzorů.
+* **Multimodální přístup** — chůze + obličej + oblečení.
+* **Federované učení (federated learning)** — trénink modelů chůze šetrný k soukromí.
+* **Robustnost vůči adversariálním útokům** — obrana proti záměrnému obcházení.
 
 ---
 

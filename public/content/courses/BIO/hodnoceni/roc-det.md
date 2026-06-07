@@ -1,17 +1,17 @@
 ---
-title: ROC a DET křivky
+title: Křivky ROC a DET
 ---
 
-# ROC a DET křivky
+# Křivky ROC a DET
 
-**ROC** (Receiver Operating Characteristic) a **DET** (Detection Error Tradeoff) jsou *grafické* metody pro vizualizaci chybových měr ([[far-frr]], [[fmr-fnmr-eer]]) biometrického systému *přes celý rozsah threshold*. Místo jedné scalární hodnoty ukazují *trade-off* křivkou.
+**ROC** (Receiver Operating Characteristic) a **DET** (Detection Error Tradeoff) jsou *grafické* metody pro vizualizaci chybových měr ([[far-frr]], [[fmr-fnmr-eer]]) biometrického systému *přes celý rozsah prahu (threshold)*. Místo jediné skalární hodnoty zobrazují kompromis (trade-off) v podobě křivky.
 
 ## ROC — Receiver Operating Characteristic
 
 Křivka ROC vyjadřuje vztah:
 
-* **X-osa:** FAR (False Accept Rate) — typicky log scale.
-* **Y-osa:** GAR (= 1 − FRR) — Genuine Accept Rate.
+* **Osa X:** FAR (False Accept Rate) — typicky v logaritmickém měřítku (log scale).
+* **Osa Y:** GAR (= 1 − FRR) — Genuine Accept Rate, tedy míra správného přijetí oprávněných osob.
 
 ::: svg "ROC křivka: kompromis mezi FAR a GAR. Lepší systém je 'blíže levému hornímu rohu'."
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -46,29 +46,29 @@ Křivka ROC vyjadřuje vztah:
 </svg>
 :::
 
-* **"Ideal" systém** (perfect) — křivka prochází *bodem (0, 1)*: nulová FAR, plná GAR.
-* **"Useless" systém** (random) — diagonála od (0,0) do (1,1).
-* **Praktické systémy** — někde mezi; *blíž k (0, 1)* = lepší.
+* **„Ideální" systém** (perfect) — křivka prochází *bodem (0, 1)*: nulová FAR a plná GAR.
+* **„Bezcenný" systém** (random) — diagonála od (0, 0) do (1, 1); rozhoduje vlastně náhodně.
+* **Praktické systémy** — leží někde mezi; čím *blíže k bodu (0, 1)*, tím lepší.
 
-### Operating point
+### Pracovní bod (operating point)
 
-Každý bod na křivce odpovídá jednomu *threshold*. Designér volí *operating point* podle aplikace:
+Každý bod na křivce odpovídá jednomu *prahu (threshold)*. Návrhář volí *pracovní bod (operating point)* podle aplikace:
 
-* **High-security:** posun *vlevo* (low FAR), může mít *vyšší* FRR.
-* **High-convenience:** posun *vpravo* (low FRR), může mít *vyšší* FAR.
+* **Vysoká bezpečnost (high-security):** posun *vlevo* (nízká FAR), za cenu *vyšší* FRR.
+* **Vysoké pohodlí (high-convenience):** posun *vpravo* (nízká FRR), za cenu *vyšší* FAR.
 
 ### AUC — Area Under Curve
 
 * **AUC** je integrální plocha pod ROC křivkou.
-* **AUC = 1** — perfect systém.
-* **AUC = 0.5** — random.
-* **AUC > 0.95** — výborný systém pro většinu biometrik.
+* **AUC = 1** — dokonalý systém.
+* **AUC = 0,5** — náhodné rozhodování.
+* **AUC > 0,95** — výborný systém pro většinu biometrik.
 
 ### Příklad výpočtu
 
-Test s 50 genuine + 50 impostor scores, postupně zvyšujeme threshold:
+Test s 50 oprávněnými (genuine) a 50 podvodnými (impostor) skóre, kdy postupně zvyšujeme práh:
 
-| Threshold | TP | FP | TN | FN | FAR | GAR |
+| Práh | TP | FP | TN | FN | FAR | GAR |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | 0.1 | 50 | 50 | 0 | 0 | 1.00 | 1.00 |
 | 0.3 | 48 | 25 | 25 | 2 | 0.50 | 0.96 |
@@ -76,16 +76,16 @@ Test s 50 genuine + 50 impostor scores, postupně zvyšujeme threshold:
 | 0.7 | 35 | 2 | 48 | 15 | 0.04 | 0.70 |
 | 0.9 | 10 | 0 | 50 | 40 | 0.00 | 0.20 |
 
-Plot (FAR, GAR) pairs → ROC curve.
+Dvojice (FAR, GAR) vyneseme do grafu, čímž vznikne ROC křivka.
 
 ## DET — Detection Error Tradeoff
 
-Alternativní vizualizace, *populární v biometrii*:
+Alternativní vizualizace, *oblíbená v biometrii*:
 
-* **X-osa:** FAR (log scale).
-* **Y-osa:** FRR (log scale).
+* **Osa X:** FAR (logaritmické měřítko).
+* **Osa Y:** FRR (logaritmické měřítko).
 
-::: svg "DET křivka: oba axes na log scale, systém klesající křivka, EER bod na diagonále."
+::: svg "DET křivka: obě osy v logaritmickém měřítku, klesající křivka systému, bod EER na diagonále."
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
   <g stroke="var(--text)" stroke-width="1" fill="none">
     <path d="M50,180 L500,180"/>
@@ -116,58 +116,58 @@ Alternativní vizualizace, *populární v biometrii*:
 </svg>
 :::
 
-* **EER bod** leží na **diagonále** (FAR = FRR).
-* **Lepší systémy** mají křivku *bližší* levému dolnímu rohu (oba chybové míry low).
-* **Log scale** dovolí porovnání systémů s *velmi nízkými* error rates ($10^{-6}$).
+* **Bod EER** leží na **diagonále** (FAR = FRR).
+* **Lepší systémy** mají křivku *blíže* levému dolnímu rohu (obě chybové míry jsou nízké).
+* **Logaritmické měřítko** umožní porovnávat systémy s *velmi nízkými* chybovými mírami ($10^{-6}$).
 
-### Proč DET vs. ROC?
+### Proč DET místo ROC?
 
-* **ROC** je standard ve většině ML literatury.
-* **DET** je *preferred v biometrii* — log scales lépe ukazují *practical* operating regions.
-* Pro **identifikaci** (CMC křivky) ani jedno nestačí; CMC je samostatný typ.
+* **ROC** je standard ve většině literatury o strojovém učení.
+* **DET** je *preferovaná v biometrii* — logaritmická měřítka lépe ukazují *prakticky používané* pracovní oblasti.
+* Pro **identifikaci** (křivky CMC) nestačí ani jedna z nich; CMC je samostatný typ křivky.
 
 ::: viz roc-det-explorer "ROC a DET v jednom okně; přepínáte systémy a operační body (EER, FAR=10⁻⁴/10⁻⁶)."
 :::
 
 ## Praktická interpretace ROC/DET
 
-* **Křivka A vs. B:** pokud A je *všude* nad B (v ROC) nebo *všude* pod B (v DET), A je *jednoznačně lepší*.
-* **Křivky se kříží:** A je lepší v určitém rozsahu FAR, B v jiném. Volba závisí na *operating point*.
-* **Plochý úsek křivky** = robustní v daném rozsahu thresholds; *strmý* úsek = citlivý.
+* **Křivka A vs. B:** pokud je A *všude* nad B (v ROC) nebo *všude* pod B (v DET), pak je A *jednoznačně lepší*.
+* **Křivky se kříží:** A je lepší v určitém rozsahu FAR, B v jiném. Volba pak závisí na *pracovním bodu (operating point)*.
+* **Plochý úsek křivky** = systém je robustní v daném rozsahu prahů; *strmý* úsek = systém je v něm citlivý.
 
-## Standardní operating points
+## Standardní pracovní body
 
-V biometric industry se reportují *konkrétní* body:
+V biometrickém průmyslu se vykazují *konkrétní* body:
 
-* **FAR @ 10⁻⁴** = "FAR = 0.01 %, jaká je FRR?".
-* **FAR @ 10⁻⁶** = "FAR = 1 ppm, jaká je FRR?".
-* **EER** = "kde FAR = FRR?".
+* **FAR @ 10⁻⁴** = „FAR = 0,01 %, jaká je FRR?".
+* **FAR @ 10⁻⁶** = „FAR = 1 ppm, jaká je FRR?".
+* **EER** = „kde platí FAR = FRR?".
 
 Příklad ze [NIST FRVT 2024](https://pages.nist.gov/frvt/):
 
-| Vendor | FRR @ FAR=10⁻⁶ |
+| Dodavatel | FRR @ FAR=10⁻⁶ |
 | :--- | :---: |
 | NTECH Lab | 0.0010 |
 | Cloudwalk | 0.0024 |
 | SenseTime | 0.0035 |
-| Spodní percentil (slabší vendoři) | 0.05 |
-| Worst (older systems) | > 0.5 |
+| Spodní percentil (slabší dodavatelé) | 0.05 |
+| Nejhorší (starší systémy) | > 0.5 |
 
-## Interpretace pro deployment
+## Interpretace pro nasazení
 
 Pro reálné nasazení:
 
-1. **Definuj operating constraint** — např. "FAR must be < 0.001 %".
-2. **Spočítej příslušný threshold** z ROC/DET dat.
-3. **Sleduj FRR** — pokud > 5 %, uživatelský zážitek je špatný.
-4. Pokud nelze splnit obě, je třeba *lepší* biometrický systém nebo *multimodální fusion*.
+1. **Definuj omezení pracovního bodu** — např. „FAR musí být < 0,001 %".
+2. **Spočítej příslušný práh** z dat ROC/DET.
+3. **Sleduj FRR** — pokud je > 5 %, je uživatelský zážitek špatný.
+4. Pokud nelze splnit obě podmínky najednou, je potřeba *lepší* biometrický systém nebo *multimodální fúze* (multimodal fusion).
 
 ## Limity ROC/DET
 
-* **Statistická spolehlivost** — pro $10^{-6}$ FAR potřebujete *minimálně* $10^7$ impostor comparisonů. Test sets musí být velké.
-* **Dataset bias** — *demographic* effects (různé chybové míry pro různé pohlaví, etnické skupiny, věk). Audit fairness ([NIST FRVT Part 3: Demographic Effects](https://pages.nist.gov/frvt/reports/demographics/annexes/annex_16.pdf)).
-* **Aging** — ROC měřená na *čerstvých* šablonách neodráží *real-world* po roce / desítkách let.
-* **Adversarial** — žádný ROC plot neukáže *vulnerability* vůči spoofing ([[liveness]]).
+* **Statistická spolehlivost** — pro FAR na úrovni $10^{-6}$ potřebujete *alespoň* $10^7$ porovnání s podvodnými vzorky (impostor comparisons). Testovací sady tedy musí být velké.
+* **Zkreslení datové sady (dataset bias)** — *demografické* vlivy (různé chybové míry pro různá pohlaví, etnické skupiny a věk). Je vhodné provést audit spravedlivosti (fairness) ([NIST FRVT Part 3: Demographic Effects](https://pages.nist.gov/frvt/reports/demographics/annexes/annex_16.pdf)).
+* **Stárnutí (aging)** — ROC měřená na *čerstvých* šablonách neodpovídá *reálnému provozu* po roce či po desítkách let.
+* **Odolnost vůči útoku (adversarial)** — žádný ROC graf neukáže *zranitelnost (vulnerability)* vůči podvržení (spoofing) ([[liveness]]).
 
 ---
 

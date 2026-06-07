@@ -6,7 +6,7 @@ title: Prolog — pokročilé techniky (legacy)
 
 > **POZOR — LEGACY MATERIÁL:** Tato problematika *není zařazena* od **akademického roku 2026/27**. Prolog byl nahrazen jazykem **[[rust-ownership|Rust]]**.
 
-Pokročilé Prolog techniky — meta-predikáty, CLP, DCG, knowledge engineering. Pokud chcete *opravdu* využít sílu logického programování, *toto* je *kde* začít.
+Pokročilé techniky Prologu — meta-predikáty, CLP, DCG a knowledge engineering (tvorba báze znalostí). Pokud chcete *opravdu* využít sílu logického programování, *právě tady* je dobré začít.
 
 ## Meta-predikáty
 
@@ -43,7 +43,7 @@ R = [1, 4, 9].
 % calls foo(a, b)
 ```
 
-### Higher-order programming
+### Programování vyššího řádu (higher-order programming)
 
 ```prolog
 % Predicate as data
@@ -57,9 +57,9 @@ predicate_in_list([foo, bar, baz]).
 R = [2, 4, 6].
 ```
 
-`[Args]>>(Body)` is *lambda* in Yall library.
+Zápis `[Args]>>(Body)` představuje *lambdu* (anonymní funkci) v knihovně Yall.
 
-## Negation as failure
+## Negace jako selhání (negation as failure)
 
 ```prolog
 \+ Goal.   % "Goal cannot be proven"
@@ -71,7 +71,7 @@ true.
 false.
 ```
 
-### Issues
+### Úskalí
 
 ```prolog
 ?- \+ member(X, [1,2,3]).  % "neexistuje žádné X v [1,2,3]"
@@ -80,11 +80,11 @@ false.
 % X na hodnotu mimo seznam (např. 4), ani vyjádřit "∃X. X∉L".
 ```
 
-Order matters (floundering): `\+ p(X), X = 1` může selhat, zatímco `X = 1, \+ p(X)` uspěje, protože `\+` nad nenavázaným `X` se vyhodnotí dřív, než se `X` instancuje.
+Záleží na pořadí (tzv. floundering): dotaz `\+ p(X), X = 1` může selhat, zatímco `X = 1, \+ p(X)` uspěje. Důvodem je, že `\+` nad nenavázaným `X` se vyhodnotí dřív, než se `X` instancuje na konkrétní hodnotu.
 
-**Pravidlo:** Use `\+` only with *ground* (fully instantiated) goals.
+**Pravidlo:** `\+` používejte jen s *ground* cíli, tedy s plně instancovanými (zcela navázanými) cíli.
 
-## Assert / Retract — KB modification
+## Assert / Retract — úprava báze znalostí
 
 ```prolog
 % Add facts
@@ -108,14 +108,14 @@ false.
 N = 1.
 ```
 
-**Bad style:** assert/retract breaks declarative semantics. Use for *truly dynamic* data only.
+**Špatný styl:** assert/retract narušuje deklarativní sémantiku programu. Používejte je jen pro *opravdu dynamická* data.
 
-::: viz prolog-findall-bagof-setof "Vyberte query; uvidíte raw backtrack řešení + jak findall / bagof / setof se chovají při empty / duplicates."
+::: viz prolog-findall-bagof-setof "Vyberte dotaz; uvidíte syrová (raw) řešení z backtrackingu a to, jak se findall / bagof / setof chovají při prázdném výsledku nebo při duplicitách."
 :::
 
 ## Definite Clause Grammars (DCG)
 
-Syntactic sugar for parsing:
+Syntaktický cukr (zkrácený zápis) pro syntaktickou analýzu (parsing):
 
 ```prolog
 % Grammar rule
@@ -136,19 +136,19 @@ S = [the, cat, sees, the, dog] ;
 % ... etc.
 ```
 
-DCG is *compiled* to regular Prolog with difference list arguments. Used for:
-* Parsing natural language.
-* Parsing programming languages.
-* Generating sentences.
+DCG se *přeloží* (compile) na běžný Prolog s argumenty v podobě rozdílových seznamů (difference list). Využití:
+* Syntaktická analýza přirozeného jazyka.
+* Syntaktická analýza programovacích jazyků.
+* Generování vět.
 
-::: viz dcg-parser "DCG parsuje větu krok-po-kroku; residue difference list visible v každém kroku."
+::: viz dcg-parser "DCG parsuje větu krok za krokem; v každém kroku je vidět zbytek (residue) rozdílového seznamu (difference list)."
 :::
 
 ## Constraint Logic Programming (CLP)
 
-Extends Prolog with *constraints*:
+Rozšiřuje Prolog o *omezení (constraints)*:
 
-### CLP(FD) — Finite Domains
+### CLP(FD) — konečné domény (finite domains)
 
 ```prolog
 :- use_module(library(clpfd)).
@@ -175,7 +175,7 @@ sudoku(Puzzle) :-
     label(Puzzle).
 ```
 
-### CLP(R) — Reals
+### CLP(R) — reálná čísla (reals)
 
 ```prolog
 :- use_module(library(clpr)).
@@ -187,14 +187,14 @@ X = 6, Y = 4.
 X = 2 ; X = -2.
 ```
 
-CLP solves *constraint satisfaction* problems elegantly.
+CLP elegantně řeší úlohy splnění omezení (constraint satisfaction).
 
-::: viz clp-nqueens "n-queens s CLP(FD); domain propagation, backtrack body viditelné na šachovnici."
+::: viz clp-nqueens "n dam (n-queens) pomocí CLP(FD); na šachovnici je vidět propagace domén (domain propagation) a průběh backtrackingu."
 :::
 
-## Tabled execution
+## Tabelované vyhodnocování (tabled execution)
 
-Memoization for Prolog:
+Memoizace (zapamatování si mezivýsledků) pro Prolog:
 
 ```prolog
 :- table fib/2.
@@ -209,9 +209,9 @@ fib(N, F) :- N > 1, N1 is N-1, N2 is N-2,
 % Fast even though exponential without tabling
 ```
 
-`table` directive enables automatic memoization.
+Direktiva `table` zapíná automatickou memoizaci.
 
-## Exception handling
+## Ošetření chyb pomocí výjimek (exception handling)
 
 ```prolog
 ?- catch(throw(my_error), E, (write(caught: E), nl)).
@@ -225,7 +225,7 @@ Division by zero!
 true.
 ```
 
-## Modules
+## Moduly
 
 ```prolog
 % File mymodule.pl
@@ -241,11 +241,11 @@ internal(...) :- ...  % not exported
 ?- mymodule:exported(X).
 ```
 
-## DSLs — Domain Specific Languages {tier=example}
+## DSL — doménově specifické jazyky (domain specific languages) {tier=example}
 
-Prolog *excels* at DSLs:
+Prolog ve tvorbě DSL *vyniká*:
 
-### Logical puzzles
+### Logické hádanky
 
 ```prolog
 % Zebra puzzle
@@ -269,7 +269,7 @@ zebra(WaterDrinker, ZebraOwner) :-
 W = norwegian, Z = japanese.
 ```
 
-### Theorem proving
+### Dokazování vět (theorem proving)
 
 ```prolog
 % Simple propositional logic
@@ -284,7 +284,7 @@ proof(implies(A, B)) :- (proof(A) -> proof(B) ; true).  % A→B: pokud A platí,
 true.
 ```
 
-### N-queens
+### N dam (N-queens)
 
 ```prolog
 queens(N, Q) :-
@@ -310,7 +310,7 @@ Q = [1, 5, 8, 6, 3, 7, 2, 4] ;
 % ... many solutions
 ```
 
-## Expert systems
+## Expertní systémy
 
 ```prolog
 % Animal identification
@@ -333,7 +333,7 @@ ask(Q) :-
 % Interactive Q&A
 ```
 
-## Natural Language Processing
+## Zpracování přirozeného jazyka (natural language processing)
 
 ```prolog
 % Simple sentence analysis
@@ -352,50 +352,50 @@ analyze(Words, parsing) :-
     true.
 ```
 
-DCG ([[#dcg]]) je standard pro NLP in Prolog.
+DCG ([[#dcg]]) je v Prologu standardem pro zpracování přirozeného jazyka (NLP).
 
-## Logic programming v r. 2025
+## Logické programování v r. 2025
 
-Prolog je *niche* technologie, ale stále aktivně používán:
+Prolog je *niche* technologie (pro úzce vymezené použití), ale stále se aktivně používá:
 
-### Active applications
+### Aktivní využití
 
-* **Pyrolog, Hyperon** — research interpreters.
-* **Cyc** — large knowledge base.
-* **Tau Prolog** — Web Prolog (JavaScript).
-* **Datalog** (Prolog subset) v databázích — Datomic.
-* **SWI-Prolog** — open-source, active development.
+* **Pyrolog, Hyperon** — výzkumné interprety.
+* **Cyc** — rozsáhlá báze znalostí.
+* **Tau Prolog** — Prolog pro web (v JavaScriptu).
+* **Datalog** (podmnožina Prologu) v databázích — Datomic.
+* **SWI-Prolog** — open-source, aktivní vývoj.
 
-### Modern integrations
+### Moderní integrace
 
-* **Prolog in Python** via PySwip.
-* **Prolog in Java** via JPL.
-* **Embeddable** in larger systems.
+* **Prolog v Pythonu** přes PySwip.
+* **Prolog v Javě** přes JPL.
+* **Vnořitelný (embeddable)** do větších systémů.
 
-### Hybrid AI
+### Hybridní umělá inteligence
 
-* Symbolic + neural (neuro-symbolic).
-* Prolog for *explanation*, NN for *perception*.
-* Growing research area 2023+.
+* Symbolická + neuronová (neuro-symbolický přístup).
+* Prolog poskytuje *vysvětlení*, neuronová síť zajišťuje *vnímání (perception)*.
+* Rostoucí výzkumná oblast od roku 2023.
 
 ## Proč Prolog uvolnil místo Rustu
 
-* **Industry shift** — Rust adoption rapid.
-* **Mainstream relevance** — Rust appears in modern stack.
-* **Memory safety** narrative — Rust selling point.
-* **Performance** — Rust competitive with C/C++.
-* **Modern features** — async, traits, ownership inspire ML community.
+* **Posun v průmyslu (industry shift)** — Rust se rychle prosazuje.
+* **Relevance v mainstreamu** — Rust se objevuje v moderním technologickém stacku.
+* **Vyprávění o paměťové bezpečnosti (memory safety)** — hlavní prodejní argument Rustu.
+* **Výkon (performance)** — Rust je konkurenceschopný s C/C++.
+* **Moderní vlastnosti** — async, traity a vlastnictví (ownership) inspirují i komunitu strojového učení (ML).
 
-Prolog *zůstává* relevantní v *specifických* nikách (logic puzzles, theorem proving, knowledge engineering), ale *není* mainstream.
+Prolog *zůstává* relevantní ve *specifických* nikách (logické hádanky, dokazování vět, knowledge engineering), ale *není* mainstreamem.
 
 ## Klíčové ponaučení
 
-* Prolog je *paradigm-broadening* — i pokud nepoužíváte v praxi.
-* **Unifikace + backtracking** = silný mental model.
-* CLP demonstruje, jak *deklarativně* řešit constraint problémy.
-* Modern programming je *multi-paradigm* — Rust, Haskell, Python, Prolog každý má své místo.
+* Prolog *rozšiřuje myšlenkové paradigma* — i když ho v praxi nepoužíváte.
+* **Unifikace + backtracking** = silný myšlenkový model.
+* CLP ukazuje, jak *deklarativně* řešit úlohy s omezeními (constraints).
+* Moderní programování je *multiparadigmatické* — Rust, Haskell, Python i Prolog, každý má své místo.
 
-> "Knowing many languages enriches programming." — Even legacy languages teach valuable concepts.
+> „Znalost mnoha jazyků obohacuje programování." — I starší (legacy) jazyky učí cenné koncepty.
 
 ---
 

@@ -4,19 +4,19 @@ title: Dynamika stisku kláves (keystroke dynamics)
 
 # Dynamika stisku kláves (keystroke dynamics)
 
-**Keystroke dynamics** identifikuje *osobu* podle *způsobu*, jakým píše na klávesnici — rytmus stisku kláves, timing, sequence of pauses. Patří k *passive* behaviorálním biometrikám — funguje *průběžně* během běžného typing, *bez additional* user effort. Vhodný pro **continuous authentication**.
+**Dynamika stisku kláves (keystroke dynamics)** identifikuje *osobu* podle *způsobu*, jakým píše na klávesnici — podle rytmu stisku kláves, časování (timing) a sledu pauz. Patří mezi *pasivní* behaviorální biometriky — funguje *průběžně* během běžného psaní, *bez další námahy* uživatele. Je proto vhodná pro **průběžnou autentizaci (continuous authentication)**, tedy ověřování totožnosti, které probíhá nepřetržitě po celou dobu práce.
 
 ## Princip
 
-Lidský typing je *behavioral motor pattern*. Při psaní *stejné* věty se *stejné* osoby projevuje:
+Lidské psaní je *behaviorální motorický vzor* — naučený pohybový návyk, který se u člověka opakuje. Při psaní *stejné* věty se u *stejné* osoby projevuje:
 
-* **Dwell time** — jak dlouho je klávesa stisknuta (key press → key release).
-* **Flight time** — interval mezi *release* jedné klávesy a *press* další.
-* **Bigram intervals** — timing pro common letter pairs ("th", "he", "in").
-* **Pressure** (na fancier keyboards) — force on each keystroke.
-* **N-graph timing** — sequences of 2, 3, 4 keystrokes.
+* **Doba stisku (dwell time)** — jak dlouho je klávesa stisknuta (od stisku klávesy po její uvolnění).
+* **Doba letu (flight time)** — interval mezi *uvolněním* jedné klávesy a *stiskem* další.
+* **Intervaly bigramů (bigram intervals)** — časování pro běžné dvojice písmen ("th", "he", "in").
+* **Přítlak (pressure)** (u lepších klávesnic) — síla každého stisku.
+* **Časování n-gramů (N-graph timing)** — sledy 2, 3 nebo 4 stisků.
 
-::: svg "Timing keystroke: key press → key release sekvence. Dwell = stisk, flight = mezi klávesami."
+::: svg "Časování stisků: sekvence stisk klávesy → uvolnění klávesy. Dwell = doba stisku, flight = mezera mezi klávesami."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
   <g stroke="var(--accent)" stroke-width="2" fill="none">
     <path d="M40,130 L40,100 L80,100 L80,130 L120,130 L120,100 L160,100 L160,130 L200,130 L200,100 L260,100 L260,130 L300,130 L300,100 L340,100 L340,130 L380,130 L380,100 L460,100 L460,130 L500,130"/>
@@ -50,195 +50,195 @@ Lidský typing je *behavioral motor pattern*. Při psaní *stejné* věty se *st
 
 ## Snímání
 
-### Software keylogger
+### Softwarový keylogger
 
-* Captures key press + release events with high-precision timestamps.
-* OS hooks (Windows: SetWindowsHookEx; Linux: evdev; macOS: NSEvent).
-* **Sampling:** ms-level precision standard.
-* **Browser-based:** JavaScript keydown/keyup events.
+* Zachytává události stisku i uvolnění kláves spolu s velmi přesnými časovými značkami.
+* Využívá háčky operačního systému (Windows: SetWindowsHookEx; Linux: evdev; macOS: NSEvent).
+* **Vzorkování:** standardně přesnost na úrovni milisekund.
+* **V prohlížeči:** události JavaScriptu keydown/keyup.
 
-### Hardware keyboard
+### Hardwarová klávesnice
 
-* Standard keyboards work fine.
-* **Mechanical keyboards** with N-key rollover provide better events.
-* **Force-sensing keyboards** (rare) capture key pressure.
+* Běžné klávesnice fungují bez problémů.
+* **Mechanické klávesnice** s N-key rolloverem (současné snímání více kláves) poskytují kvalitnější události.
+* **Klávesnice snímající přítlak** (vzácné) zaznamenávají sílu stisku.
 
-### Touchscreen
+### Dotyková obrazovka
 
-* **Phone soft keyboards** — touch dynamics.
-* **Tablet keyboards** — combined dwell time + touch pressure (force touch).
-* **Different model** than physical keyboard.
+* **Softwarové klávesnice telefonů** — dynamika dotyku.
+* **Klávesnice tabletů** — kombinace doby stisku (dwell time) a přítlaku dotyku (force touch).
+* **Odlišný model** než u fyzické klávesnice.
 
-## Features
+## Příznaky (features)
 
-### Per-keystroke
+### Pro jednotlivý stisk
 
-* **Dwell time** $d_i$ — duration of i-th key press.
-* **Flight time** $f_{i,j}$ — interval between key i release and key j press.
+* **Doba stisku (dwell time)** $d_i$ — trvání i-tého stisku klávesy.
+* **Doba letu (flight time)** $f_{i,j}$ — interval mezi uvolněním klávesy i a stiskem klávesy j.
 
-### N-graph features
+### Příznaky n-gramů (N-graph)
 
-* **Digraph** (2-keystroke) — common letter pairs (th, he, in, an).
-* **Trigraph** (3-keystroke) — three letters.
-* **N-graph** — generalization.
+* **Digraf (digraph)** (2 stisky) — běžné dvojice písmen (th, he, in, an).
+* **Trigraf (trigraph)** (3 stisky) — tři písmena.
+* **N-gram (N-graph)** — zobecnění.
 
-### Per-user
+### Pro celého uživatele
 
-* **Mean & variance** of dwell times across all keys.
-* **Mean flight times** for specific bigrams.
-* **Typing speed** (WPM).
-* **Error rate** (backspaces).
-* **Pattern of hand alternation**.
+* **Průměr a rozptyl** dob stisku přes všechny klávesy.
+* **Průměrné doby letu** pro konkrétní bigramy.
+* **Rychlost psaní** (slov za minutu, WPM).
+* **Chybovost** (počet stisků klávesy Backspace).
+* **Vzor střídání rukou**.
 
 ## Algoritmy
 
-### Statistical
+### Statistické
 
-* **Mean + standard deviation** of dwell/flight times.
-* **Mahalanobis distance** — accounts for feature correlation.
+* **Průměr a směrodatná odchylka** dob stisku a dob letu.
+* **Mahalanobisova vzdálenost (Mahalanobis distance)** — zohledňuje korelaci mezi příznaky.
 
-### Machine learning
+### Strojové učení
 
-* **k-NN classifier** — simple, effective.
-* **SVM** with RBF kernel.
-* **Random Forest** — handles non-linear patterns.
+* **Klasifikátor k-NN** — jednoduchý a účinný.
+* **SVM** s jádrem RBF.
+* **Random Forest** — zvládá nelineární vzory.
 
-### Deep learning
+### Hluboké učení
 
-* **RNN / LSTM** — temporal sequence model.
-* **Transformer** — attention over keystroke sequences.
+* **RNN / LSTM** — model časové posloupnosti.
+* **Transformer** — pozornost (attention) nad posloupnostmi stisků.
 
-::: viz keystroke-rhythm "Napište přesně frázi nebo nechte simulovat — vidíte dwell/flight profil a Mahalanobis vzdálenost vůči enrolled profilu."
+::: viz keystroke-rhythm "Napište přesně frázi nebo nechte simulovat — vidíte profil dwell/flight a Mahalanobisovu vzdálenost vůči registrovanému profilu."
 :::
 
-## Use cases
+## Případy použití
 
-### Text-dependent (challenge)
+### Text závislý na obsahu (challenge)
 
-* **Same phrase** typed each time (e.g., login password).
-* Higher accuracy (controlled input).
-* **EER:** 5–15 % (typical).
+* **Stejná fráze** psaná pokaždé (např. přihlašovací heslo).
+* Vyšší přesnost (vstup je řízený a opakovatelný).
+* **EER:** 5–15 % (typicky).
 
-### Text-independent (free typing)
+### Text nezávislý na obsahu (volné psaní)
 
-* User types *arbitrary* content (e.g., during normal work).
-* Lower accuracy (less consistent).
+* Uživatel píše *libovolný* obsah (např. během běžné práce).
+* Nižší přesnost (vstup je méně konzistentní).
 * **EER:** 10–25 %.
 
-### Continuous authentication
+### Průběžná autentizace (continuous authentication)
 
-* **Monitor typing** during entire session.
-* **Detect "user change"** — if typing pattern shifts, demand re-authentication.
-* **Use case:** banking application running in background.
+* **Sledování psaní** po celou dobu relace.
+* **Detekce "změny uživatele"** — pokud se vzor psaní změní, systém vyžádá opětovné ověření.
+* **Příklad použití:** bankovní aplikace běžící na pozadí.
 
 ## Praktická nasazení {tier=practice}
 
-### Banking
+### Bankovnictví
 
-* **BioCatch** (Israeli company) — behavioral biometrics incl. keystroke for online banking.
-* **BehavioSec** — behavioral biometric platform.
-* **TypingDNA** — typing-based authentication API.
+* **BioCatch** (izraelská firma) — behaviorální biometriky včetně dynamiky stisku kláves pro online bankovnictví.
+* **BehavioSec** — platforma pro behaviorální biometriku.
+* **TypingDNA** — API pro autentizaci na základě psaní.
 
-### Workplace
+### Pracoviště
 
-* **Continuous monitoring** of remote workers.
-* Anti-cheating in online exams.
-* **TypingDNA Verify** — passwordless 2FA via typing.
+* **Průběžné monitorování** zaměstnanců pracujících na dálku.
+* Ochrana proti podvádění u online zkoušek.
+* **TypingDNA Verify** — bezheslové dvoufaktorové ověření (2FA) na základě psaní.
 
-### Online exams
+### Online zkoušky
 
-* **Coursera, edX** — keystroke verification during proctored exams.
-* **Detect identity switch** mid-exam.
+* **Coursera, edX** — ověřování dynamiky stisku kláves během dohlížených zkoušek.
+* **Detekce výměny totožnosti** uprostřed zkoušky.
 
-### Insider threat detection
+### Detekce vnitřní hrozby (insider threat)
 
-* Behavioral baseline of each user.
-* Alert if typing pattern *suddenly changes* (compromised account).
+* Behaviorální základní profil každého uživatele.
+* Upozornění, pokud se vzor psaní *náhle změní* (kompromitovaný účet).
 
 ## Vlastnosti
 
-### Pro
+### Výhody
 
-* **Passive:** no extra hardware, no extra user action.
-* **Continuous:** works throughout session.
-* **Low cost:** standard keyboard.
-* **Privacy-friendly:** doesn't capture biometric *content*, just *timing*.
+* **Pasivní:** žádný hardware navíc, žádná akce uživatele navíc.
+* **Průběžná:** funguje po celou dobu relace.
+* **Nízká cena:** stačí běžná klávesnice.
+* **Šetrná k soukromí:** nezachycuje biometrický *obsah*, pouze *časování*.
 
-### Proti
+### Nevýhody
 
-* **Lower accuracy** než face, fingerprint, iris.
-* **High variability:**
-  * Tiredness.
-  * Mood.
-  * Different keyboards.
-  * Multitasking (interruptions during typing).
-* **Aging:** typing patterns evolve over time.
-* **Not for one-shot authentication** — accuracy too low.
+* **Nižší přesnost** než obličej, otisk prstu nebo duhovka.
+* **Vysoká variabilita:**
+  * Únava.
+  * Nálada.
+  * Různé klávesnice.
+  * Souběžné úkoly (přerušení během psaní).
+* **Stárnutí:** vzory psaní se v čase vyvíjejí.
+* **Nevhodná pro jednorázovou autentizaci** — přesnost je příliš nízká.
 
-## Anti-spoofing
+## Ochrana proti podvržení (anti-spoofing)
 
-### Replay attack
+### Přehrávací útok (replay attack)
 
-* Pre-recorded keystroke timing replayed via software.
-* **Defenze:** challenge-response (different phrase each time).
+* Předem zaznamenané časování stisků přehrané softwarem.
+* **Obrana:** výzva-odpověď (challenge-response) — pokaždé jiná fráze.
 
-### Mimicry
+### Napodobování (mimicry)
 
-* Human attempting to type like another person.
-* *Difficult to fool* good systems consistently.
+* Člověk se snaží psát jako jiná osoba.
+* *Kvalitní systémy je obtížné* dlouhodobě a spolehlivě oklamat.
 
-### Automated typing
+### Automatizované psaní
 
-* Bots typing at superhuman speeds or with too-consistent timing.
-* **Easy to detect** — non-human patterns.
+* Boti, kteří píší nadlidskou rychlostí nebo s příliš pravidelným časováním.
+* **Snadno odhalitelné** — nelidské vzory.
 
 ## Standardy
 
-* **NIST keystroke recommendations** — ad-hoc, no formal standard.
-* **EN ISO/IEC 19794** doesn't formally cover keystroke (other behavioral biometrics).
+* **Doporučení NIST pro dynamiku stisku kláves** — ad hoc, žádný formální standard.
+* **EN ISO/IEC 19794** dynamiku stisku kláves formálně nepokrývá (zahrnuje jiné behaviorální biometriky).
 
 ## Limity
 
 ### Stabilita
 
-* **Není absolutní** — silná únava, zdravotní stav, změna klávesnice (notebook → external) může výrazně změnit pattern.
-* Periodic re-enrollment necessary.
+* **Není absolutní** — silná únava, zdravotní stav nebo změna klávesnice (z notebooku na externí) může vzor výrazně změnit.
+* Je nutné pravidelné opětovné zaregistrování (re-enrollment).
 
-### Demographic effects
+### Demografické vlivy
 
-* **Age:** younger users vs older — different patterns.
-* **Native language:** typing in foreign language differs from native.
-* **Disability:** motor disorders, RSI.
+* **Věk:** mladší uživatelé vs. starší — odlišné vzory.
+* **Mateřský jazyk:** psaní v cizím jazyce se liší od psaní v rodném jazyce.
+* **Postižení:** poruchy hybnosti, RSI (syndrom z opakovaného přetížení).
 
-## Mouse dynamics — analogy
+## Dynamika myši (mouse dynamics) — analogie
 
-Similar to keystroke, but for *mouse movements*:
+Podobné dynamice stisku kláves, ale pro *pohyby myši*:
 
-* **Click timing.**
-* **Movement velocity, acceleration.**
-* **Drag patterns.**
-* **Scroll behavior.**
+* **Časování kliknutí.**
+* **Rychlost a zrychlení pohybu.**
+* **Vzory tažení (drag).**
+* **Chování při rolování (scroll).**
 
-Often combined with keystroke for richer behavioral biometric.
+Často se kombinuje s dynamikou stisku kláves pro bohatší behaviorální biometriku.
 
-## Trends
+## Trendy
 
-* **Continuous Authentication frameworks** — combine keystroke + mouse + touch + gait.
-* **Federated learning** — train on user devices, no centralized typing data.
-* **DL-based** — Transformer architectures dominating.
-* **Mobile-specific** — touchscreen typing as primary modality.
+* **Rámce (framework) pro průběžnou autentizaci** — kombinují dynamiku stisku kláves + myš + dotyk + chůzi (gait).
+* **Federované učení (federated learning)** — model se trénuje na zařízeních uživatelů, žádná centralizovaná data o psaní.
+* **Postupy založené na hlubokém učení** — dominují architektury typu Transformer.
+* **Specifické pro mobilní zařízení** — psaní na dotykové obrazovce jako hlavní modalita.
 
 ## Vztah k jiným biometrikám
 
-| | **Keystroke** | **Mouse** | **Voice** |
+| | **Stisk kláves** | **Myš** | **Hlas** |
 | :--- | :---: | :---: | :---: |
-| Passive | yes | yes | partial |
-| Continuous | yes | yes | partial |
-| Accuracy | low | low | medium |
-| Effort | none | none | some |
-| Hardware | std keyboard | std mouse | mic |
+| Pasivní | ano | ano | částečně |
+| Průběžná | ano | ano | částečně |
+| Přesnost | nízká | nízká | střední |
+| Námaha | žádná | žádná | malá |
+| Hardware | běžná klávesnice | běžná myš | mikrofon |
 
-Keystroke is *part of* behavioral biometric portfolio — typically used in *fusion* rather than standalone.
+Dynamika stisku kláves je *součástí* portfolia behaviorálních biometrik — obvykle se používá ve *fúzi* s ostatními, nikoli samostatně.
 
 ---
 

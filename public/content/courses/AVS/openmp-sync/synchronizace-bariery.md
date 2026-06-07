@@ -4,9 +4,9 @@ title: Synchronizace — barrier, critical, atomic
 
 # OpenMP synchronizace — barrier, critical, atomic, ordered
 
-Synchronizace je *jediný způsob*, jak v shared memory zajistit konzistentní výsledek. OpenMP poskytuje hierarchii primitiv od *globálních* (barrier) po *atomární* (single instruction).
+Synchronizace je *jediný způsob*, jak ve sdílené paměti (shared memory) zajistit konzistentní výsledek. OpenMP poskytuje hierarchii primitiv od *globálních* (barrier) až po *atomární* (jediná instrukce).
 
-## barrier — wait for all
+## barrier — čekání na všechna vlákna
 
 ```c
 #pragma omp parallel
@@ -17,22 +17,22 @@ Synchronizace je *jediný způsob*, jak v shared memory zajistit konzistentní v
 }
 ```
 
-`barrier` = *globální* synchronizace v tým. Žádné vlákno nepokračuje za bod, dokud *všechna* nedosáhnou.
+`barrier` je *globální* synchronizace v rámci týmu vláken. Žádné vlákno nepokračuje za tento bod, dokud ho nedosáhnou *všechna* ostatní vlákna.
 
-Implementace: typicky 2 atomic counters (entered, left) + busy-wait. Cost ~100-1000 cyklů typicky.
+Implementace: typicky dva atomické čítače (počet vláken, která dorazila, a počet těch, která odešla) plus aktivní čekání (busy-wait). Cena je obvykle řádově 100–1000 cyklů.
 
-### Implicit barriers
+### Implicitní bariéry
 
-OpenMP *automaticky* vkládá barrier:
+OpenMP *automaticky* vkládá bariéru:
 
-- Na konci `parallel` region.
-- Na konci `for` (lze potlačit `nowait`).
+- Na konci oblasti `parallel`.
+- Na konci `for` (lze potlačit klauzulí `nowait`).
 - Na konci `sections` (lze potlačit).
 - Na konci `single` (lze potlačit).
 
-`master` *nemá* implicit barrier.
+Konstrukce `master` implicitní bariéru *nemá*.
 
-## critical — exclusive access
+## critical — výlučný přístup
 
 ```c
 shared int counter;
@@ -46,9 +46,9 @@ for (...) {
 }
 ```
 
-Pouze *jedno* vlákno najednou v `critical` bloku. Implementace: mutex lock.
+V bloku `critical` smí být v jednu chvíli *pouze jedno* vlákno. Implementuje se pomocí zámku (mutex lock).
 
-Cost: ~100-500 cyklů per lock/unlock.
+Cena: zhruba 100–500 cyklů na jeden pár zamknutí a odemknutí (lock/unlock).
 
 ### Pojmenovaná critical
 
@@ -60,20 +60,20 @@ counter++;
 write_log();
 ```
 
-Pokud *různé* lock names, *různé* mutexy — *neserializují se* navzájem. Bez jména: *všechny anonymní* critical sdílí *jeden global mutex* (špatné).
+Pokud mají bloky *různá* jména zámků, používají *různé* mutexy — a tudíž se navzájem *neserializují*. Bez jména naopak *všechny anonymní* bloky `critical` sdílejí *jeden globální mutex* (což je špatně).
 
-## atomic — single instruction
+## atomic — jediná instrukce
 
 ```c
 #pragma omp atomic
 counter++;
 ```
 
-*Jediná* atomická hardware instrukce — *žádný* mutex, *žádná* context switch.
+Provede se *jediná* atomická hardwarová instrukce — *žádný* mutex, *žádné* přepnutí kontextu (context switch).
 
-Implementace na x86: `LOCK INC [counter]` (LOCK prefix). Cost: 10-50 cyklů (cache line transfer for invalidation).
+Implementace na x86: `LOCK INC [counter]` (s prefixem LOCK). Cena: 10–50 cyklů (přenos řádku cache kvůli jeho invalidaci).
 
-Atomic *vždy lepší* než critical pro single-op, ale *omezeno* na:
+Atomic je pro jednu operaci *vždy lepší* než critical, ale je *omezena* na:
 
 ```c
 #pragma omp atomic update
@@ -89,25 +89,25 @@ x = v;     // store
 v = x++;   // capture old + update
 ```
 
-Více operací (např. `counter += compute()`) **není** atomic — musí být `critical`.
+Více operací najednou (např. `counter += compute()`) atomic **není** — pro ty je nutné použít `critical`.
 
 ### atomic vs critical
 
-| Mechanism | Limit | Overhead |
+| Mechanismus | Omezení | Režie |
 | :--- | :--- | :---: |
-| atomic | jedna LOAD/STORE/RMW op | ~30 cyklů |
+| atomic | jedna operace LOAD/STORE/RMW | ~30 cyklů |
 | critical | libovolný blok | ~200 cyklů |
-| reduction | accumulator pattern | ~10 cyklů per thread (best) |
-| locks | manuální, fine-grained | ~100 cyklů |
+| reduction | vzor akumulátoru | ~10 cyklů na vlákno (nejlepší) |
+| locks | manuální, jemně zrnitý (fine-grained) | ~100 cyklů |
 
-Rule of thumb:
+Praktické pravidlo:
 
-- Single var inc/add → **atomic**.
-- Accumulating across loop → **reduction**.
-- Complex update block → **critical**.
-- Fine-grained data structure protection → **locks**.
+- Inkrementace/přičtení jediné proměnné → **atomic**.
+- Akumulace přes celý cyklus → **reduction**.
+- Složitější blok aktualizací → **critical**.
+- Jemně zrnitá ochrana datové struktury → **locks**.
 
-## ordered — sequential within parallel for
+## ordered — sériové pořadí uvnitř paralelního cyklu
 
 ```c
 #pragma omp parallel for ordered
@@ -121,15 +121,15 @@ for (int i = 0; i < N; i++) {
 }
 ```
 
-`ordered` zaručí, že *sériový* blok provedou vlákna v *originálním pořadí* iterace. Užitečné pro:
+`ordered` zaručí, že *sériový* blok provedou vlákna v *původním pořadí* iterací. Hodí se pro:
 
-- Print output v pořadí.
-- Write to file in order.
-- Numerical algorithms requiring sequential pattern (Gauss-Seidel).
+- Tisk výstupu ve správném pořadí.
+- Zápis do souboru v pořadí.
+- Numerické algoritmy vyžadující sekvenční postup (Gauss-Seidel).
 
-Pokuta: *serializuje* tu část kódu. Pokud `ordered` blok je drahý → no speedup.
+Daň: tato část kódu se *serializuje*. Pokud je blok `ordered` výpočetně náročný, žádné zrychlení (speedup) nezískáte.
 
-## flush — memory consistency
+## flush — konzistence paměti
 
 ```c
 #pragma omp flush         // flush all shared variables
@@ -138,13 +138,13 @@ Pokuta: *serializuje* tu část kódu. Pokud `ordered` blok je drahý → no spe
 
 Vynutí *globální* viditelnost. Implementuje:
 
-- Memory barrier (`mfence` na x86), který zajistí pořadí load/store a vyprázdní dočasný pohled vlákna do koherentní paměti. Invalidaci řádků mezi jádry řeší automaticky HW koherence, ne `flush`.
+- Paměťovou bariéru (memory barrier, `mfence` na x86), která zajistí pořadí operací load/store a vyprázdní dočasný pohled vlákna do koherentní paměti. Invalidaci řádků cache mezi jádry řeší automaticky hardwarová koherence, nikoli `flush`.
 
-Implicit flush u: barrier, critical (enter + exit), atomic, lock (enter + exit), parallel region entry/exit.
+Implicitní flush nastává u: barrier, critical (při vstupu i výstupu), atomic, zámku (při vstupu i výstupu) a vstupu i výstupu z paralelní oblasti.
 
-Manual `flush` rare — programátor nepíše explicit. Memory model OpenMP relaxed → většinou je sync skrytá v jiných direktivách.
+Ruční `flush` je vzácný — programátor jej obvykle nepíše explicitně. Paměťový model OpenMP je relaxovaný (relaxed), takže synchronizace je většinou skrytá v jiných direktivách.
 
-### Příklad — producer-consumer bez locks {tier=example}
+### Příklad — producent-konzument bez zámků {tier=example}
 
 ```c
 shared int data;
@@ -165,11 +165,11 @@ while (1) {
 use(data);
 ```
 
-Toto je *dangerous* bez detailní znalosti memory model. Lépe použít `omp_lock` nebo `critical`.
+Tento přístup je bez detailní znalosti paměťového modelu *nebezpečný*. Lepší je použít `omp_lock` nebo `critical`.
 
 ## Příklady společně {tier=example}
 
-### Histogram — bad and good
+### Histogram — špatně a dobře
 
 ```c
 // BAD: race
@@ -207,9 +207,9 @@ int hist[256] = {0};
 }
 ```
 
-Per-thread accumulator + final merge = klasický pattern. *Žádný* race uvnitř hot loop, merge je *malý* (256 ops).
+Akumulátor zvlášť pro každé vlákno a následné sloučení (merge) je klasický vzor. Uvnitř horké smyčky (hot loop) nevzniká *žádný* souběh (race) a slučování je *malé* (256 operací).
 
-### Min / max
+### Minimum / maximum
 
 ```c
 int min_val = INT_MAX;
@@ -218,11 +218,11 @@ for (int i = 0; i < N; i++)
     min_val = (a[i] < min_val) ? a[i] : min_val;
 ```
 
-`reduction(min)` od OpenMP 3.1. Hardware sequentializes per-thread merges efficiently.
+`reduction(min)` je dostupná od OpenMP 3.1. Hardware efektivně serializuje slučování dílčích výsledků jednotlivých vláken.
 
 ## Bariéra v algoritmech
 
-Mnoho parallel algorithms má strukturu:
+Mnoho paralelních algoritmů má následující strukturu:
 
 ```
 loop {
@@ -233,15 +233,15 @@ loop {
 }
 ```
 
-Klasické (Gauss-Seidel, BFS po vrstvách, Jacobi iterace, MapReduce). Náklad: bariéra každou iteraci.
+Patří sem klasické algoritmy (Gauss-Seidel, BFS po vrstvách, Jacobiho iterace, MapReduce). Náklad: jedna bariéra v každé iteraci.
 
-Pro **N** iterací × **B** barrier cost: pokud B = 1 μs, N = 1000, celkem 1 ms režie. Pro velkou phase work to OK; pro lehkou fázi to kritická součást celkového času.
+Pro **N** iterací × cenu bariéry **B**: pokud B = 1 μs a N = 1000, je celková režie 1 ms. Pro velkou práci v jednotlivých fázích je to v pořádku; pro lehké fáze se to ale stane kritickou částí celkového času.
 
-Optimalizace: *async iteration* (Gauss-Seidel async) — eliminuje barrier, ale konvergence pomalejší.
+Optimalizace: *asynchronní iterace* (asynchronní Gauss-Seidel) — odstraní bariéru, ale konvergence je pomalejší.
 
 ## Co dál
 
-[[locks-openmp]] zavádí *manuální* locks — fine-grained alternativa k critical/atomic. [[false-sharing-races]] popisuje *skryté* race conditions přes cache line sdílení.
+[[locks-openmp]] zavádí *manuální* zámky (locks) — jemně zrnitou alternativu ke critical/atomic. [[false-sharing-races]] popisuje *skryté* souběhy (race conditions) vznikající sdílením řádku cache.
 
 ---
 

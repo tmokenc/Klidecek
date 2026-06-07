@@ -2,21 +2,21 @@
 title: Analýza rizik
 ---
 
-# Analýza rizik — systematic identifikace + assessment
+# Analýza rizik — systematická identifikace a hodnocení
 
-Analýza rizik (Risk Assessment) je *systematic* proces — identifikace aktiv, hrozeb, zranitelností, dopadů, pravděpodobností; výsledkem je *přehled rizik*, který slouží pro *risk treatment* (mitigate / transfer / accept / avoid).
+Analýza rizik (risk assessment) je *systematický* proces — identifikuje aktiva, hrozby (threats), zranitelnosti (vulnerabilities), dopady a pravděpodobnosti. Jejím výsledkem je *přehled rizik*, který slouží jako podklad pro ošetření rizik (risk treatment): zmírnění (mitigate), přenesení (transfer), akceptaci (accept) nebo vyhnutí se (avoid).
 
 ## Cíl analýzy rizik
 
-1. **Identify** assets that matter.
-2. **Identify** threats and vulnerabilities.
-3. **Estimate** likelihood + impact pro každý risk scenario.
-4. **Rank** rizika podle priority.
-5. **Decide** how to treat each (controls, transfer, accept).
+1. **Identifikovat** aktiva, na kterých záleží.
+2. **Identifikovat** hrozby a zranitelnosti.
+3. **Odhadnout** pravděpodobnost a dopad pro každý scénář rizika.
+4. **Seřadit** rizika podle priority.
+5. **Rozhodnout**, jak každé z nich ošetřit (zavedením opatření, přenesením, akceptací).
 
-Output: **Risk Register** — formal table of risks, owners, controls, status.
+Výstupem je **registr rizik (risk register)** — formální tabulka rizik, jejich vlastníků, opatření a stavu.
 
-## Process flow
+## Průběh procesu
 
 ::: svg "Risk assessment process"
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="10">
@@ -57,31 +57,31 @@ Output: **Risk Register** — formal table of risks, owners, controls, status.
 </svg>
 :::
 
-## Quantitative risk analysis {tier=practice}
+## Kvantitativní analýza rizik {tier=practice}
 
-Numerical approach. Vyžaduje *číselné* odhady — drahé but precise.
+Číselný přístup. Vyžaduje *číselné* odhady — je nákladný, ale přesný.
 
 ### Single Loss Expectancy (SLE)
 
-Dopad *jedné* události. 
+Dopad *jediné* události.
 
 $$
 \text{SLE} = \text{Asset Value} \times \text{Exposure Factor}
 $$
 
 - **Asset Value (AV)** — hodnota aktiva ($).
-- **Exposure Factor (EF)** — procento, kolik asset value se ztratí (0-100 %).
+- **Exposure Factor (EF)** — procento, kolik z hodnoty aktiva se ztratí (0–100 %).
 
-Příklad: zákaznická databáze AV = $1M. Při data breach EF = 60 % (loss of reputation, fines). SLE = $600k.
+Příklad: zákaznická databáze má AV = $1M. Při úniku dat (data breach) je EF = 60 % (ztráta reputace, pokuty). SLE = $600k.
 
 ### Annualized Rate of Occurrence (ARO)
 
-Pravděpodobnost / frekvence per rok.
+Pravděpodobnost neboli frekvence za rok.
 
-- 1× za 10 let = ARO = 0.1.
-- 5× ročně = ARO = 5.
+- 1× za 10 let → ARO = 0,1.
+- 5× ročně → ARO = 5.
 
-Odhad podle historical data, expert opinion, industry stats.
+Odhad se opírá o historická data, expertní názor a oborové statistiky.
 
 ### Annualized Loss Expectancy (ALE)
 
@@ -89,150 +89,150 @@ $$
 \text{ALE} = \text{SLE} \times \text{ARO}
 $$
 
-Očekávaná *roční* ztráta. 
+Očekávaná *roční* ztráta.
 
-Příklad: SLE = $600k, ARO = 0.2 (jednou za 5 let) → ALE = $120k/year.
+Příklad: SLE = $600k, ARO = 0,2 (jednou za 5 let) → ALE = $120k za rok.
 
-### Cost-benefit analysis
+### Analýza nákladů a přínosů (cost-benefit analysis)
 
-Pro control reducing ALE z $120k na $20k:
+Pro opatření, které sníží ALE z $120k na $20k:
 
 $$
 \text{Value of Control} = \text{ALE}_{\text{before}} - \text{ALE}_{\text{after}} - \text{Cost of Control}
 $$
 
-$120k - $20k - $50k(control annual cost) = $50k/year saved → control *worth it*.
+$120k − $20k − $50k (roční náklad na opatření) = ušetřených $50k za rok → opatření se *vyplatí*.
 
-Pokud control cost > savings → don't implement.
+Pokud náklad na opatření převýší úsporu, opatření nezavádějte.
 
 ::: viz risk-matrix-ale "Slidery AV, EF, ARO → SLE → ALE; risk matrix highlight. Posuň control cost / reduction — saved = ALE − ALE' − cost rozhodne, zda zavést."
 :::
 
-## Qualitative risk analysis {tier=practice}
+## Kvalitativní analýza rizik {tier=practice}
 
-Less precise but easier. Use *categorical* scales (low / medium / high) místo dollar values.
+Méně přesná, ale jednodušší. Používá *kategorické* škály (nízká / střední / vysoká) místo peněžních hodnot.
 
-### Risk matrix
+### Matice rizik (risk matrix)
 
-| | Impact: Low | Impact: Med | Impact: High |
+| | Dopad: nízký | Dopad: střední | Dopad: vysoký |
 | :--- | :---: | :---: | :---: |
-| Likelihood: High | Medium | High | **Critical** |
-| Likelihood: Med | Low | Medium | High |
-| Likelihood: Low | Trivial | Low | Medium |
+| Pravděpodobnost: vysoká | střední | vysoké | **kritické** |
+| Pravděpodobnost: střední | nízké | střední | vysoké |
+| Pravděpodobnost: nízká | zanedbatelné | nízké | střední |
 
-### Pros and Cons
+### Výhody a nevýhody
 
-| | Quantitative | Qualitative |
+| | Kvantitativní | Kvalitativní |
 | :--- | :--- | :--- |
-| Precision | high | low |
-| Data needed | hard ($, frequencies) | easy (judgment) |
-| Time | long | short |
-| Best for | enterprise, regulated | startups, small orgs |
+| Přesnost | vysoká | nízká |
+| Potřebná data | náročná ($, frekvence) | snadná (úsudek) |
+| Čas | dlouhý | krátký |
+| Vhodné pro | velké a regulované firmy | startupy, malé organizace |
 
-V praxi *hybrid* — kvantitatif pro velký risk, kvalitativní pro malé.
+V praxi se používá *hybridní* přístup — kvantitativní pro velká rizika, kvalitativní pro malá.
 
-## Threat modeling {tier=practice}
+## Modelování hrozeb (threat modeling) {tier=practice}
 
-Před risk analysis musíme znát *threats*. Frameworks:
+Před analýzou rizik musíme znát *hrozby*. Používané frameworky:
 
 ### STRIDE (Microsoft)
 
-Pro každý system component zkontroluj:
+U každé komponenty systému zkontrolujeme:
 
-- **S**poofing — fake identity.
-- **T**ampering — modify data.
-- **R**epudiation — deny action.
-- **I**nformation disclosure — leak data.
-- **D**enial of service — block availability.
-- **E**levation of privilege — gain unauthorized rights.
+- **S**poofing — podvržení identity (spoofing).
+- **T**ampering — neoprávněná úprava dat.
+- **R**epudiation — popření provedené akce.
+- **I**nformation disclosure — únik informací.
+- **D**enial of service — zablokování dostupnosti.
+- **E**levation of privilege — získání neoprávněných oprávnění.
 
 ### PASTA (Process for Attack Simulation and Threat Analysis)
 
-7 stages from business objectives to attack simulation. More elaborate than STRIDE.
+Sedm fází vedoucích od obchodních cílů až k simulaci útoku. Propracovanější než STRIDE.
 
 ### OCTAVE
 
-Operationally Critical Threat, Asset, and Vulnerability Evaluation. Carnegie Mellon. Self-directed for orgs.
+Operationally Critical Threat, Asset, and Vulnerability Evaluation. Pochází z Carnegie Mellon. Je samořízený (self-directed) a určený pro organizace.
 
-### Attack tree
+### Strom útoku (attack tree)
 
 Hierarchický graf útoku ([[model-incidentu]]).
 
-## Risk register
+## Registr rizik (risk register)
 
-Formal documentation. Each row:
+Formální dokumentace. Každý řádek obsahuje:
 
-| ID | Asset | Threat | Vulnerability | Likelihood | Impact | Risk | Treatment | Owner | Status |
+| ID | Aktivum | Hrozba | Zranitelnost | Pravděpodobnost | Dopad | Riziko | Ošetření | Vlastník | Stav |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| R-001 | Customer DB | SQL injection | unvalidated input | High | High | Critical | Mitigate (WAF + code review) | DevOps lead | In progress |
-| R-002 | Server room | Fire | no fire suppression | Low | High | Medium | Mitigate (install clean-agent suppression — FM-200 / Novec 1230) | Facilities | Done |
-| R-003 | Email | Phishing | user susceptibility | High | Medium | High | Mitigate (training + email filter) | IT Manager | Ongoing |
+| R-001 | Zákaznická DB | SQL injection | neošetřený vstup | vysoká | vysoký | kritické | zmírnit (WAF + revize kódu) | vedoucí DevOps | probíhá |
+| R-002 | Serverovna | požár | chybějící hasicí systém | nízká | vysoký | střední | zmírnit (instalace plynového hašení — FM-200 / Novec 1230) | správa budov | hotovo |
+| R-003 | E-mail | phishing | náchylnost uživatelů | vysoká | střední | vysoké | zmírnit (školení + e-mailový filtr) | IT manažer | průběžně |
 
-Pravidelně review — *minimum quarterly*, ideally monthly pro top risks.
+Registr je třeba pravidelně revidovat — *minimálně čtvrtletně*, u nejvýznamnějších rizik ideálně měsíčně.
 
-## Risk treatment options
+## Možnosti ošetření rizik (risk treatment)
 
-Pro každý identifikovaný risk:
+Pro každé identifikované riziko:
 
-### 1. Mitigate (snížit)
+### 1. Zmírnit (mitigate)
 
-Implement controls reducing likelihood or impact.
+Zavést opatření, která sníží pravděpodobnost nebo dopad.
 
-- Likelihood: prevent attack (firewall, patch, MFA).
-- Impact: reduce damage (encryption, backup, segmentation).
+- Pravděpodobnost: zabránit útoku (firewall, záplata, MFA).
+- Dopad: omezit škodu (šifrování, zálohy, segmentace).
 
-### 2. Transfer (přenést)
+### 2. Přenést (transfer)
 
-- **Insurance** — cybersecurity insurance covers losses.
-- **Outsource** — managed service provider takes operational risk.
-- **Contract** — vendor SLAs with penalties.
+- **Pojištění** — kybernetické pojištění kryje ztráty.
+- **Outsourcing** — poskytovatel spravované služby (managed service provider) přebírá provozní riziko.
+- **Smlouva** — SLA dodavatele se sankcemi.
 
-Caveat: insurance doesn't transfer *reputational* damage.
+Pozor: pojištění nepřenese *reputační* škodu.
 
-### 3. Accept (akceptovat)
+### 3. Akceptovat (accept)
 
-Risk too small or cost of mitigation too high. Documented + management approval.
+Riziko je příliš malé nebo je cena zmírnění příliš vysoká. Vyžaduje dokumentaci a schválení vedením.
 
-Acceptance is *informed* decision, not ignorance.
+Akceptace je *informované* rozhodnutí, nikoli nevědomost.
 
-### 4. Avoid (vyhnout)
+### 4. Vyhnout se (avoid)
 
-Discontinue activity creating risk. Drastic — only when other options not viable.
+Ukončit činnost, která riziko vytváří. Je to drastický krok — volí se jen tehdy, když ostatní možnosti nejsou schůdné.
 
-Příklad: discontinue handling certain PII data.
+Příklad: přestat zpracovávat určitá osobní data (PII).
 
-## Residual risk
+## Zbytkové riziko (residual risk)
 
-Po treatment vždy *zbyde* nějaký risk:
+Po ošetření vždy nějaké riziko *zůstává*:
 
 $$
 \text{Residual Risk} = \text{Inherent Risk} - \text{Risk Mitigation}
 $$
 
-Management *akceptuje* residual risk (formal sign-off).
+Vedení zbytkové riziko *akceptuje* (formálním schválením).
 
-If residual risk *too high* → more controls, transfer, or avoid.
+Pokud je zbytkové riziko *příliš vysoké*, je třeba doplnit opatření, přenést riziko, nebo se mu vyhnout.
 
-## Continuous monitoring
+## Průběžné monitorování
 
-Risk analysis *není* one-time. Periodic:
+Analýza rizik *není* jednorázová. Probíhá periodicky:
 
-- **Threat landscape changes** — new vulnerabilities, new attackers.
-- **Business changes** — new systems, new assets.
-- **Control effectiveness** — controls degrade over time.
-- **Compliance changes** — new regulations.
+- **Změny v krajině hrozeb** — nové zranitelnosti, noví útočníci.
+- **Změny v podnikání** — nové systémy, nová aktiva.
+- **Účinnost opatření** — opatření časem degradují.
+- **Změny v souladu s předpisy** — nové regulace.
 
-ISO 27005 + NIST SP 800-30 recommend at least *annual* full review + ongoing monitoring.
+ISO 27005 a NIST SP 800-30 doporučují alespoň *roční* úplnou revizi a průběžné monitorování.
 
-## Specific risk frameworks
+## Konkrétní frameworky pro rizika
 
-- **NIST SP 800-30** — Risk Assessment for Federal Systems.
-- **ISO 27005** — Information Security Risk Management.
-- **FAIR** (Factor Analysis of Information Risk) — quantitative model.
-- **CRAMM** — UK government risk analysis.
-- **OCTAVE Allegro** — operational risk.
+- **NIST SP 800-30** — analýza rizik pro federální systémy.
+- **ISO 27005** — řízení rizik informační bezpečnosti.
+- **FAIR** (Factor Analysis of Information Risk) — kvantitativní model.
+- **CRAMM** — analýza rizik britské vlády.
+- **OCTAVE Allegro** — provozní rizika.
 
-Pick framework matching organization.
+Vyberte framework odpovídající organizaci.
 
 ---
 

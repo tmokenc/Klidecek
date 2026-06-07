@@ -1,22 +1,22 @@
 ---
-title: Deepfakes a biometric systems
+title: Deepfakes a biometrické systémy
 ---
 
-# Deepfakes a biometric systems
+# Deepfakes a biometrické systémy
 
-**Deepfakes** jsou AI-generated synthetic media — *fake videos*, *fake voices*, *fake images* lidí. Pojmenováno po Reddit user "deepfakes" (2017). Modern deepfake quality (2024+) je *extremely* dobrá — *prakticky nerozeznatelná* od reality v některých scénářích. Pro biometric systems představují *fundamental challenge*.
+**Deepfakes** jsou synteticky vytvořená média generovaná umělou inteligencí (AI) — *falešná videa*, *falešné hlasy* a *falešné obrázky* lidí. Označení vzniklo podle uživatele Redditu „deepfakes" (2017). Kvalita moderních deepfakes (od roku 2024) je *mimořádně* dobrá — v některých situacích je *prakticky nerozeznatelná* od reality. Pro biometrické systémy proto představují *zásadní výzvu*.
 
 ## Co jsou deepfakes
 
-* **Face swap** — replace face in video with target face.
-* **Face reenactment** — control facial expressions of target.
-* **Voice cloning** — synthesize speech in target voice.
-* **Full body** — synthesize full person performing actions.
-* **Text-to-video** — generate video from text description (Sora, Veo).
+* **Výměna obličeje (face swap)** — nahrazení obličeje ve videu jiným, cílovým obličejem.
+* **Přehrání mimiky (face reenactment)** — ovládání výrazů obličeje cílové osoby.
+* **Klonování hlasu (voice cloning)** — syntéza řeči hlasem cílové osoby.
+* **Celé tělo (full body)** — syntéza celé osoby provádějící určité akce.
+* **Text na video (text-to-video)** — generování videa z textového popisu (Sora, Veo).
 
 ## Technologie
 
-::: svg "Deepfake creation pipeline: source video + target identity → AI model (GAN, diffusion) → synthetic output."
+::: svg "Pipeline tvorby deepfake: zdrojové video + cílová identita → AI model (GAN, diffusion) → syntetický výstup."
 <svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="11">
   <defs>
     <marker id="aDF" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
@@ -47,228 +47,228 @@ title: Deepfakes a biometric systems
 </svg>
 :::
 
-### GAN-based
+### Založené na GAN
 
-* **Generator** + **Discriminator** networks.
-* Generator tries to fool Discriminator.
-* Iterative training → high-quality outputs.
-* **StyleGAN** (NVIDIA 2018, refined to StyleGAN3 2021) — *de facto* standard for face generation.
+* Dvojice sítí: **generátor (generator)** + **diskriminátor (discriminator)**.
+* Generátor se snaží oklamat diskriminátor.
+* Opakované trénování vede k vysoce kvalitním výstupům.
+* **StyleGAN** (NVIDIA 2018, vylepšeno na StyleGAN3 v roce 2021) — *de facto* standard pro generování obličejů.
 
-### Diffusion models
+### Difuzní modely (diffusion models)
 
 * **DDPM** (Denoising Diffusion Probabilistic Models).
 * Stable Diffusion, Midjourney, DALL-E 3, Sora.
-* Generate from noise via gradual denoising.
-* **Higher quality** než GANs in many tasks.
+* Generují obraz z šumu postupným odstraňováním šumu (denoising).
+* V řadě úloh dosahují **vyšší kvality** než GAN.
 
-### Autoencoder-based
+### Založené na autoenkodéru (autoencoder)
 
-* **Encoder** maps face to latent space.
-* **Decoder** generates face from latent.
-* Swap encoders/decoders for face swap.
-* Used in DeepFaceLab (popular open-source tool).
+* **Enkodér (encoder)** mapuje obličej do latentního prostoru.
+* **Dekodér (decoder)** z latentní reprezentace obličej zpětně generuje.
+* Při výměně obličeje se enkodéry a dekodéry navzájem prohodí.
+* Tento přístup používá DeepFaceLab (oblíbený open-source nástroj).
 
-### Voice synthesis
+### Syntéza hlasu
 
-* **WaveNet, Tacotron** — early TTS.
-* **VALL-E, ElevenLabs** — voice cloning from seconds of audio.
-* **Real-time conversion** — change voice live.
+* **WaveNet, Tacotron** — raná syntéza řeči (text-to-speech, TTS).
+* **VALL-E, ElevenLabs** — klonování hlasu z několika sekund nahrávky.
+* **Konverze v reálném čase** — změna hlasu naživo.
 
-## Tools
+## Nástroje
 
-* **DeepFaceLab** — open-source, popular for face swaps.
+* **DeepFaceLab** — open-source, oblíbený pro výměnu obličejů.
 * **FaceSwap** — open-source.
-* **Reface** — mobile app, casual deepfakes.
-* **D-ID** — commercial AI avatar service.
-* **ElevenLabs** — voice cloning.
-* **Synthesia** — corporate AI presenters.
-* **HeyGen** — AI video generation.
-* **Stable Diffusion** — image generation (with face plugins).
+* **Reface** — mobilní aplikace pro nezávazné deepfakes.
+* **D-ID** — komerční služba pro AI avatary.
+* **ElevenLabs** — klonování hlasu.
+* **Synthesia** — firemní AI moderátoři.
+* **HeyGen** — generování videa pomocí AI.
+* **Stable Diffusion** — generování obrázků (s rozšířeními pro obličeje).
 
-## Útoky na biometric systems
+## Útoky na biometrické systémy
 
-### Face recognition bypass
+### Obejití rozpoznávání obličeje (face recognition bypass)
 
-* **Photo printout** — pre-deepfake era.
-* **Deepfake video** — replay or live.
-* **3D mask** generated from deepfake images.
+* **Vytištěná fotografie** — z doby před deepfakes.
+* **Deepfake video** — přehrané ze záznamu nebo v reálném čase.
+* **3D maska** vytvořená z deepfake obrázků.
 
-### Voice biometrics bypass
+### Obejití hlasové biometrie
 
-* **Pre-recorded voice clone** — replay attack.
-* **Real-time voice clone** — bypass conversational systems.
-* **Phone banking attacks** documented in 2023+.
+* **Předem nahraný klon hlasu** — útok přehráním záznamu (replay attack).
+* **Klon hlasu v reálném čase** — obejití konverzačních systémů.
+* **Útoky na telefonní bankovnictví** zdokumentované od roku 2023.
 
-### Documents fraud
+### Podvody s doklady
 
-* **Photo of fake ID** — generated photo on real ID template.
-* **AI-generated selfies** for KYC (Know Your Customer) verification.
+* **Fotografie falešného dokladu** — generovaná fotografie vložená do šablony skutečného dokladu.
+* **AI generovaná selfie** pro ověření klienta (KYC, Know Your Customer).
 
 ## Reálné případy
 
-### CEO fraud (2019)
+### Podvod s identitou ředitele (2019)
 
-* **UK energy firm** lost €220 000.
-* **Voice clone** of CEO instructed wire transfer.
-* Among first reported cases of AI voice fraud.
+* **Britská energetická firma** přišla o 220 000 €.
+* **Klon hlasu** ředitele nařídil bankovní převod.
+* Patří mezi první zaznamenané případy podvodu pomocí AI generovaného hlasu.
 
-### Hong Kong company (2024)
+### Firma v Hongkongu (2024)
 
-* **Multi-person video call** all *deepfake* except victim.
-* Victim transferred $25M.
-* Sophisticated, well-prepared attack.
+* **Videohovor s více účastníky**, kde všichni kromě oběti byli *deepfake*.
+* Oběť převedla 25 milionů dolarů.
+* Sofistikovaný a dobře připravený útok.
 
-### Political disinformation
+### Politická dezinformace
 
-* **Zelenskyy deepfake** (March 2022) — fake video calling for surrender.
-* **Putin deepfake** (March 2023) — fake martial law announcement.
-* **2024 US elections** — multiple deepfakes circulating.
+* **Deepfake Zelenského** (březen 2022) — falešné video vyzývající ke kapitulaci.
+* **Deepfake Putina** (březen 2023) — falešné vyhlášení stanného práva.
+* **Americké volby 2024** — kolovalo více deepfakes.
 
-### Pornography (deepfake porn)
+### Pornografie (deepfake porno)
 
-* **~96% of deepfakes** are non-consensual pornography (most affecting women).
-* **Taylor Swift case** (2024) — viral on X/Twitter.
-* **Multiple countries** criminalizing.
+* **~96 % deepfakes** tvoří nekonsenzuální pornografie (nejčastěji s oběťmi ženami).
+* **Případ Taylor Swift** (2024) — virálně se šířil na X/Twitteru.
+* **Řada zemí** to kriminalizuje.
 
-## Detection — arms race
+## Detekce — závody ve zbrojení
 
-### Visual artifacts
+### Vizuální artefakty
 
-* **Inconsistent lighting** between face and background.
-* **Unusual eye blinking** (early deepfakes blinked rarely).
-* **Face boundary artifacts** — fuzzy edges where face meets head.
-* **Lip-sync errors** — audio doesn't match mouth shape.
-* **Background inconsistencies**.
+* **Nekonzistentní osvětlení** mezi obličejem a pozadím.
+* **Neobvyklé mrkání** (rané deepfakes mrkaly jen zřídka).
+* **Artefakty na hranici obličeje** — rozmazané okraje v místě, kde obličej navazuje na hlavu.
+* **Chyby v synchronizaci rtů (lip-sync)** — zvuk neodpovídá pohybu úst.
+* **Nesrovnalosti v pozadí**.
 
-### Modern detection
+### Moderní detekce
 
-* **CNN-based detectors** trained on real + fake datasets.
-* **Frequency domain** analysis (FFT shows different patterns).
-* **Biological signals** — rPPG (remote photoplethysmography) detects heart rate from face video; deepfakes can't fake.
-* **Eye movements** — natural saccades hard to replicate.
-* **Watermarking** — proposed: embed *invisible* watermarks in real content.
+* **Detektory založené na CNN**, trénované na datových sadách skutečného i falešného obsahu.
+* **Analýza ve frekvenční oblasti** (FFT odhaluje odlišné vzory).
+* **Biologické signály** — rPPG (remote photoplethysmography) zjišťuje tepovou frekvenci z videa obličeje; deepfakes ji neumí napodobit.
+* **Pohyby očí** — přirozené sakády se obtížně replikují.
+* **Vodoznačení (watermarking)** — navrhuje se vkládat *neviditelné* vodoznaky do skutečného obsahu.
 
-::: viz deepfake-detection "Per-frame confidence napříč signálovými kanály (blink, lip-sync, rPPG, freq); cross-domain útok generalization gap demonstruje."
+::: viz deepfake-detection "Spolehlivost pro jednotlivé snímky napříč signálovými kanály (mrkání, lip-sync, rPPG, frekvence); demonstruje propad přesnosti (generalization gap) při útoku z jiné domény."
 :::
 
-### Detection accuracy
+### Přesnost detekce
 
-* **In-domain:** >95 % (on training-similar deepfakes).
-* **Cross-domain:** drops to 60–80 % (novel attacks).
-* **Adversarial deepfakes** — generated specifically to evade detection.
+* **V rámci domény (in-domain):** >95 % (u deepfakes podobných trénovacím datům).
+* **Napříč doménami (cross-domain):** klesá na 60–80 % (u nových typů útoků).
+* **Adversariální deepfakes** — vytvořené přímo s cílem uniknout detekci.
 
-## Anti-deepfake techniques
+## Techniky proti deepfakes
 
 ### C2PA (Coalition for Content Provenance and Authenticity)
 
-* **Industry standard** for content authentication.
-* **Cryptographic signatures** on real content (cameras, editors).
-* **Provenance metadata** travels with content.
-* Supported by: Microsoft, Adobe, Sony, Canon, BBC, NYTimes.
-* **Goal:** authenticate *real* content, not detect *fake*.
+* **Průmyslový standard** pro ověřování pravosti obsahu.
+* **Kryptografické podpisy** ve skutečném obsahu (fotoaparáty, editory).
+* **Metadata o původu (provenance)** putují společně s obsahem.
+* Podporují jej: Microsoft, Adobe, Sony, Canon, BBC, NYTimes.
+* **Cíl:** ověřit *skutečný* obsah, nikoli detekovat *falešný*.
 
-### Watermarking
+### Vodoznačení (watermarking)
 
-* **Imperceptible signals** in real content.
-* Verifies authenticity at *creation*.
-* Limits: deepfake creation strips watermarks.
+* **Nepostřehnutelné signály** ve skutečném obsahu.
+* Ověřuje pravost už při *vytvoření*.
+* Omezení: tvorba deepfake vodoznaky odstraní.
 
-### Liveness with deepfake awareness
+### Detekce živosti (liveness) s ohledem na deepfakes
 
-* **Real-time challenge** (head movement, blinking).
-* Hard for current deepfakes to do *naturally* under time pressure.
-* Will improve as deepfakes get better.
+* **Výzva v reálném čase** (pohyb hlavy, mrknutí).
+* Pro současné deepfakes je obtížné ji *přirozeně* splnit pod časovým tlakem.
+* S tím, jak se deepfakes zlepšují, bude tato ochrana méně účinná.
 
-### Multi-channel biometrics
+### Vícekanálová biometrie
 
-* **Face + voice + behavior** — deepfake one harder than all.
-* **Anti-spoofing for each modality.**
+* **Obličej + hlas + chování** — podvrhnout všechny tyto kanály je těžší než jen jeden.
+* **Ochrana proti podvržení (anti-spoofing) pro každou modalitu.**
 
-## Legal frameworks
+## Právní rámce
 
-### EU AI Act (2024)
+### Akt EU o umělé inteligenci (EU AI Act, 2024)
 
-* **Deepfakes must be labeled** when not for legitimate purpose.
-* Penalties for non-compliance.
+* **Deepfakes musí být označeny**, pokud neslouží legitimnímu účelu.
+* Sankce za nedodržení.
 
-### US — patchwork
+### USA — roztříštěná úprava
 
-* **Federal:** no comprehensive law.
-* **State laws:** California (deepfake porn), Texas (election deepfakes), etc.
-* **NO-FAKES Act** (proposed 2024) — federal protection.
+* **Federální úroveň:** žádný komplexní zákon.
+* **Zákony jednotlivých států:** Kalifornie (deepfake porno), Texas (volební deepfakes) atd.
+* **NO-FAKES Act** (navržen v roce 2024) — federální ochrana.
 
-### China (2023)
+### Čína (2023)
 
-* **Deep Synthesis Provisions** — comprehensive deepfake regulation.
-* Labels required, criminal penalties.
+* **Deep Synthesis Provisions** — komplexní regulace deepfakes.
+* Vyžadováno označování, trestní postihy.
 
-### Czech / EU
+### Česko / EU
 
-* **GDPR** — biometric/personal data protections apply.
-* **EU AI Act** — applies in CZ.
-* **Specific deepfake laws** evolving.
+* **GDPR** — uplatňuje se ochrana biometrických a osobních údajů.
+* **Akt EU o umělé inteligenci** — platí i v ČR.
+* **Specifické zákony o deepfakes** se teprve vyvíjejí.
 
-## Biometric system response
+## Reakce biometrických systémů
 
-### Defense in depth
+### Hloubková obrana (defense in depth)
 
-1. **Liveness detection** ([[liveness]]) with deepfake awareness.
-2. **Multi-modal** biometrics (harder to fake all).
-3. **Multi-factor** authentication.
-4. **Behavioral biometrics** — continuous, hard to deepfake.
-5. **Risk-based** — extra checks for sensitive transactions.
+1. **Detekce živosti (liveness)** ([[liveness]]) s ohledem na deepfakes.
+2. **Vícemodální** biometrie (je těžší podvrhnout všechny modality).
+3. **Vícefaktorová** autentizace.
+4. **Behaviorální biometrie** — průběžná a obtížně napodobitelná deepfakes.
+5. **Přístup podle míry rizika** — dodatečné kontroly u citlivých transakcí.
 
-### Specific recommendations
+### Konkrétní doporučení
 
-* **Don't rely on face/voice alone** for high-value transactions.
-* **Out-of-band verification** for unusual requests.
-* **AI assist for human reviewers** — but human-in-the-loop.
-* **Audit logging** — detect anomalies.
+* **U transakcí s vysokou hodnotou nespoléhejte jen na obličej či hlas.**
+* **Ověření jiným kanálem (out-of-band)** u neobvyklých požadavků.
+* **AI jako pomoc pro lidské kontrolory** — ale s člověkem v rozhodovací smyčce (human-in-the-loop).
+* **Auditní logování** — pro odhalení anomálií.
 
-## Industry response
+## Reakce odvětví
 
-### Tech companies
+### Technologické firmy
 
-* **Microsoft Video Authenticator** — confidence score per video.
-* **Adobe Content Authenticity** — provenance tool.
-* **Meta** investing in detection + watermarking.
+* **Microsoft Video Authenticator** — skóre spolehlivosti pro každé video.
+* **Adobe Content Authenticity** — nástroj pro doložení původu.
+* **Meta** investuje do detekce a vodoznačení.
 
-### Banks
+### Banky
 
-* **Liveness 2.0** vendors (Onfido, Jumio, iProov, Veriff) updating against deepfakes.
-* **Behavioral biometrics** layered.
-* **Out-of-band** verification for new accounts.
+* Dodavatelé řešení **Liveness 2.0** (Onfido, Jumio, iProov, Veriff) je aktualizují proti deepfakes.
+* **Behaviorální biometrie** přidaná jako další vrstva.
+* **Ověření jiným kanálem (out-of-band)** u nových účtů.
 
-### Border control
+### Hraniční kontrola
 
-* **eGates** with liveness + multi-modal.
-* **Physical inspection** still required for verification.
+* **Elektronické brány (eGates)** s detekcí živosti a vícemodální biometrií.
+* **Fyzická kontrola** je pro ověření stále nutná.
 
-## Trends 2025+
+## Trendy od roku 2025
 
-* **Real-time deepfakes** widely available (consumer apps).
-* **Sora-like video generation** democratizing.
-* **Voice cloning** with seconds of audio.
-* **Detection getting better** but never wins permanently.
-* **Provenance-based** approaches (C2PA) gaining traction.
-* **Regulation** catching up.
+* **Deepfakes v reálném čase** jsou široce dostupné (spotřebitelské aplikace).
+* **Generování videa typu Sora** se demokratizuje.
+* **Klonování hlasu** z několika sekund nahrávky.
+* **Detekce se zlepšuje**, ale nikdy trvale nezvítězí.
+* **Přístupy založené na původu** (C2PA) získávají na významu.
+* **Regulace** dohání vývoj.
 
 ## Klíčové ponaučení
 
-> Biometrické systémy *musí* aktivně bránit proti deepfakes. *Single-modal* face nebo voice authentication je *zranitelná* a měla by být *doplněna* dalšími faktory pro vysokohodnotné aplikace.
+> Biometrické systémy se *musí* aktivně bránit deepfakes. Autentizace pouze pomocí jedné modality (*single-modal*), ať už obličejem nebo hlasem, je *zranitelná* a u vysokohodnotných aplikací by měla být *doplněna* dalšími faktory.
 
 Praktický postup:
 
-1. **Pro low-value applications** (smartphone unlock) — biometric + liveness OK.
-2. **Pro medium-value** (bank login) — biometric + PIN + behavioral.
-3. **Pro high-value** (large transactions) — out-of-band confirmation + biometric.
-4. **Pro critical** (state secrets) — physical presence + multi-factor.
+1. **U aplikací s nízkou hodnotou** (odemčení smartphonu) — biometrie + detekce živosti stačí.
+2. **U aplikací se střední hodnotou** (přihlášení do banky) — biometrie + PIN + behaviorální biometrie.
+3. **U aplikací s vysokou hodnotou** (velké transakce) — potvrzení jiným kanálem (out-of-band) + biometrie.
+4. **U kritických aplikací** (státní tajemství) — fyzická přítomnost + vícefaktorové ověření.
 
 ---
 
 ### Videa
 
-::: youtube "https://www.youtube.com/watch?v=RoGHVI-w9bE" "DeepFake Detector AIs Are Good Too!" "Two Minute Papers"
+::: youtube "https://www.youtube.com/watch?v=RoGHVI-w9bE" "Detektory deepfake na bázi AI jsou taky dobré!" "Two Minute Papers"
 :::
 
 *Zdroj: BIO přednášky 2025/26, BIO 13 — Biometrické systémy v praxi. Externí reference: Mirsky, Y., Lee, W.: *The Creation and Detection of Deepfakes: A Survey* (ACM Computing Surveys 2021); C2PA — [c2pa.org](https://c2pa.org/); Verdoliva, L.: *Media Forensics and DeepFakes: an overview* (IEEE J-STSP 2020); EU AI Act — Regulation 2024/1689; DeepFaceLab — [github.com/iperov/DeepFaceLab](https://github.com/iperov/DeepFaceLab).*

@@ -4,11 +4,11 @@ title: Biometrická data v pasu
 
 # Biometrická data v pasu
 
-Klíčový rozdíl mezi *klasickým* a *biometric* pasem je *digitální obraz* osoby uložený na chipu. ICAO 9303 specifikuje **face image** jako *povinný* a **fingerprints** / **iris** jako *volitelné* (s EU mandatem pro fingerprints). Pochopení formátů + kvality + použitelnosti je nezbytné pro práci s eMRTD.
+Klíčovým rozdílem mezi *klasickým* a *biometrickým* pasem je *digitální obraz* osoby uložený na čipu. Norma ICAO 9303 určuje obraz obličeje (face image) jako *povinný*, kdežto otisky prstů (fingerprints) a duhovku (iris) jako *volitelné* (přičemž v EU jsou otisky prstů povinné). Pochopení jejich formátů, kvality a použitelnosti je nezbytné pro práci s elektronickými cestovními doklady (eMRTD).
 
-## DG2 — Face image
+## DG2 — obraz obličeje
 
-::: svg "DG2 obsah: header + face image data block (JPEG 2000) + ICAO-compliant metadata."
+::: svg "Obsah DG2: hlavička + datový blok obrazu obličeje (JPEG 2000) + metadata podle ICAO."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
   <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.3">
     <rect x="20" y="40" width="500" height="140" rx="6"/>
@@ -29,45 +29,45 @@ Klíčový rozdíl mezi *klasickým* a *biometric* pasem je *digitální obraz* 
 </svg>
 :::
 
-### Format
+### Formát
 
-* **DG2 file** uses ASN.1 BER-TLV encoding.
-* Contains **FAC** (Face Image Block) per ISO/IEC 19794-5.
-* **Inside FAC:** JPEG 2000 compressed image.
+* Soubor **DG2** používá kódování ASN.1 BER-TLV.
+* Obsahuje blok **FAC** (Face Image Block, blok s obrazem obličeje) podle normy ISO/IEC 19794-5.
+* **Uvnitř FAC** je obraz komprimovaný formátem JPEG 2000.
 
-### Image requirements (ICAO 9303 Part 9)
+### Požadavky na obraz (ICAO 9303 část 9)
 
-* **Format:** JPEG 2000 (J2K).
-* **Resolution:** ≥ 300 dpi.
-* **Color:** 24-bit RGB.
-* **Size:** typically 15–25 KB.
-* **Aspect ratio:** 3:4 (portrait).
-* **Width × Height:** typically 480 × 640 pixels.
+* **Formát:** JPEG 2000 (J2K).
+* **Rozlišení:** ≥ 300 dpi.
+* **Barvy:** 24bitové RGB.
+* **Velikost:** typicky 15–25 KB.
+* **Poměr stran:** 3:4 (na výšku).
+* **Šířka × výška:** typicky 480 × 640 pixelů.
 
-### Photo requirements
+### Požadavky na fotografii
 
-ICAO 9303 has *strict* photo guidelines:
+ICAO 9303 stanovuje *přísná* pravidla pro fotografii:
 
-* **Pose:** *frontal*, eyes looking at camera.
-* **Expression:** *neutral*, mouth closed.
-* **Glasses:** OK if no reflection; sunglasses NOT.
-* **Headwear:** OK only for religious reasons; face fully visible.
-* **Background:** uniform, light (preferably white/cream).
-* **Lighting:** even, no shadows.
-* **Quality:** sharp, no pixelation.
-* **Recent:** ≤ 6 months old (recommended).
+* **Postoj:** *čelní pohled*, oči směřují do objektivu.
+* **Výraz:** *neutrální*, ústa zavřená.
+* **Brýle:** povoleny, pokud se neodrážejí; sluneční brýle NE.
+* **Pokrývka hlavy:** povolena pouze z náboženských důvodů a obličej musí být plně viditelný.
+* **Pozadí:** jednolité, světlé (nejlépe bílé nebo krémové).
+* **Osvětlení:** rovnoměrné, bez stínů.
+* **Kvalita:** ostrá, bez pixelizace.
+* **Aktuálnost:** doporučeno ne starší než 6 měsíců.
 
-Many countries have *photo booth standards* and check tools.
+Mnoho zemí má *standardy pro fotobudky* a nástroje pro kontrolu fotografie.
 
-### Czech requirement
+### Český požadavek
 
-* **Photograph at registration** by photographer or police photo booth.
-* **Live capture** at registration office increasingly common.
-* Standards align with ICAO; Czech Ministry of Interior issues guidelines.
+* **Fotografie při podání žádosti** od fotografa nebo z policejní fotobudky.
+* **Pořízení snímku přímo na místě** (live capture) na úřadě je stále běžnější.
+* Standardy odpovídají ICAO; pokyny vydává Ministerstvo vnitra ČR.
 
-## DG3 — Fingerprints
+## DG3 — otisky prstů
 
-::: svg "DG3 obsah: 1 nebo 2 fingerprint images (typicky indexes), WSQ compressed."
+::: svg "Obsah DG3: 1 nebo 2 obrazy otisků prstů (typicky ukazováky), komprimované metodou WSQ."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
   <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.3">
     <rect x="20" y="40" width="500" height="140" rx="6"/>
@@ -93,164 +93,164 @@ Many countries have *photo booth standards* and check tools.
 </svg>
 :::
 
-### Format
+### Formát
 
-* **DG3 file** contains **FIR** (Finger Image Record) per ISO/IEC 19794-4.
-* **Inside FIR:** **WSQ** (Wavelet Scalar Quantization) compressed image.
-* WSQ is FBI standard for fingerprint compression.
+* Soubor **DG3** obsahuje záznam **FIR** (Finger Image Record, záznam obrazu prstu) podle normy ISO/IEC 19794-4.
+* **Uvnitř FIR** je obraz komprimovaný metodou **WSQ** (Wavelet Scalar Quantization).
+* WSQ je standard FBI pro kompresi otisků prstů.
 
-### Image requirements
+### Požadavky na obraz
 
-* **Resolution:** 500 dpi minimum.
-* **Color:** 8-bit grayscale.
-* **Capture:** *píchaný* (live) print from sensor.
-* **Quality:** NFIQ score acceptable (>= 3 typically).
-* **Multiple fingers:** typically 2 (left + right index).
+* **Rozlišení:** minimálně 500 dpi.
+* **Barvy:** 8bitové stupně šedi.
+* **Snímání:** *přiložený* (živý) otisk ze senzoru.
+* **Kvalita:** přijatelné skóre NFIQ (typicky ≥ 3).
+* **Více prstů:** typicky 2 (levý a pravý ukazovák).
 
-### Czech and EU requirement
+### Český a evropský požadavek
 
-* **EU regulation 2252/2004** (and 444/2009) — fingerprints mandatory in EU pasy since 2009 (Schengen 2nd gen).
-* **Children under 12:** exempt (small + changing fingers).
+* **Nařízení EU 2252/2004** (a 444/2009) — otisky prstů jsou v pasech zemí EU povinné od roku 2009 (Schengen 2. generace).
+* **Děti do 12 let:** výjimka (malé a měnící se prsty).
 
-### Capture process
+### Proces snímání
 
-* At registration office:
-  * **Live fingerprint sensor** (optical or capacitive).
-  * **Multiple samples** for quality.
-  * **Best sample selected** for chip storage.
-* User keeps fingers on sensor 5–10 seconds per finger.
+* Na úřadě při podání žádosti:
+  * **Živý senzor otisků prstů** (optický nebo kapacitní).
+  * **Více vzorků** pro zajištění kvality.
+  * **Nejlepší vzorek** se vybere k uložení na čip.
+* Žadatel drží prsty na senzoru 5–10 sekund na každý prst.
 
-## DG4 — Iris
+## DG4 — duhovka
 
-* **Optional**.
-* Few countries adopt (United Arab Emirates, India for Aadhaar, etc.).
+* **Volitelné.**
+* Zavádí ji jen málo zemí (Spojené arabské emiráty, Indie v rámci systému Aadhaar apod.).
 * **Standard:** ISO/IEC 19794-6.
-* **Format:** JPEG 2000 or PNG.
-* **Resolution:** ~640 × 480 pixels.
-* **NIR illumination.**
+* **Formát:** JPEG 2000 nebo PNG.
+* **Rozlišení:** přibližně 640 × 480 pixelů.
+* **Osvětlení v blízké infračervené oblasti (NIR).**
 
-## Encoded biometric features (DG7-10)
+## Kódované biometrické rysy (DG7-10)
 
-In addition to images, ICAO allows storing *templates*:
+Kromě obrazů umožňuje ICAO ukládat i *šablony* (templates):
 
-* **DG8** — encoded face features (template, e.g., 128-dim embedding).
-* **DG9** — encoded fingerprint features (minutiae).
-* **DG10** — encoded iris features (Daugman code).
+* **DG8** — kódované rysy obličeje (šablona, např. 128rozměrný embedding).
+* **DG9** — kódované rysy otisku prstu (markanty, minutiae).
+* **DG10** — kódované rysy duhovky (Daugmanův kód).
 
-**Rare in practice** — most countries store images, not templates.
+**V praxi vzácné** — většina zemí ukládá obrazy, nikoli šablony.
 
-## Quality assurance
+## Zajištění kvality
 
 ### NFIQ (NIST Fingerprint Image Quality)
 
-* Score 1 (best) to 5 (worst).
-* Used during enrollment to assess fingerprint quality.
-* **NFIQ 2.0** — modern version, score 0–100.
+* Skóre od 1 (nejlepší) do 5 (nejhorší).
+* Používá se při registraci k posouzení kvality otisku prstu.
+* **NFIQ 2.0** — moderní verze, skóre 0–100.
 
-### Face quality
+### Kvalita obličeje
 
-* ISO/IEC 29794-5 — face image quality.
-* Sharpness, pose, illumination, expression.
-* Automated tools to check at capture time.
+* ISO/IEC 29794-5 — kvalita obrazu obličeje.
+* Ostrost, postoj, osvětlení, výraz.
+* Automatické nástroje pro kontrolu při snímání.
 
-### Iris quality
+### Kvalita duhovky
 
 * ISO/IEC 29794-6.
-* Iris area, sharpness, occlusion (eyelids, reflections).
+* Plocha duhovky, ostrost, zakrytí (víčka, odlesky).
 
-## Biometric performance — pasy
+## Biometrický výkon — pasy
 
-### Face
+### Obličej
 
-* **Modern DL face recognition** on 300 dpi photos:
-  * EER < 0.5 % for cooperative subjects.
-  * Higher in real eGate conditions (illumination, pose).
+* **Moderní rozpoznávání obličeje pomocí hlubokého učení** nad fotografiemi o rozlišení 300 dpi:
+  * EER < 0,5 % u spolupracujících osob.
+  * Vyšší ve skutečných podmínkách elektronických bran (eGate) — kolísavé osvětlení, postoj.
 
-### Fingerprints
+### Otisky prstů
 
-* **AFIS-based** verification on 500 dpi pasy fingerprints:
-  * EER < 1 % typically.
-  * Higher false reject for *small* fingers (children, women).
+* **Ověřování založené na AFIS** nad otisky prstů z pasů o rozlišení 500 dpi:
+  * EER typicky < 1 %.
+  * Vyšší míra chybného zamítnutí u *malých* prstů (děti, ženy).
 
-### Iris
+### Duhovka
 
-* **Daugman algorithm** on iris from biometric pasy:
-  * EER ~$10^{-5}$ — excellent.
+* **Daugmanův algoritmus** nad duhovkou z biometrických pasů:
+  * EER přibližně $10^{-5}$ — vynikající.
 
 ## Použití biometrických dat
 
-### Border control
+### Hraniční kontrola
 
-* **Compare captured biometric** (camera at eGate) with **stored** DG2/DG3.
-* Cross-validation: chip data + visible photo + person.
+* **Porovnání nasnímané biometrie** (kamera u elektronické brány, eGate) s **uloženými** daty DG2/DG3.
+* Křížové ověření: data z čipu + viditelná fotografie + samotná osoba.
 
-### Visa applications
+### Žádosti o víza
 
-* **VIS** (Visa Information System) — EU centralized database with biometrics from visa applications.
-* **Schengen visa** = fingerprints + photo collected at consulate.
+* **VIS** (Visa Information System, vízový informační systém) — centralizovaná databáze EU s biometrickými údaji z vízových žádostí.
+* **Schengenské vízum** = otisky prstů a fotografie pořízené na konzulátu.
 
-### Background checks
+### Prověřování (background checks)
 
-* International cooperation via Interpol, Europol.
-* DNA *not* in pasy (separate forensic databases).
+* Mezinárodní spolupráce prostřednictvím Interpolu a Europolu.
+* DNA *není* v pasech (vede se v samostatných forenzních databázích).
 
-### National databases
+### Národní databáze
 
-* **France TES** (Titres Électroniques Sécurisés) — centralized biometric DB.
-* **UK NIDB** (National Identity Database — discontinued 2010).
-* **Czech:** police DNA + fingerprint databases (separate from passport).
+* **Francouzská TES** (Titres Électroniques Sécurisés) — centralizovaná biometrická databáze.
+* **Britská NIDB** (National Identity Database — zrušena v roce 2010).
+* **Česko:** policejní databáze DNA a otisků prstů (oddělené od pasů).
 
-## Privacy considerations
+## Otázky soukromí
 
-### What's on chip vs. central DB
+### Co je na čipu vs. v centrální databázi
 
-* **Chip:** image + signature only.
-* **Central DB:** image + signature + *more* (history, status).
-* Different policies per country.
+* **Čip:** pouze obraz a podpis.
+* **Centrální databáze:** obraz, podpis a *navíc* další údaje (historie, stav).
+* Pravidla se liší podle jednotlivých zemí.
 
-### Function creep
+### Rozšiřování účelu (function creep)
 
-* Originally for cross-border ID.
-* Used for: criminal investigation, surveillance, anti-terrorism.
-* Privacy advocates concerned.
+* Původně určeno pro přeshraniční identifikaci.
+* Využívá se i pro: vyšetřování trestné činnosti, sledování, boj proti terorismu.
+* Zastánci ochrany soukromí mají obavy.
 
-### Right to opt out
+### Právo odmítnout
 
-* **Typically no** for passport biometrics.
-* Some countries allow fingerprint refusal (with explanation).
+* **Zpravidla neexistuje** u biometrie v pasech.
+* Některé země umožňují odmítnout otisky prstů (s vysvětlením).
 
-### Data minimization (GDPR)
+### Minimalizace dat (GDPR)
 
-* Chip should contain *minimum necessary* data.
-* National DBs subject to GDPR Article 9 (special category).
+* Čip by měl obsahovat jen *nezbytně nutná* data.
+* Národní databáze podléhají článku 9 GDPR (zvláštní kategorie údajů).
 
-## Spoofing concerns
+## Obavy z podvržení (spoofing)
 
-### Face
+### Obličej
 
-* **Photo printed on paper** — visible to border officer.
-* **Mask** — covered by anti-spoofing camera systems.
-* **Deepfake projected** — eGates check against camera, not pre-recorded.
+* **Fotografie vytištěná na papíře** — odhalitelná pohraničníkem.
+* **Maska** — proti ní chrání kamerové systémy s detekcí podvržení.
+* **Promítnutý deepfake** — elektronické brány porovnávají s kamerou, nikoli s předem nahraným záznamem.
 
-### Fingerprints
+### Otisky prstů
 
-* **Latex casts** — possible with effort.
-* **Gummy bear spoofs** — defended by modern sensors.
-* **Live finger detection** improving.
+* **Latexové odlitky** — možné s jistou námahou.
+* **Napodobeniny z gumových bonbonů** — moderní senzory je odhalí.
+* **Detekce živého prstu** se zlepšuje.
 
-### Iris
+### Duhovka
 
-* **Patterned contact lenses** — partial defense.
-* **High-resolution iris photos** — possible spoofing.
-* **3D liveness** in newer iris cameras.
+* **Vzorované kontaktní čočky** — částečná obrana.
+* **Fotografie duhovky ve vysokém rozlišení** — možné podvržení.
+* **3D detekce živosti** v novějších kamerách na snímání duhovky.
 
-## Trends
+## Trendy
 
-* **Face image quality** improving — higher resolution, 3D capture in some pilots.
-* **Touchless fingerprint** for hygiene + accessibility.
-* **Iris adoption** growing slowly.
-* **mDL (mobile drivers license)** — pushing biometric portability.
-* **EU Digital Identity Wallet** — biometric ID on smartphones.
+* **Kvalita obrazu obličeje** se zlepšuje — vyšší rozlišení, 3D snímání v některých pilotních projektech.
+* **Bezdotykové snímání otisků prstů** kvůli hygieně a přístupnosti.
+* **Zavádění duhovky** roste pomalu.
+* **mDL (mobilní řidičský průkaz)** — posouvá biometrii směrem k přenositelnosti.
+* **EU Digital Identity Wallet** — biometrická identita na chytrých telefonech.
 
 ---
 

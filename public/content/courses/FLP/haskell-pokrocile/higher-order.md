@@ -4,11 +4,11 @@ title: Funkce vyšších řádů a currying
 
 # Funkce vyšších řádů a currying
 
-**Higher-order functions** (HOF) jsou funkce, které berou *jiné funkce* jako argumenty nebo *vrací* funkce. **Currying** je transformace n-ární funkce na řetězec unárních. Spolu tvoří *jádro* expressivity funkcionálního programování.
+Funkce vyšších řádů (higher-order functions, HOF) jsou funkce, které berou *jiné funkce* jako argumenty nebo *vracejí* funkce. Currying je transformace n-ární funkce (funkce s více argumenty) na řetězec unárních funkcí (funkcí s jediným argumentem). Společně tvoří *jádro* vyjadřovací síly funkcionálního programování.
 
-## Higher-order functions
+## Funkce vyšších řádů
 
-### Functions as arguments
+### Funkce jako argumenty
 
 ```haskell
 applyTwice :: (a -> a) -> a -> a
@@ -18,7 +18,7 @@ result = applyTwice (+3) 10   -- 16
 result = applyTwice (++ "!") "hello"  -- "hello!!"
 ```
 
-### Functions as return values
+### Funkce jako návratové hodnoty
 
 ```haskell
 makeAdder :: Int -> (Int -> Int)
@@ -33,7 +33,7 @@ result = add10 7  -- 17
 
 ## Currying
 
-Klíčový princip Haskellu: *všechny* funkce jsou *unární* (1 argument).
+Klíčový princip Haskellu: *všechny* funkce jsou *unární* (mají jediný argument). To znamená, že funkce, která zdánlivě přijímá více argumentů, ve skutečnosti vezme první argument a vrátí novou funkci čekající na zbytek.
 
 ```haskell
 -- Tyto jsou ekvivalentní:
@@ -47,7 +47,9 @@ add = \x -> \y -> x + y
 -- Int -> Int -> Int = Int -> (Int -> Int)
 ```
 
-### Partial application
+### Částečná aplikace
+
+Částečná aplikace (partial application) znamená, že funkci dodáme jen některé argumenty a získáme novou funkci, která čeká na ty zbývající.
 
 ```haskell
 add :: Int -> Int -> Int
@@ -58,7 +60,9 @@ add5 :: Int -> Int
 add5 3            -- 8
 ```
 
-### Operator sections
+### Sekce operátorů
+
+Sekce operátoru (operator section) vznikne, když operátoru dodáme jen jeden z jeho dvou operandů, a tím vytvoříme novou unární funkci.
 
 ```haskell
 double = (*2)        -- function that doubles
@@ -73,7 +77,7 @@ filter (>10) [5,10,15,20]  -- [15,20]
 ::: viz currying-partial "Vrstvy add3 :: Int -> Int -> Int -> Int; aplikujte 1/2/3 argumenty a vidíte, jak typ a hodnota mění."
 :::
 
-### Uncurried form
+### Necurryovaná podoba
 
 ```haskell
 -- Curried (Haskell native)
@@ -89,7 +93,9 @@ curry   :: ((a, b) -> c) -> (a -> b -> c)
 uncurry :: (a -> b -> c) -> ((a, b) -> c)
 ```
 
-## Standard HOFs — list functions
+Necurryovaná funkce bere všechny argumenty najednou jako jednu n-tici (tuple). Funkce `curry` a `uncurry` mezi oběma podobami převádějí.
+
+## Standardní HOF — funkce nad seznamy
 
 ### map
 
@@ -116,7 +122,7 @@ filter even [1..10]   -- [2,4,6,8,10]
 filter (>3) [1..10]   -- [4,5,6,7,8,9,10]
 ```
 
-### foldr — right fold
+### foldr — pravý fold
 
 ```haskell
 foldr :: (a -> b -> b) -> b -> [a] -> b
@@ -131,7 +137,7 @@ product' = foldr (*) 1
 length'  = foldr (\_ acc -> acc + 1) 0
 ```
 
-### foldl — left fold
+### foldl — levý fold
 
 ```haskell
 foldl :: (b -> a -> b) -> b -> [a] -> b
@@ -142,7 +148,7 @@ foldl f z (x:xs) = foldl f (f z x) xs
 -- foldl (-) 0 [1,2,3] = ((0-1)-2)-3 = -6
 ```
 
-### foldl' — strict left fold
+### foldl' — striktní levý fold
 
 ```haskell
 import Data.List (foldl')
@@ -152,10 +158,12 @@ foldl' :: (b -> a -> b) -> b -> [a] -> b
 -- Avoids thunk buildup, preferred for accumulation
 ```
 
+Toto je striktní varianta funkce `foldl`. Mezivýsledek vyhodnocuje hned, takže se nehromadí odložené výpočty (thunky) — proto je vhodná pro průběžné sčítání a akumulaci.
+
 ::: viz fold-comparison "foldr vs foldl vs foldl' na stejném seznamu; visible stack depth + thunk buildup."
 :::
 
-### Other HOFs
+### Další HOF
 
 ```haskell
 zip :: [a] -> [b] -> [(a, b)]
@@ -185,7 +193,9 @@ span (<5) [1..10]  -- ([1,2,3,4],[5,6,7,8,9,10])
 break (==5) [1..10]  -- ([1,2,3,4],[5,6,7,8,9,10])
 ```
 
-## Function composition
+## Skládání funkcí
+
+Skládání funkcí (function composition) spojí dvě funkce do jedné: nejprve se aplikuje pravá funkce a její výsledek vstoupí do levé.
 
 ```haskell
 (.) :: (b -> c) -> (a -> b) -> (a -> c)
@@ -204,7 +214,7 @@ sumOfSquares = sum . map (^2)
 filterEvenSquared = filter even . map (^2)
 ```
 
-## Application operator $
+## Aplikační operátor $
 
 ```haskell
 ($) :: (a -> b) -> a -> b
@@ -215,11 +225,11 @@ print (1 + 2)  ==  print $ 1 + 2
 sum (filter even [1..10])  ==  sum $ filter even [1..10]
 ```
 
-Useful for chaining without nested parens.
+Hodí se k řetězení výrazů bez vnořených závorek.
 
-## Examples — practical {tier=example}
+## Příklady — z praxe {tier=example}
 
-### Sum of squares of evens
+### Součet druhých mocnin sudých čísel
 
 ```haskell
 sumSqEvens :: [Int] -> Int
@@ -228,7 +238,7 @@ sumSqEvens = sum . map (^2) . filter even
 sumSqEvens [1..10]  -- 4+16+36+64+100 = 220
 ```
 
-### Word count
+### Počítání slov
 
 ```haskell
 wordCount :: String -> Int
@@ -237,7 +247,7 @@ wordCount = length . words
 wordCount "Hello world Haskell programming"  -- 4
 ```
 
-### Frequency count
+### Počítání četností
 
 ```haskell
 import Data.List (group, sort)
@@ -248,7 +258,7 @@ freq = map (\xs -> (head xs, length xs)) . group . sort
 freq [1,2,1,3,2,1,4]  -- [(1,3),(2,2),(3,1),(4,1)]
 ```
 
-### Functional composition pipeline
+### Zpracování dat skládáním funkcí (pipeline)
 
 ```haskell
 processData :: [Int] -> Int
@@ -261,7 +271,7 @@ processData = sum
 ::: viz hof-pipeline "sum . map (^2) . filter even . take n; sledujte, kolik prvků skutečně proteče podle consumeru."
 :::
 
-## Lambdas
+## Lambda funkce
 
 ```haskell
 -- Anonymous functions
@@ -273,7 +283,7 @@ result = map (\x -> x*x + 1) [1,2,3]  -- [2,5,10]
 result = filter (\x -> x > 5 && x < 10) [1..20]  -- [6,7,8,9]
 ```
 
-## Point-free style
+## Bezbodový styl (point-free)
 
 ```haskell
 -- Pointed (explicit arguments)
@@ -287,9 +297,9 @@ sum'' = foldr (+) 0
 -- Both equivalent, point-free more concise
 ```
 
-Limity: extreme point-free can hurt readability. *Tasteful* use.
+Omezení: přehnaný bezbodový styl může čitelnost spíše zhoršit. Používejte ho proto *s mírou*.
 
-## η-conversion
+## η-konverze
 
 Klíčová idea:
 
@@ -305,7 +315,7 @@ double = \x -> 2 * x
 double = (2*)
 ```
 
-η-konverze odstraňuje *zbytečný* argument — kořen point-free style.
+η-konverze odstraňuje *zbytečný* argument — je to základ bezbodového stylu (point-free).
 
 ::: viz eta-pointfree "Krok-po-kroku derivace point-free formy z explicitního lambda; sumSq, pipeline, applyTwice."
 :::
@@ -317,7 +327,7 @@ map :: (a -> b) -> [a] -> [b]
 fmap :: Functor f => (a -> b) -> f a -> f b
 ```
 
-`map` je *specifická* pro listy.
+`map` je *specifická* pro seznamy.
 `fmap` je *obecná* pro libovolný Functor.
 
 ```haskell
@@ -326,9 +336,9 @@ fmap (*2) (Just 5)           -- Just 10  (works on Maybe)
 fmap (*2) (Right 5)          -- Right 10 (maps over Right; Left is left unchanged)
 ```
 
-## Performance considerations
+## Úvahy o výkonu
 
-### Tail recursion vs. fold
+### Koncová rekurze vs. fold
 
 ```haskell
 -- Bad: builds up thunks
@@ -347,7 +357,7 @@ sum3 :: [Int] -> Int
 sum3 = foldl' (+) 0
 ```
 
-### Map vs. list comprehension
+### map vs. seznamová komprehenze
 
 ```haskell
 -- List comprehension
@@ -357,9 +367,9 @@ sum3 = foldl' (+) 0
 map (*2) xs
 ```
 
-Compiler optimizes both well.
+Překladač (compiler) obě podoby dobře optimalizuje.
 
-## Concurrency via HOFs
+## Paralelismus pomocí HOF
 
 ```haskell
 import Control.Parallel.Strategies
@@ -369,11 +379,11 @@ parMap :: Strategy b -> (a -> b) -> [a] -> [b]
 result = parMap rdeepseq expensiveOperation bigList
 ```
 
-Parallelism *trivial* with HOFs.
+S funkcemi vyšších řádů je paralelizace *triviální*.
 
-## Functional design patterns
+## Funkcionální návrhové vzory
 
-### Builder pattern via composition
+### Vzor Builder pomocí skládání funkcí
 
 ```haskell
 buildHtml :: String -> String -> String -> String
@@ -390,7 +400,7 @@ withBody   = wrap "body"
 fullPage   = withBody . withHeader
 ```
 
-### Strategy pattern via HOF
+### Vzor Strategy pomocí HOF
 
 ```haskell
 sortStrategy :: (a -> a -> Ordering) -> [a] -> [a]
@@ -404,13 +414,13 @@ byLength   = sortStrategy (comparing length)
 
 ## Klíčové ponaučení
 
-* **HOFs** make code *concise* and *reusable*.
-* **Currying** enables *partial application*.
-* **Composition** chains operations naturally.
-* **Point-free style** highlights data flow.
-* **map / filter / fold** cover 80 % of list processing.
+* Funkce vyšších řádů (HOF) dělají kód *stručným* a *znovupoužitelným*.
+* Currying umožňuje *částečnou aplikaci* (partial application).
+* Skládání funkcí (composition) přirozeně zřetězuje operace.
+* Bezbodový styl (point-free) zvýrazňuje tok dat.
+* Funkce `map` / `filter` / `fold` pokrývají 80 % zpracování seznamů.
 
-> "A higher-order function is just a function that takes or returns another function." — straightforward, but profoundly impactful.
+> „Funkce vyššího řádu je prostě funkce, která bere nebo vrací jinou funkci." — jednoduché, ale nesmírně užitečné.
 
 ---
 

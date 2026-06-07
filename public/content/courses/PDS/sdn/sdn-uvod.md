@@ -1,113 +1,113 @@
-# Software-Defined Networking — koncept a controller
+# Softwarově definované sítě — koncept a controller
 
-Po seznámení s rovinami routeru ([[roviny-routera]]) a DCN topologiemi ([[dcn-topologie]]) přichází **SDN** — *koncept*, který má tyto tři problémy adresovat: oddělit control plane od data plane, použít commodity hardware, programovatelně řídit síť. Tato sekce vysvětluje *co je* (a *co není*) SDN, role **SDN controlleru** a *northbound/southbound* API.
+Po seznámení s rovinami routeru ([[roviny-routera]]) a topologiemi datacentrových sítí ([[dcn-topologie]]) přichází **SDN** (Software-Defined Networking) — *koncept*, který má řešit tři problémy: oddělit řídicí rovinu (control plane) od datové roviny (data plane), používat běžný komoditní hardware (commodity hardware) a programově řídit síť. Tato sekce vysvětluje, *co SDN je* (a *co není*), jakou roli hraje **SDN controller** a co jsou *northbound* a *southbound* API.
 
 ## Co je SDN (nebo není…)
 
 **SDN má tři klíčové vlastnosti:**
 
-1. **Decoupling of Forwarding Plane and Control Plane** — fyzické oddělení rovin.
-2. **Networking on white-boxes / generic hardware** — *commodity* HW místo proprietary ASIC.
-3. **Programmability support on embedded network devices to program the network** — schopnost *programovat síť* z aplikace.
+1. **Oddělení rovin (decoupling of forwarding plane and control plane)** — fyzicky oddělíme přeposílací a řídicí rovinu.
+2. **Sítě postavené na „white-boxech" / generickém hardwaru** — místo proprietárních ASIC se používá komoditní hardware (commodity hardware).
+3. **Podpora programovatelnosti přímo na síťových zařízeních (programmability)** — schopnost *programovat síť* z úrovně aplikace.
 
 **Co SDN není:**
 
-- *Není to jedno specifické řešení, technologie nebo produkt*. Je to *rozsah pokroků* v networkingu.
-- Je to **buzz word** používaný k *marketingovým účelům*, k prezentaci nových produktů.
-- Ale jsou tu *zajímavé koncepty*, které se objevují.
+- *Není to jedno konkrétní řešení, technologie ani produkt.* Je to spíš *celý rozsah pokroků* v oblasti sítí.
+- Je to také **módní slovo (buzzword)**, které se používá k *marketingovým účelům* a k prezentaci nových produktů.
+- Přesto se v něm objevují *zajímavé koncepty*, které stojí za pozornost.
 
-Vendoři (Cisco *ACI*, VMware *NSX*, Juniper *Contrail*) každý mluví o SDN, ale myslí jím *odlišné věci*. Pro studenty PDS je důležité **abstraktní pochopení** — co SDN slibuje a *proč* je relevantní.
+Výrobci (Cisco *ACI*, VMware *NSX*, Juniper *Contrail*) sice všichni mluví o SDN, ale každý jím myslí *něco jiného*. Pro studenty PDS je proto důležité **abstraktní pochopení** — co SDN slibuje a *proč* je to relevantní.
 
 ## Co SDN slibuje
 
-> SDN aims to:
+> Cílem SDN je:
 >
-> - Transform the networking industry and challenge the way we build and manage networks today.
-> - Allow administrators to easily control the network, in the same way applications and operating systems.
-> - Bring more flexibility to networking to influence design and operations from external applications.
-> - Provide new ways of interaction with network devices.
+> - Proměnit odvětví sítí a zpochybnit dnešní způsob, jakým sítě stavíme a spravujeme.
+> - Umožnit administrátorům snadno řídit síť — stejně, jako řídí aplikace a operační systémy.
+> - Vnést do sítí větší flexibilitu, aby bylo možné ovlivňovat jejich návrh a provoz z externích aplikací.
+> - Poskytnout nové způsoby interakce se síťovými zařízeními.
 
-Klíčové slovo: **flexibility**. Klasická síť je *rigidní* — VLAN, BGP konfigurace se mění pomalu. SDN slibuje **API**, přes které aplikace *řídí* síť stejně, jako řídí storage či compute.
+Klíčové slovo je **flexibilita (flexibility)**. Klasická síť je *rigidní* — konfigurace VLAN nebo BGP se mění pomalu. SDN slibuje **API**, přes které aplikace *řídí* síť stejně snadno, jako řídí úložiště (storage) či výpočetní výkon (compute).
 
 ## Omezení současné technologie
 
-- Síťová zařízení používají *protokoly/algoritmy* (BGP, OSPF, MPLS), které **nejsou známé** ostatnímu IT personálu.
-- Interakce se sítí vyžaduje *jazyk*, který *málo lidí v organizaci rozumí* — *vendor-specific CLI*.
-- Existují *use cases*, které je *těžké přeložit do síťové konfigurace ručně*.
+- Síťová zařízení používají *protokoly a algoritmy* (BGP, OSPF, MPLS), které **zbytek IT personálu nezná**.
+- Interakce se sítí vyžaduje *jazyk*, kterému *v organizaci rozumí jen málokdo* — typicky CLI specifické pro daného výrobce (vendor-specific CLI).
+- Existují *scénáře použití (use cases)*, které je *těžké ručně přeložit do síťové konfigurace*.
 
-V *DevOps* éře, kdy *aplikace* deploy přes Kubernetes během minut, *síť* nemůže být týdny zpožděna.
+V éře *DevOps*, kdy se *aplikace* nasadí (deploy) přes Kubernetes během minut, nemůže *síť* zaostávat o celé týdny.
 
-## SDN adresuje potřeby
+## Jak SDN řeší tyto potřeby
 
-- **Centralizovaná konfigurace, management/control, monitoring** síťových zařízení (fyzických či virtuálních).
-- *Schopnost přepsat tradiční forwarding algoritmy* pro unique business/technical needs.
-- *Umožnit externím aplikacím* nebo systémům **ovlivňovat provisioning a operace** sítě.
-- **Rapid and scalable deployment** síťových služeb s *lifecycle management*.
+- **Centralizovaná konfigurace, správa, řízení a monitoring** síťových zařízení (fyzických i virtuálních).
+- *Schopnost přepsat tradiční přeposílací (forwarding) algoritmy* podle specifických obchodních či technických potřeb.
+- *Umožnit externím aplikacím* nebo systémům **ovlivňovat poskytování (provisioning) a provoz** sítě.
+- **Rychlé a škálovatelné nasazení (rapid and scalable deployment)** síťových služeb včetně správy jejich životního cyklu (lifecycle management).
 
-## SDN koncepty
+## Koncepty SDN
 
 ### Co bychom rádi měli
 
-- *Automatický a konzistentní deploy síťových služeb*.
-- *Konzistentní policies*.
-- *End-to-end visibility*.
-- *Rozhodnutí přijatá na centralizovaném pohledu na end-to-end visibility*.
-- *Automatic programming nebo konfigurace síťových zařízení*.
+- *Automatické a konzistentní nasazení síťových služeb.*
+- *Konzistentní pravidla (policies).*
+- *Viditelnost přes celou cestu (end-to-end visibility).*
+- *Rozhodnutí přijatá na základě centralizovaného pohledu na celou cestu (end-to-end).*
+- *Automatické programování nebo konfiguraci síťových zařízení.*
 
 ### Obvyklé námitky
 
-- *Jak se to liší od Single-Pane-of-Glass?* (Vendor management tools už existují — Cisco DNAC, HPE IMC.)
-- *Co se stane při network partition?* (Centralizovaný controller je SPOF.)
-- *Proč by to mělo fungovat tentokrát?* (Centralizace byla zkoušena — ATM signaling, *softswitche* v telekomu — selhalo.)
+- *Jak se to liší od přístupu „jedno společné okno" (Single-Pane-of-Glass)?* (Nástroje pro správu od výrobců už existují — Cisco DNAC, HPE IMC.)
+- *Co se stane při rozpadu sítě na části (network partition)?* (Centralizovaný controller je jediný bod selhání — SPOF.)
+- *Proč by to mělo fungovat zrovna teď?* (Centralizace se už zkoušela — signalizace v ATM, *softswitche* v telekomunikacích — a selhala.)
 
 ## Co lze a nelze udělat se stávajícími protokoly
 
 **Snadné:**
 
-- *Programmatic device configuration* (management plane interactions přes NETCONF/RESTCONF).
-- *IP forwarding table modifications* (BGP, BGP Flowspec).
-- *Simple edge policy enforcement* (per-user ACLs).
-- *Topology discovery and extraction* (LLDP).
+- *Programová konfigurace zařízení* (interakce s rovinou správy přes NETCONF/RESTCONF).
+- *Úpravy IP přeposílacích tabulek* (BGP, BGP Flowspec).
+- *Jednoduché vynucení pravidel na okraji sítě* (ACL pro jednotlivé uživatele).
+- *Zjišťování a extrakce topologie* (LLDP).
 
 **Těžší:**
 
-- *Non-standard forwarding models* (např. source-based IP routing).
-- *Multi-vendor solutions* (few standard YANG models, vendor-specific RADIUS attributes).
-- *End-to-end transactional consistency and visibility*.
+- *Nestandardní přeposílací modely* (např. směrování IP podle zdroje).
+- *Řešení napříč více výrobci* (málo standardních modelů YANG, atributy RADIUS specifické pro výrobce).
+- *Transakční konzistence a viditelnost přes celou cestu (end-to-end).*
 
-**Nemožné s existujícími protokoly:**
+**Nemožné se stávajícími protokoly:**
 
-- *Nové control-plane protokoly*.
-- *Modifikace chování existujících control-plane protokolů*.
+- *Nové protokoly řídicí roviny (control-plane).*
+- *Změna chování stávajících protokolů řídicí roviny.*
 
-Tady přichází **OpenFlow** ([[openflow-nfv-p4]]) — *nahrazuje* existující control plane *programovatelným kontroleréem*.
+A právě tady přichází na řadu **OpenFlow** ([[openflow-nfv-p4]]) — *nahrazuje* stávající řídicí rovinu *programovatelným controllerem*.
 
-## SDN Toolbox — existující nástroje
+## Sada nástrojů SDN — stávající protokoly
 
-Před OpenFlow se SDN dělalo *přes existující protokoly*:
+Před příchodem OpenFlow se SDN dělalo *pomocí stávajících protokolů*:
 
-| Plane | Protokoly |
+| Rovina | Protokoly |
 | :--- | :--- |
-| Management | **NETCONF**, **SNMP**, RESTCONF |
-| Control | **BGP** (FlowSpec, route injection), PCEP |
+| Správa | **NETCONF**, **SNMP**, RESTCONF |
+| Řízení | **BGP** (FlowSpec, vkládání tras), PCEP |
 | Data | **ForCES**, BGP Flowspec, MPLS-TP |
 
-To je *„soft SDN"* — používá *existující* protokoly k *centralizovanému* řízení. Stále má každé zařízení *vlastní control plane*; SDN controller jen *injektuje* policies.
+To je takzvané *„soft SDN"* — používá *stávající* protokoly k *centralizovanému* řízení. Každé zařízení přitom stále má *vlastní řídicí rovinu*; SDN controller do něj jen *vkládá* pravidla (policies).
 
-## SDN Toolbox — emerging protocols
+## Sada nástrojů SDN — nově vznikající protokoly
 
-S OpenFlow přišly **emerging** protokoly:
+S OpenFlow přišly **nově vznikající (emerging)** protokoly:
 
-| Plane | Protokoly |
+| Rovina | Protokoly |
 | :--- | :--- |
-| Management | **OF-Config**, **XMPP**, **OVSDB**, Puppet/Chef |
-| Control | **I2RS** (Interface to Routing System), **OVSDB** |
+| Správa | **OF-Config**, **XMPP**, **OVSDB**, Puppet/Chef |
+| Řízení | **I2RS** (Interface to Routing System), **OVSDB** |
 | Data | **OpenFlow** |
-| Proprietary | Cisco OnePK |
+| Proprietární | Cisco OnePK |
 
-To je *„hard SDN"* — *plné rozbití* tradičních rovin a *přesun control plane* do controlleru.
+To je takzvané *„hard SDN"* — *úplné rozbití* tradičních rovin a *přesun řídicí roviny* do controlleru.
 
-## SDN Controller
+## SDN controller
 
 ```
                 Northbound API
@@ -132,40 +132,40 @@ To je *„hard SDN"* — *plné rozbití* tradičních rovin a *přesun control 
                 Southbound API
 ```
 
-**SDN Controller** = *centralizovaný proces*, který:
+**SDN controller** = *centralizovaný proces*, který:
 
-- **Northbound** (k *aplikacím*): nabízí *REST API*, plug-iny, proprietární SDK.
-- **Southbound** (k *switchům*): používá **OpenFlow**, OnePK, *CLI/SNMP* pro vendor specific zařízení.
+- **Směrem nahoru (northbound)** — k *aplikacím*: nabízí *REST API*, plug-iny a proprietární SDK.
+- **Směrem dolů (southbound)** — k *přepínačům (switchům)*: používá **OpenFlow**, OnePK a *CLI/SNMP* pro zařízení od konkrétních výrobců.
 
 ### Funkce controlleru
 
-- **Control/Data plane separation** — typicky přes *OpenFlow*.
-- **Control- nebo Management plane interaction**:
-  - *Existing/new control-plane protocols* (BGP, BGP FlowSpec, I2RS).
-  - *Existing/new management-plane protocols* (NETCONF, XMPP, OpFlex).
-- **Decoupling and abstracting:**
-  - *Overlay virtual networks* (VMware NSX).
-  - *Wireless controllers* (Cisco DNA).
-  - *VPN solutions*.
-- **Proprietary vendor APIs:** Juniper SDK, Cisco OnePK, Arista eAPI, F5 iControl.
+- **Oddělení řídicí a datové roviny (control/data plane separation)** — typicky přes *OpenFlow*.
+- **Interakce s řídicí rovinou nebo rovinou správy:**
+  - *Stávající i nové protokoly řídicí roviny* (BGP, BGP FlowSpec, I2RS).
+  - *Stávající i nové protokoly roviny správy* (NETCONF, XMPP, OpFlex).
+- **Oddělení a abstrakce:**
+  - *Překryvné virtuální sítě (overlay virtual networks)* (VMware NSX).
+  - *Bezdrátové controllery* (Cisco DNA).
+  - *Řešení VPN.*
+- **Proprietární API výrobců:** Juniper SDK, Cisco OnePK, Arista eAPI, F5 iControl.
 
-Známí SDN controlery: **OpenDaylight** (Linux Foundation), **ONOS** (open-source), **Ryu** (Python), **Floodlight**, **NOX**/**POX**.
+Známé SDN controllery: **OpenDaylight** (Linux Foundation), **ONOS** (open-source), **Ryu** (Python), **Floodlight**, **NOX**/**POX**.
 
-Reálné nasazení: *většina enterprise* nemá *čistý* SDN. Mají *hybrid* — některé části (VXLAN overlay, datacentrum) jsou SDN-řízené, jiné (campus, WAN) zůstávají tradiční.
+Reálné nasazení: *většina podniků* nemá *čisté* SDN. Mají *hybrid* — některé části (překryv VXLAN, datacentrum) jsou řízené přes SDN, jiné (kampusová síť, WAN) zůstávají tradiční.
 
-## Reality check
+## Kontrola reality
 
-Ve **2015–2018** byl SDN *velký hype*. Dnes je *pragmatičtější* — SDN se prosadil hlavně:
+V letech **2015–2018** byl SDN *velkým hypem*. Dnes se na něj díváme *pragmatičtěji* — prosadil se hlavně:
 
 - *V datacentrech* (Google B4 WAN, Microsoft SWAN, Facebook Express Backbone).
 - *V SD-WAN* (Cisco Viptela, Versa Networks).
-- *Pro cloud overlay* (VMware NSX, Cisco ACI).
+- *Pro cloudové překryvy (overlay)* (VMware NSX, Cisco ACI).
 
-Klasické **campus / enterprise** sítě zůstávají *převážně tradiční*. Reality check: SDN je *uskutečnitelný*, ale *není* univerzální řešení.
+Klasické **kampusové a podnikové (enterprise)** sítě zůstávají *převážně tradiční*. Kontrola reality: SDN je *uskutečnitelný*, ale *není* univerzálním řešením.
 
 ## Co dále
 
-S abstrakcí SDN v ruce probereme **konkrétní technologie** — **OpenFlow**, **NFV**, **P4** ([[openflow-nfv-p4]]) — *tři pilíře* moderní programovatelné sítě.
+S abstrakcí SDN v ruce probereme **konkrétní technologie** — **OpenFlow**, **NFV** a **P4** ([[openflow-nfv-p4]]) — *tři pilíře* moderní programovatelné sítě.
 
 ---
 

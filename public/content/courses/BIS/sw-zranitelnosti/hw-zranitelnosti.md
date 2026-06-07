@@ -1,18 +1,18 @@
 ---
-title: Hardware vulnerabilities — Spectre, Meltdown, Rowhammer
+title: Hardwarové zranitelnosti — Spectre, Meltdown, Rowhammer
 ---
 
-# Hardware-level zranitelnosti — Spectre, Meltdown, Rowhammer
+# Hardwarové zranitelnosti — Spectre, Meltdown, Rowhammer
 
-Software-level zranitelnosti ([[buffer-overflow]], [[injekce-utoky]]) řeší *implementační chyby*. **Hardware vulnerabilities** jsou *fundamental flaws* v CPU/RAM designu — *nelze* fix v softwaru beze ztráty výkonu.
+Softwarové zranitelnosti ([[buffer-overflow]], [[injekce-utoky]]) řeší *implementační chyby* v programech. Hardwarové zranitelnosti (hardware vulnerabilities) jsou naproti tomu *zásadní vady v návrhu* (fundamental flaws) procesoru nebo paměti RAM — *nelze* je opravit v softwaru bez ztráty výkonu. Jinými slovy: chyba je „zadrátovaná" přímo v křemíku, takže obejít ji jde jen za cenu pomalejšího chodu.
 
 ## Spectre (2018)
 
-Spectre využívá **spekulativní vykonávání** ([[spekulace-vyjimky]]) v moderních OoO CPU.
+Spectre zneužívá **spekulativní vykonávání** ([[spekulace-vyjimky]]) v moderních procesorech vykonávajících instrukce mimo pořadí (out-of-order, OoO).
 
 ### Princip
 
-CPU spekuluje *za* podmíněný skok. Pokud spekulace špatná, výsledky se *zruší* — ale *cache effects* zůstávají.
+Procesor spekuluje, co bude *za* podmíněným skokem (branch), a začne to počítat dopředu. Pokud byla spekulace špatná, výsledky se *zruší* — jenže *vedlejší efekty v cache* (cache effects) zůstanou. A právě tyto zbylé stopy v cache jdou změřit.
 
 ```c
 if (x < array1_size) {
@@ -20,37 +20,37 @@ if (x < array1_size) {
 }
 ```
 
-1. Attacker trains predictor: typical `x < array1_size` → true.
-2. Attacker calls with `x` out of bounds → `array1[x]` = secret (e.g., kernel memory).
-3. CPU speculatively loads `array2[secret * 256]` into L1 cache.
-4. Branch resolves: actually `x >= array1_size` → discard.
-5. Cache *retains* line at `array2 + secret * 256`.
-6. Attacker times reads from various indices into array2 — finds *fast* one → reveals secret.
+1. Útočník natrénuje prediktor: pro běžné hodnoty platí `x < array1_size` → pravda.
+2. Útočník zavolá kód s hodnotou `x` mimo meze pole → `array1[x]` je tajná hodnota (například paměť jádra).
+3. Procesor spekulativně načte `array2[secret * 256]` do cache úrovně L1.
+4. Skok se vyhodnotí: ve skutečnosti `x >= array1_size` → výsledek se zahodí.
+5. Cache si však *ponechá* řádek na adrese `array2 + secret * 256`.
+6. Útočník postupně měří dobu čtení z různých indexů pole `array2` — najde ten *rychlý* (už nahraný v cache) → tím odhalí tajnou hodnotu.
 
 ### Spectre v1 (CVE-2017-5753)
 
-Bounds check bypass. As above.
+Obejití kontroly mezí (bounds check bypass). Funguje přesně tak, jak je popsáno výše.
 
 ### Spectre v2 (CVE-2017-5715)
 
-Branch target injection. Attacker trains *BTB* (branch target buffer) → cross-process speculation jumps to attacker-controlled gadget.
+Vstříknutí cíle skoku (branch target injection). Útočník natrénuje *BTB* (branch target buffer, tedy vyrovnávací paměť cílů skoků) tak, aby spekulace přeskočila — i napříč procesy — na útočníkem řízený kousek kódu (gadget).
 
-### Mitigations
+### Protiopatření
 
-- **Retpoline** — compiler replaces indirect branches with safe alternatives.
-- **IBRS / IBPB** — Intel microcode controls (flush BTB).
-- **STIBP** — Single Thread Indirect Branch Predictors.
-- **LFENCE** — explicit barrier in critical code.
-- **Kernel hardening** — Linux kernel patches.
+- **Retpoline** — překladač (compiler) nahradí nepřímé skoky bezpečnou alternativou.
+- **IBRS / IBPB** — mikrokódové ovládací prvky Intelu (vyprázdní BTB).
+- **STIBP** — Single Thread Indirect Branch Predictors (oddělení prediktorů skoků mezi vlákny).
+- **LFENCE** — explicitní bariéra vložená do kritického místa kódu.
+- **Zpevnění jádra** — záplaty linuxového jádra.
 
-Performance cost: 5-30 % depending on workload. Database, kernel-heavy workloads worst.
+Cena za výkon (performance) je 5–30 % podle druhu zátěže. Nejhůře dopadají databáze a úlohy, které hodně volají jádro.
 
-::: viz spectre-cache-timing "Step skrz training → speculative OOB load → squash → FLUSH+RELOAD probe. Histogram timing odhalí leaked byte — cache stopa přežije rollback."
+::: viz spectre-cache-timing "Krok za krokem: trénink prediktoru → spekulativní čtení mimo meze → zrušení → sonda FLUSH+RELOAD. Histogram časů odhalí uniklý bajt — stopa v cache přežije zrušení spekulace."
 :::
 
 ## Meltdown (CVE-2017-5754)
 
-Specific to Intel CPUs (and some ARM). Permission check *after* speculative load:
+Týká se konkrétně procesorů Intel (a některých ARM). Kontrola oprávnění proběhne *až po* spekulativním načtení:
 
 ```c
 *(volatile char *)kernel_address;   // attacker, normally page fault
@@ -59,62 +59,62 @@ Specific to Intel CPUs (and some ARM). Permission check *after* speculative load
 // Permission check raises exception, but cache already poisoned
 ```
 
-Allowed reading *any* kernel memory from userspace. Massive vulnerability.
+Umožňovalo to číst *libovolnou* paměť jádra z uživatelského prostoru. Šlo o obrovskou zranitelnost.
 
-### Affected
+### Zasažené procesory
 
-- Intel CPUs since 1995 (most).
+- Procesory Intel od roku 1995 (většina).
 - ARM Cortex-A75.
-- AMD *not* affected (permission check *before* speculation).
+- AMD zasaženo *nebylo* (kontroluje oprávnění *před* spekulací).
 
-### Mitigations
+### Protiopatření
 
-- **KPTI** (Kernel Page Table Isolation) — Linux 4.15+. Kernel pages mapped only when in kernel mode. ~5-30 % perf hit on syscall-heavy workloads.
-- **Microcode** patches.
-- **Silicon fix** — Intel Ice Lake (2019) and later fixed in HW.
+- **KPTI** (Kernel Page Table Isolation, izolace tabulek stránek jádra) — Linux 4.15 a novější. Stránky jádra jsou namapované jen tehdy, když je procesor v režimu jádra. Propad výkonu asi 5–30 % u úloh s mnoha systémovými voláními.
+- Záplaty **mikrokódu**.
+- **Oprava v křemíku** — Intel Ice Lake (2019) a novější mají vadu opravenou přímo v hardwaru.
 
 ## L1TF / Foreshadow (CVE-2018-3615/3620/3646)
 
-L1 Terminal Fault. Speculative reads can access L1 cache *across* hyperthread or context.
+L1 Terminal Fault. Spekulativní čtení dokáže sáhnout do cache úrovně L1 *napříč* hyperthreadem nebo kontextem.
 
-VM escape — guest VM could read host memory.
+Únik z virtuálního stroje (VM escape) — hostovaný virtuální stroj mohl číst paměť hostitele.
 
-### Mitigations
+### Protiopatření
 
-- **L1D flush** at VM exit.
-- **Disable Hyper-Threading** — common cloud mitigation.
+- **Vyprázdnění L1D** při opuštění virtuálního stroje.
+- **Vypnutí Hyper-Threadingu** — běžné protiopatření v cloudu.
 
-Performance hit on cloud VMs significant.
+Propad výkonu u cloudových virtuálních strojů je značný.
 
 ## MDS — Microarchitectural Data Sampling (2019)
 
-Several variants: ZombieLoad, RIDL, Fallout, Store-to-Leak.
+Vzorkování dat z mikroarchitektury. Má několik variant: ZombieLoad, RIDL, Fallout, Store-to-Leak.
 
-Leak data from internal CPU buffers (load buffer, store buffer, fill buffer).
+Unikají při něm data z vnitřních bufferů procesoru (load buffer, store buffer, fill buffer).
 
-### Mitigations
+### Protiopatření
 
-- **MDS_CLEAR** microcode — flush buffers on context switch.
-- Disable Hyper-Threading.
+- Mikrokód **MDS_CLEAR** — vyprázdní buffery při přepnutí kontextu.
+- Vypnutí Hyper-Threadingu.
 
 ## Hertzbleed (2022)
 
-CPU frequency scaling (DVFS) creates power-frequency side channel. Attacker can extract keys remotely by timing.
+Dynamické škálování frekvence procesoru (DVFS) vytváří postranní kanál mezi spotřebou a frekvencí. Útočník dokáže vzdáleně získat klíče (key) jen z měření času.
 
-### Mitigations
+### Protiopatření
 
-- Constant-time crypto implementations.
-- DVFS disable for sensitive code (lower perf).
+- Kryptografie implementovaná v konstantním čase (constant-time).
+- Vypnutí DVFS pro citlivý kód (za cenu nižšího výkonu).
 
 ## Rowhammer (2014)
 
-DRAM bit flip via repeated row access.
+Překlopení bitu v paměti DRAM opakovaným přístupem na řádek.
 
 ### Princip
 
-DRAM = capacitors in 2D array. Reading row "refreshes" it. Adjacent rows leak charge.
+Paměť DRAM je tvořena kondenzátory uspořádanými do dvourozměrného pole. Čtení řádku jej zároveň „osvěží" (obnoví náboj). Sousední řádky přitom postupně ztrácejí náboj.
 
-Hammer ("hammer") row repeatedly → adjacent rows lose charge → bits flip.
+Když útočník na jeden řádek „buší" (hammer) znovu a znovu, sousední řádky ztratí náboj natolik, že se v nich překlopí bity.
 
 ```c
 char *p1 = aggressor_row;
@@ -125,31 +125,31 @@ while (1) {
 }
 ```
 
-Hundreds of thousands of accesses per second per location → bits flip.
+Stovky tisíc přístupů za sekundu na jedno místo → bity se začnou překlápět.
 
-### Impact
+### Dopad
 
-- Page table corruption — attacker gains kernel privilege (no software bug needed).
-- ECC bypass — flip 2+ bits, ECC misses.
-- DDR4 *targeted row refresh (TRR)* mitigation — broken in 2020 (TRRespass).
+- Poškození tabulky stránek — útočník získá oprávnění jádra (a to bez jediné softwarové chyby).
+- Obejití ECC — překlopí-li se 2 a více bitů, kontrola ECC chybu nezachytí.
+- Protiopatření *targeted row refresh (TRR)* v pamětech DDR4 — prolomeno v roce 2020 (TRRespass).
 
-### Mitigations
+### Protiopatření
 
-- **ECC RAM** — detects single bit flip. Multi-bit flips can still get through.
-- **TRR** (Targeted Row Refresh) — DRAM refreshes specific rows after suspicious access patterns.
-- **Hardware refresh frequency** — refresh more often → less time for bits to flip.
-- **DRAM with on-die ECC** — DDR5 default.
+- **ECC RAM** — odhalí překlopení jednoho bitu. Vícebitová překlopení ale stále mohou projít.
+- **TRR** (Targeted Row Refresh, cílené obnovení řádku) — paměť DRAM po podezřelém vzoru přístupů obnoví konkrétní řádky.
+- **Hardwarová frekvence obnovování** — častější obnovování → méně času na to, aby se bity stihly překlopit.
+- **DRAM s ECC přímo na čipu (on-die ECC)** — u DDR5 ve výchozím stavu.
 
-Not fully solved. Ongoing arms race.
+Problém není zcela vyřešen. Jde o trvalé závody ve zbrojení mezi útoky a obranou.
 
-::: viz rowhammer-flip "Vyber aggressor rows; pumpuj accesses; sleduj, kdy victim row začne bipartitě bity. Toggle TRR / ECC — uvidíš, který flips ještě projdou."
+::: viz rowhammer-flip "Vyber agresorské řádky; pumpuj přístupy; sleduj, kdy se v obětovaném řádku začnou překlápět bity. Přepínej TRR / ECC — uvidíš, která překlopení ještě projdou."
 :::
 
-## Side channels — beyond CPU
+## Postranní kanály — i mimo procesor
 
-### Timing attacks
+### Časové útoky (timing attacks)
 
-Variations in execution time leak info. Classic: compare strings character by character → time differs based on prefix match.
+Z odchylek v době vykonávání lze odvodit informace. Klasický příklad: porovnávání řetězců znak po znaku → doba se liší podle toho, jak dlouhý je shodný začátek.
 
 ```c
 for (i = 0; i < strlen(secret); i++)
@@ -157,9 +157,9 @@ for (i = 0; i < strlen(secret); i++)
 return true;
 ```
 
-Time grows with matching prefix length. Attacker iterates char by char, measures time → learns secret.
+Doba roste s délkou shodného začátku. Útočník postupuje znak po znaku, měří čas → a tak se dozví tajný řetězec.
 
-Defense: **constant-time** comparison — always iterate full length.
+Obrana: porovnání v **konstantním čase** (constant-time) — vždy projdeme celou délku.
 
 ```c
 int diff = 0;
@@ -168,60 +168,60 @@ for (i = 0; i < strlen(secret); i++)
 return diff == 0;
 ```
 
-### Power analysis
+### Analýza spotřeby (power analysis)
 
-Measure CPU power consumption → infer operations. Differential Power Analysis (DPA) extracts crypto keys from smart cards.
+Z měření spotřeby procesoru lze usoudit, jaké operace probíhají. Diferenciální výkonová analýza (Differential Power Analysis, DPA) dokáže získat kryptografické klíče z čipových karet.
 
-Detail v [[spa-dpa|postranní kanály]].
+Podrobně viz [[spa-dpa|postranní kanály]].
 
-### EM emanations (TEMPEST)
+### Elektromagnetické vyzařování (TEMPEST)
 
-Electronic devices emit EM radiation containing data signals. NSA TEMPEST program protects high-security systems.
+Elektronická zařízení vyzařují elektromagnetické záření, které nese datové signály. Program NSA TEMPEST chrání před tímto únikem vysoce zabezpečené systémy.
 
-Civilian: keyboard EM emissions readable at meters away.
+V civilním prostředí: elektromagnetické vyzařování klávesnice lze odečíst i na vzdálenost několika metrů.
 
-Defense: shielding (Faraday cage), filters.
+Obrana: stínění (Faradayova klec), filtry.
 
-### Cache timing
+### Časování cache (cache timing)
 
-Probe cache state to infer victim's memory access pattern. PRIME+PROBE, FLUSH+RELOAD methods.
+Sondováním stavu cache lze odvodit, ke kterým místům v paměti oběť přistupovala. Používají se metody PRIME+PROBE a FLUSH+RELOAD.
 
-Foundation of Spectre/Meltdown exploitation.
+Tvoří základ pro zneužití Spectre a Meltdownu.
 
-## Supply chain attacks
+## Útoky na dodavatelský řetězec (supply chain attacks)
 
-Not exactly hw vulnerabilities, but related:
+Nejde úplně o hardwarové zranitelnosti, ale souvisí s nimi:
 
-### Hardware implants
+### Hardwarové implantáty
 
-Suspected: NSA, Chinese gov implant chips in routers, servers (Bloomberg "Supermicro" 2018, contested).
+Podezření: NSA a čínská vláda mají vkládat čipy do routerů a serverů (kauza Bloombergu „Supermicro" z roku 2018, dodnes zpochybňovaná).
 
-Confirmed: Snowden leaks revealed NSA ANT catalog with HW implants.
+Potvrzeno: Snowdenovy úniky odhalily katalog NSA ANT obsahující hardwarové implantáty.
 
-### Firmware-level malware
+### Škodlivý kód na úrovni firmwaru
 
-UEFI rootkits (LoJax 2018), Intel ME (Management Engine) vulnerabilities.
+Rootkity ve firmwaru UEFI (LoJax 2018), zranitelnosti Intel ME (Management Engine).
 
-### Counterfeit chips
+### Padělané čipy
 
-Fake chips with different specs or backdoors. Government supply chain scrutiny grew.
+Falešné čipy s odlišnými parametry nebo se zadními vrátky (backdoor). Kontrola dodavatelského řetězce na úrovni států proto zesílila.
 
-## Why hardware vulnerabilities matter
+## Proč na hardwarových zranitelnostech záleží
 
-- **Bypass software security** — no software patch fixes underlying flaw.
-- **Performance cost** of mitigations is significant.
-- **Long replacement cycle** — CPUs in service 10-20 years.
-- **Multiple vulnerabilities** in same era — Spectre/Meltdown/MDS/L1TF together.
+- **Obcházejí softwarové zabezpečení** — žádná softwarová záplata neopraví vadu v základech.
+- **Cena za výkon** u protiopatření je značná.
+- **Dlouhý cyklus obměny** — procesory bývají v provozu 10–20 let.
+- **Více zranitelností v téže době** — Spectre, Meltdown, MDS a L1TF se objevily pohromadě.
 
-⇒ Hardware security *fundamental*. Software just builds on top.
+⇒ Hardwarové zabezpečení je *zásadní*. Software na něm pouze staví.
 
-## Future
+## Budoucnost
 
-- **CHERI** (Capability Hardware Enhanced RISC Instructions) — Cambridge research. Hardware capability-based access control.
-- **Arm Morello** — first CHERI-based commercial.
-- **RISC-V security extensions** — PMP (Physical Memory Protection), CHERI.
+- **CHERI** (Capability Hardware Enhanced RISC Instructions) — výzkum z Cambridge. Hardwarové řízení přístupu (access control) založené na schopnostech (capabilities).
+- **Arm Morello** — první komerční procesor postavený na CHERI.
+- **Bezpečnostní rozšíření RISC-V** — PMP (Physical Memory Protection, ochrana fyzické paměti), CHERI.
 
-Post-Spectre era: CPU vendors *compete* on security characteristics, not just performance. New design discipline.
+Doba po Spectre: výrobci procesorů spolu *soutěží* už nejen ve výkonu, ale i v bezpečnostních vlastnostech. Vzniká tím nová návrhářská disciplína.
 
 ---
 

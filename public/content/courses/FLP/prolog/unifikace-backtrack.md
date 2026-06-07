@@ -6,11 +6,11 @@ title: Unifikace a backtracking (legacy)
 
 > **POZOR — LEGACY MATERIÁL:** Tato problematika *není zařazena* od **akademického roku 2026/27**. Prolog byl nahrazen jazykem **[[rust-ownership|Rust]]**.
 
-**Unifikace** a **backtracking** jsou *dva* hlavní výpočetní mechanismy Prologu. Unifikace nahrazuje *assignment* + *pattern matching* + *equality check*. Backtracking automaticky *prohledává* prostor řešení. Spolu tvoří *engine* Prologu.
+**Unifikace** a **backtracking** jsou *dva* hlavní výpočetní mechanismy Prologu. Unifikace v sobě spojuje přiřazení (assignment), porovnávání vzorů (pattern matching) i ověření rovnosti (equality check). Backtracking automaticky *prohledává* prostor řešení. Společně tvoří výkonné jádro (engine) Prologu.
 
 ## Unifikace
 
-**Unifikace** je proces zjištění, zda lze *dva termy učinit identické* substitucí proměnných.
+**Unifikace** je proces, který zjišťuje, zda lze *dva termy učinit identickými* pomocí substituce proměnných.
 
 ### Pravidla
 
@@ -35,7 +35,7 @@ foo(X) = foo(X, Y).      % false (different arities)
 [1,X,3] = [Y,2,Z].  % Y = 1, X = 2, Z = 3
 ```
 
-### Algorithm
+### Algoritmus
 
 ```
 unify(X, Y):
@@ -49,7 +49,7 @@ unify(X, Y):
     return false  // different functors/arities
 ```
 
-### Příklad — recursive unification
+### Příklad — rekurzivní unifikace
 
 ```prolog
 ?- foo(X, bar(Y, Z)) = foo(a, bar(b, c)).
@@ -62,22 +62,22 @@ H = 1, T = [2, 3].
 X = a, Y = b, Z = b.
 ```
 
-### Occurs check
+### Kontrola výskytu (occurs check)
 
-Klasický algoritmus *neprovádí* occurs check (performance reasons):
+Klasický algoritmus *neprovádí* kontrolu výskytu (occurs check) — a to z výkonnostních důvodů. Kontrola výskytu by ověřovala, že se proměnná nevyskytuje uvnitř termu, kterým ji nahrazujeme:
 
 ```prolog
 ?- X = f(X).   % BAD — creates infinite term
 ```
 
-Některé implementace mají `unify_with_occurs_check/2` pro safe unification.
+Některé implementace nabízejí predikát `unify_with_occurs_check/2` pro bezpečnou unifikaci.
 
 ::: viz prolog-unify-tree "Krok-po-kroku unifikace dvou termů; vidíte substituci σ, occurs check, různé funktory."
 :::
 
 ## Backtracking
 
-Po nezdaru pokusu Prolog *vrátí se* k poslední choice a zkusí jinou variantu.
+Když pokus o splnění cíle selže, Prolog se *vrátí* k poslednímu rozhodovacímu bodu (choice point) a zkusí jinou variantu.
 
 ### Příklad
 
@@ -115,7 +115,7 @@ Goal: parent(tom, X)
 ::: viz prolog-sld-tree "SLD resolution strom s success/fail/redo větvemi; cut (!) viditelně odřízne alternativy."
 :::
 
-### Backtracking v komplexním cíli
+### Backtracking ve složeném cíli
 
 ```prolog
 ?- parent(tom, X), parent(X, Y).
@@ -136,7 +136,7 @@ false.
 
 ## Cut (!)
 
-**Cut** je *speciální* operátor, který **commits** k current choice a *zakáže* backtracking dál.
+**Cut** je *speciální* operátor, který se *zaváže* (commit) k aktuálnímu rozhodnutí a *zakáže* další backtracking.
 
 ```prolog
 member1(X, [X|_]).
@@ -172,7 +172,7 @@ M = 7.
 
 ### Cut komplikuje sémantiku
 
-Cut *porušuje* deklarativní význam programu:
+Cut *porušuje* deklarativní význam programu — najednou začíná záležet na pořadí čtení klauzulí:
 
 ```prolog
 % Reading order matters
@@ -183,11 +183,11 @@ foo(X, Y) :- r(X, Y).         % only if p(X) fails
 % But cut prevents trying second clause IF p succeeded
 ```
 
-Considered **bad style** in modern Prolog programming.
+V moderním programování v Prologu je tento přístup považován za **špatný styl**.
 
-## Failure-driven loops
+## Smyčky řízené selháním (failure-driven loops)
 
-Prolog *generuje* všechna řešení přes backtracking:
+Prolog *generuje* všechna řešení pomocí backtrackingu:
 
 ```prolog
 % Print all parents
@@ -205,11 +205,11 @@ bob is parent of pat
 true.
 ```
 
-`fail` forces backtracking; final clause succeeds.
+`fail` vynutí backtracking; poslední klauzule pak na závěr uspěje.
 
 ## findall, bagof, setof
 
-Modern approach to collecting solutions:
+Modernější přístup ke sbírání všech řešení do seznamu:
 
 ```prolog
 % findall — all solutions, can be empty
@@ -225,7 +225,7 @@ Children = [bob, liz].
 Children = [bob, liz].
 ```
 
-## Negation as failure
+## Negace jako selhání (negation as failure)
 
 ```prolog
 \+ Goal.   % "not provable that Goal"
@@ -240,13 +240,13 @@ false.  % HE IS the parent
 true.   % cannot prove tom is ann's parent
 ```
 
-**Important:** `\+ G` ≠ "G is false". It means "cannot prove G with current KB".
+**Důležité:** `\+ G` *není* totéž co „G je nepravdivé". Znamená to „G nelze dokázat ze současné báze znalostí (KB)".
 
-### Closed-world assumption
+### Předpoklad uzavřeného světa (closed-world assumption)
 
-Prolog assumes:
-* Everything *not provable* is *false*.
-* Strict opposite of *open-world* (Semantic Web RDF).
+Prolog předpokládá, že:
+* Vše, co *nelze dokázat*, je *nepravdivé*.
+* To je přesný opak přístupu *otevřeného světa* (open-world), který používá například sémantický web (RDF).
 
 ```prolog
 parent(tom, bob).
@@ -255,9 +255,9 @@ parent(tom, bob).
 false.   % not in KB → assumed false
 ```
 
-V real-world: maybe Tom IS Alice's parent, just not in our KB.
+Ve skutečném světě přitom Tom Alicin rodič být klidně může — jen to není zaznamenáno v naší bázi znalostí.
 
-## Order matters
+## Na pořadí záleží
 
 ```prolog
 % Define list element membership
@@ -272,9 +272,9 @@ member2(X, [X|_]).
 % But member2 may have different backtracking behavior!
 ```
 
-Klíčové: Prolog je *both* declarative *and* procedural — operational semantics matters for efficiency.
+Klíčové je, že Prolog je *zároveň* deklarativní *i* procedurální — operační sémantika (operational semantics) má vliv na efektivitu výpočtu.
 
-## Tail call optimization
+## Optimalizace koncového volání (tail call optimization)
 
 ```prolog
 % Bad: builds large stack
@@ -289,9 +289,9 @@ length([_|T], Acc, N) :-
     length(T, Acc1, N).
 ```
 
-Modern Prolog implementations optimize tail calls.
+Moderní implementace Prologu koncová volání optimalizují.
 
-## Side effects
+## Vedlejší efekty (side effects)
 
 ```prolog
 % I/O
@@ -306,16 +306,16 @@ asserta(parent(joe, jane)).  % add at start
 retract(parent(joe, jane)).  % remove
 ```
 
-Side effects break *referential transparency* — Prolog is *not* pure.
+Vedlejší efekty porušují *referenční transparentnost* — Prolog tedy *není* čistě deklarativní (pure) jazyk.
 
-## Performance considerations
+## Výkonnostní úvahy
 
-* **Indexing** — predicates indexed on first argument typically.
-* **Clause order** — first clause tried first; put common cases first.
-* **Cuts** — limit backtracking (performance benefit).
-* **Tail recursion** — modern compilers optimize.
+* **Indexování (indexing)** — predikáty se obvykle indexují podle prvního argumentu.
+* **Pořadí klauzulí** — první klauzule se zkouší jako první; časté případy dávejte dopředu.
+* **Cut** — omezuje backtracking (a tím přináší výkonnostní zisk).
+* **Koncová rekurze (tail recursion)** — moderní překladače ji optimalizují.
 
-## Debugging
+## Ladění (debugging)
 
 ```prolog
 ?- trace.       % enable tracing
@@ -330,14 +330,14 @@ Side effects break *referential transparency* — Prolog is *not* pure.
 
 ## Klíčové ponaučení
 
-* **Unifikace** = pattern matching + assignment + equality combined.
-* **Backtracking** = automatic search through solutions.
-* **Cut** = procedural escape hatch — use sparingly.
-* **Order matters** — even though "declarative", operational order affects correctness/efficiency.
+* **Unifikace** = porovnávání vzorů (pattern matching), přiřazení a ověření rovnosti dohromady.
+* **Backtracking** = automatické prohledávání prostoru řešení.
+* **Cut** = procedurální únikový ventil — používejte ho střídmě.
+* **Na pořadí záleží** — i když je jazyk „deklarativní", operační pořadí ovlivňuje správnost i efektivitu.
 
 ## Cvičení
 
-### Exercise 1: Define `last/2`
+### Cvičení 1: Definujte `last/2`
 
 ```prolog
 last([X], X).
@@ -347,14 +347,14 @@ last([_|T], X) :- last(T, X).
 X = 3.
 ```
 
-### Exercise 2: Define `reverse/2`
+### Cvičení 2: Definujte `reverse/2`
 
 ```prolog
 reverse([], []).
 reverse([H|T], R) :- reverse(T, RT), append(RT, [H], R).
 ```
 
-### Exercise 3: Define `length/2`
+### Cvičení 3: Definujte `length/2`
 
 ```prolog
 length([], 0).

@@ -53,12 +53,12 @@ Rolling code řeší klasický problém *replay attack* u dálkového ovládače
 
 ## Šifra KeeLoq — struktura
 
-KeeLoq je 64-bit *block cipher* postavená na **nonlinear feedback shift register** (NLFSR):
+KeeLoq je 64bitová bloková šifra (block cipher) postavená na nelineárním posuvném registru se zpětnou vazbou (nonlinear feedback shift register, NLFSR):
 
 * **Stav:** 32 bitů.
 * **Klíč:** 64 bitů.
 * **Počet kol:** 528 (!).
-* **Boolean function** $f$ ze 5 bitů — daná tabulkou (specifická konstanta).
+* **Booleova funkce (Boolean function)** $f$ z 5 bitů — daná tabulkou (specifická konstanta).
 
 Každé kolo:
 
@@ -76,32 +76,32 @@ Veřejně byla specifikace KeeLoq utajována; Microchip prodával licence výrob
 
 [A. Bogdanov, *Attacks on the KeeLoq Block Cipher*](https://eprint.iacr.org/2007/055.pdf):
 
-* **Slide attack** je technika pro šifry s *velmi nízkým* key schedule diversity. KeeLoq má `key schedule = circular shift` — extrémně slabé.
-* Útok potřebuje **2³² známých plaintext/ciphertext párů** (cca 4 miliardy) — *teoreticky* zlomitelné, prakticky nemožné získat od jedné jednotky.
+* **Slide attack** je technika pro šifry s *velmi malou* rozmanitostí rozvrhu klíče (key schedule). KeeLoq odvozuje kolové klíče pouhou cyklickou rotací klíče — to je extrémně slabé.
+* Útok potřebuje **2³² známých dvojic otevřený/šifrový text** (cca 4 miliardy) — *teoreticky* je šifra prolomitelná, prakticky je ale nemožné získat takové množství dvojic od jediné jednotky.
 
 ### Eisenbarth-Kasper-Moradi-Paar-Sasdrich-Schimmler 2008
 
 [*On the Power of Power Analysis in the Real World*](https://www.iacr.org/archive/crypto2008/51570203/51570203.pdf):
 
-* **Differential Power Analysis** ([[spa-dpa]]) na **manufacturer key** ve výrobě.
-* Útočník zachytí ~30 power traces z přijímače během dešifrování — odhalí $MK$ za méně než hodinu.
+* **Diferenciální výkonová analýza (Differential Power Analysis)** ([[spa-dpa]]) zaměřená na výrobní klíč (manufacturer key).
+* Útočník zachytí ~30 záznamů spotřeby (power traces) z přijímače během dešifrování — tím odhalí $MK$ za méně než hodinu.
 * **Důsledek:** *jediná* kompromitace přijímače dovolí klonovat **všechny** ovládače *daného výrobce*. To je apokalyptický scénář — Microchip používal *jeden* $MK$ pro celou produkci výrobce (např. všechny Hondy 1995–2010 sdílely $MK$).
 
 ### Indirect-key attack (Indesteege-Keller-Dunkelman-Biham-Preneel 2008)
 
 [*A Practical Attack on KeeLoq*](https://link.springer.com/chapter/10.1007/978-3-540-78967-3_1):
 
-* **Slide-meet-in-the-middle attack** s $2^{16}$ známých plaintexts a $2^{44.5}$ encryption operations.
-* Recovery of device key v ~hodině na běžném PC.
-* **Plus:** s known device key a 30 zachycenými code packetech, odvodíte celý $K$ daného ovládače → klonovaný ovládač.
+* **Slide-meet-in-the-middle attack** s $2^{16}$ známými otevřenými texty a $2^{44.5}$ šifrovacími operacemi.
+* Získání device key trvá ~hodinu na běžném PC.
+* **Navíc:** se znalostí výrobního klíče a po zachycení ~30 vyslaných paketů odvodíte celý device key $K$ daného ovládače → vznikne naklonovaný ovládač.
 
 ### Praktický útok 2008 — IDA Bochum/Leuven {tier=example}
 
 [Tým z Bochum a Leuven](https://www.sciencedaily.com/releases/2008/04/080403132351.htm) demonstroval:
 
 1. *Přiblížit se k autu*: ~50 m s dobrou anténou.
-2. Zachytit ~2 code packety z ovládače (uživatel stiskne 2× tlačítko).
-3. Z packetů + známého $MK$ (extrahovaného z předchozí výrobní DPA) odvodit $K$ daného ovládače.
+2. Zachytit ~2 kódové pakety z ovládače (uživatel stiskne 2× tlačítko).
+3. Z paketů + známého $MK$ (extrahovaného z předchozí výrobní DPA) odvodit $K$ daného ovládače.
 4. **Naklonovat ovládač** a později odemknout auto.
 
 Útok byl prakticky úspěšný v laboratoři a způsobil *globální* změnu strategie:
@@ -114,9 +114,9 @@ Veřejně byla specifikace KeeLoq utajována; Microchip prodával licence výrob
 
 Bez prolomení šifry KeeLoq lze útokem **relay** dosáhnout otevření auta:
 
-* Auto s **Passive Keyless Entry** (PKE, *keyless go*) periodicky vysílá LF pulse (~125 kHz, dosah ~1 m).
+* Auto s **Passive Keyless Entry** (PKE, *keyless go*) periodicky vysílá nízkofrekvenční (LF) puls (~125 kHz, dosah ~1 m).
 * Pokud klíč je v dosahu, odpoví UHF kódem (~433/868 MHz, dosah ~30 m).
-* **Útočník 1** stojí u auta, zachytí LF, ampluje do GSM a pošle útočníkovi 2.
+* **Útočník 1** stojí u auta, zachytí LF signál, zesílí jej a přes GSM přepošle útočníkovi 2.
 * **Útočník 2** je u dveří domu, kde leží klíč; přehraje LF; klíč odpoví UHF.
 * **Útočník 2** zaznamenává UHF, pošle zpět útočníkovi 1, který přehraje k autu.
 * Auto si myslí, že klíč je blízko → odemkne.
@@ -129,8 +129,8 @@ KeeLoq ukázal:
 
 1. **Master key v každé jednotce** je smrtelná chyba. Pokud útočník extrahuje $MK$ z jednoho přijímače, padá *celá rodina produktů*. Současné systémy mají *per-vehicle* keys s minimálním sdílením.
 2. **DPA je v praxi proveditelná** ([[spa-dpa]]). I po formálně bezpečném algoritmu může implementace na nezabezpečeném mikrokontroléru ležet pod prahem útoku.
-3. **Open analysis is necessary.** KeeLoq byl utajován od 1985 do 2006. Když specifikace vyletěla, padla šifra během 2 let. Otevřená kryptografie (AES, ECC) tento osud nemá.
-4. **Replay-resistance ≠ authentication.** Rolling code chrání proti opakování stejného kódu, ne proti aktivním útokům (relay, jamming + replay). Pro skutečnou autentizaci je třeba challenge-response s *čerstvým* nonce.
+3. **Otevřená analýza je nezbytná.** KeeLoq byl utajován od roku 1985 do roku 2006. Když specifikace unikla, šifra padla během 2 let. Otevřená kryptografie (AES, ECC) tento osud nemá.
+4. **Odolnost proti opakování ≠ autentizace (replay-resistance ≠ authentication).** Rolling code chrání proti opakování stejného kódu, ne proti aktivním útokům (relay, rušení + replay). Pro skutečnou autentizaci je třeba challenge-response s *čerstvým* nonce.
 
 ---
 

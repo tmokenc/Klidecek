@@ -1,94 +1,94 @@
 ---
-title: Audit a digital forensics
+title: Audit a digitální forenzní analýza
 ---
 
-# Audit a digital forensics
+# Audit a digitální forenzní analýza
 
-**Audit** je *systematic review* security controls implementation. **Digital forensics** je *investigation* incident after it occurred — recover evidence, identify attacker, support legal proceedings.
+**Audit** je systematická kontrola (systematic review) toho, jak jsou zavedeny bezpečnostní opatření (security controls). **Digitální forenzní analýza (digital forensics)** je vyšetřování incidentu poté, co nastal — jejím cílem je obnovit důkazy, identifikovat útočníka (attacker) a podpořit případné soudní řízení.
 
-Obě činnosti odpovídají na otázky "*co se stalo?*" — audit *plánovaně*, forensics *reaktivně*.
+Obě činnosti odpovídají na otázku „*co se stalo?*" — audit *plánovaně*, forenzní analýza *reaktivně* (tedy až jako reakce na již proběhlý incident).
 
 ## Bezpečnostní audit
 
 ### Typy auditu
 
-#### Internal audit
+#### Interní audit
 
-Vlastní zaměstnanci (Internal Audit team). Continuous improvement.
+Provádějí ho vlastní zaměstnanci (tým interního auditu, Internal Audit team). Jeho smyslem je průběžné zlepšování.
 
-#### External audit
+#### Externí audit
 
-Třetí strana certifikovaná. Required by:
+Provádí ho certifikovaná třetí strana. Vyžadují ho:
 
-- **ISO 27001** ([[iso-27000]]) certification.
-- **SOC 2** report.
-- **PCI DSS** for payment processing.
-- **SOX** for public US companies.
+- certifikace **ISO 27001** ([[iso-27000]]);
+- zpráva **SOC 2**;
+- **PCI DSS** pro zpracování plateb;
+- **SOX** pro veřejně obchodované americké společnosti.
 
-#### Vulnerability assessment
+#### Posouzení zranitelností (vulnerability assessment)
 
-Identify weaknesses. Tools: Nessus, Qualys, OpenVAS.
+Hledá slabá místa. Nástroje: Nessus, Qualys, OpenVAS.
 
-#### Penetration test
+#### Penetrační test
 
-*Active* simulation of attack. Testers attempt breach.
+*Aktivní* simulace útoku (attack). Testeři se aktivně pokoušejí o průnik do systému.
 
 #### Red Team / Purple Team
 
-Beyond pen test:
+Jdou nad rámec běžného penetračního testu:
 
-- **Red Team** — simulated adversary, multi-week engagement.
-- **Blue Team** — defenders.
-- **Purple Team** — collaboration, defenders watch red team techniques.
+- **Red Team** — simulovaný protivník, nasazení trvající i několik týdnů;
+- **Blue Team** — obránci;
+- **Purple Team** — spolupráce obou stran, kdy obránci sledují techniky Red Teamu a učí se z nich.
 
-### Audit process
+### Průběh auditu
 
-1. **Scoping** — what's in scope.
-2. **Planning** — schedule, resources.
-3. **Fieldwork** — interviews, document review, technical testing.
-4. **Reporting** — findings, recommendations.
-5. **Follow-up** — verify remediation.
+1. **Vymezení rozsahu (scoping)** — co všechno do auditu spadá.
+2. **Plánování** — harmonogram a zdroje.
+3. **Terénní práce (fieldwork)** — rozhovory, kontrola dokumentace, technické testování.
+4. **Reportování** — zjištění a doporučení.
+5. **Následná kontrola (follow-up)** — ověření, že byla náprava skutečně provedena.
 
-### Audit standards
+### Standardy pro audit
 
-- **ISO 19011** — guidelines for auditing.
-- **AICPA Trust Services Criteria** — SOC 2.
-- **NIST 800-53** controls — federal.
-- **ISO 27001 Annex A** — international.
+- **ISO 19011** — pokyny pro provádění auditů;
+- **AICPA Trust Services Criteria** — pro SOC 2;
+- opatření **NIST 800-53** — federální (USA);
+- **ISO 27001 Annex A** — mezinárodní.
 
-### Common findings
+### Častá zjištění
 
-Auditors frequently find:
+Auditoři opakovaně nacházejí:
 
-- **Stale accounts** — terminated users still active.
-- **Excessive privileges** — users with admin not needed.
-- **Missing patches** — known CVEs.
-- **No password rotation** — old shared accounts.
-- **No MFA** — for privileged access.
-- **No log review** — logs collected but not analyzed.
-- **No IR plan** or never tested.
-- **Backups untested** — exist but never restored.
+- **Zastaralé účty (stale accounts)** — propuštění uživatelé, jejichž účty jsou stále aktivní.
+- **Nadměrná oprávnění (excessive privileges)** — uživatelé s administrátorskými právy, která nepotřebují.
+- **Chybějící záplaty (missing patches)** — známé zranitelnosti (CVE).
+- **Žádná obměna hesel** — staré sdílené účty.
+- **Chybějící MFA** (vícefaktorová autentizace) — u privilegovaného přístupu.
+- **Nečtené logy** — logy se sice sbírají, ale nikdo je neanalyzuje.
+- **Chybějící plán reakce na incident (IR plan)**, případně plán, který nikdy nebyl vyzkoušen.
+- **Neověřené zálohy (backups)** — zálohy existují, ale nikdy se z nich neobnovovalo.
 
-Remediation tracked in **CAPA** (Corrective Action / Preventive Action) system.
+Náprava se sleduje v systému **CAPA** (Corrective Action / Preventive Action — nápravná a preventivní opatření).
 
-## Digital Forensics
+## Digitální forenzní analýza
 
-Investigation after incident. Recover evidence, identify attacker, support legal.
+Vyšetřování po incidentu. Cílem je obnovit důkazy, identifikovat útočníka a podpořit případné soudní řízení.
 
-### Phases
+### Fáze
 
-#### 1. Identification
+#### 1. Identifikace
 
-What needs investigating? Scope:
+Co je třeba vyšetřit? Vymezení rozsahu:
 
-- Compromised hosts.
-- Affected accounts.
-- Time range.
-- Data potentially exposed.
+- kompromitované počítače (hosts);
+- zasažené účty;
+- časové rozmezí;
+- data, která mohla být odhalena.
 
-#### 2. Preservation
+#### 2. Zajištění (preservation)
 
-Critical: preserve evidence *without* modification. **Chain of custody**.
+Klíčové je zajistit důkazy *bez jakékoli změny*. Sem patří **řetězec zacházení s důkazy (chain of custody)** — průkazná evidence o tom, kdo s důkazem kdy nakládal.
 
 ```
 Disk image (forensic copy) before any analysis.
@@ -98,186 +98,186 @@ Log files copied (read-only).
 Timestamps documented.
 ```
 
-Tools: dd, FTK Imager, EnCase, X-Ways. Hash original + copy → prove integrity.
+Nástroje: dd, FTK Imager, EnCase, X-Ways. Spočítá se hash (hash) originálu i kopie → tím se prokáže neporušenost dat.
 
-#### 3. Collection
+#### 3. Sběr (collection)
 
-Gather:
+Posbírá se:
 
-- **Volatile data first** — RAM, network connections (lost on shutdown).
-- **System artifacts** — registry, event logs, browser history.
-- **Disk image** — full bit-by-bit copy.
-- **Network logs** — packet captures, NetFlow.
-- **Cloud logs** — CloudTrail, similar.
+- **Nejdříve volatilní data (volatile data)** — obsah paměti RAM, síťová spojení (po vypnutí počítače zaniknou).
+- **Systémové artefakty** — registry, záznamy událostí (event logs), historie prohlížeče.
+- **Obraz disku (disk image)** — úplná bit po bitu pořízená kopie.
+- **Síťové logy** — zachycené pakety (packet captures), NetFlow.
+- **Cloudové logy** — CloudTrail a podobné.
 
-#### 4. Analysis
+#### 4. Analýza
 
-- **Timeline reconstruction** — what happened when.
-- **Malware analysis** — reverse engineering.
-- **Network analysis** — Wireshark, Zeek.
-- **Filesystem** — recover deleted files, MAC times.
-- **Memory analysis** — Volatility framework.
+- **Rekonstrukce časové osy (timeline reconstruction)** — co se kdy stalo.
+- **Analýza malwaru** — zpětné inženýrství (reverse engineering).
+- **Síťová analýza** — Wireshark, Zeek.
+- **Souborový systém (filesystem)** — obnova smazaných souborů, časy MAC.
+- **Analýza paměti** — framework Volatility.
 
-#### 5. Reporting
+#### 5. Reportování
 
-Document findings. Include:
+Zdokumentují se zjištění. Zpráva obsahuje:
 
-- Methodology.
-- Evidence sources.
-- Timeline.
-- Conclusions.
-- Recommendations.
+- metodiku;
+- zdroje důkazů;
+- časovou osu;
+- závěry;
+- doporučení.
 
-Court-admissible if needed.
+V případě potřeby musí být použitelná u soudu.
 
-### Chain of custody
+### Řetězec zacházení s důkazy (chain of custody)
 
-Each piece of evidence tracked:
+U každého důkazu se eviduje:
 
-- **Who** collected.
-- **When** (timestamp).
-- **Where** (location).
-- **How** (method, tool).
-- **Hash** before + after handoff.
+- **kdo** ho sebral;
+- **kdy** (časové razítko);
+- **kde** (místo);
+- **jak** (metoda, nástroj);
+- **hash** před předáním a po něm.
 
-Break chain → evidence may be inadmissible in court.
+Přerušení řetězce → důkaz může být u soudu nepřípustný.
 
-### Tools
+### Nástroje
 
-#### Disk imaging
+#### Pořizování obrazu disku
 
-- **dd** (Linux) — `dd if=/dev/sda of=image.dd bs=1M`. Slow but standard.
-- **dcfldd** — DoD enhancement. Hash on-the-fly.
-- **FTK Imager** — Windows, common in forensics.
-- **EnCase** — commercial.
+- **dd** (Linux) — `dd if=/dev/sda of=image.dd bs=1M`. Pomalé, ale standardní.
+- **dcfldd** — vylepšení od ministerstva obrany USA (DoD). Počítá hash průběžně.
+- **FTK Imager** — Windows, ve forenzní praxi běžný.
+- **EnCase** — komerční.
 
-#### File analysis
+#### Analýza souborů
 
-- **The Sleuth Kit + Autopsy** — open-source forensics platform.
+- **The Sleuth Kit + Autopsy** — open-source forenzní platforma.
 - **EnCase**.
 - **X-Ways Forensics**.
 
-#### Memory analysis
+#### Analýza paměti
 
-- **Volatility** (Python) — extract running processes, network conns, etc. from memory dump.
-- **Rekall** — fork of Volatility.
+- **Volatility** (Python) — z výpisu paměti (memory dump) získá běžící procesy, síťová spojení atd.
+- **Rekall** — odnož (fork) nástroje Volatility.
 
-#### Network forensics
+#### Síťová forenzní analýza
 
-- **Wireshark** — packet capture analysis.
-- **NetworkMiner** — extract files from pcap.
-- **Zeek** — generates log files for review.
+- **Wireshark** — analýza zachycených paketů.
+- **NetworkMiner** — extrakce souborů z pcap.
+- **Zeek** — generuje logy určené k pozdější analýze.
 
-#### Malware analysis
+#### Analýza malwaru
 
-- **IDA Pro** / **Ghidra** — disassemblers.
+- **IDA Pro** / **Ghidra** — disassemblery.
 - **Radare2** — open-source.
-- **x64dbg** — debugger.
-- **Cuckoo Sandbox** — automated analysis.
+- **x64dbg** — debugger (ladicí nástroj).
+- **Cuckoo Sandbox** — automatizovaná analýza.
 
-### Anti-forensics
+### Antiforenzní techniky (anti-forensics)
 
-Attackers try to *hinder* forensics:
+Útočníci se snaží forenzní analýzu *ztížit*:
 
-- **Timestomp** — falsify file timestamps.
-- **Log deletion / tampering**.
-- **Encryption** — disk, memory.
-- **Wipe tools** — overwrite deleted data.
-- **Steganography** — hide data in images.
-- **Volatile-only attacks** — run from memory, never touch disk.
+- **Timestomp** — falšování časových razítek souborů.
+- **Mazání nebo úprava logů**.
+- **Šifrování (encryption)** — disku, paměti.
+- **Nástroje pro mazání (wipe tools)** — přepisují smazaná data, aby je nešlo obnovit.
+- **Steganografie** — skrývání dat do obrázků.
+- **Útoky běžící jen v paměti** — spuštěné z paměti, disku se vůbec nedotknou.
 
-Modern forensics adapt.
+Moderní forenzní analýza se těmto technikám přizpůsobuje.
 
-### Cloud forensics
+### Cloudová forenzní analýza
 
-Challenges:
+Výzvy:
 
-- **Multi-tenancy** — neighboring data inaccessible.
-- **Volatile** — VMs destroyed, evidence gone.
-- **Cross-jurisdiction** — data centers in many countries.
-- **Limited access** — provider may not allow disk imaging.
+- **Sdílení prostředků více nájemci (multi-tenancy)** — k datům sousedních zákazníků není přístup.
+- **Pomíjivost (volatile)** — virtuální stroje (VMs) zaniknou a s nimi i důkazy.
+- **Přesah jurisdikcí (cross-jurisdiction)** — datová centra v mnoha zemích.
+- **Omezený přístup** — poskytovatel nemusí pořízení obrazu disku vůbec umožnit.
 
-Approach:
+Postup:
 
-- **API logs** — CloudTrail, similar.
-- **Snapshot** — preserve before deletion.
-- **Cooperation with cloud provider** — formal request.
+- **Logy z API** — CloudTrail a podobné.
+- **Snímek (snapshot)** — zajistit ho dřív, než dojde k jeho smazání.
+- **Spolupráce s poskytovatelem cloudu** — formální žádost.
 
-### Mobile forensics
+### Forenzní analýza mobilních zařízení
 
-Specialized tools:
+Specializované nástroje:
 
-- **Cellebrite UFED** — used by law enforcement, commercial.
-- **MOBILedit** — alternative.
+- **Cellebrite UFED** — používají ho orgány činné v trestním řízení, komerční.
+- **MOBILedit** — alternativa.
 - **Magnet AXIOM**.
 
-Extract:
+Co lze získat:
 
-- Call logs, SMS, contacts.
-- App data — WhatsApp, Signal (if accessible).
-- Location data.
-- Photos, videos.
-- Browser history.
+- výpisy hovorů, SMS, kontakty;
+- data aplikací — WhatsApp, Signal (pokud jsou přístupná);
+- údaje o poloze;
+- fotografie, videa;
+- historii prohlížeče.
 
-Phones encrypted → cooperation with vendor may be needed (or exploit).
+Pokud jsou telefony šifrované → může být nutná spolupráce s výrobcem (nebo zneužití nějaké zranitelnosti, exploit).
 
-### Legal considerations
+### Právní aspekty
 
-#### Search + seizure
+#### Prohlídka a zajištění (search + seizure)
 
-In US: 4th Amendment requires warrant for most searches. Workplace may have *consent* via employee handbook.
+V USA: 4. dodatek Ústavy vyžaduje pro většinu prohlídek soudní příkaz. Na pracovišti může být dán *souhlas* prostřednictvím zaměstnaneckého řádu.
 
-EU: GDPR plus national laws.
+EU: GDPR a národní právní úprava.
 
-CZ: Trestní řád § 158 (povinnost součinnosti).
+ČR: Trestní řád § 158 (povinnost součinnosti).
 
-#### Admissibility
+#### Přípustnost (admissibility)
 
-Forensic evidence must be:
+Forenzní důkaz musí být:
 
-- **Authentic** — provably from where claimed.
-- **Reliable** — process repeatable.
-- **Complete** — no exculpatory evidence withheld.
-- **Believable** — analyst credible.
+- **Pravý (authentic)** — prokazatelně z místa, kde se tvrdí.
+- **Spolehlivý (reliable)** — postup musí být opakovatelný.
+- **Úplný (complete)** — nesmí být zatajeny žádné důkazy svědčící ve prospěch obviněného.
+- **Důvěryhodný (believable)** — analytik musí být věrohodný.
 
-Documentation critical.
+Zásadní je dokumentace.
 
-#### Privacy
+#### Soukromí
 
-Even during investigation, employee privacy considerations apply. Document legal basis for access.
+I během vyšetřování platí ohledy na soukromí zaměstnanců. Právní důvod pro přístup k datům je třeba zdokumentovat.
 
-### Famous forensics cases {tier=example}
+### Známé forenzní případy {tier=example}
 
-- **BTK Killer (2005)** — metadata in floppy disk identified.
-- **Sony Pictures (2014)** — IPs traced to North Korea.
-- **Equifax (2017)** — extensive forensics after breach.
-- **SolarWinds (2020)** — forensics took months to scope.
+- **BTK Killer (2005)** — identifikován díky metadatům na disketě.
+- **Sony Pictures (2014)** — IP adresy vystopovány do Severní Koreje.
+- **Equifax (2017)** — po úniku následovala rozsáhlá forenzní analýza.
+- **SolarWinds (2020)** — samotné vymezení rozsahu forenzní analýzy trvalo měsíce.
 
-### Forensic readiness
+### Forenzní připravenost (forensic readiness)
 
-Plan *before* incident:
+Plánujte *ještě před* incidentem:
 
-- **Logs at appropriate detail** — enough for reconstruction.
-- **Retention** — sufficient time period.
-- **Access controls** — auditors can collect without IT intervention.
-- **Tools available** — workstation, software, training.
-- **Vendor agreements** — IR retainer with forensics firm.
+- **Logy v dostatečné podrobnosti** — tak, aby z nich šlo rekonstruovat průběh.
+- **Doba uchování (retention)** — dostatečně dlouhá.
+- **Řízení přístupu (access control)** — auditoři dokážou data sebrat bez zásahu IT oddělení.
+- **Dostupné nástroje** — pracovní stanice, software, proškolení.
+- **Smlouvy s dodavateli** — předplacená pohotovost (IR retainer) s forenzní firmou.
 
-Without preparation: forensics takes *much* longer + may miss evidence.
+Bez přípravy: forenzní analýza trvá *mnohem* déle a může jí část důkazů uniknout.
 
-## Compliance audit example: GDPR
+## Příklad auditu shody: GDPR
 
-GDPR ([[gdpr-nukib]]) audit examines:
+Audit shody s GDPR ([[gdpr-nukib]]) zkoumá:
 
-- Lawful basis for processing.
-- Data subject rights mechanisms (access, delete).
-- Consent management.
-- Breach notification procedures.
-- DPO (Data Protection Officer) designation.
-- Records of processing activities.
-- DPIAs for high-risk processing.
+- právní základ pro zpracování;
+- mechanismy uplatnění práv subjektů údajů (přístup, výmaz);
+- správu souhlasů;
+- postupy pro ohlášení porušení zabezpečení;
+- jmenování pověřence pro ochranu osobních údajů (DPO, Data Protection Officer);
+- záznamy o činnostech zpracování;
+- posouzení vlivu na ochranu osobních údajů (DPIA) u rizikového zpracování.
 
-Findings → improvement.
+Zjištění → zlepšení.
 
 ---
 

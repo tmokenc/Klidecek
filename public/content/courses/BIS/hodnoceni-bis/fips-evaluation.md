@@ -1,63 +1,63 @@
 ---
-title: FIPS 140-3 — evaluation kryptografických modulů
+title: FIPS 140-3 — hodnocení kryptografických modulů
 ---
 
 # FIPS 140-3 — kryptografická validace
 
-**FIPS 140** (Federal Information Processing Standard 140) je americký standard pro *kryptografické moduly*. Aktuální verze **FIPS 140-3** (2019, nahrazuje 140-2 z 2001). Je *povinná* pro americkou federální vládu a praktický průmyslový standard pro krypto moduly.
+**FIPS 140** (Federal Information Processing Standard 140) je americký standard pro *kryptografické moduly*. Aktuální verzí je **FIPS 140-3** (2019), která nahrazuje verzi 140-2 z roku 2001. Standard je *povinný* pro americkou federální vládu a v praxi se stal i průmyslovým standardem pro kryptografické moduly.
 
 ## Co je FIPS 140
 
-Standard *nepředepisuje* algoritmy ani protokoly. Předepisuje:
+Standard *nepředepisuje* konkrétní algoritmy ani protokoly. Místo toho předepisuje:
 
-- **Approved algorithms** — schválené (AES, SHA-2/3, RSA, ECDSA, ...).
-- **Random number generators** — schválené DRBG.
-- **Module structure** — fyzická a logická.
-- **Self-tests** — startup + on-demand.
-- **Tamper resistance** — pro vyšší úrovně.
-- **Key management** — generation, storage, destruction.
+- **Schválené algoritmy (approved algorithms)** — například AES, SHA-2/3, RSA, ECDSA atd.
+- **Generátory náhodných čísel (random number generators)** — schválené DRBG.
+- **Strukturu modulu (module structure)** — fyzickou i logickou.
+- **Vlastní testy (self-tests)** — při startu i na vyžádání.
+- **Odolnost proti manipulaci (tamper resistance)** — pro vyšší úrovně.
+- **Správu klíčů (key management)** — generování, ukládání i ničení klíčů.
 
-Validation = *test laboratoře* ověří compliance + NIST CMVP (Cryptographic Module Validation Program) vydá certifikát.
+Validace znamená, že *zkušební laboratoř* ověří shodu (compliance) se standardem a program NIST CMVP (Cryptographic Module Validation Program) následně vydá certifikát.
 
-## Čtyři úrovně (Level 1-4)
+## Čtyři úrovně (Level 1–4)
 
-Hierarchické — Level 4 zahrnuje requirements Level 3, atd.
+Úrovně jsou hierarchické — Level 4 zahrnuje všechny požadavky (requirements) Level 3 a tak dále.
 
-### Level 1 — basic
+### Level 1 — základní
 
-Minimal:
+Minimální požadavky:
 
-- Approved algorithms.
-- Žádné fyzické tamper protections specifically.
-- Software-only OK (pokud běží na obecném OS).
+- Schválené algoritmy.
+- Žádná zvláštní fyzická ochrana proti manipulaci (tamper protection).
+- Postačuje čistě softwarové řešení (pokud běží na běžném operačním systému).
 
-Příklady: OpenSSL FIPS module, BoringSSL FIPS.
+Příklady: FIPS modul OpenSSL, BoringSSL FIPS.
 
-### Level 2 — tamper-evident
+### Level 2 — viditelná manipulace (tamper-evident)
 
-- Tamper-evident coatings (uvidíte, pokud někdo zkoušel).
-- Role-based authentication (operator, crypto officer).
-- Multi-chip embedded OK.
+- Povrchové úpravy odhalující manipulaci (tamper-evident coatings) — pozná se, že se někdo do modulu pokoušel dostat.
+- Autentizace (authentication) podle role (operátor, kryptografický důstojník — crypto officer).
+- Postačuje vícečipový vestavěný (multi-chip embedded) modul.
 
-Příklady: smart cards, USB tokens (YubiKey FIPS).
+Příklady: čipové karty (smart cards), USB tokeny (YubiKey FIPS).
 
-### Level 3 — tamper-resistant
+### Level 3 — odolnost proti manipulaci (tamper-resistant)
 
-- Tamper-resistant — *fyzicky* odolává proti opening.
-- Identity-based authentication.
-- Separation of crypto + general purpose computation.
-- Strong enclosure (potting, tamper-detection circuits).
+- Odolnost proti manipulaci — modul *fyzicky* odolává pokusu o otevření.
+- Autentizace na základě identity.
+- Oddělení kryptografických operací od běžných výpočtů.
+- Pevné pouzdro (zalití pryskyřicí, obvody pro detekci manipulace).
 
-Příklady: hardware HSM (Thales nShield, Utimaco).
+Příklady: hardwarové HSM (Thales nShield, Utimaco).
 
-### Level 4 — tamper-active
+### Level 4 — aktivní reakce na manipulaci (tamper-active)
 
-- *Aktivní* tamper response — *vymaže* klíče při detekci.
-- EFP/EFT — environmental failure protection / testing.
-- Multi-factor authentication.
-- Plus everything from L3.
+- *Aktivní* reakce na manipulaci — při detekci útoku modul klíče *vymaže*.
+- EFP/EFT — ochrana proti selhání prostředí a její testování (environmental failure protection / testing).
+- Vícefaktorová autentizace (multi-factor authentication).
+- Plus vše z úrovně L3.
 
-Příklady: high-end HSM, military-grade modules.
+Příklady: špičkové HSM, moduly vojenské třídy.
 
 ::: svg "FIPS 140-3 čtyři úrovně"
 <svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -95,115 +95,115 @@ Příklady: high-end HSM, military-grade modules.
 
 ## 11 oblastí hodnocení
 
-FIPS 140-3 specifies 11 area requirements:
+FIPS 140-3 stanovuje požadavky v 11 oblastech:
 
-1. **Cryptographic Module Specification** — boundary, modes.
-2. **Cryptographic Module Interfaces** — data input, output, control, status.
-3. **Roles, Services, and Authentication** — operator, crypto officer.
-4. **Software/Firmware Security** — integrity check, version control.
-5. **Operational Environment** — OS, hardware platform.
-6. **Physical Security** — tamper-evident / -resistant / -active.
-7. **Non-Invasive Security** — side-channel resistance (NEW in 140-3).
-8. **Sensitive Security Parameter Management** — key generation, storage, destruction.
-9. **Self-Tests** — startup + conditional.
-10. **Life-Cycle Assurance** — design, testing, vendor evidence.
-11. **Mitigation of Other Attacks** — fault injection, EMI/EMR, etc.
+1. **Specifikace kryptografického modulu** — hranice modulu, provozní režimy.
+2. **Rozhraní kryptografického modulu** — vstup dat, výstup, řízení, stav.
+3. **Role, služby a autentizace** — operátor, kryptografický důstojník.
+4. **Bezpečnost software/firmware** — kontrola integrity, správa verzí.
+5. **Provozní prostředí** — operační systém, hardwarová platforma.
+6. **Fyzická bezpečnost** — viditelná manipulace / odolnost proti manipulaci / aktivní reakce.
+7. **Neinvazivní bezpečnost** — odolnost proti útokům postranními kanály (side-channel), v 140-3 NOVĚ.
+8. **Správa citlivých bezpečnostních parametrů** — generování, ukládání a ničení klíčů.
+9. **Vlastní testy (self-tests)** — při startu i podmíněné.
+10. **Záruka přes celý životní cyklus** — návrh, testování, dokumentace dodavatele.
+11. **Zmírnění dalších útoků** — vstřikování chyb (fault injection), EMI/EMR atd.
 
-Pro každou oblast existují *konkrétní* požadavky pro každý L1-L4.
+Pro každou oblast existují *konkrétní* požadavky pro každou z úrovní L1–L4.
 
-## Approved algorithms
+## Schválené algoritmy (approved algorithms)
 
 FIPS 140-3 schvaluje *jen* určité algoritmy. Aktuálně:
 
-### Symmetric
+### Symetrické (symmetric)
 
-- **AES** (128, 192, 256-bit) — block cipher.
-- **3-key Triple DES** — *deprecated*, end of life 2023.
-- AES modes: ECB, CBC, OFB, CFB, CTR, GCM, CCM, KW (key wrap), XTS.
+- **AES** (128, 192, 256bitový) — bloková šifra.
+- **3-key Triple DES** — *zastaralý (deprecated)*, konec životnosti v roce 2023.
+- Režimy AES: ECB, CBC, OFB, CFB, CTR, GCM, CCM, KW (key wrap), XTS.
 
 ### Hash
 
-- **SHA-2 family** — SHA-224, 256, 384, 512.
-- **SHA-3 family** — SHA3-224, 256, 384, 512.
-- **SHAKE128, SHAKE256** — extendable output.
+- **Rodina SHA-2** — SHA-224, 256, 384, 512.
+- **Rodina SHA-3** — SHA3-224, 256, 384, 512.
+- **SHAKE128, SHAKE256** — s rozšiřitelným výstupem (extendable output).
 
-### Asymmetric
+### Asymetrické (asymmetric)
 
-- **RSA** — encryption (OAEP), signing (PSS, PKCS#1 v1.5).
-- **ECDSA** — P-256, P-384, P-521 curves.
+- **RSA** — šifrování (OAEP), podepisování (PSS, PKCS#1 v1.5).
+- **ECDSA** — křivky P-256, P-384, P-521.
 - **EdDSA** — Ed25519, Ed448.
-- **DH** — Diffie-Hellman key exchange (specific groups).
-- **ECDH** — elliptic curve DH.
+- **DH** — výměna klíčů Diffie-Hellman (vybrané grupy).
+- **ECDH** — eliptická varianta DH.
 
 ### MAC
 
-- **HMAC** with approved hash.
-- **CMAC** (block cipher MAC).
-- **GMAC** (Galois MAC, from GCM).
+- **HMAC** se schváleným hashem.
+- **CMAC** (MAC založený na blokové šifře).
+- **GMAC** (Galois MAC, odvozený z GCM).
 
 ### DRBG
 
-- **CTR_DRBG** (AES-256 based).
+- **CTR_DRBG** (založený na AES-256).
 - **HMAC_DRBG**.
 - **Hash_DRBG**.
 
-Detaily v [[blok-vs-proud]], [[rezimy]], [[3des-aes]], [[rsa]], [[elipticke]], [[hash-funkce]].
+Podrobnosti najdete v [[blok-vs-proud]], [[rezimy]], [[3des-aes]], [[rsa]], [[elipticke]], [[hash-funkce]].
 
 ## CMVP — Cryptographic Module Validation Program
 
-NIST + CCCS (Canada) operate CMVP. Process:
+Program CMVP provozují NIST a CCCS (Kanada). Postup je následující:
 
-1. Vendor sends module + ST + design docs to **CST Lab** (Cryptographic and Security Testing Laboratory).
-2. CST Lab tests module against FIPS 140-3.
-3. Reports → NIST CMVP.
-4. CMVP issues **validation certificate**.
-5. Listed in **MIP** (Modules in Process) until certificated, then **Validated Module List**.
+1. Dodavatel zašle modul, bezpečnostní specifikaci (ST) a návrhovou dokumentaci do **laboratoře CST** (Cryptographic and Security Testing Laboratory).
+2. Laboratoř CST modul otestuje proti standardu FIPS 140-3.
+3. Zprávy putují k NIST CMVP.
+4. CMVP vydá **validační certifikát**.
+5. Modul je veden v seznamu **MIP** (Modules in Process), dokud není certifikován, poté přejde do **seznamu validovaných modulů**.
 
-Trvání: 6-18 měsíců po submission. Cena: $100k-$500k.
+Doba trvání: 6–18 měsíců po podání žádosti. Cena: 100 000–500 000 USD.
 
-## FIPS 140-2 vs 140-3
+## FIPS 140-2 vs. 140-3
 
 | | 140-2 (2001) | 140-3 (2019) |
 | :--- | :--- | :--- |
-| Standard alignment | NIST-only | ISO/IEC 19790:2012 |
-| Non-invasive | not explicit | Section 7 explicit |
-| Software in HW environment | strict | flexible |
-| OS validation | trusted OS levels | aligned with CC |
-| Cert validity | indefinite + transition periods | similar |
+| Návaznost na standardy | pouze NIST | ISO/IEC 19790:2012 |
+| Neinvazivní bezpečnost | neuvedena explicitně | sekce 7 explicitně |
+| Software v hardwarovém prostředí | striktní | flexibilní |
+| Validace OS | úrovně důvěryhodného OS | sladěno s CC |
+| Platnost certifikátu | neomezená + přechodná období | obdobně |
 
-140-2 transition deadline: 21 September 2026 — on that date all FIPS 140-2 validations move to the CMVP Historical List. Until then, both 140-2 and 140-3 modules remain valid. (New FIPS 140-2 submissions were already cut off on 1 April 2022.)
+Konec přechodného období pro 140-2: 21. září 2026 — k tomuto datu se všechny validace FIPS 140-2 přesunou do historického seznamu CMVP. Do té doby zůstávají platné moduly 140-2 i 140-3. (Nové žádosti podle FIPS 140-2 přitom přestaly být přijímány již 1. dubna 2022.)
 
 ## Vztah ke Common Criteria
 
 | | CC | FIPS 140-3 |
 | :--- | :--- | :--- |
-| Scope | celý IT product | jen krypto modul |
+| Rozsah | celý IT produkt | jen kryptografický modul |
 | Standard | ISO/IEC 15408 | NIST + ISO/IEC 19790 |
-| Cena | $100k-$5M | $100k-$500k |
-| Trvání | 6-24 m | 6-18 m |
-| Mutual recognition | CCRA (mnoho zemí) | NIST + CCCS (US + Canada) |
+| Cena | 100 tis.–5 mil. USD | 100–500 tis. USD |
+| Doba trvání | 6–24 měsíců | 6–18 měsíců |
+| Vzájemné uznávání | CCRA (mnoho zemí) | NIST + CCCS (USA + Kanada) |
 
-Často *kombinováno*: Smart card = CC EAL 5+ (whole card) + FIPS 140-3 Level 2 (crypto module inside).
+Často se obojí *kombinuje*: čipová karta = CC EAL 5+ (celá karta) + FIPS 140-3 Level 2 (kryptografický modul uvnitř).
 
 ## Co FIPS *negarantuje*
 
-- Že modul je *skutečně bezpečný* — implementace bugs, side-channel attacks neuvedené, novel attacks.
-- Že váš systém je bezpečný — FIPS jen pro krypto modul, ne pro vše ostatní.
-- Že je *nejnovější best practice* — FIPS pomalý, nepostihuje moderní attacks (Spectre-like).
+- Že je modul *skutečně bezpečný* — mohou v něm být chyby v implementaci, neuvedené útoky postranními kanály (side-channel) i zcela nové útoky.
+- Že je bezpečný váš systém — FIPS se týká jen kryptografického modulu, nikoli všeho ostatního.
+- Že jde o *nejnovější osvědčené postupy* — FIPS je pomalý a nepokrývá moderní útoky (typu Spectre).
 
-**FIPS = compliance baseline, not security guarantee.**
+**FIPS = základní úroveň shody (compliance baseline), nikoli záruka bezpečnosti.**
 
-## US Federal mandates
+## Americké federální nařízení (US Federal mandates)
 
-US federal agencies (FISMA Act 2002, modernized 2014) *musí* používat FIPS-validated crypto pro:
+Americké federální úřady (zákon FISMA z roku 2002, novelizovaný v roce 2014) *musí* pro tyto účely používat FIPS-validovanou kryptografii:
 
-- Data v transit.
-- Data at rest.
-- Authentication.
+- Data při přenosu.
+- Data v klidu (uložená).
+- Autentizace.
 
-Pokud krypto modul *není* FIPS-validated, federal agency *nesmí* deploy ho.
+Pokud kryptografický modul *není* FIPS-validovaný, federální úřad jej *nesmí* nasadit.
 
-To je hlavní *commerce driver* pro FIPS — všichni vendoři chtějí federal market → FIPS-validate.
+To je hlavní *obchodní motivace* pro FIPS — všichni dodavatelé chtějí na federální trh, a proto si moduly nechávají FIPS-validovat.
 
 ---
 

@@ -4,39 +4,39 @@ title: Eigenfaces a PCA pro rozpoznávání obličeje
 
 # Eigenfaces a PCA pro rozpoznávání obličeje
 
-**Eigenfaces** (Turk & Pentland, MIT 1991) byl *první* automatizovaný systém pro rozpoznávání obličeje s prakticky využitelnou přesností. Použil **Principal Component Analysis (PCA)** pro redukci dimenzionality obličejových obrazů. Ačkoliv dnes překonán deep learningem, princip je *fundamentální* a stále se vyučuje jako *klasická* metoda.
+**Eigenfaces** (Turk a Pentland, MIT 1991) byl *první* automatizovaný systém pro rozpoznávání obličeje s prakticky využitelnou přesností. Pro redukci dimenzionality obličejových obrazů použil **analýzu hlavních komponent (Principal Component Analysis, PCA)**. Ačkoliv ho dnes překonalo hluboké učení (deep learning), princip je *zásadní* a stále se vyučuje jako *klasická* metoda.
 
 ## Princip
 
-Klasická úloha: máme obrázek obličeje $\mathbf{x}$ (např. $100 \times 100 = 10\,000$ pixels, vektor v $\mathbb{R}^{10000}$). Chceme:
+Klasická úloha: máme obrázek obličeje $\mathbf{x}$ (např. $100 \times 100 = 10\,000$ pixelů, tedy vektor v $\mathbb{R}^{10000}$). Chceme:
 
-1. Najít **kompaktní reprezentaci** (např. 100 dimensions).
-2. Použít reprezentaci pro *porovnávání* obličejů.
+1. Najít **kompaktní reprezentaci** (např. 100 dimenzí).
+2. Tuto reprezentaci použít k *porovnávání* obličejů.
 
 ### Klíčový poznatek
 
-Většina obrázků v $\mathbb{R}^{10000}$ *nepředstavuje obličej* — pixels jsou *vysoce korelované* (sousední pixely jsou obvykle podobné, oči jsou pod čelem, atd.). Skutečný *manifold* obličejů má *mnohem nižší* dimenzionalitu.
+Většina obrázků v $\mathbb{R}^{10000}$ *nepředstavuje obličej* — pixely jsou *vysoce korelované* (sousední pixely jsou obvykle podobné, oči bývají pod čelem atd.). Skutečná *varieta* (manifold) obličejů má *mnohem nižší* dimenzionalitu.
 
-PCA najde *směry maximální variance* v datasetu obličejů → tyto směry jsou *eigenfaces* (vlastní obličeje).
+PCA najde *směry maximální variance* (rozptylu) v datasetu obličejů → tyto směry jsou *eigenfaces* (vlastní obličeje).
 
 ## Algoritmus
 
 ### Trénink
 
-1. **Sběr training set** $\{\mathbf{x}_1, ..., \mathbf{x}_N\}$ — N obličejů, každý jako vektor $\mathbf{x}_i \in \mathbb{R}^d$ (d = number of pixels).
+1. **Sběr trénovací množiny (training set)** $\{\mathbf{x}_1, ..., \mathbf{x}_N\}$ — N obličejů, každý jako vektor $\mathbf{x}_i \in \mathbb{R}^d$ (d = počet pixelů).
 2. **Spočti průměrný obličej:**
 
 ::: math
 \bar{\mathbf{x}} = \frac{1}{N} \sum_{i=1}^N \mathbf{x}_i
 :::
 
-3. **Spočti centrované obrazy:**
+3. **Spočti centrované obrazy** (od každého obličeje se odečte průměr):
 
 ::: math
 \mathbf{a}_i = \mathbf{x}_i - \bar{\mathbf{x}}
 :::
 
-4. **Spočti covariance matrix:**
+4. **Spočti kovarianční matici (covariance matrix):**
 
 ::: math
 C = \frac{1}{N} \sum_{i=1}^N \mathbf{a}_i \mathbf{a}_i^T = \frac{1}{N} A A^T
@@ -44,33 +44,33 @@ C = \frac{1}{N} \sum_{i=1}^N \mathbf{a}_i \mathbf{a}_i^T = \frac{1}{N} A A^T
 
 kde $A = [\mathbf{a}_1, ..., \mathbf{a}_N]$ je matice $d \times N$.
 
-5. **Eigendecomposition** matice $C$:
+5. **Spektrální rozklad (eigendecomposition)** matice $C$:
 
 ::: math
 C \mathbf{u}_k = \lambda_k \mathbf{u}_k
 :::
 
-* **Eigenvectors** $\mathbf{u}_k$ jsou *eigenfaces*.
-* **Eigenvalues** $\lambda_k$ udávají, kolik variance je ve směru $\mathbf{u}_k$.
+* **Vlastní vektory (eigenvectors)** $\mathbf{u}_k$ jsou právě *eigenfaces*.
+* **Vlastní čísla (eigenvalues)** $\lambda_k$ udávají, kolik variance je ve směru $\mathbf{u}_k$.
 
-6. **Vyber top K eigenfaces** s největšími eigenvalues. Typicky K = 50–200.
+6. **Vyber prvních K eigenfaces** s největšími vlastními čísly. Typicky K = 50–200.
 
-### Computational trick
+### Výpočetní trik
 
-Matice $C$ je $d \times d$ (např. $10\,000 \times 10\,000$) — *velmi* drahá eigendecomposition.
+Matice $C$ je $d \times d$ (např. $10\,000 \times 10\,000$) — její spektrální rozklad je *velmi* drahý.
 
-Trik: pokud $N \ll d$, máme jen $N$ nenulových eigenvalues. Místo $C = AA^T$ (d × d) spočti $L = A^T A$ (N × N):
+Trik: pokud $N \ll d$, máme jen $N$ nenulových vlastních čísel. Místo $C = AA^T$ (rozměru d × d) proto spočti $L = A^T A$ (rozměru N × N):
 
-* Eigendecomposition $L$ je rychlá.
-* Eigenvectors $L$ jsou *related* k eigenvectors $C$:
+* Spektrální rozklad matice $L$ je rychlý.
+* Vlastní vektory matice $L$ *souvisejí* s vlastními vektory matice $C$ vztahem:
 
 ::: math
 \mathbf{u}_k = A \mathbf{v}_k / \sqrt{\lambda_k}
 :::
 
-Pro $N = 100$ a $d = 10\,000$: redukce z $10^8$ na $10^4$ ops.
+Pro $N = 100$ a $d = 10\,000$: redukce z $10^8$ na $10^4$ operací.
 
-### Projekce do feature space
+### Projekce do prostoru příznaků (feature space)
 
 Pro libovolný obličej $\mathbf{x}$:
 
@@ -78,24 +78,24 @@ Pro libovolný obličej $\mathbf{x}$:
 \mathbf{w}_k = \mathbf{u}_k^T (\mathbf{x} - \bar{\mathbf{x}}), \quad k = 1, \ldots, K
 :::
 
-* $\mathbf{w} = (w_1, ..., w_K)$ je *feature vector* (embedding) obrázku.
+* $\mathbf{w} = (w_1, ..., w_K)$ je *vektor příznaků* (feature vector, embedding) daného obrázku.
 * **Rekonstrukce:** $\mathbf{x} \approx \bar{\mathbf{x}} + \sum_k w_k \mathbf{u}_k$.
 
 ### Rozpoznávání
 
-* Pro test image $\mathbf{x}$: spočti $\mathbf{w}_x$.
-* Porovnej s feature vectors *enrolled* obličejů $\{\mathbf{w}_1, ..., \mathbf{w}_M\}$.
-* **Nearest neighbor** podle Euclidean distance:
+* Pro testovaný obrázek $\mathbf{x}$ spočti jeho vektor příznaků $\mathbf{w}_x$.
+* Porovnej ho s vektory příznaků *zaregistrovaných (enrolled)* obličejů $\{\mathbf{w}_1, ..., \mathbf{w}_M\}$.
+* **Nejbližší soused (nearest neighbor)** podle eukleidovské vzdálenosti:
 
 ::: math
 \text{match} = \arg\min_i \|\mathbf{w}_x - \mathbf{w}_i\|
 :::
 
-* Pokud minimum distance < threshold → identification successful.
+* Pokud je minimální vzdálenost menší než práh (threshold) → identifikace proběhla úspěšně.
 
 ## Vizualizace eigenfaces
 
-::: svg "Eigenfaces vizualizace: každý eigenface je 'ghost-like' tvář reprezentující směr maximální variance v datasetu."
+::: svg "Eigenfaces vizualizace: každý eigenface je „přízračná" tvář reprezentující směr maximální variance v datasetu."
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="10">
   <g fill="rgba(150, 150, 200, 0.5)" stroke="var(--accent)" stroke-width="1">
     <ellipse cx="80" cy="100" rx="40" ry="55"/>
@@ -123,64 +123,64 @@ Pro libovolný obličej $\mathbf{x}$:
 </svg>
 :::
 
-* **Eigenface 1** typicky zachycuje *globální illumination* (lighting direction).
-* **Eigenface 2** zachycuje *facial shape* variation.
-* **Eigenface 3+** zachycují *pose, expression, identity-specific* details.
+* **Eigenface 1** typicky zachycuje *globální osvětlení* (illumination) — tedy směr, odkud na obličej dopadá světlo.
+* **Eigenface 2** zachycuje variabilitu *tvaru obličeje* (facial shape).
+* **Eigenface 3 a další** zachycují detaily jako *natočení hlavy (pose), výraz (expression) a rysy specifické pro danou identitu*.
 
-První 50–100 eigenfaces zachycují ~95 % variance datasetu.
+Prvních 50–100 eigenfaces zachycuje zhruba 95 % variance datasetu.
 
 ::: viz eigenfaces-recon "Rekonstrukce obličeje z μ + Σ wₖ·uₖ; posuňte K a váhy nebo nechte spočítat projekci."
 :::
 
 ## Limity Eigenfaces
 
-### 1. Illumination sensitivity
+### 1. Citlivost na osvětlení
 
-PCA zachytí *every* variance — včetně *illumination*. Změna osvětlení mezi enrollment a recognition způsobí *katastrofální* failure.
+PCA zachytí *veškerou* varianci — tedy i variabilitu danou *osvětlením (illumination)*. Změna osvětlení mezi registrací (enrollment) a rozpoznáváním pak způsobí *katastrofální* selhání.
 
-Mitigace: **Fisherfaces** (Linear Discriminant Analysis, LDA) — místo *maximizing total variance* maximize *between-class* variance / minimize *within-class*. Better discrimination.
+Zmírnění: **Fisherfaces** (lineární diskriminační analýza, Linear Discriminant Analysis, LDA) — místo *maximalizace celkové variance* maximalizuje varianci *mezi třídami (between-class)* a zároveň minimalizuje varianci *uvnitř třídy (within-class)*. Tím dosahuje lepšího rozlišení jednotlivých identit.
 
 ### 2. Linearita
 
-PCA je *linear* metoda. Manifold obličejů je *non-linear* (rotace, expression, atd.).
+PCA je *lineární* metoda. Varieta obličejů je ovšem *nelineární* (kvůli rotacím, výrazům apod.).
 
-Mitigace: **Kernel PCA** — kernel trick pro non-linear PCA. Komplikovanější, ale lepší.
+Zmírnění: **Kernel PCA** — využívá tzv. kernel trick pro nelineární PCA. Je komplikovanější, ale lepší.
 
-### 3. Sensitivity to alignment
+### 3. Citlivost na zarovnání
 
-Eigenfaces předpokládá, že obličeje jsou *přesně* zarovnané (eyes at fixed positions). Misalignment = wrong projection.
+Eigenfaces předpokládá, že jsou obličeje *přesně* zarovnané (oči na pevných pozicích). Nezarovnání (misalignment) vede ke špatné projekci.
 
-### 4. Holistic, not local
+### 4. Holistická, nikoli lokální metoda
 
-PCA je *global* metoda — žádné *local* features (eyes, nose, mouth) explicitly extracted.
+PCA je *globální* metoda — žádné *lokální* rysy (oči, nos, ústa) se z obrazu explicitně neextrahují.
 
-Alternativy: **Local Binary Patterns (LBP)**, **HOG features**, **SIFT/SURF**.
+Alternativy: **lokální binární vzory (Local Binary Patterns, LBP)**, **příznaky HOG (HOG features)**, **SIFT/SURF**.
 
 ## Historický kontext {tier=extra}
 
-* **1987:** Sirovich & Kirby — first PCA on faces (face *compression*, not recognition).
-* **1991:** **Turk & Pentland — Eigenfaces** — first practical face recognition using PCA.
+* **1987:** Sirovich a Kirby — první aplikace PCA na obličeje (zaměřená na *kompresi* obličejů, nikoli rozpoznávání).
+* **1991:** **Turk a Pentland — Eigenfaces** — první prakticky použitelné rozpoznávání obličeje pomocí PCA.
 * **1997:** **Belhumeur, Hespanha, Kriegman** — Fisherfaces.
-* **2002:** Local Binary Patterns (Ahonen, Hadid, Pietikäinen).
-* **2014:** **DeepFace** (Facebook) — deep learning era starts.
-* **2015:** **FaceNet** (Google) — modern benchmark.
+* **2002:** Lokální binární vzory (Ahonen, Hadid, Pietikäinen).
+* **2014:** **DeepFace** (Facebook) — začíná éra hlubokého učení.
+* **2015:** **FaceNet** (Google) — moderní referenční systém (benchmark).
 
 ## Použití dnes
 
-Eigenfaces / PCA *není* používán v komerčních systémech. Ale:
+Eigenfaces / PCA se *nepoužívá* v komerčních systémech. Přesto má své místo:
 
-* **Educational tool** — fundamental ML concept.
-* **Quick prototypes** — when DL is overkill.
-* **Privacy-preserving applications** — PCA features may be *less identifying* than DL embeddings.
-* **Compression** — store template as 100-dim vector instead of full image.
+* **Výukový nástroj** — názorně ukazuje základní koncept strojového učení.
+* **Rychlé prototypy** — když by bylo hluboké učení zbytečně těžkotonážní řešení.
+* **Aplikace chránící soukromí** — příznaky z PCA mohou být *méně identifikující* než embeddingy z hlubokého učení.
+* **Komprese** — šablonu (template) lze uložit jako 100rozměrný vektor namísto celého obrázku.
 
-## Mathematical foundation
+## Matematický základ
 
-PCA je matematicky equivalentní **Karhunen-Loève transform** (KLT) — optimal linear transform for energy compaction. Klíčová věta:
+PCA je matematicky ekvivalentní **Karhunenově-Loèveově transformaci (Karhunen-Loève transform, KLT)** — optimální lineární transformaci pro koncentraci energie. Klíčová věta:
 
-> Z všech ortogonálních lineárních transformací maximalizuje PCA explained variance v *first K* components.
+> Ze všech ortogonálních lineárních transformací maximalizuje PCA vysvětlenou varianci v *prvních K* komponentách.
 
-To je důvod, proč PCA *funguje* — pokud variance koreluje s diskriminační informací.
+Právě proto PCA *funguje* — za předpokladu, že variance koreluje s diskriminační informací.
 
 ---
 

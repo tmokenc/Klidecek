@@ -78,7 +78,7 @@ Z mnoha jednoduchých prvků, které spolu jen *lokálně* interagují, dokáže
 </svg>
 :::
 
-## Edge of chaos
+## Hrana chaosu (edge of chaos)
 
 Mnoho samoorganizujících se a výpočetně „zajímavých" systémů funguje na **hraně chaosu** (*edge of chaos*) — v úzkém přechodovém pásmu mezi *přílišným řádem* (statický, zamrzlý systém, který nic nepočítá) a *přílišným chaosem* (vše se rozpadá, informace se nezachová). Právě zde systém dokáže informaci *uchovávat* i *šířit* a vykazuje nejbohatší — výpočetně nejschopnější — chování.
 
@@ -97,7 +97,7 @@ Klasickou ukázkou emergence je **úloha majority** na jednorozměrném uniformn
 ::: link "C. W. Reynolds — Flocks, Herds, and Schools: A Distributed Behavioral Model (SIGGRAPH, 1987)" "https://www.red3d.com/cwr/papers/1987/boids.html"
 :::
 
-::: link "Self-organization — Wikipedia" "https://en.wikipedia.org/wiki/Self-organization"
+::: link "Samoorganizace (Self-organization) — Wikipedia" "https://en.wikipedia.org/wiki/Self-organization"
 :::
 
 *Zdroj: BIN státnicové okruhy NBIO, VUT FIT. Externí reference: Reynolds, C. W.: Flocks, Herds, and Schools (SIGGRAPH 1987); Langton, C. G.: Computation at the Edge of Chaos (Physica D, 1990); Wikipedia — Self-organization, Emergence.*

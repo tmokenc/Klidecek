@@ -4,11 +4,11 @@ title: Typy útoků na biometrické systémy
 
 # Typy útoků na biometrické systémy
 
-Biometric systémy jsou *complex stacks* od senzorů přes databáze po decision algorithms. Každá vrstva má vlastní attack surface. Ratha-Connell-Bolle 2001 definovali kanonickou taxonomii — 7 typů útoků, které pokrývají *všechny* hlavní vektory.
+Biometrické systémy jsou *složité řetězce* (complex stacks) — od senzorů přes databáze až po rozhodovací algoritmy (decision algorithms). Každá vrstva (layer) má vlastní útočnou plochu (attack surface), tedy místo, kudy se dá zaútočit. Ratha, Connell a Bolle v roce 2001 definovali kanonickou taxonomii — 7 typů útoků (attack), které pokrývají *všechny* hlavní vektory útoku.
 
 ## 7 typů útoků (Ratha-Connell-Bolle 2001)
 
-::: viz attack-points-7 "Klikněte na bod 1–7 v diagramu; vidíte konkrétní příklady útoků a vrstvenou obranu."
+::: viz attack-points-7 "Klikněte na bod 1–7 v diagramu; uvidíte konkrétní příklady útoků a vrstvenou obranu."
 :::
 
 ::: svg "Útočné body biometrického systému: 1 sensor, 2 channel reader→processor, 3 feature extractor, 4 channel extractor→matcher, 5 stored templates, 6 matcher, 7 decision output."
@@ -58,225 +58,225 @@ Biometric systémy jsou *complex stacks* od senzorů přes databáze po decision
 </svg>
 :::
 
-### 1. Sensor spoofing (presentation attack)
+### 1. Podvržení senzoru (sensor spoofing, presentation attack)
 
-Útočník prezentuje *podvržený* biometric trait sensoru.
+Útočník (attacker) prezentuje senzoru *podvržený* biometrický rys (biometric trait).
 
-* **Fake fingerprint** — silicone, gelatin, paper (Matsumoto gummy bear attack 2002).
-* **Face photo / video** — printed photo, screen replay.
-* **3D mask** — silicone reconstruction (Bkav vs. Face ID 2017).
-* **Iris contact lens** — patterned.
-* **Voice recording** — pre-recorded audio.
-* **Synthetic voice** — AI-generated.
-* **Deepfake video** — real-time face swap.
+* **Falešný otisk prstu (fake fingerprint)** — silikon, želatina, papír (Matsumotův útok s gumovým medvídkem, 2002).
+* **Fotografie / video obličeje** — vytištěná fotka, přehrání ze záznamu (screen replay).
+* **3D maska** — silikonová rekonstrukce obličeje (Bkav proti Face ID, 2017).
+* **Kontaktní čočka s duhovkou** — se vzorem duhovky.
+* **Nahrávka hlasu** — předem pořízený zvukový záznam.
+* **Syntetický hlas** — vygenerovaný umělou inteligencí.
+* **Deepfake video** — výměna obličeje v reálném čase.
 
-Defenze: **Liveness detection** ([[liveness]]), **multimodal**, **challenge-response**.
+Obrana: **detekce živosti (liveness detection)** ([[liveness]]), **multimodální biometrie**, **výzva–odpověď (challenge-response)**.
 
-### 2. Replay attack (channel 1)
+### 2. Útok přehráním (replay attack, kanál 1)
 
-Útočník **odposlechne** komunikaci mezi sensor a feature extractor a *přehraje* zachycená data.
+Útočník **odposlechne** komunikaci mezi senzorem a extraktorem příznaků (feature extractor) a zachycená data *přehraje*.
 
-* **Wired channel** — intercept USB cable.
-* **Wireless channel** — sniff RF (NFC, WiFi).
-* **Network channel** — between client and server.
+* **Drátový kanál** — odposlech USB kabelu.
+* **Bezdrátový kanál** — zachycení rádiového signálu (NFC, WiFi).
+* **Síťový kanál** — mezi klientem a serverem.
 
-Defenze:
-* **Encryption** of sensor-to-processor channel.
-* **Mutual authentication** (TLS, secure messaging).
-* **Nonce-based** anti-replay.
+Obrana:
+* **Šifrování (encryption)** kanálu mezi senzorem a procesorem.
+* **Vzájemná autentizace (mutual authentication)** (TLS, zabezpečené zasílání zpráv).
+* Ochrana proti přehrání **založená na nonce** (jednorázové náhodné hodnotě).
 
-### 3. Feature extractor compromise
+### 3. Kompromitace extraktoru příznaků
 
-Útočník **nahradí** feature extractor module (e.g., installs malware).
+Útočník **nahradí** modul extraktoru příznaků (feature extractor), například instalací škodlivého kódu (malware).
 
-* Output: *whatever features* attacker chooses.
-* Bypass biometric check entirely.
+* Výstup: *libovolné příznaky*, které si útočník zvolí.
+* Úplné obejití biometrické kontroly.
 
-Defenze:
-* **Code signing** of biometric modules.
-* **Secure Boot** + Trusted Execution Environment (TEE).
-* **Application allowlisting**.
+Obrana:
+* **Podepisování kódu (code signing)** biometrických modulů.
+* **Bezpečné spouštění (Secure Boot)** + důvěryhodné prostředí pro běh (Trusted Execution Environment, TEE).
+* **Povolování aplikací (application allowlisting)** — spustit lze jen výslovně schválené programy.
 
-### 4. Replay attack (channel 4)
+### 4. Útok přehráním (replay attack, kanál 4)
 
-Mezi feature extractor a matcher — analogous to 2.
+Probíhá mezi extraktorem příznaků a porovnávačem (matcher) — obdobně jako u bodu 2.
 
-Defenze: similar (encryption, nonces).
+Obrana: podobná (šifrování, hodnoty nonce).
 
-### 5. Template database attack
+### 5. Útok na databázi šablon
 
-Útok na *uložené* biometric templates.
+Útok na *uložené* biometrické šablony (templates).
 
-#### Steal templates
+#### Krádež šablon
 
-* Dump from compromised database.
-* **Use for cross-matching** — link people across systems.
-* **Identity theft** — generate fake biometrics from templates (rare but possible).
+* Stažení z kompromitované databáze.
+* **Využití k vzájemnému párování (cross-matching)** — propojení téže osoby napříč různými systémy.
+* **Krádež identity** — vygenerování falešných biometrických dat ze šablon (vzácné, ale možné).
 
-#### Modify templates
+#### Úprava šablon
 
-* Replace legitimate user template with attacker's.
-* **Bypass authentication** — attacker's biometric matches.
+* Nahrazení šablony oprávněného uživatele šablonou útočníka.
+* **Obejití autentizace (authentication)** — útočníkova biometrie pak projde jako shoda.
 
-#### Hashed/encrypted templates
+#### Hashované / šifrované šablony
 
-* Even if encrypted, *similarity-preserving* (templates can match each other when encrypted).
-* **Cancelable biometrics** — transformed templates that *can be revoked*.
+* I když jsou šablony šifrované, mohou *zachovávat podobnost* (similarity-preserving) — dvě šifrované šablony se tak mohou navzájem shodovat.
+* **Zrušitelná biometrie (cancelable biometrics)** — transformované šablony, které *lze odvolat* (revokovat) a nahradit novými.
 
-Defenze:
-* **Strong access control.**
-* **Encryption at rest.**
-* **Cancelable biometrics.**
-* **Homomorphic encryption** (research).
+Obrana:
+* **Silné řízení přístupu (access control).**
+* **Šifrování dat v klidu (encryption at rest).**
+* **Zrušitelná biometrie (cancelable biometrics).**
+* **Homomorfní šifrování (homomorphic encryption)** (oblast výzkumu).
 
-### 6. Matcher override
+### 6. Převzetí porovnávače (matcher override)
 
-Útočník modifikuje matcher to always return "match" or "no match".
+Útočník upraví porovnávač (matcher) tak, aby vždy vracel „shoda“ nebo „neshoda“.
 
-Defenze:
-* Code signing.
-* Tamper-resistant hardware (HSM, smart card).
+Obrana:
+* Podepisování kódu.
+* Hardware odolný proti manipulaci (HSM, čipová karta).
 
-### 7. Decision modification
+### 7. Úprava rozhodnutí
 
-Útočník flips the final decision bit (accept/reject).
+Útočník překlopí výsledný rozhodovací bit (přijmout/odmítnout).
 
-Defenze:
-* Secure communication of decision.
-* MAC over decision message.
-* Multi-stage authentication (one bit cannot bypass).
+Obrana:
+* Zabezpečený přenos rozhodnutí.
+* Ověřovací kód zprávy (MAC) nad rozhodovací zprávou.
+* Vícestupňová autentizace (jeden bit nestačí k obejití).
 
 ## Dvě hlavní kategorie útoků
 
-### Presentation attacks (PA, also called "spoofing")
+### Prezentační útoky (presentation attacks, PA — také „spoofing“)
 
-* **At the sensor** — fake biometric presented physically.
-* Standardized: **ISO/IEC 30107** — Presentation Attack Detection (PAD).
+* **Na senzoru** — falešná biometrie předložená fyzicky.
+* Standardizováno: **ISO/IEC 30107** — detekce prezentačních útoků (Presentation Attack Detection, PAD).
 
-### Indirect attacks
+### Nepřímé útoky
 
-* **Behind the sensor** — channels, modules, databases.
-* Subject of standard IT security (encryption, access control, secure code).
+* **Za senzorem** — kanály, moduly, databáze.
+* Předmět běžné IT bezpečnosti (šifrování, řízení přístupu, bezpečný kód).
 
-## Typy presentation attacks (PAIs)
+## Typy prezentačních útoků (PAI)
 
-### Artifact-based
+### Založené na artefaktu
 
-* Created from *materials* — paper photo, silicone mask, gummy finger.
-* **Cost:** $0–$1000 depending on quality.
+* Vytvořené z *materiálů* — papírová fotka, silikonová maska, gumový prst.
+* **Cena:** 0–1000 USD podle kvality.
 
-### Biometric template-based
+### Založené na biometrické šabloně
 
-* Mathematical reconstruction from stolen template.
-* Example: **face image** generated from leaked face embedding.
-* Difficult but possible (GAN-based).
+* Matematická rekonstrukce z ukradené šablony.
+* Příklad: **obraz obličeje** vygenerovaný z uniklého vektoru obličejových příznaků (face embedding).
+* Obtížné, ale možné (s pomocí generativních sítí GAN).
 
-### Synthetic / generated
+### Syntetické / generované
 
-* **Deepfakes** for face.
-* **Voice synthesis** for voice biometric.
-* **Generative AI** producing fake biometric data.
+* **Deepfaky** pro obličej.
+* **Syntéza hlasu** pro hlasovou biometrii.
+* **Generativní umělá inteligence** vytvářející falešná biometrická data.
 
-### Live but presented
+### Pravá biometrie předložená v útoku
 
-* **Coercion** — legitimate user forced to authenticate.
-* **Dead body** — extreme case (corpse fingerprints).
-* **Sleeping user** — phone unlock from sleeping victim.
+* **Nátlak (coercion)** — oprávněný uživatel je donucen se ověřit.
+* **Mrtvé tělo** — krajní případ (otisky prstů mrtvoly).
+* **Spící uživatel** — odemknutí telefonu spící oběti.
 
-### Other body part of legitimate user
+### Jiná část těla oprávněného uživatele
 
-* **Different finger** than enrolled.
-* **Picture of own face** in selfie mode.
+* **Jiný prst**, než který byl zaregistrován.
+* **Snímek vlastního obličeje** v režimu selfie.
 
 ## Specifické útoky pro různé modality
 
-### Fingerprint
+### Otisk prstu
 
-* **Latent print lifting** — recover from glasses, doorknobs.
-* **3D printed** false finger.
-* **Gummy bear** spoof.
-* **Adhesive tape** lifting.
+* **Sejmutí latentního otisku (latent print lifting)** — získání otisku ze skla, klik u dveří apod.
+* **3D tištěný** falešný prst.
+* Podvržení **gumovým medvídkem**.
+* Snímání **lepicí páskou**.
 
-### Face
+### Obličej
 
-* **Photo printout.**
-* **Video replay** on screen.
-* **3D mask.**
-* **Makeup, glasses, wigs** (evasion).
-* **Adversarial patches** (printed glasses that fool DL).
+* **Vytištěná fotografie.**
+* **Přehrání videa** na displeji.
+* **3D maska.**
+* **Líčení, brýle, paruky** (snaha o zmatení rozpoznávání).
+* **Adversariální nálepky (adversarial patches)** — vytištěné brýle, které obelstí hlubokou neuronovou síť (DL).
 * **Deepfake video.**
 
-### Iris
+### Duhovka
 
-* **Printed iris on contact lens.**
-* **High-resolution iris photo** (presented to camera).
-* **Real iris from another person** (extreme).
+* **Vytištěná duhovka na kontaktní čočce.**
+* **Fotografie duhovky ve vysokém rozlišení** (předložená kameře).
+* **Skutečná duhovka jiné osoby** (krajní případ).
 
-### Voice
+### Hlas
 
-* **Pre-recorded audio.**
-* **Voice synthesis (TTS).**
-* **Voice conversion** (real-time clone).
+* **Předem pořízená nahrávka.**
+* **Syntéza hlasu (TTS, převod textu na řeč).**
+* **Konverze hlasu (voice conversion)** — klonování hlasu v reálném čase.
 
 ### DNA
 
-* **Sample contamination** at crime scene.
-* **Plant DNA evidence.**
-* **Mixed sample interpretation issues.**
+* **Kontaminace vzorku** na místě činu.
+* **Podstrčení důkazu DNA.**
+* **Problémy s interpretací smíšeného vzorku.**
 
 ## Měření robustnosti
 
-### ISO/IEC 30107 metriky
+### Metriky ISO/IEC 30107
 
-* **APCER** (Attack Presentation Classification Error Rate) — % spoofs accepted as real.
-* **BPCER** (Bona Fide Presentation Classification Error Rate) — % real users rejected as spoofs.
+* **APCER** (Attack Presentation Classification Error Rate) — % podvrhů přijatých jako pravé.
+* **BPCER** (Bona Fide Presentation Classification Error Rate) — % skutečných uživatelů odmítnutých jako podvrh.
 
 Cíle (pro Level 2):
 * APCER < 1 %.
 * BPCER < 5 %.
 
-### iBeta testing
+### Testování iBeta
 
-* Independent lab testing.
-* **Level 1:** basic spoofs (photo, video).
-* **Level 2:** 3D masks, silicone.
+* Nezávislé laboratorní testování.
+* **Level 1:** základní podvrhy (fotka, video).
+* **Level 2:** 3D masky, silikon.
 
-iBeta PAD certifikace má pouze Level 1 a Level 2 (žádný oficiální "Level 3"). Sofistikovanější útočníci na úrovni státu jsou mimo rámec iBeta levelů.
+Certifikace iBeta PAD má pouze Level 1 a Level 2 (žádný oficiální „Level 3“). Sofistikovanější útočníci na úrovni státu jsou mimo rámec úrovní iBeta.
 
-Apple Face ID, Windows Hello certify Level 2.
+Apple Face ID a Windows Hello jsou certifikovány na Level 2.
 
 ## Praktické útoky 2010-2025
 
-| Year | Útok | Modality | Cíl |
+| Rok | Útok | Modalita | Cíl |
 | :--- | :--- | :--- | :--- |
-| 2002 | Gummy bear (Matsumoto) | fingerprint | Capacitive sensors |
-| 2013 | CCC chaos club | iPhone 5s Touch ID | bypassed in days |
-| 2017 | Bkav 3D mask | iPhone X Face ID | bypassed by silicone mask |
-| 2019 | Samsung S10 ultrasonic | fingerprint | bypassed by pencil rubber |
-| 2020 | Various BLE relay | smart locks | Tesla, Ford, BMW |
-| 2022 | NCC Tesla relay | BLE PaaK | Model 3 unlocked from 25m |
-| 2023 | TPM-Fail variants | TPM 2.0 | ECDSA key recovery |
-| 2024 | Deepfake banking | Face biometric | mobile banking bypass |
+| 2002 | Gumový medvídek (Matsumoto) | otisk prstu | kapacitní senzory |
+| 2013 | CCC (Chaos Computer Club) | iPhone 5s Touch ID | obejito během několika dní |
+| 2017 | Bkav 3D maska | iPhone X Face ID | obejito silikonovou maskou |
+| 2019 | Samsung S10 ultrazvuk | otisk prstu | obejito gumou z tužky |
+| 2020 | Různé útoky přeposláním přes BLE | chytré zámky | Tesla, Ford, BMW |
+| 2022 | NCC útok přeposláním přes Tesla | BLE PaaK | Model 3 odemčen z 25 m |
+| 2023 | Varianty TPM-Fail | TPM 2.0 | získání klíče ECDSA |
+| 2024 | Deepfake v bankovnictví | biometrie obličeje | obejití mobilního bankovnictví |
 
-## Defense in depth
+## Obrana do hloubky (defense in depth)
 
-> Žádná *jedna* defenze není dostatečná. Kombinace:
+> Žádná *jediná* obrana nestačí. Je třeba kombinovat:
 
-1. **Liveness detection** ([[liveness]]).
-2. **Multimodal biometrics**.
-3. **Challenge-response** (active liveness).
-4. **Continuous authentication** (not just at start).
-5. **Multi-factor** (biometric + PIN + token).
-6. **Risk-based authentication** — extra checks for high-value.
-7. **Anomaly detection** — unusual access patterns.
-8. **Audit logging.**
+1. **Detekce živosti (liveness detection)** ([[liveness]]).
+2. **Multimodální biometrie**.
+3. **Výzva–odpověď (challenge-response)** (aktivní detekce živosti).
+4. **Průběžná autentizace (continuous authentication)** (ne jen na začátku).
+5. **Vícefaktorové ověření (multi-factor)** (biometrie + PIN + token).
+6. **Autentizace podle míry rizika (risk-based authentication)** — u cennějších operací proběhnou kontroly navíc.
+7. **Detekce anomálií** — neobvyklé vzorce přístupu.
+8. **Auditní záznamy (audit logging).**
 
-## Recommended reading
+## Doporučená četba
 
-* **NIST IR 8472** — Biometric Spoofing/PAD Standards Update.
-* **ISO/IEC 30107-3** — PAD Testing.
-* **ASVspoof Challenge** — voice anti-spoofing.
-* **Liveness Detection Competitions** — fingerprint, face.
+* **NIST IR 8472** — aktualizace standardů pro podvrhy biometrie a PAD.
+* **ISO/IEC 30107-3** — testování PAD.
+* **ASVspoof Challenge** — obrana proti podvrhům hlasu.
+* **Soutěže v detekci živosti (Liveness Detection Competitions)** — otisk prstu, obličej.
 
 ---
 

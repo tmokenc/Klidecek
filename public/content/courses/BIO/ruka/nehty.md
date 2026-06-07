@@ -4,7 +4,7 @@ title: Nehty jako biometrika
 
 # Nehty jako biometrika
 
-**Nail biometrics** je novější a zatím *experimentální* modalita — *unikátní vzory na ploše nehtu*. Studie ([Garg et al. 2017, *Nail-Plate Biometrics*](https://link.springer.com/article/10.1007/s12517-017-3151-5)) ukazují, že nehty mají *individuální* texturní vzor analogický (i když méně bohatý) k otisku prstu. Praktické nasazení omezené, ale rostoucí research interest.
+**Biometrika nehtů (nail biometrics)** je novější a zatím *experimentální* modalita, která využívá *unikátní vzory na ploše nehtu*. Studie ([Garg et al. 2017, *Nail-Plate Biometrics*](https://link.springer.com/article/10.1007/s12517-017-3151-5)) ukazují, že nehty mají *individuální* texturní vzor analogický otisku prstu (i když méně bohatý). Praktické nasazení je zatím omezené, ale výzkumný zájem (research interest) roste.
 
 ## Anatomie nehtu
 
@@ -37,156 +37,156 @@ title: Nehty jako biometrika
 </svg>
 :::
 
-* **Nail plate** — tvrdá vrstva keratinu, viditelná část.
-* **Nail bed** — měkká *růžová* tkáň pod nail plate.
+* **Nehtová ploténka (nail plate)** — tvrdá vrstva keratinu, viditelná část nehtu.
+* **Nehtové lůžko (nail bed)** — měkká *růžová* tkáň pod nehtovou ploténkou.
 * **Lunula** — bílý *půlměsíc* u kořene nehtu (nejmladší keratin).
-* **Cuticle / eponychium** — kůžička překrývající kořen.
-* **Free edge** — volný okraj nehtu (přesahuje prst).
+* **Kůžička (cuticle / eponychium)** — překrývá kořen nehtu.
+* **Volný okraj (free edge)** — okraj nehtu, který přesahuje prst.
 
 ## Biometrické rysy
 
-### Surface patterns
+### Povrchové vzory (surface patterns)
 
-Nail plate má *jemné textury*:
+Nehtová ploténka má *jemné textury*:
 
-* **Longitudinal ridges** — paralelní *jemné rýhy* od kořene k volnému okraji.
-* **Transverse striations** (Beau's lines) — *horizontální* rýhy po nemoci nebo stresu.
-* **White spots** (leukonychia) — bílé skvrny od trauma.
-* **Pigmented streaks** — tmavé pruhy (melanonychia).
+* **Podélné rýhy (longitudinal ridges)** — paralelní *jemné rýhy* vedoucí od kořene k volnému okraji.
+* **Příčné rýhy (transverse striations, Beauovy linie)** — *horizontální* rýhy, které vznikají po nemoci nebo stresu.
+* **Bílé skvrny (leukonychia)** — bílé skvrny způsobené úrazem (trauma).
+* **Pigmentové pruhy (pigmented streaks)** — tmavé pruhy (melanonychie).
 
-### Color a translucency
+### Barva a průsvitnost
 
-* Underlying nail bed je *růžová* (krev v capillaries).
-* Lunula je *bílá* (immature keratin).
-* Distal edge je *bílá* (žádné připojení k nail bed).
+* Nehtové lůžko pod ploténkou je *růžové* (krev ve vlásečnicích).
+* Lunula je *bílá* (nezralý keratin).
+* Distální okraj (vzdálený konec nehtu) je *bílý*, protože už není připojen k nehtovému lůžku.
 
-### Shape
+### Tvar
 
-* **Length / width ratio**.
-* **Curvature** (transverse, longitudinal).
-* Genetic + age + occupation-related variations.
+* **Poměr délky a šířky**.
+* **Zakřivení (curvature)** — příčné i podélné.
+* Variace dané genetikou, věkem a zaměstnáním.
 
-### Composition (skinning)
+### Složení
 
-* **Keratin** je primary component.
-* **Sulfur** (cysteine) — disulfide bonds.
-* **Trace minerals** — Zn, Ca, Fe.
+* **Keratin** je hlavní složkou.
+* **Síra (sulfur)** obsažená v cysteinu — tvoří disulfidové vazby.
+* **Stopové minerály** — zinek (Zn), vápník (Ca), železo (Fe).
 
 ## Snímání
 
-### Optical photography
+### Optická fotografie (optical photography)
 
-* RGB camera + uniform illumination.
-* Macro mode for high detail.
-* Resolution: 1000+ dpi for surface patterns.
+* RGB kamera a rovnoměrné osvětlení.
+* Makrorežim pro zachycení vysokého detailu.
+* Rozlišení: 1000+ dpi pro povrchové vzory.
 
-### Microscopic imaging
+### Mikroskopické snímání (microscopic imaging)
 
-* Microscope-based capture.
-* Higher detail, but slow.
+* Snímání pomocí mikroskopu.
+* Vyšší detail, ale pomalé.
 
-### Hyperspectral
+### Hyperspektrální snímání (hyperspectral)
 
-* Capture *multiple wavelengths*.
-* Visible + NIR.
-* Reveals subsurface details (nail bed structure).
+* Zachycuje *více vlnových délek*.
+* Viditelné světlo i blízká infračervená oblast (NIR).
+* Odhalí podpovrchové detaily (strukturu nehtového lůžka).
 
-### 3D scanning
+### 3D skenování
 
-* Capture *curvature* + texture.
-* More information than 2D.
+* Zachycuje *zakřivení* i texturu.
+* Poskytuje více informací než 2D snímek.
 
 ## Algoritmy
 
-### Texture-based
+### Texturní metody (texture-based)
 
-* Extract *texture features*:
-  * **Local Binary Patterns (LBP)** — texture descriptor.
-  * **Gabor filter responses** — directional texture.
-  * **GLCM** (Gray-Level Co-occurrence Matrix).
-* Feature vector → SVM / k-NN classifier.
+* Extrahují *texturní rysy*:
+  * **Local Binary Patterns (LBP)** — texturní deskriptor.
+  * **Odezvy Gaborova filtru (Gabor filter responses)** — směrová textura.
+  * **GLCM** (Gray-Level Co-occurrence Matrix, matice společného výskytu úrovní šedi).
+* Vektor rysů (feature vector) → klasifikátor SVM nebo k-NN.
 
-### Deep learning
+### Hluboké učení (deep learning)
 
-* CNN trained on nail images.
-* Embedding-based matching.
-* Limited datasets, experimental.
+* CNN (konvoluční neuronová síť) trénovaná na snímcích nehtů.
+* Porovnávání pomocí vnoření (embedding-based matching).
+* Omezené datové sady, experimentální využití.
 
-### Multimodal fusion
+### Multimodální fúze (multimodal fusion)
 
-* **Nail + fingerprint** — both from same finger.
-* **Nail + hand geometry** — complementary.
+* **Nehet + otisk prstu** — obojí ze stejného prstu.
+* **Nehet + geometrie ruky** — vzájemně se doplňují.
 
 ## Vlastnosti
 
 ### Stálost
 
-* Surface patterns *change* with growth (full nail replacement ~6 měsíců).
-* Underlying *texture characteristics* relatively stable.
-* Trauma → temporary changes (Beau's lines, leukonychia).
+* Povrchové vzory se *mění* s růstem nehtu (úplná výměna nehtu trvá zhruba 6 měsíců).
+* Hlubší *texturní charakteristiky* jsou relativně stabilní.
+* Úraz (trauma) → dočasné změny (Beauovy linie, leukonychia).
 
 ### Unikátnost
 
-* Studies suggest *moderate* uniqueness.
-* Identical twins have *correlated* nail patterns (similar genetics + diet).
-* *Not* as unique as fingerprint or iris.
+* Studie naznačují *střední* míru unikátnosti.
+* Jednovaječná dvojčata mají *korelované* vzory nehtů (podobná genetika i strava).
+* *Není* tak unikátní jako otisk prstu nebo duhovka.
 
-### Snímání issue
+### Problémy se snímáním
 
-* **Polish** (nail polish) — zakryje surface patterns.
-* **Artificial nails** — překryjí natural patterns.
-* **Damage** (broken nails) — temporary failure.
+* **Lak na nehty (nail polish)** — zakryje povrchové vzory.
+* **Umělé nehty (artificial nails)** — překryjí přirozené vzory.
+* **Poškození (broken nails)** — zlomený nehet způsobí dočasné selhání.
 
 ## Praktické nasazení
 
 ### Současný stav
 
-* **Experimentální** — žádné mass-market produkty.
-* **Research interest** — alternative biometric pro context, kde fingerprint není available.
+* **Experimentální** — neexistují žádné produkty pro masový trh.
+* **Výzkumný zájem** — alternativní biometrika pro kontexty, kde není otisk prstu k dispozici.
 
-### Medical applications
+### Lékařské aplikace (medical applications)
 
-* **Onychomycosis** (fungal infection) detection.
-* **Anemia, liver disease, kidney disease** — nail color/shape changes.
-* AI-based diagnosis from nail images.
+* Detekce **onychomykózy (onychomycosis)** — plísňové infekce nehtu.
+* **Chudokrevnost (anemia), onemocnění jater a ledvin** — projevují se změnami barvy či tvaru nehtu.
+* Diagnostika ze snímků nehtů založená na AI.
 
-### Forensic value
+### Forenzní hodnota (forensic value)
 
-* **DNA from nails** — keratin contains DNA (touch DNA from cells).
-* **Trace evidence** — nail clippings v criminal investigations.
-* *Distinct* from biometric nail recognition.
+* **DNA z nehtů** — keratin obsahuje DNA (kontaktní DNA z buněk).
+* **Stopové důkazy (trace evidence)** — ostřižky nehtů při kriminálním vyšetřování.
+* Toto je *odlišné* od biometrického rozpoznávání nehtů.
 
-## Trends
+## Trendy
 
-* **Smartphone-based** nail capture for research datasets.
-* **DL-based** more sophisticated features.
-* **Multimodal** with fingerprint, palmprint.
-* **Health monitoring** combined (e.g., anemia detection from smartphone nail photos).
+* **Snímání nehtů smartphonem** pro výzkumné datové sady.
+* **Sofistikovanější rysy** získané pomocí hlubokého učení (DL).
+* **Multimodální spojení** s otiskem prstu nebo otiskem dlaně.
+* **Sledování zdraví** v kombinaci (např. detekce chudokrevnosti z fotografií nehtů pořízených smartphonem).
 
 ## Limity
 
-* **Low industry adoption** — fingerprint better-established.
-* **Lower accuracy** než fingerprint.
-* **Hygiene concerns** — touching senzor (alternative: touchless).
-* **Cultural** — některé regions consider nails private / not for biometric capture.
+* **Nízké rozšíření v průmyslu** — otisk prstu je lépe zavedený.
+* **Nižší přesnost** než otisk prstu.
+* **Hygienické obavy** — dotyk senzoru (alternativou je bezdotykové snímání).
+* **Kulturní hledisko** — v některých regionech jsou nehty považovány za soukromé a nevhodné pro biometrické snímání.
 
 ## Standardy
 
-* **Žádné** ISO/IEC standards pro nail biometrics (k roku 2025).
-* Research-level only.
+* **Žádné** standardy ISO/IEC pro biometriku nehtů (k roku 2025).
+* Pouze na úrovni výzkumu.
 
 ## Vztah k jiným biometrikám
 
-| | **Nail** | **Fingerprint** | **Palm geometry** |
+| | **Nehet** | **Otisk prstu** | **Geometrie dlaně** |
 | :--- | :---: | :---: | :---: |
-| Unique | medium | high | low |
-| Stable | medium | high | medium |
-| User-friendly | high | medium | high |
-| Cost | low | low-medium | medium |
-| Adoption | rare | universal | niche |
-| Spoofing risk | medium | medium | low |
+| Unikátnost | střední | vysoká | nízká |
+| Stabilita | střední | vysoká | střední |
+| Pohodlí pro uživatele | vysoké | střední | vysoké |
+| Náklady | nízké | nízké až střední | střední |
+| Rozšíření | vzácné | univerzální | okrajové |
+| Riziko podvržení (spoofing) | střední | střední | nízké |
 
-Nail biometrics zatím **nejsou primary modality**, ale mají roli ve **multimodal fusion** + medical-biometric hybrids.
+Biometrika nehtů zatím **není primární modalitou**, ale má roli v **multimodální fúzi** a v hybridních medicínsko-biometrických aplikacích.
 
 ---
 

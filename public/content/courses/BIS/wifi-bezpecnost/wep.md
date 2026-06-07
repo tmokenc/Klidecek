@@ -1,19 +1,19 @@
 ---
-title: WEP — Wired Equivalent Privacy (broken)
+title: WEP — Wired Equivalent Privacy (prolomený)
 ---
 
 # WEP — Wired Equivalent Privacy
 
-**WEP** byl první bezpečnostní standard pro WiFi (IEEE 802.11, 1997). *Wired Equivalent Privacy* slibovala bezpečnost srovnatelnou s kabelovou sítí. *Slibu nedostála* — během několika let byla *zcela prolomena*. Klasická lekce v *nepoužívejte staré kryptografie* a *don't roll your own crypto*.
+**WEP** byl první bezpečnostní standard pro WiFi (IEEE 802.11, 1997). Název *Wired Equivalent Privacy* sliboval bezpečnost srovnatelnou s kabelovou sítí. *Slibu nedostál* — během několika let byl *zcela prolomen*. Je to klasická lekce z kategorie *nepoužívejte staré kryptografie* a *nevymýšlejte si vlastní kryptografii* (don't roll your own crypto).
 
-## WEP architecture
+## Architektura WEP
 
 WEP staví na:
 
-- **RC4** stream cipher ([[proudove-sifry]]).
-- 40-bit nebo 104-bit *shared* klíč (often 5 nebo 13 ASCII characters).
-- 24-bit **IV** (Initialization Vector) — concatenated with key for each frame.
-- **CRC-32** for "integrity" (broken — not cryptographic MAC).
+- proudové šifře (stream cipher) **RC4** ([[proudove-sifry]]);
+- sdíleném (shared) 40bitovém nebo 104bitovém klíči (klíč) — často 5 nebo 13 znaků ASCII;
+- 24bitovém **IV** (Initialization Vector, inicializační vektor) — pro každý rámec se spojí (zřetězí) s klíčem;
+- **CRC-32** pro „integritu" (prolomené — nejde o kryptografický MAC).
 
 ```
 WEP keystream = RC4(IV || K)
@@ -21,68 +21,68 @@ encrypted = (plaintext || CRC32(plaintext)) XOR keystream
 WEP frame = IV || encrypted
 ```
 
-## Authentication WEP
+## Autentizace ve WEP
 
 ### Open System
 
-No authentication. Client associates freely. **WEP encrypts data only**.
+Žádná autentizace (authentication). Klient se připojí (asociuje) volně. **WEP zde šifruje pouze data.**
 
 ### Shared Key
 
-Challenge-response:
+Princip výzva–odpověď (challenge-response):
 
-1. Client requests authentication.
-2. AP sends random 128-byte challenge.
-3. Client encrypts challenge with WEP key → returns.
-4. AP decrypts, verifies match.
+1. Klient požádá o autentizaci.
+2. AP pošle náhodnou 128bajtovou výzvu (challenge).
+3. Klient výzvu zašifruje klíčem WEP a vrátí ji zpět.
+4. AP ji dešifruje a ověří shodu.
 
-**Ironically less secure** than Open System: attacker captures challenge + response (plaintext + ciphertext) → derive keystream → can encrypt arbitrary data.
+**Paradoxně je tento režim méně bezpečný** než Open System: útočník (attacker) zachytí výzvu i odpověď (tedy otevřený text plaintext i šifrový text ciphertext), z nich odvodí keystream a poté může zašifrovat libovolná data.
 
-## WEP fundamental flaws
+## Zásadní slabiny WEP
 
-### Flaw 1: IV too small
+### Slabina 1: příliš malý IV
 
-24-bit IV → 2^24 = 16.7M unique values. Reused after ~few hours on busy network.
+24bitový IV → 2^24 = 16,7 milionu jedinečných hodnot. Na vytížené síti se začnou opakovat už po několika hodinách.
 
-When *same IV + same key* → *same keystream*. Two ciphertexts with shared keystream:
+Když nastane *stejný IV + stejný klíč*, vznikne *stejný keystream*. Pro dva šifrové texty se sdíleným keystreamem platí:
 
 $$
 C_1 \oplus C_2 = P_1 \oplus P_2
 $$
 
-Attacker XORs ciphertexts → reveals plaintext XOR. Statistical analysis recovers plaintexts.
+Útočník provede XOR obou šifrových textů a tím odhalí XOR otevřených textů. Statistická analýza pak umožní oba otevřené texty zrekonstruovat.
 
-### Flaw 2: RC4 weak keys (FMS attack)
+### Slabina 2: slabé klíče RC4 (útok FMS)
 
-**Fluhrer-Mantin-Shamir** (2001) — RC4 weakness: certain IV patterns *leak key bytes*.
+**Fluhrer–Mantin–Shamir** (2001) — slabina RC4: některé vzory IV *prozrazují bajty klíče*.
 
-Attacker passively collects packets. After ~50k-1M frames, recovers WEP key.
+Útočník pasivně sbírá pakety. Po zhruba 50 tisících až 1 milionu rámců dokáže klíč WEP obnovit.
 
-Tools: airodump-ng (capture), aircrack-ng (analyze).
+Nástroje: airodump-ng (zachytávání), aircrack-ng (analýza).
 
-### Flaw 3: CRC-32 not cryptographic
+### Slabina 3: CRC-32 není kryptografické
 
-CRC-32 is *linear* — `CRC(M XOR D) = CRC(M) XOR CRC(D)`.
+CRC-32 je *lineární* — `CRC(M XOR D) = CRC(M) XOR CRC(D)`.
 
-Attacker can:
+Útočník proto může:
 
-1. Modify ciphertext bits.
-2. Adjust CRC accordingly.
-3. Receiver's CRC check passes → undetected modification.
+1. Změnit bity šifrového textu.
+2. Odpovídajícím způsobem upravit CRC.
+3. Kontrola CRC na straně příjemce projde → modifikace zůstane neodhalena.
 
-**Integrity broken**. Attacker can inject packets without knowing key.
+**Integrita je prolomená.** Útočník dokáže vkládat pakety, aniž by znal klíč.
 
-### Flaw 4: Klein attack (2005)
+### Slabina 4: Kleinův útok (2005)
 
-Improved FMS. Reduced packet count to ~40k.
+Vylepšení útoku FMS. Snížil potřebný počet paketů na zhruba 40 tisíc.
 
-### Flaw 5: PTW attack (2007)
+### Slabina 5: útok PTW (2007)
 
-Pychkine-Tews-Weinmann. Aircrack-ptw. ~40-85k packets → key recovery in *minutes*.
+Pychkine–Tews–Weinmann. Nástroj aircrack-ptw. Zhruba 40–85 tisíc paketů → obnovení klíče během *několika minut*.
 
-### Flaw 6: ChopChop attack (2004)
+### Slabina 6: útok ChopChop (2004)
 
-Decrypt packet *without* key. Modify last byte iteratively, detect valid ICV via AP response.
+Dešifrování paketu *bez* klíče. Útočník iterativně mění poslední bajt a podle odpovědi AP zjišťuje, kdy je hodnota ICV platná.
 
 ## Reálný útok {tier=example}
 
@@ -103,59 +103,59 @@ aireplay-ng -0 5 -a AA:BB:CC:DD:EE:FF wlan0mon
 aircrack-ng capture-01.cap
 ```
 
-Total time: 5-15 minutes for 64-bit WEP. 128-bit slightly longer.
+Celková doba: 5–15 minut pro 64bitový WEP. U 128bitového o něco déle.
 
 ::: viz wep-fms-cracker "Spusť capture (zapni ARP replay pro 10× rychlost). Bar 'weak IVs' roste; key byty se postupně dopočítají statisticky. ~40k paketů → 104-bit klíč zlámaný."
 :::
 
-## ARP injection — speed up {tier=example}
+## ARP injection — zrychlení útoku {tier=example}
 
-If target network quiet, no traffic to collect. **ARP replay attack**:
+Pokud je cílová síť tichá, není co sbírat — chybí provoz. Pomůže **útok ARP replay** (přehrání ARP):
 
-1. Capture *one* ARP request from target.
-2. Replay it repeatedly → AP responds → collect more IVs.
+1. Zachyť *jeden* ARP požadavek (request) z cílové sítě.
+2. Opakovaně jej přehrávej → AP odpovídá → tím sesbíráš více hodnot IV.
 
-aireplay-ng `-3` mode does this. *Active* attack.
+To dělá režim `-3` nástroje aireplay-ng. Jde o *aktivní* útok.
 
-## Why WEP took so long to die {tier=extra}
+## Proč WEP tak dlouho přežíval {tier=extra}
 
-- **Backwards compatibility** — old devices.
-- **Inertia** — "we have WEP, we're secure".
-- **WPS** — Wi-Fi Protected Setup pushed adoption of newer (but with own flaws).
-- **Industry slowness** — IEEE 802.11i (WPA2) standardized 2004, slow adoption.
+- **Zpětná kompatibilita** — kvůli starým zařízením.
+- **Setrvačnost** — „máme WEP, jsme přece v bezpečí".
+- **WPS** — Wi-Fi Protected Setup podpořil přechod na novější (ale rovněž chybné) řešení.
+- **Pomalost odvětví** — standard IEEE 802.11i (WPA2) byl schválen už v roce 2004, jeho nasazení ale probíhalo pomalu.
 
-WEP deprecated 2004 (IEEE 802.11i). Mostly disappeared 2010s. Some legacy IoT, industrial may still use.
+WEP byl označen za zastaralý v roce 2004 (IEEE 802.11i). Z větší části zmizel během let 2010+. Některá starší zařízení IoT a průmyslová technika jej mohou používat dodnes.
 
-## Lessons learned
+## Co si z toho odnést
 
-1. **Use proven protocols** — don't design own.
-2. **IV size matters** — must be large enough to never reuse.
-3. **Stream cipher reuse = disaster** — same keystream for different plaintexts = total break.
-4. **Cryptographic MAC** required for integrity, not CRC.
-5. **Key length isn't only thing** — design + math matter more.
+1. **Používejte ověřené protokoly** — nenavrhujte si vlastní.
+2. **Na velikosti IV záleží** — musí být dost velký, aby se nikdy neopakoval.
+3. **Opakované použití proudové šifry = katastrofa** — stejný keystream pro různé otevřené texty znamená úplné prolomení.
+4. **Pro integritu je nutný kryptografický MAC**, nikoli CRC.
+5. **Délka klíče není všechno** — návrh a matematika za ním rozhodují víc.
 
-WEP became a *cautionary tale* in cryptography education.
+WEP se stal *odstrašujícím příkladem* ve výuce kryptografie.
 
-## After WEP
+## Po WEP
 
-| Year | Standard | Notes |
+| Rok | Standard | Poznámky |
 | :--- | :---: | :--- |
-| 1997 | WEP | broken |
-| 2003 | WPA (TKIP) | interim fix, mostly broken |
-| 2004 | WPA2 (CCMP/AES) | mainstream, IEEE 802.11i |
-| 2018 | WPA3 (SAE) | current best |
+| 1997 | WEP | prolomený |
+| 2003 | WPA (TKIP) | provizorní záplata, z větší části prolomená |
+| 2004 | WPA2 (CCMP/AES) | rozšířený standard, IEEE 802.11i |
+| 2018 | WPA3 (SAE) | aktuálně nejlepší |
 
 Detail v [[wpa-wpa2]], [[wpa3]].
 
-## WEP in practice today
+## WEP v praxi dnes
 
-- **Legacy industrial** — old SCADA, IoT.
-- **Some hotel routers** — slow updates.
-- **Personal old routers** — many people don't update.
+- **Starší průmyslová technika** — staré systémy SCADA, IoT.
+- **Některé hotelové routery** — pomalé aktualizace.
+- **Staré domácí routery** — mnoho lidí je neaktualizuje.
 
-If WEP encountered: *bypass in minutes*. Treat unencrypted equivalent.
+Pokud na WEP narazíte, počítejte s tím, že jde *obejít během několika minut*. Berte jej jako rovnocenný nešifrovanému provozu.
 
-Modern WiFi clients (Windows 10+, macOS, Linux) increasingly *refuse* WEP. Apple iOS 14+ warns.
+Moderní WiFi klienti (Windows 10+, macOS, Linux) WEP stále častěji *odmítají*. Apple iOS 14+ na něj upozorňuje varováním.
 
 ---
 

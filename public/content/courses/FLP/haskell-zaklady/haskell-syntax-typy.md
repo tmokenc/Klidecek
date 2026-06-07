@@ -1,10 +1,10 @@
 ---
-title: Haskell — syntax a typový systém
+title: Haskell — syntaxe a typový systém
 ---
 
-# Haskell — syntax a typový systém
+# Haskell — syntaxe a typový systém
 
-**Haskell** je *pure functional* programming language vyvinutý od r. 1990. Pojmenován po Haskellu Currym. Charakteristické vlastnosti: *strong static typing*, *type inference*, *lazy evaluation* ([[lazy-evaluation]]), *immutability*, *higher-order functions*, *type classes* ([[type-classes]]). Reference implementation: **GHC** (Glasgow Haskell Compiler).
+**Haskell** je čistě funkcionální (pure functional) programovací jazyk vyvíjený od roku 1990. Je pojmenován po matematikovi Haskellu Currym. Mezi jeho charakteristické vlastnosti patří: silné statické typování (strong static typing), odvozování typů (type inference), líné vyhodnocování (lazy evaluation) ([[lazy-evaluation]]), neměnnost (immutability), funkce vyššího řádu (higher-order functions) a typové třídy (type classes) ([[type-classes]]). Referenční implementací je **GHC** (Glasgow Haskell Compiler).
 
 ## Základní syntaxe
 
@@ -35,13 +35,13 @@ result = factorial 5   -- 120
 result = max 3 7       -- 7
 ```
 
-Aplikace je **left-associative**:
+Aplikace funkce je **levě asociativní** (left-associative) — vyhodnocuje se zleva:
 
 ```haskell
 f a b c = ((f a) b) c
 ```
 
-### Local bindings
+### Lokální vazby (local bindings)
 
 ```haskell
 -- let-in
@@ -84,7 +84,7 @@ half = (/2)
 
 ## Typový systém
 
-Haskell má **strong static typing** s **type inference**. Typový systém je *Hindley-Milner* + rozšíření.
+Haskell má **silné statické typování** (strong static typing) spolu s **odvozováním typů** (type inference). Typový systém vychází z modelu *Hindley-Milner* doplněného o různá rozšíření.
 
 ### Základní typy
 
@@ -103,7 +103,7 @@ g :: Int -> Int -> Int        -- 2-arg curried function
 h :: (Int -> Int) -> Int      -- higher-order
 ```
 
-### Type variables
+### Typové proměnné (type variables)
 
 ```haskell
 id :: a -> a
@@ -115,9 +115,9 @@ result2 = id "hi"   -- String -> String
 result3 = id True   -- Bool -> Bool
 ```
 
-### Type inference
+### Odvozování typů (type inference)
 
-Kompilátor *odvodí* typ:
+Překladač (compiler) typ *odvodí* sám — programátor jej nemusí psát explicitně:
 
 ```haskell
 -- Explicit type
@@ -128,12 +128,12 @@ sum x y = x + y
 sum x y = x + y  -- compiler figures out :: Num a => a -> a -> a
 ```
 
-Inference algorithm: **Hindley-Milner** (1969, 1978) — *complete*, *polymorphic*, *principal types*.
+Algoritmus odvozování typů: **Hindley-Milner** (1969, 1978) — je *úplný* (complete), *polymorfní* a poskytuje *principální typy* (principal types), tedy nejobecnější možný typ každého výrazu.
 
-::: viz hindley-milner "Algoritmus W krok po kroku: introduction typových proměnných, unifikace, substituce σ, finální generalizace."
+::: viz hindley-milner "Algoritmus W krok po kroku: zavedení typových proměnných, unifikace, substituce σ, finální generalizace."
 :::
 
-### Constraints
+### Omezení typů (constraints)
 
 ```haskell
 -- Show typeclass constraint
@@ -145,9 +145,9 @@ fn :: (Show a, Num a) => a -> String
 fn x = show (x + 1)
 ```
 
-Constraints navazují na **type classes** ([[type-classes]]).
+Omezení (constraints) navazují na **typové třídy** (type classes) ([[type-classes]]).
 
-### Compound types
+### Složené typy (compound types)
 
 ```haskell
 -- Tuples
@@ -171,7 +171,7 @@ ok :: Either String Int
 ok = Right 42
 ```
 
-### Function types
+### Typy funkcí (function types)
 
 ```haskell
 -- Currying — všechny funkce jsou unární!
@@ -187,9 +187,9 @@ square :: Int -> Int
 square = \x -> x * x
 ```
 
-## Curried functions
+## Curryfikované funkce (curried functions)
 
-Klíčový princip Haskellu: *všechny* funkce jsou *unární* (1 argument).
+Klíčovým principem Haskellu je, že *všechny* funkce jsou *unární* — přijímají právě jeden argument.
 
 ```haskell
 -- Tyto jsou ekvivalentní:
@@ -200,7 +200,7 @@ add :: Int -> (Int -> Int)
 add x = \y -> x + y
 ```
 
-Důsledek: **partial application** je *triviální*:
+Důsledkem je, že **částečná aplikace** (partial application) je *triviální* — funkci stačí předat jen část argumentů a získáme novou funkci:
 
 ```haskell
 add5 :: Int -> Int
@@ -241,11 +241,11 @@ privateFunc :: Int -> Int  -- not exported
 privateFunc x = x * 2
 ```
 
-Standard library: `Prelude` (auto-imported), `base` (basic), `containers`, `text`, `bytestring`, ...
+Standardní knihovna: `Prelude` (importuje se automaticky), `base` (základ), `containers`, `text`, `bytestring`, …
 
 ## Interaktivní vývoj — GHCi
 
-GHCi (Glasgow Haskell Interpreter):
+GHCi (Glasgow Haskell Interpreter) je interaktivní interpret:
 
 ```bash
 $ ghci
@@ -261,12 +261,12 @@ Ok, modules loaded: Main.
 *Main> main
 ```
 
-Key commands:
-* `:type expr` — show inferred type.
-* `:info name` — show definition + class instances.
-* `:load file.hs` — load source file.
-* `:reload` — reload.
-* `:quit` — exit.
+Klíčové příkazy:
+* `:type expr` — zobrazí odvozený typ.
+* `:info name` — zobrazí definici a instance tříd.
+* `:load file.hs` — načte zdrojový soubor.
+* `:reload` — znovu načte.
+* `:quit` — ukončí GHCi.
 
 ## Příklad — kompletní program
 
@@ -298,10 +298,10 @@ main = do
 
 ## Cabal a Stack
 
-Build tools:
+Nástroje pro sestavení (build tools):
 
-* **Cabal** — Haskell standard package manager.
-* **Stack** — alternative, focuses on reproducible builds.
+* **Cabal** — standardní správce balíčků pro Haskell.
+* **Stack** — alternativa zaměřená na reprodukovatelné sestavení.
 
 ```bash
 $ cabal init        # new project
@@ -313,14 +313,14 @@ $ cabal install hlint  # install package
 
 ## Klíčové rozdíly oproti imperativním jazykům
 
-| Aspekt | Imperative (C, Python) | Haskell |
+| Aspekt | Imperativní (C, Python) | Haskell |
 | :--- | :--- | :--- |
-| Variables | mutable | **immutable** |
-| Loops | `for`, `while` | **rekurze** |
-| Effects | direct (printf) | **monády** ([[monady-io]]) |
-| Types | dynamic/runtime | **static, inferred** |
-| Evaluation | eager | **lazy** ([[lazy-evaluation]]) |
-| Side effects | everywhere | **isolated** (IO monad) |
+| Proměnné | měnitelné | **neměnné** |
+| Cykly | `for`, `while` | **rekurze** |
+| Efekty | přímé (printf) | **monády** ([[monady-io]]) |
+| Typy | dynamické / za běhu | **statické, odvozené** |
+| Vyhodnocování | striktní | **líné** ([[lazy-evaluation]]) |
+| Vedlejší efekty | všude | **izolované** (IO monáda) |
 
 ## Filosofie
 
@@ -328,16 +328,16 @@ $ cabal install hlint  # install package
 
 Haskell je *blízko* matematice:
 
-* Functions jsou *math funkce*.
-* No side effects → equational reasoning works.
-* `f x = g x` → můžeme nahradit `f x` za `g x` *kdekoli*.
+* Funkce jsou *matematickými funkcemi*.
+* Žádné vedlejší efekty → funguje rovnicové uvažování (equational reasoning).
+* Z `f x = g x` plyne, že `f x` můžeme nahradit za `g x` *kdekoli*.
 
 ## Učební křivka
 
-* **Easy:** basic syntax, type inference.
-* **Medium:** ADTs, pattern matching, recursion.
-* **Hard:** monads, type classes, advanced types.
-* **Hard core:** type families, GADTs, dependent types.
+* **Snadné:** základní syntaxe, odvozování typů.
+* **Středně těžké:** algebraické datové typy (ADT), porovnávání vzorů (pattern matching), rekurze.
+* **Těžké:** monády, typové třídy, pokročilé typy.
+* **Velmi náročné:** typové rodiny (type families), GADT, závislé typy (dependent types).
 
 > "Haskell is the language that's easy to learn but hard to master."
 

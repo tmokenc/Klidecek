@@ -4,13 +4,13 @@ title: Papilární linie a anatomie otisku
 
 # Papilární linie a anatomie otisku
 
-**Papilární linie** (friction ridges) jsou vyvýšené hřebeny na pokožce konečků prstů, dlaní a chodidel. Slouží primárně k *třícímu kontaktu* (úchop, kráčení), ale jejich *vzor* je unikátní pro každého jedince — proto se staly *kanonickou* biometrikou.
+**Papilární linie** (friction ridges) jsou vyvýšené hřebeny na pokožce konečků prstů, dlaní a chodidel. Slouží především k *třecímu kontaktu* (úchop, chůze), ale jejich *vzor* je jedinečný pro každého člověka — proto se staly *kanonickou* (vzorovou, klasickou) biometrikou.
 
 ## Vznik a stálost
 
-* Papilární linie se vytvářejí v **embryonální fázi**, mezi 13.–24. týdnem těhotenství.
-* Vzor je *finálně určen* před narozením a **nemění se** během života.
-* **Genetika** určuje *globální vzor* (loops, whorls, arches), ale *jemné detaily* (markanty) jsou *epigeneticky* tvořené během vývoje — proto i **identická dvojčata** mají odlišné otisky.
+* Papilární linie se vytvářejí v **embryonální fázi**, mezi 13. a 24. týdnem těhotenství.
+* Vzor je *definitivně určen* ještě před narozením a **během života se nemění**.
+* **Genetika** určuje *globální vzor* (smyčky, víry a oblouky — loops, whorls, arches), ale *jemné detaily* (markanty) vznikají *epigeneticky* během vývoje. Proto i **jednovaječná dvojčata** mají odlišné otisky.
 
 ::: svg "Anatomie kůže s papilárními liniemi: epidermis (hřebeny + dna) s potními póry, dermis pod ní (zdroj regenerace), papilární vrstva."
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -43,107 +43,107 @@ title: Papilární linie a anatomie otisku
 </svg>
 :::
 
-* **Hřebeny** (ridges) — vyvýšené části, kde jsou potní póry.
+* **Hřebeny** (ridges) — vyvýšené části, ve kterých ústí potní póry.
 * **Dna** (valleys) — propadlé části mezi hřebeny.
-* **Papilární vrstva** (papillary layer) — část dermis těsně pod epidermis, kde se *obnovují* hřebeny.
-* **Dermis** — hluboká vrstva s nervy, cévami, mazovými žlázami.
+* **Papilární vrstva** (papillary layer) — část dermis těsně pod epidermis, kde se hřebeny *obnovují*.
+* **Dermis** — hluboká vrstva s nervy, cévami a mazovými žlázami.
 
 ### Regenerace
 
 > Papilární linie jsou *obnovovány dorůstáním* kůže na povrchu prstů. Tyto linie *nemohou být pozměněny či odstraněny*, není-li poškozena dermální (zárodečná) vrstva kůže. Potom již nedojde na tomto místě k obnově papilárních linií.
 
-* **Povrchové poranění** (běžné odřeniny, popáleniny 1. stupně) — kůže se regeneruje, vzor se obnoví do několika dní/týdnů.
-* **Hluboké poranění** (popáleniny 3. stupně, řezné rány do dermis) — papilární vzor je *trvale zničen* na daném místě. Vznikne *jizva*.
+* **Povrchové poranění** (běžné odřeniny, popáleniny 1. stupně) — kůže se zregeneruje a vzor se obnoví během několika dní až týdnů.
+* **Hluboké poranění** (popáleniny 3. stupně, řezné rány zasahující až do dermis) — papilární vzor je na daném místě *trvale zničen* a vznikne *jizva*.
 
 ### Slavné případy
 
-* **Gangster John Dillinger** (1934) si nechal *chirurgicky* odstranit otisky prstů. *Marně* — jeho otisky byly opět rozpoznané po regeneraci dermis.
-* **El Chapo Guzmán** — útěky z mexických věznic; jeho otisky stále *neproměněné* po desítkách let útěků.
+* **Gangster John Dillinger** (1934) si nechal otisky prstů *chirurgicky* odstranit. *Marně* — po regeneraci dermis byly jeho otisky opět rozpoznány.
+* **El Chapo Guzmán** — během útěků z mexických věznic zůstaly jeho otisky *nezměněné*, a to i po desítkách let.
 
 ## Daktyloskopické zákony
 
-Tři fundamental principles forenzní daktyloskopie:
+Tři základní principy forenzní daktyloskopie:
 
-1. **Princip individuality** — *žádné dva* otisky (od různých osob) nejsou totožné. Empirický fakt, podporovaný miliardami srovnání v AFIS databázích.
-2. **Princip neměnnosti** — papilární vzor zůstává *stabilní* po celý život jedince (od formování přibližně v 6. fetálním měsíci, do 24. týdne, až do dekompozice po smrti).
-3. **Princip klasifikovatelnosti** — papilární vzory lze *systematicky* klasifikovat ([[klasifikace-otisku|Henry classification]]).
+1. **Princip individuality** — *žádné dva* otisky (od různých osob) nejsou totožné. Jde o empirický fakt podpořený miliardami srovnání v databázích AFIS.
+2. **Princip neměnnosti** — papilární vzor zůstává *stabilní* po celý život jedince (od zformování přibližně v 6. fetálním měsíci, tedy do 24. týdne, až po rozklad těla po smrti).
+3. **Princip klasifikovatelnosti** — papilární vzory lze *systematicky* třídit ([[klasifikace-otisku|Henryho klasifikace]]).
 
 ## Typy snímání otisků
 
-V daktyloskopii existují **3 druhy** otisků prstů podle způsobu pořízení:
+V daktyloskopii rozlišujeme **3 druhy** otisků prstů podle způsobu pořízení:
 
 ### 1. Válený (rolled, inked)
 
-* Klasická *forenzní* metoda — prst se *roluje* od nehtu k nehtu na inkoustové štětce, pak na papír.
-* **Výhoda:** kompletní zachycení *celé plochy* prstu.
-* **Nevýhoda:** kvalita závisí na operátorovi; časově náročné.
-* Použití: enrollment policejní databází, identifikační karty.
+* Klasická *forenzní* metoda — prst se *odvaluje* od nehtu k nehtu na inkoustovou podložku a poté na papír.
+* **Výhoda:** zachytí se *celá plocha* prstu.
+* **Nevýhoda:** kvalita závisí na obsluze; je to časově náročné.
+* Použití: zápis (enrollment) do policejní databáze, identifikační karty.
 
 ### 2. Píchaný (plain, live)
 
-* Prst se *přitiskne* na senzor (capacitive, optical, ultrasonic, thermal).
-* **Výhoda:** rychlé, automatizované, real-time digital.
-* **Nevýhoda:** zachycuje jen *centrální* část; pose-sensitive.
-* Použití: smartphone unlock, AFIS verifikace.
+* Prst se *přitiskne* na senzor (kapacitní, optický, ultrazvukový nebo termální).
+* **Výhoda:** je to rychlé, automatizované a digitální v reálném čase (real-time).
+* **Nevýhoda:** zachytí jen *centrální* část a je citlivý na polohu prstu (pose-sensitive).
+* Použití: odemykání chytrého telefonu, ověření (verifikace) v systému AFIS.
 
 ### 3. Latentní (latent)
 
-* *Náhodný* otisk zanechaný na povrchu (sklo, kov, papír). Většinou neviditelný.
-* Detekce přes:
-  * **Prášky** — práškovou metodu (carbon, magnetic).
-  * **Chemické reaktance** — ninhydrin (reaguje s amino kyselinami v potu), cyanoacrylate (super glue fumes).
-  * **UV/forensic light** — fluorescence.
+* *Náhodný* otisk zanechaný na povrchu (sklo, kov, papír). Většinou je neviditelný.
+* Zviditelní se pomocí:
+  * **Prášků** — prášková metoda (uhlíkové, magnetické prášky).
+  * **Chemických reakcí** — ninhydrin (reaguje s aminokyselinami v potu) nebo páry kyanoakrylátu (super glue fumes).
+  * **UV / forenzního světla** — fluorescence.
 * **Výhoda:** klíčová forenzní stopa.
-* **Nevýhoda:** *velmi* poškozená kvalita; *partial* otisk (jen ~1/4 plochy).
+* **Nevýhoda:** *velmi* zhoršená kvalita; jde často o *částečný* (partial) otisk (jen zhruba 1/4 plochy).
 
 ## Senzory pro píchané otisky
 
-Píchané otisky se snímají senzorem; existují **4 hlavní technologie** — optical, capacitive, ultrasonic, thermal — s vlastními kompromisy mezi přesností, robustností, cenou a anti-spoofing odolností. Detailní popis jednotlivých senzorů (FTIR, kapacitní pole, ultrazvuk pod displejem, termální sweep) viz [[snimani-otisku]].
+Píchané otisky se snímají senzorem; existují **4 hlavní technologie** — optická, kapacitní, ultrazvuková a termální — z nichž každá představuje jiný kompromis mezi přesností, robustností, cenou a odolností proti podvržení (anti-spoofing). Podrobný popis jednotlivých senzorů (FTIR, kapacitní pole, ultrazvuk pod displejem, termální tah prstem) viz [[snimani-otisku]].
 
 ## Kvalita otisku
 
 Standardy hodnocení:
 
-* **NFIQ 2.0** (NIST Fingerprint Image Quality) — automatic quality score 0–100.
-* **Pixels per inch** (DPI) — typicky 500 dpi standard, 1000 dpi pro pokročilé.
-* **Bit depth** — 8-bit (256 levels grey).
-* **Image size** — minimum 250 × 250 pixels.
+* **NFIQ 2.0** (NIST Fingerprint Image Quality) — automaticky vypočtené skóre kvality v rozsahu 0–100.
+* **Body na palec** (pixels per inch, DPI) — typicky je standardem 500 dpi, 1000 dpi pro pokročilé použití.
+* **Bitová hloubka** (bit depth) — 8 bitů (256 úrovní šedi).
+* **Velikost obrazu** (image size) — minimálně 250 × 250 pixelů.
 
-Vysoká kvalita = high probability úspěšného matching.
+Vysoká kvalita znamená vysokou pravděpodobnost úspěšného porovnání (matching).
 
 ## Daktyloskopická karta
 
-V forenzním kontextu se používá *standardizovaná* karta:
+Ve forenzním kontextu se používá *standardizovaná* karta:
 
-* 10 polí pro *rolled* otisky všech prstů.
-* 4 pole pro *plain* otisky (palec + dvě skupiny prstů).
-* Identifikační data (jméno, datum narození, RZ).
+* 10 polí pro *válené* (rolled) otisky všech prstů.
+* 4 pole pro *píchané* (plain) otisky (palec a dvě skupiny prstů).
+* Identifikační údaje (jméno, datum narození, rodné číslo).
 
-Standardní formát: **NIST SP 500-271** *ANSI/NIST-ITL Data Format for Fingerprint Information Transfer* (latest edition).
+Standardní formát: **NIST SP 500-271** *ANSI/NIST-ITL Data Format for Fingerprint Information Transfer* (poslední vydání).
 
 ## Problematické otisky
 
 Faktory zhoršující kvalitu:
 
 * **Suchá kůže** (zima, dehydratace) — nedostatečný kontrast.
-* **Vlhká kůže** (po umytí, pocení) — *přemostěné* hřebeny.
-* **Poškrábaná/poškozená kůže** — chybí ridges.
+* **Vlhká kůže** (po umytí, pocení) — *přemostěné* (spojené) hřebeny.
+* **Poškrábaná nebo poškozená kůže** — chybí hřebeny.
 * **Stáří** — *zploštění* hřebenů ve vyšším věku.
 * **Manuální práce** — opotřebení (zedníci, pracovníci s chemikáliemi).
 
 ### Nemoci kůže ovlivňující otisky
 
-* **Adermatoglyphia** ("immigration delay disease") — vrozená absence papilárních linií. *Velmi vzácné* (< 20 zdokumentovaných rodin).
-* **Atopická dermatitida (ekzém)** — zánětlivé léze poškozují vzor.
+* **Adermatoglyfie** ("immigration delay disease", tedy "nemoc zdržení při imigraci") — vrozená absence papilárních linií. *Velmi vzácné* (méně než 20 zdokumentovaných rodin).
+* **Atopická dermatitida (ekzém)** — zánětlivá ložiska poškozují vzor.
 * **Hyperhidróza** — nadměrné pocení; přemostění hřebenů.
-* **Léčba chemoterapií** (zejména capecitabine) — *dočasná ztráta* otisků.
+* **Léčba chemoterapií** (zejména lékem capecitabine) — *dočasná ztráta* otisků.
 * **Lepra** — destrukce nervových zakončení v kůži.
 
 ## Pro biometrický systém
 
-Důsledek: ne všichni mohou používat fingerprint authentication. Studie ([NIST 2014](https://www.nist.gov/programs-projects/fingerprint-vendor-technology-evaluation-fpvte)) ukazují, že **~2–4 % populace** má *non-enrollable* otisky.
+Důsledek: ne všichni mohou používat ověřování pomocí otisku prstu (fingerprint authentication). Studie ([NIST 2014](https://www.nist.gov/programs-projects/fingerprint-vendor-technology-evaluation-fpvte)) ukazují, že **přibližně 2–4 % populace** má otisky, které *nelze zaregistrovat* (non-enrollable).
 
-Pro **non-enrollable users** je třeba *alternative* biometric (obličej, iris) nebo *non-biometric* fallback (PIN, password).
+Pro tyto uživatele bez registrovatelného otisku je třeba *alternativní* biometrika (obličej, duhovka) nebo *nebiometrická* záloha (PIN, heslo).
 
 ---
 

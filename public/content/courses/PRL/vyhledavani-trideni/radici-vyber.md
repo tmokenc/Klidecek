@@ -1,16 +1,16 @@
 ---
-title: Minimum Extraction Sort a Median Finding and Splitting
+title: Řazení výběrem — Minimum Extraction Sort a Median Finding and Splitting
 ---
 
 # Řadicí algoritmy výběrem
 
-Předchozí kapitola ([[merge-radici]]) probrala řazení *slučováním*. Třetí kategorie paralelních řadicích algoritmů jsou *výběrové* (selection-based) — iterativně extrahují *vybraný* prvek (minimum, medián) a tím konstruují výstup. Tato kapitola probírá dva: **Minimum Extraction Sort** (jednoduchá konstrukce na stromě, nevyžaduje pivota) a **Median Finding and Splitting** (paralelní quicksort s mediánovým pivotem) — druhý je *cost-optimal* a dokončuje portfolio cost-optimálních paralelních sortů.
+Předchozí kapitola ([[merge-radici]]) probrala řazení *slučováním*. Třetí kategorií paralelních řadicích algoritmů jsou algoritmy *výběrové* (selection-based) — opakovaně vyberou (extrahují) jeden *vybraný* prvek (minimum, medián) a postupně z nich sestavují seřazený výstup. Tato kapitola probírá dva z nich: **Minimum Extraction Sort** (jednoduchá konstrukce na stromě, nevyžaduje pivota) a **Median Finding and Splitting** (paralelní quicksort s mediánovým pivotem). Druhý z nich je *cost-optimal* (nákladově optimální — paralelní cena se shoduje s nejlepším sekvenčním algoritmem) a doplňuje tak rodinu cost-optimálních paralelních řadicích algoritmů.
 
 ## Minimum Extraction Sort
 
 ### Topologie
 
-**Binární strom** procesorů. **Listy** obsahují *řazenou posloupnost* (každý list jednu hodnotu nebo skupinu). **Vnitřní uzly** pumpují minimum nahoru, **kořen** posílá hodnoty na výstup.
+Procesory jsou uspořádány do **binárního stromu**. **Listy** drží *řazenou posloupnost* (každý list jednu hodnotu, případně skupinu hodnot). **Vnitřní uzly** posouvají minimum směrem nahoru a **kořen** vydává hodnoty na výstup.
 
 ### Princip
 
@@ -103,7 +103,7 @@ Krok 4: výstup 1, kořen ← další minimum = 2
 </svg>
 :::
 
-::: viz min-extraction-sort "Krokuj cyklus po cyklu. Sleduj, jak minimum bubbluje k root: jakmile dorazí, root vydá hodnotu, ten leaf se vyprázdní (∅), a další minimum putuje vzhůru. První po log n+1 krocích, každé další po 2."
+::: viz min-extraction-sort "Krokuj cyklus po cyklu. Sleduj, jak minimum probublává ke kořeni: jakmile tam dorazí, kořen hodnotu vydá na výstup, příslušný list se vyprázdní (∅) a vzhůru putuje další minimum. První prvek získáš po log n+1 krocích, každý další po 2 krocích."
 :::
 
 ### Analýza
@@ -116,19 +116,19 @@ t(n) = 2n + \log n - 1 = O(n)
 :::
 
 - $p(n) = 2n - 1$ procesorů.
-- $c(n) = O(n^2)$ — **není cost-optimal** (sekvenční $O(n \log n)$).
+- $c(n) = O(n^2)$ — algoritmus **není cost-optimal** (sekvenční řazení zvládne $O(n \log n)$).
 
 ### Diskuze
 
-- Algoritmus je *jednoduchý* a *intuitivní* — minimum se *vyplave* na povrch.
-- *Plýtvá procesory* — $n^2$ cena.
-- Realisticky se používá *pro hardwarové* min-heap implementace (priority queues).
+- Algoritmus je *jednoduchý* a *názorný* — minimum se postupně *vyplave* na povrch.
+- *Plýtvá procesory* — jeho cena je $n^2$.
+- V praxi se používá především pro *hardwarové* implementace min-haldy (min-heap) ve frontách s prioritou (priority queue).
 
 ## Median Finding and Splitting
 
-### Idea — paralelní quicksort s mediánovým pivotem
+### Myšlenka — paralelní quicksort s mediánovým pivotem
 
-Stejná **architektura** jako Bucket Sort: strom s $m = \log n$ listy. *Vnitřní uzly* ale neslučují — *dělí* (split) podle mediánu.
+Architektura je stejná jako u algoritmu Bucket Sort: strom s $m = \log n$ listy. *Vnitřní uzly* však neslučují — naopak posloupnost *rozdělují* (split) podle mediánu.
 
 ```
 procedure MEDIAN_FINDING_AND_SPLITTING
@@ -148,7 +148,7 @@ procedure MEDIAN_FINDING_AND_SPLITTING
 
 ### Princip — perfektní rozdělení
 
-Klíčový rozdíl od sekvenčního quicksort: **každý vnitřní uzel hledá *medián*** své podsekvence (ne náhodný pivot). To garantuje, že *obě* podsekvence jsou *přesně* poloviny → strom je *vyvážený*.
+Klíčový rozdíl oproti sekvenčnímu quicksortu: **každý vnitřní uzel hledá *medián*** své podposloupnosti (nikoli náhodný pivot). Tím je zaručeno, že *obě* podposloupnosti tvoří *přesně* poloviny, a strom je proto *vyvážený*.
 
 ::: svg "Median Finding and Splitting — rekurzivní dělení podle mediánu"
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
@@ -187,17 +187,17 @@ Klíčový rozdíl od sekvenčního quicksort: **každý vnitřní uzel hledá *
 </svg>
 :::
 
-::: viz median-splitting "Krokuj fáze: kořen najde medián, rozdělí na ≤M (levý) a >M (pravý), pošle synům. Opakuje se až k listům, ty seřadí sekvenčně. Mediánový pivot garantuje perfektní rozdělení (vždy n/2 a n/2)."
+::: viz median-splitting "Krokuj jednotlivé fáze: kořen najde medián, rozdělí posloupnost na ≤M (levý syn) a >M (pravý syn) a pošle ji synům. Postup se opakuje až k listům, které svou část seřadí sekvenčně. Mediánový pivot zaručuje dokonalé rozdělení (vždy přesně n/2 a n/2)."
 :::
 
 ### Analýza
 
-1. **První krok** (načtení S kořenem): $O(n)$.
-2. **Dělení na úrovni $i$**: procesor zpracovává sekvenci délky $n/2^i$.
-   - Medián v $O(n/2^i)$ (sekv. Select).
+1. **První krok** (načtení posloupnosti S kořenem): $O(n)$.
+2. **Dělení na úrovni $i$**: procesor zpracovává posloupnost délky $n/2^i$.
+   - Nalezení mediánu v $O(n/2^i)$ (sekvenční Select).
    - Rozdělení v $O(n/2^i)$.
-   - Suma přes úrovně: $\sum_{i=0}^{\log m - 1} n/2^i = O(n)$.
-3. **Listový sort**: každý list seřadí $n/\log n$ prvků sekvenčním optimálním algoritmem v $O((n/\log n) \log(n/\log n)) = O(n)$.
+   - Součet přes všechny úrovně: $\sum_{i=0}^{\log m - 1} n/2^i = O(n)$.
+3. **Řazení v listech**: každý list seřadí $n/\log n$ prvků optimálním sekvenčním algoritmem v $O((n/\log n) \log(n/\log n)) = O(n)$.
 
 **Celkem**:
 
@@ -207,10 +207,10 @@ Klíčový rozdíl od sekvenčního quicksort: **každý vnitřní uzel hledá *
 
 ### Diskuze
 
-- *Cost-optimal* stejně jako Bucket Sort a Pipeline Merge Sort.
-- *Garance vyváženosti* mediánovým pivotem — žádné worst-case degradace jako u náhodného quicksortu.
-- *Komplikovanější implementace* (medián v každém uzlu) — typicky se v praxi nahrazuje randomizovaným pivotem (jednodušší, $O(n)$ průměrně, ale $O(n^2)$ worst-case).
-- Konceptuálně jde o *paralelní quicksort* s **deterministickým** pivotem.
+- *Cost-optimal* (nákladově optimální), stejně jako Bucket Sort a Pipeline Merge Sort.
+- *Zaručená vyváženost* díky mediánovému pivotu — nehrozí zhoršení v nejhorším případě (worst-case), jako tomu je u quicksortu s náhodným pivotem.
+- *Složitější implementace* (hledání mediánu v každém uzlu) — v praxi se proto medián typicky nahrazuje náhodně voleným (randomizovaným) pivotem, který je jednodušší a v průměru má složitost $O(n)$, ale v nejhorším případě (worst-case) až $O(n^2)$.
+- Koncepčně jde o *paralelní quicksort* s **deterministickým** pivotem.
 
 ## Souhrnná tabulka — všechny paralelní řadicí algoritmy
 
@@ -226,7 +226,7 @@ Klíčový rozdíl od sekvenčního quicksort: **každý vnitřní uzel hledá *
 | Minimum Extraction Sort | strom | $O(n)$ | $2n - 1$ | $O(n^2)$ | ✗ |
 | **Median Finding+Splitting** | strom | $O(n)$ | $O(\log n)$ | $O(n \log n)$ | ✓ |
 
-**Cost-optimal trojice**: **Bucket Sort**, **Pipeline Merge Sort**, **Median Finding and Splitting**. Všechny mají *jen* $O(\log n)$ procesorů a *lineární* čas.
+**Cost-optimal trojice** (nákladově optimální algoritmy): **Bucket Sort**, **Pipeline Merge Sort** a **Median Finding and Splitting**. Všechny vystačí s *pouhými* $O(\log n)$ procesory a běží v *lineárním* čase.
 
 ## Výběr v praxi {tier=practice}
 
@@ -239,11 +239,11 @@ Klíčový rozdíl od sekvenčního quicksort: **každý vnitřní uzel hledá *
 | Embedded multi-core (4–16 jader) | Bucket Sort |
 | Algoritmus pro výuku | Odd-Even Transposition (jednoduchý) |
 
-V *teorii* existují *AKS network* (Ajtai, Komlós, Szemerédi 1983) a *Cole's parallel merge sort* (1988) s časem $O(\log n)$ a cenou $O(n \log n)$ — *asymptoticky lepší* než Batcher. V *praxi* mají tak velké konstanty, že nejsou používány. Batcher zůstává *standardní* pro hardware sortovací sítě.
+V *teorii* existují řadicí síť *AKS network* (Ajtai, Komlós, Szemerédi 1983) a *Coleovo paralelní řazení slučováním* (Cole's parallel merge sort, 1988) s časem $O(\log n)$ a cenou $O(n \log n)$ — *asymptoticky lepší* než Batcherovy algoritmy. V *praxi* však mají tak velké konstanty, že se nepoužívají. Pro hardwarové řadicí sítě tak zůstává *standardem* Batcher.
 
 ## Co dál
 
-Topic [[transpozice]] (Paralelní maticové operace) přejde od *řazení* k *lineární algebře* — paralelní výpočty matice-vektor, matice-matice, transpozice — na *PRAM*, *mřížce*, *hyperkrychli*. Topic *Kontrakce stromu* dále rozvine paralelní algoritmy na stromech (Euler tour, expression evaluation).
+Kapitola [[transpozice]] (Paralelní maticové operace) přejde od *řazení* k *lineární algebře* — paralelní výpočty matice-vektor, matice-matice a transpozice — na *PRAM*, *mřížce* a *hyperkrychli*. Kapitola *Kontrakce stromu* dále rozvine paralelní algoritmy na stromech (Eulerův tah, vyhodnocování výrazů).
 
 ---
 

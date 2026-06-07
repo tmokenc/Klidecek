@@ -1,16 +1,16 @@
 ---
-title: Cache koherence — problém a podmínky
+title: Koherence cache — problém a podmínky
 ---
 
-# Cache koherence — sdílená paměť mezi více jádry
+# Koherence cache — sdílená paměť mezi více jádry
 
-Pokud více jader (CPUs) sdílí paměťový prostor (SAS, [[paralelni-modely]]) a *má vlastní cache*, vzniká *problém konzistence kopií*: stejná adresa může být v *různých* cache s *různými* hodnotami. **Cache coherence** je *hardware* mechanizmus, který zajistí, že programátorovi to vypadá jako *jedna* paměť.
+Pokud více jader (CPU) sdílí jeden paměťový prostor (SAS, [[paralelni-modely]]) a *každé má vlastní cache*, vzniká *problém konzistence kopií*: stejná adresa může být v *různých* cache uložena s *různými* hodnotami. Koherence cache (cache coherence) je *hardwarový* mechanizmus, který zajistí, že programátorovi se celá paměť jeví jako *jediná* sdílená paměť.
 
-Bez koherence by SAS programování bylo nemožné.
+Bez koherence by programování nad sdílenou pamětí (SAS) nebylo možné.
 
 ## Problém
 
-Předpokládejme 3 jádra, sdílená proměnná `u` na DRAM:
+Předpokládejme 3 jádra a sdílenou proměnnou `u` uloženou v paměti DRAM:
 
 ```
 Initially: u = 5 in DRAM, none in cache.
@@ -21,9 +21,9 @@ T3: P3 writes u = 7   → P3.L1: u = 7.
 T4: P1 reads u   → P1.L1 hit, returns 5 (STALE).
 ```
 
-P1 vidí starou hodnotu! Tohle je *nekoherence (zastaralé čtení)*. Pro paralelní program ✗.
+Jádro P1 vidí starou hodnotu! Tomuto stavu se říká *nekoherence (zastaralé čtení)* a pro paralelní program je nepřijatelný (✗).
 
-Koherence říká: po `T3`, jakákoli další **read** musí dostat hodnotu 7.
+Koherence vyžaduje, aby po kroku `T3` každé další čtení (read) dostalo hodnotu 7.
 
 ::: svg "Cache koherence problém"
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="10">
@@ -60,121 +60,121 @@ Koherence říká: po `T3`, jakákoli další **read** musí dostat hodnotu 7.
 </svg>
 :::
 
-## Definice cache koherence
+## Definice koherence cache
 
-Cache je *koherentní*, pokud pro každý paměťový blok:
+Cache je *koherentní*, pokud pro každý paměťový blok platí:
 
 1. **Existuje jen jedna *koherentní* (aktuální) verze.**
-2. Při čtení adresy `A` *jakékoli* P-i vrátí *poslední zapsanou* hodnotu.
-3. Při zápisu nové hodnoty se *šíří* (propagation) všem ostatním kopiím.
+2. Čtení adresy `A` z *libovolného* jádra P-i vrátí *naposledy zapsanou* hodnotu.
+3. Při zápisu nové hodnoty se tato hodnota *šíří* (propagation) ke všem ostatním kopiím.
 
-Tři vlastnosti, které musí být splněny:
+Musí být splněny tři vlastnosti:
 
-- **Propagation** — write na A v P1 nakonec dorazí všem ostatním cores.
-- **Serialization** — writes na A *všichni* CPU vidí v *stejném pořadí*.
-- **Consistency** — pravidla, *kdy* update viditelný (závisí na consistency model).
+- **Šíření (propagation)** — zápis (write) na adresu A v jádru P1 nakonec dorazí ke všem ostatním jádrům.
+- **Serializace (serialization)** — *všechny* procesory vidí zápisy na adresu A v *témže pořadí*.
+- **Konzistence (consistency)** — pravidla určující, *kdy* je aktualizace viditelná (závisí na zvoleném konzistenčním modelu).
 
-První dvě = *koherence*. Třetí = *konzistence* (Topic 6.1 v Hennessy-Patterson).
+První dvě dohromady tvoří *koherenci*. Třetí je *konzistence* (téma 6.1 v učebnici Hennessy–Patterson).
 
 ## Stavy bloku v cache
 
-Block se nachází v některém ze stavů:
+Blok se může nacházet v některém z těchto stavů:
 
-- **Invalid (I)** — nepoužitelná kopie, ignorovat.
-- **Shared (S)** — read-only kopie. Více cache může mít S kopii.
-- **Modified (M)** / **Dirty** — read-write, *jediná* kopie. Memory je *zastaralá*.
-- **Exclusive (E)** — read-only, *jediná* kopie. Memory je *aktuální*. (Optimalizace v MESI.)
-- **Owned (O)** — read-only, *jediná* může broadcast. (V MOESI.)
-- **Forward (F)** — read-only, *odpovídá* na požadavky. (V MESIF.)
+- **Invalid (I)** — neplatná, nepoužitelná kopie, kterou je třeba ignorovat.
+- **Shared (S)** — kopie pouze pro čtení. Tutéž S kopii může mít více cache najednou.
+- **Modified (M)** / **Dirty** — kopie pro čtení i zápis, navíc *jediná* v systému. Hodnota v paměti je *zastaralá*.
+- **Exclusive (E)** — kopie pouze pro čtení, ale *jediná* v systému. Hodnota v paměti je *aktuální*. (Optimalizace v protokolu MESI.)
+- **Owned (O)** — kopie pouze pro čtení, *jediná* může rozesílat (broadcast) data ostatním. (V protokolu MOESI.)
+- **Forward (F)** — kopie pouze pro čtení, která *odpovídá* na požadavky ostatních. (V protokolu MESIF.)
 
-Detaily protokolů v [[msi-mesi-moesi]].
+Podrobnosti k jednotlivým protokolům najdeš v [[msi-mesi-moesi]].
 
-## Aktualizace paměti — Write-through vs Write-back
+## Aktualizace paměti — Write-through vs. Write-back
 
-Cache může psát do nižší úrovně dvěma způsoby ([[cache-politiky]]):
+Cache může zapisovat do nižší úrovně paměti dvěma způsoby ([[cache-politiky]]):
 
-- **WT (Write-through)** — *každý* write jde do paměti *okamžitě*. Cache + memory koherentní per write.
-- **WB (Write-back)** — *write* zůstane v cache, *paměť* je *stale*. Write back až při eviction.
+- **WT (Write-through)** — *každý* zápis jde *okamžitě* i do paměti. Cache a paměť tak zůstávají po každém zápisu koherentní.
+- **WB (Write-back)** — *zápis* zůstane jen v cache a *paměť* je *zastaralá*. Do paměti se data zapíší až při vyřazení bloku (eviction).
 
-WB efficient (méně bandwidth), ale pro koherenci komplikovanější — *musí* sledovat, kdo *má* dirty kopii.
+Strategie WB je efektivnější (vyžaduje menší propustnost, bandwidth), ale z hlediska koherence je složitější — systém *musí* sledovat, kdo *má* upravenou (dirty) kopii.
 
-Moderní x86, ARM: **WB** standard pro L1, L2. WT *jen* v velmi specifických scenarios (some embedded).
+Moderní procesory x86 a ARM používají pro úrovně L1 a L2 standardně **WB**. Strategie WT se používá *jen* ve velmi specifických případech (například v některých vestavěných systémech).
 
-## Aktualizace ostatních cache — Invalidate vs Update
+## Aktualizace ostatních cache — Invalidate vs. Update
 
-Když P1 zapíše do `u`, dvě možnosti pro ostatní cache:
+Když P1 zapíše do `u`, má pro ostatní cache dvě možnosti:
 
 ### Write-invalidate
 
-Pošli broadcast "invaliduj u". Jiné cache označí *jejich* kopii jako Invalid. Při příštím read musí *znovu* nahrát.
+Rozešle se broadcast „invaliduj u". Ostatní cache označí *svou* kopii jako Invalid. Při příštím čtení ji musí *znovu* načíst.
 
-Cost: 1 invalidation message per write.
+Cena: jedna invalidační zpráva na každý zápis.
 
 ### Write-update
 
-Pošli broadcast "u má novou hodnotu X". Ostatní cache *updatují* svou kopii in-place.
+Rozešle se broadcast „u má novou hodnotu X". Ostatní cache *aktualizují* svou kopii přímo na místě (in-place).
 
-Cost: 1 update message + new value per write.
+Cena: jedna aktualizační zpráva plus přenos nové hodnoty na každý zápis.
 
-**Trade-off**:
+**Kompromis (trade-off)**:
 
-- Pokud následuje *čtení* (sharing pattern) → update lepší (no re-fetch).
-- Pokud následuje *další zápis* (migrating pattern) → invalidate lepší (less message overhead).
+- Pokud po zápisu následuje *čtení* (vzor sdílení, sharing pattern) → výhodnější je update (není nutné data znovu načítat).
+- Pokud po zápisu následuje *další zápis* (migrující vzor, migrating pattern) → výhodnější je invalidate (méně režie ze zpráv).
 
-Empiricky migrating pattern dominuje. **Write-invalidate je standard** v moderních CPU.
+Empiricky převažuje migrující vzor. **Standardem v moderních procesorech je proto write-invalidate.**
 
-## Combinace strategií
+## Kombinace strategií
 
 | WT | WB | + | Invalidate | Update |
 | :--- | :--- | :--- | :--- | :--- |
-| ✓ | | + | ✓ | sometimes |
-| | ✓ | + | ✓ | rare |
+| ✓ | | + | ✓ | někdy |
+| | ✓ | + | ✓ | zřídka |
 
-Moderní x86, ARM: **WB + invalidate**.
+Moderní procesory x86 a ARM: **WB + invalidate**.
 
-Pro některé instrumented memory (UC = uncacheable) WT used.
+Pro některé speciální oblasti paměti (UC = uncacheable, necachovatelná) se používá WT.
 
 ## Granularita koherence
 
-Cache pracuje na *cache line* (64 B), ne na *individual byte*. Koherence sleduje *line-level*:
+Cache pracuje na úrovni *cache line* (řádek cache, 64 B), nikoli na úrovni *jednotlivého bajtu*. Koherence se tedy sleduje *po řádcích*:
 
-- Při write na `u` se invaliduje *celá* line obsahující `u`.
-- Pokud `v` (sousední byte) je na stejné line, *také* invalidated → false sharing ([[false-sharing-races]]).
+- Při zápisu na `u` se invaliduje *celý* řádek obsahující `u`.
+- Pokud sousední bajt `v` leží na stejném řádku, je *také* invalidován → falešné sdílení (false sharing, [[false-sharing-races]]).
 
-⇒ Cache koherence overhead je *per line*, ne per byte. False sharing je *přímý důsledek*.
+⇒ Režie koherence cache je tedy *na řádek*, ne na bajt. Falešné sdílení je *přímým důsledkem* této granularity.
 
-## Bandwidth coherence traffic
+## Propustnost koherenčního provozu
 
-Pro 32-core systém s 1 GHz updates per second na sharing pattern: bandwidth na koherenci ~1 GB/s per core × 32 = 32 GB/s. Konkurenční s memory bandwidth.
+Pro 32jádrový systém s 1 miliardou aktualizací za sekundu při vzoru sdílení vychází propustnost potřebná pro koherenci přibližně na 1 GB/s na jádro × 32 = 32 GB/s. To už konkuruje propustnosti samotné paměti.
 
-To je jeden z důvodů, proč *nelze* trivially scale na 1000s of cores se sdílenou pamětí — koherenci traffic by zničil propustnost.
+To je jeden z důvodů, proč *nelze* sdílenou paměť snadno škálovat na tisíce jader — koherenční provoz by zničil propustnost.
 
-Řešení pro velké systémy: NUMA + lokality dat ([[uma-numa]]).
+Řešením pro velké systémy je NUMA spolu s lokalitou dat ([[uma-numa]]).
 
-## Konzistence vs koherence — jiné
+## Konzistence vs. koherence — v čem se liší
 
 - **Koherence** = jednotnost zápisů na *jednu* adresu.
 - **Konzistence** = *pořadí* zápisů na *různé* adresy.
 
-Příklad koherence: P1 píše `a = 1`, pak P2 čte `a`. P2 *musí* vidět `1`.
+Příklad koherence: P1 zapíše `a = 1`, poté P2 čte `a`. P2 *musí* vidět hodnotu `1`.
 
-Příklad konzistence: P1 píše `a = 1`; `b = 2`. P2 čte `a`, pak `b`. Vidí `a = 1`, `b = 2`? Sekvenční model říká ano. *Weak consistency* může vrátit `a = 0, b = 2` (out-of-order writes visible).
+Příklad konzistence: P1 zapíše `a = 1`; poté `b = 2`. P2 čte nejprve `a`, pak `b`. Uvidí `a = 1`, `b = 2`? Sekvenční model říká, že ano. *Slabá konzistence (weak consistency)* může vrátit `a = 0, b = 2` (zápisy se totiž mohou stát viditelnými mimo pořadí).
 
-Detaily konzistence patří do *memory consistency model* (TSO, weak, release). x86 = TSO, ARM = weak.
+Podrobnosti o konzistenci patří do oblasti *konzistenčního modelu paměti (memory consistency model)* (TSO, weak, release). Procesory x86 používají TSO, procesory ARM slabý (weak) model.
 
-## CC implementace
+## Implementace koherence cache
 
-Hardware vrstva implementuje protokol jako *konečný automat* per cache line. Klíčové komponenty:
+Hardwarová vrstva implementuje protokol jako *konečný automat* pro každý řádek cache. Klíčové komponenty jsou:
 
-- **Cache controller** — sleduje stav line (M/E/S/I), reaguje na události.
-- **Bus snooper** — naslouchá *cizí* memory requests, detekuje impacted lines.
-- **Directory** — distribuovaná tabulka, *kde* jsou kopie každé line (pro velké systémy).
+- **Řadič cache (cache controller)** — sleduje stav řádku (M/E/S/I) a reaguje na události.
+- **Bus snooper (odposlech sběrnice)** — naslouchá *cizím* paměťovým požadavkům a zjišťuje, kterých řádků se týkají.
+- **Adresář (directory)** — distribuovaná tabulka, která eviduje, *kde* jsou kopie každého řádku (pro velké systémy).
 
-Detaily v [[snooping-directory]].
+Podrobnosti najdeš v [[snooping-directory]].
 
 ## Co dál
 
-[[msi-mesi-moesi]] popisuje konkrétní protokoly se state diagramy. [[snooping-directory]] hardware mechanismy. [[uma-numa]] topologie. [[intel-amd-fabric]] reálné implementace v moderních CPU.
+[[msi-mesi-moesi]] popisuje konkrétní protokoly se stavovými diagramy. [[snooping-directory]] se věnuje hardwarovým mechanizmům. [[uma-numa]] rozebírá topologie. [[intel-amd-fabric]] ukazuje reálné implementace v moderních procesorech.
 
 ---
 

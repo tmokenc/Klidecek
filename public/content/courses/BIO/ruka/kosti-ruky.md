@@ -4,11 +4,11 @@ title: Kosti ruky a hluboké biometriky
 
 # Kosti ruky a hluboké biometriky
 
-Vedle povrchových (otisky, [[geometrie-ruky|geometrie]]) a vnitřních ([[krevni-recisko|žíly]]) biometrik existuje *deeper* anatomical layer — **kostní struktura ruky**. Tato modalita je *experimentální*, vyžaduje **X-ray** nebo **MRI** snímání — ale poskytuje extrémně stabilní a unikátní biometrické rysy.
+Vedle povrchových (otisky, [[geometrie-ruky|geometrie]]) a vnitřních ([[krevni-recisko|žíly]]) biometrik existuje ještě hlubší anatomická vrstva (layer) — **kostní struktura ruky**. Tato modalita je *experimentální* a vyžaduje rentgenové (X-ray) nebo magneticko-rezonanční (MRI) snímání, zato ale poskytuje mimořádně stabilní a unikátní biometrické rysy.
 
 ## Anatomie ruky — kosti
 
-::: svg "Kostra ruky: phalanges (3 v každém prstu, 2 v palci), metacarpals (5 kostí dlaně), carpals (8 kostí zápěstí)."
+::: svg "Kostra ruky: články prstů (phalanges; 3 v každém prstu, 2 v palci), záprstní kosti (metacarpals; 5 kostí dlaně) a kosti zápěstí (carpals; 8 kostí)."
 <svg viewBox="0 0 540 270" font-family="ui-sans-serif, system-ui" font-size="10">
   <g fill="rgba(255,255,220,0.7)" stroke="var(--accent)" stroke-width="1.3">
     <ellipse cx="180" cy="40" rx="8" ry="20"/>
@@ -59,176 +59,176 @@ Vedle povrchových (otisky, [[geometrie-ruky|geometrie]]) a vnitřních ([[krevn
 :::
 
 * **27 kostí ruky** rozdělených do 3 skupin:
-  * **Phalanges (14)** — kosti prstů. 3 v každém prstu (distal, middle, proximal) + 2 v palci (no middle phalanx).
-  * **Metacarpals (5)** — kosti dlaně.
-  * **Carpals (8)** — kosti zápěstí.
-* **Klouby:** distal interphalangeal (DIP), proximal interphalangeal (PIP), metacarpophalangeal (MCP), wrist.
+  * **Články prstů (phalanges, 14)** — kosti prstů. V každém prstu jsou 3 (distální, střední a proximální článek), v palci jen 2 (palec nemá střední článek).
+  * **Záprstní kosti (metacarpals, 5)** — kosti dlaně.
+  * **Kosti zápěstí (carpals, 8)** — kosti zápěstí.
+* **Klouby:** distální mezičlánkový (DIP), proximální mezičlánkový (PIP), záprstně-článkový (MCP) a zápěstní (wrist).
 
 ## Biometrické rysy
 
-* **Bone lengths** — délka jednotlivých phalanges, metacarpals.
-* **Bone widths** — diameter at specific positions.
-* **Joint shapes** — bone end morphology.
-* **Bone density patterns** — internal structure (Wolff's law — bone adapts to mechanical stress).
-* **Calcium content variations**.
+* **Délky kostí** — délka jednotlivých článků prstů a záprstních kostí.
+* **Šířky kostí** — průměr kosti v konkrétních místech.
+* **Tvary kloubů** — morfologie zakončení kostí.
+* **Vzorce kostní hustoty** — vnitřní struktura (Wolffův zákon — kost se přizpůsobuje mechanickému zatížení).
+* **Variace v obsahu vápníku**.
 
 ### Stálost
 
-* **Adult bones:** *velmi* stabilní — žádná growth, minimal remodeling.
-* **Bone length:** *fixed* after growth plates close (~18–25 let).
-* **Bone density:** *gradual* decrease s věkem (osteoporóza), ale celkový pattern unique.
-* **Fractures:** trvalé změny v geometrii, ale rozpoznatelné jako *unique*.
+* **Kosti dospělého:** jsou *velmi* stabilní — kost už neroste a téměř se nepřestavuje.
+* **Délka kostí:** je *neměnná* poté, co se uzavřou růstové ploténky (~18–25 let).
+* **Kostní hustota:** s věkem *postupně* klesá (osteoporóza), ale celkový vzorec zůstává jedinečný.
+* **Zlomeniny:** vedou k trvalým změnám geometrie, ty jsou ale rozpoznatelné jako *unikátní* znak.
 
 ### Unikátnost
 
-* **Genetic + epigenetic** factors:
-  * Genetics — basic skeletal proportions.
-  * Mechanical loading (work, sport, dominant hand) — bone remodeling.
-* **Identical twins** mají *similar but distinct* bone patterns.
-* Forensic anthropology relies on bone uniqueness for identification.
+* **Genetické a epigenetické** faktory:
+  * Genetika — základní proporce kostry.
+  * Mechanické zatížení (práce, sport, dominantní ruka) — způsobuje přestavbu kostí.
+* **Jednovaječná dvojčata** mají *podobné, ale rozlišitelné* kostní vzorce.
+* Forenzní antropologie se při identifikaci opírá právě o jedinečnost kostí.
 
 ## Snímání
 
-### X-ray
+### Rentgen (X-ray)
 
-* **Standard radiography** — 2D projection.
-* Resolution: ~100 μm.
-* Cena: $50 per scan.
-* Dávka radiace: ~0.005 mSv (very low).
-* **Použití:** medical (fractures), forensic, hand age estimation.
+* **Standardní radiografie** — 2D projekce.
+* Rozlišení: ~100 μm.
+* Cena: 50 $ za snímek.
+* Dávka radiace: ~0,005 mSv (velmi nízká).
+* **Použití:** medicína (zlomeniny), forenzní obor, odhad věku podle ruky.
 
-### Computed Tomography (CT)
+### Výpočetní tomografie (Computed Tomography, CT)
 
-* **3D imaging** — full bone volume.
-* Resolution: ~500 μm.
-* Cena: $500+.
-* Dávka radiace: 1–10 mSv (significant).
-* **Použití:** medical surgery planning, forensic, biometric research.
+* **3D zobrazení** — celý objem kosti.
+* Rozlišení: ~500 μm.
+* Cena: od 500 $.
+* Dávka radiace: 1–10 mSv (významná).
+* **Použití:** plánování chirurgických operací, forenzní obor, biometrický výzkum.
 
-### Magnetic Resonance Imaging (MRI)
+### Magnetická rezonance (Magnetic Resonance Imaging, MRI)
 
-* **3D imaging** — soft tissue + bone.
-* No ionizing radiation.
-* Cena: $1000+.
+* **3D zobrazení** — měkké tkáně i kosti.
+* Bez ionizujícího záření.
+* Cena: od 1000 $.
 * Dávka radiace: 0.
-* **Použití:** medical, research; *not practical* for biometric due to cost.
+* **Použití:** medicína a výzkum; pro biometrii *není praktická* kvůli ceně.
 
-### Bone Densitometry (DEXA)
+### Kostní denzitometrie (DEXA)
 
-* **Dual-energy X-ray Absorptiometry**.
-* Measures bone density.
-* Used in osteoporosis screening.
-* Side product: unique density patterns.
+* **Dvouenergiová rentgenová absorpciometrie** (Dual-energy X-ray Absorptiometry).
+* Měří kostní hustotu.
+* Používá se při screeningu osteoporózy.
+* Vedlejší produkt: jedinečné vzorce hustoty.
 
 ## Algoritmy
 
-### Bone segmentation
+### Segmentace kostí
 
-1. **Thresholding** — bones are brighter (X-ray) than soft tissue.
-2. **Region growing** — connected components.
-3. **DL-based segmentation** — U-Net trained on radiographs.
+1. **Prahování (thresholding)** — kosti jsou na rentgenu jasnější než měkká tkáň.
+2. **Narůstání oblastí (region growing)** — hledání souvislých komponent.
+3. **Segmentace pomocí hlubokého učení (DL)** — síť U-Net natrénovaná na radiogramech.
 
-### Feature extraction
+### Extrakce příznaků
 
-* **Geometric:**
-  * Bone lengths (multiple per finger).
-  * Joint angles.
-  * Bone proportions.
-* **Morphometric:**
-  * Bone shape descriptors (Fourier descriptors, shape contexts).
-  * Joint surface morphology.
-* **Density:**
-  * Cortical bone thickness.
-  * Trabecular patterns.
-* **Modern DL:** CNN-based embeddings from radiographs.
+* **Geometrické:**
+  * Délky kostí (více hodnot na prst).
+  * Úhly kloubů.
+  * Proporce kostí.
+* **Morfometrické:**
+  * Deskriptory tvaru kostí (Fourierovy deskriptory, kontexty tvaru).
+  * Morfologie kloubních ploch.
+* **Hustotní:**
+  * Tloušťka kortikální kosti.
+  * Trabekulární vzorce.
+* **Moderní DL:** embeddingy z radiogramů založené na konvolučních sítích (CNN).
 
-### Matching
+### Porovnávání (matching)
 
-* **Feature vector comparison** — Euclidean distance.
-* **Image registration** — direct image alignment + correlation.
-* **Hybrid** approaches.
+* **Porovnání vektoru příznaků** — eukleidovská vzdálenost.
+* **Registrace obrazu** — přímé zarovnání snímků a korelace.
+* **Hybridní** přístupy.
 
 ## Aplikace {tier=practice}
 
-### Medical-biometric hybrid
+### Hybrid medicíny a biometrie
 
-* **Bone age assessment** — Greulich-Pyle standard, automated by AI.
-* Forensic: estimation of age from hand X-ray.
-* Combined: bone age + biometric identity.
+* **Určení kostního věku** — standard Greulich-Pyle, automatizovaný pomocí AI.
+* Forenzní obor: odhad věku z rentgenu ruky.
+* Kombinace: kostní věk plus biometrická identita.
 
-### Forensic identification
+### Forenzní identifikace
 
-* **Disaster victim identification** — match radiographic records from medical history.
-* **Cold case investigations** — bone analysis from skeletal remains.
-* Not real-time biometric, but used in forensics.
+* **Identifikace obětí katastrof** — porovnání s radiografickými záznamy ze zdravotní dokumentace.
+* **Vyšetřování nevyřešených případů** — analýza kostí z kosterních pozůstatků.
+* Není to biometrie v reálném čase, ale ve forenzním oboru se využívá.
 
-### Implants identification
+### Identifikace implantátů
 
-* **Surgical screws, plates** — implanted hardware unique per patient.
-* **Bone implants** with serial markings.
-* Used for *post-mortem* identification.
+* **Chirurgické šrouby a destičky** — implantovaný hardware je u každého pacienta jedinečný.
+* **Kostní implantáty** se sériovým označením.
+* Používá se k *posmrtné* identifikaci.
 
-### Research applications
+### Výzkumné aplikace
 
-* **Bone-only biometric** for high-security:
-  * Custom X-ray scanner.
-  * Daily exposure to user — *not* recommended due to radiation.
-* **Hospital-based** identification.
+* **Čistě kostní biometrie** pro vysoké zabezpečení:
+  * Vlastní rentgenový skener.
+  * Každodenní ozařování uživatele — kvůli radiaci se *nedoporučuje*.
+* Identifikace **v nemocničním prostředí**.
 
 ## Limity
 
-### Practical adoption
+### Praktické nasazení
 
-* **Radiation exposure** — non-zero dose for X-ray; cumulative concern.
-* **Cost** — specialized equipment, trained operator.
-* **Speed** — minutes per scan, not seconds.
-* **Patient acceptance** — radiation, claustrophobia (MRI).
-* **Not real-time** — unsuitable for access control.
+* **Ozáření** — nenulová dávka u rentgenu; problémem je kumulace.
+* **Náklady** — specializované vybavení a vyškolená obsluha.
+* **Rychlost** — snímání trvá minuty, ne sekundy.
+* **Přijetí pacientem** — radiace, klaustrofobie (u MRI).
+* **Není v reálném čase** — nevhodné pro řízení přístupu (access control).
 
-### Better alternatives
+### Lepší alternativy
 
-* For *real-time* biometric: fingerprint, face, iris.
-* For *forensic identification*: dental records, fingerprints, DNA.
-* For *medical-biometric hybrid*: combined diagnostic + ID.
+* Pro biometrii *v reálném čase*: otisk prstu, obličej, duhovka.
+* Pro *forenzní identifikaci*: zubní záznamy, otisky prstů, DNA.
+* Pro *hybrid medicíny a biometrie*: kombinace diagnostiky a identifikace.
 
 ## Specifické případy
 
-### Pediatric biometrics
+### Pediatrická biometrie
 
-* **Children's hand X-rays** — used for *bone age* estimation (Tanner-Whitehouse, Greulich-Pyle methods).
-* Tracking pediatric growth.
-* AI-based automated bone age (BoneXpert).
+* **Rentgeny ruky u dětí** — používají se k odhadu *kostního věku* (metody Tanner-Whitehouse a Greulich-Pyle).
+* Sledování růstu u dětí.
+* Automatizovaný odhad kostního věku pomocí AI (BoneXpert).
 
-### Hand prosthetics design
+### Návrh ručních protéz
 
-* **CT-based** custom prosthetic design.
-* Patient-specific.
+* **Návrh protézy na míru na základě CT**.
+* Specifický pro každého pacienta.
 
-### Skeletal disease tracking
+### Sledování kosterních onemocnění
 
-* **Rheumatoid arthritis** — bone erosion patterns.
-* **Osteoporosis** — bone density loss.
-* **Fractures** — healing tracking.
+* **Revmatoidní artritida** — vzorce eroze kostí.
+* **Osteoporóza** — úbytek kostní hustoty.
+* **Zlomeniny** — sledování hojení.
 
-## Trends
+## Trendy
 
-* **Mobile X-ray** — handheld devices for emergency situations.
-* **Low-dose CT** — reduced radiation, more practical.
-* **AI-driven bone analysis** — automated pathology detection + biometric.
-* **Federated learning** — privacy-preserving bone analysis.
+* **Mobilní rentgen** — ruční přístroje pro nouzové situace.
+* **Nízkodávkové CT** — nižší radiace, praktičtější použití.
+* **Analýza kostí řízená AI** — automatická detekce patologií i biometrie.
+* **Federované učení (federated learning)** — analýza kostí se zachováním soukromí.
 
 ## Vztah k jiným biometrikám
 
-| | **Bone** | **Vein** | **Fingerprint** |
+| | **Kost** | **Žíly** | **Otisk prstu** |
 | :--- | :---: | :---: | :---: |
-| Layer | deepest | sub-skin | surface |
-| Stability | very high | very high | high |
-| Spoofing | extremely hard | very hard | medium |
-| Adoption | rare | medium | mass |
-| Cost | high | medium | low |
-| Real-time | no | yes | yes |
+| Vrstva | nejhlubší | pod kůží | povrch |
+| Stabilita | velmi vysoká | velmi vysoká | vysoká |
+| Podvržení (spoofing) | extrémně těžké | velmi těžké | střední |
+| Rozšíření | vzácné | střední | masové |
+| Náklady | vysoké | střední | nízké |
+| Reálný čas | ne | ano | ano |
 
-Bone biometrics zatím *není* practical for everyday authentication, ale dobrý *complement* pro forensic + medical scenarios.
+Kostní biometrie zatím *není* praktická pro každodenní autentizaci, je ale dobrým *doplňkem* pro forenzní a medicínské scénáře.
 
 ---
 

@@ -4,11 +4,11 @@ title: Mezitřídní a vnitrotřídní variabilita
 
 # Mezitřídní a vnitrotřídní variabilita
 
-Klíčový statistický problém biometrického rozpoznávání: **stejná osoba** dává *různá měření* a **různé osoby** mohou dávat *podobná měření*. Jak moc je tato variabilita významná, určuje *dosažitelnou přesnost* biometrického systému.
+Klíčový statistický problém biometrického rozpoznávání: **stejná osoba** dává *různá měření* a **různé osoby** mohou dávat *podobná měření*. To, jak je tato variabilita významná, určuje *dosažitelnou přesnost* biometrického systému.
 
 ## Definice
 
-* **Vnitrotřídní variabilita** (intra-class variability, *within-class*) — *jak rozdílná* jsou různá měření *stejné* osoby v různých časech / podmínkách.
+* **Vnitrotřídní variabilita** (intra-class variability, *within-class*) — *jak rozdílná* jsou různá měření *stejné* osoby v různých časech či za různých podmínek.
 * **Mezitřídní variabilita** (inter-class variability, *between-class*) — *jak rozdílní* jsou různí lidé od sebe navzájem.
 
 Ideální biometrický systém:
@@ -16,7 +16,7 @@ Ideální biometrický systém:
 * **Nízká vnitrotřídní** — různá měření stejné osoby dávají *podobné* rysy.
 * **Vysoká mezitřídní** — různí lidé dávají *odlišné* rysy.
 
-::: svg "Distribuce skóre podobnosti: genuine scores (zelená) pro stejnou osobu, impostor scores (červená) pro různé osoby. Překryv = chybové míry. Threshold τ rozhoduje."
+::: svg "Distribuce skóre podobnosti: skóre pravých uživatelů (genuine, zelená) pro stejnou osobu, skóre podvodníků (impostor, červená) pro různé osoby. Překryv = chybové míry. Práh τ rozhoduje."
 <svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
   <g stroke="var(--accent)" stroke-width="2" fill="rgba(64, 192, 87, 0.3)">
     <path d="M50,180 C90,180 110,80 150,80 C190,80 210,180 250,180 Z"/>
@@ -45,10 +45,10 @@ Ideální biometrický systém:
 </svg>
 :::
 
-Pokud distribuce *překrývá*, vznikají chybové míry:
+Pokud se distribuce *překrývají*, vznikají chybové míry:
 
-* **FAR** ([[far-frr]]) — false accept rate, impostor přijat.
-* **FRR** ([[far-frr]]) — false reject rate, genuine odmítnut.
+* **FAR** ([[far-frr]]) — míra falešného přijetí (false accept rate), podvodník (impostor) je přijat.
+* **FRR** ([[far-frr]]) — míra falešného odmítnutí (false reject rate), pravý uživatel (genuine) je odmítnut.
 
 Práh $\tau$ určuje *rovnováhu* mezi nimi.
 
@@ -58,9 +58,9 @@ Práh $\tau$ určuje *rovnováhu* mezi nimi.
 
 * **Vnitrotřídní variabilita:**
   * Suchá nebo vlhká pokožka — odlišný kontrast.
-  * Drobná poranění, žárlení.
+  * Drobná poranění, zjizvení.
   * Tlak na senzor (silný vs. lehký).
-  * Rotace, translation.
+  * Rotace, posun (translation).
 * **Mezitřídní variabilita:**
   * Různé vzory papilárních linií ([[klasifikace-otisku]]).
   * **Vysoká** — papilární linie jsou *prokazatelně unikátní* (Galton, 1892).
@@ -68,15 +68,15 @@ Práh $\tau$ určuje *rovnováhu* mezi nimi.
 ### Rozpoznávání obličeje
 
 * **Vnitrotřídní variabilita:**
-  * Pose (frontal vs. profile).
-  * Osvětlení (denní, fluorescent, IR).
-  * Výraz (neutral, úsměv, hněv).
-  * Vousy, brýle, makeup.
-  * Aging — postupné změny.
+  * Natočení hlavy (pose: zepředu vs. z profilu).
+  * Osvětlení (denní světlo, zářivka, infračervené IR).
+  * Výraz (neutrální, úsměv, hněv).
+  * Vousy, brýle, líčení.
+  * Stárnutí (aging) — postupné změny.
 * **Mezitřídní variabilita:**
   * *Identická dvojčata* — velmi nízká (snadné záměny).
   * Různé etnické skupiny — různé distribuce rysů.
-  * **Střední až vysoká** — dostatečná pro praktické systémy s deep learning.
+  * **Střední až vysoká** — dostatečná pro praktické systémy s hlubokým učením (deep learning).
 
 ### Rozpoznávání hlasu
 
@@ -86,35 +86,35 @@ Práh $\tau$ určuje *rovnováhu* mezi nimi.
   * Tempo, intonace.
   * Mikrofon (různé spektrální charakteristiky).
 * **Mezitřídní variabilita:**
-  * Podobné hlasové charakteristiky u různých osob (zejména stejného pohlaví + věku + dialektu).
-  * **Nízká až střední** — proto voice biometry má vyšší FAR než iris.
+  * Podobné hlasové charakteristiky u různých osob (zejména u stejného pohlaví, věku a dialektu).
+  * **Nízká až střední** — proto má hlasová biometrie (voice biometry) vyšší FAR než duhovka (iris).
 
-### Iris (duhovka)
+### Duhovka (iris)
 
 * **Vnitrotřídní variabilita:**
-  * Velmi nízká — iris se prakticky nemění (po 1 roce věku).
-  * Drobné variace velikosti pupily (osvětlení).
+  * Velmi nízká — duhovka se prakticky nemění (po prvním roce věku).
+  * Drobné variace velikosti zornice (vlivem osvětlení).
 * **Mezitřídní variabilita:**
-  * **Extrémně vysoká** — duhovka je *nejvíce variabilní* mezi osobami.
-  * U identických dvojčat *odlišná* (epigeneticky tvořená v útrobních fázích).
+  * **Extrémně vysoká** — duhovka je *nejvíce variabilní* znak mezi osobami.
+  * U identických dvojčat *odlišná* (epigeneticky se utváří v nitroděložních fázích).
 
-## Klíčový důsledek pro design biometrického systému
+## Klíčový důsledek pro návrh biometrického systému
 
-* **Iris ↑ inter-class, ↓ intra-class** → vysoká přesnost.
-* **Voice ↓ inter-class, ↑ intra-class** → nižší přesnost.
+* **Duhovka (iris): ↑ mezitřídní, ↓ vnitrotřídní** → vysoká přesnost.
+* **Hlas (voice): ↓ mezitřídní, ↑ vnitrotřídní** → nižší přesnost.
 
 To vysvětluje, proč:
 
-* **Iris recognition** je *gold standard* pro high-security identifikaci.
-* **Voice biometry** se používá pro *user convenience* (call center), ne kritickou bezpečnost.
-* **Multimodální systémy** kombinují biometriky s *komplementárními* vlastnostmi.
+* **Rozpoznávání duhovky** je *zlatým standardem* pro identifikaci s vysokými nároky na bezpečnost.
+* **Hlasová biometrie** se používá kvůli *pohodlí uživatele* (call centrum), nikoli pro kritickou bezpečnost.
+* **Multimodální systémy** kombinují biometriky se *vzájemně se doplňujícími (komplementárními)* vlastnostmi.
 
 ## Stochastický model
 
 Biometrický rys $\mathbf{x}$ je realizací náhodné proměnné s rozdělením $P(\mathbf{x} | \text{osoba } i)$.
 
-* Pro **stejnou osobu**: vzorky $\mathbf{x}_1, \mathbf{x}_2$ z $P(\mathbf{x} | i)$. Score distribuce *genuine* $G(\text{score})$.
-* Pro **různé osoby**: vzorky z $P(\mathbf{x} | i)$ a $P(\mathbf{x} | j)$, $i \neq j$. Score distribuce *impostor* $I(\text{score})$.
+* Pro **stejnou osobu**: vzorky $\mathbf{x}_1, \mathbf{x}_2$ z $P(\mathbf{x} | i)$. Distribuce skóre pravých uživatelů *genuine* $G(\text{score})$.
+* Pro **různé osoby**: vzorky z $P(\mathbf{x} | i)$ a $P(\mathbf{x} | j)$, $i \neq j$. Distribuce skóre podvodníků *impostor* $I(\text{score})$.
 
 Kvalita biometriky se měří **odlišností** těchto distribucí:
 
@@ -122,30 +122,30 @@ Kvalita biometriky se měří **odlišností** těchto distribucí:
 d' = \frac{|\mu_G - \mu_I|}{\sqrt{(\sigma_G^2 + \sigma_I^2)/2}}
 :::
 
-**d'** (d-prime) — normalizovaná vzdálenost (*sensitivity index*) mezi středy distribucí genuine a impostor skóre, $\ge 5$ = výborné, $\ge 3$ = dobré, $\le 1$ = špatné.
+**d'** (d-prime) — normalizovaná vzdálenost (*sensitivity index*, index citlivosti) mezi středy distribucí skóre genuine a impostor; $\ge 5$ = výborné, $\ge 3$ = dobré, $\le 1$ = špatné.
 
 ## Faktory variability
 
 * **Osoba sama** — denní změna (únava, nemoc, emoce).
-* **Aging** — dlouhodobé změny.
-* **Environment** — osvětlení, vlhkost, teplota.
-* **Senzor** — kvalita, fluktuace.
-* **User behavior** — pose, distance, presentation.
-* **Capture protocol** — kvalita instrukcí, time per capture.
+* **Stárnutí (aging)** — dlouhodobé změny.
+* **Prostředí (environment)** — osvětlení, vlhkost, teplota.
+* **Senzor** — kvalita, kolísání (fluktuace).
+* **Chování uživatele (user behavior)** — natočení (pose), vzdálenost, způsob předložení biometrie.
+* **Protokol snímání (capture protocol)** — kvalita instrukcí, čas na jedno snímání.
 
-## Mitigace vnitrotřídní variability
+## Zmírnění vnitrotřídní variability
 
-* **Quality control** během enrollment — pouze high-quality šablony.
-* **Multiple samples** — průměrování pro stabilnější šablony.
-* **Adaptive enrollment** — periodická aktualizace šablon.
-* **Normalization** — alignment, scale, illumination correction.
-* **Robust features** — features invariantní vůči některým variabilitám (např. *log-polar* features pro rotation invariance).
+* **Řízení kvality (quality control)** během registrace (enrollment) — ukládají se pouze kvalitní šablony.
+* **Více vzorků (multiple samples)** — průměrování pro stabilnější šablony.
+* **Adaptivní registrace (adaptive enrollment)** — periodická aktualizace šablon.
+* **Normalizace (normalization)** — zarovnání (alignment), škálování, korekce osvětlení.
+* **Robustní rysy (robust features)** — rysy invariantní vůči některým variabilitám (např. *log-polární* rysy zajišťující invarianci vůči rotaci).
 
-## Mitigace mezitřídní variability (zlepšení rozlišování)
+## Zmírnění mezitřídní variability (zlepšení rozlišování)
 
-* **Discriminative features** — vybrat takové rysy, které *odlišují* osoby. Linear Discriminant Analysis (LDA), deep metric learning.
-* **Larger feature vectors** — víc dimenzí = víc rozlišovacích schopností (až do diminishing returns).
-* **Multimodální fusion** — kombinace více biometrik.
+* **Diskriminativní rysy (discriminative features)** — vybrat takové rysy, které osoby *odlišují*. Lineární diskriminační analýza (Linear Discriminant Analysis, LDA), metrické hluboké učení (deep metric learning).
+* **Větší vektory rysů (larger feature vectors)** — víc dimenzí znamená větší rozlišovací schopnost (až do bodu klesajícího přínosu, diminishing returns).
+* **Multimodální fúze (multimodal fusion)** — kombinace více biometrik.
 
 ---
 

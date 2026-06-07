@@ -1,36 +1,36 @@
 ---
-title: Výkon a omezení Hyper-Threading
+title: Výkon a omezení Hyper-Threadingu
 ---
 
 # Kdy HT pomáhá a kdy škodí — kvantitativní analýza
 
-Hyper-Threading není free lunch. Empiricky:
+Hyper-Threading není zadarmo. Empiricky platí:
 
-- **+30-40 %** throughput pro mixed/server workloads (web, DB).
-- **-10 až +20 %** pro HPC compute-bound (matrix mul, FFT).
-- **Občas -5-15 %** single-thread perf (cache contention).
+- **+30-40 %** propustnosti (throughput) pro smíšené a serverové zátěže (web, databáze).
+- **-10 až +20 %** pro výpočetně vázané (compute-bound) HPC úlohy (násobení matic, FFT).
+- **Občas -5-15 %** výkonu jednoho vlákna (single-thread) kvůli soupeření o vyrovnávací paměť (cache contention).
 
 Tato sekce kvantifikuje *proč*.
 
-## Dva sources of speedup
+## Dva zdroje zrychlení
 
-SMT exceluje, když:
+SMT vyniká, když:
 
-1. **Jeden thread často stagnuje** (cache miss, branch miss, dep chain). Druhý vyplní díry.
-2. **ALU underutilized** (typický OoO has < 50 % ALU utilization na single-thread).
+1. **Jedno vlákno (thread) často stagnuje** (výpadek cache, chybná predikce skoku, řetězec závislostí). Druhé vlákno vyplní vzniklé mezery.
+2. **ALU jsou nevyužité** (typický procesor s přeuspořádáním instrukcí (OoO) má při běhu jednoho vlákna využití ALU pod 50 %).
 
-Druhý je *underappreciated*. Reálné měření: Intel Skylake na SPEC integer dosahuje ~2.5 IPC z teoretických 6. ALU running ~40 % cyclu. HT může vyplnit chybějících 60 %.
+Druhý důvod bývá podceňovaný. Reálné měření: procesor Intel Skylake dosahuje na SPEC integer kolem 2,5 IPC z teoretických 6. ALU tedy pracují jen asi 40 % cyklů. HT může vyplnit chybějících 60 %.
 
-## Dva sources of slowdown
+## Dva zdroje zpomalení
 
 SMT trpí, když:
 
-1. **Cache contention** — dva threads eviktují svá data navzájem.
-2. **Functional unit contention** — pro compute-bound oba chcou *stejnou* FU.
-3. **Pipeline contention** — fetch / dispatch / RS soutěží.
-4. **Branch predictor pollution** — A trénuje BHT na patternu, který B *ruší*.
+1. **Soupeření o cache (cache contention)** — dvě vlákna si navzájem vytlačují (eviktují) svá data.
+2. **Soupeření o výpočetní jednotky (functional unit contention)** — u výpočetně vázaných úloh chtějí obě vlákna *stejnou* jednotku (FU).
+3. **Soupeření o pipeline (pipeline contention)** — natahování instrukcí (fetch), rozdělování (dispatch) a rezervační stanice (RS) si konkurují.
+4. **Znečištění prediktoru skoků (branch predictor pollution)** — vlákno A trénuje tabulku BHT na svém vzoru, který vlákno B *narušuje*.
 
-## Důkaz #1: Dvě vlákna v HT počítají déle
+## Důkaz č. 1: Dvě vlákna v HT počítají déle
 
 Typický srovnávací příklad:
 
@@ -41,31 +41,31 @@ Scenario 2: Stejné dva jobs na 2 cores, no HT.
 Scenario 2 wins by ~20-30 % (lepší cache use, no FU contention).
 ```
 
-⇒ HT *nikdy* nedosáhne 2× single-thread perf. Hard ceiling.
+⇒ HT *nikdy* nedosáhne dvojnásobku výkonu jednoho vlákna. Jde o tvrdý strop.
 
-## Důkaz #2: Cache pressure
+## Důkaz č. 2: Tlak na cache
 
-Klasické měření: working set just under L1 size.
+Klasické měření: pracovní množina (working set) jen těsně pod velikostí L1.
 
-Single thread: working set ~30 kB fits do 32 kB L1 → 99 % L1 hit rate.
+Jedno vlákno: pracovní množina ~30 kB se vejde do 32 kB cache L1 → 99% úspěšnost přístupů (hit rate) do L1.
 
-Two threads (HT): 30 + 30 = 60 kB > 32 kB. Threads eviktují navzájem → L1 hit rate **50-70 %**. AMAT vystřelí.
+Dvě vlákna (HT): 30 + 30 = 60 kB > 32 kB. Vlákna si navzájem vytlačují data → úspěšnost přístupů do L1 klesá na **50-70 %**. Průměrná doba přístupu do paměti (AMAT) vystřelí nahoru.
 
-Throughput celkový: 1.4× single (slight win), ale per-thread: 0.7×.
+Celková propustnost: 1,4× oproti jednomu vláknu (mírné vylepšení), ale na jedno vlákno: 0,7×.
 
-Pro úlohy near cache boundary HT *neefektivní*.
+Pro úlohy na hranici velikosti cache je HT *neefektivní*.
 
-## Důkaz #3: FU contention
+## Důkaz č. 3: Soupeření o výpočetní jednotky
 
-Matrix multiply má dominantní FMA throughput requirement. Single thread plně využívá FMA pipeline → ~1.0 FMA / cycle.
+Násobení matic má dominantní nárok na propustnost jednotky FMA. Jedno vlákno plně využívá pipeline FMA → ~1,0 operace FMA za cyklus.
 
-Two threads (HT) bojují o stejnou FMA → každý ~0.55 FMA / cycle. Throughput total 1.1 (10% win) vs ideal 2.0.
+Dvě vlákna (HT) bojují o stejnou jednotku FMA → každé jen ~0,55 FMA za cyklus. Celková propustnost je 1,1 (zisk 10 %) oproti ideálním 2,0.
 
-Pokud thread B *není* FMA-bound (lots of branches, cache misses), HT lépe — A FMA, B nezasahuje. Sweet spot.
+Pokud vlákno B *není* vázané na FMA (hodně skoků, výpadků cache), HT funguje lépe — vlákno A využívá FMA, vlákno B do toho nezasahuje. To je ideální případ (sweet spot).
 
-## Performance counters
+## Čítače výkonu (performance counters)
 
-Pro diagnose:
+Pro diagnostiku:
 
 ```bash
 perf stat -e cpu_clk_unhalted.thread,uops_executed.thread,\
@@ -75,15 +75,15 @@ perf stat -e cpu_clk_unhalted.thread,uops_executed.thread,\
 
 Klíčové metriky:
 
-- **uops_executed.thread / cpu_clk_unhalted.thread** = IPC per thread.
-- **l1d.replacement** = L1 evictions. HT zvyšuje.
-- **cycle_activity.stalls_total** = stagnace.
+- **uops_executed.thread / cpu_clk_unhalted.thread** = IPC na jedno vlákno.
+- **l1d.replacement** = počet vytlačení z L1. HT je zvyšuje.
+- **cycle_activity.stalls_total** = míra stagnace.
 
-Pokud po HT: IPC each = 60-70 % single → HT win. Pokud IPC each = 40-50 % → HT *win marginálně* (sum still > single, ale per-thread suffering).
+Pokud po zapnutí HT vychází IPC každého vlákna na 60-70 % jednovláknové hodnoty → HT je výhra. Pokud IPC každého vlákna vychází na 40-50 % → HT je výhra *jen okrajově* (součet je stále větší než u jednoho vlákna, ale na jedno vlákno výkon trpí).
 
-Pokud po HT: l1d.replacement >> single → cache thrashing.
+Pokud po zapnutí HT je l1d.replacement výrazně vyšší než u jednoho vlákna → dochází k zahlcení cache (cache thrashing).
 
-## Decision tree: turn HT on/off
+## Rozhodovací strom: zapnout, nebo vypnout HT
 
 ```
 1. Single-thread latency critical? (trading, real-time)
@@ -105,64 +105,64 @@ Pokud po HT: l1d.replacement >> single → cache thrashing.
    → Consider OFF for security (post-Foreshadow).
 ```
 
-## Pinning a affinity
+## Připínání (pinning) a afinita
 
-Pokud nechcete HT vypnout, ale potřebujete *predictable* perf:
+Pokud nechcete HT vypínat, ale potřebujete *předvídatelný* výkon:
 
 ```bash
 taskset -c 0,1,2,3 ./hpc_app    # pin to fyzicky 0-3 (sibling threads 4-7 prázdné)
 ```
 
-Linux scheduler nedá `taskset` jiných vláken na *sibling threads* prvních 4. Efektivně používáte HT *jen* pro mainstream tasks.
+Linuxový plánovač (scheduler) nepřiřadí jiná vlákna na *sourozenecká vlákna* (sibling threads) prvních čtyř jader. Fakticky tak používáte HT *jen* pro běžné úlohy.
 
-GCC OpenMP:
+OpenMP v překladači GCC:
 
 ```bash
 OMP_PLACES=cores OMP_PROC_BIND=close ./hpc_app
 ```
 
-`OMP_PLACES=cores` znamená 1 thread per fyzické jádro (ignoruje siblings).
+`OMP_PLACES=cores` znamená jedno vlákno na fyzické jádro (ignoruje sourozenecká vlákna).
 
-`OMP_PLACES=threads` = use HT also.
+`OMP_PLACES=threads` znamená využít i HT.
 
-## Hyperthreading + NUMA
+## Hyper-Threading a NUMA
 
-V multi-socket systémech kombinace:
+Ve víceprocesorových (multi-socket) systémech vzniká kombinace:
 
-- Logical CPU 0-7 na socket 0, core 0-3 (HT).
-- Logical CPU 8-15 na socket 0, core 4-7 (HT).
-- Logical CPU 16-23 na socket 1, core 0-3 (HT).
+- Logické CPU 0-7 na socketu 0, jádra 0-3 (HT).
+- Logické CPU 8-15 na socketu 0, jádra 4-7 (HT).
+- Logické CPU 16-23 na socketu 1, jádra 0-3 (HT).
 
-Pinning thread na *correct* core (NUMA local) klíčové. HT je jen mírná modifikace tohoto plánu.
+Připnutí vlákna na *správné* jádro (lokální vůči NUMA) je klíčové. HT je jen mírná modifikace tohoto plánu.
 
-Detaily v Topic 9 ([[uma-numa]]).
+Podrobnosti v tématu 9 ([[uma-numa]]).
 
-## ARM big.LITTLE alternativa
+## Alternativa ARM big.LITTLE
 
-ARM (a Apple) řeší TLP přes **big.LITTLE** — 2 typy jader, ne SMT:
+Architektura ARM (a Apple) řeší paralelismus na úrovni vláken (TLP) přes **big.LITTLE** — pomocí dvou typů jader, nikoli pomocí SMT:
 
-- **Big cores** — high-perf OoO, energy-hungry.
-- **LITTLE cores** — small in-order, energy-efficient.
+- **Velká jádra (big cores)** — vysoce výkonná, s přeuspořádáním instrukcí (OoO), energeticky náročná.
+- **Malá jádra (LITTLE cores)** — malá, s pořadovým vykonáváním (in-order), energeticky úsporná.
 
-OS scheduler rozděluje: latency-sensitive tasks na big, background na LITTLE. Energy gains *velké* (5-10× lepší perf/watt) ve smartphone/laptop scenarios.
+Plánovač operačního systému úlohy rozděluje: úlohy citlivé na latenci běží na velkých jádrech, úlohy na pozadí na malých. Úspory energie jsou *velké* (5-10× lepší poměr výkon/watt) ve scénářích chytrých telefonů a notebooků.
 
-Apple M1: 4 P + 4 E. Intel Alder Lake (2021) převzal myšlenku: P + E cores. Po dlouhé éře "all the same" cores teď heterogenní design.
+Apple M1: 4 výkonná (P) + 4 úsporná (E) jádra. Intel Alder Lake (2021) tuto myšlenku převzal: jádra P + E. Po dlouhé éře, kdy byla "všechna jádra stejná", máme nyní heterogenní návrh.
 
-big.LITTLE *nemá* SMT-style sharing v jádře. Cleaner power model.
+big.LITTLE *nemá* uvnitř jádra sdílení ve stylu SMT. Jde o čistší energetický model.
 
 ## SMT4, SMT8 — extrémy
 
-IBM POWER9 = **SMT8** (8 vláken / core). Velikost ROB ~256 → 32 per thread. Sdílení ALU intense.
+IBM POWER9 = **SMT8** (8 vláken na jádro). Velikost ROB ~256 → 32 na vlákno. Sdílení ALU je intenzivní.
 
-Use case: server workloads s extreme latency (databáze running indexed queries, banking transactions). Throughput per chip extreme.
+Použití: serverové zátěže s extrémní latencí (databáze provádějící indexované dotazy, bankovní transakce). Propustnost na čip je extrémní.
 
-Intel Xeon Phi Knights Landing (2016) = SMT4. Důvod: 1.4 GHz, narrow 2-wide out-of-order pipeline (Silvermont-derived) → SMT skryje latency.
+Intel Xeon Phi Knights Landing (2016) = SMT4. Důvod: 1,4 GHz, úzká dvoucestná pipeline s přeuspořádáním instrukcí (odvozená ze Silvermontu) → SMT skryje latenci.
 
-Mainstream desktop: SMT2 (HT) je sweet spot. Vyšší SMT levels zhoršují single-thread bez kompenzace.
+Běžný stolní počítač: SMT2 (HT) je ideální poměr. Vyšší úrovně SMT zhoršují výkon jednoho vlákna bez náležité kompenzace.
 
 ## Co dál
 
-Topic 6 končí. Topic 7 ([[paralelni-modely]], [[openmp-uvod]]) přechází k *software*: programovací modely pro TLP — sdílená paměť, message passing, datový paralelismus. OpenMP poskytuje high-level API.
+Téma 6 zde končí. Téma 7 ([[paralelni-modely]], [[openmp-uvod]]) přechází k *softwaru*: programovacím modelům pro TLP — sdílená paměť, předávání zpráv (message passing), datový paralelismus. OpenMP poskytuje vysokoúrovňové API.
 
 ---
 

@@ -1,44 +1,44 @@
 ---
-title: GPU architektura — SM, warp, SIMT
+title: Architektura GPU — SM, warp, SIMT
 ---
 
-# GPU architektura pro obecné výpočty
+# Architektura GPU pro obecné výpočty
 
-CPU je *latency-optimized*: rychlý OoO single-thread. GPU je *throughput-optimized*: tisíce *jednoduchých* vláken, dohromady extreme propustnost. Tato sekce vysvětluje *jak* GPU vypadá uvnitř.
+CPU je optimalizovaný na latenci (latency-optimized): rychlé jádro provádějící mimo pořadí (OoO) s důrazem na jediné vlákno. GPU je naproti tomu optimalizované na propustnost (throughput-optimized): tisíce *jednoduchých* vláken, která dohromady dávají extrémní propustnost. Tato sekce vysvětluje, *jak* GPU vypadá uvnitř.
 
-## CPU vs GPU — design philosophy
+## CPU vs. GPU — filozofie návrhu
 
 | | CPU | GPU |
 | :--- | :--- | :--- |
-| Cores | 8-64 | 1000-10000 (ALU lanes / CUDA cores) |
-| Single-thread perf | high (IPC 2-4) | low (in-order, simple) |
-| Cache | velký, multi-level | malý (~40 MB L2 total) |
-| Branch prediction | sophisticated | basic / none |
-| OoO | yes | no (in-order) |
-| Memory bandwidth | 50-150 GB/s | 1000-2000 GB/s (HBM) |
-| Latency hiding | OoO + cache | massive multithreading |
-| Power per chip | 100-300 W | 250-700 W |
-| Use case | sekvenční, irregular | datově-paralelní, regulární |
+| Jádra | 8–64 | 1000–10000 (ALU lanes / CUDA cores) |
+| Výkon jednoho vlákna | vysoký (IPC 2–4) | nízký (in-order, jednoduchý) |
+| Cache | velká, víceúrovňová | malá (~40 MB L2 celkem) |
+| Predikce skoků | sofistikovaná | základní / žádná |
+| Provádění mimo pořadí (OoO) | ano | ne (in-order) |
+| Propustnost paměti | 50–150 GB/s | 1000–2000 GB/s (HBM) |
+| Skrývání latence | OoO + cache | masivní multithreading |
+| Příkon na čip | 100–300 W | 250–700 W |
+| Vhodné použití | sekvenční, nepravidelné úlohy | datově paralelní, pravidelné úlohy |
 
-GPU má **mnoho** "cores" (CUDA cores nebo Stream Processors v AMD terminologii), ale tyto nejsou plnohodnotná jádra — jsou to *ALU lanes*. Skutečné kontrolní jednotky jsou *SM* (Streaming Multiprocessors).
+GPU má **mnoho** „cores" (CUDA cores, nebo Stream Processors v terminologii AMD), ale nejde o plnohodnotná jádra — jsou to jen výpočetní dráhy ALU (ALU lanes). Skutečnými řídicími jednotkami jsou *SM* (Streaming Multiprocessors, proudové multiprocesory).
 
 ## NVIDIA Streaming Multiprocessor (SM)
 
 NVIDIA A100 (Ampere 2020):
 
-- 108 SMs.
-- Each SM: 64 FP32 CUDA cores + 32 FP64 + 4 Tensor cores.
-- 6912 CUDA cores total.
-- Shared 40 GB HBM2 memory, 1555 GB/s bandwidth.
+- 108 SM.
+- Každý SM: 64 jader FP32 CUDA + 32 jader FP64 + 4 Tensor cores.
+- Celkem 6912 CUDA cores.
+- Sdílená paměť 40 GB HBM2, propustnost 1555 GB/s.
 
-Each SM:
+Každý SM má:
 
-- 4 warp schedulers.
-- 65k registers (256 kB per SM).
-- 192 kB shared memory + L1 cache.
-- Up to 64 warps active (2048 threads).
+- 4 plánovače warpů (warp schedulers).
+- 65 tisíc registrů (256 kB na jeden SM).
+- 192 kB sdílené paměti + L1 cache.
+- až 64 aktivních warpů (2048 vláken).
 
-::: svg "SM architecture (zjednodušené)"
+::: svg "Architektura SM (zjednodušené)"
 <svg viewBox="0 0 540 240" font-family="ui-sans-serif, system-ui" font-size="10">
   <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.5">
     <rect x="20" y="20" width="500" height="200" rx="6"/>
@@ -85,7 +85,7 @@ Each SM:
 
 ## SIMT — Single Instruction Multiple Threads
 
-Klíčový model: **warp** = skupina 32 vláken (NVIDIA), 64 (AMD wavefront), sdílejí *jeden* instruction stream.
+Klíčový model: **warp** = skupina 32 vláken (NVIDIA), případně 64 (u AMD se nazývá wavefront), která sdílejí *jeden* proud instrukcí (instruction stream).
 
 ```
 Warp instrukce:
@@ -96,30 +96,30 @@ T2: r1 = a[2] + b[2]
 T31: r1 = a[31] + b[31]
 ```
 
-Všech 32 vláken vykoná *stejnou* instrukci na *vlastních* datech. SIMD-like, ale "thread" je *logická* jednotka.
+Všech 32 vláken vykoná *stejnou* instrukci nad *vlastními* daty. Připomíná to SIMD, ale „thread" (vlákno) je zde *logická* jednotka.
 
-V kontrastu k SIMD x86: tam *všechny* lanes paralelní v ALU. V SIMT každé vlákno *logicky* sequenční, ale *fyzicky* všechna lockstep.
+Oproti SIMD na x86, kde jsou *všechny* dráhy (lanes) v ALU paralelní, je v SIMT každé vlákno *logicky* sekvenční, ale *fyzicky* běží všechna v naprostém souladu (lockstep).
 
-## Warps a scheduler
+## Warpy a plánovač
 
-Warp scheduler ručí *kterému* warpu dát next instruction:
+Plánovač warpů (warp scheduler) rozhoduje, *kterému* warpu přidělit další instrukci:
 
-- Warp ready (no stall): vydat.
-- Warp stalled (memory miss, sync): switch to another warp.
+- Warp je připraven (žádné čekání) → instrukce se vydá.
+- Warp je zablokovaný (čeká na paměť, na synchronizaci) → plánovač přepne na jiný warp.
 
-Zero-cost context switch — *register state* warpu je v register file (~ 1 takt access).
+Přepnutí kontextu (context switch) je zde bez režie — *stav registrů* warpu zůstává v register file (přístup za přibližně 1 takt).
 
-⇒ Tisíce vláken active simultaneously. Když několik čeká na memory, jiné běží. **Memory latency hidden** by massive parallelism.
+Důsledek: tisíce vláken jsou aktivní současně. Když několik z nich čeká na paměť, jiná zatím běží. **Latence paměti je tak skryta** masivní paralelizací.
 
-CPU OoO čeká pomocí RS/ROB (200 položek). GPU čeká pomocí 2000+ warps × 32 threads = 64000 ready threads. Massive scale.
+CPU u provádění mimo pořadí (OoO) čeká pomocí struktur RS/ROB (řádově 200 položek). GPU naproti tomu čeká pomocí 2000+ warpů × 32 vláken = 64000 připravených vláken. Jde o zcela jiný řád velikosti.
 
-## Thread hierarchy
+## Hierarchie vláken
 
-CUDA programmer-visible struktura:
+Struktura, kterou v CUDA vidí programátor:
 
-- **Thread** — basic unit.
-- **Block** (CUDA) / Workgroup (OpenCL) — group of threads.
-- **Grid** — collection of blocks.
+- **Thread** (vlákno) — základní jednotka.
+- **Block** (CUDA) / Workgroup (OpenCL) — skupina vláken.
+- **Grid** (mřížka) — kolekce bloků.
 
 ```c
 __global__ void add(float *a, float *b, float *c, int N) {
@@ -134,38 +134,38 @@ int gridSize = (N + blockSize - 1) / blockSize;
 add<<<gridSize, blockSize>>>(a, b, c, N);
 ```
 
-Each thread computes unique `i` from `blockIdx + threadIdx`. Block of 256 threads = 8 warps. Grid of K blocks → K × 256 threads total.
+Každé vlákno si spočítá svůj jedinečný index `i` z `blockIdx` a `threadIdx`. Blok o 256 vláknech = 8 warpů. Mřížka o K blocích → celkem K × 256 vláken.
 
-Pro N = 1M, blockSize 256: gridSize = 3907. Total 1M threads launched. GPU sequentially schedules blocks on SMs.
+Pro N = 1 M a blockSize 256 vyjde gridSize = 3907. Celkem se spustí 1 M vláken. GPU pak postupně rozmísťuje bloky na jednotlivé SM.
 
-### Block sizing
+### Volba velikosti bloku
 
-Maximum block size: 1024 threads (32 warps) on most NVIDIA GPUs. Práce per block fits in *one SM*.
+Maximální velikost bloku je u většiny GPU NVIDIA 1024 vláken (32 warpů). Práce jednoho bloku se musí vejít do *jediného SM*.
 
-Optimal block size: 128-512 threads typically. Tradeoff:
+Optimální velikost bloku je typicky 128–512 vláken. Jde o kompromis:
 
-- Větší block → lepší register reuse, lepší shared memory amortization.
-- Menší block → víc parallel blocks per SM (lepší latency hiding).
+- Větší blok → lepší znovupoužití registrů (register reuse), lepší amortizace sdílené paměti.
+- Menší blok → více paralelních bloků na jeden SM (lepší skrývání latence).
 
-::: viz memory-coalescing-pattern "Vyber přístupový pattern (consecutive / stride 2 / 8 / 32 / random). 32 threadů → DRAM transakce; consecutive = 1, random = až 32. Bandwidth efficiency klesá s každou."
+::: viz memory-coalescing-pattern "Vyber přístupový vzor (consecutive / stride 2 / 8 / 32 / random). 32 vláken → DRAM transakce; consecutive = 1, random = až 32. Efektivita propustnosti s každým z nich klesá."
 :::
 
-## Memory hierarchy
+## Hierarchie paměti
 
-GPU má vlastní hierarchii:
+GPU má vlastní paměťovou hierarchii:
 
-| Memory | Latence | BW | Velikost | Scope |
+| Paměť | Latence | Propustnost | Velikost | Rozsah |
 | :--- | :---: | :---: | :---: | :--- |
-| Registers | 1 cyklus | enormous | ~64 per thread | thread |
-| Shared memory | ~30 cyklů | 5 TB/s | 64 kB / SM | block |
+| Registers | 1 cyklus | obrovská | ~64 na vlákno | vlákno |
+| Shared memory | ~30 cyklů | 5 TB/s | 64 kB / SM | blok |
 | L1 cache | ~30 | 5 TB/s | 128 kB / SM | SM |
-| L2 cache | ~200 | 4 TB/s | 40 MB | global (chip-wide) |
-| Global memory (HBM) | ~500 | 1.5 TB/s | 40-80 GB | global |
-| Texture / Const | ~500 | 1.5 TB/s | 64 kB const | global, cached |
+| L2 cache | ~200 | 4 TB/s | 40 MB | globální (v rámci čipu) |
+| Global memory (HBM) | ~500 | 1.5 TB/s | 40–80 GB | globální |
+| Texture / Const | ~500 | 1.5 TB/s | 64 kB const | globální, cachovaná |
 
-### Shared memory (smem)
+### Sdílená paměť (smem)
 
-Per-block fast memory. Programátor manuálně manageuje.
+Rychlá paměť na úrovni bloku. Programátor ji spravuje ručně.
 
 ```c
 __global__ void matmul_tiled(float *A, float *B, float *C, int N) {
@@ -190,11 +190,11 @@ __global__ void matmul_tiled(float *A, float *B, float *C, int N) {
 }
 ```
 
-Tiled matrix multiply: load 16×16 tile to smem, threads reuse → much less global access. Standard optimization.
+Násobení matic po dlaždicích (tiled matrix multiply): do sdílené paměti se načte dlaždice 16×16, vlákna ji opakovaně využijí → výrazně méně přístupů do globální paměti. Jde o standardní optimalizaci.
 
-### Coalesced access
+### Slučovaný přístup (coalesced access)
 
-GPU memory access *most efficient* when consecutive threads read consecutive addresses:
+Přístup do paměti GPU je *nejefektivnější* tehdy, když po sobě jdoucí vlákna čtou po sobě jdoucí adresy:
 
 ```c
 // Coalesced — good
@@ -205,50 +205,50 @@ data[threadIdx.x] = a[threadIdx.x];     // T0 reads a[0], T1 reads a[1], ...
 data[threadIdx.x] = a[threadIdx.x * 32];    // T0 reads a[0], T1 reads a[32], ...
 ```
 
-Coalesced = 1 memory transaction per warp. Uncoalesced = 32 transactions. **32× pomalejší**.
+Slučovaný přístup (coalesced) = 1 paměťová transakce na warp. Neslučovaný (uncoalesced) = 32 transakcí, tedy **32× pomaleji**.
 
-⇒ Layout dat *critical*. AoS → SoA transformace často nutná.
+Důsledek: rozložení dat v paměti je *zásadní*. Často je nutná transformace z AoS (pole struktur) na SoA (struktura polí).
 
 ## Compute capability
 
-NVIDIA classifies GPUs by Compute Capability (CC):
+NVIDIA klasifikuje svá GPU podle úrovně výpočetní schopnosti (compute capability, CC):
 
 - CC 6.x — Pascal (GTX 1080, 2016).
-- CC 7.x — Volta/Turing (V100, RTX 20xx, 2017-18).
+- CC 7.x — Volta/Turing (V100, RTX 20xx, 2017–18).
 - CC 8.0 — Ampere (A100, 2020).
 - CC 8.9 — Ada Lovelace (RTX 40xx, 2022).
 - CC 9.0 — Hopper (H100, 2022).
 
-Higher CC = newer ISA, more features (Tensor cores, sparse acceleration). Compilation must target specific CC.
+Vyšší CC znamená novější instrukční sadu (ISA) a více funkcí (Tensor cores, akcelerace řídkých výpočtů). Překlad musí cílit na konkrétní CC.
 
 ## Tensor cores
 
-Specialized ALUs for matrix multiply-accumulate (MMA):
+Specializované ALU pro násobení matic s akumulací (matrix multiply-accumulate, MMA):
 
 ```
 D = A × B + C  (matrix operation, 4×4 or 16×16)
 ```
 
-V100: 8× FP16 MMA per Tensor core. A100: also INT8, BF16. H100: also FP8.
+V100: 8× MMA v FP16 na jeden Tensor core. A100: navíc INT8 a BF16. H100: navíc FP8.
 
-For deep learning, Tensor cores give 5-10× speedup over plain CUDA cores. Critical for ML training.
+Pro hluboké učení dávají Tensor cores zrychlení 5–10× oproti běžným CUDA cores. To je pro trénování modelů strojového učení (ML) klíčové.
 
-## Performance numbers {tier=practice}
+## Výkonnostní čísla {tier=practice}
 
-NVIDIA A100 vs Intel Xeon Platinum 8260 (24-core):
+NVIDIA A100 vs. Intel Xeon Platinum 8260 (24jádrový):
 
-| | CPU | GPU | Ratio |
+| | CPU | GPU | Poměr |
 | :--- | :---: | :---: | :---: |
-| FP32 peak | 3 TFLOPS | 19.5 TFLOPS | 6.5× |
+| Špičkový FP32 | 3 TFLOPS | 19.5 TFLOPS | 6.5× |
 | FP16 (Tensor) | — | 312 TFLOPS | 100× |
-| Memory bandwidth | 141 GB/s | 1555 GB/s | 11× |
-| Power | 165 W | 250 W | 1.5× |
+| Propustnost paměti | 141 GB/s | 1555 GB/s | 11× |
+| Příkon | 165 W | 250 W | 1.5× |
 
-⇒ Pro vektorizovaný compute-bound (matmul), GPU dominantní. CPU lépe pro irregular, sekvenční.
+Důsledek: pro vektorizované výpočty omezené výpočetním výkonem (compute-bound, např. násobení matic) GPU dominuje. CPU je naopak lepší pro nepravidelné a sekvenční úlohy.
 
 ## Co dál
 
-[[cuda-divergence-occupancy]] popisuje *praktické* GPU programovací problémy — branch divergence, occupancy, OpenMP target offload pro GPU.
+[[cuda-divergence-occupancy]] popisuje *praktické* problémy programování GPU — divergenci větví (branch divergence), obsazenost (occupancy) a offload výpočtů na GPU pomocí OpenMP target.
 
 ---
 
