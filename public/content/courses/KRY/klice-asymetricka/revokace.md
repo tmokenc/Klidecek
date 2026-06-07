@@ -81,7 +81,7 @@ RFC 6960. Online dotaz na CA: "je tento konkrétní certifikát (sériové čís
 ### Problémy OCSP
 
 * **Privacy leak.** OCSP responder vidí, *které certifikáty* klient ověřuje — efektivně sleduje *které* webové stránky uživatel navštěvuje. Nebezpečné v autoritářských režimech.
-* **Latency.** Extra round-trip ke OCSP serveru zpomalí TLS handshake o ~100 ms.
+* **Latence (latency).** Extra round-trip ke OCSP serveru zpomalí TLS handshake o ~100 ms.
 * **Soft-fail.** Stejně jako CRL — pokud OCSP nedostupný, prohlížeč *přijme* certifikát.
 * **OCSP responder downtime** — výpadek znamená, že buď klienti odmítnou všechno (hard-fail), nebo přijmou všechno (soft-fail). Realita: většinou soft-fail.
 
@@ -89,7 +89,7 @@ RFC 6960. Online dotaz na CA: "je tento konkrétní certifikát (sériové čís
 
 ## OCSP Stapling
 
-RFC 6066 a RFC 6961. Řeší privacy a latency problémy.
+RFC 6066 a RFC 6961. Řeší privacy a latence problémy.
 
 **Princip:** *Server* sám pravidelně získává OCSP response od respondera a *přiloží* ji k TLS handshake. Klient nemusí kontaktovat responder — vidí OCSP odpověď přímo od serveru.
 
@@ -104,7 +104,7 @@ TLS handshake:
 Výhody:
 
 * **Bez privacy leak** — klient nekomunikuje s OCSP responderem.
-* **Bez latency** — OCSP response je součástí handshake.
+* **Bez latence** — OCSP response je součástí handshake.
 * **Server cachuje** — OCSP responder dostane *zlomek* požadavků (pouze servery, ne klienty).
 
 Nevýhoda: starší servery a CDN ne všechny podporují.

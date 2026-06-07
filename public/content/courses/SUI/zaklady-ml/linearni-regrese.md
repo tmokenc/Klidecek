@@ -123,7 +123,7 @@ y(\mathbf{x}; \mathbf{w}) = \sum_{j=0}^{M} w_j \phi_j(\mathbf{x})
 
 Příklady bázových funkcí: polynomy `x^j`, Gaussovy bumpy `exp(-(x-μ_j)² / 2s²)`, sigmoidy, splines. Všechny vedou na *stejné* normální rovnice — jen `X` má sloupce `φ_j(x_n)`.
 
-::: svg "Bias-variance trade-off: pod-fit (M=1, vlevo) vs. ideální (M=3) vs. přefitnutí (M=9, vpravo)."
+::: svg "Bias-variance trade-off: pod-fit (M=1, vlevo) vs. ideální (M=3) vs. přeučení (M=9, vpravo)."
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
   <g stroke="var(--line)" stroke-width="0.5" fill="none">
     <rect x="20" y="30" width="160" height="140"/>
@@ -163,14 +163,14 @@ Příklady bázových funkcí: polynomy `x^j`, Gaussovy bumpy `exp(-(x-μ_j)² /
 </svg>
 :::
 
-S rostoucím stupněm `M` polynomu klesá *trénovací* chyba, ale *testovací* chyba má U-tvar (klesá, pak roste — overfitting).
+S rostoucím stupněm `M` polynomu klesá *trénovací* chyba, ale *testovací* chyba má U-tvar (klesá, pak roste — přeučení (overfitting)).
 
 ::: viz linear-regression-fit "Táhněte body myší; OLS křivka s reziduy a MSE se přepočítává; slider polynomu 1..9 → overfit při velkém stupni."
 :::
 
 ## Regularizace — Ridge a Lasso
 
-Při overfittingu jsou váhy `w` často *velké* (kompenzují se navzájem). Řešení: penalizujeme velikost vah.
+Při přeučení jsou váhy `w` často *velké* (kompenzují se navzájem). Řešení: penalizujeme velikost vah.
 
 **Ridge regrese** (L2 regularizace):
 

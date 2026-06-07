@@ -86,7 +86,7 @@ Vztah lze shrnout takto: UI je podmnožina UX. Krásné UI ještě nezaručuje d
 | **Proto-persona** | domněnky a zkušenost týmu, bez výzkumu | nejnižší — rychlý odhad pro start |
 | **Kvalitativní persona** | rozhovory, pozorování (malý vzorek) | střední — bohatý vhled, menší reprezentativnost |
 | **Statistická persona** | kvantitativní data, segmentace velkého vzorku | nejvyšší reprezentativnost |
-| **Přístupnostní persona** | zahrnuje omezení uživatelů se zdravotním postižením | pomáhá nezapomenout na accessibility |
+| **Přístupnostní persona** | zahrnuje omezení uživatelů se zdravotním postižením | pomáhá nezapomenout na přístupnost |
 
 Přístupnostní persona (např. nevidomý uživatel se čtečkou obrazovky, uživatel s motorickým postižením) systematicky nutí tým zohlednit přístupnost (WCAG) už při návrhu, ne až dodatečně.
 

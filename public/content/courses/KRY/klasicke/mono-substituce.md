@@ -83,7 +83,7 @@ V češtině mají vysokou frekvenci samohlásky (o, e, a, i) a souhláska *n*. 
 1. **Spočítej frekvenci** každého písmene ciphertextu.
 2. **Připodobni** nejčastější písmeno ciphertextu k *E*, druhé k *T*, atd. Tato hypotéza nemusí být přesná, frekvence ve vzorku se liší od ideálu.
 3. **Použij digramy/trigramy.** Nejčastější trigram v angličtině je `THE`. Pokud v ciphertextu identifikujeme nejčastější trigram `XGU`, máme silné pravidlo $X \to T, G \to H, U \to E$.
-4. **Pracuj se vzory slov.** Slovo s vzorcem $1\;2\;2\;1$ (4 znaky, prostřední dva stejné) je v angličtině typicky `NOON` nebo `PAPA`. *Pattern matching* zužuje možnosti.
+4. **Pracuj se vzory slov.** Slovo s vzorcem $1\;2\;2\;1$ (4 znaky, prostřední dva stejné) je v angličtině typicky `NOON` nebo `PAPA`. *Porovnávání vzorů* (pattern matching) zužuje možnosti.
 5. **Iteruj.** Po každé hypotéze proveď částečné dosazení do ciphertextu — to ti odhalí kontextové slova.
 
 ::: svg "Frekvenční rozdělení znaků: angličtina vs. mono-substituovaný ciphertext"

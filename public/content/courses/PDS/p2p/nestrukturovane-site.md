@@ -76,7 +76,7 @@ Zpráva se *neposílá záplavou*, ale jen **náhodně vybranému sousedovi**:
 - *Dotazy je možno posílat paralelně více sousedům najednou*.
 - *Potřeba pamatovat si vybraného souseda* (neposílat dotaz zpět).
 
-Náhodný průchod má *nižší* nálepkový (overhead), ale *delší* dobu vyhledání. Pro hustě zastoupené objekty funguje dobře; pro řídké je *neefektivní*.
+Náhodný průchod má *nižší* overhead, ale *delší* dobu vyhledání. Pro hustě zastoupené objekty funguje dobře; pro řídké je *neefektivní*.
 
 ### 4. Hledání lokálního minima (Local Minima Search, LMS)
 

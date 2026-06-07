@@ -14,7 +14,7 @@ Na Intel CPU s HT:
 - Linux: `Core(s) per socket = 4`, `Thread(s) per core = 2`. Tedy CPU 0-7 (8 logical) na 4 fyzických.
 - Linux scheduler vidí 8 *runqueues* — efektivně 8 vláken paralelně.
 
-CPUID instrukce vrací informace o **affinity** — který logický CPU sdílí jádro s kterým. OS pak rozumně placuje vlákna.
+CPUID instrukce vrací informace o **affinity** — který logický CPU sdílí jádro s kterým. OS pak rozumně placuje vlákna (threads).
 
 ## Co je sdílené, co private
 
@@ -22,7 +22,7 @@ CPUID instrukce vrací informace o **affinity** — který logický CPU sdílí 
 
 - I-cache, D-cache (L1).
 - L2 cache.
-- TLB (s tagy pro každý thread).
+- TLB (s tagy pro každé vlákno).
 - BTB, BHT, branch predictors.
 - Reservation stations.
 - ROB (rozdělený na dvě poloviny — half-and-half).
@@ -30,7 +30,7 @@ CPUID instrukce vrací informace o **affinity** — který logický CPU sdílí 
 - Physical register file.
 - Decoder.
 
-### Per thread
+### Na vlákno
 
 - PC (program counter).
 - Architectural register state (ARF).
@@ -43,11 +43,11 @@ CPUID instrukce vrací informace o **affinity** — který logický CPU sdílí 
 
 V každém taktu front-end vybírá *odkud fetchnout*:
 
-1. **Both threads ready** → alternate (round-robin) nebo *priority-based*.
-2. **Jeden thread čeká** (cache miss, low-priority) → druhý dostane plný fetch bandwidth.
+1. **Obě vlákna ready** → alternate (round-robin) nebo *priority-based*.
+2. **Jedno vlákno čeká** (cache miss, low-priority) → druhé dostane plný fetch bandwidth.
 3. **Both stagnate** → no fetch, oba čekají.
 
-V *back-endu* dispatch *jakoukoli* ready instrukci z RS, bez ohledu na thread. ALU vidí "tag" thread + uop, neví, jestli A nebo B (až do retire pro správné per-thread ARF update).
+V *back-endu* dispatch *jakoukoli* ready instrukci z RS, bez ohledu na vlákno. ALU vidí "tag" vlákna + uop, neví, jestli A nebo B (až do retire pro správné per-thread ARF update).
 
 ### Resource partitioning
 
@@ -57,21 +57,21 @@ Intel rozhodla *jak rozdělit* sdílené struktury:
 - **RS**: dynamicky — first-come-first-served.
 - **Cache**: open — kdo dřív, ten *má*.
 
-Trade-off: half-and-half ROB = férové, ale plýtvá, pokud jeden thread idle. Dynamic = vyšší peak per thread.
+Trade-off: half-and-half ROB = férové, ale plýtvá, pokud jedno vlákno idle. Dynamic = vyšší peak per thread.
 
 Recent Intel (Sapphire Rapids, 2023): více *adaptivní* partitioning, sleduje vytížení a re-balance.
 
 ## Hit-rate cache se sdílením
 
-Dvě threads na 32 kB L1 = každý *efektivně* ~16 kB (pokud workloady nesdílí data).
+Dvě vlákna na 32 kB L1 = každé *efektivně* ~16 kB (pokud workloady nesdílí data).
 
 Při memory-bound zátěži s velkou working set → *L1 miss rate vystřelí*. Cache contention → SMT slowdown.
 
-Empirický fact: SPECCPU rate (multiple threads) má HT speedup ~20-30 %. Single-thread (SPECspeed) má HT pokutu ~5-10 % (sdílení cache).
+Empirický fact: SPECCPU rate (více vláken) má HT speedup ~20-30 %. Single-thread (SPECspeed) má HT pokutu ~5-10 % (sdílení cache).
 
 ## Memory-level parallelism
 
-SMT exceluje při *memory-level parallelism*. Jeden thread čeká na L3 miss (~200 cyklů na DRAM), druhý mezitím vykonává compute-bound část.
+SMT exceluje při *memory-level parallelism*. Jedno vlákno čeká na L3 miss (~200 cyklů na DRAM), druhé mezitím vykonává compute-bound část.
 
 Zátěž benefitující z HT:
 
@@ -81,7 +81,7 @@ Zátěž benefitující z HT:
 
 Zátěž *trpící* HT:
 
-- **HPC compute-bound** (matrix multiply, FFT) — oba threads bojují o stejné FPU.
+- **HPC compute-bound** (matrix multiply, FFT) — obě vlákna bojují o stejné FPU.
 - **Cache-sensitive** (B-tree traversal s pracovní množinou těsně pod L1).
 - **Security-sensitive** (Spectre-like attacks možné mezi sibling threads).
 

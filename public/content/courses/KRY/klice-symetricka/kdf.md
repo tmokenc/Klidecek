@@ -230,7 +230,7 @@ Záznam plaintextového hesla v databázi je *vždy* chyba. Použijte `argon2id`
 
 ## Klíčová poučení
 
-* **Pomalu* = vlastnost, ne chyba.* Pro hesla, KDF musí být *pomalá* — to je obrana.
+* **Pomalu = vlastnost, ne chyba.** Pro hesla, KDF musí být *pomalá* — to je obrana.
 * **Memory-hard funkce** (Argon2, scrypt) jsou zásadní proti GPU/ASIC útokům; bcrypt je adaptivní/CPU-cost-hard, nikoli memory-hard.
 * **Salt vždy unikátní per password.**
 * **Doménové oddělení** — z master key odvodit více klíčů s odlišnými labels.

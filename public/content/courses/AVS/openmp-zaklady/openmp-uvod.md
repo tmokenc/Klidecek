@@ -60,7 +60,7 @@ for (int i = 0; i < N; i++)
 
 ## Fork-Join model
 
-OpenMP program začíná **jedním** vláknem (master, thread 0). Při dosažení `#pragma omp parallel` se **vytvoří tým** worker threads. Po skončení parallel region se *spojí* zpět (implicitní barrier).
+OpenMP program začíná **jedním** vláknem (hlavní vlákno, *master thread*, thread 0). Při dosažení `#pragma omp parallel` se **vytvoří tým** pracovních vláken (*worker threads*). Po skončení parallel region se *spojí* zpět (implicitní barrier).
 
 ::: svg "Fork-join model OpenMP"
 <svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="10">

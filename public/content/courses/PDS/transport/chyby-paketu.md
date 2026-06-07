@@ -11,7 +11,7 @@ Síť řeší chyby na dvou úrovních:
 | **Bitová** | jednotlivé bity se převrátí | L2 (Ethernet FCS, WiFi) | *redundance* — CRC, Hamming, konvoluční kódy |
 | **Paketová** | pakety se ztratí, duplikují, přehodí | L4 (TCP) | *retransmise* nebo *FEC* |
 
-Bitové chyby jsou *fyzické* (rušení, šum, slabý signál). Paketové chyby jsou *systémové* — vznikají kombinací bitových chyb, přetížení sítě, chybných routovacích tabulek, vadného HW.
+Bitové chyby jsou *fyzické* (rušení, šum, slabý signál). Paketové chyby jsou *systémové* — vznikají kombinací bitových chyb, přetížení sítě, chybných směrovacích tabulek, vadného HW.
 
 ## Pět typů paketových chyb
 

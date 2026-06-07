@@ -28,7 +28,7 @@ Standardní HTTP autentizace pomocí speciálních hlaviček. Princip:
 
 * Pokud autentizace chybí nebo je špatná, server vrátí **`401 Unauthorized`** a v hlavičce **`WWW-Authenticate`** identifikaci oblasti přihlášení (realm). Klient pak zjistí, že je nutná autentizace pro tuto oblast.
 
-* Klient typicky uloží credentials a posílá je s každým requestem.
+* Klient typicky uloží credentials a posílá je s každým požadavkem.
 
 **Použití**: vhodné pro interní API mezi server-server komunikací, malé prototypy, monitoring. Pro veřejné API se obvykle preferuje token-based mechanismus.
 

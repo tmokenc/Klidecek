@@ -17,7 +17,7 @@ Okno *klouže* po prostoru sekvenčních čísel s tím, jak data tečou.
 
 ### Volba velikosti okna
 
-Tradeoff:
+Kompromis:
 
 - *Příliš malé* → vysoká režie protokolu, špatné využití linky (small bandwidth-delay product).
 - *Příliš velké* → riziko zahlcení mezilehlých uzlů, paměťová náročnost.
@@ -38,7 +38,7 @@ A ← ack:2 ← B
 ```
 
 - **Výhody:** maximálně jednoduchý.
-- **Nevýhody:** *katastrofálně špatné využití pásma*. Pokud RTT je 100 ms a paket 1500 B, max throughput = 15 kB/s = 120 kbps. Na 100 Gbps lince tedy 0,00012 % využití.
+- **Nevýhody:** *katastrofálně špatné využití pásma*. Pokud RTT je 100 ms a paket 1500 B, max propustnost (throughput) = 15 kB/s = 120 kbps. Na 100 Gbps lince tedy 0,00012 % využití.
 
 Stop-and-Wait se v TCP nepoužívá, ale je *koncepční* základ — vidíme okno o velikosti 1, pak ho zobecníme.
 

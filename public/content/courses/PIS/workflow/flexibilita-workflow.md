@@ -20,7 +20,7 @@ Tato čtyři pravidla pokrývají *většinu* situací: čas, vstupní data, kva
 - Změna legislativy (GDPR, AI Act, nové daňové předpisy).
 - Restrukturalizace organizace (sloučení oddělení, nové role).
 - Zavedení nové technologie nebo služby.
-- Reakce na problémy odhalené při monitoringu.
+- Reakce na problémy odhalené při monitorování.
 
 Workflow systém musí umět tyto změny *promítnout do běžícího prostředí*. Existují dva základní přístupy:
 
@@ -46,7 +46,7 @@ Pro dynamické změny existují **evolution patterns** — kanonické typy úpra
 - Existující instance pokračují podle **původního schématu** až do svého přirozeného konce.
 - Nové instance se spouštějí podle **nového schématu**.
 - **Nejjednodušší a nejbezpečnější** přístup — žádná migrace.
-- *Nevýhoda:* po dobu přechodu existují v systému instance **různých verzí**, což komplikuje monitoring a reporting.
+- *Nevýhoda:* po dobu přechodu existují v systému instance **různých verzí**, což komplikuje monitorování a reporting.
 
 Toto je výchozí strategie v Camunda 7 — každá deploy verze BPMN diagramu dostane nové ID, staré instance dobíhají na staré verzi.
 

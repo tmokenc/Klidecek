@@ -1,6 +1,6 @@
 # Konkrétní architektury — sběrnice, paměť, crossbar
 
-Obecná architektura ([[prepinac-uvod]]) říká, *co* musí switch obsahovat. Existují však *zásadně odlišné* implementační varianty s vlastními tradeoffy. Tato sekce probere tři klasické: **sdílenou sběrnici**, **sdílenou paměť** a **křížový (crossbar) přepínač**.
+Obecná architektura ([[prepinac-uvod]]) říká, *co* musí switch obsahovat. Existují však *zásadně odlišné* implementační varianty s vlastními kompromisy. Tato sekce probere tři klasické: **sdílenou sběrnici**, **sdílenou paměť** a **křížový (crossbar) přepínač**.
 
 ## Sdílená sběrnice (Shared Bus)
 

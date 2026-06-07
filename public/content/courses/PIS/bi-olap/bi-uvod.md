@@ -56,7 +56,7 @@ Pozn.: hranice se v posledních letech *rozmazává* — moderní cloud-native e
 - *ETL* — proces přesunu dat z OLTP do skladu.
 - *OLAP* — server, který nad skladem provádí analytické dotazy.
 - *Reporting & dashboarding* — vizualizace výstupů.
-- *Data mining* — hledání skrytých vzorů (klasifikace, clustering, asociace).
+- *Data mining* — hledání skrytých vzorů (klasifikace, shlukování (clustering), asociace).
 
 > **Definice (Gartner):** Business Intelligence je *strategický nástroj*, který kombinuje aplikace, infrastrukturu a postupy k **přístupu k informacím a analýze dat za účelem zlepšení rozhodování**.
 

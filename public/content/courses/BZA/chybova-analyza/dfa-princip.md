@@ -71,7 +71,7 @@ title: Diferenciální chybová analýza (DFA) — princip
 
 protože $S - S'$ je dělitelné $q$ (oba mají $S_q$ shodný) ale ne $p$ (liší se v $S_p$). GCD odhalí faktorizaci $n$ → soukromý klíč.
 
-* **Účinnost:** *jediná* chybná RSA signature → kompletní rozklad RSA-2048 v $\mu$sekundách (GCD + EEA).
+* **Účinnost:** *jediný* chybný RSA podpis → kompletní rozklad RSA-2048 v $\mu$sekundách (GCD + EEA).
 
 Detailně viz [[bellcore-rsa]].
 
@@ -112,7 +112,7 @@ kde $k$ je *nonce*, $r = g^k$, $d$ je soukromý klíč.
 * Z více podpisů s biased nonces *lattice attack* recovery $d$.
 * Klasický Sony PS3 incident (2010, fail0verflow na 27C3) — opakovaně použitý *konstantní* nonce $k$ ve všech podpisech → ze dvou podpisů triviálně dopočítán $k$ a soukromý klíč $d$.
 
-## Útok na MAC / digital signature
+## Útok na MAC / digitální podpis
 
 * **Bellcore-style** na ECDSA s deterministic nonce (RFC 6979) — fault v deterministic derivation způsobí, že *stejná* zpráva dá dvě různé podpisy se stejným $k$ → recovery klíče.
 * **Hash-based signatures** (XMSS, SPHINCS+) — fault v Merkle tree path computation. Mitigace: redundant computation + comparison.

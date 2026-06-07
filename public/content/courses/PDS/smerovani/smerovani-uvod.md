@@ -15,7 +15,7 @@ Definice úmyslně neříká *kde* — protože routing dělá:
 - **Router** — rozhoduje L3 na základě IP adresy → směrovací tabulka.
 - **Switch** — rozhoduje L2 na základě MAC adresy → CAM tabulka.
 - **Operační systém** — rozhoduje, do kterého procesu doručit segment → tabulka portů.
-- **HTTP proxy** — rozhoduje podle `Host:` headeru, kam reverse-proxy předá request.
+- **HTTP proxy** — rozhoduje podle `Host:` headeru, kam reverse-proxy předá požadavek (request).
 - **NAT box** — rozhoduje podle (IP, port) páru, do které interní adresy přemapovat.
 
 Všechny *jsou pošťáci* — mají vstup, výstup a rozhodovací logiku. PDS se primárně zabývá L3 (sítovou) variantou, ale vzory jsou *obecné*.

@@ -111,7 +111,7 @@ Protože vestavěné systémy mohou řídit kritickou infrastrukturu a často k 
 
 ## Vývoj softwaru — křížový vývoj, C/C++/ASM
 
-Zatímco u GPCS dnes převažují vysokoúrovňové jazyky s automatickou správou paměti (Java, C#), vestavěný software se tvoří **křížovým vývojem** (*cross-development*). Program se píše a *kompiluje na běžném PC* (hostiteli), ale výsledný kód je přeložen pro **zcela jinou cílovou architekturu** (např. ARM) — výkonný host produkuje binárku pro slabý cíl, na nějž se pak nahraje a ladí (typicky přes JTAG/SWD).
+Zatímco u GPCS dnes převažují vysokoúrovňové jazyky s automatickou správou paměti (Java, C#), vestavěný software se tvoří **křížovým vývojem** (*cross-development*). Program se píše a *překládá na běžném PC* (hostiteli), ale výsledný kód je přeložen pro **zcela jinou cílovou architekturu** (např. ARM) — výkonný host produkuje binárku pro slabý cíl, na nějž se pak nahraje a ladí (typicky přes JTAG/SWD).
 
 Kvůli omezeným zdrojům a potřebě plné kontroly nad pamětí a hardwarovými registry se v drtivé většině používají **C/C++** nebo **jazyk symbolických adres (assembler)**. Tyto jazyky nemají běhovou režii garbage collectoru, dovolují přímý přístup k registrům periferií a dávají deterministické časování — vše, co vestavěný a real-time systém potřebuje.
 

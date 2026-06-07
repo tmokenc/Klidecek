@@ -140,7 +140,7 @@ Algoritmus pro nalezení propojení v $BN_n$ — **smyčkový (looping) algoritm
 | **Clos $(n, n, r)$** | $\sim 3N\sqrt{N}$ | rearrangeably non-blocking | levnější varianta |
 | **Beneš $BN_n$** | $\mathcal{O}(N \log N)$ | rearrangeably non-blocking | optické, InfiniBand |
 
-Klíčové trade-offy:
+Klíčové kompromisy:
 
 - *Crossbar* — jednoduchý, ale draho pro velké $N$.
 - *Clos strictly* — nejdražší, ale neblokující bez přeskládání.

@@ -29,7 +29,7 @@ Kód — obvykle byznys logika, často i UI — se napíše **jednou** a kompilu
 | **Kotlin Multiplatform** | Kotlin | sdílí logiku, UI nativní (nebo Compose Multiplatform) |
 | **.NET MAUI** | C# | nativní ovládací prvky přes abstrakci |
 
-Klíčový rozdíl uvnitř kategorie: React Native renderuje **skutečné nativní komponenty** (vzhled se mění s platformou), zatímco Flutter si **kreslí UI sám** vlastním enginem (pixelově identické na obou platformách). Trade-off proti nativnímu vývoji je drobná ztráta výkonu a zpoždění u úplně nejnovějších HW funkcí výměnou za jednu codebase a jeden tým.
+Klíčový rozdíl uvnitř kategorie: React Native renderuje **skutečné nativní komponenty** (vzhled se mění s platformou), zatímco Flutter si **kreslí UI sám** vlastním enginem (pixelově identické na obou platformách). Kompromis (trade-off) proti nativnímu vývoji je drobná ztráta výkonu a zpoždění u úplně nejnovějších HW funkcí výměnou za jednu codebase a jeden tým.
 
 ## Hybridní vývoj
 

@@ -32,7 +32,7 @@ Klíčový rozdíl od deterministické verze: pivot vybíráme *náhodně* z akt
 
 ## Analýza očekávané složitosti
 
-**Doba běhu** ≈ celkový počet *porovnání* prvků. Označme `X` = počet porovnání během celé recursion.
+**Doba běhu** ≈ celkový počet *porovnání* prvků. Označme `X` = počet porovnání během celé rekurze.
 
 ### Indikátorový rozklad
 

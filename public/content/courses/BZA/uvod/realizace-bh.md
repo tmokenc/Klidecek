@@ -10,7 +10,7 @@ Pojmem *tamper-resistant hardware* (BH, bezpečný hardware) se rozumí zaříze
 2. **Nemožnost obejít** — veškerý přístup k chráněným objektům musí jít přes definované funkce BH; nesmí být "zadní vrátka" v podobě testovacího pinu nebo debug rozhraní.
 3. **Uzavřená kryptografie** — algoritmus je veřejný, ale v zařízení neměnitelný (ROM). Klíče jsou tajné a nevydávají se ven.
 4. **Operace pomocí klíče, ne export klíče** — zařízení šifruje, dešifruje, podepisuje pomocí svého klíče. Ven jde jen výsledek.
-5. **Detekce a reakce na útok** — sensors, alarms, zeroization při invazivním pokusu.
+5. **Detekce a reakce na útok** — senzory, alarms, zeroization při invazivním pokusu.
 
 Konstrukčně se BH realizuje ve třech fyzických formách, lišících se rozsahem ochrany a cenou.
 
@@ -74,7 +74,7 @@ Konstrukčně se BH realizuje ve třech fyzických formách, lišících se rozs
 
 * **Forma:** samostatné zařízení s vlastním napájením, kovovým krytem, ventilátory, síťovým rozhraním (Ethernet, console). Velikost serveru 1U–4U.
 * **Příklady:** síťové HSM (Thales Luna Network, AWS CloudHSM appliances, Utimaco CryptoServer), payment HSM (Atalla, Thales payShield), kryptografické šifrátory pro vládní použití.
-* **Výhoda:** maximální fyzická ochrana — *mesh* okolo celého kovového krytu, sensors (teplota, otřesy, napětí, světlo), aktivní zeroization, baterie pro detekci útoku i po vypnutí. **FIPS 140-3 Level 4** úroveň ([[fips-cc]]).
+* **Výhoda:** maximální fyzická ochrana — *mesh* okolo celého kovového krytu, senzory (teplota, otřesy, napětí, světlo), aktivní zeroization, baterie pro detekci útoku i po vypnutí. **FIPS 140-3 Level 4** úroveň ([[fips-cc]]).
 * **Nevýhoda:** drahé (5 000 – 50 000 USD), komplexní instalace, vysoká spotřeba; vyžaduje servisní procedury (re-keying, audit).
 
 ## Pasivní vs. aktivní ochrana
@@ -112,7 +112,7 @@ Typický bezpečný mikrokontrolér (např. STM32H5 + secure enclave, Infineon S
 * **RNG** — buď čistě hardwarový TRNG (šumové diody, ring oscillator jitter, viz [[drng-trng-hybrid]]) nebo certifikovaný DRBG dle AIS-31 ([[ais31-tridy]]).
 * **Krypto-koprocesory** — AES, DES/3DES, RSA, ECC (Curve25519, P-256), SHA-2/3. Vlastní HW implementace pro odolnost proti SPA/DPA ([[obrana-pk]]).
 * **Bezpečná paměť** — Flash s šifrováním + integritou (MAC nad bloky), SRAM se zeroize, OTP fuses pro neměnitelné parametry.
-* **Sensors** — teplota, napětí, světlo, frekvence; výstup vede do *security logic*, která při alarmu spustí zeroization.
+* **Senzory** — teplota, napětí, světlo, frekvence; výstup vede do *security logic*, která při alarmu spustí zeroization.
 * **Bus s integritou** — interní sběrnice s ECC a šifrováním, aby útok mikrojehlou nepřečetl plaintext klíče.
 
 ---

@@ -141,7 +141,7 @@ Středka — nic se *negarantuje*. Hardware spravuje dle libosti.
 
 Trend: **NINE nebo exclusive** pro moderní x86, kvůli vyššímu využití.
 
-## Throughput a latence cache
+## Propustnost a latence cache
 
 Stream benchmark (John McCalpin) měří propustnost paměti čtyřmi operacemi: copy, scale, add, triad. Výsledky:
 

@@ -159,7 +159,7 @@ V přechodném období se používá *kombinace*:
 
 * **Pro nový projekt s dlouhodobým horizontem:** hybrid X25519 + Kyber-768 (KEM), Ed25519 + Dilithium-3 (podpis). Knihovny: liboqs, BoringSSL trial branches.
 * **Pro běžný projekt:** X25519 + Ed25519. Připravit *crypto agility* — abstrakce algoritmu na úrovni protokolu.
-* **Pro dlouhodobé podpisy** (firmware, software):** SLH-DSA / SPHINCS+ pro maximální robustnost.
+* **Pro dlouhodobé podpisy** (firmware, software): SLH-DSA / SPHINCS+ pro maximální robustnost.
 
 PQC je relativně mladá oblast — sledujte NIST, IETF (CFRG), akademickou literaturu.
 

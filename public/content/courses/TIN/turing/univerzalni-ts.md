@@ -62,7 +62,7 @@ Tato simulace prodlužuje běh konstantním faktorem ($O(|M| \cdot |\text{krok}|
 
 ### Argumenty pro tezi
 
-1. **Robustnost TS.** Různé varianty TS (multi-tape, multi-track, nedeterministické, vícepáskové, …) mají *stejnou* sílu ([[ts-modifikace]]).
+1. **Robustnost TS.** Různé varianty TS (vícepáskové, vícestopé, nedeterministické, …) mají *stejnou* sílu ([[ts-modifikace]]).
 2. **Ekvivalence s nezávislými modely.** Dokázáno, že TS jsou silově ekvivalentní s:
    * **λ-kalkul** (Church, 1936),
    * **Parciálně rekurzivní funkce** (Gödel, Kleene, 1936),

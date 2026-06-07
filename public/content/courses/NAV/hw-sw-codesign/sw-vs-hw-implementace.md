@@ -43,7 +43,7 @@ Dedikovaný hardware naopak rozprostře výpočet **v prostoru**: pro každou op
 </svg>
 :::
 
-## Trade-off vlastností
+## Kompromis (trade-off) vlastností
 
 | Vlastnost | Softwarová implementace | Hardwarová implementace |
 | :--- | :--- | :--- |
