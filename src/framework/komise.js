@@ -292,11 +292,19 @@ export function topicsForMember(index, memberKey) {
  * Bridge the committee records onto exam topics. An exam topic's `refs` point at
  * course subtopics ([course, topic, sub]); a committee record is mapped to a
  * {course, topic}. So an exam topic's records = the records mapped to any of the
- * distinct course/topic pairs its refs cover. */
+ * distinct course/topic pairs its refs cover.
+ *
+ * A ref may carry a 4th element "see-also" (e.g. ["AVS","superskalar","spekulace-vyjimky",
+ * "see-also"]). Such a ref links useful *background* study content but is NOT this okruh's
+ * own subject, so it is excluded from committee mapping — otherwise a cross-domain okruh
+ * (e.g. "Spectre/Meltdown útoky" linking the superscalar-speculation subtopic) would wrongly
+ * claim every "explain superscalar" question that belongs to the architecture okruh. Records
+ * are only mapped at course/topic granularity, so a bare cross-reference can't be filtered to
+ * its slice — hence it's dropped from the mapping entirely (the content link stays). */
 export function examTopicKeys(examTopic) {
   const keys = new Set();
   for (const ref of (examTopic && examTopic.refs) || []) {
-    if (ref && ref.length >= 2) keys.add(ref[0] + "/" + ref[1]);
+    if (ref && ref.length >= 2 && ref[3] !== "see-also") keys.add(ref[0] + "/" + ref[1]);
   }
   return [...keys];
 }
@@ -376,6 +384,48 @@ export function buildCommissionExport(index, board, meta) {
     count: records.length,
     records,
   };
+}
+
+/* Per-okruh export — every question asked on ONE exam topic, ready to save. `scope`
+ * "board" keeps only your commission's asks, anything else keeps all examiners. Same record
+ * shape as buildCommissionExport, so exportToCSV works unchanged. Uses examTopicRecords, so
+ * it honours the see-also filtering (no cross-domain pollution). */
+export function buildExamTopicExport(index, examTopic, board, scope, meta) {
+  const boardSet = new Set(board || []);
+  const onlyBoard = scope === "board";
+  const records = examTopicRecords(index, examTopic)
+    .filter((r) => r.memberKey && (!onlyBoard || boardSet.has(r.memberKey)))
+    .map((r) => ({
+      examiner: memberDisplay(index, r.memberKey),
+      examinerKey: r.memberKey || null,
+      course: r.course || null,
+      examTopic: (examTopic && examTopic.title) || (r.map && r.map.examTitle) || null,
+      mappedTopic: (r.map && r.map.topic && r.course) ? r.course + "/" + r.map.topic : null,
+      confidence: (r.map && r.map.confidence) || null,
+      session: r.session || null,
+      asked: r.text || r.title || null,
+    }));
+  return {
+    schema: "klidecek-komise-export/v1",
+    exportedAt: (meta && meta.exportedAt) || null,
+    examTopic: (examTopic && examTopic.title) || null,
+    scope: onlyBoard ? "board" : "all",
+    count: records.length,
+    records,
+  };
+}
+
+/* Trigger a file download from an in-memory string (shared by the Komise page and the
+ * per-okruh export on the exam pages). */
+export function downloadText(text, filename, type) {
+  const blob = new Blob([text], { type });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
 }
 
 // RFC-4180 CSV with a UTF-8 BOM so Excel reads the Czech diacritics correctly. Newlines

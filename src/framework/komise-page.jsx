@@ -9,21 +9,9 @@ import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import {
   addRepo, removeRepo, setRepoEnabled, restoreDefault,
   rankForCommission, topicsForMember,
-  buildCommissionExport, exportToCSV, parseBoardParam,
+  buildCommissionExport, exportToCSV, parseBoardParam, downloadText,
 } from "./komise.js";
 import { useKomise } from "./komise-context.jsx";
-
-/* trigger a file download from an in-memory string */
-function downloadText(text, filename, type) {
-  const blob = new Blob([text], { type });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-}
 
 /* Save / share / export bar for the selected commission. */
 function ExportBar({ index, board }) {
@@ -233,7 +221,18 @@ function MinMaxView({ content, index, board, setBoard, navigate, memberNameOf })
         nejdřív.
       </p>
 
-      <MemberPicker members={index.members} board={board} onAdd={toggle} />
+      <div className="komise-pick-row">
+        <MemberPicker members={index.members} board={board} onAdd={toggle} />
+        {index.members.length > board.length && (
+          <button
+            className="btn ghost komise-addall"
+            onClick={() => setBoard(index.members.map((m) => m.key))}
+            title="Vybrat všechny komisaře — pak můžeš stáhnout úplně všechny otázky (CSV/JSON)"
+          >
+            + Všichni komisaři ({index.members.length})
+          </button>
+        )}
+      </div>
 
       {board.length > 0 && (
         <div className="komise-board">

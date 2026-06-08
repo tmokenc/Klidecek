@@ -14442,7 +14442,7 @@
         "id": "t61",
         "n": 61,
         "title": "Nearchitekturní útoky - Spectre, Meltdown a jim podobné útoky.",
-        "refs": [ ["AVS", "superskalar", "spekulace-vyjimky"], ["BIS", "sw-zranitelnosti", "hw-zranitelnosti"] ],
+        "refs": [ ["AVS", "superskalar", "spekulace-vyjimky", "see-also"], ["BIS", "sw-zranitelnosti", "hw-zranitelnosti", "see-also"] ],
         "sharedWith": [],
         "resources": [
           { "title": "Kocher et al. — Spectre Attacks (S&P 2019)", "url": "https://spectreattack.com/spectre.pdf", "kind": "paper", "note": "Original Spectre paper." },

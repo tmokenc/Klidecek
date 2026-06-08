@@ -9,7 +9,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { useKomise } from "./komise-context.jsx";
-import { askHistogram, whoAsked, examTopicRecords } from "./komise.js";
+import { askHistogram, whoAsked, examTopicRecords, buildExamTopicExport, exportToCSV, downloadText } from "./komise.js";
 
 /* The raw "what was asked" notes for one examiner on this okruh — same shape as the
  * Komise page's detail, but scoped to the topic you're currently viewing. */
@@ -114,6 +114,13 @@ export function ExamTopicAskedBy({ topic }) {
   const shown = scope === "board" ? members.filter((m) => m.mine) : members;
   const openMember = shown.find((m) => m.key === openKey);
   const openRecs = openMember ? recsByMember.get(openMember.key) : null;
+  const dlCount = scope === "board" ? boardTotal : total;
+
+  // download this okruh's questions, honouring the current scope (Moje komise / Všichni)
+  const slug = topic.id || `okruh-${topic.n}`;
+  const expData = () => buildExamTopicExport(k.index, topic, k.board, scope, { exportedAt: new Date().toISOString() });
+  const dlCSV = () => downloadText(exportToCSV(expData()), `komise-${slug}-${scope}.csv`, "text/csv;charset=utf-8");
+  const dlJSON = () => downloadText(JSON.stringify(expData(), null, 2), `komise-${slug}-${scope}.json`, "application/json");
 
   return (
     <section className="komise-asked">
@@ -122,7 +129,16 @@ export function ExamTopicAskedBy({ topic }) {
           Kdo se na tohle ptal
           <span className="komise-asked-total">{scope === "board" ? boardTotal : total}×</span>
         </span>
-        {hasBoard && <ScopeToggle scope={scope} setScope={setScope} />}
+        <div className="komise-asked-actions">
+          {hasBoard && <ScopeToggle scope={scope} setScope={setScope} />}
+          {dlCount > 0 && (
+            <span className="komise-asked-dl" title={scope === "board" ? "Stáhnout otázky tvé komise k tomuto okruhu" : "Stáhnout všechny otázky k tomuto okruhu"}>
+              <span className="komise-asked-dl-label">Stáhnout</span>
+              <button type="button" className="komise-asked-dl-btn" onClick={dlCSV}>CSV</button>
+              <button type="button" className="komise-asked-dl-btn" onClick={dlJSON}>JSON</button>
+            </span>
+          )}
+        </div>
       </div>
       {shown.length === 0 ? (
         <div className="komise-muted">Z tvé komise se na tohle zatím nikdo neptal.</div>
