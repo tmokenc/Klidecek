@@ -1981,6 +1981,8 @@ button { font: inherit; color: inherit; }
   text-align: center; color: var(--text-faint);
   font-size: 14px;
 }
+.komise-empty-hint { display: flex; align-items: center; justify-content: center; gap: 7px; }
+.komise-empty-arrow { transform: rotate(-90deg); opacity: .55; flex-shrink: 0; }
 .komise-muted { color: var(--text-faint); font-size: 13px; }
 .komise-summary {
   margin: var(--pad-4) 0 var(--pad-3);
@@ -2084,10 +2086,14 @@ button { font: inherit; color: inherit; }
 }
 .komise-expand {
   appearance: none; border: none; background: transparent; cursor: default;
-  font: inherit; font-size: 12.5px; color: var(--text-faint);
+  font: inherit; font-size: 12.5px; font-weight: 500; color: var(--text-muted);
   padding: 6px 0 0; margin-left: 38px;
+  display: inline-flex; align-items: center; gap: 5px;
 }
 .komise-expand:hover { color: var(--accent); }
+.komise-expand-ic { opacity: .55; transition: transform .15s ease; }
+.komise-expand:hover .komise-expand-ic { opacity: 1; }
+.komise-expand[data-open="true"] .komise-expand-ic { transform: rotate(90deg); }
 
 /* question notes */
 .komise-notes {
@@ -2124,12 +2130,21 @@ button { font: inherit; color: inherit; }
   flex: 1; min-width: 0;
   display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
 }
+.komise-member-ic { flex-shrink: 0; color: var(--text-faint); opacity: .7; transition: transform .15s ease, color .12s; }
+.komise-member[data-open="true"] .komise-member-ic { transform: rotate(90deg); color: var(--accent); opacity: 1; }
 .komise-member-name { font-weight: 600; font-size: 14.5px; }
 .komise-member-titles { font-size: 11.5px; color: var(--text-faint); }
 .komise-member-count { font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
 .komise-member-courses { display: inline-flex; gap: 4px; flex-wrap: wrap; }
-.komise-add { padding: 4px 10px; font-size: 12px; flex-shrink: 0; }
-.komise-add[data-on="true"] { color: var(--accent); }
+.komise-add {
+  flex-shrink: 0; appearance: none; cursor: pointer; font: inherit;
+  font-size: 12px; font-weight: 500; color: var(--text-muted);
+  background: var(--bg-inset); border: 0.5px solid var(--line);
+  padding: 5px 11px; border-radius: 999px;
+  transition: color .12s, border-color .12s, background .12s;
+}
+.komise-add:hover { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+.komise-add[data-on="true"] { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
 .komise-member-body {
   padding: 4px var(--pad-3) var(--pad-3);
   border-top: 0.5px solid var(--line);

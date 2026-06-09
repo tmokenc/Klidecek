@@ -20,6 +20,7 @@ const Ic = (d, sw = 2) => (p) => (
 const IconDownload = Ic(<><path d="M12 3v11" /><path d="m8 11 4 4 4-4" /><path d="M5 21h14" /></>);
 const IconLink = Ic(<><path d="M9 15 15 9" /><path d="M11 6.5 12 5.5a4 4 0 0 1 5.7 5.7l-1 1" /><path d="M13 17.5 12 18.5a4 4 0 0 1-5.7-5.7l1-1" /></>);
 const IconUsers = Ic(<><path d="M15 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1" /><circle cx="8.5" cy="8" r="3.2" /><path d="M16 5a3.2 3.2 0 0 1 0 6.2M22 19v-1a4 4 0 0 0-3-3.8" /></>);
+const IconChevron = Ic(<path d="m9 6 6 6-6 6" />, 2.4);
 
 /* Save / share / export bar for the selected commission. */
 function ExportBar({ index, board }) {
@@ -209,7 +210,8 @@ function TopicRow({ content, t, memberNameOf, navigate, rank }) {
           <div className="komise-topic-by">{memberLabel}</div>
         </div>
       </div>
-      <button className="komise-expand" onClick={() => setOpen((v) => !v)}>
+      <button className="komise-expand" data-open={open} onClick={() => setOpen((v) => !v)}>
+        <IconChevron className="komise-expand-ic" />
         {open ? "Skrýt dotazy" : `Zobrazit dotazy (${t.records.length})`}
       </button>
       {open && <QuestionNotes records={t.records} memberNameOf={memberNameOf} />}
@@ -269,7 +271,10 @@ function MinMaxView({ content, index, board, setBoard, navigate, memberNameOf })
       {board.length > 0 && <ExportBar index={index} board={board} />}
 
       {board.length === 0 ? (
-        <div className="komise-empty">Vyber alespoň jednoho komisaře výše.</div>
+        <div className="komise-empty komise-empty-hint">
+          <IconChevron className="komise-empty-arrow" />
+          Vyber komisaře výše — nebo přidej rovnou všechny.
+        </div>
       ) : ranked.topics.length === 0 && ranked.loose.length === 0 ? (
         <div className="komise-empty">Od vybraných komisařů zatím nemáme žádné záznamy.</div>
       ) : (
@@ -295,7 +300,8 @@ function LooseSection({ groups, memberNameOf }) {
   const total = groups.reduce((n, g) => n + g.count, 0);
   return (
     <div className="komise-loose">
-      <button className="komise-expand" onClick={() => setOpen((v) => !v)}>
+      <button className="komise-expand" data-open={open} onClick={() => setOpen((v) => !v)}>
+        <IconChevron className="komise-expand-ic" />
         {open ? "Skrýt" : "Zobrazit"} ostatní dotazy mimo zdejší látku ({total})
       </button>
       {open && groups.map((g) => (
@@ -316,12 +322,13 @@ function MemberCard({ content, index, m, navigate, inBoard, onToggleBoard }) {
     <div className="komise-member" data-open={open}>
       <div className="komise-member-head">
         <button className="komise-member-toggle" onClick={() => setOpen((v) => !v)}>
+          <IconChevron className="komise-member-ic" />
           <span className="komise-member-name">{m.display}</span>
           {m.titles && <span className="komise-member-titles">{m.titles}</span>}
           <span className="komise-member-count">{m.count}×</span>
           <span className="komise-member-courses">{(m.courses || []).map((c) => <span key={c} className="search-chip">{c}</span>)}</span>
         </button>
-        <button className="btn ghost komise-add" data-on={inBoard} onClick={onToggleBoard} title={inBoard ? "Odebrat z mé komise" : "Přidat do mé komise"}>
+        <button className="komise-add" data-on={inBoard} onClick={onToggleBoard} title={inBoard ? "Odebrat z mé komise" : "Přidat do mé komise"}>
           {inBoard ? "✓ v komisi" : "+ do komise"}
         </button>
       </div>
