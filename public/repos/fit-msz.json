@@ -36,7 +36,7 @@
     "Zbořil František, doc. Ing., Ph.D.",
     "Zbořil st."
    ],
-   "count": 46,
+   "count": 45,
    "display": "František Zbořil"
   },
   {
@@ -15222,16 +15222,11 @@
    "id": "h0158",
    "session": "MSZ 2019",
    "memberKey": null,
-   "course": "AVS",
+   "course": "",
    "num": "35",
    "title": null,
-   "text": "Aritmetické kodování - v podstatě popsat jen princip a ukázat na tabuli zakodování řetězce, SIMD,SIMT - popsat rozdíl a celkově průstřel celým okruhem kdy se ptal jak jsou vlákna synchronizována co běží na grafice a na procesoru atd...",
-   "map": {
-    "course": "AVS",
-    "topic": "simd",
-    "examTitle": "Datový paralelismus SIMD a SIMT, jejich HW implementace a SW podpora na CPU a GPU.",
-    "confidence": "high"
-   }
+   "text": "Aritmetické kodování - v podstatě popsat jen princip a ukázat na tabuli zakodování řetězce",
+   "map": null
   },
   {
    "id": "h0159",
@@ -15240,7 +15235,7 @@
    "course": "AVS",
    "num": "46",
    "title": null,
-   "text": "Aritmetické kodování - v podstatě popsat jen princip a ukázat na tabuli zakodování řetězce, SIMD,SIMT - popsat rozdíl a celkově průstřel celým okruhem kdy se ptal jak jsou vlákna synchronizována co běží na grafice a na procesoru atd...",
+   "text": "SIMD,SIMT - popsat rozdíl a celkově průstřel celým okruhem kdy se ptal jak jsou vlákna synchronizována co běží na grafice a na procesoru atd...",
    "map": {
     "course": "AVS",
     "topic": "simd",
@@ -16035,7 +16030,7 @@
    "course": "PDI",
    "num": "60",
    "title": null,
-   "text": "Podmínky konzistentního globálního stavu distribuovaného systému. Přepínače - řešení blokování",
+   "text": "Podmínky konzistentního globálního stavu distribuovaného systému.",
    "map": {
     "course": "PDI",
     "topic": "globalni-stav",
@@ -16047,14 +16042,14 @@
    "id": "h0225",
    "session": "MSZ 2019",
    "memberKey": null,
-   "course": "PDI",
+   "course": "PDS",
    "num": "40",
    "title": null,
-   "text": "Podmínky konzistentního globálního stavu distribuovaného systému. Přepínače - řešení blokování",
+   "text": "Přepínače - řešení blokování",
    "map": {
-    "course": "PDI",
-    "topic": "globalni-stav",
-    "examTitle": "Podmínky konzistentního globálního stavu distribuovaného systému.",
+    "course": "PDS",
+    "topic": "prepinace",
+    "examTitle": "Obecná architektura přepínače. Přepínače se sdílenou sběrnicí, se sdílenou pamětí, křížový přepínač. Párování. Algoritmy pro plánování přenosu. Řešení blokování. Vícestupňové přepínací sítě.",
     "confidence": "high"
    }
   },
@@ -16200,7 +16195,7 @@
    "course": "",
    "num": "15",
    "title": null,
-   "text": "1) Orientované grafy: Definícia a silná súvislosť, eulerov graf 2) DTW sám som rozprával ale aj keď správne tak veľmi chaoticky a veľa vecí mi došlo až za chodu",
+   "text": "1) Orientované grafy: Definícia a silná súvislosť, eulerov graf",
    "map": null
   },
   {
@@ -16210,7 +16205,7 @@
    "course": "",
    "num": "56",
    "title": null,
-   "text": "1) Orientované grafy: Definícia a silná súvislosť, eulerov graf 2) DTW sám som rozprával ale aj keď správne tak veľmi chaoticky a veľa vecí mi došlo až za chodu",
+   "text": "2) DTW sám som rozprával ale aj keď správne tak veľmi chaoticky a veľa vecí mi došlo až za chodu",
    "map": null
   },
   {
@@ -16220,7 +16215,7 @@
    "course": "TIN",
    "num": "32",
    "title": null,
-   "text": "1) Turingove stroje. Chcel popísať ľudským jazykom čo to je a ako to funguje. Potom formálna definícia a akú triedu jazykov prijíma. To stačilo. 2) Kompresia obrazu. Chcel popísať krok po kroku ako funguje JPEG. Nič viac. Radiť sa snažili, ale zas nie až veľmi",
+   "text": "1) Turingove stroje. Chcel popísať ľudským jazykom čo to je a ako to funguje. Potom formálna definícia a akú triedu jazykov prijíma. To stačilo.",
    "map": {
     "course": "TIN",
     "topic": "turing",
@@ -16232,16 +16227,11 @@
    "id": "h0239",
    "session": "MSZ 2019",
    "memberKey": null,
-   "course": "TIN",
+   "course": "",
    "num": "42",
    "title": null,
-   "text": "1) Turingove stroje. Chcel popísať ľudským jazykom čo to je a ako to funguje. Potom formálna definícia a akú triedu jazykov prijíma. To stačilo. 2) Kompresia obrazu. Chcel popísať krok po kroku ako funguje JPEG. Nič viac. Radiť sa snažili, ale zas nie až veľmi",
-   "map": {
-    "course": "TIN",
-    "topic": "turing",
-    "examTitle": "Turingovy stroje (jazyky přijímané TS, varianty TS, lineárně omezené automaty).",
-    "confidence": "high"
-   }
+   "text": "2) Kompresia obrazu. Chcel popísať krok po kroku ako funguje JPEG. Nič viac. Radiť sa snažili, ale zas nie až veľmi",
+   "map": null
   },
   {
    "id": "h0240",
@@ -16520,7 +16510,7 @@
    "course": "PRL",
    "num": "36",
    "title": "Suma prefixů a její aplikace",
-   "text": "36. Ani nevím proč jsem tím začala, protože jsem o tom moc nevěděla.. Okno.., 7. Definovat metrický prostor, co platí pro metriku, Banachův princip - co to je a kde to je",
+   "text": "36. Ani nevím proč jsem tím začala, protože jsem o tom moc nevěděla.. Okno..",
    "map": {
     "course": "PRL",
     "topic": "pram",
@@ -16535,7 +16525,7 @@
    "course": "",
    "num": "7",
    "title": "Metrické prostory",
-   "text": "36. Ani nevím proč jsem tím začala, protože jsem o tom moc nevěděla.. Okno.., 7. Definovat metrický prostor, co platí pro metriku, Banachův princip - co to je a kde to je",
+   "text": "7. Definovat metrický prostor, co platí pro metriku, Banachův princip - co to je a kde to je",
    "map": null
   },
   {
@@ -16545,7 +16535,7 @@
    "course": "KRY",
    "num": null,
    "title": null,
-   "text": "1. Som myslel ze som vedel dobre, povedal som vstup/výstup, vlastnosti, útok na Collison resistance, potom chcel ale ako funguje Sha 3 a niečo na O.. K pod otázke MAC som sa nedostal. Nečakal som E keďže sme tie veci nebrali. Pri druhej otázke som stroskotal na základoch, popisal som čo je v smerovacej tabuľke ale niečo mu tam chýbalo, niečo o ramcoch a eth hlavičiek, čakal som F",
+   "text": "1. Som myslel ze som vedel dobre, povedal som vstup/výstup, vlastnosti, útok na Collison resistance, potom chcel ale ako funguje Sha 3 a niečo na O.. K pod otázke MAC som sa nedostal. Nečakal som E keďže sme tie veci nebrali.",
    "map": {
     "course": "KRY",
     "topic": "hashe-podpisy",
@@ -16557,15 +16547,15 @@
    "id": "h0265",
    "session": "MSZ 2019",
    "memberKey": "vesely",
-   "course": "KRY",
+   "course": "PDS",
    "num": null,
    "title": null,
-   "text": "1. Som myslel ze som vedel dobre, povedal som vstup/výstup, vlastnosti, útok na Collison resistance, potom chcel ale ako funguje Sha 3 a niečo na O.. K pod otázke MAC som sa nedostal. Nečakal som E keďže sme tie veci nebrali. Pri druhej otázke som stroskotal na základoch, popisal som čo je v smerovacej tabuľke ale niečo mu tam chýbalo, niečo o ramcoch a eth hlavičiek, čakal som F",
+   "text": "Pri druhej otázke som stroskotal na základoch, popisal som čo je v smerovacej tabuľke ale niečo mu tam chýbalo, niečo o ramcoch a eth hlavičiek, čakal som F",
    "map": {
-    "course": "KRY",
-    "topic": "hashe-podpisy",
-    "examTitle": "Asymetrická kryptografie, vlastnosti, způsoby použití, poskytované bezpečnostní funkce, elektronický podpis a jeho vlastnosti, hybridní kryptografie, algoritmus RSA, generování klíčů, šifrování, dešifrování.",
-    "confidence": "high"
+    "course": "PDS",
+    "topic": "smerovani",
+    "examTitle": "Směrování",
+    "confidence": "low"
    }
   },
   {
@@ -16575,7 +16565,7 @@
    "course": "",
    "num": "26",
    "title": "Klasifikace metod komprese dat",
-   "text": "26. Klasifikace metod komprese dat (ztrátová, bezztrátová, kódování délek sledů, kódování \"přesuň na začátek\"), 14. Regulární výrazy a rovnice nad regulárními výrazy (napsat definici, na základě zadaného KA napsat rovnice a potom z nich napsat regulární výraz)",
+   "text": "26. Klasifikace metod komprese dat (ztrátová, bezztrátová, kódování délek sledů, kódování \"přesuň na začátek\")",
    "map": null
   },
   {
@@ -16585,7 +16575,7 @@
    "course": "TIN",
    "num": "14",
    "title": "Regulární výrazy a rovnice nad regulárními výrazy",
-   "text": "26. Klasifikace metod komprese dat (ztrátová, bezztrátová, kódování délek sledů, kódování \"přesuň na začátek\"), 14. Regulární výrazy a rovnice nad regulárními výrazy (napsat definici, na základě zadaného KA napsat rovnice a potom z nich napsat regulární výraz)",
+   "text": "14. Regulární výrazy a rovnice nad regulárními výrazy (napsat definici, na základě zadaného KA napsat rovnice a potom z nich napsat regulární výraz)",
    "map": {
     "course": "TIN",
     "topic": "regularni",
@@ -18165,7 +18155,7 @@
    "course": "TIN",
    "num": "24",
    "title": null,
-   "text": "24 parciální rek. funkce chtěl vědět počáteční funkce, definovat primitivní rekurzi, zmínit se o minimalizaci, co všechno má být totální funkce, jak to souvisí s turingovým strojem. 52 získávání a modelování požadavků zavést do problematiky, metody, zmínil jsemdotazníky, pozorování a prototypy, co je výsledkem (snad diagram případů užití, nějaký jsem nakreslil, chtěl slyšet include a extend). Komise byla naprosto perfektní, přípravu jsem strávil tak, že jsem se snažil vzpomenout, jak se píše psací ksí.",
+   "text": "24 parciální rek. funkce chtěl vědět počáteční funkce, definovat primitivní rekurzi, zmínit se o minimalizaci, co všechno má být totální funkce, jak to souvisí s turingovým strojem.",
    "map": {
     "course": "TIN",
     "topic": "turing",
@@ -18177,14 +18167,14 @@
    "id": "h0390",
    "session": "MSZ 2019",
    "memberKey": "bartik",
-   "course": "TIN",
+   "course": "AIS",
    "num": "52",
    "title": null,
-   "text": "24 parciální rek. funkce chtěl vědět počáteční funkce, definovat primitivní rekurzi, zmínit se o minimalizaci, co všechno má být totální funkce, jak to souvisí s turingovým strojem. 52 získávání a modelování požadavků zavést do problematiky, metody, zmínil jsemdotazníky, pozorování a prototypy, co je výsledkem (snad diagram případů užití, nějaký jsem nakreslil, chtěl slyšet include a extend). Komise byla naprosto perfektní, přípravu jsem strávil tak, že jsem se snažil vzpomenout, jak se píše psací ksí.",
+   "text": "52 získávání a modelování požadavků zavést do problematiky, metody, zmínil jsemdotazníky, pozorování a prototypy, co je výsledkem (snad diagram případů užití, nějaký jsem nakreslil, chtěl slyšet include a extend). Komise byla naprosto perfektní, přípravu jsem strávil tak, že jsem se snažil vzpomenout, jak se píše psací ksí.",
    "map": {
-    "course": "TIN",
-    "topic": "turing",
-    "examTitle": "Turingovy stroje (jazyky přijímané TS, varianty TS, lineárně omezené automaty).",
+    "course": "AIS",
+    "topic": "pozadavky",
+    "examTitle": "Získávání a modelování požadavků (evoluce požadavků; model FURPS+; techniky získávání požadavků; artefakty Unified Process související s požadavky; tvorba modelu případů použití).",
     "confidence": "high"
    }
   },
@@ -18192,21 +18182,31 @@
    "id": "h0391",
    "session": "MSZ 2019",
    "memberKey": "rogalewicz",
-   "course": "",
+   "course": "TIN",
    "num": null,
    "title": null,
-   "text": "Uzavrenost jazykov, Bezpecnost bezdratovych siti",
-   "map": null
+   "text": "Uzavrenost jazykov",
+   "map": {
+    "course": "TIN",
+    "topic": "regularni",
+    "examTitle": "Konečné automaty (jazyky přijímané KA, varianty KA, Myhill-Nerodova věta, regulární výrazy).",
+    "confidence": "low"
+   }
   },
   {
    "id": "h0392",
    "session": "MSZ 2019",
    "memberKey": "rysavy",
-   "course": "",
+   "course": "BIS",
    "num": null,
    "title": null,
-   "text": "Uzavrenost jazykov, Bezpecnost bezdratovych siti",
-   "map": null
+   "text": "Bezpecnost bezdratovych siti",
+   "map": {
+    "course": "BIS",
+    "topic": "wifi-bezpecnost",
+    "examTitle": "Bezpečnost bezdrátových sítí, útoky, způsoby kryptografického zabezpečení.",
+    "confidence": "high"
+   }
   },
   {
    "id": "h0393",
@@ -18215,7 +18215,7 @@
    "course": "BIS",
    "num": null,
    "title": null,
-   "text": "Management řízení rizik/ Virtualizace paměti",
+   "text": "Management řízení rizik",
    "map": {
     "course": "BIS",
     "topic": "politiky-bis",
@@ -18227,16 +18227,11 @@
    "id": "h0394",
    "session": "MSZ 2019",
    "memberKey": "zemcik",
-   "course": "BIS",
+   "course": "",
    "num": null,
    "title": null,
-   "text": "Management řízení rizik/ Virtualizace paměti",
-   "map": {
-    "course": "BIS",
-    "topic": "politiky-bis",
-    "examTitle": "Kritéria hodnocení bezpečnosti informačních systémů, historie, kritéria CC (Common Criteria), standardy pro management bezpečnosti, rodina standardů ISO 27000.",
-    "confidence": "high"
-   }
+   "text": "Virtualizace paměti",
+   "map": null
   },
   {
    "id": "h0395",
@@ -18273,9 +18268,9 @@
    "session": "MSZ 2019",
    "memberKey": "bartik",
    "course": "UPA",
-   "num": null,
+   "num": 12,
    "title": null,
-   "text": "12 - Metody indexování bodových a plošných útvarů / 19 - Regulární množiny",
+   "text": "12 - Metody indexování bodových a plošných útvarů",
    "map": {
     "course": "UPA",
     "topic": "prostorove-db",
@@ -18287,14 +18282,14 @@
    "id": "h0398",
    "session": "MSZ 2019",
    "memberKey": "rogalewicz",
-   "course": "UPA",
-   "num": null,
+   "course": "TIN",
+   "num": 19,
    "title": null,
-   "text": "12 - Metody indexování bodových a plošných útvarů / 19 - Regulární množiny",
+   "text": "19 - Regulární množiny",
    "map": {
-    "course": "UPA",
-    "topic": "prostorove-db",
-    "examTitle": "Prostorové databáze, indexace (nejen) v prostorových DB (problematika mapování prostoru, kD-Tree a Grid File vč. jejich variant a R-Tree).",
+    "course": "TIN",
+    "topic": "regularni",
+    "examTitle": "Konečné automaty (jazyky přijímané KA, varianty KA, Myhill-Nerodova věta, regulární výrazy).",
     "confidence": "high"
    }
   },
@@ -18303,9 +18298,9 @@
    "session": "MSZ 2019",
    "memberKey": "rogalewicz",
    "course": "TIN",
-   "num": null,
+   "num": 33,
    "title": null,
-   "text": "33. Nerozhodnutelnost / 61. Kódování videa",
+   "text": "33. Nerozhodnutelnost",
    "map": {
     "course": "TIN",
     "topic": "rozhodnutelnost",
@@ -18317,16 +18312,11 @@
    "id": "h0400",
    "session": "MSZ 2019",
    "memberKey": "herout",
-   "course": "TIN",
-   "num": null,
+   "course": "",
+   "num": 61,
    "title": null,
-   "text": "33. Nerozhodnutelnost / 61. Kódování videa",
-   "map": {
-    "course": "TIN",
-    "topic": "rozhodnutelnost",
-    "examTitle": "Nerozhodnutelnost (problém zastavení TS, princip diagonalizace a redukce).",
-    "confidence": "high"
-   }
+   "text": "61. Kódování videa",
+   "map": null
   },
   {
    "id": "h0401",
@@ -21266,21 +21256,6 @@
   {
    "id": "h0620",
    "session": "MSZ 2020",
-   "memberKey": "zboril",
-   "course": "FLP",
-   "num": null,
-   "title": "Prolog",
-   "text": "je to logický jazyk, ako vyzerá, predikátová logika je podmnožinou prologu, hornovy klauzule, termy, atomické termy, príklad pravidla a faktu, operátor rezu.",
-   "map": {
-    "course": "FLP",
-    "topic": "prolog",
-    "examTitle": "Prolog - způsob vyhodnocení (základní princip, unifikace, chování vestavěných predikátů, operátor řezu - vhodné a nevhodné užití).",
-    "confidence": "high"
-   }
-  },
-  {
-   "id": "h0621",
-   "session": "MSZ 2020",
    "memberKey": "rychly",
    "course": "PIS",
    "num": null,
@@ -21294,7 +21269,7 @@
    }
   },
   {
-   "id": "h0622",
+   "id": "h0621",
    "session": "MSZ 2020",
    "memberKey": "janousek",
    "course": "TIN",
@@ -21309,7 +21284,7 @@
    }
   },
   {
-   "id": "h0623",
+   "id": "h0622",
    "session": "MSZ 2020",
    "memberKey": "rychly",
    "course": "UPA",
@@ -21324,7 +21299,7 @@
    }
   },
   {
-   "id": "h0624",
+   "id": "h0623",
    "session": "MSZ 2020",
    "memberKey": "janousek",
    "course": "TIN",
@@ -21339,7 +21314,7 @@
    }
   },
   {
-   "id": "h0625",
+   "id": "h0624",
    "session": "MSZ 2020",
    "memberKey": "kolar",
    "course": "",
@@ -21349,7 +21324,7 @@
    "map": null
   },
   {
-   "id": "h0626",
+   "id": "h0625",
    "session": "MSZ 2020",
    "memberKey": "hruska",
    "course": "TIN",
@@ -21364,7 +21339,7 @@
    }
   },
   {
-   "id": "h0627",
+   "id": "h0626",
    "session": "MSZ 2020",
    "memberKey": "kolar",
    "course": "FLP",
@@ -21379,7 +21354,7 @@
    }
   },
   {
-   "id": "h0628",
+   "id": "h0627",
    "session": "MSZ 2020",
    "memberKey": "rychly",
    "course": "AIS",
@@ -21394,7 +21369,7 @@
    }
   },
   {
-   "id": "h0629",
+   "id": "h0628",
    "session": "MSZ 2020",
    "memberKey": "hruska",
    "course": "TIN",
@@ -21409,7 +21384,7 @@
    }
   },
   {
-   "id": "h0630",
+   "id": "h0629",
    "session": "MSZ 2020",
    "memberKey": "janousek",
    "course": "TIN",
