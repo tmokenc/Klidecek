@@ -373,6 +373,35 @@ MANUAL_TOPIC = {
     "r0859": "transport-protokoly",      # PDS: transport -> transport-protokoly (MPTCP, QUIC)
     "r0873": "principy",                 # PIS: business-api -> principy
     "r0880": "slozitost",                # TIN: jazyky-hierarchie -> slozitost
+    # ── added by 2026-06-15 mapping-correctness audit ──
+    "r0015": "synchronizace",           # PRL: komunikace -> synchronizace (audit 2026-06, med)
+    "r0059": "zaklady-ml",              # SUI: nn-zaklady -> zaklady-ml (audit 2026-06, med)
+    "r0072": "hodnoceni-bis",           # BIS: politiki-bis -> hodnoceni-bis (audit 2026-06, med)
+    "r0076": "cache",                   # AVS: superskalar -> cache (audit 2026-06, med)
+    "r0113": "superskalar",             # AVS: pipelining -> superskalar (audit 2026-06, high)
+    "r0179": "cache",                   # AVS: superskalar -> cache (audit 2026-06, med)
+    "r0201": "superskalar",             # AVS: pipelining -> superskalar (audit 2026-06, high)
+    "r0239": "zaklady-ml",              # SUI: cnn -> zaklady-ml (audit 2026-06, high)
+    "r0269": "superskalar",             # AVS: pipelining -> superskalar (audit 2026-06, med)
+    "r0279": "slozitost",               # TIN: analyza -> slozitost (audit 2026-06, high)
+    "r0281": "uvod-bis",                # BIS: sw-zranitelnosti -> uvod-bis (audit 2026-06, med)
+    "r0314": "zaklady-ml",              # SUI: nn-zaklady -> zaklady-ml (audit 2026-06, med)
+    "r0336": "nejistota-hry",           # SUI: prohledavani -> nejistota-hry (audit 2026-06, med)
+    "r0361": "superskalar",             # AVS: pipelining -> superskalar (audit 2026-06, med)
+    "r0390": "nosql-uvod",              # UPA: nosql-dotazovani -> nosql-uvod (audit 2026-06, med)
+    "r0403": "synchronizace",           # PRL: komunikace -> synchronizace (audit 2026-06, med)
+    "r0417": "superskalar",             # AVS: pipelining -> superskalar (audit 2026-06, med)
+    "r0423": "cache",                   # AVS: superskalar -> cache (audit 2026-06, med)
+    "r0438": "superskalar",             # AVS: pipelining -> superskalar (audit 2026-06, high)
+    "r0495": "zaklady-ml",              # SUI: nn-zaklady -> zaklady-ml (audit 2026-06, med)
+    "r0504": "uvod-bis",                # BIS: sw-zranitelnosti -> uvod-bis (audit 2026-06, high)
+    "r0525": "objektove-db",            # UPA: xml-json -> objektove-db (audit 2026-06, med)
+    "r0562": "objektove-db",            # UPA: xml-json -> objektove-db (audit 2026-06, med)
+    "r0659": "cache",                   # AVS: superskalar -> cache (audit 2026-06, med)
+    "r0681": None,                      # KNN: konvolucni-site -> course-only (audit 2026-06, med)
+    "r0827": "openmp-zaklady",          # AVS: openmp-sync -> openmp-zaklady (audit 2026-06, med)
+    "r0847": None,                      # PRL: komunikace -> course-only (audit 2026-06, med)
+    "r0866": "cnn",                     # SUI: nn-zaklady -> cnn (audit 2026-06, high)
 }
 
 

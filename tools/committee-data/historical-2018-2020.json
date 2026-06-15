@@ -536,9 +536,9 @@
     "text": "Zde chtěl vědět definici alogritmus, nakreslit princip, složitost a použití. Zde jsem moc nevěděl, nicméně mi zkoušející hodně pomáhal. Myslím si, že kdyby mě zkoušel někdo jiný, tak rozhodně nedostanu C.",
     "map": {
       "course": "PRL",
-      "topic": "komunikace",
-      "examTitle": "Interakce mezi procesy a typické problémy paralelismu (synchronizační a komunikační mechanismy).",
-      "confidence": "low"
+      "topic": "pram",
+      "examTitle": "Model PRAM, suma prefixů a její aplikace.",
+      "confidence": "high"
     }
   },
   {
@@ -1527,9 +1527,9 @@
     "text": null,
     "map": {
       "course": "PRL",
-      "topic": "komunikace",
-      "examTitle": "Interakce mezi procesy a typické problémy paralelismu (synchronizační a komunikační mechanismy).",
-      "confidence": "low"
+      "topic": "pram",
+      "examTitle": "Model PRAM, suma prefixů a její aplikace.",
+      "confidence": "high"
     }
   },
   {
@@ -2764,8 +2764,8 @@
     "text": "Trochu sem nevěděl jak začít, ale než sem se stačil nadechnout, Češka se začal ptát. Stačili mu ze všeho úplné základy, žádné zákeřnosti. Chtěl vědět klasifikaci problémů, ke každému nějaký model jazyka a stroje. Poté co vlastně je ta rozhodnutelnost a návaznost na Úplný Turingův stroj. Poté nějaké známé problémy ke každému typu problému (tj. rozhodnutelnému, částečně, úplně). Když sem se dostal k nerozhodnutelnosti, řekl jsem co-hp a chtěl vysvětlit, proč je vlastně nerozhodnutelný. Poté už jen nějaké důkazové techniky a malou ideu jejich fungování (redukce, diagonalizace) Detekce hran",
     "map": {
       "course": "TIN",
-      "topic": "jazyky-hierarchie",
-      "examTitle": "Klasifikace formálních jazyků (Chomského hierarchie), vlastnosti formálních jazyků a jejich rozhodnutelnost.",
+      "topic": "rozhodnutelnost",
+      "examTitle": "Nerozhodnutelnost (problém zastavení TS, princip diagonalizace a redukce).",
       "confidence": "high"
     }
   },
@@ -5875,9 +5875,9 @@
     "text": "Bidlo Michal – Genetické algoritmy (chromozom, populace,...), jak probíhá evoluce s turnajem. Jak řešit TSP (křížení +mutace v permutačních problémech).",
     "map": {
       "course": "BIN",
-      "topic": "evolucni-navrh",
-      "examTitle": "Evoluční návrh analogových a číslicových obvodů (kódování, fitness funkce, problém škálovatelnosti a jeho řešení).",
-      "confidence": "low"
+      "topic": null,
+      "examTitle": null,
+      "confidence": "course"
     }
   },
   {
@@ -6840,9 +6840,9 @@
     "text": "Ptal se, nad jakými daty se pracuje - řekl jsem vektor - moc se mu to nelíbilo, ale vzal to. Dál jsem měl napsat definici - tu posloupnost, a pak jakou topologii bych použil - strom. Zeptal se, jak bych to spočítal, řekl jsem prescan + reduce. Nakreslil jsem strom, spočítal UpSweep, popsal jak na DownSweep a nakonec reduce. Ještě chtěl složitosti - všechno logaritmické -> celkem logaritmická.",
     "map": {
       "course": "PRL",
-      "topic": "komunikace",
-      "examTitle": "Interakce mezi procesy a typické problémy paralelismu (synchronizační a komunikační mechanismy).",
-      "confidence": "low"
+      "topic": "pram",
+      "examTitle": "Model PRAM, suma prefixů a její aplikace.",
+      "confidence": "high"
     }
   },
   {
@@ -9091,9 +9091,9 @@
     "text": "staticke a dynamicke prepojovacie siete, EREW/ERCW/CREW/CRCW - zaklady. Skusanie velmi rychle.",
     "map": {
       "course": "PRL",
-      "topic": "komunikace",
-      "examTitle": "Interakce mezi procesy a typické problémy paralelismu (synchronizační a komunikační mechanismy).",
-      "confidence": "low"
+      "topic": "pram",
+      "examTitle": "Model PRAM, suma prefixů a její aplikace.",
+      "confidence": "high"
     }
   },
   {

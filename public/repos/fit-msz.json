@@ -1358,9 +1358,9 @@
    "text": "Zaskočil mě otázkou co to je proces, pak popsat paralelismus a jaké máme problémy, nechal mě mluvit jen mě směřoval, nevěděl jsem jestli to je PDI nebo PRL ale nějak jsem se ke konci dostal k semaforum a monitorům, ty jsem popsal a dobrý. Byl jsem už zničeny z toho TINU",
    "map": {
     "course": "PRL",
-    "topic": "komunikace",
+    "topic": "synchronizace",
     "examTitle": "Interakce mezi procesy a typické problémy paralelismu (synchronizační a komunikační mechanismy).",
-    "confidence": "low"
+    "confidence": "high"
    }
   },
   {
@@ -1928,7 +1928,7 @@
    "text": "Generalizace, over/underfitting - Uplny pohodak, povedal mi nech nejako zacnem tak som zacal hovorit o tom co je to Genralizace, potom sa presunul na dataset a jeho rozdelneie na trenovaciu, validacnu a testovaciu mnozinu. Chcel odomna este ako pocut ako hodnotime ten proces trenovania (neber doslovne, mozno sa to spytal trochu inak)-  pomocou loss funkcie, potom chel nakreslit ako vyzera loss funkcia pocas trenovania a tiez ako vyzera na validacnom sete (ten graf pretrenovania) a na tom ukazat kde sa zacne pretrenovavat. Chcel vediet preco a kedy je siet podtrenovana, iba som dve veci vymenoval a kedy je pretrenovana a ako to riesit, spomenul som augumentaciu, pouzitie mensieho modelu a vypinanie neuronov pocas mini-batchu. PS: Radek je frajer, nepýtal sa nič zákerne",
    "map": {
     "course": "SUI",
-    "topic": "nn-zaklady",
+    "topic": "zaklady-ml",
     "examTitle": "Problém generalizace strojového učení a přístup k jeho řešení (trénovací, validační a testovací sada, regularizace, předtrénování, multi-task learning, augmentace dat, dropout, ...).",
     "confidence": "high"
    }
@@ -2123,9 +2123,9 @@
    "text": "Napisane na papiery: kriteria hodnotenia bezpecnosti, CC, ISO27000. Zacat, ze preco to robime a potom vybrat jedno z nich. Nejak som zacal ale slo to tazko dost mi pomahal, nieco malo sa pytal k stupnici hodnotenia, potom presiel na ISO 27000 (nedal mi na vyber :D) a ISMS a tam som cosi povedal k analyze rizik  a bezpecnostnej politike. Tam uz zvonil budik ale chcel sa este nieco opytat a nevedel si spomenut co. Bol fakt v pohode a bolo vidno, ze ma chce naviest.",
    "map": {
     "course": "BIS",
-    "topic": "politiky-bis",
+    "topic": "hodnoceni-bis",
     "examTitle": "Kritéria hodnocení bezpečnosti informačních systémů, historie, kritéria CC (Common Criteria), standardy pro management bezpečnosti, rodina standardů ISO 27000.",
-    "confidence": "low"
+    "confidence": "high"
    }
   },
   {
@@ -2183,9 +2183,9 @@
    "text": "Tabulky stranok, co je v nej ulozene, vypadok stranky a co sa pri nom stane, TLB - chcel pocut ze to je HW implementacia v ramci MMU, ako vyzera fyzicka a virtualna adresa, chcel pocut ze offsety na konci su rovnake. Celkom sme skakali cez vsetko a bol som z toho zmateny, snazil som sa reagovat na vsetko.",
    "map": {
     "course": "AVS",
-    "topic": "superskalar",
-    "examTitle": "Architektura superskalárních procesorů, zpracování instrukcí mimo pořadí, řešení datových a řídících konfliktů, predikce skoků.",
-    "confidence": "low"
+    "topic": "cache",
+    "examTitle": "Paměťová konzistence a předbíhání operací čtení a zápisu, podpora virtuálního adresového prostoru.",
+    "confidence": "high"
    }
   },
   {
@@ -2623,9 +2623,9 @@
    "text": "Architektura Superskalárních procesorů zpracování instrukcí mimo pořadí. Furt jsem mu utíkal do řídících konfliktů, chtěl slyšet ROB, ale motal se okolo a tím jsem byl docela zmatenej a nevěděl co chce... No každopádně, tato komise extrémně hodná, přetáhli jsme a nechtěli mi dát to F. Jakmile jsem řekl ROB, Mrázek řekl jen: \"To mi stačí\" a konec otázky.",
    "map": {
     "course": "AVS",
-    "topic": "pipelining",
+    "topic": "superskalar",
     "examTitle": "Architektura superskalárních procesorů, zpracování instrukcí mimo pořadí, řešení datových a řídících konfliktů, predikce skoků.",
-    "confidence": "low"
+    "confidence": "high"
    }
   },
   {
@@ -3528,9 +3528,9 @@
    "text": "Začal jsem s tím dost náhodně okolo toho že máme Store a Load buffery. Vysvětlil jsem že chceme aby load předbíhal store a že někdy load spekuluje a jak to funguje s těmi buffery. Celkově jsem to dost zamotal s tím že jsem vysvětloval řešení ale nikoliv problém (myslím že mu trochu vadilo že jsem neřekl že chce zajistit konzistenci paměti), ale nakonec řekl že jde vidět že to asi chápu tak že v pohodě.",
    "map": {
     "course": "AVS",
-    "topic": "superskalar",
-    "examTitle": "Architektura superskalárních procesorů, zpracování instrukcí mimo pořadí, řešení datových a řídících konfliktů, predikce skoků.",
-    "confidence": "low"
+    "topic": "cache",
+    "examTitle": "Paměťová konzistence a předbíhání operací čtení a zápisu, podpora virtuálního adresového prostoru.",
+    "confidence": "high"
    }
   },
   {
@@ -3833,9 +3833,9 @@
    "text": "Superskalarni procesory, zacal jsem ze jak vypadaji (front end, back end) co se v tom nachazi (IF, ID...) potom se me zeptal jestli tedy muzeme mit vice IF, ID to jsem rekl ze jo, potom se me zeptal co se teda deje v backendu, tam jsem vysvetlil ze muzou bezet OOO, co to potom znamena pro beh programu, potom jsme presli ke konfliktum, rekl jsem jake jsou prave a neprave a presne jake v nich jsou, potom se me zeptal jak bychom je teda resili, to jsem rekl scoreboard a rezervacni stanice, k oboum jsem jenom slovne rekl jak to tedy resi. Potom zaznovanilo a zeptal se me jeste jak funguji skoky, to jsem rekl ze je B1 ve IF a B2 v backendu, co kazda dela a jak funguji, potom se me zeptal proc to vlastne delame tak to chtel slyset ze potom nemusime teda cekat az se vypocita dana adresa. Celkove hodne v pohode bidlo, kdyz jsem neco rekl tak nepresne tak me rekl ze je to spravne ale ze by to chtel presneji. Nakonec me rekl ze to je asi vse tak jsem cekal lepsi znamku - A",
    "map": {
     "course": "AVS",
-    "topic": "pipelining",
+    "topic": "superskalar",
     "examTitle": "Architektura superskalárních procesorů, zpracování instrukcí mimo pořadí, řešení datových a řídících konfliktů, predikce skoků.",
-    "confidence": "low"
+    "confidence": "high"
    }
   },
   {
@@ -4293,7 +4293,7 @@
    "text": "Základní otázky, overfitting, jak ho eliminovat, zjistit atd.",
    "map": {
     "course": "SUI",
-    "topic": "cnn",
+    "topic": "zaklady-ml",
     "examTitle": "Problém generalizace strojového učení a přístup k jeho řešení (trénovací, validační a testovací sada, regularizace, předtrénování, multi-task learning, augmentace dat, dropout, ...).",
     "confidence": "high"
    }
@@ -4648,9 +4648,9 @@
    "text": "Najrpv si pýtal nejaké tie základy, a potom aby som sa presunul k Tomasulovi algoritmus. Túto otázku som celkom brutal vedel, tak som to naňho všetko vychrlil, až sa smial, že nemám predbiehať. Nakoniec mi ale dal B, tak neviem, čo mu tam chýbalo, but I don't care... I am happy I passed. Pan Jiří je veľmi milý skúšajúci. A mal som aj fest dobrého motýlika asi (on má také veci rád, odporúčam).",
    "map": {
     "course": "AVS",
-    "topic": "pipelining",
+    "topic": "superskalar",
     "examTitle": "Architektura superskalárních procesorů, zpracování instrukcí mimo pořadí, řešení datových a řídících konfliktů, predikce skoků.",
-    "confidence": "low"
+    "confidence": "high"
    }
   },
   {
@@ -4788,9 +4788,9 @@
    "text": "Otázka, kterou jsem si opakoval dost excesivně. No, stres udělal svoje. Zeptal se na definici horního ohraničení. To jsem se mu pokusil vysvětlit slovně, ale v nervozitě jsem se do té věty nějak zamotal, i když jsem to znal. Řekl, ať to zkusím zadefinovat formálně na tabuli. To už bylo horší, formální popisky mi nikdy moc nešly, takže jsem tam postupně vymýšlel predikáty, co jsem si pamatoval, a přitom to zkoušel popisovat, ale souvislej zápis jsem na té tabuli neměl.\nDál se zeptal na algoritmus, kterej spadá do O(n). Zase jednoduchá věc, ale já jsem se do toho z nějakýho důvodu snažil napasovat TS a k ničemu kloudnýmu jsem se asi nedobral (za to by mě třeba jiní asi i zaslouženě vyhodili), tak se posunul ke složitostním třídám a zeptal se, jak bych definoval třídu P. To jsem popsal slovně, víceméně asi správně. Navázal tím, jestli znám další třídy, řekl jsem NP (on na to \"jaký je rozdíl oproti P?\"), dál PSPACE a NPSPACE. Chtěl vědět problém, co spadá do NPSPACE, řekl jsem L = {aw kde a je znak z abecedy Sigma a w náleží Sigma*} (šlo by vymyslet něco jednoduššího, nevím, proč jsem to komplikoval). Nakonec se Polčák doptal, jestli bubble sort spadá do NPSPACE. Nad tím jsem přemýšlel tak 10 vteřin (lol), jenom abych řekl, že určitě jo, což mi odkýval a zkoušení ukončili.\nCelkově Lengál působil z mých odpovědí spíš otráveně (nedivím se mu, motal jsem všechno dohromady), ale když viděl, že se hodně přestávám chytat, tak se posunul dál a nenechal mě se v tom topit. Tenhle heroickej výkon jim stačil na E. Trénujte si odpovědi na otázky nahlas, ať nedopadnete jako já, že se začnete ztrácet ve formulacích.",
    "map": {
     "course": "TIN",
-    "topic": "analyza",
-    "examTitle": "Grafy a jejich prohledávání do šířky (pojmy: graf, sled, tah, cesta, kružnice, cyklus, algoritmus BFS, strom prohledávání do šířky a jeho vlastnosti).",
-    "confidence": "low"
+    "topic": "slozitost",
+    "examTitle": "Časová a paměťová složitost (asymptotická a amortizovaná složitost, třídy složitosti, úplnost, SAT problém).",
+    "confidence": "high"
    }
   },
   {
@@ -4813,7 +4813,7 @@
    "text": "Na papírku bylo hrozby, slabá/zranitelná místa, aktiva, škodlivý SW. Začal jsem slabými místy, chtěl konkrétní příklad, tak jsem uvedl třeba neošetřování uživatelských vstupů při SQL dotazu. Pak se mě ptal jak bych postupoval, abych hrozbám zabránil, uvedl jsem, že existuje CVE, kde jsou uvedeny známé zranitelnosti. Ptal se mě, jestli vím, co ten záznam obsahuje (no úplně přesně jsem nevěděl, tak mě doplnil). Ptal se mě jak bych teda postupoval – vyhledal bych v CVE zranitelnosti podle SW, který bych používal a aplikoval bych doporučené ošetření. Ptal se jaký jsou další způsoby na odhalení slabých míst – penetratiční testování, kde programátor testuje např. jednotlivá API vůči utokům. Pak jsem pokračoval hrozbou – SQL injection. Pak chtěl uvést příklady škodlivého sw, něco jsem vyjmenoval a pak se ptal, jestli vím co je nejčastějším problém u nás – tipl jsem ransomware, ale měl to být phising, ptal se jak bych proti tomu bránil. Po pomoci od něho ze mě vypadlo, že bych blokoval IP adresy neobvyklých serverů.",
    "map": {
     "course": "BIS",
-    "topic": "sw-zranitelnosti",
+    "topic": "uvod-bis",
     "examTitle": "Hrozby, slabá místa, aktiva, škodlivý software (malware), funkce prosazující bezpečnost (řízení přístupu, autentizace, skryté kanály, audit, přenos dat).",
     "confidence": "high"
    }
@@ -5273,7 +5273,7 @@
    "text": "Vlastnými slovami som opísal čo je to generalizácia, spôsob rozdelenia dát pri trénovaní modelu (trénovacie/testovacie resp. trénovacie/validačné/testovacie), čo je to overfitting, ako je možné detekovať overfitting počas trénovania a ako mu predísť (rozšírenie dátovej sady, regularizačné parametre). Potom čo som dorozprával sa ma opýtal ešte na jeden spôsob ako predísť overfittingu, ale už ma nič nenapadlo a keď videl že to zo mňa nejde tak ma neviedol otázkou. Vo výsledku chcel ešte počuť, že je mu možné predísť pomocou skôršieho ukončenia trénovania. Potom to ukončil.",
    "map": {
     "course": "SUI",
-    "topic": "nn-zaklady",
+    "topic": "zaklady-ml",
     "examTitle": "Problém generalizace strojového učení a přístup k jeho řešení (trénovací, validační a testovací sada, regularizace, předtrénování, multi-task learning, augmentace dat, dropout, ...).",
     "confidence": "high"
    }
@@ -5563,9 +5563,9 @@
    "text": null,
    "map": {
     "course": "SUI",
-    "topic": "prohledavani",
+    "topic": "nejistota-hry",
     "examTitle": "Prohledávání stavového prostoru (informované a neinformované metody, lokální prohledávání, prohledávání v nejistém prostředí, hraní sekvenčních her, CSP úlohy).",
-    "confidence": "low"
+    "confidence": "high"
    }
   },
   {
@@ -5908,9 +5908,9 @@
    "text": "Chtěl slyšet algoritmy které se používají ke zpracování instrukcí mimo pořadí, nevzpoměl jsem si na názvy, ale popisoval jsem různé algoritmy, nakonec se zeptal na přejmenovávání registrů a na nejjednodužší predikci skoku a ukončil. Pocitově jsem čekal D nebo E, takže D v pohodě",
    "map": {
     "course": "AVS",
-    "topic": "pipelining",
+    "topic": "superskalar",
     "examTitle": "Architektura superskalárních procesorů, zpracování instrukcí mimo pořadí, řešení datových a řídících konfliktů, predikce skoků.",
-    "confidence": "low"
+    "confidence": "high"
    }
   },
   {
@@ -6288,7 +6288,7 @@
    "text": "Povídací otázka, chtěl relativně detailně ACID, vyjmenovat co ty písmenka znamenají a ke každé vlastnosti co přesně to je ve vztahu k relační db. ACID jsem moc nedával (nejsem zrovna db enjoyer) tak se šlo na CAP teorem. Zde jsem si taky jen vzpomněl na to, co jednotlivé písmena znamenají, ale už jsem nedokázal vysvětlovat, co to přesně znamená. Nakonec se zeptal na MapReduce a tam stačily základy. Vyšlo to o fous. Známka E.",
    "map": {
     "course": "UPA",
-    "topic": "nosql-dotazovani",
+    "topic": "nosql-uvod",
     "examTitle": "NoSQL databáze (porovnání relačních a NoSQL; CAP věta a ACID/BASE principy; typy NoSQL databází; dotazování v NoSQL databázích; agregace dat pomocí Map-Reduce a agregační pipeline).",
     "confidence": "high"
    }
@@ -6473,9 +6473,9 @@
    "text": "Nechal ma zo zaciatku rozpravat. Tak som spomenul ze je moznost kooperacioe alebo superenie. Potom ze pri supereni ake problemy mozu nastat (deadlock, starvation, livelock etc...). Nasledne popisat starvation kedy to moze nastat a ako sa tomu da zabranit. Potom deadlock a ukazat pripad kedy moze nastat. Potom semafory a sync prostriedky. Tam sa spytal aky je rozdiel medzi HW a software solution ked obidve su na sync - to som velmi nevedel odpovedat ale uz zvonil budik tak to nechal tak",
    "map": {
     "course": "PRL",
-    "topic": "komunikace",
+    "topic": "synchronizace",
     "examTitle": "Interakce mezi procesy a typické problémy paralelismu (synchronizační a komunikační mechanismy).",
-    "confidence": "low"
+    "confidence": "high"
    }
   },
   {
@@ -6678,9 +6678,9 @@
    "text": "Nakreslil jsem části procesoru (IF, ID, ...) popsal, jak pracují subskalární procesory, skalární s pipeline a superskalární. Chtěl slyšet, že superskalární procesy zpracovávají instrukce mimo pořadí a jaké problémy to přináší. Na příkladu jsem ukázal RAW a WAR, na co si musí procesor dávat pozor a jak to řeší. Potom řekl, že mu to stačí. AVS jsem se moc neučil, tak jsem potřeboval místy nakopnout. Známka, pokud jsem slyšel dobře D.",
    "map": {
     "course": "AVS",
-    "topic": "pipelining",
+    "topic": "superskalar",
     "examTitle": "Architektura superskalárních procesorů, zpracování instrukcí mimo pořadí, řešení datových a řídících konfliktů, predikce skoků.",
-    "confidence": "low"
+    "confidence": "high"
    }
   },
   {
@@ -6763,9 +6763,9 @@
    "text": null,
    "map": {
     "course": "AVS",
-    "topic": "superskalar",
-    "examTitle": "Architektura superskalárních procesorů, zpracování instrukcí mimo pořadí, řešení datových a řídících konfliktů, predikce skoků.",
-    "confidence": "low"
+    "topic": "cache",
+    "examTitle": "Paměťová konzistence a předbíhání operací čtení a zápisu, podpora virtuálního adresového prostoru.",
+    "confidence": "high"
    }
   },
   {
@@ -6988,7 +6988,7 @@
    "text": null,
    "map": {
     "course": "AVS",
-    "topic": "pipelining",
+    "topic": "superskalar",
     "examTitle": "Architektura superskalárních procesorů, zpracování instrukcí mimo pořadí, řešení datových a řídících konfliktů, predikce skoků.",
     "confidence": "high"
    }
@@ -7768,9 +7768,9 @@
    "text": "Na papírku nebylo nic jiného než název otázky. Nejdřív chtěl vysvětlit, co je validační sada (řekl jsem, že se používá na ověření vlastností modelu, jestli je vůbec model vhodný ještě předtím, než to nějak finálně natrénujem, nebo jestli je potřeba upravit architekturu). Poté se zeptal na augmentaci dat, jak bych tím řešil, když nemám dostatek dat k trénování. Potom se ptal, jak bych ještě nějak jinak řešil, kdybych měl třeba jen 20 dat v sadě a neměl možnost získat víc. Tady jsem vůbec nevěděl a docela dlouho se to ze mě snažil vydolovat. Po dlouhé pauze jsem zkusil aspoň nadhodit regularizaci nebo dropout, ale že to asi není to, co chce slyšet. Po další chvilce to teda vzdal a řekl, že myslel cross validaci. Pak mi ale teda dal šanci, když jsem zmínil ty regularizace a dropout, ať vysvětlím ten dropout. Po nějakém basic vysvětlení mu to stačilo. Moc jsem toho neřekl kvůli tomu dlouhému dolování cross validace a nevím jestli to byl výkon uplně na A, ale možná kvůli diplomce a průměru se slitovali, aby nepokazili vyznamenání.",
    "map": {
     "course": "SUI",
-    "topic": "nn-zaklady",
+    "topic": "zaklady-ml",
     "examTitle": "Problém generalizace strojového učení a přístup k jeho řešení (trénovací, validační a testovací sada, regularizace, předtrénování, multi-task learning, augmentace dat, dropout, ...).",
-    "confidence": "low"
+    "confidence": "high"
    }
   },
   {
@@ -7893,7 +7893,7 @@
    "text": "Tuhle otázku jsem četl poprvé večer před státnicema. Hrozně jsem nechtěl nic z BIS. Ale Matoušek byl velice nápomocný a nakonec ze mě něco vytáhl. Chtěl nejprve definovat všechny pojmy, co byly na papírku a dále se pak doptával na to, co ho zajímalo. Kladl otázky, neočekával asi uplně, že budu mluvit sám. Bezpečnostní fce jsem absolutně nevěděl, co jsou, tak to řekl za mě. Dále se ptal na nějaké sbírky zranitelností, to jsem taky nevěděl absolutně o čem mluví... Zlaté E, zaslouží si ho on!",
    "map": {
     "course": "BIS",
-    "topic": "sw-zranitelnosti",
+    "topic": "uvod-bis",
     "examTitle": "Hrozby, slabá místa, aktiva, škodlivý software (malware), funkce prosazující bezpečnost (řízení přístupu, autentizace, skryté kanály, audit, přenos dat).",
     "confidence": "high"
    }
@@ -8168,9 +8168,9 @@
    "text": "Na papírku bylo OO a práce s XML, JSON. Netušil jsem vůbec jak začít, tak se mě začal ptát proč máme OO databáze, co do nich ukládáme, jaký model používají. Nějakým způsobem jsme se dostali taky k interakci s ORM z aplikace, pravděpodobně proto, že jsem měl diplomku v Pythonu a chtěl po mě slyšet SQLAlchemy. Pak jsme přešli k XML, co to znamená podpora pro práci s xml. atd. K JSONu jsme se nakonec ani nedostali. Celkově se snažil pomáhat. Dokonce řekl: \"Co mají relace v relační DB. Začíná to na K\"",
    "map": {
     "course": "UPA",
-    "topic": "xml-json",
+    "topic": "objektove-db",
     "examTitle": "Postrelační a rozšířené relační databáze (objektový a objektově relační databázový model - struktura a operace; vlastnosti objektových databází; podpora práce s XML a JSON dokumenty v databázích).",
-    "confidence": "low"
+    "confidence": "high"
    }
   },
   {
@@ -8683,9 +8683,9 @@
    "text": null,
    "map": {
     "course": "UPA",
-    "topic": "xml-json",
+    "topic": "objektove-db",
     "examTitle": "Postrelační a rozšířené relační databáze (objektový a objektově relační databázový model - struktura a operace; vlastnosti objektových databází; podpora práce s XML a JSON dokumenty v databázích).",
-    "confidence": "low"
+    "confidence": "high"
    }
   },
   {
@@ -10058,9 +10058,9 @@
    "text": "Na papírku bylo: 2. podpora virtuálního adresového prostoru. Když jsem si to přečetl, tak jsem myslel, že omdlím, ale Peringer potahal... Začal jsem nějaký obecmný kecy, ale pak mě víceméně navedl na co chtěl. Ptal se na překlad virt. ard. na fyz. adr., že to dělá MMU. Pak chtěl vědět jak je to náročné a že se tam ukládájí posledních X stránek. Já bych si dal E, ale asi to teda nebylo tak tragický",
    "map": {
     "course": "AVS",
-    "topic": "superskalar",
-    "examTitle": "Architektura superskalárních procesorů, zpracování instrukcí mimo pořadí, řešení datových a řídících konfliktů, predikce skoků.",
-    "confidence": "low"
+    "topic": "cache",
+    "examTitle": "Paměťová konzistence a předbíhání operací čtení a zápisu, podpora virtuálního adresového prostoru.",
+    "confidence": "high"
    }
   },
   {
@@ -10368,9 +10368,9 @@
    "text": "Tuto otázku som od hradiša nečakal. Naštastie som ju vedel. Zaujímali ho hľavne základné myšlienky. Ako taká sieť na rozpoznávanie tváry funguje. Dal mi príklad že ak by som mal dátabázu 50 000 ľudí a teraz vidím nejakého človeka na kamere ako by som zistil či mám toho človeka už v databáze. Povedal by som že by som mal predpočítané vektorové reprezentácie všetkých tých ľudí a vypočítal by som si pomocou neurónovej siete vektorovú reprezentáciu toho pozorovaného človeka a porovnal by som ju z každým vektorom v databázi. Potom som mu mal popísať tie jednotlivé loss funkcie začal som pair loss. Chcel vedieť aj vzorček ale nevyžadoval ho tak som mu jednoducho povedal že ho neviem. Potom chcel triplet loss a tiež len základnú myšlienku ako funguje. Súčastou otázky bol ešte aj central loss ale nebolo to pôvodne súčasťou štátnicovej otázky tak som sa to neučil a on to chcel vedieť tak ma to prekvapilo. Súčastou otázky bol ešte aj hard negative mining, ale už ma nechcel trápiť a povedal že mu to stačí. Hradiš bol v stručnosti veľmi v pohode.",
    "map": {
     "course": "KNN",
-    "topic": "konvolucni-site",
-    "examTitle": "Konvoluční neuronové sítě, jejich části a základní architektury (konvoluční vrstva, pooling vrstva, batch normalizace, tvary tenzorů aktivací, parametry, VGG, ResNet).",
-    "confidence": "high"
+    "topic": null,
+    "examTitle": null,
+    "confidence": "course"
    }
   },
   {
@@ -12278,7 +12278,7 @@
    "text": "Opět byl Jaroš velmi nápomocný. Řekl jsem nějaké omezující podmínky, vysvětlil jsem dovětek Static Dynamic a Guided (to guided jsem neuměl, proto C) a šel jsem. Uteklo to dost rychle.",
    "map": {
     "course": "AVS",
-    "topic": "openmp-sync",
+    "topic": "openmp-zaklady",
     "examTitle": "Paralelní zpracování v OpenMP: Smyčky, sekce, tasky a synchronizační prostředky.",
     "confidence": "high"
    }
@@ -12573,9 +12573,9 @@
    "text": "Dali mi to asi kvoli tomu, ze kolega predomnou na tom horel :D - na papieriku bolo mimo tej PRL casti (topologie) este aj definovat UMA NUMA - to som povedal cely nazov, aky je medzitym rozdiel. Z toho Bidlo presiel ze ok super a teda mame aj distribuovane architektury a uz chcel vediet topologie, tak som mu tam porozpraval o arc conn, bisection width a diameter, nakreslil stromovu arch., chcel aby som mu povedal aka je bisection width (1) a ze ci je to dobre - nie je, tak som povedal ze tam je bottleneck a on ze ako by som ho vyriesil, tak som povedal ze fat tree, len som povedal na co je a on ze mu to staci a poslal ma von - A, bol riadne v pohode, snazil sa naviest a ani ma tam nejak nenicil :D",
    "map": {
     "course": "PRL",
-    "topic": "komunikace",
-    "examTitle": "Interakce mezi procesy a typické problémy paralelismu (synchronizační a komunikační mechanismy).",
-    "confidence": "high"
+    "topic": null,
+    "examTitle": null,
+    "confidence": "course"
    }
   },
   {
@@ -12848,7 +12848,7 @@
    "text": null,
    "map": {
     "course": "SUI",
-    "topic": "nn-zaklady",
+    "topic": "cnn",
     "examTitle": "Problém generalizace strojového učení a přístup k jeho řešení (trénovací, validační a testovací sada, regularizace, předtrénování, multi-task learning, augmentace dat, dropout, ...).",
     "confidence": "high"
    }
@@ -13608,9 +13608,9 @@
    "text": "Zde chtěl vědět definici alogritmus, nakreslit princip, složitost a použití. Zde jsem moc nevěděl, nicméně mi zkoušející hodně pomáhal. Myslím si, že kdyby mě zkoušel někdo jiný, tak rozhodně nedostanu C.",
    "map": {
     "course": "PRL",
-    "topic": "komunikace",
-    "examTitle": "Interakce mezi procesy a typické problémy paralelismu (synchronizační a komunikační mechanismy).",
-    "confidence": "low"
+    "topic": "pram",
+    "examTitle": "Model PRAM, suma prefixů a její aplikace.",
+    "confidence": "high"
    }
   },
   {
@@ -14413,9 +14413,9 @@
    "text": null,
    "map": {
     "course": "PRL",
-    "topic": "komunikace",
-    "examTitle": "Interakce mezi procesy a typické problémy paralelismu (synchronizační a komunikační mechanismy).",
-    "confidence": "low"
+    "topic": "pram",
+    "examTitle": "Model PRAM, suma prefixů a její aplikace.",
+    "confidence": "high"
    }
   },
   {
@@ -15413,8 +15413,8 @@
    "text": "Trochu sem nevěděl jak začít, ale než sem se stačil nadechnout, Češka se začal ptát. Stačili mu ze všeho úplné základy, žádné zákeřnosti. Chtěl vědět klasifikaci problémů, ke každému nějaký model jazyka a stroje. Poté co vlastně je ta rozhodnutelnost a návaznost na Úplný Turingův stroj. Poté nějaké známé problémy ke každému typu problému (tj. rozhodnutelnému, částečně, úplně). Když sem se dostal k nerozhodnutelnosti, řekl jsem co-hp a chtěl vysvětlit, proč je vlastně nerozhodnutelný. Poté už jen nějaké důkazové techniky a malou ideu jejich fungování (redukce, diagonalizace) Detekce hran",
    "map": {
     "course": "TIN",
-    "topic": "jazyky-hierarchie",
-    "examTitle": "Klasifikace formálních jazyků (Chomského hierarchie), vlastnosti formálních jazyků a jejich rozhodnutelnost.",
+    "topic": "rozhodnutelnost",
+    "examTitle": "Nerozhodnutelnost (problém zastavení TS, princip diagonalizace a redukce).",
     "confidence": "high"
    }
   },
@@ -17933,9 +17933,9 @@
    "text": "Bidlo Michal – Genetické algoritmy (chromozom, populace,...), jak probíhá evoluce s turnajem. Jak řešit TSP (křížení +mutace v permutačních problémech).",
    "map": {
     "course": "BIN",
-    "topic": "evolucni-navrh",
-    "examTitle": "Evoluční návrh analogových a číslicových obvodů (kódování, fitness funkce, problém škálovatelnosti a jeho řešení).",
-    "confidence": "low"
+    "topic": null,
+    "examTitle": null,
+    "confidence": "course"
    }
   },
   {
@@ -18718,9 +18718,9 @@
    "text": "Ptal se, nad jakými daty se pracuje - řekl jsem vektor - moc se mu to nelíbilo, ale vzal to. Dál jsem měl napsat definici - tu posloupnost, a pak jakou topologii bych použil - strom. Zeptal se, jak bych to spočítal, řekl jsem prescan + reduce. Nakreslil jsem strom, spočítal UpSweep, popsal jak na DownSweep a nakonec reduce. Ještě chtěl složitosti - všechno logaritmické -> celkem logaritmická.",
    "map": {
     "course": "PRL",
-    "topic": "komunikace",
-    "examTitle": "Interakce mezi procesy a typické problémy paralelismu (synchronizační a komunikační mechanismy).",
-    "confidence": "low"
+    "topic": "pram",
+    "examTitle": "Model PRAM, suma prefixů a její aplikace.",
+    "confidence": "high"
    }
   },
   {
@@ -20558,9 +20558,9 @@
    "text": "staticke a dynamicke prepojovacie siete, EREW/ERCW/CREW/CRCW - zaklady. Skusanie velmi rychle.",
    "map": {
     "course": "PRL",
-    "topic": "komunikace",
-    "examTitle": "Interakce mezi procesy a typické problémy paralelismu (synchronizační a komunikační mechanismy).",
-    "confidence": "low"
+    "topic": "pram",
+    "examTitle": "Model PRAM, suma prefixů a její aplikace.",
+    "confidence": "high"
    }
   },
   {
