@@ -137,7 +137,7 @@ export default function ChomskyHierarchy() {
 
         {/* universe box "all languages" */}
         <rect x={20} y={20} width={500} height={240} fill="none" stroke="var(--line)" strokeDasharray="4 3" rx={8} />
-        <text x={30} y={36} fill="var(--text-faint)" fontSize="10">všechny jazyky nad Σ*</text>
+        <text x={30} y={254} fill="var(--text-faint)" fontSize="10">všechny jazyky nad Σ*</text>
 
         {/* dot for the selected language */}
         {L.classLevel === -1 ? (

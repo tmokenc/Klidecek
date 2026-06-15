@@ -222,7 +222,7 @@ export default function MinExtractionSort() {
                 {hasVal ? nd.val : "∅"}
               </text>
               {nd.id === 0 && (
-                <text x={x} y={y - 24} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-muted)">root</text>
+                <text x={x + nodeRadius + 5} y={y + 3} textAnchor="start" fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-muted)">root</text>
               )}
             </g>
           );

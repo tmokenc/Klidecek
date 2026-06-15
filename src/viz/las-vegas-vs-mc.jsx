@@ -195,8 +195,8 @@ export default function LasVegasVsMc() {
           </g>
         ))}
 
-        {/* key metric card */}
-        <KeyMetric x={PANEL_RIGHT_X + 12} y={PAD_T + 4} hue={HUE_MC}
+        {/* key metric card — placed in the empty lower-left so it never overlaps the rising curve/dots */}
+        <KeyMetric x={PANEL_RIGHT_X + PAD_L + 2} y={PAD_T + PLOT_H - 46 - 6} hue={HUE_MC}
           label="P[chyba]" value={(1 - mcTheory).toFixed(3)} sub={`= (1/2)^${k}`} />
 
         {/* ── Footer summary ─────────────────────────────────────── */}

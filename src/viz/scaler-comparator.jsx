@@ -112,7 +112,7 @@ export default function ScalerComparator() {
           const sd = Math.sqrt(xs.reduce((s, v) => s + (v - m) ** 2, 0) / xs.length);
           return (
             <g key={p.key} transform={`translate(${x0}, ${PAD + 16})`}>
-              <text x={PANE_W / 2} y={-4} textAnchor="middle" fontSize="9.5" fontFamily="var(--font-mono)" fill="var(--text)">{p.title}</text>
+              <text x={PANE_W / 2} y={-4} textAnchor="middle" fontSize="8" fontFamily="var(--font-mono)" fill="var(--text)">{p.title}</text>
               <rect x={0} y={0} width={PANE_W - 4} height={PANE_H} fill="var(--bg-inset)" stroke="var(--line)" />
               {counts.map((c, i) => (
                 <rect key={i} x={(i / BINS) * (PANE_W - 4)} y={PANE_H - (c / Math.max(1, mc)) * PANE_H}

@@ -160,7 +160,7 @@ export default function MleLikelihoodCurve() {
           <>
             <line x1={toX(mleTheta)} y1={PAD_T + TOP_PH + 8} x2={toX(mleTheta)} y2={PAD_T + TOP_PH + 8 + PH} stroke="var(--accent-line)" strokeDasharray="3 3" />
             <circle cx={toX(mleTheta)} cy={toY(m.loglik(mleTheta, data))} r="4" fill="var(--accent-line)" />
-            <text x={toX(mleTheta)} y={PAD_T + TOP_PH + 4} textAnchor="middle" fontSize="10" fill="var(--accent-line)" fontFamily="var(--font-mono)">{m.paramName}̂={mleTheta.toFixed(3)}</text>
+            <text x={toX(mleTheta) > PAD_L + PW - 70 ? toX(mleTheta) - 7 : toX(mleTheta) + 7} y={toY(m.loglik(mleTheta, data)) - 8} textAnchor={toX(mleTheta) > PAD_L + PW - 70 ? "end" : "start"} fontSize="10" fill="var(--accent-line)" fontFamily="var(--font-mono)">{m.paramName}̂={mleTheta.toFixed(3)}</text>
           </>
         )}
 

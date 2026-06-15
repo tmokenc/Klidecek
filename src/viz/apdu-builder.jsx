@@ -111,9 +111,12 @@ export default function ApduBuilder() {
         <div style={lbl}>vyber prikaz a posli na kartu:</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 4, marginTop: 4 }}>
           {COMMANDS.map((c) => (
-            <button key={c.id} className="viz-btn" onClick={() => send(c.id)} style={{ textAlign: "left", padding: 6 }}>
+            // .viz-btn is nowrap inline-flex; override to a wrapping column so the long APDU
+            // hex stacks under the label and breaks instead of overflowing the button.
+            <button key={c.id} className="viz-btn" onClick={() => send(c.id)}
+              style={{ textAlign: "left", padding: 6, flexDirection: "column", alignItems: "flex-start", gap: 2, whiteSpace: "normal" }}>
               <div style={{ fontSize: 11, fontWeight: 600 }}>{c.label}</div>
-              <div style={{ fontFamily: "var(--font-mono)", fontSize: 9, color: "var(--text-muted)" }}>{c.apdu}</div>
+              <div style={{ fontFamily: "var(--font-mono)", fontSize: 9, color: "var(--text-muted)", wordBreak: "break-word" }}>{c.apdu}</div>
             </button>
           ))}
         </div>

@@ -23,7 +23,7 @@ export default function OpenmpForkJoin() {
   // 85..100: barrier + serial
   const events = [];
   events.push({ kind: "serial", start: 0, end: 20, label: "serial init" });
-  events.push({ kind: "parallel-1", start: 20, end: 50, label: "#pragma omp parallel for (#1)" });
+  events.push({ kind: "parallel-1", start: 20, end: 50, label: "parallel for #1" });
   events.push({ kind: "barrier", start: 50, end: nowait ? 50 : 55, label: nowait ? "(nowait)" : "implicit barrier" });
   events.push({ kind: "parallel-2", start: nowait ? 50 : 55, end: nowait ? 80 : 85, label: "for #2" });
   events.push({ kind: "join", start: nowait ? 80 : 85, end: 100, label: "join → serial" });

@@ -103,15 +103,6 @@ export default function CapPartitionSim() {
             <text x={0} y={22} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-muted)">v={version[n]}</text>
           </g>
         ))}
-
-        {/* Operations panel */}
-        <g transform={`translate(20, 20)`}>
-          {["A", "B", "C"].map((n, i) => (
-            <g key={n} transform={`translate(0, ${i * 22})`}>
-              <text x={0} y={10} fontSize="9.5" fontFamily="var(--font-mono)" fill="var(--text-muted)">→ {n}</text>
-            </g>
-          ))}
-        </g>
       </svg>
 
       <div className="viz-controls">

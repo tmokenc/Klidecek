@@ -46,63 +46,6 @@ Krok 4: výstup 1, kořen ← další minimum = 2
         ... (každý další cyklus = 1 prvek)
 ```
 
-::: svg "Minimum Extraction — minimum bublají k vrchu, výstup postupně"
-<svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
-  <g stroke="var(--line)" stroke-width="0.9" fill="var(--bg-card)">
-    <circle cx="270" cy="30" r="14"/>
-    <circle cx="180" cy="80" r="13"/>
-    <circle cx="360" cy="80" r="13"/>
-    <circle cx="120" cy="130" r="12"/>
-    <circle cx="220" cy="130" r="12"/>
-    <circle cx="320" cy="130" r="12"/>
-    <circle cx="420" cy="130" r="12"/>
-    <rect x="55" y="175" width="22" height="20"/>
-    <rect x="100" y="175" width="22" height="20"/>
-    <rect x="180" y="175" width="22" height="20"/>
-    <rect x="225" y="175" width="22" height="20"/>
-    <rect x="300" y="175" width="22" height="20"/>
-    <rect x="345" y="175" width="22" height="20"/>
-    <rect x="420" y="175" width="22" height="20"/>
-    <rect x="465" y="175" width="22" height="20"/>
-  </g>
-  <g fill="var(--accent)" text-anchor="middle" font-weight="600">
-    <text x="270" y="34">1</text>
-  </g>
-  <g fill="var(--text)" text-anchor="middle">
-    <text x="180" y="84">3</text>
-    <text x="360" y="84">1</text>
-    <text x="120" y="134">7</text>
-    <text x="220" y="134">3</text>
-    <text x="320" y="134">5</text>
-    <text x="420" y="134">1</text>
-    <text x="66" y="189">8</text>
-    <text x="111" y="189">7</text>
-    <text x="191" y="189">6</text>
-    <text x="236" y="189">3</text>
-    <text x="311" y="189">5</text>
-    <text x="356" y="189">4</text>
-    <text x="431" y="189">2</text>
-    <text x="476" y="189">1</text>
-  </g>
-  <g stroke="var(--text-faint)" stroke-width="0.6">
-    <line x1="265" y1="42" x2="184" y2="68"/>
-    <line x1="275" y1="42" x2="356" y2="68"/>
-    <line x1="175" y1="92" x2="125" y2="120"/>
-    <line x1="185" y1="92" x2="215" y2="120"/>
-    <line x1="355" y1="92" x2="325" y2="120"/>
-    <line x1="365" y1="92" x2="415" y2="120"/>
-    <line x1="115" y1="142" x2="66" y2="175"/>
-    <line x1="125" y1="142" x2="111" y2="175"/>
-    <line x1="215" y1="142" x2="191" y2="175"/>
-    <line x1="225" y1="142" x2="236" y2="175"/>
-    <line x1="315" y1="142" x2="311" y2="175"/>
-    <line x1="325" y1="142" x2="356" y2="175"/>
-    <line x1="415" y1="142" x2="431" y2="175"/>
-    <line x1="425" y1="142" x2="476" y2="175"/>
-  </g>
-</svg>
-:::
-
 ::: viz min-extraction-sort "Krokuj cyklus po cyklu. Sleduj, jak minimum probublává ke kořeni: jakmile tam dorazí, kořen hodnotu vydá na výstup, příslušný list se vyprázdní (∅) a vzhůru putuje další minimum. První prvek získáš po log n+1 krocích, každý další po 2 krocích."
 :::
 
@@ -149,43 +92,6 @@ procedure MEDIAN_FINDING_AND_SPLITTING
 ### Princip — perfektní rozdělení
 
 Klíčový rozdíl oproti sekvenčnímu quicksortu: **každý vnitřní uzel hledá *medián*** své podposloupnosti (nikoli náhodný pivot). Tím je zaručeno, že *obě* podposloupnosti tvoří *přesně* poloviny, a strom je proto *vyvážený*.
-
-::: svg "Median Finding and Splitting — rekurzivní dělení podle mediánu"
-<svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
-  <g stroke="var(--line)" stroke-width="0.9" fill="var(--bg-card)">
-    <rect x="200" y="20" width="140" height="22"/>
-    <rect x="100" y="75" width="120" height="22"/>
-    <rect x="320" y="75" width="120" height="22"/>
-    <rect x="40" y="125" width="80" height="22"/>
-    <rect x="140" y="125" width="80" height="22"/>
-    <rect x="320" y="125" width="80" height="22"/>
-    <rect x="420" y="125" width="80" height="22"/>
-  </g>
-  <g fill="var(--text)" text-anchor="middle" font-size="10">
-    <text x="270" y="34">[2,5,7,1,8,4,6,3]</text>
-    <text x="160" y="89">[2,1,4,3]</text>
-    <text x="380" y="89">[5,7,8,6]</text>
-    <text x="80" y="139">[1,2]</text>
-    <text x="180" y="139">[3,4]</text>
-    <text x="360" y="139">[5,6]</text>
-    <text x="460" y="139">[7,8]</text>
-  </g>
-  <g fill="var(--accent)" text-anchor="middle" font-size="9" font-weight="600">
-    <text x="270" y="52">M=4</text>
-    <text x="160" y="107">M=2</text>
-    <text x="380" y="107">M=6</text>
-  </g>
-  <g stroke="var(--text-faint)" stroke-width="0.6">
-    <line x1="240" y1="42" x2="180" y2="75"/>
-    <line x1="300" y1="42" x2="360" y2="75"/>
-    <line x1="140" y1="97" x2="100" y2="125"/>
-    <line x1="180" y1="97" x2="180" y2="125"/>
-    <line x1="360" y1="97" x2="360" y2="125"/>
-    <line x1="400" y1="97" x2="440" y2="125"/>
-  </g>
-  <text x="270" y="170" fill="var(--text-muted)" text-anchor="middle" font-size="10">Listy: sekvenční sort → konkatenace dává seřazený výstup</text>
-</svg>
-:::
 
 ::: viz median-splitting "Krokuj jednotlivé fáze: kořen najde medián, rozdělí posloupnost na ≤M (levý syn) a >M (pravý syn) a pošle ji synům. Postup se opakuje až k listům, které svou část seřadí sekvenčně. Mediánový pivot zaručuje dokonalé rozdělení (vždy přesně n/2 a n/2)."
 :::

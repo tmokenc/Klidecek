@@ -64,14 +64,16 @@ export default function LawOfLargeNumbers() {
 
         {/* μ reference line */}
         {!isNaN(m.mu) && m.mu >= yMin && m.mu <= yMax && (
-          <>
-            <line x1={PAD_L} y1={toY(m.mu)} x2={PAD_L + PW} y2={toY(m.mu)} stroke="var(--accent-line)" strokeDasharray="3 3" />
-            <text x={PAD_L + 4} y={toY(m.mu) - 4} fontSize="10" fill="var(--accent-line)" fontFamily="var(--font-mono)">μ = {m.mu}</text>
-          </>
+          <line x1={PAD_L} y1={toY(m.mu)} x2={PAD_L + PW} y2={toY(m.mu)} stroke="var(--accent-line)" strokeDasharray="3 3" />
         )}
 
         {/* Running average */}
         <path d={pathRunning} fill="none" stroke="var(--accent)" strokeWidth="1.5" />
+
+        {/* μ label — drawn after the curve, at the calm right edge where it has converged */}
+        {!isNaN(m.mu) && m.mu >= yMin && m.mu <= yMax && (
+          <text x={PAD_L + PW - 4} y={toY(m.mu) - 4} fontSize="10" textAnchor="end" fill="var(--accent-line)" fontFamily="var(--font-mono)">μ = {m.mu}</text>
+        )}
 
         {/* y ticks */}
         {[0, 0.25, 0.5, 0.75, 1].map((t, i) => {

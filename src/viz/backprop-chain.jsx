@@ -117,6 +117,14 @@ export default function BackpropChain() {
         {/* edges */}
         {EDGES.map((e, i) => {
           const a = nodePos(e.from), b = nodePos(e.to);
+          // The two crossing input→hidden edges share the same geometric midpoint
+          // (130,140), so their labels would overprint. Place each crossing label at a
+          // distinct fraction along its own edge to separate them.
+          const t =
+            e.from === "x2" && e.to === "z1_0" ? 0.30 :
+            e.from === "x1" && e.to === "z1_1" ? 0.70 : 0.5;
+          const lx = a.x + (b.x - a.x) * t;
+          const ly = a.y + (b.y - a.y) * t;
           // gradient highlight: when this weight's gradient has been computed in current step
           const wasComputed = (
             (e.from === "x1" || e.from === "x2") && (e.to === "z1_0" || e.to === "z1_1") && showGrad("dW1")
@@ -131,12 +139,12 @@ export default function BackpropChain() {
                 stroke={wasComputed ? "oklch(0.7 0.2 30)" : "var(--line-strong)"}
                 strokeWidth={wasComputed ? 2 : 1.2} opacity={wasComputed ? 1 : 0.6}/>
               <g>
-                <text x={(a.x + b.x) / 2} y={(a.y + b.y) / 2 - 6} textAnchor="middle"
+                <text x={lx} y={ly - 6} textAnchor="middle"
                   fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-muted)">
                   w={e.w.toFixed(2)}
                 </text>
                 {wasComputed && (
-                  <text x={(a.x + b.x) / 2} y={(a.y + b.y) / 2 + 7} textAnchor="middle"
+                  <text x={lx} y={ly + 7} textAnchor="middle"
                     fontSize="9" fontFamily="var(--font-mono)" fill="oklch(0.78 0.18 30)" fontWeight="700">
                     ∂L/∂w={e.grad.toFixed(3)}
                   </text>

@@ -397,7 +397,7 @@ export default function RaftPraxe() {
           </marker>
         </defs>
 
-        <text x={W / 2} y={345} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-faint)">
+        <text x={W / 2} y={392} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-faint)">
           F=Follower · C=Candidate · L=Leader · t=term · ∗=votedFor
         </text>
       </svg>

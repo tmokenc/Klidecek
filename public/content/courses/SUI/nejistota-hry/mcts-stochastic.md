@@ -21,56 +21,6 @@ Hry s *náhodným* prvkem mají kromě MAX a MIN uzlů **chance node** (uzel ná
 
 `P(e)` je pravděpodobnost události `e` (např. `1/6` pro každou stranu kostky).
 
-::: svg "Expectiminimax: chance uzly počítají očekávanou hodnotu z potomků (vážený průměr)."
-<svg viewBox="0 0 540 230" font-family="ui-sans-serif, system-ui" font-size="11">
-  <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.3">
-    <rect x="240" y="20" width="60" height="30" rx="4"/>
-    <polygon points="120,80 100,110 140,110" stroke="var(--accent)" fill="var(--bg-card)"/>
-    <polygon points="270,80 250,110 290,110" stroke="var(--accent)" fill="var(--bg-card)"/>
-    <polygon points="420,80 400,110 440,110" stroke="var(--accent)" fill="var(--bg-card)"/>
-    <rect x="60" y="170" width="40" height="30" rx="3"/>
-    <rect x="115" y="170" width="40" height="30" rx="3"/>
-    <rect x="170" y="170" width="40" height="30" rx="3"/>
-    <rect x="225" y="170" width="40" height="30" rx="3"/>
-    <rect x="280" y="170" width="40" height="30" rx="3"/>
-    <rect x="335" y="170" width="40" height="30" rx="3"/>
-    <rect x="390" y="170" width="40" height="30" rx="3"/>
-    <rect x="445" y="170" width="40" height="30" rx="3"/>
-  </g>
-  <g fill="var(--text)" text-anchor="middle">
-    <text x="270" y="40" font-weight="600">MAX = 8</text>
-    <text x="120" y="100" font-size="10" font-weight="600">E=4</text>
-    <text x="270" y="100" font-size="10" font-weight="600">E=8</text>
-    <text x="420" y="100" font-size="10" font-weight="600">E=3</text>
-    <text x="80" y="190" font-size="10">2</text>
-    <text x="135" y="190" font-size="10">6</text>
-    <text x="190" y="190" font-size="10">4</text>
-    <text x="245" y="190" font-size="10">10</text>
-    <text x="300" y="190" font-size="10">8</text>
-    <text x="355" y="190" font-size="10">6</text>
-    <text x="410" y="190" font-size="10">2</text>
-    <text x="465" y="190" font-size="10">4</text>
-  </g>
-  <g stroke="var(--accent)" stroke-width="1.4" fill="none">
-    <line x1="270" y1="50" x2="120" y2="80"/>
-    <line x1="270" y1="50" x2="270" y2="80"/>
-    <line x1="270" y1="50" x2="420" y2="80"/>
-    <line x1="120" y1="110" x2="80" y2="170"/>
-    <line x1="120" y1="110" x2="135" y2="170"/>
-    <line x1="120" y1="110" x2="190" y2="170"/>
-    <line x1="270" y1="110" x2="245" y2="170"/>
-    <line x1="270" y1="110" x2="300" y2="170"/>
-    <line x1="270" y1="110" x2="355" y2="170"/>
-    <line x1="420" y1="110" x2="410" y2="170"/>
-    <line x1="420" y1="110" x2="465" y2="170"/>
-  </g>
-  <g fill="var(--text-muted)" font-size="9" text-anchor="middle">
-    <text x="525" y="105">chance</text>
-    <text x="525" y="190">listy</text>
-  </g>
-</svg>
-:::
-
 ::: viz expectiminimax-dice "Hra s chance node (kostka 1..3); vážený průměr potomků; výpočet E[a₁] vs E[a₂] vidíte."
 :::
 

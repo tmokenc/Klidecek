@@ -93,55 +93,6 @@ Column 'city':     "Brno", "Praha", ..., 8B values
 
 **≈512× (cca 500×) rychlejší** než stride access v row store, **1600× rychlejší** než full row scan.
 
-::: svg "Row vs Column layout: row store ukládá tuple za tuplem (rychlé pro OLTP), column store ukládá sloupec za sloupcem (rychlé pro analytic queries scanning few columns)."
-<svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="11">
-  <g>
-    <text x="130" y="25" text-anchor="middle" fill="var(--text)" font-weight="600">Row store</text>
-    <g font-family="ui-monospace, monospace" font-size="9">
-      <rect x="20" y="40" width="220" height="22" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="30" y="55" fill="var(--text)">Anna   |31|F|Brno   |...</text>
-      <rect x="20" y="62" width="220" height="22" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="30" y="77" fill="var(--text)">Bob    |42|M|Praha  |...</text>
-      <rect x="20" y="84" width="220" height="22" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="30" y="99" fill="var(--text)">Carol  |28|F|Olomouc|...</text>
-      <rect x="20" y="106" width="220" height="22" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="30" y="121" fill="var(--text)">Dave   |55|M|Ostrava|...</text>
-    </g>
-    <text x="130" y="150" text-anchor="middle" fill="var(--text-muted)" font-size="10">tuple-wise: dobré pro</text>
-    <text x="130" y="165" text-anchor="middle" fill="var(--text-muted)" font-size="10">SELECT * WHERE id=X</text>
-    <text x="130" y="180" text-anchor="middle" fill="var(--accent)" font-size="10">→ OLTP</text>
-  </g>
-  <g>
-    <text x="400" y="25" text-anchor="middle" fill="var(--text)" font-weight="600">Column store</text>
-    <g font-family="ui-monospace, monospace" font-size="9">
-      <rect x="290" y="40" width="50" height="84" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="295" y="55" fill="var(--text)">Anna</text>
-      <text x="295" y="70" fill="var(--text)">Bob</text>
-      <text x="295" y="85" fill="var(--text)">Carol</text>
-      <text x="295" y="100" fill="var(--text)">Dave</text>
-      <rect x="345" y="40" width="50" height="84" fill="var(--bg-card)" stroke="var(--accent)"/>
-      <text x="350" y="55" fill="var(--text)">31</text>
-      <text x="350" y="70" fill="var(--text)">42</text>
-      <text x="350" y="85" fill="var(--text)">28</text>
-      <text x="350" y="100" fill="var(--text)">55</text>
-      <rect x="400" y="40" width="50" height="84" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="405" y="55" fill="var(--text)">F</text>
-      <text x="405" y="70" fill="var(--text)">M</text>
-      <text x="405" y="85" fill="var(--text)">F</text>
-      <text x="405" y="100" fill="var(--text)">M</text>
-      <rect x="455" y="40" width="60" height="84" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="460" y="55" fill="var(--text)">Brno</text>
-      <text x="460" y="70" fill="var(--text)">Praha</text>
-      <text x="460" y="85" fill="var(--text)">Olom.</text>
-      <text x="460" y="100" fill="var(--text)">Ostr.</text>
-    </g>
-    <text x="400" y="150" text-anchor="middle" fill="var(--text-muted)" font-size="10">column-wise: dobré pro</text>
-    <text x="400" y="165" text-anchor="middle" fill="var(--text-muted)" font-size="10">SELECT AVG(age)</text>
-    <text x="400" y="180" text-anchor="middle" fill="var(--accent)" font-size="10">→ OLAP</text>
-  </g>
-</svg>
-:::
-
 ::: viz row-vs-column-scan "Vyberte typ dotazu (1 sloupec / SELECT * / single row) — viz porovnává cache-line scan v row vs. column store, počet přečtených bajtů a odhadovaný čas."
 :::
 

@@ -99,7 +99,7 @@ export default function ExpectiminimaxDice() {
               {/* chance node (triangle) */}
               <polygon points={`${cp.x - 14},${cp.y + 10} ${cp.x + 14},${cp.y + 10} ${cp.x},${cp.y - 14}`}
                 fill="color-mix(in oklch, oklch(0.7 0.18 60) 20%, var(--bg-card))" stroke="oklch(0.7 0.18 60)" strokeWidth="1.2"/>
-              <text x={cp.x} y={cp.y + 4} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-muted)">dice={oc.dice}</text>
+              <text x={cp.x + 5} y={cp.y + 22} textAnchor="start" fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-muted)">dice={oc.dice}</text>
               <text x={cp.x} y={cp.y - 18} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-faint)">p={oc.p.toFixed(2)}</text>
               {/* chance → MIN */}
               <line x1={cp.x} y1={cp.y + 12} x2={mp.x} y2={mp.y - 12} stroke="var(--line-strong)" strokeWidth="1"/>

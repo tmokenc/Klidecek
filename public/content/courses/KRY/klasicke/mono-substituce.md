@@ -86,56 +86,6 @@ V češtině mají vysokou frekvenci samohlásky (o, e, a, i) a souhláska *n*. 
 4. **Pracuj se vzory slov.** Slovo s vzorcem $1\;2\;2\;1$ (4 znaky, prostřední dva stejné) je v angličtině typicky `NOON` nebo `PAPA`. *Porovnávání vzorů* (pattern matching) zužuje možnosti.
 5. **Iteruj.** Po každé hypotéze proveď částečné dosazení do ciphertextu — to ti odhalí kontextové slova.
 
-::: svg "Frekvenční rozdělení znaků: angličtina vs. mono-substituovaný ciphertext"
-<svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
-  <g stroke="var(--line)" stroke-width="0.5">
-    <line x1="40" y1="180" x2="510" y2="180"/>
-    <line x1="40" y1="60" x2="40" y2="180"/>
-  </g>
-  <g fill="var(--text-muted)" font-size="10">
-    <text x="32" y="184" text-anchor="end">0%</text>
-    <text x="32" y="120" text-anchor="end">6%</text>
-    <text x="32" y="64" text-anchor="end">12%</text>
-  </g>
-  <g fill="var(--accent)" opacity="0.7">
-    <rect x="42" y="100" width="14" height="80"/>
-    <rect x="60" y="92"  width="14" height="88"/>
-    <rect x="78" y="60"  width="14" height="120"/>
-    <rect x="96" y="125" width="14" height="55"/>
-    <rect x="114" y="105" width="14" height="75"/>
-    <rect x="132" y="170" width="14" height="10"/>
-    <rect x="150" y="110" width="14" height="70"/>
-    <rect x="168" y="120" width="14" height="60"/>
-    <rect x="186" y="100" width="14" height="80"/>
-    <rect x="204" y="175" width="14" height="5"/>
-    <rect x="222" y="175" width="14" height="5"/>
-    <rect x="240" y="140" width="14" height="40"/>
-  </g>
-  <g fill="var(--text-muted)" font-size="10" text-anchor="middle">
-    <text x="49"  y="195">A</text>
-    <text x="67"  y="195">N</text>
-    <text x="85"  y="195">E</text>
-    <text x="103" y="195">I</text>
-    <text x="121" y="195">O</text>
-    <text x="139" y="195">P</text>
-    <text x="157" y="195">R</text>
-    <text x="175" y="195">S</text>
-    <text x="193" y="195">T</text>
-    <text x="211" y="195">U</text>
-    <text x="229" y="195">V</text>
-    <text x="247" y="195">L</text>
-  </g>
-  <g fill="var(--text)" font-size="11.5">
-    <text x="300" y="80">Z ciphertextu lze přečíst:</text>
-    <text x="310" y="100" fill="var(--text-muted)">• nejčastější znak → E</text>
-    <text x="310" y="116" fill="var(--text-muted)">• druhý nejčastější → T</text>
-    <text x="310" y="132" fill="var(--text-muted)">• nejčastější digram → TH/HE</text>
-    <text x="310" y="148" fill="var(--text-muted)">• nejčastější trigram → THE</text>
-    <text x="310" y="180" fill="var(--accent)">Stačí ~ 200–500 znaků textu.</text>
-  </g>
-</svg>
-:::
-
 ::: viz freq-analysis "Frekvenční analýza monoalfabetické substituce — klikněte na cipher znak v histogramu, pak na cílový plaintext znak. Sledujte, jak se rozluštění upřesňuje."
 :::
 

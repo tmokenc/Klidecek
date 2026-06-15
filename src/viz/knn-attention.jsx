@@ -136,8 +136,8 @@ export default function KnnAttention() {
           </text>
         ))}
 
-        {/* shrnutí vybraného řádku */}
-        <text x={gridX} y={gridY + n * cell + 18} fontSize="10.5" fontFamily="var(--font-mono)" fill="var(--text-faint)">
+        {/* shrnutí vybraného řádku — od levého okraje (gridX by přeteklo pravý okraj viewBoxu) */}
+        <text x={16} y={gridY + n * cell + 18} fontSize="10.5" fontFamily="var(--font-mono)" fill="var(--text-faint)">
           &quot;{TOKENS[sel]}&quot; nejvíc attenduje →{" "}
           <tspan fill="var(--accent)">
             {TOKENS[weights[sel].indexOf(Math.max(...weights[sel]))]}

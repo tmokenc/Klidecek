@@ -101,35 +101,6 @@ Každý objekt JPA entity je v jednom ze **čtyř stavů**:
 ::: viz jpa-lifecycle "Klikni na operaci a sleduj, jak entita přechází mezi stavy a co se vykoná v DB."
 :::
 
-::: svg "Čtyři stavy entity v JPA: new, managed, detached, removed"
-<svg viewBox="0 0 540 200" xmlns="http://www.w3.org/2000/svg">
-  <rect x="10" y="30" width="120" height="48" rx="6" fill="oklch(0.62 0.14 264 / 0.18)" stroke="oklch(0.62 0.14 264)"/>
-  <text x="70" y="52" text-anchor="middle" font-size="13" font-weight="600" fill="var(--text)">new</text>
-  <text x="70" y="68" text-anchor="middle" font-size="11" fill="var(--text-muted)" font-family="var(--font-mono)">new Person()</text>
-  <rect x="190" y="30" width="120" height="48" rx="6" fill="oklch(0.62 0.14 142 / 0.18)" stroke="oklch(0.62 0.14 142)"/>
-  <text x="250" y="52" text-anchor="middle" font-size="13" font-weight="600" fill="var(--text)">managed</text>
-  <text x="250" y="68" text-anchor="middle" font-size="11" fill="var(--text-muted)" font-family="var(--font-mono)">v kontextu</text>
-  <rect x="370" y="30" width="120" height="48" rx="6" fill="oklch(0.62 0.14 22 / 0.18)" stroke="oklch(0.62 0.14 22)"/>
-  <text x="430" y="52" text-anchor="middle" font-size="13" font-weight="600" fill="var(--text)">detached</text>
-  <text x="430" y="68" text-anchor="middle" font-size="11" fill="var(--text-muted)" font-family="var(--font-mono)">mimo kontext</text>
-  <rect x="190" y="135" width="120" height="48" rx="6" fill="oklch(0.62 0.14 340 / 0.18)" stroke="oklch(0.62 0.14 340)"/>
-  <text x="250" y="157" text-anchor="middle" font-size="13" font-weight="600" fill="var(--text)">removed</text>
-  <text x="250" y="173" text-anchor="middle" font-size="11" fill="var(--text-muted)" font-family="var(--font-mono)">k smazání</text>
-  <path d="M 130 54 L 188 54" stroke="var(--text)" stroke-width="1.3" marker-end="url(#aE)" fill="none"/>
-  <text x="159" y="46" text-anchor="middle" font-size="11" fill="var(--text-muted)" font-family="var(--font-mono)">persist()</text>
-  <path d="M 310 50 L 368 50" stroke="var(--text)" stroke-width="1.3" marker-end="url(#aE)" fill="none"/>
-  <text x="339" y="42" text-anchor="middle" font-size="11" fill="var(--text-muted)" font-family="var(--font-mono)">detach()</text>
-  <path d="M 370 65 Q 340 88 310 65" stroke="var(--text)" stroke-width="1.3" marker-end="url(#aE)" fill="none"/>
-  <text x="340" y="98" text-anchor="middle" font-size="11" fill="var(--text-muted)" font-family="var(--font-mono)">merge()</text>
-  <path d="M 250 78 L 250 130" stroke="var(--text)" stroke-width="1.3" marker-end="url(#aE)" fill="none"/>
-  <text x="280" y="108" font-size="11" fill="var(--text-muted)" font-family="var(--font-mono)">remove()</text>
-  <text x="270" y="197" text-anchor="middle" font-size="11" fill="var(--text-faint)" font-style="italic">„removed" se po commitu transakce smaže (nebo zaniká).</text>
-  <defs>
-    <marker id="aE" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="var(--text)"/></marker>
-  </defs>
-</svg>
-:::
-
 | Stav | Význam |
 |---|---|
 | **new** (transient) | Objekt jen v paměti, JPA o něm neví. Neexistuje v DB. |

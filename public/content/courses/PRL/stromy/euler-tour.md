@@ -141,47 +141,6 @@ procedure LIST_RANKING(list)
 
 V iteraci $k$ se ukazatele „zdvojí" — po $\log n$ iteracích každý element ukazuje na konec a obsahuje *vzdálenost*.
 
-::: svg "List ranking pointer jumping — vzdálenosti se zdvojnásobují"
-<svg viewBox="0 0 540 180" font-family="ui-sans-serif, system-ui" font-size="11">
-  <g stroke="var(--line-strong)" stroke-width="1" fill="var(--bg-card)">
-    <circle cx="60" cy="40" r="11"/>
-    <circle cx="130" cy="40" r="11"/>
-    <circle cx="200" cy="40" r="11"/>
-    <circle cx="270" cy="40" r="11"/>
-    <circle cx="340" cy="40" r="11"/>
-    <circle cx="410" cy="40" r="11"/>
-    <circle cx="480" cy="40" r="11"/>
-  </g>
-  <g stroke="var(--text-faint)" stroke-width="0.8" marker-end="url(#lrarrow)">
-    <line x1="73" y1="40" x2="118" y2="40"/>
-    <line x1="143" y1="40" x2="188" y2="40"/>
-    <line x1="213" y1="40" x2="258" y2="40"/>
-    <line x1="283" y1="40" x2="328" y2="40"/>
-    <line x1="353" y1="40" x2="398" y2="40"/>
-    <line x1="423" y1="40" x2="468" y2="40"/>
-  </g>
-  <defs>
-    <marker id="lrarrow" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto">
-      <polygon points="0 0, 8 4, 0 8" fill="var(--text-faint)"/>
-    </marker>
-    <marker id="lrarrow2" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto">
-      <polygon points="0 0, 8 4, 0 8" fill="var(--accent)"/>
-    </marker>
-  </defs>
-  <text x="270" y="70" fill="var(--text-muted)" text-anchor="middle" font-size="10">Iterace 0: každý ukazuje na souseda, rank = 1</text>
-  <g stroke="var(--accent)" stroke-width="1.2" fill="none" marker-end="url(#lrarrow2)">
-    <path d="M 71,90 Q 110,76 190,86"/>
-    <path d="M 141,90 Q 180,76 260,86"/>
-    <path d="M 211,90 Q 250,76 330,86"/>
-  </g>
-  <text x="270" y="120" fill="var(--text-muted)" text-anchor="middle" font-size="10">Iterace 1: skok na vzdálenost 2, rank zdvojnásobeno</text>
-  <g stroke="var(--accent)" stroke-width="1.2" fill="none" marker-end="url(#lrarrow2)">
-    <path d="M 71,140 Q 200,126 330,136"/>
-  </g>
-  <text x="270" y="165" fill="var(--accent)" text-anchor="middle" font-size="10">Iterace 2: skok na vzdálenost 4, rank = 4</text>
-</svg>
-:::
-
 ::: viz list-ranking "Vyber lineární / obrácený / zamíchaný seznam a krokuj iterace. Sleduj, jak se arcs zdvojnásobují (v iteraci k pointer skáče přes 2^k uzlů). Modré rank zatím není finální, zelené je už shodné s cílem."
 :::
 

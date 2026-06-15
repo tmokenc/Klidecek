@@ -254,7 +254,7 @@ function Timeline({ x, y, w, h, cycles, done, hue, totalCycles, label }) {
             opacity={filled ? 0.55 : 1} />
         );
       })}
-      <text x={x + w / 2} y={y - 7} textAnchor="middle" fontSize="9.5"
+      <text x={x} y={y - 18} textAnchor="start" fontSize="9.5"
         fontFamily="var(--font-mono)" fontWeight="600" fill={`oklch(0.40 0.16 ${hue})`}>
         {label}
       </text>

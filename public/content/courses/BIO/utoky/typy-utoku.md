@@ -11,53 +11,6 @@ Biometrické systémy jsou *složité řetězce* (complex stacks) — od senzor�
 ::: viz attack-points-7 "Klikněte na bod 1–7 v diagramu; uvidíte konkrétní příklady útoků a vrstvenou obranu."
 :::
 
-::: svg "Útočné body biometrického systému: 1 sensor, 2 channel reader→processor, 3 feature extractor, 4 channel extractor→matcher, 5 stored templates, 6 matcher, 7 decision output."
-<svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11">
-  <defs>
-    <marker id="aTA1" viewBox="0 0 8 8" refX="8" refY="4" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0 0 L8 4 L0 8 z" fill="var(--danger, #d33)"/>
-    </marker>
-  </defs>
-  <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.2">
-    <rect x="10" y="80" width="80" height="40" rx="4"/>
-    <rect x="120" y="80" width="100" height="40" rx="4"/>
-    <rect x="250" y="80" width="80" height="40" rx="4"/>
-    <rect x="360" y="80" width="80" height="40" rx="4"/>
-    <rect x="470" y="80" width="60" height="40" rx="4"/>
-    <rect x="240" y="170" width="100" height="40" rx="4"/>
-  </g>
-  <g fill="var(--text)" text-anchor="middle" font-size="10">
-    <text x="50" y="104">Sensor</text>
-    <text x="170" y="104">Feat. extractor</text>
-    <text x="290" y="104">Matcher</text>
-    <text x="400" y="104">Decision</text>
-    <text x="500" y="104">Output</text>
-    <text x="290" y="195">Template DB</text>
-  </g>
-  <g fill="var(--danger, #d33)" font-weight="bold" font-size="11">
-    <text x="50" y="65" text-anchor="middle">1</text>
-    <text x="105" y="65" text-anchor="middle">2</text>
-    <text x="170" y="65" text-anchor="middle">3</text>
-    <text x="235" y="65" text-anchor="middle">4</text>
-    <text x="290" y="65" text-anchor="middle">6</text>
-    <text x="400" y="65" text-anchor="middle">7</text>
-    <text x="350" y="165" text-anchor="middle">5</text>
-  </g>
-  <g stroke="var(--danger, #d33)" stroke-width="1.2" fill="none" marker-end="url(#aTA1)" stroke-dasharray="2 2">
-    <path d="M50,72 L50,78"/>
-    <path d="M105,72 L105,80"/>
-    <path d="M170,72 L170,78"/>
-    <path d="M235,72 L235,80"/>
-    <path d="M290,72 L290,78"/>
-    <path d="M400,72 L400,78"/>
-    <path d="M350,170 L340,170"/>
-  </g>
-  <g stroke="var(--accent)" stroke-width="0.8" fill="none" stroke-dasharray="3 2">
-    <line x1="290" y1="120" x2="290" y2="170"/>
-  </g>
-</svg>
-:::
-
 ### 1. Podvržení senzoru (sensor spoofing, presentation attack)
 
 Útočník (attacker) prezentuje senzoru *podvržený* biometrický rys (biometric trait).

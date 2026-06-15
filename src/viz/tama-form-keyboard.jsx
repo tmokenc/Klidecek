@@ -69,11 +69,11 @@ export default function TamaFormKeyboard() {
             <rect x="16" y={kbTop} width={W - 32} height={H - 24 - (kbTop - 12)} rx="0" fill="var(--bg-inset)" stroke="var(--line)" />
             <rect x="16" y={kbTop} width={W - 32} height="3" fill="var(--accent)" fillOpacity="0.5" />
             {KEYS[type].map((row, i) => (
-              <text key={i} x={W / 2} y={kbTop + 22 + i * 22} textAnchor="middle"
+              <text key={i} x={W / 2} y={kbTop + 20 + i * 20} textAnchor="middle"
                 fontSize={type === "tel" ? "14" : "10.5"} fontFamily="var(--font-mono)"
                 letterSpacing={type === "tel" ? "6" : "1.5"} fill="var(--text)">{row}</text>
             ))}
-            <text x={W / 2} y={H - 22} textAnchor="middle" fontSize="8.5" fill="var(--accent)" fontFamily="var(--font-mono)">
+            <text x={W / 2} y={kbTop + 20 + (KEYS[type].length - 1) * 20 + 16} textAnchor="middle" fontSize="8.5" fill="var(--accent)" fontFamily="var(--font-mono)">
               klávesnice pro „{type}"
             </text>
           </g>

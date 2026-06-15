@@ -70,13 +70,17 @@ export default function PbiGenomikaPipeline() {
         {stages.slice(0, -1).map((s, i) => {
           const x = xOf(i) + bw, xe = xOf(i + 1);
           const y = by + bh / 2;
+          const fmt = s.outFmt.split(" / ")[0];
+          const lw = fmt.length * 5.6 + 6;
           return (
             <g key={"a" + i}>
               <line x1={x} y1={y} x2={xe - 4} y2={y} stroke="var(--line-strong)" strokeWidth="1.5" />
               <path d={`M ${xe - 4} ${y} l -6 -3 l 0 6 z`} fill="var(--line-strong)" />
+              <rect x={(x + xe) / 2 - lw / 2} y={y - 6 - 7} width={lw} height={12} rx="3"
+                fill="var(--bg-inset)" />
               <text x={(x + xe) / 2} y={y - 6} textAnchor="middle" fontSize="9"
                 fontFamily="var(--font-mono)" fill="var(--text-faint)">
-                {s.outFmt.split(" / ")[0]}
+                {fmt}
               </text>
             </g>
           );

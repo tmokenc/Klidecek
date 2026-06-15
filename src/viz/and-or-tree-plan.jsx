@@ -119,8 +119,9 @@ export default function AndOrTreePlan() {
               fill={s.goal ? "color-mix(in oklch, oklch(0.75 0.18 145) 35%, var(--bg-card))" : (s.loop ? "color-mix(in oklch, oklch(0.6 0.2 25) 20%, var(--bg-card))" : "var(--bg-card)")}
               stroke={s.goal ? "oklch(0.75 0.18 145)" : (s.loop ? "oklch(0.6 0.2 25)" : "var(--accent)")} strokeWidth="1.4"/>
             <text x={positions[s.id].x} y={positions[s.id].y + 2} textAnchor="middle" fontSize="10" fontFamily="var(--font-mono)" fill="var(--text)" fontWeight="700">{s.label}</text>
-            <text x={positions[s.id].x} y={positions[s.id].y + 30} textAnchor="middle" fontSize="9" fill="var(--text-muted)">{s.desc.split("\n")[0]}</text>
-            {s.desc.split("\n")[1] && <text x={positions[s.id].x} y={positions[s.id].y + 42} textAnchor="middle" fontSize="9" fill="var(--text-muted)">{s.desc.split("\n")[1]}</text>}
+            {!s.goal && !s.loop && <rect x={positions[s.id].x - 46} y={positions[s.id].y + 19} width={92} height={20} fill="var(--bg-inset)"/>}
+            <text x={positions[s.id].x} y={positions[s.id].y + 26} textAnchor="middle" fontSize="9" fill="var(--text-muted)">{s.desc.split("\n")[0]}</text>
+            {s.desc.split("\n")[1] && <text x={positions[s.id].x} y={positions[s.id].y + 35} textAnchor="middle" fontSize="9" fill="var(--text-muted)">{s.desc.split("\n")[1]}</text>}
           </g>
         ))}
 

@@ -44,6 +44,10 @@ export default function IpAllocation() {
   const W = 520, H = 150;
   const y = 56;
 
+  // whois/field callout: width fits the longest field string; clamp inside frame
+  const calloutW = 200;
+  const calloutX = Math.max(8, Math.min(lv.x - 70, W - calloutW - 8));
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
       <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", display: "block" }}>
@@ -84,9 +88,9 @@ export default function IpAllocation() {
         <text x={470} y={110} textAnchor="end" fontSize="8.5" fill="var(--text-faint)">konkrétní účastník</text>
 
         {/* selected level whois/field callout */}
-        <rect x={lv.x - 70 < 8 ? 8 : Math.min(lv.x - 70, W - 156)} y={120} width="148" height="22" rx="3"
+        <rect x={calloutX} y={120} width={calloutW} height="22" rx="3"
           fill="var(--bg-card)" stroke="var(--accent)" strokeWidth="1" />
-        <text x={(lv.x - 70 < 8 ? 8 : Math.min(lv.x - 70, W - 156)) + 6} y={134} fontSize="8.5"
+        <text x={calloutX + 6} y={134} fontSize="7.5"
           fontFamily="var(--font-mono)" fill="var(--accent)">{lv.field}</text>
 
         <defs>

@@ -39,13 +39,13 @@ export default function NavProudovaSmycka() {
         ))}
         <text x={toX(24)} y={y + 32} textAnchor="end" fontSize="8.5" fill="var(--text-faint)">mA</text>
 
-        {/* zone labels */}
-        <text x={(toX(0) + toX(4)) / 2} y={y - 18} textAnchor="middle" fontSize="8.5" fontWeight="600" fill="oklch(0.6 0.18 22)">PORUCHA</text>
-        <text x={(toX(4) + toX(20)) / 2} y={y - 18} textAnchor="middle" fontSize="8.5" fontWeight="600" fill="oklch(0.5 0.16 142)">měřicí rozsah</text>
+        {/* zone labels — above the needle knob (y−24) so the vertical needle never strikes them */}
+        <text x={(toX(0) + toX(4)) / 2} y={y - 31} textAnchor="middle" fontSize="8.5" fontWeight="600" fill="oklch(0.6 0.18 22)">PORUCHA</text>
+        <text x={(toX(4) + toX(20)) / 2} y={y - 31} textAnchor="middle" fontSize="8.5" fontWeight="600" fill="oklch(0.5 0.16 142)">měřicí rozsah</text>
 
         {/* needle */}
-        <line x1={needleX} y1={y - 24} x2={needleX} y2={y + 8} stroke={accent} strokeWidth="2" />
-        <circle cx={needleX} cy={y - 24} r="4" fill={accent} />
+        <line x1={needleX} y1={y - 22} x2={needleX} y2={y + 8} stroke={accent} strokeWidth="2" />
+        <circle cx={needleX} cy={y - 22} r="4" fill={accent} />
 
         {/* readout */}
         <text x={W / 2} y={24} textAnchor="middle" fontSize="13" fontWeight="700" fontFamily="var(--font-mono)" fill={accent}>

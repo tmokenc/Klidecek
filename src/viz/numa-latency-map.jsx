@@ -89,7 +89,7 @@ export default function NumaLatencyMap() {
           const px = pageSocket === 0 ? 167 : 457;
           return (
             <g>
-              <path d={`M ${tx} 110 Q ${(tx + px) / 2} 170 ${px} 78`} fill="none"
+              <path d={`M ${tx} 110 Q ${(tx + px) / 2} 120 ${px} 78`} fill="none"
                 stroke={isLocal ? "oklch(0.65 0.16 145)" : "oklch(0.65 0.18 22)"} strokeWidth="2" markerEnd="url(#numa-ar)" />
             </g>
           );

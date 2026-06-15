@@ -82,7 +82,7 @@ export default function Dijkstra() {
                 fill={isCurrent ? "white" : "var(--text)"}>
                 {n.id}
               </text>
-              <text x={n.p[0]} y={n.p[1] + r + 11} textAnchor="middle"
+              <text x={n.p[0]} y={n.id === "F" ? n.p[1] - r - 4 : n.p[1] + r + 11} textAnchor="middle"
                 fontSize="9" fontFamily="var(--font-mono)"
                 fill={d === Infinity ? "var(--text-faint)" : "var(--accent)"}>
                 d={d === Infinity ? "∞" : d}

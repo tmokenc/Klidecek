@@ -98,8 +98,8 @@ export default function ReductionWiring() {
         </text>
 
         {/* Output: accept */}
-        <rect x="400" y="80" width="50" height="40" rx="6" fill={halts ? "color-mix(in oklch, #81b29a 30%, var(--bg-inset))" : "var(--bg-inset)"} stroke="#81b29a" strokeWidth="1.3" />
-        <text x="425" y="103" textAnchor="middle" fill={halts ? "#81b29a" : "var(--text-muted)"}>přijmout</text>
+        <rect x="400" y="80" width="74" height="40" rx="6" fill={halts ? "color-mix(in oklch, #81b29a 30%, var(--bg-inset))" : "var(--bg-inset)"} stroke="#81b29a" strokeWidth="1.3" />
+        <text x="437" y="103" textAnchor="middle" fontSize="9" fill={halts ? "#81b29a" : "var(--text-muted)"}>přijmout</text>
         {halts && <line x1="380" y1="105" x2="400" y2="100" stroke="#81b29a" strokeWidth="1.3" fill="none" markerEnd="url(#arrRW)" />}
 
         {/* Output: loop */}

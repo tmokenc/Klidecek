@@ -101,8 +101,9 @@ export default function ReplacementPolicyRace() {
   ];
   const results = rows.map(r => sim(r.policy, trace, r.n));
 
-  const W = 580, H = 340;
-  const cellW = Math.min(36, (W - 100) / trace.length);
+  const W = 640, H = 340;
+  const GX = 130; // grid origin x — wide enough gutter for the per-row hit/miss sublabel
+  const cellW = Math.min(36, (W - GX - 20) / trace.length);
 
   return (
     <div style={{ width: "100%" }}>
@@ -115,13 +116,13 @@ export default function ReplacementPolicyRace() {
         </span>
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 720, background: "var(--bg-card)", borderRadius: 4, fontFamily: "ui-sans-serif, system-ui" }}>
+      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", maxWidth: 780, background: "var(--bg-card)", borderRadius: 4, fontFamily: "ui-sans-serif, system-ui" }}>
         <text x={20} y={20} fontSize="11" fill="var(--text)" fontWeight="600">trace adres:</text>
         {trace.map((a, i) => (
           <g key={i}>
-            <rect x={80 + i * cellW} y={26} width={cellW - 2} height={20}
+            <rect x={GX + i * cellW} y={26} width={cellW - 2} height={20}
               fill="var(--bg-inset)" stroke="var(--line)" rx="2" />
-            <text x={80 + i * cellW + cellW / 2} y={40} textAnchor="middle" fontSize="10"
+            <text x={GX + i * cellW + cellW / 2} y={40} textAnchor="middle" fontSize="10"
               fontFamily="ui-monospace, monospace" fill="var(--text)">{a}</text>
           </g>
         ))}
@@ -136,12 +137,12 @@ export default function ReplacementPolicyRace() {
               <text x={20} y={y + 12} fontSize="11" fontWeight="600" fill="var(--text)">{row.label}</text>
               <text x={20} y={y + 28} fontSize="9.5" fill="var(--text-muted)">{hit}/{r.total} hit · {miss} miss</text>
               {r.events.map((e, i) => (
-                <rect key={i} x={80 + i * cellW} y={y} width={cellW - 2} height={36}
+                <rect key={i} x={GX + i * cellW} y={y} width={cellW - 2} height={36}
                   fill={e.hit ? "oklch(0.65 0.16 145 / 0.5)" : "oklch(0.65 0.18 22 / 0.5)"}
                   stroke={e.hit ? "oklch(0.65 0.16 145)" : "oklch(0.65 0.18 22)"} strokeWidth="0.7" rx="1.5" />
               ))}
               {r.events.map((e, i) => (
-                <text key={"l" + i} x={80 + i * cellW + cellW / 2} y={y + 22} textAnchor="middle"
+                <text key={"l" + i} x={GX + i * cellW + cellW / 2} y={y + 22} textAnchor="middle"
                   fontSize="8" fill={e.hit ? "oklch(0.65 0.16 145)" : "white"} fontWeight={e.hit ? 600 : 400}>
                   {e.hit ? "H" : "M"}
                 </text>

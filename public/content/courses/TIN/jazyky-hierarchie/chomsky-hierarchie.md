@@ -24,28 +24,6 @@ Třídy se rozlišují *podle tvaru pravidel*. Předpokládejme $G = (N, \Sigma,
 
 Číselné označení je *opačně* než intuice: **typ 0 je nejsilnější** (libovolná pravidla), **typ 3 nejslabší** (pravidla velmi striktního tvaru). Čím přísnější tvar, tím méně jazyků lze gramatikou generovat, ale tím *jednodušší* je algoritmus, který kontroluje příslušnost slova k jazyku.
 
-::: svg "Hierarchie jazyků: čím vyšší typ čísla, tím užší třída"
-<svg viewBox="0 0 540 240" font-family="ui-sans-serif, system-ui" font-size="12">
-  <g fill="none" stroke-width="1.2">
-    <rect x="40" y="20" width="460" height="200" rx="10" stroke="var(--accent)"/>
-    <rect x="80" y="50" width="380" height="160" rx="10" stroke="var(--accent)"/>
-    <rect x="130" y="80" width="290" height="120" rx="10" stroke="var(--accent)"/>
-    <rect x="190" y="110" width="170" height="80" rx="10" stroke="var(--accent)"/>
-  </g>
-  <g fill="var(--accent)" font-size="11.5">
-    <text x="50" y="38">L₀ — rekurzivně vyčíslitelné</text>
-    <text x="90" y="68">L₁ — kontextové</text>
-    <text x="140" y="98">L₂ — bezkontextové</text>
-    <text x="200" y="128">L₃</text>
-    <text x="200" y="146">regulární</text>
-    <text x="200" y="174" fill="var(--text-muted)" font-size="10">{aⁿ}</text>
-    <text x="140" y="150" fill="var(--text-muted)" font-size="10">{aⁿbⁿ}</text>
-    <text x="95" y="150" fill="var(--text-muted)" font-size="10">{aⁿbⁿcⁿ}</text>
-    <text x="60" y="210" fill="var(--text-muted)" font-size="10">L(M_HP)</text>
-  </g>
-</svg>
-:::
-
 ::: viz chomsky-hierarchy "Vyber jazyk; viz označí nejnižší třídu, do které patří, akceptační model a krátký důkaz 'proč ne nižší'. Zkus L_HP — leží v L₀ \\ R, mimo zbytek hierarchie."
 :::
 

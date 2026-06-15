@@ -126,7 +126,7 @@ export default function PdfCdfLink() {
 
         {/* x-marker */}
         <line x1={toX(x)} y1={PAD_T} x2={toX(x)} y2={PAD_T + PH} stroke="var(--text)" strokeDasharray="3 3" />
-        <text x={toX(x)} y={PAD_T + 12} fontSize="10" fill="var(--text)" fontFamily="var(--font-mono)" textAnchor="middle">x={x.toFixed(2)}</text>
+        <text x={toX(x) + (toX(x) > PAD_L + PW - 48 ? -5 : 5)} y={PAD_T + 12} fontSize="10" fill="var(--text)" fontFamily="var(--font-mono)" textAnchor={toX(x) > PAD_L + PW - 48 ? "end" : "start"}>x={x.toFixed(2)}</text>
 
         {/* CDF pane */}
         <text x={PAD_L} y={cdfY0 - 3} fontSize="10.5" fill="var(--text-muted)" fontFamily="var(--font-mono)">CDF F(x) = P(X ≤ x)</text>

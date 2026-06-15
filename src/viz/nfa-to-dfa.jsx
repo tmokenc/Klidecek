@@ -95,7 +95,7 @@ export default function NfaToDfa() {
                   <g key={`${from}-${sym}-${to}`}>
                     <path d={`M${x1 - 8},${y1 - 14} Q${x1 - 25},${y1 - 30} ${x1 + 8},${y1 - 14}`}
                       stroke="var(--accent-line)" strokeWidth="1" fill="none" />
-                    <text x={x1 - 15} y={y1 - 28} fontSize="10" fill="var(--text-muted)">{sym}</text>
+                    <text x={x1 - 27} y={y1 - 30} textAnchor="middle" fontSize="10" fill="var(--text-muted)">{sym}</text>
                   </g>
                 );
               }
@@ -140,7 +140,7 @@ export default function NfaToDfa() {
               <g key={i}>
                 <path d={`M${x1 - 8},${y1 - 14} Q${x1 - 25},${y1 - 30} ${x1 + 8},${y1 - 14}`}
                   stroke="var(--accent)" strokeWidth="1" fill="none" />
-                <text x={x1 - 15} y={y1 - 28} fontSize="10" fill="var(--text-muted)">{e.sym}</text>
+                <text x={x1 - 27} y={y1 - 30} textAnchor="middle" fontSize="10" fill="var(--text-muted)">{e.sym}</text>
               </g>
             );
           }

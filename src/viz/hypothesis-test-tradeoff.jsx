@@ -125,6 +125,7 @@ export default function HypothesisTestTradeoff() {
 
         {/* legend */}
         <g transform={`translate(${W - 220}, ${PAD_T + 6})`} fontSize="10.5" fontFamily="var(--font-mono)">
+          <rect x="-6" y="-7" width="178" height="59" fill="var(--bg-card)" rx="4" />
           <rect x="0" y="0" width="14" height="9" fill="var(--accent)" opacity="0.3" />
           <text x="18" y="8" fill="var(--accent)">α = {alpha.toFixed(3)}  (chyba I)</text>
           <rect x="0" y="16" width="14" height="9" fill="var(--accent-line)" opacity="0.3" />

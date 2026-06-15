@@ -163,10 +163,10 @@ export default function AgentDecisionFlow() {
           <rect x={0} y={0} width={340} height={130} rx={4} fill="var(--bg-card)" stroke="var(--accent)" strokeWidth="1.4"/>
           <text x={170} y={18} textAnchor="middle" fontSize="11" fontWeight="700" fill="var(--text)">{agent.label}</text>
           {[
-            { key: "memoryUsed", label: "Memory (state)" },
+            { key: "memoryUsed", label: "Memory" },
             { key: "modelUsed", label: "Model světa" },
             { key: "goalUsed", label: "Goal" },
-            { key: "utilityUsed", label: "Utility function" },
+            { key: "utilityUsed", label: "Utility" },
           ].map((c, i) => {
             const used = agent[c.key];
             return (
@@ -183,8 +183,7 @@ export default function AgentDecisionFlow() {
               </g>
             );
           })}
-          <text x={14} y={88} fontSize="9" fill="var(--text-muted)">{agent.desc}</text>
-          <foreignObject x={14} y={94} width={312} height={30}>
+          <foreignObject x={14} y={84} width={312} height={40}>
             <div style={{ fontSize: 9, color: "var(--text-muted)", lineHeight: 1.4, fontFamily: "inherit" }}>{agent.desc}</div>
           </foreignObject>
         </g>

@@ -42,7 +42,7 @@ export default function IddfsRedundancy() {
 
   // Build tree layout
   const W = 540, H = 280;
-  const levelY = (k) => 30 + k * ((H - 60) / Math.max(1, depth));
+  const levelY = (k) => 30 + k * ((H - 100) / Math.max(1, depth));
   function nodesAtLevel(k) { return Math.min(20, Math.pow(BF, k)); }
 
   return (

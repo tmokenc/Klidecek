@@ -73,9 +73,10 @@ export default function LrWaldScoreTests() {
         <line x1={toX(lambdaHat)} y1={PAD_T + PH - 16} x2={toX(lambda0)} y2={PAD_T + PH - 16} stroke="var(--text)" strokeWidth="2" />
         <text x={(toX(lambdaHat) + toX(lambda0)) / 2} y={PAD_T + PH - 22} textAnchor="middle" fontSize="10" fill="var(--text)" fontFamily="var(--font-mono)">Wald width</text>
 
-        {/* Score: tangent at λ₀ */}
+        {/* Score: tangent at λ₀. Label at the tangent's lower-left end (end-anchored) so it
+            clears the ℓ(λ̂) MLE label sitting at the curve apex on the right. */}
         <line x1={toX(tanX1)} y1={toY(tanY1)} x2={toX(tanX2)} y2={toY(tanY2)} stroke="var(--text-muted)" strokeWidth="2" />
-        <text x={toX(tanX2) + 4} y={toY(tanY2)} fontSize="10" fill="var(--text-muted)" fontFamily="var(--font-mono)">slope U(λ₀)</text>
+        <text x={toX(tanX1) - 4} y={toY(tanY1) - 4} textAnchor="end" fontSize="10" fill="var(--text-muted)" fontFamily="var(--font-mono)">slope U(λ₀)</text>
 
         {/* axis label */}
         <text x={W - 16} y={H - 14} fontSize="10" textAnchor="end" fill="var(--text-muted)" fontFamily="var(--font-mono)">λ</text>

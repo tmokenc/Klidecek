@@ -193,8 +193,11 @@ export default function CfgDerivation() {
       </div>
       <div style={{ fontSize: 12, color: "var(--text-muted)" }}>{g.desc}</div>
 
-      {/* Tree */}
-      <svg viewBox={`0 0 ${totalW} ${totalH}`} style={{ width: "100%", maxWidth: 640, alignSelf: "center" }} fontFamily="var(--font-mono, ui-monospace)" fontSize="12">
+      {/* Tree — wrapped in a width-capped div because `.block-viz-body svg` forces
+          width:100%!important, so a sparse 1-node tree would otherwise balloon to full width.
+          The cap grows with the tree (totalW) so deep derivations still use the space. */}
+      <div style={{ width: "100%", maxWidth: Math.min(620, totalW * 2.6), margin: "0 auto" }}>
+      <svg viewBox={`0 0 ${totalW} ${totalH}`} style={{ width: "100%" }} fontFamily="var(--font-mono, ui-monospace)" fontSize="12">
         {/* edges */}
         {nodes.flatMap((n) =>
           n.children
@@ -225,6 +228,7 @@ export default function CfgDerivation() {
           );
         })}
       </svg>
+      </div>
 
       <div style={{ fontSize: 13, color: "var(--text)", textAlign: "center", fontFamily: "var(--font-mono, ui-monospace)" }}>
         Větná forma: <span style={{ color: "var(--accent)" }}>{getYield(tree).join("")}</span>

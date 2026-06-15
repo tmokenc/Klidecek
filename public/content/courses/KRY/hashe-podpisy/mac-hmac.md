@@ -50,31 +50,6 @@ kde:
 
 ### Struktura
 
-::: svg "HMAC: dva volání hashe s odlišnými ipad/opad maskami klíče"
-<svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="11.5">
-  <g fill="var(--bg-card)" stroke="var(--accent)" stroke-width="1.3">
-    <rect x="20"  y="40" width="160" height="40" rx="6"/>
-    <rect x="200" y="40" width="160" height="40" rx="6"/>
-    <rect x="380" y="40" width="140" height="40" rx="6"/>
-    <rect x="20"  y="120" width="160" height="40" rx="6"/>
-    <rect x="200" y="120" width="160" height="40" rx="6"/>
-    <rect x="380" y="120" width="140" height="40" rx="6"/>
-  </g>
-  <g fill="var(--text)" text-anchor="middle" font-size="11.5">
-    <text x="100" y="64">K' ⊕ ipad</text>
-    <text x="280" y="64">‖ M</text>
-    <text x="450" y="64">→ H(...) = h_1</text>
-    <text x="100" y="144">K' ⊕ opad</text>
-    <text x="280" y="144">‖ h_1</text>
-    <text x="450" y="144">→ H(...) = HMAC</text>
-  </g>
-  <g fill="var(--text-muted)" font-size="10.5" text-anchor="middle">
-    <text x="270" y="100">↓ vnitřní hash</text>
-    <text x="270" y="180">↓ vnější hash → výstup MAC</text>
-  </g>
-</svg>
-:::
-
 ::: viz hmac-structure "Krok 1: padding klíče → K' ⊕ ipad a K' ⊕ opad. Krok 2: vnitřní hash H(K'⊕ipad ∥ M). Krok 3: vnější hash H(K'⊕opad ∥ vnitřní). Vnořením je zablokován length-extension."
 :::
 

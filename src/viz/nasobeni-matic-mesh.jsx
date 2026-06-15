@@ -155,7 +155,7 @@ export default function NasobeniMaticMesh() {
         {/* In-flight B values */}
         {flyingB.map((b, k) => (
           <g key={`fb-${k}`}>
-            <text x={mx(b.j) + 26} y={my(b.i) - 8} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono)" fill="oklch(0.55 0.18 65)" opacity="0.7">
+            <text x={mx(b.j)} y={my(b.i) - 26} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono)" fill="oklch(0.55 0.18 65)" opacity="0.7">
               b{b.s}{b.j}={b.val}
             </text>
           </g>

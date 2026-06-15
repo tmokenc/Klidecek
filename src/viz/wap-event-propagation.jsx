@@ -102,7 +102,7 @@ export default function WapEventPropagation() {
         {/* sekvence zásahů jako log vpravo dole už ne — dáme pod SVG */}
         {/* šipky fází po stranách */}
         <line x1="328" y1="22" x2="328" y2="95" stroke={`oklch(0.55 0.15 ${PHASE_COLOR.capturing})`} strokeWidth="2" markerEnd="url(#wepDown)" />
-        <text x="334" y="60" fontSize="8.5" fill={`oklch(0.5 0.15 ${PHASE_COLOR.capturing})`} writingMode="tb">capturing</text>
+        <text x="320" y="60" fontSize="8.5" textAnchor="middle" fill={`oklch(0.5 0.15 ${PHASE_COLOR.capturing})`} writingMode="tb">capturing</text>
         <line x1="12" y1="95" x2="12" y2="22" stroke={`oklch(0.55 0.15 ${PHASE_COLOR.bubbling})`} strokeWidth="2" markerEnd="url(#wepUp)" />
 
         <defs>

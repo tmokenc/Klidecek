@@ -116,52 +116,6 @@ Použije se proměnná prostředí `OMP_SCHEDULE`. Praktické pro ladění (tuni
 
 ## Srovnání
 
-::: svg "Static vs dynamic scheduling — load balance"
-<svg viewBox="0 0 540 220" font-family="ui-sans-serif, system-ui" font-size="10">
-  <text x="20" y="20" fill="var(--text)" font-weight="600">static — uniform partition, but load imbalanced</text>
-  <g fill="var(--bg-inset)" stroke="var(--line)">
-    <rect x="20" y="30" width="120" height="22" rx="2"/>
-    <rect x="145" y="30" width="120" height="22" rx="2"/>
-    <rect x="270" y="30" width="120" height="22" rx="2"/>
-    <rect x="395" y="30" width="120" height="22" rx="2"/>
-  </g>
-  <g fill="var(--text)" text-anchor="middle" font-size="9">
-    <text x="80" y="45">T0: 25 iter</text>
-    <text x="205" y="45">T1: 25 iter</text>
-    <text x="330" y="45">T2: 25 iter</text>
-    <text x="455" y="45">T3: 25 iter</text>
-  </g>
-  <g fill="var(--accent)" opacity="0.4">
-    <rect x="20" y="30" width="40" height="22"/>
-    <rect x="145" y="30" width="120" height="22"/>
-    <rect x="270" y="30" width="60" height="22"/>
-    <rect x="395" y="30" width="80" height="22"/>
-  </g>
-  <text x="270" y="68" text-anchor="middle" fill="var(--text-muted)" font-size="9">work time: T1 = full, T0 = ⅓, T2 ≈ ½, T3 = ⅔ → wasted parallelism</text>
-  <text x="20" y="100" fill="var(--text)" font-weight="600">dynamic, chunk=8 — load balanced</text>
-  <g fill="var(--bg-inset)" stroke="var(--line)">
-    <rect x="20" y="110" width="120" height="22" rx="2"/>
-    <rect x="145" y="110" width="120" height="22" rx="2"/>
-    <rect x="270" y="110" width="120" height="22" rx="2"/>
-    <rect x="395" y="110" width="120" height="22" rx="2"/>
-  </g>
-  <g fill="var(--accent)" opacity="0.4">
-    <rect x="20" y="110" width="100" height="22"/>
-    <rect x="145" y="110" width="100" height="22"/>
-    <rect x="270" y="110" width="100" height="22"/>
-    <rect x="395" y="110" width="100" height="22"/>
-  </g>
-  <g fill="var(--text)" text-anchor="middle" font-size="9">
-    <text x="80" y="125">T0: dynamic</text>
-    <text x="205" y="125">T1: dynamic</text>
-    <text x="330" y="125">T2: dynamic</text>
-    <text x="455" y="125">T3: dynamic</text>
-  </g>
-  <text x="270" y="148" text-anchor="middle" fill="var(--text-muted)" font-size="9">work time: ~stejný pro všechny, ale runtime queue overhead</text>
-  <text x="20" y="195" fill="var(--text-faint)" font-size="9">Sweet spot: chunk dostatečně velký, aby amortizoval overhead, dost malý pro balance</text>
-</svg>
-:::
-
 ::: viz omp-scheduling-comparator "Vyber workload (triangulární / skewed / uniform). Gantt 4 vláken pro 4 schedule strategie — idle čas červeně, % balance vlevo. Dynamic/guided minimalizují čekání."
 :::
 

@@ -57,7 +57,7 @@ export default function BifGoDag() {
                 stroke={hot ? "var(--accent)" : "var(--line-strong)"}
                 strokeWidth={hot ? 2 : 1} opacity={hot ? 0.95 : 0.45}
                 strokeDasharray={e.rel === "part" ? "4 3" : "none"} />
-              <text x={(a.p[0] + b.p[0]) / 2 + 6} y={(a.p[1] + b.p[1]) / 2}
+              <text x={(a.p[0] + b.p[0]) / 2 + 6} y={(a.p[1] + b.p[1]) / 2 - (Math.abs(a.p[1] - b.p[1]) < 4 ? 8 : 0)}
                 fontSize="8.5" fontFamily="var(--font-mono)"
                 fill={hot ? "var(--accent)" : "var(--text-faint)"}>
                 {e.rel === "part" ? "part-of" : "is-a"}

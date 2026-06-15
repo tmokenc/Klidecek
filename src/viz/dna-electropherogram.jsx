@@ -77,6 +77,22 @@ export default function DnaElectropherogram() {
   const x2px = (s) => 40 + (s - xMin) / (xMax - xMin) * (W - 60);
   const y2px = (h) => H - 40 - (h / 4000) * (H - 60);
 
+  // Fan apart labels of adjacent same-locus peaks (alleles 1 repeat apart map to
+  // only ~8px, so centered 2-digit labels would collide). Left label anchors
+  // "end" and shifts left, right label anchors "start" and shifts right.
+  const LABEL_GAP = 14; // min center-to-center px before a pair counts as "tight"
+  for (let i = 0; i < peaks.length; i++) {
+    peaks[i].labelDx = 0;
+    peaks[i].labelAnchor = "middle";
+  }
+  for (let i = 1; i < peaks.length; i++) {
+    const prev = peaks[i - 1], p = peaks[i];
+    if (prev.locus === p.locus && x2px(p.size) - x2px(prev.size) < LABEL_GAP) {
+      prev.labelDx = -4; prev.labelAnchor = "end";
+      p.labelDx = 4; p.labelAnchor = "start";
+    }
+  }
+
   // Gaussian-like peaks
   function peakPath(p) {
     const xc = x2px(p.size);
@@ -124,7 +140,7 @@ export default function DnaElectropherogram() {
         {peaks.map((p, i) => (
           <g key={i}>
             <path d={peakPath(p)} fill={CHANNEL_COLOR[p.channel]} opacity="0.85" />
-            <text x={x2px(p.size)} y={y2px(p.height) - 5} fontSize="10" textAnchor="middle" fill={CHANNEL_COLOR[p.channel]} fontWeight="600">{p.allele}</text>
+            <text x={x2px(p.size) + p.labelDx} y={y2px(p.height) - 5} fontSize="10" textAnchor={p.labelAnchor} fill={CHANNEL_COLOR[p.channel]} fontWeight="600">{p.allele}</text>
           </g>
         ))}
 

@@ -191,7 +191,7 @@ export default function BinningAndOutlierRules() {
         {bins.map((b, i) => (
           <g key={i}>
             <line x1={toX(b.lo)} y1={PAD_T + 6} x2={toX(b.lo)} y2={PAD_T + 50} stroke="var(--line-strong)" strokeWidth="0.6" strokeDasharray="2 2" />
-            <text x={(toX(b.lo) + toX(b.hi)) / 2} y={PAD_T + 6} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-muted)">bin {i + 1}</text>
+            <text x={(toX(b.lo) + toX(b.hi)) / 2} y={PAD_T + 6 - (i % 2) * 11} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-muted)">bin {i + 1}</text>
           </g>
         ))}
         {bins.length > 0 && (

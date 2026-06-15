@@ -56,6 +56,8 @@ export default function TimingPassword() {
 
   const W = 500, H = 80;
   const maxT = secret.length + 1;
+  const barWNaive = (W / 2 - 24) * (tNaive / maxT);
+  const insideNaive = barWNaive > 50;
 
   return (
     <div style={ctn}>
@@ -72,8 +74,8 @@ export default function TimingPassword() {
         <div style={{ background: "var(--bg-inset)", padding: 10, borderRadius: 6 }}>
           <div style={{ fontSize: 11, color: "#e07a5f", marginBottom: 4, fontWeight: 600 }}>naivni memcmp (rana exit)</div>
           <svg viewBox={`0 0 ${W/2 - 20} 40`} style={{ width: "100%" }}>
-            <rect x={2} y={8} width={(W/2 - 24) * (tNaive / maxT)} height={20} fill="#e07a5f" rx={3} />
-            <text x={4} y={22} fontSize="10" fill="var(--bg-inset)" fontFamily="var(--font-mono)" fontWeight="bold">{tNaive} cyklu</text>
+            <rect x={2} y={8} width={barWNaive} height={20} fill="#e07a5f" rx={3} />
+            <text x={insideNaive ? 4 : 2 + barWNaive + 6} y={22} fontSize="10" fill={insideNaive ? "var(--bg-inset)" : "var(--text)"} fontFamily="var(--font-mono)" fontWeight="bold">{tNaive} cyklu</text>
           </svg>
           <div style={{ fontSize: 11, fontFamily: "var(--font-mono)", marginTop: 4 }}>match: {matchNaive ? "✓" : "✗"}</div>
         </div>

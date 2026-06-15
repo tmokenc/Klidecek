@@ -73,16 +73,20 @@ export default function SuperpipeliningDepth() {
           peak d = {peak.d}
         </text>
 
-        {/* reference points */}
-        {REF_POINTS.map(rp => {
+        {/* reference points. Near the flat peak the markers crowd, so each label gets a
+            per-index vertical stagger (above/below) + an anchor pointing away from its
+            neighbours and the "peak d=" label, instead of all sitting on one line. */}
+        {REF_POINTS.map((rp, i) => {
           const p = points[rp.d - 1];
           const cx = xPos(rp.d);
-          // flip label to the left of the marker when near the right edge so it doesn't clip
-          const flip = cx > padX + plotW * 0.6;
+          const my = yPos(p.perfRel);
+          const dy = [-11, 14, -11, 16, 14][i] ?? 3;       // alternate above / below the marker
+          const anchorEnd = [false, false, true, false, true][i]; // extend left for crowded/edge labels
+          const col = rp.warn ? "oklch(0.6 0.2 22)" : "var(--text-faint)";
           return (
             <g key={rp.label}>
-              <circle cx={cx} cy={yPos(p.perfRel)} r={3} fill={rp.warn ? "oklch(0.6 0.2 22)" : "var(--text-muted)"} />
-              <text x={cx + (flip ? -5 : 5)} y={yPos(p.perfRel) + 3} fontSize="8" textAnchor={flip ? "end" : "start"} fill={rp.warn ? "oklch(0.6 0.2 22)" : "var(--text-faint)"}>{rp.label}</text>
+              <circle cx={cx} cy={my} r={3} fill={rp.warn ? "oklch(0.6 0.2 22)" : "var(--text-muted)"} />
+              <text x={cx + (anchorEnd ? -4 : 4)} y={my + dy} fontSize="8" textAnchor={anchorEnd ? "end" : "start"} fill={col}>{rp.label}</text>
             </g>
           );
         })}
@@ -92,12 +96,13 @@ export default function SuperpipeliningDepth() {
         <circle cx={xPos(depth)} cy={yPos(cur.perfRel)} r={5} fill="var(--accent-line)" />
 
         <g fontSize="10" fill="var(--text)">
-          <text x={padX} y={H - 30}>CPI = {cur.effectiveCPI.toFixed(2)} | freq gain ≈ {cur.freqGain.toFixed(2)}× | rel.výkon = {cur.perfRel.toFixed(2)}</text>
-          <text x={padX} y={H - 14} fill="var(--text-faint)" fontSize="9">
-            Křivka s vrcholem: hloubka zvyšuje frekvenci (ale se sytí kvůli latch režii), zatímco stoupá náklad za mispredict ({(branchFreq * mispred * 100).toFixed(2)}% × hloubka).
-          </text>
+          <text x={padX} y={H - 18}>CPI = {cur.effectiveCPI.toFixed(2)} | freq gain ≈ {cur.freqGain.toFixed(2)}× | rel.výkon = {cur.perfRel.toFixed(2)}</text>
         </g>
       </svg>
+      {/* caption as HTML so the long line wraps instead of clipping the SVG right frame */}
+      <div style={{ fontSize: 11, color: "var(--text-faint)", lineHeight: 1.4, marginTop: 4 }}>
+        Křivka s vrcholem: hloubka zvyšuje frekvenci (ale se sytí kvůli latch režii), zatímco stoupá náklad za mispredict ({(branchFreq * mispred * 100).toFixed(2)} % × hloubka).
+      </div>
     </div>
   );
 }

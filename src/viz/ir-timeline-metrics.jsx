@@ -69,13 +69,14 @@ export default function IrTimelineMetrics() {
         ))}
 
         {/* Events */}
-        {EVENTS.map((e) => {
+        {EVENTS.map((e, i) => {
           const x = 30 + (times[e.id] / MAX_HOURS) * (W - 60);
+          const labelY = 32 - (i % 2) * 13;
           return (
             <g key={e.id}>
               <line x1={x} y1={40} x2={x} y2={70} stroke={e.color} strokeWidth="1.5" />
               <circle cx={x} cy={40} r="6" fill={e.color} stroke="white" strokeWidth="1.5" />
-              <text x={x} y={32} fontSize="9" fontWeight="600" fill={e.color} textAnchor="middle">{e.label}</text>
+              <text x={x} y={labelY} fontSize="9" fontWeight="600" fill={e.color} textAnchor="middle">{e.label}</text>
             </g>
           );
         })}

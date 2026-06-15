@@ -37,59 +37,6 @@ Sloupec `country` má teď velikost `8 · 10⁹ × 1 B = 8 GB`. Dictionary je `2
 3. **Attribute vector** ukládá valueID pro každý záznam.
 4. **Bit-encoded fixed-length** — všechny valueIDs mají stejný počet bitů (např. 23 bits pro 5M unikátních hodnot), což umožňuje *přesné offset výpočty*.
 
-::: svg "Dictionary encoding: sloupec se rozdělí na dictionary (seřazené unikátní hodnoty + implicitní ID) a attribute vector (sekvence IDs). Lookup hodnoty = lookup dictionary; lookup po ID = O(1) offset."
-<svg viewBox="0 0 540 200" font-family="ui-sans-serif, system-ui" font-size="10">
-  <g>
-    <text x="100" y="20" text-anchor="middle" fill="var(--text)" font-weight="600">Originální sloupec</text>
-    <g font-family="ui-monospace, monospace">
-      <rect x="40" y="35" width="120" height="20" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="50" y="50" fill="var(--text)">Anna</text>
-      <rect x="40" y="55" width="120" height="20" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="50" y="70" fill="var(--text)">Bob</text>
-      <rect x="40" y="75" width="120" height="20" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="50" y="90" fill="var(--text)">Anna</text>
-      <rect x="40" y="95" width="120" height="20" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="50" y="110" fill="var(--text)">Carol</text>
-      <rect x="40" y="115" width="120" height="20" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="50" y="130" fill="var(--text)">Anna</text>
-      <rect x="40" y="135" width="120" height="20" fill="var(--bg-card)" stroke="var(--line)"/>
-      <text x="50" y="150" fill="var(--text)">Bob</text>
-    </g>
-  </g>
-  <text x="200" y="100" fill="var(--accent)" font-size="14">→</text>
-  <g>
-    <text x="270" y="20" text-anchor="middle" fill="var(--text)" font-weight="600">Dictionary</text>
-    <g font-family="ui-monospace, monospace">
-      <rect x="220" y="35" width="100" height="20" fill="var(--bg-card)" stroke="var(--accent)"/>
-      <text x="230" y="50" fill="var(--text)">0: Anna</text>
-      <rect x="220" y="55" width="100" height="20" fill="var(--bg-card)" stroke="var(--accent)"/>
-      <text x="230" y="70" fill="var(--text)">1: Bob</text>
-      <rect x="220" y="75" width="100" height="20" fill="var(--bg-card)" stroke="var(--accent)"/>
-      <text x="230" y="90" fill="var(--text)">2: Carol</text>
-    </g>
-    <text x="270" y="115" text-anchor="middle" fill="var(--text-muted)" font-size="10">3 entries</text>
-    <text x="270" y="130" text-anchor="middle" fill="var(--text-muted)" font-size="10">2 bits = ID</text>
-  </g>
-  <g>
-    <text x="430" y="20" text-anchor="middle" fill="var(--text)" font-weight="600">Attribute vector</text>
-    <g font-family="ui-monospace, monospace">
-      <rect x="390" y="35" width="80" height="20" fill="var(--bg-card)" stroke="var(--accent-line)"/>
-      <text x="425" y="50" text-anchor="middle" fill="var(--text)">0 (Anna)</text>
-      <rect x="390" y="55" width="80" height="20" fill="var(--bg-card)" stroke="var(--accent-line)"/>
-      <text x="425" y="70" text-anchor="middle" fill="var(--text)">1 (Bob)</text>
-      <rect x="390" y="75" width="80" height="20" fill="var(--bg-card)" stroke="var(--accent-line)"/>
-      <text x="425" y="90" text-anchor="middle" fill="var(--text)">0 (Anna)</text>
-      <rect x="390" y="95" width="80" height="20" fill="var(--bg-card)" stroke="var(--accent-line)"/>
-      <text x="425" y="110" text-anchor="middle" fill="var(--text)">2 (Carol)</text>
-      <rect x="390" y="115" width="80" height="20" fill="var(--bg-card)" stroke="var(--accent-line)"/>
-      <text x="425" y="130" text-anchor="middle" fill="var(--text)">0 (Anna)</text>
-      <rect x="390" y="135" width="80" height="20" fill="var(--bg-card)" stroke="var(--accent-line)"/>
-      <text x="425" y="150" text-anchor="middle" fill="var(--text)">1 (Bob)</text>
-    </g>
-  </g>
-</svg>
-:::
-
 ::: viz dictionary-encoding-builder "Upravte sloupec — sledujte dictionary, bit-packed attribute vector a kompresní poměr. Sorted dict umožní range queries, append-only umožní rychlé INSERT."
 :::
 

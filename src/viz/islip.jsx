@@ -161,7 +161,7 @@ export default function ISlip() {
         </text>
 
         {/* VOQ grid */}
-        <text x={gridX + cell * N / 2} y={gridY - 6} textAnchor="middle"
+        <text x={gridX + cell * N / 2} y={gridY - 16} textAnchor="middle"
           fontSize="9" fontFamily="var(--font-mono)" fontWeight="700"
           fill="var(--text)">
           VOQ ({N}×{N})
@@ -174,7 +174,7 @@ export default function ISlip() {
           </text>
         ))}
         {Array.from({ length: N }, (_, j) => (
-          <text key={`xl-${j}`} x={gridX + j * cell + cell / 2} y={gridY + 5}
+          <text key={`xl-${j}`} x={gridX + j * cell + cell / 2} y={gridY - 4}
             textAnchor="middle" fontSize="9" fontFamily="var(--font-mono)"
             fill="var(--text-muted)">
             o{j}
@@ -205,7 +205,7 @@ export default function ISlip() {
         )}
 
         {/* bipartite view */}
-        <text x={bipX + gap / 2} y={gridY - 6} textAnchor="middle"
+        <text x={bipX + gap / 2} y={gridY - 16} textAnchor="middle"
           fontSize="9" fontFamily="var(--font-mono)" fontWeight="700"
           fill="var(--text)">
           Bipartitní matching

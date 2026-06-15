@@ -86,7 +86,7 @@ export default function ChisqTFGallery() {
             <text x={toX(v)} y={PAD_T + PH + 14} fontSize="9.5" textAnchor="middle" fill="var(--text-muted)" fontFamily="var(--font-mono)">{v}</text>
           </g>
         ))}
-        <text x={W - 14} y={H - 16} fontSize="10" textAnchor="end" fill="var(--text-muted)" fontFamily="var(--font-mono)">x</text>
+        <text x={W - 2} y={H - 2} fontSize="10" textAnchor="end" fill="var(--text-muted)" fontFamily="var(--font-mono)">x</text>
       </svg>
 
       <div className="viz-controls">

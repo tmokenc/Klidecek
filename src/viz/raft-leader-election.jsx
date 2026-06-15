@@ -144,7 +144,7 @@ export default function RaftLeaderElection() {
               <circle r={22} fill={n.alive ? "var(--bg-inset)" : "var(--bg-card)"} stroke={colors[n.role]} strokeWidth="2"
                 opacity={n.alive ? 1 : 0.4} />
               <text x={0} y={-4} textAnchor="middle" fontSize="10" fontFamily="var(--font-mono)" fill={colors[n.role]}>n{n.id}</text>
-              <text x={0} y={8} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono)" fill="var(--text-muted)">{n.role}</text>
+              <text x={0} y={8} textAnchor="middle" fontSize="8" fontFamily="var(--font-mono)" fill="var(--text-muted)" textLength={34} lengthAdjust="spacingAndGlyphs">{n.role}</text>
               {/* term label sits below the circle (r=22) so the descenders don't bite the stroke */}
               <text x={0} y={34} textAnchor="middle" fontSize="8.5" fontFamily="var(--font-mono)" fill="var(--text-faint)">term={n.term}</text>
             </g>

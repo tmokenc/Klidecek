@@ -33,8 +33,8 @@ export default function PdsBetaReputation() {
   const mean = a / (a + b); // E(p)
   const rep = (r - s) / (r + s + 2); // normalized score in [-1,1]
 
-  const W = 360, H = 150;
-  const padL = 30, padR = 12, padT = 14, padB = 22;
+  const W = 360, H = 160;
+  const padL = 30, padR = 12, padT = 14, padB = 36;
   const plotW = W - padL - padR;
   const plotH = H - padT - padB;
 
@@ -79,7 +79,7 @@ export default function PdsBetaReputation() {
         <line x1={xS(mean)} y1={padT} x2={xS(mean)} y2={padT + plotH} stroke="oklch(0.62 0.15 145)" strokeWidth="1.2" strokeDasharray="4 3" />
         <text x={xS(mean)} y={padT - 2} textAnchor="middle" fontSize="9" fill="oklch(0.55 0.15 145)" fontFamily="var(--font-mono)">E(p)={mean.toFixed(2)}</text>
 
-        <text x={W / 2} y={H - 3} textAnchor="middle" fontSize="9.5" fill="var(--text-muted)" fontFamily="var(--font-mono)">
+        <text x={W / 2} y={padT + plotH + 28} textAnchor="middle" fontSize="9.5" fill="var(--text-muted)" fontFamily="var(--font-mono)">
           Beta(α={a}, β={b})
         </text>
       </svg>

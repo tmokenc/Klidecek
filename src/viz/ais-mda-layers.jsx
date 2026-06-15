@@ -74,7 +74,7 @@ export default function MdaLayers() {
               <text x={ROW_X + 12} y={y + 17} fontSize="13" fontWeight="700" fill="var(--text)">
                 {l.label}
               </text>
-              <text x={ROW_X + 50} y={y + 16} fontSize="8.5" fill="var(--text-muted)">
+              <text x={ROW_X + 50} y={y + 16} fontSize="7" textLength={ROW_W - 52} lengthAdjust="spacingAndGlyphs" fill="var(--text-muted)">
                 {l.full}
               </text>
               <text x={ROW_X + 50} y={y + 28} fontSize="8.5" fill="var(--text-faint)" fontStyle="italic">

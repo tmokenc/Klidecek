@@ -203,7 +203,9 @@ export default function TTestInteractive() {
           <>
             <line x1={tToX(stat)} y1={tY0} x2={tToX(stat)} y2={tY0 + PH} stroke="var(--accent-line)" strokeWidth="2" />
             <circle cx={tToX(stat)} cy={tToY(S.tPDF(stat, df))} r="4" fill="var(--accent-line)" />
-            <text x={tToX(stat)} y={tY0 - 2} textAnchor="middle" fontSize="10.5" fill="var(--accent-line)" fontFamily="var(--font-mono)">T={stat.toFixed(3)}</text>
+            {/* label sits just inside the top of the plot box (not on the sample-axis tick row above), with a halo so it stays legible over the curve */}
+            <rect x={tToX(stat) - 30} y={tY0 + 4} width="60" height="14" rx="2" fill="var(--bg-card)" opacity="0.85" />
+            <text x={tToX(stat)} y={tY0 + 14} textAnchor="middle" fontSize="10.5" fill="var(--accent-line)" fontFamily="var(--font-mono)">T={stat.toFixed(3)}</text>
           </>
         )}
 

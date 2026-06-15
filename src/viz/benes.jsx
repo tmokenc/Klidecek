@@ -53,7 +53,7 @@ export default function Benes() {
             <g key={i}>
               <rect x={x1} y={y1} width={x2 - x1} height={y2 - y1}
                 fill="none" stroke={color} strokeWidth="1.1" strokeDasharray="3 2" rx="5" />
-              <text x={x1 + 4} y={y1 + 9} fontSize="8" fontFamily="var(--font-mono)"
+              <text x={x1 + 1} y={y1 - 2} fontSize="8" fontFamily="var(--font-mono)"
                 fontWeight="700" fill={color}>BN{b.level}</text>
             </g>
           );
