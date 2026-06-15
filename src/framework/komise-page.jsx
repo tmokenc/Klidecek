@@ -8,11 +8,11 @@
 import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import {
   addRepo, removeRepo, setRepoEnabled, restoreDefault,
-  rankForCommission, topicsForMember,
+  rankForCommission, topicsForMember, buildSpecFilter, recordInSpec,
   buildCommissionExport, exportToCSV, parseBoardParam, downloadText,
 } from "./komise.js";
 import { useKomise } from "./komise-context.jsx";
-import { SEASON_2026, findCommittee2026, formatNumbers, numbersHint } from "./komise-2026.js";
+import { SEASON_2026, findCommittee2026, formatNumbers, numbersHint, committeeSpecCodes } from "./komise-2026.js";
 
 /* small line icons, sized to sit inline with button text (matches the app's 24-grid stroke set) */
 const Ic = (d, sw = 2) => (p) => (
@@ -23,11 +23,12 @@ const IconLink = Ic(<><path d="M9 15 15 9" /><path d="M11 6.5 12 5.5a4 4 0 0 1 5
 const IconUsers = Ic(<><path d="M15 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1" /><circle cx="8.5" cy="8" r="3.2" /><path d="M16 5a3.2 3.2 0 0 1 0 6.2M22 19v-1a4 4 0 0 0-3-3.8" /></>);
 const IconChevron = Ic(<path d="m9 6 6 6-6 6" />, 2.4);
 
-/* Save / share / export bar for the selected commission. */
-function ExportBar({ index, board }) {
+/* Save / share / export bar for the selected commission. When a spec filter is active
+ * the export mirrors the on-screen list (only in-specialization questions). */
+function ExportBar({ index, board, filter }) {
   const [copied, setCopied] = useState(false);
   const stamp = () => new Date().toISOString().slice(0, 10);
-  const data = () => buildCommissionExport(index, board, { exportedAt: new Date().toISOString() });
+  const data = () => buildCommissionExport(index, board, { exportedAt: new Date().toISOString() }, filter);
   const dlJSON = () => downloadText(JSON.stringify(data(), null, 2), `komise-${stamp()}.json`, "application/json");
   const dlCSV = () => downloadText(exportToCSV(data()), `komise-${stamp()}.csv`, "text/csv;charset=utf-8");
   const copyLink = async () => {
@@ -42,7 +43,7 @@ function ExportBar({ index, board }) {
       window.prompt("Zkopíruj si odkaz:", link);
     }
   };
-  const n = index.records.filter((r) => board.includes(r.memberKey)).length;
+  const n = index.records.filter((r) => board.includes(r.memberKey) && recordInSpec(r, filter)).length;
   return (
     <div className="komise-export">
       <span className="komise-export-label">
@@ -195,7 +196,7 @@ function MemberPicker({ members, board, onAdd }) {
  * committee key, with data or not) and the snapshot only ever SHRINKS: once a key
  * leaves the board — by "Odebrat" or by hand — it stops being this lookup's business,
  * so members the user deliberately (re-)adds afterwards are never nagged about. */
-function CommitteeLookup({ index, board, setBoard, memberNameOf }) {
+function CommitteeLookup({ index, board, setBoard, memberNameOf, onCommittee }) {
   const [q, setQ] = useState("");
   const [res, setRes] = useState(null); // {error} | {committee, addedN, anyData, noData, extrasAtApply, keepExtras}
 
@@ -235,6 +236,9 @@ function CommitteeLookup({ index, board, setBoard, memberNameOf }) {
     // a no-op re-apply of the same committee keeps an earlier "Nechat" dismissal
     const keepExtras = !!(res && !res.error && res.committee === c && !added.length && res.keepExtras);
     setRes({ committee: c, addedN: added.length, anyData: targetKeys.length > 0, noData, extrasAtApply, keepExtras });
+    // entering a committee number is an explicit "show me THIS specialization" — turn
+    // the spec filter on (and re-on, if the user had switched it off for a prior one).
+    onCommittee && onCommittee(c);
   };
 
   const c = res && res.committee;
@@ -349,12 +353,32 @@ function TopicRow({ content, t, memberNameOf, navigate, rank }) {
 
 /* ─── min-max view ────────────────────────────────────────── */
 function MinMaxView({ content, index, board, setBoard, navigate, memberNameOf }) {
-  const ranked = useMemo(() => rankForCommission(index, board), [index, board]);
+  // Spec filter: when the board is filled from a committee NUMBER, restrict the ranking
+  // to the okruhy of that committee's specialization (a member sits on several committees
+  // and asks across specs — you usually want only THIS one). `filterCodes` holds the
+  // committee's spec codes; `allowed` resolves them to course/topic keys (null when none
+  // resolve, e.g. a MIT-EN-only committee); `filterOn` lets the user peek at everything.
+  const [filterCodes, setFilterCodes] = useState(null);
+  const [filterOn, setFilterOn] = useState(true);
+  const allowed = useMemo(
+    () => (filterCodes ? buildSpecFilter(content.EXAM_TOPICS, filterCodes) : null),
+    [content, filterCodes]
+  );
+  const activeFilter = filterOn && allowed ? allowed : null;
+
+  const onCommittee = useCallback((c) => {
+    setFilterCodes(committeeSpecCodes(c));
+    setFilterOn(true);
+  }, []);
+
+  const ranked = useMemo(() => rankForCommission(index, board, activeFilter), [index, board, activeFilter]);
   const boardMembers = board
     .map((k) => index.members.find((m) => m.key === k))
     .filter(Boolean);
 
   const toggle = (k) => setBoard(board.includes(k) ? board.filter((x) => x !== k) : [...board, k]);
+  const clearAll = () => { setBoard([]); setFilterCodes(null); };
+  const specLabel = allowed ? allowed.specs.join(" + ") : "";
 
   if (index.members.length === 0) {
     return <div className="komise-empty">Žádná data o komisích. Přidej nebo obnov repozitář v záložce <b>Repozitáře</b>.</div>;
@@ -368,7 +392,7 @@ function MinMaxView({ content, index, board, setBoard, navigate, memberNameOf })
         nejdřív.
       </p>
 
-      <CommitteeLookup index={index} board={board} setBoard={setBoard} memberNameOf={memberNameOf} />
+      <CommitteeLookup index={index} board={board} setBoard={setBoard} memberNameOf={memberNameOf} onCommittee={onCommittee} />
 
       <div className="komise-pick-row">
         <MemberPicker members={index.members} board={board} onAdd={toggle} />
@@ -394,11 +418,32 @@ function MinMaxView({ content, index, board, setBoard, navigate, memberNameOf })
           {board.length > boardMembers.length && (
             <span className="komise-muted">({board.length - boardMembers.length} mimo data)</span>
           )}
-          <button className="btn ghost komise-clear" onClick={() => setBoard([])}>Vyčistit</button>
+          <button className="btn ghost komise-clear" onClick={clearAll}>Vyčistit</button>
         </div>
       )}
 
-      {board.length > 0 && <ExportBar index={index} board={board} />}
+      {board.length > 0 && allowed && (
+        <div className="komise-specfilter" data-on={filterOn}>
+          <span className="komise-specfilter-text">
+            {filterOn ? (
+              <>Jen okruhy specializace <b>{specLabel}</b>
+                {ranked.filteredOut > 0 && <> — skryto <b>{ranked.filteredOut}</b> dotazů mimo ni</>}
+              </>
+            ) : (
+              <>Filtr specializace <b>{specLabel}</b> vypnutý — zobrazeny všechny dotazy komise.</>
+            )}
+          </span>
+          <button
+            className="btn ghost komise-specfilter-toggle"
+            onClick={() => setFilterOn((v) => !v)}
+            title={filterOn ? "Zobrazit i dotazy, které tihle komisaři dávali u jiných specializací" : `Filtrovat zpět jen na ${specLabel}`}
+          >
+            {filterOn ? "Zobrazit vše" : `Filtrovat na ${specLabel}`}
+          </button>
+        </div>
+      )}
+
+      {board.length > 0 && <ExportBar index={index} board={board} filter={activeFilter} />}
 
       {board.length === 0 ? (
         <div className="komise-empty komise-empty-hint">
@@ -406,7 +451,11 @@ function MinMaxView({ content, index, board, setBoard, navigate, memberNameOf })
           Zadej číslo komise, vyber komisaře výše — nebo přidej rovnou všechny.
         </div>
       ) : ranked.topics.length === 0 && ranked.loose.length === 0 ? (
-        <div className="komise-empty">Od vybraných komisařů zatím nemáme žádné záznamy.</div>
+        <div className="komise-empty">
+          {ranked.filteredOut > 0
+            ? <>Vybraní komisaři nemají žádné dotazy ve specializaci <b>{specLabel}</b> ({ranked.filteredOut} mají jinde) — zkus <b>Zobrazit vše</b> výše.</>
+            : "Od vybraných komisařů zatím nemáme žádné záznamy."}
+        </div>
       ) : (
         <>
           <div className="komise-summary">

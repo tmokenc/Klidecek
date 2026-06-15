@@ -208,19 +208,62 @@ export const memberDisplay = (index, key) => {
 
 const weightOf = (rec) => (rec.map && rec.map.confidence === "high" ? 1 : 0.6);
 
+/* ─── Specialization filter ───────────────────────────────────
+ * A board member can sit on several committees and historically asked across many
+ * specializations. When you fill the board from a committee NUMBER, you usually only
+ * care about THAT committee's specialization — so the question is: which course/topic
+ * pairs belong to a given spec? An exam topic's `refs` cover course/topic pairs (same
+ * granularity as a committee record's {course, topic} mapping, see-also excluded), so a
+ * spec's exam set defines exactly the set of course/topic keys "inside" that spec.
+ *
+ * `codes` is the committee's spec tag split into individual codes ("NCPS+NHPC+NADE" →
+ * ["NCPS","NHPC","NADE"]). Returns { keys, courses, specs } or null when NONE of the
+ * codes resolve to an exam set (e.g. a committee tagged only "MIT-EN", which has no
+ * topic set) — the caller then applies no filter rather than hiding everything. */
+export function buildSpecFilter(examSets, codes) {
+  const keys = new Set();
+  const courses = new Set();
+  const specs = [];
+  for (const code of codes || []) {
+    const topics = examSets && examSets[code];
+    if (!Array.isArray(topics) || topics.length === 0) continue;
+    specs.push(code);
+    for (const t of topics) {
+      for (const key of examTopicKeys(t)) {
+        keys.add(key);
+        courses.add(key.slice(0, key.indexOf("/")));
+      }
+    }
+  }
+  return keys.size ? { keys, courses, specs } : null;
+}
+
+// Does a committee record fall inside a spec filter? Mapped records match on the exact
+// course/topic; loose (unmapped) records match on course alone — the finest we can do
+// without a topic, but enough to drop a clearly-other-spec course. No filter ⇒ all pass.
+export function recordInSpec(r, filter) {
+  if (!filter) return true;
+  if (r.map && r.map.topic) return filter.keys.has(r.course + "/" + r.map.topic);
+  return filter.courses.has(r.course);
+}
+
 /* ─── Min-max: rank topics for a chosen commission ────────── */
 // memberKeys = the people who will sit on your board. Returns the exam topics those
 // people historically asked, ranked by how strongly (frequency × confidence), so you
 // know what to prioritise. `topics` are mappable; `loose` are course-known-but-unmapped
-// or other-specialisation records by your board (still worth a glance).
-export function rankForCommission(index, memberKeys) {
+// or other-specialisation records by your board (still worth a glance). An optional
+// `filter` (from buildSpecFilter) drops records outside the committee's specialization;
+// `filteredOut` reports how many were hidden so the UI can offer to show them.
+export function rankForCommission(index, memberKeys, filter) {
   const set = new Set(memberKeys || []);
   const topics = new Map();
   const loose = new Map(); // course -> { course, records, members:Set }
   let totalRecords = 0;
+  let filteredOut = 0;
 
   for (const r of index.records) {
     if (!set.has(r.memberKey)) continue;
+    if (filter && !recordInSpec(r, filter)) { filteredOut++; continue; }
     totalRecords++;
     if (r.map && r.map.topic) {
       const id = r.course + "/" + r.map.topic;
@@ -266,7 +309,7 @@ export function rankForCommission(index, memberKeys) {
     .map((g) => ({ ...g, members: [...g.members], count: g.records.length }))
     .sort((a, b) => b.count - a.count);
 
-  return { topics: topicList, loose: looseList, totalRecords };
+  return { topics: topicList, loose: looseList, totalRecords, filteredOut };
 }
 
 // For the browse view: a single member's record set grouped by mapped topic.
@@ -358,7 +401,7 @@ export function askHistogram(index, examTopics, board, scope) {
 /* ─── Export: the selected commission's questions ─────────────
  * "json nebo tabulku s otázkami co byli u lidi co si vyklikas" — every question the
  * chosen examiners asked, ready to save. With no board, exports everything. */
-export function buildCommissionExport(index, board, meta) {
+export function buildCommissionExport(index, board, meta, filter) {
   const set = new Set(board || []);
   const all = !board || board.length === 0;
   const commission = (board || []).map((k) => {
@@ -366,7 +409,7 @@ export function buildCommissionExport(index, board, meta) {
     return m ? { key: m.key, name: m.display, titles: m.titles || "" } : { key: k, name: k };
   });
   const records = index.records
-    .filter((r) => r.memberKey && (all || set.has(r.memberKey)))
+    .filter((r) => r.memberKey && (all || set.has(r.memberKey)) && recordInSpec(r, filter))
     .map((r) => ({
       examiner: memberDisplay(index, r.memberKey),
       examinerKey: r.memberKey || null,
@@ -381,6 +424,7 @@ export function buildCommissionExport(index, board, meta) {
     schema: "klidecek-komise-export/v1",
     exportedAt: (meta && meta.exportedAt) || null,
     commission,
+    specialization: filter ? filter.specs : null,
     count: records.length,
     records,
   };

@@ -2480,3 +2480,17 @@ button { font: inherit; color: inherit; }
 .komise-lookup-extras-btns { display: inline-flex; gap: 6px; flex-shrink: 0; }
 .komise-lookup-extras .btn { padding: 4px 11px; font-size: 12.5px; }
 .komise-lookup-drop { color: var(--warn); border-color: color-mix(in oklch, var(--warn) 45%, var(--line)); }
+
+/* Specialization filter banner — shown when the board was filled from a committee
+ * number, restricting the ranking to that committee's specialization. */
+.komise-specfilter {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px var(--pad-3);
+  flex-wrap: wrap; margin: var(--pad-3) 0; padding: 8px 12px;
+  background: var(--accent-soft); border: 0.5px solid var(--accent-line);
+  border-radius: var(--r-md); font-size: 13px; color: var(--text-muted);
+}
+.komise-specfilter[data-on="false"] {
+  background: var(--bg-inset); border-color: var(--line);
+}
+.komise-specfilter-text b { color: var(--text); font-weight: 600; }
+.komise-specfilter-toggle { padding: 4px 11px; font-size: 12.5px; flex-shrink: 0; }

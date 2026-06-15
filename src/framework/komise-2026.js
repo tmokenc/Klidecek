@@ -222,3 +222,12 @@ export function findCommittee2026(input) {
   const n = parseInt(m[0], 10);
   return COMMITTEES_2026.find((c) => c.numbers.includes(n)) || null;
 }
+
+// A committee's `spec` tag split into individual specialization codes
+// ("NCPS+NHPC+NADE" → ["NCPS","NHPC","NADE"]). Used to filter the min-max ranking to
+// the okruhy that actually belong to the committee's specialization.
+export function committeeSpecCodes(committee) {
+  return committee && committee.spec
+    ? committee.spec.split("+").map((s) => s.trim()).filter(Boolean)
+    : [];
+}
