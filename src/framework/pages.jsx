@@ -806,6 +806,7 @@ export function CourseDetailPage({
   focusFig,
   view,
   navigate,
+  active = true,
 }) {
   const course = content.findCourse(courseId);
   const { set, toggle, courseStats } = useProgress(content);
@@ -932,14 +933,19 @@ export function CourseDetailPage({
   }, [activeTopic]);
 
   // While the sidebar tweak is on AND the user is on this page, mark the body so
-  // wide-screen CSS can reserve room. Cleanup on unmount → other pages stay full-width.
+  // wide-screen CSS can reserve room. Gated on `active` (and cleared when inactive)
+  // because under the keep-alive shell this page stays mounted after a tab switch,
+  // so an unmount-only cleanup would leak the gutter onto other sections.
   useEffect(() => {
-    if (isMindmap) return;
+    if (isMindmap || !active) {
+      delete document.body.dataset.tocSidebar;
+      return;
+    }
     document.body.dataset.tocSidebar = sidebarHidden ? "hidden" : "open";
     return () => {
       delete document.body.dataset.tocSidebar;
     };
-  }, [sidebarHidden, isMindmap]);
+  }, [sidebarHidden, isMindmap, active]);
 
   if (!course) return <div className="empty">Course not found</div>;
 

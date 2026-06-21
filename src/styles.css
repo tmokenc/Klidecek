@@ -120,6 +120,7 @@ button {
 /* App shell */
 .app {
     height: 100vh;
+    height: 100dvh; /* dynamic viewport: avoids bottom content hiding behind mobile toolbars */
     display: flex;
     flex-direction: column;
     padding-bottom: 88px;
@@ -713,7 +714,9 @@ button {
 .topic {
     padding: var(--pad-6) 0 var(--pad-5);
     border-top: 0.5px solid var(--line);
-    scroll-margin-top: 110px;
+    /* clears the sticky in-scroll .toc-bar (~52px). The old 110px was sized for the
+       pre-keep-alive window scroll where the external topbar also overlapped. */
+    scroll-margin-top: 60px;
 }
 .topic:first-of-type {
     border-top: none;
@@ -737,7 +740,7 @@ button {
 
 .subtopic {
     padding: var(--pad-4) 0;
-    scroll-margin-top: 115px;
+    scroll-margin-top: 64px;
 }
 .subtopic-head {
     display: flex;

@@ -953,7 +953,12 @@ function Toast({ msg }) {
   return <div className="toast">{msg}</div>;
 }
 
-const SectionPage = memo(function SectionPage({ route, content, navigate }) {
+const SectionPage = memo(function SectionPage({
+  route,
+  content,
+  navigate,
+  active,
+}) {
   switch (route.mode) {
     case "courses":
       return <CoursesPage content={content} navigate={navigate} />;
@@ -967,6 +972,7 @@ const SectionPage = memo(function SectionPage({ route, content, navigate }) {
           focusFig={route.focusFig}
           view={route.view}
           navigate={navigate}
+          active={active}
         />
       );
     case "specs":
@@ -999,7 +1005,9 @@ const SectionPage = memo(function SectionPage({ route, content, navigate }) {
         />
       );
     case "komise":
-      return <KomisePage content={content} navigate={navigate} />;
+      return (
+        <KomisePage content={content} navigate={navigate} active={active} />
+      );
     default:
       return null;
   }
@@ -1137,7 +1145,9 @@ export function App() {
   const prevTopRef = useRef(currentTop);
   const preSavedSectionRef = useRef(null);
 
-  useEffect(() => {
+  // Runs before paint so the visible section renders from the new route in the
+  // same frame (avoids a one-frame flash of the previous sub-page).
+  useLayoutEffect(() => {
     if (!["courses", "specs", "exam", "komise"].includes(currentTop)) return;
     setSectionRoutes((prev) =>
       prev[currentTop] === route ? prev : { ...prev, [currentTop]: route },
@@ -1164,16 +1174,22 @@ export function App() {
 
   const handleModeSwitch = useCallback(
     (section) => {
-      if (section === currentTop) return;
-      const target =
-        sectionRoutes[section] ||
-        {
-          courses: { mode: "courses" },
-          specs: { mode: "specs" },
-          exam: { mode: "exam" },
-          komise: { mode: "komise" },
-        }[section];
+      const sectionRoot = {
+        courses: { mode: "courses" },
+        specs: { mode: "specs" },
+        exam: { mode: "exam" },
+        komise: { mode: "komise" },
+      };
       const scroller = contentRef.current;
+      // Tapping the already-active tab returns to that section's root (list) + top,
+      // matching the conventional "tap active tab → go to root" behaviour.
+      if (section === currentTop) {
+        scrollBySection.current[section] = 0;
+        if (scroller) scroller.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        if (sectionRoot[section]) navigate(routeToPath(sectionRoot[section]));
+        return;
+      }
+      const target = sectionRoutes[section] || sectionRoot[section];
       if (scroller) {
         scrollBySection.current[currentTop] = scroller.scrollTop;
         preSavedSectionRef.current = currentTop;
@@ -1256,6 +1272,7 @@ export function App() {
                 route={sectionRoutes.courses}
                 content={content}
                 navigate={navigate}
+                active={currentTop === "courses"}
               />
             </div>
             <div
@@ -1266,6 +1283,7 @@ export function App() {
                 route={sectionRoutes.specs}
                 content={content}
                 navigate={navigate}
+                active={currentTop === "specs"}
               />
             </div>
             <div
@@ -1276,6 +1294,7 @@ export function App() {
                 route={sectionRoutes.exam}
                 content={content}
                 navigate={navigate}
+                active={currentTop === "exam"}
               />
             </div>
             <div
@@ -1286,6 +1305,7 @@ export function App() {
                 route={sectionRoutes.komise}
                 content={content}
                 navigate={navigate}
+                active={currentTop === "komise"}
               />
             </div>
             {standalonePage}

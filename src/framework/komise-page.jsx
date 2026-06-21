@@ -759,10 +759,13 @@ function ReposView({ repos, setRepos, errors, index, reload }) {
 }
 
 /* ─── page shell ──────────────────────────────────────────── */
-export function KomisePage({ content, navigate }) {
+export function KomisePage({ content, navigate, active = true }) {
   const { repos, setRepos, status, index, errors, reload, board, setBoard, ensureLoaded } = useKomise();
   const [tab, setTab] = useState("minmax");
-  useEffect(() => { ensureLoaded(); }, [ensureLoaded]);
+  // Only fetch committee data once the page is actually visited. Under the keep-alive
+  // shell this component stays mounted, so an unconditional fetch would download the
+  // (~1 MB) committee data on every app load for users who never open Komise.
+  useEffect(() => { if (active) ensureLoaded(); }, [active, ensureLoaded]);
 
   // Shareable/saveable selection. The URL carries "?komise=key1,key2". Capture it once at
   // mount (before the reflect effect can rewrite it), adopt it after the index loads so
@@ -779,14 +782,14 @@ export function KomisePage({ content, navigate }) {
     setHydrated(true);
   }, [index, hydrated, setBoard]);
   useEffect(() => {
-    if (!hydrated) return; // don't clobber the shared param before we've adopted it
+    if (!hydrated || !active) return; // only reflect to the URL while Komise is the active page
     try {
       const params = new URLSearchParams(location.search);
       if (board.length) params.set("komise", board.join(",")); else params.delete("komise");
       const qs = params.toString();
       history.replaceState(history.state, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
     } catch { /* replaceState can be blocked (sandboxed iframe / CSP) — non-fatal */ }
-  }, [board, hydrated]);
+  }, [board, hydrated, active]);
 
   const memberNameOf = useCallback((key) => {
     const m = index && index.members.find((x) => x.key === key);
